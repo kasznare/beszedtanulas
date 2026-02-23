@@ -1,0 +1,15 @@
+{
+  "name": "beszedtanulas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simple Hungarian speech game for toddlers",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 5173",
+    "generate-audio": "node ./scripts/generate-audio.mjs",
+    "convert-raw-audio": "bash ./scripts/convert-raw-audio.sh"
+  },
+  "dependencies": {
+    "google-tts-api": "^2.0.2"
+  }
+}

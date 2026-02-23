@@ -1,0 +1,295 @@
+:root {
+  --bg: #fff9ef;
+  --card: #ffffff;
+  --ink: #1f1a14;
+  --primary: #1a9d73;
+  --secondary: #f2b53f;
+  --accent: #ff6f61;
+  --danger: #b24a3e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top right, #ffe7c3, var(--bg) 45%);
+  color: var(--ink);
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 0.75rem 0;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tab {
+  border: 0;
+  background: #ffeecf;
+  border-radius: 14px;
+  padding: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab.is-active {
+  background: var(--secondary);
+}
+
+.panel {
+  display: none;
+  background: #fffdf9;
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.panel.is-active {
+  display: block;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  gap: 0.7rem;
+}
+
+.card {
+  border: 0;
+  border-radius: 16px;
+  background: var(--card);
+  padding: 1rem 0.7rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card-emoji {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.card-word {
+  margin-top: 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.imitate-wrap {
+  text-align: center;
+}
+
+.imitate-emoji {
+  font-size: 4rem;
+}
+
+.imitate-wrap.is-listening .imitate-emoji {
+  animation: bob 1s ease-in-out infinite;
+}
+
+.imitate-wrap.is-transitioning .imitate-emoji {
+  animation: popIn 0.45s ease;
+}
+
+.imitate-wrap.is-transitioning #imitate-word {
+  animation: slideGlow 0.45s ease;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.actions button,
+.reward,
+.danger {
+  border: 0;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.imitate-wrap.is-listening #listen-btn {
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+.secondary {
+  background: var(--secondary);
+}
+
+.reward {
+  background: var(--accent);
+  color: white;
+  max-width: 240px;
+  margin: 0.5rem auto 0;
+}
+
+.danger {
+  background: var(--danger);
+  color: white;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.listen-status {
+  min-height: 1.4rem;
+  font-weight: 600;
+}
+
+.confetti-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.confetti-layer.is-active {
+  opacity: 1;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -16vh;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  animation-name: confettiFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.listening-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  min-height: 14px;
+}
+
+.listening-indicator .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ff8d3b;
+  opacity: 0.4;
+  animation: wave 0.9s infinite;
+}
+
+.listening-indicator .dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.listening-indicator .dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0) scale(0.95);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 157, 115, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(26, 157, 115, 0);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.82) rotate(-6deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideGlow {
+  0% {
+    transform: translateY(8px);
+    opacity: 0.2;
+    text-shadow: 0 0 0 rgba(242, 181, 63, 0);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    text-shadow: 0 0 14px rgba(242, 181, 63, 0.35);
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-18vh) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(112vh) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+.stats p {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .actions {
+    flex-direction: column;
+  }
+}

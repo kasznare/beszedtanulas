@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beszédtanulás Játék</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <h1>Beszédtanulás</h1>
+        <p>Koppints a képre, hallgasd meg, utánozd.</p>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab is-active" data-tab="cards">Kártyák</button>
+        <button class="tab" data-tab="imitate">Mondd utána</button>
+        <button class="tab" data-tab="parent">Szülő mód</button>
+      </nav>
+
+      <section id="cards" class="panel is-active">
+        <div id="cards-grid" class="cards-grid"></div>
+      </section>
+
+      <section id="imitate" class="panel">
+        <div class="imitate-wrap">
+          <div id="imitate-emoji" class="imitate-emoji">💧</div>
+          <h2 id="imitate-word">víz</h2>
+          <p id="imitate-prompt">Mondd: víz</p>
+          <div id="listening-indicator" class="listening-indicator is-hidden" aria-hidden="true">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="actions">
+            <button id="play-model" class="primary">Lejátszás</button>
+            <button id="listen-btn" class="primary">Figyelek 🎤</button>
+            <button id="next-word" class="secondary">Következő</button>
+          </div>
+          <p id="listen-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
+          <div id="success-badge" class="reward is-hidden">Sikerült! ⭐</div>
+        </div>
+      </section>
+
+      <section id="parent" class="panel">
+        <div class="stats">
+          <h2>Mai haladás</h2>
+          <p>Kártya lejátszás: <strong id="plays-count">0</strong></p>
+          <p>Utánzás próbák: <strong id="attempt-count">0</strong></p>
+          <p>Jutalmak: <strong id="reward-count">0</strong></p>
+        </div>
+        <button id="reset-progress" class="danger">Nullázás</button>
+      </section>
+    </main>
+    <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
