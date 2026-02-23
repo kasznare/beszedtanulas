@@ -166,6 +166,21 @@ body {
   font-weight: 600;
 }
 
+.imitate-wrap.is-processing {
+  box-shadow: 0 0 0 4px rgba(243, 213, 140, 0.45);
+  border-radius: 18px;
+}
+
+.imitate-wrap.is-rejected {
+  box-shadow: 0 0 0 4px rgba(242, 169, 160, 0.4);
+  border-radius: 18px;
+}
+
+.imitate-wrap.is-success {
+  box-shadow: 0 0 0 4px rgba(125, 208, 160, 0.4);
+  border-radius: 18px;
+}
+
 .confetti-layer {
   position: fixed;
   inset: 0;
@@ -212,6 +227,39 @@ body {
 
 .listening-indicator .dot:nth-child(3) {
   animation-delay: 0.3s;
+}
+
+.parent-controls,
+.debug-card {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 14px;
+  background: #fff6e3;
+}
+
+.parent-controls label {
+  display: block;
+  margin-top: 0.6rem;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.parent-controls select,
+.parent-controls input[type="range"] {
+  width: 100%;
+}
+
+.live-debug {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: #f8f2e8;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.live-debug p {
+  margin: 0.15rem 0;
 }
 
 @keyframes wave {
@@ -283,6 +331,7 @@ body {
     opacity: 0;
   }
 }
+
 
 .stats p {
   font-size: 1.1rem;

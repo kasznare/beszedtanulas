@@ -13,9 +13,31 @@ const words = [
   { id: "szia", label: "szia", emoji: "👋" },
 ];
 
+const TODDLER_ALIASES = {
+  viz: ["bi", "vi", "viz"],
+  auto: ["ato", "otu", "auto"],
+  labda: ["aba", "laba", "bada"],
+  cica: ["cica", "sica", "tica"],
+  anya: ["anya", "ana", "aja"],
+  apa: ["apa", "aba", "appa"],
+  alma: ["ama", "alma", "amma"],
+  kifli: ["kifi", "ifli", "kifli"],
+  tej: ["tej", "te", "dej"],
+  furdokad: ["furdokad", "kadi", "kad"],
+  maci: ["maci", "macii", "maci"],
+  szia: ["szia", "sziaa", "sia"],
+};
+
 const STORAGE_KEY = "speech_game_progress_v1";
 const WORD_LISTEN_WINDOW_MS = 30_000;
 const CELEBRATION_MS = 1300;
+const MIN_LISTEN_BEFORE_REJECT_MS = 2200;
+const ASR_TIMEOUT_MS = 3800;
+const ASR_EARLY_SETTLE_MS = 650;
+const DETECTION_DEFAULTS = {
+  mode: "encouraging",
+  strictThreshold: 0.72,
+};
 const state = loadProgress();
 let currentImitate = 0;
 let autoSessionToken = 0;
@@ -37,6 +59,22 @@ const confettiLayer = document.querySelector("#confetti-layer");
 const playsCount = document.querySelector("#plays-count");
 const attemptCount = document.querySelector("#attempt-count");
 const rewardCount = document.querySelector("#reward-count");
+const detectionModeSelect = document.querySelector("#detection-mode");
+const strictThresholdInput = document.querySelector("#strict-threshold");
+const strictThresholdValue = document.querySelector("#strict-threshold-value");
+const debugEngine = document.querySelector("#debug-engine");
+const debugStage = document.querySelector("#debug-stage");
+const debugDecision = document.querySelector("#debug-decision");
+const debugReason = document.querySelector("#debug-reason");
+const debugTranscript = document.querySelector("#debug-transcript");
+const debugRaw = document.querySelector("#debug-raw");
+const debugScore = document.querySelector("#debug-score");
+const debugEnergy = document.querySelector("#debug-energy");
+const liveEngine = document.querySelector("#live-engine");
+const liveStage = document.querySelector("#live-stage");
+const liveTranscript = document.querySelector("#live-transcript");
+const liveRaw = document.querySelector("#live-raw");
+const liveReason = document.querySelector("#live-reason");
 let listening = false;
 
 document.querySelector("#play-model").addEventListener("click", () => {
@@ -60,6 +98,21 @@ document.querySelector("#reset-progress").addEventListener("click", () => {
   location.reload();
 });
 
+detectionModeSelect.addEventListener("change", () => {
+  state.detection.mode = detectionModeSelect.value;
+  saveProgress();
+  syncDetectionControls();
+});
+
+strictThresholdInput.addEventListener("input", () => {
+  const value = Number(strictThresholdInput.value);
+  state.detection.strictThreshold = Number.isFinite(value)
+    ? Number(value.toFixed(2))
+    : DETECTION_DEFAULTS.strictThreshold;
+  saveProgress();
+  syncDetectionControls();
+});
+
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     primeSfx();
@@ -78,6 +131,17 @@ tabs.forEach((tab) => {
 renderCards();
 renderImitate();
 refreshStats();
+syncDetectionControls();
+renderDebug({
+  engine: "idle",
+  stage: "idle",
+  decision: "-",
+  reason: "-",
+  transcript: "-",
+  raw: "-",
+  score: null,
+  energy: null,
+});
 
 function renderCards() {
   cardsGrid.innerHTML = "";
@@ -101,8 +165,39 @@ function renderImitate() {
   imitateWord.textContent = word.label;
   imitatePrompt.textContent = `Mondd: ${word.label}`;
   setListeningUi(false);
+  setEngineState("idle", "Készen áll.");
   listenStatus.textContent = "Nyomd meg a Figyelek gombot.";
   hideSuccessBadge();
+}
+
+function syncDetectionControls() {
+  detectionModeSelect.value = state.detection.mode;
+  strictThresholdInput.value = String(state.detection.strictThreshold);
+  strictThresholdValue.textContent = state.detection.strictThreshold.toFixed(2);
+  strictThresholdInput.disabled = state.detection.mode !== "strictish";
+}
+
+function renderDebug(result) {
+  debugEngine.textContent = result.engine ?? "idle";
+  debugStage.textContent = result.stage ?? "idle";
+  debugDecision.textContent = result.decision ?? "-";
+  debugReason.textContent = result.reason ?? "-";
+  debugTranscript.textContent =
+    result.transcript && result.transcript.length > 0 ? result.transcript : "-";
+  debugRaw.textContent =
+    result.raw && result.raw.length > 0 ? result.raw : "-";
+  debugScore.textContent =
+    typeof result.score === "number" ? result.score.toFixed(2) : "-";
+  debugEnergy.textContent =
+    typeof result.energy === "number" ? `${result.energy.toFixed(1)} rms` : "-";
+
+  liveEngine.textContent = result.engine ?? "idle";
+  liveStage.textContent = result.stage ?? "idle";
+  liveTranscript.textContent =
+    result.transcript && result.transcript.length > 0 ? result.transcript : "-";
+  liveRaw.textContent =
+    result.raw && result.raw.length > 0 ? result.raw : "-";
+  liveReason.textContent = result.reason ?? result.decision ?? "-";
 }
 
 function refreshStats() {
@@ -166,7 +261,8 @@ function speakHungarian(text) {
 
 function loadProgress() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || baseProgress();
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return normalizeState(parsed);
   } catch {
     return baseProgress();
   }
@@ -177,7 +273,29 @@ function saveProgress() {
 }
 
 function baseProgress() {
-  return { plays: 0, attempts: 0, rewards: 0 };
+  return {
+    plays: 0,
+    attempts: 0,
+    rewards: 0,
+    detection: { ...DETECTION_DEFAULTS },
+  };
+}
+
+function normalizeState(input) {
+  const base = baseProgress();
+  if (!input || typeof input !== "object") return base;
+  return {
+    plays: Number.isFinite(input.plays) ? input.plays : base.plays,
+    attempts: Number.isFinite(input.attempts) ? input.attempts : base.attempts,
+    rewards: Number.isFinite(input.rewards) ? input.rewards : base.rewards,
+    detection: {
+      mode:
+        input.detection?.mode === "strictish" ? "strictish" : DETECTION_DEFAULTS.mode,
+      strictThreshold: Number.isFinite(input.detection?.strictThreshold)
+        ? Math.min(0.95, Math.max(0.55, Number(input.detection.strictThreshold)))
+        : DETECTION_DEFAULTS.strictThreshold,
+    },
+  };
 }
 
 function burstConfettiOverlay(durationMs) {
@@ -211,8 +329,19 @@ async function startListeningAttempt() {
   if (listening) return false;
   listening = true;
   setListeningUi(true);
+  setEngineState("listening", "Figyelek...");
   listenStatus.textContent = "Hallgatlak... mondd ki a szót.";
   hideSuccessBadge();
+  renderDebug({
+    engine: "listening",
+    stage: "listen-start",
+    decision: "figyel",
+    reason: "várja a beszédet",
+    transcript: "",
+    raw: "",
+    score: null,
+    energy: null,
+  });
   playListeningStartSound();
   await sleep(180);
   await ensureMicMonitor();
@@ -221,32 +350,48 @@ async function startListeningAttempt() {
   saveProgress();
   refreshStats();
 
-  let heard = false;
+  let result = null;
   try {
-    heard = await detectSpeech(words[currentImitate].label);
+    result = await detectSpeech(words[currentImitate]);
   } catch {
-    heard = false;
+    result = {
+      success: false,
+      engine: "rejected",
+      stage: "error",
+      decision: "hiba",
+      reason: "belső kivétel",
+      transcript: "",
+      raw: "",
+      score: null,
+      energy: null,
+    };
   }
+  renderDebug(result);
 
-  if (heard) {
+  if (result.success) {
     await onListeningSuccess();
   } else {
+    setEngineState("rejected", "Észlelve, de nem elég jó.");
     listenStatus.textContent = "Nem hallottam jól. Próbáljuk újra!";
+    await sleep(220);
+    setEngineState("idle", "Készen áll.");
   }
 
   setListeningUi(false);
   listening = false;
-  return heard;
+  return result.success;
 }
 
 async function onListeningSuccess() {
   listenStatus.textContent = "Ügyes volt! Hallottam valamit.";
+  setEngineState("success", "Talált! Szuper!");
   showSuccessBadge();
   playSuccessSound();
   state.rewards += 1;
   saveProgress();
   refreshStats();
   await burstConfettiOverlay(CELEBRATION_MS);
+  setEngineState("idle", "Készen áll.");
 }
 
 function showSuccessBadge() {
@@ -258,88 +403,331 @@ function hideSuccessBadge() {
 }
 
 async function detectSpeech(targetWord) {
-  // Fast first pass: toddler vocalization often works better than exact ASR.
-  const quickEnergy = await detectVoiceEnergy({
-    durationMs: 1300,
-    threshold: 8,
-    minHits: 3,
-    minConsecutive: 3,
-    minActiveMs: 180,
-  });
-  if (quickEnergy) return true;
+  const startedAt = performance.now();
+  const targetNorm = normalizeText(targetWord.label);
+  const mode = state.detection.mode;
+  const threshold = getEffectiveThreshold(targetNorm, state.detection.strictThreshold);
 
-  const hasRecognition =
-    "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
-  if (hasRecognition) {
-    const transcript = await recognizeHungarianSpeech(2600);
-    if (transcript) {
-      const normalizedTranscript = normalizeText(transcript);
-      const normalizedTarget = normalizeText(targetWord);
-      if (
-        normalizedTranscript.includes(normalizedTarget) ||
-        normalizedTranscript.length > 0
-      ) {
-        return true;
-      }
+  setEngineState("listening", "Hang detektálás...");
+  renderDebug({
+    engine: "listening",
+    stage: "vad-pass-1",
+    decision: "hang ellenőrzés",
+    reason: "első figyelési ablak",
+    transcript: "",
+    raw: "",
+    score: null,
+    energy: null,
+  });
+  const energyPromise = detectVoiceEnergy({
+    durationMs: MIN_LISTEN_BEFORE_REJECT_MS,
+    threshold: 8,
+    minHits: 6,
+    minConsecutive: 6,
+    minActiveMs: 650,
+  });
+
+  if (mode === "encouraging") {
+    const energy1 = await energyPromise;
+    if (!energy1.detected) {
+      await waitRemainingDecisionTime(startedAt);
+      return {
+        success: false,
+        engine: "rejected",
+        stage: "vad",
+        decision: "nincs beszéd",
+        reason: energy1.maxRms >= 8 ? "hang volt, de túl rövid" : "csend vagy háttérzaj",
+        transcript: "",
+        raw: "",
+        score: null,
+        energy: energy1.maxRms,
+      };
     }
+    renderDebug({
+      engine: "success",
+      stage: "vad-pass-1",
+      decision: "beszéd észlelve",
+      reason: "encouraging mód",
+      transcript: "",
+      raw: "",
+      score: null,
+      energy: energy1.maxRms,
+    });
+    return {
+      success: true,
+      engine: "success",
+      stage: "vad",
+      decision: "beszéd észlelve",
+      reason: "encouraging mód",
+      transcript: "",
+      raw: "",
+      score: null,
+      energy: energy1.maxRms,
+    };
   }
 
-  // Second short energy pass catches late responses.
-  return detectVoiceEnergy({
+  setEngineState("processing", "Beszédfelismerés...");
+  renderDebug({
+    engine: "processing",
+    stage: "asr",
+    decision: "feldolgozás",
+    reason: "szófelismerés fut (átfedő minták)",
+    transcript: "",
+    raw: "",
+    score: null,
+    energy: null,
+  });
+  let earlyAsrMatch = null;
+  const speech = await recognizeHungarianSpeech(ASR_TIMEOUT_MS, (partial) => {
+    const partialScore = getBestMatchScore(
+      targetNorm,
+      [partial.transcript || "", ...(partial.alternatives || [])],
+      targetWord.id,
+    );
+    const shouldEarlyAccept = partialScore >= threshold;
+    renderDebug({
+      engine: "processing",
+      stage: "asr-stream",
+      decision: "részeredmény",
+      reason: shouldEarlyAccept
+        ? `erős találat (${partialScore.toFixed(2)})`
+        : "dekódolás folyamatban",
+      transcript: partial.transcript || "",
+      raw: partial.raw || "",
+      score: partialScore,
+      energy: null,
+    });
+    if (shouldEarlyAccept) {
+      earlyAsrMatch = {
+        success: true,
+        engine: "success",
+        stage: "asr-early",
+        decision: `gyors találat (>=${threshold.toFixed(2)})`,
+        reason: "teljes szó felismerve, azonnali elfogadás",
+        transcript: partial.transcript || "",
+        raw: partial.raw || "",
+        score: partialScore,
+        energy: null,
+      };
+      return true;
+    }
+    return false;
+  });
+
+  if (earlyAsrMatch) {
+    return earlyAsrMatch;
+  }
+
+  const energy1 = await energyPromise;
+  if (!energy1.detected) {
+    await waitRemainingDecisionTime(startedAt);
+    return {
+      success: false,
+      engine: "rejected",
+      stage: "vad",
+      decision: "nincs beszéd",
+      reason: energy1.maxRms >= 8 ? "hang volt, de túl rövid" : "csend vagy háttérzaj",
+      transcript: speech.transcript || "",
+      raw: speech.alternatives.join(" | "),
+      score: null,
+      energy: energy1.maxRms,
+    };
+  }
+
+  if (speech.error && !speech.transcript) {
+    return {
+      success: false,
+      engine: "rejected",
+      stage: "asr-error",
+      decision: "ASR hiba",
+      reason: `ASR nem működik: ${speech.error}`,
+      transcript: "",
+      raw: speech.alternatives.join(" | "),
+      score: null,
+      energy: energy1.maxRms,
+    };
+  }
+  const bestScore = getBestMatchScore(targetNorm, speech.alternatives, targetWord.id);
+
+  if (speech.transcript && bestScore >= threshold) {
+    return {
+      success: true,
+      engine: "success",
+      stage: "asr-match",
+      decision: `jó közelítés (>=${threshold.toFixed(2)})`,
+      reason: "fuzzy találat",
+      transcript: speech.transcript,
+      raw: speech.alternatives.join(" | "),
+      score: bestScore,
+      energy: energy1.maxRms,
+    };
+  }
+
+  const energy2 = await detectVoiceEnergy({
     durationMs: 1200,
     threshold: 8,
-    minHits: 3,
-    minConsecutive: 3,
-    minActiveMs: 180,
+    minHits: 4,
+    minConsecutive: 4,
+    minActiveMs: 420,
   });
+
+  await waitRemainingDecisionTime(startedAt);
+
+  return {
+    success: false,
+    engine: "rejected",
+    stage: "asr-reject",
+    decision: speech.transcript ? "nem elég közeli szó" : "nincs értelmezhető szó",
+    reason: speech.transcript
+      ? `match ${bestScore.toFixed(2)} < ${threshold.toFixed(2)} (${speech.transcript})`
+      : `ASR nem adott használható szót${speech.error ? ` (${speech.error})` : ""}`,
+    transcript: speech.transcript,
+    raw: speech.alternatives.join(" | "),
+    score: Number.isFinite(bestScore) ? bestScore : null,
+    energy: Math.max(energy1.maxRms, energy2.maxRms),
+  };
 }
 
-function recognizeHungarianSpeech(timeoutMs = 4500) {
+async function recognizeHungarianSpeech(timeoutMs = 4500, onPartial) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    return {
+      transcript: "",
+      alternatives: [],
+      confidence: 0,
+      error: "nincs SpeechRecognition API ebben a böngészőben",
+    };
+  }
+
+  const langs = ["hu-HU", "hu", "en-US"];
+  let last = {
+    transcript: "",
+    alternatives: [],
+    confidence: 0,
+    error: "nincs eredmény",
+  };
+
+  for (const lang of langs) {
+    const result = await recognizeSpeechOnce(SpeechRecognition, lang, timeoutMs, onPartial);
+    if (result.transcript || result.alternatives.length > 0) {
+      return result;
+    }
+    last = result;
+  }
+  return last;
+}
+
+function recognizeSpeechOnce(SpeechRecognition, lang, timeoutMs, onPartial) {
   return new Promise((resolve) => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     let settled = false;
+    let lastError = "";
+    let earlySettleTimer = null;
 
-    recognition.lang = "hu-HU";
-    recognition.maxAlternatives = 1;
-    recognition.interimResults = false;
-    recognition.continuous = false;
+    recognition.lang = lang;
+    recognition.maxAlternatives = 5;
+    recognition.interimResults = true;
+    recognition.continuous = true;
+    let allAlternatives = [];
+    let latestTranscript = "";
+    let bestConfidence = 0;
+
+    const finalize = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      clearTimeout(earlySettleTimer);
+      const alternatives = dedupeStrings(allAlternatives);
+      resolve({
+        transcript: latestTranscript || alternatives[0] || "",
+        alternatives,
+        confidence: bestConfidence,
+        error: lastError,
+        lang,
+      });
+    };
 
     const timer = setTimeout(() => {
-      if (!settled) {
-        settled = true;
+      try {
         recognition.stop();
-        resolve("");
-      }
+      } catch {}
+      finalize();
     }, timeoutMs);
 
     recognition.onresult = (event) => {
-      const transcript = event.results?.[0]?.[0]?.transcript?.trim() || "";
-      if (!settled) {
-        settled = true;
-        clearTimeout(timer);
-        resolve(transcript);
+      let hasFinal = false;
+      let hasNewSpeech = false;
+      for (let r = 0; r < event.results.length; r += 1) {
+        const result = event.results[r];
+        if (!result) continue;
+        if (result.isFinal) hasFinal = true;
+        for (let i = 0; i < result.length; i += 1) {
+          const alt = result[i];
+          if (alt?.transcript) {
+            const text = alt.transcript.trim();
+            if (text.length > 0) hasNewSpeech = true;
+            allAlternatives.push(text);
+            latestTranscript = text;
+            if (typeof alt.confidence === "number") {
+              bestConfidence = Math.max(bestConfidence, alt.confidence);
+            }
+          }
+        }
+      }
+      const deduped = dedupeStrings(allAlternatives);
+      if (typeof onPartial === "function") {
+        const shouldStop = onPartial({
+          transcript: latestTranscript || deduped[0] || "",
+          alternatives: deduped,
+          raw: `[${lang}] ${deduped.join(" | ")}`,
+        });
+        if (shouldStop) {
+          try {
+            recognition.stop();
+          } catch {}
+          finalize();
+          return;
+        }
+      }
+
+      if (hasFinal && (latestTranscript || deduped.length > 0)) {
+        try {
+          recognition.stop();
+        } catch {}
+        finalize();
+        return;
+      }
+
+      if (hasNewSpeech) {
+        clearTimeout(earlySettleTimer);
+        earlySettleTimer = setTimeout(() => {
+          try {
+            recognition.stop();
+          } catch {}
+          finalize();
+        }, ASR_EARLY_SETTLE_MS);
       }
     };
 
-    recognition.onerror = () => {
-      if (!settled) {
-        settled = true;
-        clearTimeout(timer);
-        resolve("");
-      }
+    recognition.onerror = (event) => {
+      lastError = event?.error ? `${event.error} @${lang}` : `ismeretlen hiba @${lang}`;
+      try {
+        recognition.stop();
+      } catch {}
+      finalize();
     };
 
     recognition.onend = () => {
-      if (!settled) {
-        settled = true;
-        clearTimeout(timer);
-        resolve("");
-      }
+      finalize();
     };
 
-    recognition.start();
+    try {
+      recognition.start();
+    } catch (err) {
+      lastError = err instanceof Error ? `${err.message} @${lang}` : `start hiba @${lang}`;
+      finalize();
+    }
   });
 }
 
@@ -351,11 +739,12 @@ async function detectVoiceEnergy({
   minActiveMs = 220,
 } = {}) {
   const monitor = await ensureMicMonitor();
-  if (!monitor) return false;
+  if (!monitor) return { detected: false, maxRms: 0 };
 
   let hits = 0;
   let consecutive = 0;
   let activeMs = 0;
+  let maxRms = 0;
   const stepMs = 30;
   const start = performance.now();
 
@@ -367,6 +756,7 @@ async function detectVoiceEnergy({
       sum += centered * centered;
     }
     const rms = Math.sqrt(sum / monitor.data.length);
+    maxRms = Math.max(maxRms, rms);
     if (rms > threshold) {
       hits += 1;
       consecutive += 1;
@@ -380,15 +770,16 @@ async function detectVoiceEnergy({
       consecutive >= minConsecutive ||
       activeMs >= minActiveMs
     ) {
-      return true;
+      return { detected: true, maxRms };
     }
 
     await sleep(stepMs);
   }
 
-  return (
-    hits >= minHits || consecutive >= minConsecutive || activeMs >= minActiveMs
-  );
+  return {
+    detected: hits >= minHits || consecutive >= minConsecutive || activeMs >= minActiveMs,
+    maxRms,
+  };
 }
 
 function normalizeText(text) {
@@ -400,14 +791,111 @@ function normalizeText(text) {
     .trim();
 }
 
+function getBestMatchScore(target, alternatives, wordId) {
+  const aliasList = TODDLER_ALIASES[wordId] || [];
+  const normalizedAliases = aliasList.map((alias) => normalizeText(alias));
+  const candidates = [];
+
+  for (const alt of alternatives || []) {
+    const normalized = normalizeText(stripHungarianSuffixes(alt));
+    if (!normalized) continue;
+    candidates.push(normalized);
+    const tokens = normalized.split(/\s+/).filter(Boolean);
+    candidates.push(...tokens);
+    for (let i = 0; i < tokens.length; i += 1) {
+      candidates.push(tokens.slice(i, i + 2).join(" ").trim());
+      candidates.push(tokens.slice(i, i + 3).join(" ").trim());
+    }
+  }
+
+  let best = 0;
+  for (const candidate of candidates) {
+    best = Math.max(best, similarityScore(target, candidate));
+    for (const alias of normalizedAliases) {
+      best = Math.max(best, similarityScore(alias, candidate));
+    }
+  }
+  return best;
+}
+
+function getEffectiveThreshold(target, baseThreshold) {
+  if (target.length <= 3) return Math.max(baseThreshold, 0.7);
+  if (target.length <= 5) return Math.max(baseThreshold, 0.72);
+  return baseThreshold;
+}
+
+function similarityScore(a, b) {
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  if (a.includes(b) || b.includes(a)) {
+    const shortLen = Math.min(a.length, b.length);
+    const longLen = Math.max(a.length, b.length);
+    return shortLen / longLen;
+  }
+  const dist = levenshtein(a, b);
+  return 1 - dist / Math.max(a.length, b.length, 1);
+}
+
+function stripHungarianSuffixes(text) {
+  const normalized = normalizeText(text);
+  return normalized.replace(
+    /(ban|ben|nak|nek|val|vel|rol|rol|tol|tol|ra|re|ba|be|at|et|ot|ut|t)$/g,
+    "",
+  );
+}
+
+function dedupeStrings(values) {
+  return [...new Set((values || []).filter(Boolean))];
+}
+
+function levenshtein(a, b) {
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const dp = Array.from({ length: rows }, () => new Array(cols).fill(0));
+
+  for (let i = 0; i < rows; i += 1) dp[i][0] = i;
+  for (let j = 0; j < cols; j += 1) dp[0][j] = j;
+
+  for (let i = 1; i < rows; i += 1) {
+    for (let j = 1; j < cols; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost,
+      );
+    }
+  }
+
+  return dp[rows - 1][cols - 1];
+}
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitRemainingDecisionTime(startedAt) {
+  const elapsed = performance.now() - startedAt;
+  const remaining = MIN_LISTEN_BEFORE_REJECT_MS - elapsed;
+  if (remaining > 0) {
+    await sleep(remaining);
+  }
+}
+
+function setEngineState(kind, text) {
+  imitateWrap.classList.remove("is-listening", "is-processing", "is-success", "is-rejected");
+  if (kind !== "idle") {
+    imitateWrap.classList.add(`is-${kind}`);
+  }
+  debugEngine.textContent = kind;
+  if (text && kind !== "idle") {
+    listenStatus.textContent = text;
+  }
 }
 
 function setListeningUi(active) {
   listenBtn.disabled = active;
   listenBtn.textContent = active ? "Figyelek..." : "Figyelek 🎤";
-  imitateWrap.classList.toggle("is-listening", active);
   listeningIndicator.classList.toggle("is-hidden", !active);
 }
 

@@ -40,6 +40,13 @@
           </div>
           <p id="listen-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
           <div id="success-badge" class="reward is-hidden">Sikerült! ⭐</div>
+          <div class="live-debug">
+            <p>Motor: <strong id="live-engine">idle</strong></p>
+            <p>Fázis: <strong id="live-stage">idle</strong></p>
+            <p>Detektált: <strong id="live-transcript">-</strong></p>
+            <p>ASR nyers: <strong id="live-raw">-</strong></p>
+            <p>Ok/Elutasítás: <strong id="live-reason">-</strong></p>
+          </div>
         </div>
       </section>
 
@@ -49,6 +56,36 @@
           <p>Kártya lejátszás: <strong id="plays-count">0</strong></p>
           <p>Utánzás próbák: <strong id="attempt-count">0</strong></p>
           <p>Jutalmak: <strong id="reward-count">0</strong></p>
+        </div>
+        <div class="parent-controls">
+          <h2>Felismerés beállítás</h2>
+          <label for="detection-mode">Mód</label>
+          <select id="detection-mode">
+            <option value="encouraging">Encouraging (bármilyen beszéd)</option>
+            <option value="strictish">Strict-ish (közel a cél szóhoz)</option>
+          </select>
+          <label for="strict-threshold"
+            >Strict küszöb: <strong id="strict-threshold-value">0.72</strong></label
+          >
+          <input
+            id="strict-threshold"
+            type="range"
+            min="0.55"
+            max="0.95"
+            step="0.01"
+            value="0.72"
+          />
+        </div>
+        <div class="debug-card">
+          <h2>Detektálás állapot</h2>
+          <p>Motor: <strong id="debug-engine">idle</strong></p>
+          <p>Fázis: <strong id="debug-stage">idle</strong></p>
+          <p>Döntés: <strong id="debug-decision">-</strong></p>
+          <p>Elutasítás oka: <strong id="debug-reason">-</strong></p>
+          <p>ASR: <strong id="debug-transcript">-</strong></p>
+          <p>ASR nyers: <strong id="debug-raw">-</strong></p>
+          <p>Match pont: <strong id="debug-score">-</strong></p>
+          <p>Energia: <strong id="debug-energy">-</strong></p>
         </div>
         <button id="reset-progress" class="danger">Nullázás</button>
       </section>
