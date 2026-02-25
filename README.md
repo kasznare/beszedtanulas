@@ -49,3 +49,23 @@ npm run convert-raw-audio
 ```
 
 This writes normalized mono mp3 files into `audio/` using the same base filename.
+
+## Record directly from microphone (faster than Voice Memos export)
+
+If you want to record your own voice quickly, you can now do it in one flow:
+
+```bash
+npm run record-words
+```
+
+What it does:
+- asks for the Hungarian word (for example `kanál`)
+- suggests a safe file id (for example `kanal`)
+- records directly from your mic into `audio/<id>.mp3`
+- adds the `id|word` line to `scripts/words.txt` automatically if it is new
+
+Requirements:
+- `ffmpeg` installed (`brew install ffmpeg`)
+
+Tip:
+- if you add a new word, also add it to the `words` array in `app.js` so it appears in the game UI.

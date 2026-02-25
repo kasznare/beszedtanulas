@@ -16,6 +16,7 @@
       <nav class="tabs">
         <button class="tab is-active" data-tab="cards">Kártyák</button>
         <button class="tab" data-tab="imitate">Mondd utána</button>
+        <button class="tab" data-tab="flip">Fordítós játék</button>
         <button class="tab" data-tab="parent">Szülő mód</button>
       </nav>
 
@@ -47,6 +48,14 @@
             <p>ASR nyers: <strong id="live-raw">-</strong></p>
             <p>Ok/Elutasítás: <strong id="live-reason">-</strong></p>
           </div>
+        </div>
+      </section>
+
+      <section id="flip" class="panel">
+        <div class="flip-game">
+          <h2>Fordíts fel egy kártyát</h2>
+          <p id="flip-status">Koppints egy kártyára, mondd ki a szót.</p>
+          <div id="flip-grid" class="flip-grid"></div>
         </div>
       </section>
 

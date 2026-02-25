@@ -10,3 +10,16 @@ tej|tej
 furdokad|fürdőkád
 maci|maci
 szia|szia
+kutya|kutya
+baba|baba
+nap|nap
+hold|hold
+fa|fa
+virag|virag
+kenyer|kenyer
+kanal|kanal
+cipo|cipo
+sapka|sapka
+vonat|vonat
+busz|busz
+bus|bus

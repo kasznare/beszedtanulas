@@ -7,7 +7,8 @@
   "scripts": {
     "start": "python3 -m http.server 5173",
     "generate-audio": "node ./scripts/generate-audio.mjs",
-    "convert-raw-audio": "bash ./scripts/convert-raw-audio.sh"
+    "convert-raw-audio": "bash ./scripts/convert-raw-audio.sh",
+    "record-words": "node ./scripts/record-words.mjs"
   },
   "dependencies": {
     "google-tts-api": "^2.0.2"

@@ -11,6 +11,18 @@ const words = [
   { id: "furdokad", label: "fürdőkád", emoji: "🛁" },
   { id: "maci", label: "maci", emoji: "🧸" },
   { id: "szia", label: "szia", emoji: "👋" },
+  { id: "kutya", label: "kutya", emoji: "🐶" },
+  { id: "baba", label: "baba", emoji: "👶" },
+  { id: "nap", label: "nap", emoji: "☀️" },
+  { id: "hold", label: "hold", emoji: "🌙" },
+  { id: "fa", label: "fa", emoji: "🌳" },
+  { id: "virag", label: "virág", emoji: "🌷" },
+  { id: "kenyer", label: "kenyér", emoji: "🍞" },
+  { id: "kanal", label: "kanál", emoji: "🥄" },
+  { id: "cipo", label: "cipő", emoji: "👟" },
+  { id: "sapka", label: "sapka", emoji: "🧢" },
+  { id: "vonat", label: "vonat", emoji: "🚂" },
+  { id: "busz", label: "busz", emoji: "🚌" },
 ];
 
 const TODDLER_ALIASES = {
@@ -26,6 +38,18 @@ const TODDLER_ALIASES = {
   furdokad: ["furdokad", "kadi", "kad"],
   maci: ["maci", "macii", "maci"],
   szia: ["szia", "sziaa", "sia"],
+  kutya: ["kutya", "kuya", "tya"],
+  baba: ["baba", "babaa", "aba"],
+  nap: ["nap", "napp", "ap"],
+  hold: ["hold", "hol", "old"],
+  fa: ["fa", "faa", "a"],
+  virag: ["virag", "vira", "rag"],
+  kenyer: ["kenyer", "kener", "nyer"],
+  kanal: ["kanal", "kana", "nal"],
+  cipo: ["cipo", "cipoo", "ipo"],
+  sapka: ["sapka", "sapkaa", "apka"],
+  vonat: ["vonat", "vonat", "onat"],
+  busz: ["busz", "bus", "usz"],
 };
 
 const STORAGE_KEY = "speech_game_progress_v1";
@@ -47,6 +71,8 @@ let sfxContext = null;
 const tabs = [...document.querySelectorAll(".tab")];
 const panels = [...document.querySelectorAll(".panel")];
 const cardsGrid = document.querySelector("#cards-grid");
+const flipGrid = document.querySelector("#flip-grid");
+const flipStatus = document.querySelector("#flip-status");
 const imitateEmoji = document.querySelector("#imitate-emoji");
 const imitateWord = document.querySelector("#imitate-word");
 const imitatePrompt = document.querySelector("#imitate-prompt");
@@ -76,6 +102,7 @@ const liveTranscript = document.querySelector("#live-transcript");
 const liveRaw = document.querySelector("#live-raw");
 const liveReason = document.querySelector("#live-reason");
 let listening = false;
+let flipBusy = false;
 
 document.querySelector("#play-model").addEventListener("click", () => {
   primeSfx();
@@ -124,11 +151,15 @@ tabs.forEach((tab) => {
       startAutoImitateSession();
     } else {
       stopAutoImitateSession();
+      if (tab.dataset.tab === "flip") {
+        flipStatus.textContent = "Koppints egy kártyára, mondd ki a szót.";
+      }
     }
   });
 });
 
 renderCards();
+renderFlipGame();
 renderImitate();
 refreshStats();
 syncDetectionControls();
@@ -157,6 +188,64 @@ function renderCards() {
     });
     cardsGrid.appendChild(button);
   });
+}
+
+function renderFlipGame() {
+  flipGrid.innerHTML = "";
+  words.forEach((word) => {
+    const card = document.createElement("button");
+    card.className = "flip-card";
+    card.innerHTML = `
+      <div class="flip-card-face flip-card-back">❓</div>
+      <div class="flip-card-face flip-card-front">
+        <div class="card-emoji">${word.emoji}</div>
+        <div class="card-word">${word.label}</div>
+      </div>
+    `;
+    card.addEventListener("click", () => runFlipCardAttempt(card, word));
+    flipGrid.appendChild(card);
+  });
+}
+
+async function runFlipCardAttempt(card, word) {
+  if (flipBusy || listening) return;
+  flipBusy = true;
+  primeSfx();
+  card.classList.remove("is-success", "is-fail");
+  card.classList.add("is-open");
+  flipStatus.textContent = `Mondd: ${word.label}`;
+  setEngineState("listening", "Hallgatlak...");
+  await playWord(word);
+  playListeningStartSound();
+  await sleep(120);
+
+  state.attempts += 1;
+  saveProgress();
+  refreshStats();
+
+  const result = await detectSpeech(word);
+  renderDebug(result);
+
+  if (result.success) {
+    setEngineState("success", "Szuper!");
+    state.rewards += 1;
+    saveProgress();
+    refreshStats();
+    playSuccessSound();
+    card.classList.add("is-success");
+    flipStatus.textContent = `Ügyes! ${word.label}`;
+    await burstConfettiOverlay(650);
+    await sleep(260);
+  } else {
+    setEngineState("rejected", "Próbáljuk újra.");
+    card.classList.add("is-fail");
+    flipStatus.textContent = `Nem baj, próbáljuk újra: ${word.label}`;
+    await sleep(500);
+  }
+
+  card.classList.remove("is-open", "is-success", "is-fail");
+  setEngineState("idle", "Készen áll.");
+  flipBusy = false;
 }
 
 function renderImitate() {

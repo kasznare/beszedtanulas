@@ -37,7 +37,7 @@ body {
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   margin: 1rem 0;
 }
@@ -249,6 +249,63 @@ body {
   width: 100%;
 }
 
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  min-height: 115px;
+  perspective: 700px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: transform 0.36s ease, background 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.flip-card-back {
+  background: linear-gradient(135deg, #f1ba52, #f3cd83);
+  font-size: 1.8rem;
+}
+
+.flip-card-front {
+  transform: rotateY(180deg);
+  background: #fffdf7;
+  font-size: 1.05rem;
+}
+
+.flip-card.is-open .flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card.is-open .flip-card-front {
+  transform: rotateY(0deg);
+}
+
+.flip-card.is-success .flip-card-front {
+  background: #d8f7e5;
+}
+
+.flip-card.is-fail .flip-card-front {
+  background: #ffe3df;
+}
+
 .live-debug {
   margin-top: 0.9rem;
   padding: 0.7rem 0.8rem;
@@ -338,6 +395,10 @@ body {
 }
 
 @media (max-width: 640px) {
+  .tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .actions {
     flex-direction: column;
   }
