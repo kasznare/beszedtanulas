@@ -3,6 +3,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
+import { tmpdir } from "node:os";
 
 const root = process.cwd();
 const wordsFile = path.join(root, "scripts", "words.txt");
@@ -128,10 +129,15 @@ async function selectAudioDevice(rl) {
 }
 
 async function recordClip({ rl, deviceIndex, outFile, id, label }) {
+  const tempWav = path.join(
+    tmpdir(),
+    `beszedtanulas-${id}-${Date.now()}-${Math.random().toString(36).slice(2)}.wav`,
+  );
+
   await rl.question(`Press Enter to start recording "${label}" (${id})...`);
   console.log("Recording... press Enter to stop.");
 
-  const ffmpeg = spawn(
+  const recorder = spawn(
     "ffmpeg",
     [
       "-hide_banner",
@@ -144,28 +150,48 @@ async function recordClip({ rl, deviceIndex, outFile, id, label }) {
       "-ac",
       "1",
       "-ar",
-      "44100",
-      "-b:a",
-      "96k",
-      "-af",
-      "loudnorm=I=-18:TP=-1.5:LRA=11",
+      "48000",
+      "-c:a",
+      "pcm_s16le",
       "-y",
-      outFile,
+      tempWav,
     ],
     { stdio: ["pipe", "inherit", "inherit"] },
   );
 
-  const stopPromise = new Promise((resolve, reject) => {
-    ffmpeg.on("error", reject);
-    ffmpeg.on("exit", (code) => {
+  const stopRecording = new Promise((resolve, reject) => {
+    recorder.on("error", reject);
+    recorder.on("exit", (code) => {
       if (code === 0) resolve();
       else reject(new Error(`ffmpeg exited with code ${code}`));
     });
   });
 
   await rl.question("");
-  if (ffmpeg.stdin.writable) ffmpeg.stdin.write("q\n");
-  await stopPromise;
+  if (recorder.stdin.writable) recorder.stdin.write("q\n");
+  await stopRecording;
+
+  await runCommand("ffmpeg", [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    tempWav,
+    "-ac",
+    "1",
+    "-ar",
+    "48000",
+    "-c:a",
+    "libmp3lame",
+    "-q:a",
+    "2",
+    "-af",
+    "highpass=f=70,lowpass=f=14500,loudnorm=I=-16:TP=-1.5:LRA=9",
+    "-y",
+    outFile,
+  ]);
+
+  await fs.unlink(tempWav).catch(() => {});
 }
 
 async function runCommand(cmd, args) {

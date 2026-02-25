@@ -61,7 +61,7 @@ npm run record-words
 What it does:
 - asks for the Hungarian word (for example `kanál`)
 - suggests a safe file id (for example `kanal`)
-- records directly from your mic into `audio/<id>.mp3`
+- records raw WAV from your mic first, then encodes higher-quality MP3 (`libmp3lame`, VBR)
 - adds the `id|word` line to `scripts/words.txt` automatically if it is new
 
 Requirements:
