@@ -25,6 +25,63 @@ const words = [
   { id: "busz", label: "busz", emoji: "🚌" },
 ];
 
+const twoWordPhrases = [
+  {
+    id: "kerek_vizet",
+    text: "kérek vizet",
+    emojis: ["🙏", "💧"],
+    targets: [
+      { base: "kerek", aliases: ["kerek", "kerem", "ker"] },
+      { base: "vizet", aliases: ["viz", "vizet", "vizet"] },
+    ],
+  },
+  {
+    id: "meg_alma",
+    text: "még alma",
+    emojis: ["➕", "🍎"],
+    targets: [
+      { base: "meg", aliases: ["meg", "meg"] },
+      { base: "alma", aliases: ["ama", "alma", "amma"] },
+    ],
+  },
+  {
+    id: "anya_gyere",
+    text: "anya gyere",
+    emojis: ["👩", "👉"],
+    targets: [
+      { base: "anya", aliases: ["anya", "ana", "aja"] },
+      { base: "gyere", aliases: ["gyere", "gyere", "gye"] },
+    ],
+  },
+  {
+    id: "apa_auto",
+    text: "apa autó",
+    emojis: ["👨", "🚗"],
+    targets: [
+      { base: "apa", aliases: ["apa", "aba", "appa"] },
+      { base: "auto", aliases: ["ato", "otu", "auto"] },
+    ],
+  },
+  {
+    id: "nagy_labda",
+    text: "nagy labda",
+    emojis: ["📏", "⚽"],
+    targets: [
+      { base: "nagy", aliases: ["nagy", "nagyi", "nagi"] },
+      { base: "labda", aliases: ["aba", "laba", "bada"] },
+    ],
+  },
+  {
+    id: "nem_kerem",
+    text: "nem kérem",
+    emojis: ["🚫", "🙏"],
+    targets: [
+      { base: "nem", aliases: ["nem", "neeem"] },
+      { base: "kerem", aliases: ["kerem", "kerek", "kerem"] },
+    ],
+  },
+];
+
 const TODDLER_ALIASES = {
   viz: ["bi", "vi", "viz"],
   auto: ["ato", "otu", "auto"],
@@ -58,6 +115,7 @@ const CELEBRATION_MS = 1300;
 const MIN_LISTEN_BEFORE_REJECT_MS = 2200;
 const ASR_TIMEOUT_MS = 3800;
 const ASR_EARLY_SETTLE_MS = 650;
+const TWO_WORD_MATCH_THRESHOLD = 0.68;
 const DETECTION_DEFAULTS = {
   mode: "encouraging",
   strictThreshold: 0.72,
@@ -67,6 +125,8 @@ let currentImitate = 0;
 let autoSessionToken = 0;
 let micMonitor = null;
 let sfxContext = null;
+const wordAudioBufferCache = new Map();
+let currentPhrase = 0;
 
 const tabs = [...document.querySelectorAll(".tab")];
 const panels = [...document.querySelectorAll(".panel")];
@@ -82,6 +142,16 @@ const successBadge = document.querySelector("#success-badge");
 const listeningIndicator = document.querySelector("#listening-indicator");
 const imitateWrap = document.querySelector(".imitate-wrap");
 const confettiLayer = document.querySelector("#confetti-layer");
+const phraseEmoji = document.querySelector("#phrase-emoji");
+const phraseText = document.querySelector("#phrase-text");
+const phrasePrompt = document.querySelector("#phrase-prompt");
+const playPhraseBtn = document.querySelector("#play-phrase");
+const listenPhraseBtn = document.querySelector("#listen-phrase-btn");
+const nextPhraseBtn = document.querySelector("#next-phrase");
+const phraseStatus = document.querySelector("#phrase-status");
+const phraseSuccessBadge = document.querySelector("#phrase-success-badge");
+const phraseListeningIndicator = document.querySelector("#phrase-listening-indicator");
+const phraseWrap = document.querySelector(".phrase-wrap");
 const playsCount = document.querySelector("#plays-count");
 const attemptCount = document.querySelector("#attempt-count");
 const rewardCount = document.querySelector("#reward-count");
@@ -125,6 +195,25 @@ document.querySelector("#reset-progress").addEventListener("click", () => {
   location.reload();
 });
 
+playPhraseBtn.addEventListener("click", () => {
+  primeSfx();
+  playPhrase(twoWordPhrases[currentPhrase]);
+  state.plays += 1;
+  saveProgress();
+  refreshStats();
+});
+
+nextPhraseBtn.addEventListener("click", () => {
+  primeSfx();
+  currentPhrase = (currentPhrase + 1) % twoWordPhrases.length;
+  renderTwoWordMode();
+});
+
+listenPhraseBtn.addEventListener("click", () => {
+  primeSfx();
+  startPhraseListeningAttempt();
+});
+
 detectionModeSelect.addEventListener("change", () => {
   state.detection.mode = detectionModeSelect.value;
   saveProgress();
@@ -161,6 +250,7 @@ tabs.forEach((tab) => {
 renderCards();
 renderFlipGame();
 renderImitate();
+renderTwoWordMode();
 refreshStats();
 syncDetectionControls();
 renderDebug({
@@ -259,6 +349,133 @@ function renderImitate() {
   hideSuccessBadge();
 }
 
+function renderTwoWordMode() {
+  const phrase = twoWordPhrases[currentPhrase];
+  phraseEmoji.textContent = phrase.emojis.join(" ");
+  phraseText.textContent = phrase.text;
+  phrasePrompt.textContent = `Mondd: ${phrase.text}`;
+  setPhraseListeningUi(false);
+  setPhraseState("idle", "Készen áll.");
+  phraseStatus.textContent = "Nyomd meg a Figyelek gombot.";
+  hidePhraseSuccessBadge();
+}
+
+async function playPhrase(phrase) {
+  const src = `./audio/phrases/${phrase.id}.mp3`;
+  const ok = await tryPlayFile(src);
+  if (!ok) {
+    await speakHungarian(phrase.text);
+  }
+}
+
+async function startPhraseListeningAttempt() {
+  if (listening || flipBusy) return false;
+  listening = true;
+  setPhraseListeningUi(true);
+  setPhraseState("listening", "Figyelek...");
+  phraseStatus.textContent = "Hallgatlak... mondd ki a két szót.";
+  hidePhraseSuccessBadge();
+  playListeningStartSound();
+  await sleep(180);
+  await ensureMicMonitor();
+
+  state.attempts += 1;
+  saveProgress();
+  refreshStats();
+
+  const result = await detectTwoWordPhrase(twoWordPhrases[currentPhrase]);
+  if (result.success) {
+    setPhraseState("success", "Szuper!");
+    phraseStatus.textContent = "Ügyes! Megvolt a két szó.";
+    showPhraseSuccessBadge();
+    playSuccessSound();
+    state.rewards += 1;
+    saveProgress();
+    refreshStats();
+    await burstConfettiOverlay(900);
+    setPhraseState("idle", "Készen áll.");
+  } else {
+    setPhraseState("rejected", "Próbáljuk újra.");
+    phraseStatus.textContent = result.reason || "Nem volt meg mindkét szó. Próbáljuk újra!";
+    await sleep(260);
+    setPhraseState("idle", "Készen áll.");
+  }
+
+  setPhraseListeningUi(false);
+  listening = false;
+  return result.success;
+}
+
+async function detectTwoWordPhrase(phrase) {
+  const energyPromise = detectVoiceEnergy({
+    durationMs: MIN_LISTEN_BEFORE_REJECT_MS,
+    threshold: 8,
+    minHits: 5,
+    minConsecutive: 5,
+    minActiveMs: 580,
+  });
+
+  setPhraseState("processing", "Beszédfelismerés...");
+  const speech = await recognizeHungarianSpeech(ASR_TIMEOUT_MS + 1000);
+  const energy = await energyPromise;
+
+  if (!energy.detected) {
+    return {
+      success: false,
+      reason: "Nem hallottam tiszta beszédet.",
+    };
+  }
+
+  const candidates = collectPhraseCandidates(speech.alternatives);
+  if (candidates.length === 0) {
+    return {
+      success: false,
+      reason: "Nem kaptam értelmezhető szavakat.",
+    };
+  }
+
+  const scores = phrase.targets.map((target) => getPhraseTargetScore(target, candidates));
+  const allMatched = scores.every((score) => score >= TWO_WORD_MATCH_THRESHOLD);
+
+  if (allMatched) {
+    return { success: true, reason: "Mindkét szó megvan." };
+  }
+
+  return {
+    success: false,
+    reason: `Még nincs meg mindkét szó (${scores.map((s) => s.toFixed(2)).join(" / ")}).`,
+  };
+}
+
+function collectPhraseCandidates(alternatives) {
+  const candidates = [];
+  for (const alt of alternatives || []) {
+    const normalized = normalizeText(stripHungarianSuffixes(alt));
+    if (!normalized) continue;
+    candidates.push(normalized);
+    const tokens = normalized.split(/\s+/).filter(Boolean);
+    candidates.push(...tokens);
+    for (let i = 0; i < tokens.length; i += 1) {
+      candidates.push(tokens.slice(i, i + 2).join(" ").trim());
+    }
+  }
+  return dedupeStrings(candidates);
+}
+
+function getPhraseTargetScore(target, candidates) {
+  const norms = [target.base, ...(target.aliases || [])]
+    .map((item) => normalizeText(item))
+    .filter(Boolean);
+
+  let best = 0;
+  for (const candidate of candidates) {
+    for (const norm of norms) {
+      best = Math.max(best, similarityScore(norm, candidate));
+    }
+  }
+  return best;
+}
+
 function syncDetectionControls() {
   detectionModeSelect.value = state.detection.mode;
   strictThresholdInput.value = String(state.detection.strictThreshold);
@@ -304,6 +521,42 @@ async function playWord(word) {
 }
 
 function tryPlayFile(src) {
+  return tryPlayFileWithBuffer(src).catch(() => tryPlayFileWithElement(src));
+}
+
+async function tryPlayFileWithBuffer(src) {
+  const context = getSfxContext();
+  if (!context) return false;
+  if (context.state === "suspended") {
+    await context.resume().catch(() => {});
+  }
+  if (context.state !== "running") return false;
+
+  const buffer = await loadWordBuffer(src, context);
+  if (!buffer) return false;
+
+  return new Promise((resolve) => {
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.connect(context.destination);
+
+    let done = false;
+    const finish = (result) => {
+      if (done) return;
+      done = true;
+      try {
+        source.disconnect();
+      } catch {}
+      resolve(result);
+    };
+
+    source.onended = () => finish(true);
+    source.start();
+    setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 12000));
+  });
+}
+
+function tryPlayFileWithElement(src) {
   return new Promise((resolve) => {
     const audio = new Audio(src);
     let done = false;
@@ -322,6 +575,30 @@ function tryPlayFile(src) {
         setTimeout(() => finish(true), safety);
       },
       () => finish(false),
+    );
+  });
+}
+
+async function loadWordBuffer(src, context) {
+  if (wordAudioBufferCache.has(src)) {
+    return wordAudioBufferCache.get(src);
+  }
+
+  const response = await fetch(src, { cache: "force-cache" });
+  if (!response.ok) return null;
+  const audioData = await response.arrayBuffer();
+  const buffer = await decodeAudioData(context, audioData);
+  if (!buffer) return null;
+  wordAudioBufferCache.set(src, buffer);
+  return buffer;
+}
+
+function decodeAudioData(context, audioData) {
+  return new Promise((resolve) => {
+    context.decodeAudioData(
+      audioData.slice(0),
+      (buffer) => resolve(buffer),
+      () => resolve(null),
     );
   });
 }
@@ -489,6 +766,14 @@ function showSuccessBadge() {
 
 function hideSuccessBadge() {
   successBadge.classList.add("is-hidden");
+}
+
+function showPhraseSuccessBadge() {
+  phraseSuccessBadge.classList.remove("is-hidden");
+}
+
+function hidePhraseSuccessBadge() {
+  phraseSuccessBadge.classList.add("is-hidden");
 }
 
 async function detectSpeech(targetWord) {
@@ -984,8 +1269,28 @@ function setEngineState(kind, text) {
 
 function setListeningUi(active) {
   listenBtn.disabled = active;
-  listenBtn.textContent = active ? "Figyelek..." : "Figyelek 🎤";
+  listenBtn.textContent = active ? "🎙️" : "🎤";
+  listenBtn.setAttribute("aria-label", active ? "Figyelek..." : "Figyelek");
+  listenBtn.setAttribute("title", active ? "Figyelek..." : "Figyelek");
   listeningIndicator.classList.toggle("is-hidden", !active);
+}
+
+function setPhraseListeningUi(active) {
+  listenPhraseBtn.disabled = active;
+  listenPhraseBtn.textContent = active ? "🎙️" : "🎤";
+  listenPhraseBtn.setAttribute("aria-label", active ? "Figyelek..." : "Figyelek");
+  listenPhraseBtn.setAttribute("title", active ? "Figyelek..." : "Figyelek");
+  phraseListeningIndicator.classList.toggle("is-hidden", !active);
+}
+
+function setPhraseState(kind, text) {
+  phraseWrap.classList.remove("is-listening", "is-processing", "is-success", "is-rejected");
+  if (kind !== "idle") {
+    phraseWrap.classList.add(`is-${kind}`);
+  }
+  if (text && kind !== "idle") {
+    phraseStatus.textContent = text;
+  }
 }
 
 function playSuccessSound() {

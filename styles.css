@@ -37,7 +37,7 @@ body {
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.5rem;
   margin: 1rem 0;
 }
@@ -102,7 +102,20 @@ body {
   font-size: 4rem;
 }
 
+.phrase-wrap {
+  text-align: center;
+}
+
+.phrase-emoji {
+  font-size: 3.2rem;
+  letter-spacing: 0.18rem;
+}
+
 .imitate-wrap.is-listening .imitate-emoji {
+  animation: bob 1s ease-in-out infinite;
+}
+
+.phrase-wrap.is-listening .phrase-emoji {
   animation: bob 1s ease-in-out infinite;
 }
 
@@ -130,6 +143,17 @@ body {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.icon-btn {
+  min-width: 3.2rem;
+  min-height: 3.2rem;
+  padding: 0.55rem;
+  font-size: 1.45rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .primary {
@@ -171,12 +195,27 @@ body {
   border-radius: 18px;
 }
 
+.phrase-wrap.is-processing {
+  box-shadow: 0 0 0 4px rgba(243, 213, 140, 0.45);
+  border-radius: 18px;
+}
+
 .imitate-wrap.is-rejected {
   box-shadow: 0 0 0 4px rgba(242, 169, 160, 0.4);
   border-radius: 18px;
 }
 
+.phrase-wrap.is-rejected {
+  box-shadow: 0 0 0 4px rgba(242, 169, 160, 0.4);
+  border-radius: 18px;
+}
+
 .imitate-wrap.is-success {
+  box-shadow: 0 0 0 4px rgba(125, 208, 160, 0.4);
+  border-radius: 18px;
+}
+
+.phrase-wrap.is-success {
   box-shadow: 0 0 0 4px rgba(125, 208, 160, 0.4);
   border-radius: 18px;
 }

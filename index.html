@@ -16,6 +16,7 @@
       <nav class="tabs">
         <button class="tab is-active" data-tab="cards">Kártyák</button>
         <button class="tab" data-tab="imitate">Mondd utána</button>
+        <button class="tab" data-tab="two-word">Két szó</button>
         <button class="tab" data-tab="flip">Fordítós játék</button>
         <button class="tab" data-tab="parent">Szülő mód</button>
       </nav>
@@ -35,9 +36,15 @@
             <span class="dot"></span>
           </div>
           <div class="actions">
-            <button id="play-model" class="primary">Lejátszás</button>
-            <button id="listen-btn" class="primary">Figyelek 🎤</button>
-            <button id="next-word" class="secondary">Következő</button>
+            <button id="play-model" class="primary icon-btn" aria-label="Lejátszás" title="Lejátszás">
+              🔊
+            </button>
+            <button id="listen-btn" class="primary icon-btn" aria-label="Figyelek" title="Figyelek">
+              🎤
+            </button>
+            <button id="next-word" class="secondary icon-btn" aria-label="Következő szó" title="Következő szó">
+              ⏭️
+            </button>
           </div>
           <p id="listen-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
           <div id="success-badge" class="reward is-hidden">Sikerült! ⭐</div>
@@ -48,6 +55,32 @@
             <p>ASR nyers: <strong id="live-raw">-</strong></p>
             <p>Ok/Elutasítás: <strong id="live-reason">-</strong></p>
           </div>
+        </div>
+      </section>
+
+      <section id="two-word" class="panel">
+        <div class="phrase-wrap">
+          <div id="phrase-emoji" class="phrase-emoji">🙏 💧</div>
+          <h2 id="phrase-text">kérek vizet</h2>
+          <p id="phrase-prompt">Mondd: kérek vizet</p>
+          <div id="phrase-listening-indicator" class="listening-indicator is-hidden" aria-hidden="true">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="actions">
+            <button id="play-phrase" class="primary icon-btn" aria-label="Lejátszás" title="Lejátszás">
+              🔊
+            </button>
+            <button id="listen-phrase-btn" class="primary icon-btn" aria-label="Figyelek" title="Figyelek">
+              🎤
+            </button>
+            <button id="next-phrase" class="secondary icon-btn" aria-label="Következő kifejezés" title="Következő kifejezés">
+              ⏭️
+            </button>
+          </div>
+          <p id="phrase-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
+          <div id="phrase-success-badge" class="reward is-hidden">Sikerült! ⭐</div>
         </div>
       </section>
 
