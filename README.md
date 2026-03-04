@@ -69,3 +69,50 @@ Requirements:
 
 Tip:
 - if you add a new word, also add it to the `words` array in `app.js` so it appears in the game UI.
+
+## Supabase progress sync (optional)
+
+You can sync per-word progress to Supabase from the `Szülő mód` tab.
+
+Project-level config:
+- Edit `supabase-config.js` and set:
+  - `url`
+  - `publishableKey`
+  - `profiles.admin`
+  - `profiles.kid`
+- The app supports two built-in roles (`admin`, `kid`) and switches profile code/name automatically.
+- If `lockConnection: true`, URL and key are read from project config (UI inputs are locked).
+
+1. Create tables in Supabase SQL editor:
+
+```sql
+create table if not exists profiles (
+  id uuid primary key default gen_random_uuid(),
+  profile_code text unique not null,
+  child_name text not null default '',
+  created_at timestamptz not null default now()
+);
+
+create table if not exists word_progress (
+  profile_id uuid not null references profiles(id) on delete cascade,
+  word_id text not null,
+  attempts int not null default 0,
+  successes int not null default 0,
+  streak int not null default 0,
+  last_seen_at timestamptz null,
+  updated_at timestamptz not null default now(),
+  primary key (profile_id, word_id)
+);
+```
+
+2. In `Szülő mód` fill:
+- `Supabase URL`
+- `Anon kulcs`
+- `Profil kód` (example: `beni-2026`)
+- `Gyerek neve`
+
+3. Click `Kapcsolódás`, then `Szinkron most`.
+
+Notes:
+- Progress is still kept locally; Supabase adds cross-session persistence.
+- Adaptive practice uses per-word success rate and repeats harder words more often.

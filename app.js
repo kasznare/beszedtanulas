@@ -1,3 +1,5 @@
+import { PROJECT_SUPABASE } from "./supabase-config.js";
+
 const words = [
   { id: "viz", label: "víz", emoji: "💧" },
   { id: "anya", label: "anya", emoji: "👩" },
@@ -120,11 +122,22 @@ const DETECTION_DEFAULTS = {
   mode: "encouraging",
   strictThreshold: 0.72,
 };
+const SUPABASE_CONFIG_DEFAULTS = {
+  url: "",
+  publishableKey: "",
+  profileCode: "",
+  childName: "",
+  activeRole: "kid",
+};
 const state = loadProgress();
 let currentImitate = 0;
 let autoSessionToken = 0;
 let micMonitor = null;
 let sfxContext = null;
+let supabaseClient = null;
+let supabaseProfileId = null;
+let supabaseReady = false;
+let syncInFlight = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
 
@@ -158,6 +171,14 @@ const rewardCount = document.querySelector("#reward-count");
 const detectionModeSelect = document.querySelector("#detection-mode");
 const strictThresholdInput = document.querySelector("#strict-threshold");
 const strictThresholdValue = document.querySelector("#strict-threshold-value");
+const supabaseUrlInput = document.querySelector("#supabase-url");
+const supabasePublishableKeyInput = document.querySelector("#supabase-publishable-key");
+const supabaseRoleSelect = document.querySelector("#supabase-role");
+const supabaseProfileCodeInput = document.querySelector("#supabase-profile-code");
+const supabaseChildNameInput = document.querySelector("#supabase-child-name");
+const supabaseConnectBtn = document.querySelector("#supabase-connect");
+const supabaseSyncNowBtn = document.querySelector("#supabase-sync-now");
+const supabaseStatus = document.querySelector("#supabase-status");
 const debugEngine = document.querySelector("#debug-engine");
 const debugStage = document.querySelector("#debug-stage");
 const debugDecision = document.querySelector("#debug-decision");
@@ -229,6 +250,30 @@ strictThresholdInput.addEventListener("input", () => {
   syncDetectionControls();
 });
 
+supabaseRoleSelect.addEventListener("change", () => {
+  state.supabase.activeRole = supabaseRoleSelect.value;
+  applyRoleProfileToState();
+  saveProgress();
+  syncSupabaseControls();
+  if (supabaseReady) {
+    connectSupabase().catch((err) => {
+      setSupabaseStatus(`Profil váltás hiba: ${String(err.message || err)}`);
+    });
+  }
+});
+
+supabaseConnectBtn.addEventListener("click", () => {
+  connectSupabase().catch((err) => {
+    setSupabaseStatus(`Kapcsolódási hiba: ${String(err.message || err)}`);
+  });
+});
+
+supabaseSyncNowBtn.addEventListener("click", () => {
+  syncProgressToSupabase().catch((err) => {
+    setSupabaseStatus(`Szinkron hiba: ${String(err.message || err)}`);
+  });
+});
+
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     primeSfx();
@@ -253,6 +298,7 @@ renderImitate();
 renderTwoWordMode();
 refreshStats();
 syncDetectionControls();
+syncSupabaseControls();
 renderDebug({
   engine: "idle",
   stage: "idle",
@@ -263,6 +309,8 @@ renderDebug({
   score: null,
   energy: null,
 });
+applyProjectSupabaseConfig();
+trySupabaseAutoconnect();
 
 function renderCards() {
   cardsGrid.innerHTML = "";
@@ -310,6 +358,7 @@ async function runFlipCardAttempt(card, word) {
   await sleep(120);
 
   state.attempts += 1;
+  registerWordAttempt(word.id);
   saveProgress();
   refreshStats();
 
@@ -319,6 +368,7 @@ async function runFlipCardAttempt(card, word) {
   if (result.success) {
     setEngineState("success", "Szuper!");
     state.rewards += 1;
+    registerWordSuccess(word.id);
     saveProgress();
     refreshStats();
     playSuccessSound();
@@ -327,6 +377,9 @@ async function runFlipCardAttempt(card, word) {
     await burstConfettiOverlay(650);
     await sleep(260);
   } else {
+    registerWordFailure(word.id);
+    saveProgress();
+    refreshStats();
     setEngineState("rejected", "Próbáljuk újra.");
     card.classList.add("is-fail");
     flipStatus.textContent = `Nem baj, próbáljuk újra: ${word.label}`;
@@ -380,6 +433,7 @@ async function startPhraseListeningAttempt() {
   await ensureMicMonitor();
 
   state.attempts += 1;
+  registerWordAttempt(words[currentImitate].id);
   saveProgress();
   refreshStats();
 
@@ -481,6 +535,53 @@ function syncDetectionControls() {
   strictThresholdInput.value = String(state.detection.strictThreshold);
   strictThresholdValue.textContent = state.detection.strictThreshold.toFixed(2);
   strictThresholdInput.disabled = state.detection.mode !== "strictish";
+}
+
+function syncSupabaseControls() {
+  supabaseRoleSelect.value = state.supabase.activeRole || "kid";
+  supabaseUrlInput.value = state.supabase.url;
+  supabasePublishableKeyInput.value = state.supabase.publishableKey;
+  supabaseProfileCodeInput.value = state.supabase.profileCode;
+  supabaseChildNameInput.value = state.supabase.childName;
+  supabaseProfileCodeInput.disabled = true;
+  supabaseChildNameInput.disabled = true;
+
+  const locked = Boolean(PROJECT_SUPABASE?.lockConnection);
+  supabaseUrlInput.disabled = locked;
+  supabasePublishableKeyInput.disabled = locked;
+  if (locked) {
+    supabaseUrlInput.title = "Projekt konfigurációból töltve";
+    supabasePublishableKeyInput.title = "Projekt konfigurációból töltve";
+  }
+}
+
+function setSupabaseStatus(text) {
+  supabaseStatus.textContent = text;
+}
+
+function applyProjectSupabaseConfig() {
+  if (!PROJECT_SUPABASE || typeof PROJECT_SUPABASE !== "object") return;
+
+  if (PROJECT_SUPABASE.url) {
+    state.supabase.url = PROJECT_SUPABASE.url;
+  }
+  if (PROJECT_SUPABASE.publishableKey) {
+    state.supabase.publishableKey = PROJECT_SUPABASE.publishableKey;
+  }
+  if (PROJECT_SUPABASE.activeRole) {
+    state.supabase.activeRole = PROJECT_SUPABASE.activeRole;
+  }
+  applyRoleProfileToState();
+  saveProgress();
+  syncSupabaseControls();
+}
+
+function applyRoleProfileToState() {
+  const role = state.supabase.activeRole || "kid";
+  const profile = PROJECT_SUPABASE?.profiles?.[role];
+  if (!profile) return;
+  state.supabase.profileCode = profile.profileCode || role;
+  state.supabase.childName = profile.childName || role;
 }
 
 function renderDebug(result) {
@@ -636,14 +737,21 @@ function loadProgress() {
 
 function saveProgress() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  scheduleSupabaseSync();
 }
 
 function baseProgress() {
+  const wordStats = {};
+  for (const word of words) {
+    wordStats[word.id] = baseWordStats();
+  }
   return {
     plays: 0,
     attempts: 0,
     rewards: 0,
     detection: { ...DETECTION_DEFAULTS },
+    supabase: { ...SUPABASE_CONFIG_DEFAULTS },
+    wordStats,
   };
 }
 
@@ -661,7 +769,225 @@ function normalizeState(input) {
         ? Math.min(0.95, Math.max(0.55, Number(input.detection.strictThreshold)))
         : DETECTION_DEFAULTS.strictThreshold,
     },
+    supabase: {
+      url: typeof input.supabase?.url === "string" ? input.supabase.url : "",
+      publishableKey:
+        typeof input.supabase?.publishableKey === "string"
+          ? input.supabase.publishableKey
+          : typeof input.supabase?.anonKey === "string"
+            ? input.supabase.anonKey
+            : "",
+      profileCode:
+        typeof input.supabase?.profileCode === "string" ? input.supabase.profileCode : "",
+      childName:
+        typeof input.supabase?.childName === "string" ? input.supabase.childName : "",
+      activeRole:
+        input.supabase?.activeRole === "admin" ? "admin" : SUPABASE_CONFIG_DEFAULTS.activeRole,
+    },
+    wordStats: normalizeWordStats(input.wordStats),
   };
+}
+
+function baseWordStats() {
+  return {
+    attempts: 0,
+    successes: 0,
+    streak: 0,
+    lastSeenAt: "",
+  };
+}
+
+function normalizeWordStats(inputStats) {
+  const stats = {};
+  for (const word of words) {
+    const raw = inputStats?.[word.id] || {};
+    stats[word.id] = {
+      attempts: Number.isFinite(raw.attempts) ? raw.attempts : 0,
+      successes: Number.isFinite(raw.successes) ? raw.successes : 0,
+      streak: Number.isFinite(raw.streak) ? raw.streak : 0,
+      lastSeenAt: typeof raw.lastSeenAt === "string" ? raw.lastSeenAt : "",
+    };
+  }
+  return stats;
+}
+
+function registerWordAttempt(wordId) {
+  const stats = state.wordStats[wordId] || baseWordStats();
+  stats.attempts += 1;
+  stats.lastSeenAt = new Date().toISOString();
+  state.wordStats[wordId] = stats;
+}
+
+function registerWordSuccess(wordId) {
+  const stats = state.wordStats[wordId] || baseWordStats();
+  stats.successes += 1;
+  stats.streak += 1;
+  stats.lastSeenAt = new Date().toISOString();
+  state.wordStats[wordId] = stats;
+}
+
+function registerWordFailure(wordId) {
+  const stats = state.wordStats[wordId] || baseWordStats();
+  stats.streak = 0;
+  stats.lastSeenAt = new Date().toISOString();
+  state.wordStats[wordId] = stats;
+}
+
+function getWordDifficultyScore(word) {
+  const stats = state.wordStats[word.id] || baseWordStats();
+  const attempts = Math.max(stats.attempts, 1);
+  const successRate = stats.successes / attempts;
+  const lowAttemptBoost = stats.attempts < 2 ? 0.22 : 0;
+  const streakPenalty = Math.min(stats.streak * 0.03, 0.15);
+  return Math.max(0, 1 - successRate + lowAttemptBoost - streakPenalty);
+}
+
+function buildAdaptiveSessionWords() {
+  const ranked = [...words]
+    .map((word) => ({ word, score: getWordDifficultyScore(word) }))
+    .sort((a, b) => b.score - a.score);
+
+  const baseSequence = ranked.map((entry) => entry.word);
+  const repeats = ranked
+    .slice(0, Math.max(4, Math.floor(words.length / 4)))
+    .filter((entry) => entry.score >= 0.35)
+    .map((entry) => entry.word);
+
+  return [...baseSequence, ...repeats];
+}
+
+function scheduleSupabaseSync() {
+  if (!supabaseReady || syncInFlight) return;
+  window.setTimeout(() => {
+    if (!supabaseReady || syncInFlight) return;
+    syncProgressToSupabase().catch(() => {});
+  }, 120);
+}
+
+async function trySupabaseAutoconnect() {
+  if (!state.supabase.url || !state.supabase.publishableKey || !state.supabase.profileCode) {
+    setSupabaseStatus("Nincs csatlakoztatva.");
+    return;
+  }
+  try {
+    await connectSupabase(true);
+  } catch {
+    setSupabaseStatus("Supabase automatikus csatlakozás sikertelen.");
+  }
+}
+
+async function connectSupabase(isAuto = false) {
+  state.supabase.activeRole = supabaseRoleSelect.value || state.supabase.activeRole;
+  const locked = Boolean(PROJECT_SUPABASE?.lockConnection);
+  if (!locked) {
+    state.supabase.url = supabaseUrlInput.value.trim();
+    state.supabase.publishableKey = supabasePublishableKeyInput.value.trim();
+  } else {
+    state.supabase.url = PROJECT_SUPABASE?.url || state.supabase.url;
+    state.supabase.publishableKey =
+      PROJECT_SUPABASE?.publishableKey || state.supabase.publishableKey;
+  }
+  applyRoleProfileToState();
+  saveProgress();
+  syncSupabaseControls();
+
+  if (!state.supabase.url || !state.supabase.publishableKey || !state.supabase.profileCode) {
+    supabaseReady = false;
+    setSupabaseStatus("Hiányzó Supabase adatok.");
+    return;
+  }
+
+  if (state.supabase.publishableKey.startsWith("sb_secret_")) {
+    supabaseReady = false;
+    setSupabaseStatus("Hiba: secret kulcs nem használható frontendben.");
+    return;
+  }
+
+  const supaFactory = window.supabase?.createClient;
+  if (typeof supaFactory !== "function") {
+    supabaseReady = false;
+    setSupabaseStatus("Supabase kliens nincs betöltve.");
+    return;
+  }
+
+  if (!isAuto) setSupabaseStatus("Kapcsolódás...");
+  supabaseClient = supaFactory(state.supabase.url, state.supabase.publishableKey);
+
+  const profilePayload = {
+    profile_code: state.supabase.profileCode,
+    child_name: state.supabase.childName || state.supabase.profileCode,
+  };
+
+  const { data: profileRow, error: profileError } = await supabaseClient
+    .from("profiles")
+    .upsert(profilePayload, { onConflict: "profile_code" })
+    .select("id")
+    .single();
+
+  if (profileError || !profileRow?.id) {
+    throw new Error(profileError?.message || "Profil létrehozás hiba");
+  }
+
+  supabaseProfileId = profileRow.id;
+  supabaseReady = true;
+  await pullProgressFromSupabase();
+  setSupabaseStatus(`Kapcsolódva. Profil: ${state.supabase.profileCode}`);
+}
+
+async function pullProgressFromSupabase() {
+  if (!supabaseReady || !supabaseProfileId) return;
+  const { data, error } = await supabaseClient
+    .from("word_progress")
+    .select("word_id,attempts,successes,streak,last_seen_at")
+    .eq("profile_id", supabaseProfileId);
+
+  if (error) {
+    throw new Error(error.message || "Progress letöltési hiba");
+  }
+
+  const merged = { ...state.wordStats };
+  for (const row of data || []) {
+    if (!merged[row.word_id]) continue;
+    merged[row.word_id] = {
+      attempts: Number.isFinite(row.attempts) ? row.attempts : 0,
+      successes: Number.isFinite(row.successes) ? row.successes : 0,
+      streak: Number.isFinite(row.streak) ? row.streak : 0,
+      lastSeenAt: typeof row.last_seen_at === "string" ? row.last_seen_at : "",
+    };
+  }
+  state.wordStats = merged;
+  saveProgress();
+}
+
+async function syncProgressToSupabase() {
+  if (!supabaseReady || !supabaseProfileId || !supabaseClient || syncInFlight) return;
+  syncInFlight = true;
+  try {
+    const rows = words.map((word) => {
+      const stats = state.wordStats[word.id] || baseWordStats();
+      return {
+        profile_id: supabaseProfileId,
+        word_id: word.id,
+        attempts: stats.attempts,
+        successes: stats.successes,
+        streak: stats.streak,
+        last_seen_at: stats.lastSeenAt || null,
+        updated_at: new Date().toISOString(),
+      };
+    });
+
+    const { error } = await supabaseClient
+      .from("word_progress")
+      .upsert(rows, { onConflict: "profile_id,word_id" });
+
+    if (error) {
+      throw new Error(error.message || "Mentési hiba");
+    }
+
+    setSupabaseStatus(`Szinkron kész: ${new Date().toLocaleTimeString("hu-HU")}`);
+  } finally {
+    syncInFlight = false;
+  }
 }
 
 function burstConfettiOverlay(durationMs) {
@@ -737,6 +1063,9 @@ async function startListeningAttempt() {
   if (result.success) {
     await onListeningSuccess();
   } else {
+    registerWordFailure(words[currentImitate].id);
+    saveProgress();
+    refreshStats();
     setEngineState("rejected", "Észlelve, de nem elég jó.");
     listenStatus.textContent = "Nem hallottam jól. Próbáljuk újra!";
     await sleep(220);
@@ -754,6 +1083,7 @@ async function onListeningSuccess() {
   showSuccessBadge();
   playSuccessSound();
   state.rewards += 1;
+  registerWordSuccess(words[currentImitate].id);
   saveProgress();
   refreshStats();
   await burstConfettiOverlay(CELEBRATION_MS);
@@ -1367,13 +1697,16 @@ async function startAutoImitateSession() {
   listenStatus.textContent = "Kezdjük! Hallgasd és mondd utána.";
   currentImitate = 0;
   await ensureMicMonitor();
+  const sessionWords = buildAdaptiveSessionWords();
 
-  for (let i = 0; i < words.length && token === autoSessionToken; i += 1) {
-    currentImitate = i;
+  for (let i = 0; i < sessionWords.length && token === autoSessionToken; i += 1) {
+    const currentWord = sessionWords[i];
+    currentImitate = words.findIndex((w) => w.id === currentWord.id);
+    if (currentImitate < 0) currentImitate = 0;
     renderImitate();
     playTransitionCue();
     await sleep(200);
-    await playWord(words[currentImitate]);
+    await playWord(currentWord);
 
     const wordEndAt = Date.now() + WORD_LISTEN_WINDOW_MS;
     let success = false;

@@ -284,7 +284,8 @@ body {
 }
 
 .parent-controls select,
-.parent-controls input[type="range"] {
+.parent-controls input[type="range"],
+.parent-controls input[type="text"] {
   width: 100%;
 }
 
