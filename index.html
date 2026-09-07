@@ -15,6 +15,7 @@
 
       <nav class="tabs">
         <button class="tab is-active" data-tab="cards">Kártyák</button>
+        <button class="tab" data-tab="numbers">Számok</button>
         <button class="tab" data-tab="imitate">Mondd utána</button>
         <button class="tab" data-tab="two-word">Két szó</button>
         <button class="tab" data-tab="flip">Fordítós játék</button>
@@ -23,6 +24,26 @@
 
       <section id="cards" class="panel is-active">
         <div id="cards-grid" class="cards-grid"></div>
+      </section>
+
+      <section id="numbers" class="panel" aria-labelledby="numbers-title">
+        <div class="numbers-wrap">
+          <h2 id="numbers-title">Számoljunk együtt!</h2>
+          <p>Válassz egy számot, és koppints a tárgyakra egyesével.</p>
+          <div id="number-picker" class="number-picker" role="group" aria-label="Válassz számot"></div>
+          <div id="number-object-picker" class="number-object-picker" role="group" aria-label="Mit számoljunk?"></div>
+          <button id="number-model" class="number-model" aria-label="Szám meghallgatása">
+            <span id="number-symbol" class="number-symbol">3</span>
+            <span id="number-name">három alma</span>
+            <span class="number-listen-hint">🔊 Hallgasd meg</span>
+          </button>
+          <div id="number-objects" class="number-objects" role="group" aria-label="Megszámolható tárgyak"></div>
+          <p id="number-status" class="listen-status" role="status" aria-live="polite"></p>
+          <div class="actions number-actions">
+            <button id="number-restart" class="secondary">↺ Számoljuk újra</button>
+            <button id="number-next" class="primary">Következő szám →</button>
+          </div>
+        </div>
       </section>
 
       <section id="imitate" class="panel">

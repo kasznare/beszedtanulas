@@ -67,6 +67,111 @@ body {
   display: block;
 }
 
+.numbers-wrap {
+  text-align: center;
+}
+
+.numbers-wrap h2 {
+  margin: 0.4rem 0;
+}
+
+.number-picker,
+.number-object-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.number-choice,
+.number-object-choice {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.6rem;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #ffeecf;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.number-choice[aria-pressed="true"],
+.number-object-choice[aria-pressed="true"] {
+  background: #d8f7e5;
+  border-color: var(--primary);
+}
+
+.number-model {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+  padding: 0.5rem 2rem 1rem;
+  border: 0;
+  border-radius: 20px;
+  background: #fff0ce;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.number-symbol {
+  font-size: 5rem;
+  line-height: 1.2;
+}
+
+.number-listen-hint {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.number-objects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 480px;
+  margin: 1.25rem auto;
+}
+
+.counting-object {
+  position: relative;
+  flex: 0 0 calc((100% - 2.4rem) / 5);
+  min-height: 80px;
+  padding: 0.5rem 0.1rem 1.25rem;
+  border: 2px solid #f0dfbf;
+  border-radius: 16px;
+  background: white;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  cursor: pointer;
+}
+
+.counting-object[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: #d8f7e5;
+}
+
+.counting-order {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.numbers-wrap button:focus-visible {
+  outline: 3px solid #235fc1;
+  outline-offset: 3px;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
