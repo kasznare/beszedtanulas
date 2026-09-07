@@ -145,6 +145,10 @@ const countingObjects = words.filter((word) => ["alma", "labda", "auto"].include
 let currentNumber = 3;
 let countingObject = countingObjects.find((word) => word.id === "alma");
 let countedObjects = new Set();
+let numberLimit = 3;
+let numberMode = "count";
+let quizTarget = 0;
+let quizSolved = false;
 
 const tabs = [...document.querySelectorAll(".tab")];
 const panels = [...document.querySelectorAll(".panel")];
@@ -321,8 +325,8 @@ renderDebug({
 applyProjectSupabaseConfig();
 trySupabaseAutoconnect();
 
-function numberQuantityLabel() {
-  return `${currentNumber === 2 ? "két" : numberNames[currentNumber]} ${countingObject.label}`;
+function numberQuantityLabel(number = currentNumber) {
+  return `${number === 2 ? "két" : numberNames[number]} ${countingObject.label}`;
 }
 
 function setupNumbers() {
@@ -346,7 +350,12 @@ function setupNumbers() {
     button.addEventListener("click", () => {
       countingObject = object;
       renderNumbers();
-      speakHungarian(numberQuantityLabel());
+      if (numberMode === "quiz") {
+        renderNumberQuiz();
+        speakNumberQuestion();
+      } else {
+        speakHungarian(numberQuantityLabel());
+      }
     });
     document.querySelector("#number-object-picker").appendChild(button);
   });
@@ -355,20 +364,105 @@ function setupNumbers() {
   });
   document.querySelector("#number-restart").addEventListener("click", renderNumbers);
   document.querySelector("#number-next").addEventListener("click", () => {
-    currentNumber = currentNumber % 10 + 1;
+    currentNumber = currentNumber % numberLimit + 1;
     renderNumbers();
     speakHungarian(numberNames[currentNumber]);
   });
+  document.querySelectorAll(".number-mode").forEach((button) => {
+    button.addEventListener("click", () => {
+      numberMode = button.dataset.mode;
+      document.querySelectorAll(".number-mode").forEach((modeButton) => {
+        modeButton.setAttribute("aria-pressed", String(modeButton === button));
+      });
+      document.querySelector("#number-count-view").hidden = numberMode !== "count";
+      document.querySelector("#number-quiz-view").hidden = numberMode !== "quiz";
+      window.speechSynthesis?.cancel();
+      if (numberMode === "quiz") {
+        renderNumberQuiz();
+        speakNumberQuestion();
+      }
+    });
+  });
+  document.querySelector("#number-level").addEventListener("change", (event) => {
+    numberLimit = Number(event.target.value);
+    currentNumber = Math.min(currentNumber, numberLimit);
+    renderNumbers();
+    if (numberMode === "quiz") {
+      renderNumberQuiz();
+      speakNumberQuestion();
+    }
+  });
+  document.querySelector("#number-question-play").addEventListener("click", speakNumberQuestion);
+  document.querySelector("#number-quiz-next").addEventListener("click", () => {
+    if (!quizSolved) return;
+    renderNumberQuiz();
+    speakNumberQuestion();
+  });
   renderNumbers();
+}
+
+function speakNumberQuestion() {
+  speakHungarian(document.querySelector("#number-question").textContent);
+}
+
+function shuffleNumbers(values) {
+  for (let index = values.length - 1; index > 0; index -= 1) {
+    const other = Math.floor(Math.random() * (index + 1));
+    [values[index], values[other]] = [values[other], values[index]];
+  }
+  return values;
+}
+
+function renderNumberQuiz() {
+  quizSolved = false;
+  const candidates = Array.from({ length: numberLimit }, (_, index) => index + 1);
+  quizTarget = shuffleNumbers(candidates.filter((number) => number !== quizTarget))[0];
+  const alternatives = shuffleNumbers(candidates.filter((number) => number !== quizTarget)).slice(0, 2);
+  const choices = shuffleNumbers([quizTarget, ...alternatives]);
+  document.querySelector("#number-question").textContent = `Hol van ${numberQuantityLabel(quizTarget)}?`;
+  document.querySelector("#number-quiz-status").textContent = "Nézd meg és számold meg a tárgyakat!";
+  document.querySelector("#number-quiz-next").disabled = true;
+  const answers = document.querySelector("#number-answers");
+  answers.replaceChildren();
+  choices.forEach((quantity) => {
+    const button = document.createElement("button");
+    button.className = "number-answer";
+    button.setAttribute("aria-label", numberQuantityLabel(quantity));
+    const group = document.createElement("span");
+    group.className = "number-answer-objects";
+    group.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < quantity; index += 1) {
+      const object = document.createElement("span");
+      object.textContent = countingObject.emoji;
+      group.appendChild(object);
+    }
+    button.appendChild(group);
+    button.addEventListener("click", () => {
+      if (quizSolved) return;
+      const status = document.querySelector("#number-quiz-status");
+      if (quantity !== quizTarget) {
+        status.textContent = "Próbáld újra! Számold meg egyesével.";
+        speakHungarian(status.textContent);
+        return;
+      }
+      quizSolved = true;
+      button.classList.add("is-correct");
+      status.textContent = `Ügyes vagy! Itt van ${numberQuantityLabel(quizTarget)}! ⭐`;
+      speakHungarian(status.textContent);
+      document.querySelector("#number-quiz-next").disabled = false;
+    });
+    answers.appendChild(button);
+  });
 }
 
 function renderNumbers() {
   window.speechSynthesis?.cancel();
   countedObjects = new Set();
-  document.querySelectorAll(".number-choice").forEach((button, index) => {
+  document.querySelectorAll("#number-picker .number-choice").forEach((button, index) => {
+    button.hidden = index + 1 > numberLimit;
     button.setAttribute("aria-pressed", String(index + 1 === currentNumber));
   });
-  document.querySelectorAll(".number-object-choice").forEach((button, index) => {
+  document.querySelectorAll("#number-object-picker .number-object-choice").forEach((button, index) => {
     button.setAttribute("aria-pressed", String(countingObjects[index] === countingObject));
   });
   document.querySelector("#number-symbol").textContent = currentNumber;

@@ -71,6 +71,54 @@ body {
   text-align: center;
 }
 
+.number-answers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 1rem 0;
+}
+
+.number-answer {
+  min-height: 170px;
+  padding: 0.7rem;
+  border: 3px solid #f0dfbf;
+  border-radius: 18px;
+  background: white;
+  cursor: pointer;
+}
+
+.number-answer-objects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  font-size: 2rem;
+}
+
+.number-answer.is-correct {
+  background: #d8f7e5;
+  border-color: var(--primary);
+}
+
+.number-actions button:disabled,
+#number-quiz-next:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .number-answers {
+    grid-template-columns: 1fr;
+  }
+
+  .number-answer {
+    min-height: 95px;
+  }
+
+  .number-answer-objects {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 .numbers-wrap h2 {
   margin: 0.4rem 0;
 }

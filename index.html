@@ -29,20 +29,44 @@
       <section id="numbers" class="panel" aria-labelledby="numbers-title">
         <div class="numbers-wrap">
           <h2 id="numbers-title">Számoljunk együtt!</h2>
-          <p>Válassz egy számot, és koppints a tárgyakra egyesével.</p>
-          <div id="number-picker" class="number-picker" role="group" aria-label="Válassz számot"></div>
-          <div id="number-object-picker" class="number-object-picker" role="group" aria-label="Mit számoljunk?"></div>
-          <button id="number-model" class="number-model" aria-label="Szám meghallgatása">
-            <span id="number-symbol" class="number-symbol">3</span>
-            <span id="number-name">három alma</span>
-            <span class="number-listen-hint">🔊 Hallgasd meg</span>
-          </button>
-          <div id="number-objects" class="number-objects" role="group" aria-label="Megszámolható tárgyak"></div>
-          <p id="number-status" class="listen-status" role="status" aria-live="polite"></p>
-          <div class="actions number-actions">
-            <button id="number-restart" class="secondary">↺ Számoljuk újra</button>
-            <button id="number-next" class="primary">Következő szám →</button>
+          <div class="number-picker" role="group" aria-label="Játékmód">
+            <button class="number-mode number-choice" data-mode="count" aria-pressed="true">Számoljunk</button>
+            <button class="number-mode number-choice" data-mode="quiz" aria-pressed="false">Hol van…?</button>
           </div>
+          <label for="number-level">Nehézség</label>
+          <select id="number-level" class="number-object-choice">
+            <option value="3">Kezdő · 1–3</option>
+            <option value="5">Gyakorló · 1–5</option>
+            <option value="10">Ügyes számoló · 1–10</option>
+          </select>
+          <div id="number-count-view">
+            <p>Válassz egy számot, és koppints a tárgyakra egyesével.</p>
+            <div id="number-picker" class="number-picker" role="group" aria-label="Válassz számot"></div>
+            <button id="number-model" class="number-model" aria-label="Szám meghallgatása">
+              <span id="number-symbol" class="number-symbol">3</span>
+              <span id="number-name">három alma</span>
+              <span class="number-listen-hint">🔊 Hallgasd meg</span>
+            </button>
+            <div id="number-objects" class="number-objects" role="group" aria-label="Megszámolható tárgyak"></div>
+            <p id="number-status" class="listen-status" role="status" aria-live="polite"></p>
+            <div class="actions number-actions">
+              <button id="number-restart" class="secondary">↺ Számoljuk újra</button>
+              <button id="number-next" class="primary">Következő szám →</button>
+            </div>
+          </div>
+          <div id="number-quiz-view" hidden>
+            <h3 id="number-question"></h3>
+            <div class="actions">
+              <button id="number-question-play" class="secondary">🔊 Hallgasd meg</button>
+            </div>
+            <p>Koppints arra a kártyára, amelyiken ennyi van!</p>
+            <div id="number-answers" class="number-answers" role="group" aria-labelledby="number-question"></div>
+            <p id="number-quiz-status" class="listen-status" role="status" aria-live="polite"></p>
+            <div class="actions">
+              <button id="number-quiz-next" class="primary" disabled>Következő feladat →</button>
+            </div>
+          </div>
+          <div id="number-object-picker" class="number-object-picker" role="group" aria-label="Mit számoljunk?"></div>
         </div>
       </section>
 
