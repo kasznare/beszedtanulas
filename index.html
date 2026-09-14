@@ -1,158 +1,218 @@
 <!doctype html>
 <html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beszédtanulás Játék</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <main class="app">
-      <header class="hero">
-        <h1>Beszédtanulás</h1>
-        <p>Koppints a képre, hallgasd meg, utánozd.</p>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fcf7ed" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Beszédjáték" />
+  <title>Beszédtanulás · Játsszunk együtt!</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./child-ui.css" />
+  <link rel="manifest" href="./app.webmanifest" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+</head>
+<body data-screen="home">
+<svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol><symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5z"/><path d="M15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol><symbol id="i-next" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7M4 12h13"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7M20 12H7"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="13" rx="4"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"/></symbol><symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M19 11a7 7 0 0 0-12-5L4 9m1 4a7 7 0 0 0 12 5l3-3"/></symbol><symbol id="i-gear" viewBox="0 0 24 24"><path d="m9 3 1-2h4l1 2 3 2 2-.1 2 4-1 2v3l1 2-2 4-2-.1-3 2-1 2h-4l-1-2-3-2-2 .1-2-4 1-2v-3l-1-2 2-4L6 5z" transform="translate(0 0) scale(1 .92)"/><circle cx="12" cy="11" r="3"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></symbol></svg>
+  <main class="app">
+    <header class="app-bar">
+<button id="home-button" class="home-button icon-btn" aria-label="Vissza a főképernyőre"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></button>
+      <div class="screen-heading"><span id="screen-kicker">BESZÉDTANULÁS</span><h1 id="screen-title">Játsszunk együtt!</h1></div>
+<button id="help-button" class="help-button icon-btn" aria-label="Hallgasd meg a segítséget"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="parent-button" class="parent-button icon-btn" aria-label="Szülői beállítások"><svg class="icon" aria-hidden="true"><use href="#i-gear"></use></svg></button>
+    </header>
+    <section id="home" class="panel home-panel is-active" aria-label="Válassz játékot">
+      <div id="parent-preview" class="parent-preview" hidden>
+        <strong>Szülői próba</strong>
+        <button class="parent-action" data-return-child>Vissza a gyerekhez</button>
+        <p id="preview-profile-status" class="parent-note" role="status" hidden></p>
+      </div>
+      <div class="home-welcome"><span class="welcome-sun" aria-hidden="true">☀️</span><span>Mivel játsszunk?</span><span class="welcome-flower" aria-hidden="true">🌼</span></div>
+      <div class="home-grid">
+<button class="home-tile tone-mint" data-open="picture-menu" aria-label="Képek"><span class="home-art art-topics" aria-hidden="true"><span class="little-card">🐱</span><span class="little-card">🍎</span></span><span class="tile-title">Képek</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-peach" data-open="practice-menu" aria-label="Mondd utánam"><span class="home-art art-practice-menu" aria-hidden="true"><span class="speech-bubble">🐻</span><span class="small-bubble">♪</span></span><span class="tile-title">Mondd utánam</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-blue" data-open="number-menu" aria-label="Számoljunk"><span class="home-art art-number-menu" aria-hidden="true"><span class="number-block">1</span><span class="number-block">2</span><span class="number-block">3</span></span><span class="tile-title">Számoljunk</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="home-art art-flip" aria-hidden="true"><span class="surprise-box">🎁</span><span class="surprise-star">✦</span></span><span class="tile-title">Mi bújt el?</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button>
+      </div>
+      <p class="home-footer"><span aria-hidden="true">♡</span> Egy kis játék. Együtt.</p>
+    </section>
 
-      <nav class="tabs">
-        <button class="tab is-active" data-tab="cards">Kártyák</button>
-        <button class="tab" data-tab="numbers">Számok</button>
-        <button class="tab" data-tab="imitate">Mondd utána</button>
-        <button class="tab" data-tab="two-word">Két szó</button>
-        <button class="tab" data-tab="flip">Fordítós játék</button>
-        <button class="tab" data-tab="parent">Szülő mód</button>
-      </nav>
+    <section id="picture-menu" class="panel menu-panel" aria-label="Képes játék választása">
+      <div class="choice-grid">
+        <button class="choice-tile tone-mint" data-open="topics" aria-label="Nézegessünk képeket"><span class="choice-art" aria-hidden="true">🐱</span><span>Nézegessünk!</span></button>
+        <button class="choice-tile tone-yellow" data-open="listening-game" aria-label="Hallgasd meg, és keresd meg a képet"><span class="choice-art listening-menu-art" aria-hidden="true"><svg class="icon"><use href="#i-sound"></use></svg><span>🐶 🍎</span></span><span>Hol van?</span></button>
+      </div>
+    </section>
 
-      <section id="cards" class="panel is-active">
-        <div id="cards-grid" class="cards-grid"></div>
-      </section>
+    <section id="listening-game" class="panel listening-panel" aria-label="Hallgasd meg, és válassz képet">
+      <div id="listening-progress" class="round-progress" role="group" aria-label="A képes kör haladása"></div>
+      <div class="listening-prompt">
+        <button id="listening-replay" class="listening-speaker icon-btn" aria-label="Szó újrahallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button>
+        <span aria-hidden="true">Hallgasd meg!</span>
+      </div>
+      <div id="listening-answers" class="listening-answers" role="group" aria-label="Válassz képet"></div>
+      <p id="listening-status" class="listen-status" role="status"></p>
+      <div class="actions"><button id="listening-next" class="primary icon-btn" aria-label="Következő kép" disabled><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button></div>
+    </section>
 
-      <section id="numbers" class="panel" aria-labelledby="numbers-title">
-        <div class="numbers-wrap">
-          <h2 id="numbers-title">Számoljunk együtt!</h2>
-          <div class="number-picker" role="group" aria-label="Játékmód">
-            <button class="number-mode number-choice" data-mode="count" aria-pressed="true">Számoljunk</button>
-            <button class="number-mode number-choice" data-mode="quiz" aria-pressed="false">Hol van…?</button>
+    <section id="topics" class="panel menu-panel" aria-label="Válassz képeket">
+      <div id="topic-grid" class="topic-grid"></div>
+    </section>
+
+    <section id="practice-menu" class="panel menu-panel" aria-label="Beszédjáték választása">
+      <div class="choice-grid">
+        <button class="choice-tile tone-peach" data-open="imitate" aria-label="Egy szó"><span class="choice-art" aria-hidden="true">🍎</span><span>Egy szó</span></button>
+        <button class="choice-tile tone-mint" data-open="two-word" aria-label="Két szó"><span class="choice-art phrase-art" aria-hidden="true">🙏 💧</span><span>Két szó</span></button>
+      </div>
+    </section>
+
+    <section id="number-menu" class="panel menu-panel" aria-label="Számjáték választása">
+      <div class="choice-grid">
+        <button class="choice-tile tone-blue number-mode" data-mode="count" aria-pressed="true" aria-label="Számoljuk meg"><span class="choice-art count-art" aria-hidden="true"><span>🍎 🍎 🍎</span><b>1 · 2 · 3</b></span><span>Számoljuk meg!</span></button>
+        <button class="choice-tile tone-yellow number-mode" data-mode="quiz" aria-pressed="false" aria-label="Keresd meg"><span class="choice-art" aria-hidden="true">🔎</span><span>Keresd meg!</span></button>
+      </div>
+    </section>
+
+    <section id="cards" class="panel" aria-label="Beszélő képek">
+      <div class="cards-toolbar"><span id="cards-count" class="cards-count" role="status"></span><button class="small-icon" data-open="topics" aria-label="Másik képcsoport">🌈</button></div>
+      <div id="category-picker" hidden></div>
+      <div id="cards-grid" class="cards-grid"></div>
+    </section>
+
+    <section id="numbers" class="panel" aria-labelledby="numbers-title">
+      <div class="numbers-wrap">
+        <h2 id="numbers-title" class="sr-only">Számoljunk együtt!</h2>
+        <div id="number-count-view">
+          <div id="number-picker" class="number-picker" role="group" aria-label="Válassz számot"></div>
+          <button id="number-model" class="number-model" aria-label="Szám meghallgatása"><span id="number-symbol" class="number-symbol">3</span><span id="number-name">három alma</span><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button>
+          <div id="number-objects" class="number-objects" role="group" aria-label="Megszámolható tárgyak"></div>
+          <p id="number-status" class="listen-status" role="status"></p>
+          <div class="actions number-actions">
+<button id="number-restart" class="secondary icon-btn" aria-label="Számoljuk újra"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button><button id="number-next" class="primary icon-btn" aria-label="Következő szám"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
           </div>
-          <label for="number-level">Nehézség</label>
-          <select id="number-level" class="number-object-choice">
-            <option value="3">Kezdő · 1–3</option>
-            <option value="5">Gyakorló · 1–5</option>
-            <option value="10">Ügyes számoló · 1–10</option>
+        </div>
+        <div id="number-quiz-view" hidden>
+          <div class="quiz-question"><h3 id="number-question"></h3><button id="number-question-play" class="secondary icon-btn" aria-label="Feladat meghallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button></div>
+          <div id="number-answers" class="number-answers" role="group" aria-labelledby="number-question"></div>
+          <p id="number-quiz-status" class="listen-status" role="status"></p>
+          <div class="actions"><button id="number-quiz-next" class="primary icon-btn" aria-label="Következő feladat"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button></div>
+        </div>
+        <div id="number-object-picker" class="number-object-picker" role="group" aria-label="Mit számoljunk?"></div>
+      </div>
+    </section>
+
+    <section id="imitate" class="panel practice-panel" aria-label="Mondd utánam">
+      <div class="imitate-wrap">
+        <div id="round-progress" class="round-progress" aria-label="Gyakorlókör haladása"></div>
+        <div id="imitate-emoji" class="imitate-emoji">💧</div>
+        <h2 id="imitate-word">víz</h2>
+        <p id="imitate-prompt" class="sr-only">Mondd: víz</p>
+        <div id="listening-indicator" class="listening-indicator is-hidden" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="actions">
+<button id="play-model" class="secondary icon-btn" aria-label="Szó meghallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="listen-btn" class="primary icon-btn" aria-label="Most én mondom"><svg class="icon" aria-hidden="true"><use href="#i-mic"></use></svg></button><button id="next-word" class="secondary icon-btn" aria-label="Következő szó"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
+        </div>
+        <p id="listen-status" class="listen-status" role="status"></p>
+        <div id="word-recovery" class="speech-recovery" hidden><button class="recovery-button" data-open="listening-game" aria-label="Játsszunk képekkel, mikrofon nélkül"><span aria-hidden="true">🔎</span><span>Képekkel játszom</span></button></div>
+        <div id="success-badge" class="reward is-hidden" role="status">⭐</div>
+        <div class="session-controls">
+          <button id="auto-session" class="round-play" aria-pressed="false" aria-label="Közös gyakorlás indítása"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg><span class="sr-only">Közös gyakorlás indítása</span></button>
+          <button id="stop-listening" class="secondary icon-btn" aria-label="Figyelés megállítása" hidden><svg class="icon" aria-hidden="true"><use href="#i-stop"></use></svg></button>
+          <p id="session-status" class="sr-only"></p>
+        </div>
+        <div class="live-debug" hidden><strong id="live-engine"></strong><strong id="live-stage"></strong><strong id="live-transcript"></strong><strong id="live-raw"></strong><strong id="live-reason"></strong></div>
+      </div>
+    </section>
+
+    <section id="two-word" class="panel practice-panel" aria-label="Két szó">
+      <div class="phrase-wrap">
+        <div id="phrase-emoji" class="phrase-emoji">🙏 💧</div>
+        <h2 id="phrase-text">kérek vizet</h2>
+        <p id="phrase-prompt" class="sr-only">Mondd: kérek vizet</p>
+        <div id="phrase-listening-indicator" class="listening-indicator is-hidden" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="actions">
+<button id="play-phrase" class="secondary icon-btn" aria-label="Kifejezés meghallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="listen-phrase-btn" class="primary icon-btn" aria-label="Most én mondom"><svg class="icon" aria-hidden="true"><use href="#i-mic"></use></svg></button><button id="next-phrase" class="secondary icon-btn" aria-label="Következő kifejezés"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
+        </div>
+        <p id="phrase-status" class="listen-status" role="status"></p>
+        <div id="phrase-recovery" class="speech-recovery" hidden><button class="recovery-button" data-open="listening-game" aria-label="Játsszunk képekkel, mikrofon nélkül"><span aria-hidden="true">🔎</span><span>Képekkel játszom</span></button></div>
+        <div id="phrase-success-badge" class="reward is-hidden" role="status">⭐</div>
+      </div>
+    </section>
+
+    <section id="flip" class="panel" aria-label="Mi bújt el?">
+      <div class="flip-game"><h2 class="sr-only">Fordíts fel egy kártyát</h2><p id="flip-status" class="listen-status" role="status"></p><div id="flip-grid" class="flip-grid"></div><div class="actions"><button id="flip-new" class="secondary icon-btn" aria-label="Új meglepetések"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button></div></div>
+    </section>
+      <section id="parent" class="panel parent-panel">
+        <div class="parent-controls profile-controls">
+          <h2>Ki játszik?</h2>
+          <label for="supabase-role">Aktív profil</label>
+          <select id="supabase-role" aria-describedby="profile-explainer">
+            <option value="kid">Gyerek</option>
+            <option value="admin">Szülői próba</option>
           </select>
-          <div id="number-count-view">
-            <p>Válassz egy számot, és koppints a tárgyakra egyesével.</p>
-            <div id="number-picker" class="number-picker" role="group" aria-label="Válassz számot"></div>
-            <button id="number-model" class="number-model" aria-label="Szám meghallgatása">
-              <span id="number-symbol" class="number-symbol">3</span>
-              <span id="number-name">három alma</span>
-              <span class="number-listen-hint">🔊 Hallgasd meg</span>
-            </button>
-            <div id="number-objects" class="number-objects" role="group" aria-label="Megszámolható tárgyak"></div>
-            <p id="number-status" class="listen-status" role="status" aria-live="polite"></p>
-            <div class="actions number-actions">
-              <button id="number-restart" class="secondary">↺ Számoljuk újra</button>
-              <button id="number-next" class="primary">Következő szám →</button>
-            </div>
+          <p id="profile-explainer" class="parent-note"></p>
+          <div class="parent-actions">
+            <button id="start-active-game" class="parent-action">Gyerekjáték indítása</button>
+            <button id="parent-return-child" class="parent-action parent-action--secondary" data-return-child hidden>Vissza a gyerekhez</button>
           </div>
-          <div id="number-quiz-view" hidden>
-            <h3 id="number-question"></h3>
-            <div class="actions">
-              <button id="number-question-play" class="secondary">🔊 Hallgasd meg</button>
-            </div>
-            <p>Koppints arra a kártyára, amelyiken ennyi van!</p>
-            <div id="number-answers" class="number-answers" role="group" aria-labelledby="number-question"></div>
-            <p id="number-quiz-status" class="listen-status" role="status" aria-live="polite"></p>
-            <div class="actions">
-              <button id="number-quiz-next" class="primary" disabled>Következő feladat →</button>
-            </div>
-          </div>
-          <div id="number-object-picker" class="number-object-picker" role="group" aria-label="Mit számoljunk?"></div>
+          <p id="profile-status" class="parent-note" role="status" hidden></p>
         </div>
-      </section>
-
-      <section id="imitate" class="panel">
-        <div class="imitate-wrap">
-          <div id="imitate-emoji" class="imitate-emoji">💧</div>
-          <h2 id="imitate-word">víz</h2>
-          <p id="imitate-prompt">Mondd: víz</p>
-          <div id="listening-indicator" class="listening-indicator is-hidden" aria-hidden="true">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-          <div class="actions">
-            <button id="play-model" class="primary icon-btn" aria-label="Lejátszás" title="Lejátszás">
-              🔊
-            </button>
-            <button id="listen-btn" class="primary icon-btn" aria-label="Figyelek" title="Figyelek">
-              🎤
-            </button>
-            <button id="next-word" class="secondary icon-btn" aria-label="Következő szó" title="Következő szó">
-              ⏭️
-            </button>
-          </div>
-          <p id="listen-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
-          <div id="success-badge" class="reward is-hidden">Sikerült! ⭐</div>
-          <div class="live-debug">
-            <p>Motor: <strong id="live-engine">idle</strong></p>
-            <p>Fázis: <strong id="live-stage">idle</strong></p>
-            <p>Detektált: <strong id="live-transcript">-</strong></p>
-            <p>ASR nyers: <strong id="live-raw">-</strong></p>
-            <p>Ok/Elutasítás: <strong id="live-reason">-</strong></p>
-          </div>
+        <div class="parent-controls">
+          <h2>Így játsszunk</h2>
+          <label for="round-length">Egy gyakorlókör</label>
+          <select id="round-length"><option value="3">3 szó · rövid kör</option><option value="5" selected>5 szó · nyugodt gyakorlás</option><option value="10">10 szó · hosszabb kör</option></select>
+          <label for="practice-topic">Gyakorlás témája</label>
+          <select id="practice-topic"></select>
+          <label for="number-level">Számolás</label>
+          <select id="number-level"><option value="3">1–3</option><option value="5">1–5</option><option value="10">1–10</option></select>
+          <label for="listening-choices">Hol van? · választható képek</label>
+          <select id="listening-choices"><option value="2">2 kép · könnyebb választás</option><option value="3">3 kép · több lehetőség</option></select>
+          <label for="word-voice">Szavak hangja</label>
+          <select id="word-voice"><option value="natural">Új magyar mesélőhang</option><option value="family">Meglévő saját felvételek</option></select>
+          <label class="check-label"><input type="checkbox" id="spoken-guidance" checked /> Hangos segítség a játékokban</label>
+          <button id="voice-preview" class="parent-action">Hang kipróbálása</button>
+          <p class="parent-note">Az új mesélőhang géppel készült magyar hang. A saját szófelvételek megmaradnak, bármikor visszaválaszthatók.</p>
+          <p id="device-status" class="parent-note" role="status"></p>
         </div>
-      </section>
 
-      <section id="two-word" class="panel">
-        <div class="phrase-wrap">
-          <div id="phrase-emoji" class="phrase-emoji">🙏 💧</div>
-          <h2 id="phrase-text">kérek vizet</h2>
-          <p id="phrase-prompt">Mondd: kérek vizet</p>
-          <div id="phrase-listening-indicator" class="listening-indicator is-hidden" aria-hidden="true">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+        <div class="parent-controls offline-controls">
+          <h2>Játék internet nélkül</h2>
+          <p id="offline-status" class="parent-note" role="status">A játék és a hangok előkészítése…</p>
+          <progress id="offline-progress" aria-label="Offline játék letöltése" max="1" value="0" hidden></progress>
+          <div class="parent-actions">
+            <button id="offline-retry" class="parent-action" hidden>Letöltés újrapróbálása</button>
+            <button id="offline-update" class="parent-action" hidden>Új verzió betöltése</button>
+            <button id="install-game" class="parent-action" hidden>Játék telepítése</button>
           </div>
-          <div class="actions">
-            <button id="play-phrase" class="primary icon-btn" aria-label="Lejátszás" title="Lejátszás">
-              🔊
-            </button>
-            <button id="listen-phrase-btn" class="primary icon-btn" aria-label="Figyelek" title="Figyelek">
-              🎤
-            </button>
-            <button id="next-phrase" class="secondary icon-btn" aria-label="Következő kifejezés" title="Következő kifejezés">
-              ⏭️
-            </button>
-          </div>
-          <p id="phrase-status" class="listen-status">Nyomd meg a Figyelek gombot.</p>
-          <div id="phrase-success-badge" class="reward is-hidden">Sikerült! ⭐</div>
+          <p class="parent-note">A szófelismeréshez a böngésző internetkapcsolatot kérhet. A bátorító mód és a képes játékok nem igényelnek szófelismerést.</p>
+          <details class="install-guide"><summary>Ikon az iPhone vagy iPad főképernyőjére</summary><p>Safariban nyisd meg a Megosztás menüt, majd válaszd a „Főképernyőhöz adás” lehetőséget. Ha megjelenik, hagyd bekapcsolva a webalkalmazásként megnyitást.</p><p>Az új ikonnal először internet mellett indítsd el a játékot, és itt várd meg a „Letöltve” visszajelzést.</p></details>
         </div>
-      </section>
 
-      <section id="flip" class="panel">
-        <div class="flip-game">
-          <h2>Fordíts fel egy kártyát</h2>
-          <p id="flip-status">Koppints egy kártyára, mondd ki a szót.</p>
-          <div id="flip-grid" class="flip-grid"></div>
-        </div>
-      </section>
-
-      <section id="parent" class="panel">
         <div class="stats">
-          <h2>Mai haladás</h2>
-          <p>Kártya lejátszás: <strong id="plays-count">0</strong></p>
+          <h2>Összes eddigi haladás</h2>
+          <p id="active-progress-label" class="parent-note"></p>
+          <p>Kártyák és kifejezések lejátszása: <strong id="plays-count">0</strong></p>
           <p>Utánzás próbák: <strong id="attempt-count">0</strong></p>
           <p>Jutalmak: <strong id="reward-count">0</strong></p>
         </div>
+        <div class="parent-controls progress-controls">
+          <h2>Eredmények megőrzése</h2>
+          <p class="parent-note">Mentsd fájlba az aktív profil haladását, hogy később vagy másik eszközön is visszaállíthasd. A mentés csak az eredményeket tartalmazza.</p>
+          <div class="parent-actions progress-actions">
+            <button id="export-progress" class="parent-action">Mentés fájlba</button>
+            <button id="import-progress" class="parent-action parent-action--secondary">Mentés visszaállítása</button>
+            <button id="undo-progress" class="parent-action parent-action--secondary" hidden>Legutóbbi módosítás visszavonása</button>
+            <button id="reset-progress" class="parent-action danger">Helyi eredmények nullázása</button>
+          </div>
+          <input id="progress-file" type="file" accept=".json,application/json" hidden />
+          <p id="progress-status" class="parent-note" role="status"></p>
+        </div>
         <div class="parent-controls">
-          <h2>Felismerés beállítás</h2>
+          <h2>Beszédfelismerés</h2>
           <label for="detection-mode">Mód</label>
           <select id="detection-mode">
-            <option value="encouraging">Encouraging (bármilyen beszéd)</option>
-            <option value="strictish">Strict-ish (közel a cél szóhoz)</option>
+            <option value="encouraging">Bátorító · a megszólalást jutalmazza</option>
+            <option value="strictish">Szófelismerő · a kimondott szót figyeli</option>
           </select>
           <label for="strict-threshold"
-            >Strict küszöb: <strong id="strict-threshold-value">0.72</strong></label
+            >Felismerés pontossága: <strong id="strict-threshold-value">0.72</strong></label
           >
           <input
             id="strict-threshold"
@@ -164,12 +224,9 @@
           />
         </div>
         <div class="parent-controls">
-          <h2>Supabase szinkron</h2>
-          <label for="supabase-role">Aktív profil</label>
-          <select id="supabase-role">
-            <option value="kid">Kid</option>
-            <option value="admin">Admin</option>
-          </select>
+          <h2>Felhős mentés</h2>
+          <details id="cloud-connection-details" class="install-guide">
+          <summary>Kapcsolat adatai</summary>
           <label for="supabase-url">Supabase URL</label>
           <input id="supabase-url" type="text" placeholder="https://xxxx.supabase.co" />
           <label for="supabase-publishable-key">Publishable kulcs</label>
@@ -178,14 +235,14 @@
           <input id="supabase-profile-code" type="text" placeholder="beni-2026" />
           <label for="supabase-child-name">Gyerek neve</label>
           <input id="supabase-child-name" type="text" placeholder="Beni" />
+          </details>
           <div class="actions">
             <button id="supabase-connect" class="primary">Kapcsolódás</button>
             <button id="supabase-sync-now" class="secondary">Szinkron most</button>
           </div>
           <p id="supabase-status" class="listen-status">Nincs csatlakoztatva.</p>
         </div>
-        <div class="debug-card">
-          <h2>Detektálás állapot</h2>
+        <details class="debug-card"><summary>Felismerés részletei</summary>
           <p>Motor: <strong id="debug-engine">idle</strong></p>
           <p>Fázis: <strong id="debug-stage">idle</strong></p>
           <p>Döntés: <strong id="debug-decision">-</strong></p>
@@ -194,13 +251,41 @@
           <p>ASR nyers: <strong id="debug-raw">-</strong></p>
           <p>Match pont: <strong id="debug-score">-</strong></p>
           <p>Energia: <strong id="debug-energy">-</strong></p>
-        </div>
-        <button id="reset-progress" class="danger">Nullázás</button>
+        </details>
       </section>
-    </main>
-    <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./app.js" type="module"></script>
-  </body>
+  </main>
+  <dialog id="parent-gate" class="parent-gate" aria-labelledby="parent-gate-title">
+    <button id="close-parent-gate" class="small-icon dialog-close" aria-label="Bezárás"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+    <span class="gate-icon" aria-hidden="true">🔒</span>
+    <h2 id="parent-gate-title">Ez a felnőtteké</h2>
+    <p id="parent-gate-question"></p>
+    <div id="parent-gate-answers" class="gate-answers"></div>
+    <p id="parent-gate-status" role="status"></p>
+  </dialog>
+  <dialog id="round-complete" class="round-complete" aria-labelledby="round-complete-title">
+    <span class="complete-sun" aria-hidden="true">🌟</span>
+    <h2 id="round-complete-title">De jó volt együtt!</h2>
+    <div id="complete-stars" class="complete-stars" aria-hidden="true"></div>
+    <div class="actions"><button id="round-home" class="secondary icon-btn" aria-label="Vissza a főképernyőre"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></button><button id="round-replay" class="primary icon-btn" aria-label="Még egy kör"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button></div>
+  </dialog>
+  <dialog id="progress-dialog" class="progress-dialog" aria-labelledby="progress-dialog-title" aria-describedby="progress-dialog-description progress-dialog-note">
+    <h2 id="progress-dialog-title"></h2>
+    <p id="progress-dialog-description"></p>
+    <dl id="progress-preview" class="progress-preview">
+      <div><dt>Lejátszás</dt><dd id="preview-plays"></dd></div>
+      <div><dt>Próba</dt><dd id="preview-attempts"></dd></div>
+      <div><dt>Jutalom</dt><dd id="preview-rewards"></dd></div>
+    </dl>
+    <p id="progress-dialog-note" class="parent-note"></p>
+    <p id="progress-dialog-error" class="progress-error" role="alert"></p>
+    <div class="progress-dialog-actions">
+      <button id="progress-cancel" class="parent-action parent-action--secondary">Mégse</button>
+      <button id="progress-apply" class="parent-action"></button>
+    </div>
+  </dialog>
+  <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+  <script id="supabase-sdk" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+  <script src="./app.js" type="module"></script>
+</body>
 </html>

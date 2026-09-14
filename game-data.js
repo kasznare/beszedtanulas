@@ -1,0 +1,120 @@
+export const words = [
+  { id: "viz", label: "víz", emoji: "💧" },
+  { id: "anya", label: "anya", emoji: "👩" },
+  { id: "apa", label: "apa", emoji: "👨" },
+  { id: "auto", label: "autó", emoji: "🚗" },
+  { id: "labda", label: "labda", emoji: "⚽" },
+  { id: "cica", label: "cica", emoji: "🐱" },
+  { id: "alma", label: "alma", emoji: "🍎" },
+  { id: "kifli", label: "kifli", emoji: "🥐" },
+  { id: "tej", label: "tej", emoji: "🥛" },
+  { id: "furdokad", label: "fürdőkád", emoji: "🛁" },
+  { id: "maci", label: "maci", emoji: "🧸" },
+  { id: "szia", label: "szia", emoji: "👋" },
+  { id: "kutya", label: "kutya", emoji: "🐶" },
+  { id: "baba", label: "baba", emoji: "👶" },
+  { id: "nap", label: "nap", emoji: "☀️" },
+  { id: "hold", label: "hold", emoji: "🌙" },
+  { id: "fa", label: "fa", emoji: "🌳" },
+  { id: "virag", label: "virág", emoji: "🌷" },
+  { id: "kenyer", label: "kenyér", emoji: "🍞" },
+  { id: "kanal", label: "kanál", emoji: "🥄" },
+  { id: "cipo", label: "cipő", emoji: "👟" },
+  { id: "sapka", label: "sapka", emoji: "🧢" },
+  { id: "vonat", label: "vonat", emoji: "🚂" },
+  { id: "busz", label: "busz", emoji: "🚌" },
+];
+
+export const wordCategories = [
+  { id: "all", label: "🌈 Mind", words: words.map((word) => word.id) },
+  { id: "family", label: "👋 Család", words: ["anya", "apa", "baba", "szia"] },
+  { id: "animals", label: "🐾 Állatok", words: ["cica", "kutya"] },
+  { id: "food", label: "🍎 Finomságok", words: ["viz", "alma", "kifli", "tej", "kenyer"] },
+  { id: "play", label: "🧸 Játék és utazás", words: ["auto", "labda", "maci", "vonat", "busz"] },
+  { id: "nature", label: "🌳 Természet", words: ["nap", "hold", "fa", "virag"] },
+  { id: "home", label: "🏡 Otthon", words: ["furdokad", "kanal", "cipo", "sapka"] },
+];
+
+export const twoWordPhrases = [
+  {
+    id: "kerek_vizet",
+    text: "kérek vizet",
+    emojis: ["🙏", "💧"],
+    targets: [
+      { base: "kerek", aliases: ["kerek", "kerem", "ker"] },
+      { base: "vizet", aliases: ["viz", "vizet", "vizet"] },
+    ],
+  },
+  {
+    id: "meg_alma",
+    text: "még alma",
+    emojis: ["➕", "🍎"],
+    targets: [
+      { base: "meg", aliases: ["meg", "meg"] },
+      { base: "alma", aliases: ["ama", "alma", "amma"] },
+    ],
+  },
+  {
+    id: "anya_gyere",
+    text: "anya gyere",
+    emojis: ["👩", "👉"],
+    targets: [
+      { base: "anya", aliases: ["anya", "ana", "aja"] },
+      { base: "gyere", aliases: ["gyere", "gyere", "gye"] },
+    ],
+  },
+  {
+    id: "apa_auto",
+    text: "apa autó",
+    emojis: ["👨", "🚗"],
+    targets: [
+      { base: "apa", aliases: ["apa", "aba", "appa"] },
+      { base: "auto", aliases: ["ato", "otu", "auto"] },
+    ],
+  },
+  {
+    id: "nagy_labda",
+    text: "nagy labda",
+    emojis: ["📏", "⚽"],
+    targets: [
+      { base: "nagy", aliases: ["nagy", "nagyi", "nagi"] },
+      { base: "labda", aliases: ["aba", "laba", "bada"] },
+    ],
+  },
+  {
+    id: "nem_kerem",
+    text: "nem kérem",
+    emojis: ["🚫", "🙏"],
+    targets: [
+      { base: "nem", aliases: ["nem", "neeem"] },
+      { base: "kerem", aliases: ["kerem", "kerek", "kerem"] },
+    ],
+  },
+];
+
+export const TODDLER_ALIASES = {
+  viz: ["bi", "vi", "viz"],
+  auto: ["ato", "otu", "auto"],
+  labda: ["aba", "laba", "bada"],
+  cica: ["cica", "sica", "tica"],
+  anya: ["anya", "ana", "aja"],
+  apa: ["apa", "aba", "appa"],
+  alma: ["ama", "alma", "amma"],
+  kifli: ["kifi", "ifli", "kifli"],
+  tej: ["tej", "te", "dej"],
+  furdokad: ["furdokad", "kadi", "kad"],
+  maci: ["maci", "macii", "maci"],
+  szia: ["szia", "sziaa", "sia"],
+  kutya: ["kutya", "kuya", "tya"],
+  baba: ["baba", "babaa", "aba"],
+  nap: ["nap", "napp", "ap"],
+  hold: ["hold", "hol", "old"],
+  fa: ["fa", "faa", "a"],
+  virag: ["virag", "vira", "rag"],
+  kenyer: ["kenyer", "kener", "nyer"],
+  kanal: ["kanal", "kana", "nal"],
+  cipo: ["cipo", "cipoo", "ipo"],
+  sapka: ["sapka", "sapkaa", "apka"],
+  vonat: ["vonat", "vonat", "onat"],
+  busz: ["busz", "bus", "usz"],
+};

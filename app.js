@@ -1,122 +1,21 @@
 import { PROJECT_SUPABASE } from "./supabase-config.js";
 
-const words = [
-  { id: "viz", label: "víz", emoji: "💧" },
-  { id: "anya", label: "anya", emoji: "👩" },
-  { id: "apa", label: "apa", emoji: "👨" },
-  { id: "auto", label: "autó", emoji: "🚗" },
-  { id: "labda", label: "labda", emoji: "⚽" },
-  { id: "cica", label: "cica", emoji: "🐱" },
-  { id: "alma", label: "alma", emoji: "🍎" },
-  { id: "kifli", label: "kifli", emoji: "🥐" },
-  { id: "tej", label: "tej", emoji: "🥛" },
-  { id: "furdokad", label: "fürdőkád", emoji: "🛁" },
-  { id: "maci", label: "maci", emoji: "🧸" },
-  { id: "szia", label: "szia", emoji: "👋" },
-  { id: "kutya", label: "kutya", emoji: "🐶" },
-  { id: "baba", label: "baba", emoji: "👶" },
-  { id: "nap", label: "nap", emoji: "☀️" },
-  { id: "hold", label: "hold", emoji: "🌙" },
-  { id: "fa", label: "fa", emoji: "🌳" },
-  { id: "virag", label: "virág", emoji: "🌷" },
-  { id: "kenyer", label: "kenyér", emoji: "🍞" },
-  { id: "kanal", label: "kanál", emoji: "🥄" },
-  { id: "cipo", label: "cipő", emoji: "👟" },
-  { id: "sapka", label: "sapka", emoji: "🧢" },
-  { id: "vonat", label: "vonat", emoji: "🚂" },
-  { id: "busz", label: "busz", emoji: "🚌" },
-];
+import { words, wordCategories, twoWordPhrases, TODDLER_ALIASES } from "./game-data.js";
+import { VOICE_CLIPS } from "./voice-library.js";
+import { normalizeText, similarityScore, matchTwoWordPhrase } from "./speech-matching.js";
+import { setupOffline } from "./offline-client.js";
+import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
+import { setupProgressTools } from "./progress-tools.js";
+import { setupListeningGame } from "./listening-game.js";
+import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
+import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode } from "./progress-profiles.js";
+import { createCloudSaveQueue } from "./cloud-save-queue.js";
 
-const twoWordPhrases = [
-  {
-    id: "kerek_vizet",
-    text: "kérek vizet",
-    emojis: ["🙏", "💧"],
-    targets: [
-      { base: "kerek", aliases: ["kerek", "kerem", "ker"] },
-      { base: "vizet", aliases: ["viz", "vizet", "vizet"] },
-    ],
-  },
-  {
-    id: "meg_alma",
-    text: "még alma",
-    emojis: ["➕", "🍎"],
-    targets: [
-      { base: "meg", aliases: ["meg", "meg"] },
-      { base: "alma", aliases: ["ama", "alma", "amma"] },
-    ],
-  },
-  {
-    id: "anya_gyere",
-    text: "anya gyere",
-    emojis: ["👩", "👉"],
-    targets: [
-      { base: "anya", aliases: ["anya", "ana", "aja"] },
-      { base: "gyere", aliases: ["gyere", "gyere", "gye"] },
-    ],
-  },
-  {
-    id: "apa_auto",
-    text: "apa autó",
-    emojis: ["👨", "🚗"],
-    targets: [
-      { base: "apa", aliases: ["apa", "aba", "appa"] },
-      { base: "auto", aliases: ["ato", "otu", "auto"] },
-    ],
-  },
-  {
-    id: "nagy_labda",
-    text: "nagy labda",
-    emojis: ["📏", "⚽"],
-    targets: [
-      { base: "nagy", aliases: ["nagy", "nagyi", "nagi"] },
-      { base: "labda", aliases: ["aba", "laba", "bada"] },
-    ],
-  },
-  {
-    id: "nem_kerem",
-    text: "nem kérem",
-    emojis: ["🚫", "🙏"],
-    targets: [
-      { base: "nem", aliases: ["nem", "neeem"] },
-      { base: "kerem", aliases: ["kerem", "kerek", "kerem"] },
-    ],
-  },
-];
-
-const TODDLER_ALIASES = {
-  viz: ["bi", "vi", "viz"],
-  auto: ["ato", "otu", "auto"],
-  labda: ["aba", "laba", "bada"],
-  cica: ["cica", "sica", "tica"],
-  anya: ["anya", "ana", "aja"],
-  apa: ["apa", "aba", "appa"],
-  alma: ["ama", "alma", "amma"],
-  kifli: ["kifi", "ifli", "kifli"],
-  tej: ["tej", "te", "dej"],
-  furdokad: ["furdokad", "kadi", "kad"],
-  maci: ["maci", "macii", "maci"],
-  szia: ["szia", "sziaa", "sia"],
-  kutya: ["kutya", "kuya", "tya"],
-  baba: ["baba", "babaa", "aba"],
-  nap: ["nap", "napp", "ap"],
-  hold: ["hold", "hol", "old"],
-  fa: ["fa", "faa", "a"],
-  virag: ["virag", "vira", "rag"],
-  kenyer: ["kenyer", "kener", "nyer"],
-  kanal: ["kanal", "kana", "nal"],
-  cipo: ["cipo", "cipoo", "ipo"],
-  sapka: ["sapka", "sapkaa", "apka"],
-  vonat: ["vonat", "vonat", "onat"],
-  busz: ["busz", "bus", "usz"],
-};
+let selectedCategory = "all";
 
 const STORAGE_KEY = "speech_game_progress_v1";
-const WORD_LISTEN_WINDOW_MS = 30_000;
+const WORD_LISTEN_WINDOW_MS = 18_000;
 const CELEBRATION_MS = 1300;
-const MIN_LISTEN_BEFORE_REJECT_MS = 2200;
-const ASR_TIMEOUT_MS = 3800;
-const ASR_EARLY_SETTLE_MS = 650;
 const TWO_WORD_MATCH_THRESHOLD = 0.68;
 const DETECTION_DEFAULTS = {
   mode: "encouraging",
@@ -127,17 +26,53 @@ const SUPABASE_CONFIG_DEFAULTS = {
   publishableKey: "",
   profileCode: "",
   childName: "",
-  activeRole: "kid",
+  activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
+  syncPaused: false,
 };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2 };
 const state = loadProgress();
+let currentScreen = "home";
+let flipRoundToken = 0;
+let flipRoundComplete = false;
+let completedRoundKind = "imitate";
+const screenInfo = {
+  home: { title: "Játsszunk együtt!", guide: "welcome" },
+  "picture-menu": { title: "Játsszunk a képekkel!", guide: "picture_menu" },
+  topics: { title: "Mit nézzünk meg?", guide: "topics" },
+  cards: { title: "Beszélő képek", guide: "cards" },
+  "listening-game": { title: "Hol van?", guide: "listening_game" },
+  "practice-menu": { title: "Mondd utánam", guide: "practice" },
+  imitate: { title: "Mondd utánam", guide: "imitate" },
+  "two-word": { title: "Két szó", guide: "phrase" },
+  "number-menu": { title: "Számoljunk!", guide: "number_menu" },
+  numbers: { title: "Számoljunk!", guide: "count" },
+  flip: { title: "Mi bújt el?", guide: "flip" },
+  parent: { title: "Szülői beállítások" },
+};
+const voiceByText = new Map(Object.values(VOICE_CLIPS).map(clip => [normalizeVoiceText(clip.text), clip]));
 let currentImitate = 0;
 let autoSessionToken = 0;
+let autoSessionRunning = false;
+let activeAttempt = null;
+let playbackToken = 0;
+let cancelPlayback = null;
+let celebrationToken = 0;
 let micMonitor = null;
+let micRequest = null;
+let micGeneration = 0;
+let micError = "A mikrofon nem érhető el. Engedélyezd a böngészőben, majd próbáld újra!";
 let sfxContext = null;
 let supabaseClient = null;
 let supabaseProfileId = null;
 let supabaseReady = false;
-let syncInFlight = false;
+let cloudQueue = null;
+let cloudAbort = null;
+let lastQueuedWords = "";
+let cloudGeneration = 0;
+let cloudResumePending = false;
+let progressTools;
+let listeningGame;
+let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
 const numberNames = ["nulla", "egy", "kettő", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc", "tíz"];
@@ -145,12 +80,11 @@ const countingObjects = words.filter((word) => ["alma", "labda", "auto"].include
 let currentNumber = 3;
 let countingObject = countingObjects.find((word) => word.id === "alma");
 let countedObjects = new Set();
-let numberLimit = 3;
+let numberLimit = state.settings.numberLimit;
 let numberMode = "count";
 let quizTarget = 0;
 let quizSolved = false;
 
-const tabs = [...document.querySelectorAll(".tab")];
 const panels = [...document.querySelectorAll(".panel")];
 const cardsGrid = document.querySelector("#cards-grid");
 const flipGrid = document.querySelector("#flip-grid");
@@ -210,6 +144,7 @@ document.querySelector("#play-model").addEventListener("click", () => {
 });
 
 document.querySelector("#next-word").addEventListener("click", () => {
+  stopAutoImitateSession();
   primeSfx();
   currentImitate = (currentImitate + 1) % words.length;
   renderImitate();
@@ -220,20 +155,13 @@ listenBtn.addEventListener("click", () => {
   startListeningAttempt();
 });
 
-document.querySelector("#reset-progress").addEventListener("click", () => {
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
-});
-
 playPhraseBtn.addEventListener("click", () => {
   primeSfx();
   playPhrase(twoWordPhrases[currentPhrase]);
-  state.plays += 1;
-  saveProgress();
-  refreshStats();
 });
 
 nextPhraseBtn.addEventListener("click", () => {
+  stopAutoImitateSession();
   primeSfx();
   currentPhrase = (currentPhrase + 1) % twoWordPhrases.length;
   renderTwoWordMode();
@@ -260,50 +188,130 @@ strictThresholdInput.addEventListener("input", () => {
 });
 
 supabaseRoleSelect.addEventListener("change", () => {
-  state.supabase.activeRole = supabaseRoleSelect.value;
-  applyRoleProfileToState();
-  saveProgress();
-  syncSupabaseControls();
-  if (supabaseReady) {
-    connectSupabase().catch((err) => {
-      setSupabaseStatus(`Profil váltás hiba: ${String(err.message || err)}`);
-    });
-  }
+  changeActiveProfile(supabaseRoleSelect.value);
 });
+document.querySelector("#start-active-game").addEventListener("click", () => showScreen("home"));
+document.querySelectorAll("[data-return-child]").forEach(button => button.addEventListener("click", () => {
+  if (changeActiveProfile("kid")) showScreen("home");
+}));
+
+function changeActiveProfile(role) {
+  try {
+    checkProgressRevision(localStorage.getItem(STORAGE_KEY));
+    const next = switchProgressProfile(state, roleProfileConfig({ ...state.supabase, activeRole: role }));
+    next.supabase.syncPaused = true;
+    next.profileStore = checkpointProfiles(next);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    disconnectCloud();
+    Object.assign(state, next);
+    refreshStats();
+    progressTools.refresh();
+    syncSupabaseControls();
+    setProfileStatus("");
+    setSupabaseStatus("A profil helyi eredményei betöltve. A felhőkapcsolat külön indítható.");
+    return true;
+  } catch {
+    syncSupabaseControls();
+    const message = "Nem sikerült profilt váltani. Az előző profil aktív. A szülői oldalon mentsd fájlba az eredményeket, majd frissítsd az oldalt.";
+    setProfileStatus(message);
+    setSupabaseStatus(message);
+    return false;
+  }
+}
+
+function setProfileStatus(message) {
+  for (const id of ["profile-status", "preview-profile-status"]) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.hidden = !message;
+  }
+}
+
+function syncProfileControls() {
+  const preview = state.supabase.activeRole === "admin";
+  document.body.dataset.profile = preview ? "admin" : "kid";
+  document.querySelector("#parent-preview").hidden = !preview;
+  document.querySelector("#parent-return-child").hidden = !preview;
+  document.querySelector("#start-active-game").textContent = preview ? "Próba indítása" : "Gyerekjáték indítása";
+  document.querySelector("#profile-explainer").textContent = preview
+    ? "Kipróbálhatod a játékokat: a próba eredményei külön maradnak. Ha végeztél, a Vissza a gyerekhez gombbal add át a játékot."
+    : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
+  document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : "BESZÉDTANULÁS";
+}
 
 supabaseConnectBtn.addEventListener("click", () => {
+  if (state.supabase.syncPaused) {
+    progressTools.confirmCloudResume();
+    return;
+  }
+  const connection = cloudGeneration + 1;
   connectSupabase().catch((err) => {
-    setSupabaseStatus(`Kapcsolódási hiba: ${String(err.message || err)}`);
+    if (connection === cloudGeneration) setSupabaseStatus(`Kapcsolódási hiba: ${String(err.message || err)}`);
   });
 });
 
 supabaseSyncNowBtn.addEventListener("click", () => {
+  const connection = cloudGeneration;
   syncProgressToSupabase().catch((err) => {
-    setSupabaseStatus(`Szinkron hiba: ${String(err.message || err)}`);
+    if (connection === cloudGeneration) setSupabaseStatus(`Szinkron hiba: ${String(err.message || err)}`);
   });
 });
 
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    primeSfx();
-    if (document.querySelector("#numbers").classList.contains("is-active")) {
-      window.speechSynthesis?.cancel();
-    }
-    tabs.forEach((btn) => btn.classList.remove("is-active"));
-    panels.forEach((panel) => panel.classList.remove("is-active"));
-    tab.classList.add("is-active");
-    document.querySelector(`#${tab.dataset.tab}`).classList.add("is-active");
-    if (tab.dataset.tab === "imitate") {
-      startAutoImitateSession();
-    } else {
-      stopAutoImitateSession();
-      if (tab.dataset.tab === "flip") {
-        flipStatus.textContent = "Koppints egy kártyára, mondd ki a szót.";
-      }
-    }
-  });
+setupNavigation();
+setupParentSettings();
+listeningGame = setupListeningGame({
+  getOptions: () => ({ words: getPracticeWords(), length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
+  playPrompt: playListeningPrompt,
+  playCorrect: () => { stopPlayback(); playSuccessSound(); speakGuide("good"); },
+  stopPlayback,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress();
+    refreshStats();
+    celebrateRound("listening-game", count);
+  },
 });
+progressTools = setupProgressTools({
+  getState: () => state,
+  getRevision: () => localStorage.getItem(STORAGE_KEY),
+  applyProgress: applyLocalProgress,
+  resumeCloud: async revision => {
+    checkProgressRevision(revision);
+    const connection = cloudGeneration + 1;
+    cloudResumePending = true;
+    try { await connectSupabase(false, true); }
+    finally { if (connection === cloudGeneration) cloudResumePending = false; }
+  },
+  cancelCloud: () => {
+    if (!cloudResumePending) return;
+    disconnectCloud();
+    syncSupabaseControls();
+    setSupabaseStatus("A felhőszinkron szünetel. A helyi eredmények megmaradtak.");
+  },
+  isParentScreen: () => currentScreen === "parent",
+});
+window.addEventListener("storage", event => {
+  if (event.storageArea === localStorage && (event.key === STORAGE_KEY || event.key === null)) {
+    externalProgressChanged = true;
+    disconnectCloud();
+    setSupabaseStatus("Másik játékablak módosította a mentést. Frissítsd ezt az oldalt a további mentéshez; az itteni eredményeket előbb fájlba mentheted.");
+  }
+});
+setupOffline({ beforeReload: () => stopAutoImitateSession(false) });
 
+document.querySelector("#auto-session").addEventListener("click", () => {
+  primeSfx();
+  if (autoSessionRunning) stopAutoImitateSession();
+  else startAutoImitateSession();
+});
+document.querySelector("#stop-listening").addEventListener("click", stopAutoImitateSession);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopAutoImitateSession();
+});
+window.addEventListener("pagehide", stopAutoImitateSession);
+
+setupCategories();
+renderRoundProgress();
 renderCards();
 setupNumbers();
 renderFlipGame();
@@ -323,7 +331,8 @@ renderDebug({
   energy: null,
 });
 applyProjectSupabaseConfig();
-trySupabaseAutoconnect();
+if (window.supabase) trySupabaseAutoconnect();
+else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 
 function numberQuantityLabel(number = currentNumber) {
   return `${number === 2 ? "két" : numberNames[number]} ${countingObject.label}`;
@@ -346,7 +355,8 @@ function setupNumbers() {
   countingObjects.forEach((object) => {
     const button = document.createElement("button");
     button.className = "number-object-choice";
-    button.textContent = `${object.emoji} ${object.label}`;
+    button.textContent = object.emoji;
+    button.setAttribute("aria-label", object.label);
     button.addEventListener("click", () => {
       countingObject = object;
       renderNumbers();
@@ -360,7 +370,7 @@ function setupNumbers() {
     document.querySelector("#number-object-picker").appendChild(button);
   });
   document.querySelector("#number-model").addEventListener("click", () => {
-    speakHungarian(`${numberNames[currentNumber]}. ${numberQuantityLabel()}.`);
+    speakVoiceSequence([`number_${currentNumber}`, `quantity_${countingObject.id}_${currentNumber}`]);
   });
   document.querySelector("#number-restart").addEventListener("click", renderNumbers);
   document.querySelector("#number-next").addEventListener("click", () => {
@@ -376,7 +386,7 @@ function setupNumbers() {
       });
       document.querySelector("#number-count-view").hidden = numberMode !== "count";
       document.querySelector("#number-quiz-view").hidden = numberMode !== "quiz";
-      window.speechSynthesis?.cancel();
+      showScreen("numbers", { announce: numberMode === "count" });
       if (numberMode === "quiz") {
         renderNumberQuiz();
         speakNumberQuestion();
@@ -385,11 +395,13 @@ function setupNumbers() {
   });
   document.querySelector("#number-level").addEventListener("change", (event) => {
     numberLimit = Number(event.target.value);
+    state.settings.numberLimit = numberLimit;
+    saveProgress();
     currentNumber = Math.min(currentNumber, numberLimit);
     renderNumbers();
     if (numberMode === "quiz") {
       renderNumberQuiz();
-      speakNumberQuestion();
+      if (currentScreen === "numbers") speakNumberQuestion();
     }
   });
   document.querySelector("#number-question-play").addEventListener("click", speakNumberQuestion);
@@ -420,7 +432,7 @@ function renderNumberQuiz() {
   const alternatives = shuffleNumbers(candidates.filter((number) => number !== quizTarget)).slice(0, 2);
   const choices = shuffleNumbers([quizTarget, ...alternatives]);
   document.querySelector("#number-question").textContent = `Hol van ${numberQuantityLabel(quizTarget)}?`;
-  document.querySelector("#number-quiz-status").textContent = "Nézd meg és számold meg a tárgyakat!";
+  document.querySelector("#number-quiz-status").textContent = "";
   document.querySelector("#number-quiz-next").disabled = true;
   const answers = document.querySelector("#number-answers");
   answers.replaceChildren();
@@ -441,14 +453,14 @@ function renderNumberQuiz() {
       if (quizSolved) return;
       const status = document.querySelector("#number-quiz-status");
       if (quantity !== quizTarget) {
-        status.textContent = "Próbáld újra! Számold meg egyesével.";
-        speakHungarian(status.textContent);
+        status.textContent = "Még egyszer?";
+        speakGuide("again");
         return;
       }
       quizSolved = true;
       button.classList.add("is-correct");
-      status.textContent = `Ügyes vagy! Itt van ${numberQuantityLabel(quizTarget)}! ⭐`;
-      speakHungarian(status.textContent);
+      status.textContent = "⭐";
+      speakVoiceSequence(["guide_good", `quantity_${countingObject.id}_${quizTarget}`]);
       document.querySelector("#number-quiz-next").disabled = false;
     });
     answers.appendChild(button);
@@ -456,7 +468,7 @@ function renderNumberQuiz() {
 }
 
 function renderNumbers() {
-  window.speechSynthesis?.cancel();
+  stopPlayback();
   countedObjects = new Set();
   document.querySelectorAll("#number-picker .number-choice").forEach((button, index) => {
     button.hidden = index + 1 > numberLimit;
@@ -469,7 +481,7 @@ function renderNumbers() {
   document.querySelector("#number-name").textContent = numberQuantityLabel();
   document.querySelector("#number-model").setAttribute("aria-label", `${numberNames[currentNumber]}, ${numberQuantityLabel()} meghallgatása`);
   const status = document.querySelector("#number-status");
-  status.textContent = "Koppints egy tárgyra!";
+  status.textContent = "";
   const objects = document.querySelector("#number-objects");
   objects.replaceChildren();
   for (let index = 0; index < currentNumber; index += 1) {
@@ -486,94 +498,86 @@ function renderNumbers() {
       button.querySelector(".counting-order").textContent = count;
       button.setAttribute("aria-label", `${index + 1}. ${countingObject.label}, megszámolva: ${count}`);
       const complete = count === currentNumber;
-      status.textContent = complete
-        ? `Ügyes vagy! Ez ${numberQuantityLabel()}. ⭐`
-        : `${count} / ${currentNumber} – Koppints egy újabb tárgyra!`;
-      speakHungarian(complete
-        ? `${numberNames[count]}. Ügyes vagy! Ez ${numberQuantityLabel()}.`
-        : numberNames[count]);
+      status.textContent = complete ? "⭐" : `${count} / ${currentNumber}`;
+      speakVoiceSequence(complete ? [`number_${count}`, "guide_good"] : [`number_${count}`]);
     });
     objects.appendChild(button);
   }
 }
 
+function setupCategories() {
+  const picker = document.querySelector("#category-picker");
+  wordCategories.forEach((category) => {
+    const button = document.createElement("button");
+    button.className = "category-choice";
+    button.textContent = category.label;
+    button.dataset.category = category.id;
+    button.addEventListener("click", () => {
+      stopPlayback();
+      selectedCategory = category.id;
+      renderCards();
+    });
+    picker.appendChild(button);
+  });
+}
+
 function renderCards() {
   cardsGrid.innerHTML = "";
-  words.forEach((word) => {
+  const category = wordCategories.find((entry) => entry.id === selectedCategory);
+  const visibleWords = words.filter((word) => category.words.includes(word.id));
+  document.querySelectorAll(".category-choice").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.category === selectedCategory));
+  });
+  document.querySelector("#cards-count").textContent = `${visibleWords.length} szó`;
+  visibleWords.forEach((word) => {
     const button = document.createElement("button");
     button.className = "card";
     button.innerHTML = `<div class="card-emoji">${word.emoji}</div><div class="card-word">${word.label}</div>`;
-    button.addEventListener("click", () => {
-      playWord(word);
-      state.plays += 1;
-      saveProgress();
-      refreshStats();
+    button.setAttribute("aria-label", `${word.label} meghallgatása`);
+    button.addEventListener("click", async () => {
+      const playback = playWord(word);
+      const token = playbackToken;
+      cardsGrid.querySelectorAll(".card").forEach((card) => card.classList.remove("is-speaking"));
+      button.classList.add("is-speaking");
+      await playback;
+      if (token === playbackToken) button.classList.remove("is-speaking");
     });
     cardsGrid.appendChild(button);
   });
 }
 
 function renderFlipGame() {
-  flipGrid.innerHTML = "";
-  words.forEach((word) => {
+  flipRoundToken += 1;
+  flipRoundComplete = false;
+  flipGrid.replaceChildren();
+  const deck = shuffleNumbers([...getPracticeWords()]).slice(0, 6);
+  deck.forEach((word, index) => {
     const card = document.createElement("button");
     card.className = "flip-card";
-    card.innerHTML = `
-      <div class="flip-card-face flip-card-back">❓</div>
-      <div class="flip-card-face flip-card-front">
-        <div class="card-emoji">${word.emoji}</div>
-        <div class="card-word">${word.label}</div>
-      </div>
-    `;
-    card.addEventListener("click", () => runFlipCardAttempt(card, word));
+    card.setAttribute("aria-label", `Meglepetés ${index + 1}`);
+    card.setAttribute("aria-pressed", "false");
+    card.innerHTML = `<span class="flip-card-face flip-card-back" aria-hidden="true">✦</span><span class="flip-card-face flip-card-front" aria-hidden="true"><span class="card-emoji">${word.emoji}</span><span class="card-word">${word.label}</span></span>`;
+    card.addEventListener("click", async () => {
+      if (flipRoundComplete) return;
+      const token = flipRoundToken;
+      card.classList.add("is-open");
+      card.setAttribute("aria-label", `${word.label} meghallgatása`);
+      card.setAttribute("aria-pressed", "true");
+      const found = flipGrid.querySelectorAll(".is-open").length;
+      flipStatus.textContent = `${found} / ${deck.length}`;
+      const completed = found === deck.length;
+      if (completed) flipRoundComplete = true;
+      await playWord(word);
+      if (completed && token === flipRoundToken && currentScreen === "flip") {
+        state.rewards += 1;
+        saveProgress();
+        refreshStats();
+        celebrateRound("flip", deck.length);
+      }
+    });
     flipGrid.appendChild(card);
   });
-}
-
-async function runFlipCardAttempt(card, word) {
-  if (flipBusy || listening) return;
-  flipBusy = true;
-  primeSfx();
-  card.classList.remove("is-success", "is-fail");
-  card.classList.add("is-open");
-  flipStatus.textContent = `Mondd: ${word.label}`;
-  setEngineState("listening", "Hallgatlak...");
-  await playWord(word);
-  playListeningStartSound();
-  await sleep(120);
-
-  state.attempts += 1;
-  registerWordAttempt(word.id);
-  saveProgress();
-  refreshStats();
-
-  const result = await detectSpeech(word);
-  renderDebug(result);
-
-  if (result.success) {
-    setEngineState("success", "Szuper!");
-    state.rewards += 1;
-    registerWordSuccess(word.id);
-    saveProgress();
-    refreshStats();
-    playSuccessSound();
-    card.classList.add("is-success");
-    flipStatus.textContent = `Ügyes! ${word.label}`;
-    await burstConfettiOverlay(650);
-    await sleep(260);
-  } else {
-    registerWordFailure(word.id);
-    saveProgress();
-    refreshStats();
-    setEngineState("rejected", "Próbáljuk újra.");
-    card.classList.add("is-fail");
-    flipStatus.textContent = `Nem baj, próbáljuk újra: ${word.label}`;
-    await sleep(500);
-  }
-
-  card.classList.remove("is-open", "is-success", "is-fail");
-  setEngineState("idle", "Készen áll.");
-  flipBusy = false;
+  flipStatus.textContent = `0 / ${deck.length}`;
 }
 
 function renderImitate() {
@@ -583,8 +587,9 @@ function renderImitate() {
   imitatePrompt.textContent = `Mondd: ${word.label}`;
   setListeningUi(false);
   setEngineState("idle", "Készen áll.");
-  listenStatus.textContent = "Nyomd meg a Figyelek gombot.";
+  listenStatus.textContent = autoSessionRunning ? "Hallgassuk meg!" : "🔊 → 🎤";
   hideSuccessBadge();
+  setSpeechRecovery("word", false);
 }
 
 function renderTwoWordMode() {
@@ -594,125 +599,61 @@ function renderTwoWordMode() {
   phrasePrompt.textContent = `Mondd: ${phrase.text}`;
   setPhraseListeningUi(false);
   setPhraseState("idle", "Készen áll.");
-  phraseStatus.textContent = "Nyomd meg a Figyelek gombot.";
+  phraseStatus.textContent = "🔊 → 🎤";
   hidePhraseSuccessBadge();
+  setSpeechRecovery("phrase", false);
 }
 
 async function playPhrase(phrase) {
-  const src = `./audio/phrases/${phrase.id}.mp3`;
-  const ok = await tryPlayFile(src);
-  if (!ok) {
-    await speakHungarian(phrase.text);
-  }
+  registerPlay();
+  await speakVoice(`phrase_${phrase.id}`);
 }
 
 async function startPhraseListeningAttempt() {
-  if (listening || flipBusy) return false;
-  listening = true;
-  setPhraseListeningUi(true);
-  setPhraseState("listening", "Figyelek...");
-  phraseStatus.textContent = "Hallgatlak... mondd ki a két szót.";
-  hidePhraseSuccessBadge();
-  playListeningStartSound();
-  await sleep(180);
-  await ensureMicMonitor();
-
-  state.attempts += 1;
-  registerWordAttempt(words[currentImitate].id);
-  saveProgress();
-  refreshStats();
-
-  const result = await detectTwoWordPhrase(twoWordPhrases[currentPhrase]);
-  if (result.success) {
-    setPhraseState("success", "Szuper!");
-    phraseStatus.textContent = "Ügyes! Megvolt a két szó.";
-    showPhraseSuccessBadge();
-    playSuccessSound();
-    state.rewards += 1;
-    saveProgress();
-    refreshStats();
-    await burstConfettiOverlay(900);
-    setPhraseState("idle", "Készen áll.");
-  } else {
-    setPhraseState("rejected", "Próbáljuk újra.");
-    phraseStatus.textContent = result.reason || "Nem volt meg mindkét szó. Próbáljuk újra!";
-    await sleep(260);
-    setPhraseState("idle", "Készen áll.");
-  }
-
-  setPhraseListeningUi(false);
-  listening = false;
-  return result.success;
-}
-
-async function detectTwoWordPhrase(phrase) {
-  const energyPromise = detectVoiceEnergy({
-    durationMs: MIN_LISTEN_BEFORE_REJECT_MS,
-    threshold: 8,
-    minHits: 5,
-    minConsecutive: 5,
-    minActiveMs: 580,
+  const phrase = twoWordPhrases[currentPhrase];
+  return runListeningTask("phrase", async (signal) => {
+    setPhraseListeningUi(true, false);
+    setPhraseState("preparing", "A beszédfelismerés előkészítése.");
+    setSpeechRecovery("phrase", false);
+    hidePhraseSuccessBadge();
+    if (state.settings.spokenGuidance) await speakVoice("guide_listening");
+    signal.throwIfAborted();
+    const result = await detectTwoWordPhrase(phrase, signal, () => {
+      state.attempts += 1;
+      saveProgress();
+      refreshStats();
+      setPhraseListeningUi(true);
+      setPhraseState("listening", "Most te jössz!");
+      playListeningStartSound();
+    });
+    signal.throwIfAborted();
+    if (result.success) {
+      setPhraseState("success", "Ügyes! Megvolt a két szó.");
+      showPhraseSuccessBadge();
+      playSuccessSound();
+      state.rewards += 1;
+      saveProgress();
+      refreshStats();
+      await burstConfettiOverlay(900);
+    } else {
+      setPhraseState("rejected", result.reason || "Próbáljuk meg együtt még egyszer!");
+      await sleep(260);
+    }
+    signal.throwIfAborted();
+    setPhraseState("idle", "");
+    return result.success;
   });
-
-  setPhraseState("processing", "Beszédfelismerés...");
-  const speech = await recognizeHungarianSpeech(ASR_TIMEOUT_MS + 1000);
-  const energy = await energyPromise;
-
-  if (!energy.detected) {
-    return {
-      success: false,
-      reason: "Nem hallottam tiszta beszédet.",
-    };
-  }
-
-  const candidates = collectPhraseCandidates(speech.alternatives);
-  if (candidates.length === 0) {
-    return {
-      success: false,
-      reason: "Nem kaptam értelmezhető szavakat.",
-    };
-  }
-
-  const scores = phrase.targets.map((target) => getPhraseTargetScore(target, candidates));
-  const allMatched = scores.every((score) => score >= TWO_WORD_MATCH_THRESHOLD);
-
-  if (allMatched) {
-    return { success: true, reason: "Mindkét szó megvan." };
-  }
-
-  return {
-    success: false,
-    reason: `Még nincs meg mindkét szó (${scores.map((s) => s.toFixed(2)).join(" / ")}).`,
-  };
 }
 
-function collectPhraseCandidates(alternatives) {
-  const candidates = [];
-  for (const alt of alternatives || []) {
-    const normalized = normalizeText(stripHungarianSuffixes(alt));
-    if (!normalized) continue;
-    candidates.push(normalized);
-    const tokens = normalized.split(/\s+/).filter(Boolean);
-    candidates.push(...tokens);
-    for (let i = 0; i < tokens.length; i += 1) {
-      candidates.push(tokens.slice(i, i + 2).join(" ").trim());
-    }
-  }
-  return dedupeStrings(candidates);
-}
-
-function getPhraseTargetScore(target, candidates) {
-  const norms = [target.base, ...(target.aliases || [])]
-    .map((item) => normalizeText(item))
-    .filter(Boolean);
-
-  let best = 0;
-  for (const candidate of candidates) {
-    for (const norm of norms) {
-      best = Math.max(best, similarityScore(norm, candidate));
-    }
-  }
-  return best;
+async function detectTwoWordPhrase(phrase, signal, onStart) {
+  const speech = await recognizeHungarianSpeech({
+    timeoutMs: SPEECH_TIMING.phrase, signal, onStart,
+    isMatch: result => matchTwoWordPhrase(phrase.targets, result.alternatives, TWO_WORD_MATCH_THRESHOLD).success,
+  });
+  signal.throwIfAborted();
+  if (speech.error && speech.error !== "no-speech") throw new Error(speechErrorMessage(speech.error));
+  const { success, scores } = matchTwoWordPhrase(phrase.targets, speech.alternatives, TWO_WORD_MATCH_THRESHOLD);
+  return { success, reason: success ? "Mindkét szó megvan." : `Még nincs meg mindkét szó (${scores.map(score => score.toFixed(2)).join(" / ")}).` };
 }
 
 function syncDetectionControls() {
@@ -723,6 +664,10 @@ function syncDetectionControls() {
 }
 
 function syncSupabaseControls() {
+  syncProfileControls();
+  supabaseConnectBtn.textContent = state.supabase.syncPaused ? "Felhőszinkron folytatása" : "Kapcsolódás";
+  supabaseSyncNowBtn.disabled = state.supabase.syncPaused || !supabaseReady;
+  document.querySelector("#active-progress-label").textContent = `Eredmények: ${state.supabase.activeRole === "admin" ? "szülői próba" : "gyerek"}`;
   supabaseRoleSelect.value = state.supabase.activeRole || "kid";
   supabaseUrlInput.value = state.supabase.url;
   supabasePublishableKeyInput.value = state.supabase.publishableKey;
@@ -744,29 +689,36 @@ function setSupabaseStatus(text) {
   supabaseStatus.textContent = text;
 }
 
-function applyProjectSupabaseConfig() {
-  if (!PROJECT_SUPABASE || typeof PROJECT_SUPABASE !== "object") return;
+function roleProfileConfig(config) {
+  const role = config.activeRole || "kid";
+  const profile = PROJECT_SUPABASE?.profiles?.[role];
+  return { ...config, profileCode: profile?.profileCode || config.profileCode || role, childName: profile?.childName || config.childName || role };
+}
 
-  if (PROJECT_SUPABASE.url) {
-    state.supabase.url = PROJECT_SUPABASE.url;
-  }
-  if (PROJECT_SUPABASE.publishableKey) {
-    state.supabase.publishableKey = PROJECT_SUPABASE.publishableKey;
-  }
-  if (PROJECT_SUPABASE.activeRole) {
-    state.supabase.activeRole = PROJECT_SUPABASE.activeRole;
-  }
-  applyRoleProfileToState();
-  saveProgress();
+function applyProjectSupabaseConfig() {
+  const config = roleProfileConfig({ ...state.supabase,
+    url: PROJECT_SUPABASE?.url || state.supabase.url,
+    publishableKey: PROJECT_SUPABASE?.publishableKey || state.supabase.publishableKey,
+  });
+  Object.assign(state, switchProgressProfile(state, config));
+  saveProgress({ sync: false });
+  refreshStats();
+  progressTools.refresh();
   syncSupabaseControls();
 }
 
-function applyRoleProfileToState() {
-  const role = state.supabase.activeRole || "kid";
-  const profile = PROJECT_SUPABASE?.profiles?.[role];
-  if (!profile) return;
-  state.supabase.profileCode = profile.profileCode || role;
-  state.supabase.childName = profile.childName || role;
+function disconnectCloud() {
+  cloudGeneration += 1;
+  cloudResumePending = false;
+  cloudQueue?.stop();
+  cloudQueue = null;
+  cloudAbort?.abort();
+  cloudAbort = null;
+  supabaseReady = false;
+  supabaseClient = null;
+  supabaseProfileId = null;
+  lastQueuedWords = "";
+  syncSupabaseControls();
 }
 
 function renderDebug(result) {
@@ -798,70 +750,106 @@ function refreshStats() {
   rewardCount.textContent = String(state.rewards);
 }
 
-async function playWord(word) {
+async function playWord(word, token = beginPlayback()) {
+  registerPlay();
+  if (state.settings.wordVoice === "natural") return speakVoice(`word_${word.id}`, token);
   const src = `./audio/${word.id}.mp3`;
-  const ok = await tryPlayFile(src);
-  if (!ok) {
-    await speakHungarian(word.label);
+  const ok = await tryPlayFile(src, token);
+  if (!ok && token === playbackToken) {
+    await speakHungarian(word.label, token);
   }
 }
 
-function tryPlayFile(src) {
-  return tryPlayFileWithBuffer(src).catch(() => tryPlayFileWithElement(src));
+async function playListeningPrompt(word, { intro = false, retry = false, force = false } = {}) {
+  const token = beginPlayback();
+  if ((state.settings.spokenGuidance || force) && (intro || retry)) {
+    await speakVoice(retry ? "guide_again" : "guide_listening_game", token);
+  }
+  if (token !== playbackToken || currentScreen !== "listening-game" || document.hidden) return;
+  await playWord(word, token);
 }
 
-async function tryPlayFileWithBuffer(src) {
+function stopPlayback() {
+  playbackToken += 1;
+  cancelPlayback?.();
+  cancelPlayback = null;
+  window.speechSynthesis?.cancel();
+  cardsGrid.querySelectorAll(".is-speaking").forEach((card) => card.classList.remove("is-speaking"));
+}
+
+function beginPlayback() {
+  stopPlayback();
+  return playbackToken;
+}
+
+async function tryPlayFile(src, token) {
+  const ok = await tryPlayFileWithBuffer(src, token).catch(() => false);
+  if (token !== playbackToken) return true;
+  return ok || tryPlayFileWithElement(src, token);
+}
+
+async function tryPlayFileWithBuffer(src, token) {
   const context = getSfxContext();
   if (!context) return false;
-  if (context.state === "suspended") {
-    await context.resume().catch(() => {});
-  }
+  if (context.state === "suspended") await context.resume().catch(() => {});
+  if (token !== playbackToken) return true;
   if (context.state !== "running") return false;
-
   const buffer = await loadWordBuffer(src, context);
+  if (token !== playbackToken) return true;
   if (!buffer) return false;
-
   return new Promise((resolve) => {
     const source = context.createBufferSource();
     source.buffer = buffer;
     source.connect(context.destination);
-
     let done = false;
+    let timer;
     const finish = (result) => {
       if (done) return;
       done = true;
-      try {
-        source.disconnect();
-      } catch {}
+      clearTimeout(timer);
+      source.onended = null;
+      try { source.stop(); source.disconnect(); } catch {}
+      if (cancelPlayback === cancel) cancelPlayback = null;
       resolve(result);
     };
-
+    const cancel = () => finish(true);
+    cancelPlayback = cancel;
     source.onended = () => finish(true);
-    source.start();
-    setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 12000));
+    try {
+      source.start();
+      timer = setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 12000));
+    } catch {
+      finish(false);
+    }
   });
 }
 
-function tryPlayFileWithElement(src) {
+function tryPlayFileWithElement(src, token) {
+  if (token !== playbackToken) return Promise.resolve(true);
   return new Promise((resolve) => {
     const audio = new Audio(src);
     let done = false;
+    let timer;
     const finish = (result) => {
       if (done) return;
       done = true;
+      clearTimeout(timer);
+      audio.onended = null;
+      audio.onerror = null;
+      audio.pause();
+      if (cancelPlayback === cancel) cancelPlayback = null;
       resolve(result);
     };
-
+    const cancel = () => finish(true);
+    cancelPlayback = cancel;
     audio.onended = () => finish(true);
     audio.onerror = () => finish(false);
-
-    audio.play().then(
-      () => {
-        const safety = Math.min((audio.duration || 2) * 1000 + 1200, 7000);
-        setTimeout(() => finish(true), safety);
-      },
-      () => finish(false),
-    );
+    timer = setTimeout(() => finish(false), 12000);
+    audio.play().then(() => {
+      if (done) return;
+      clearTimeout(timer);
+      timer = setTimeout(() => finish(true), Math.min((audio.duration || 2) * 1000 + 1200, 12000));
+    }, () => finish(false));
   });
 }
 
@@ -889,25 +877,32 @@ function decodeAudioData(context, audioData) {
   });
 }
 
-function speakHungarian(text) {
-  if (!("speechSynthesis" in window)) return Promise.resolve();
-  window.speechSynthesis.cancel();
+function speakWithBrowser(text, token = beginPlayback()) {
+  if (!("speechSynthesis" in window) || token !== playbackToken) return Promise.resolve();
   return new Promise((resolve) => {
     const utterance = new SpeechSynthesisUtterance(text);
     let finished = false;
+    let timer;
     const done = () => {
       if (finished) return;
       finished = true;
+      clearTimeout(timer);
+      if (cancelPlayback === done) cancelPlayback = null;
       resolve();
     };
-
+    cancelPlayback = done;
     utterance.lang = "hu-HU";
-    utterance.rate = 0.82;
+    const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.toLowerCase().startsWith("hu"));
+    utterance.voice = voices.find(voice => /premium|enhanced|neural/i.test(voice.name)) || voices[0] || null;
+    utterance.rate = 0.96;
     utterance.pitch = 1;
     utterance.onend = done;
     utterance.onerror = done;
+    timer = setTimeout(() => {
+      if (token === playbackToken) window.speechSynthesis.cancel();
+      done();
+    }, 12000);
     window.speechSynthesis.speak(utterance);
-    setTimeout(done, 4500);
   });
 }
 
@@ -920,9 +915,40 @@ function loadProgress() {
   }
 }
 
-function saveProgress() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  scheduleSupabaseSync();
+function saveProgress({ sync = true } = {}) {
+  if (externalProgressChanged) {
+    setSupabaseStatus("Másik játékablak módosította a mentést. Frissítsd az oldalt; az itteni eredményeket előbb fájlba mentheted.");
+    return;
+  }
+  state.profileStore = checkpointProfiles(state);
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    setSupabaseStatus("A böngésző nem enged helyi mentést. Az eredmények most csak a megnyitott játékban maradnak meg.");
+  }
+  if (sync) scheduleSupabaseSync();
+}
+
+function checkProgressRevision(revision) {
+  if (externalProgressChanged || localStorage.getItem(STORAGE_KEY) !== revision) {
+    throw new Error("Az eredmények közben megváltoztak. Frissítsd az oldalt, és ellenőrizd újra őket a módosítás előtt.");
+  }
+}
+
+function applyLocalProgress(progress, kind, revision) {
+  checkProgressRevision(revision);
+  const next = replaceProgress(state, progress, kind);
+  next.profileStore = checkpointProfiles(next);
+  // The result and its one-step undo snapshot are committed in a single write.
+  // A storage failure must leave the in-memory result unchanged too.
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); }
+  catch { throw new Error("Nem sikerült helyben menteni. Az eredmények változatlanok maradtak; előbb mentsd őket fájlba."); }
+  disconnectCloud();
+  stopAutoImitateSession(false);
+  Object.assign(state, next);
+  refreshStats();
+  syncSupabaseControls();
+  setSupabaseStatus("A felhőszinkron szünetel. A helyi eredmények módosultak, a felhőben tároltak megmaradtak.");
 }
 
 function baseProgress() {
@@ -934,8 +960,11 @@ function baseProgress() {
     plays: 0,
     attempts: 0,
     rewards: 0,
+    settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
+    undoProgress: null,
+    profileStore: null,
     wordStats,
   };
 }
@@ -944,9 +973,17 @@ function normalizeState(input) {
   const base = baseProgress();
   if (!input || typeof input !== "object") return base;
   return {
-    plays: Number.isFinite(input.plays) ? input.plays : base.plays,
-    attempts: Number.isFinite(input.attempts) ? input.attempts : base.attempts,
-    rewards: Number.isFinite(input.rewards) ? input.rewards : base.rewards,
+    ...snapshotProgress(input),
+    undoProgress: normalizeUndo(input.undoProgress),
+    profileStore: normalizeProfileStore(input.profileStore),
+    settings: {
+      roundLength: [3, 5, 10].includes(input.settings?.roundLength) ? input.settings.roundLength : 5,
+      spokenGuidance: input.settings?.spokenGuidance !== false,
+      wordVoice: input.settings?.wordVoice === "family" ? "family" : "natural",
+      numberLimit: [3, 5, 10].includes(input.settings?.numberLimit) ? input.settings.numberLimit : 3,
+      listeningChoices: input.settings?.listeningChoices === 3 ? 3 : 2,
+      practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
+    },
     detection: {
       mode:
         input.detection?.mode === "strictish" ? "strictish" : DETECTION_DEFAULTS.mode,
@@ -967,9 +1004,9 @@ function normalizeState(input) {
       childName:
         typeof input.supabase?.childName === "string" ? input.supabase.childName : "",
       activeRole:
-        input.supabase?.activeRole === "admin" ? "admin" : SUPABASE_CONFIG_DEFAULTS.activeRole,
+        ["kid", "admin"].includes(input.supabase?.activeRole) ? input.supabase.activeRole : SUPABASE_CONFIG_DEFAULTS.activeRole,
+      syncPaused: input.supabase?.syncPaused === true,
     },
-    wordStats: normalizeWordStats(input.wordStats),
   };
 }
 
@@ -980,20 +1017,6 @@ function baseWordStats() {
     streak: 0,
     lastSeenAt: "",
   };
-}
-
-function normalizeWordStats(inputStats) {
-  const stats = {};
-  for (const word of words) {
-    const raw = inputStats?.[word.id] || {};
-    stats[word.id] = {
-      attempts: Number.isFinite(raw.attempts) ? raw.attempts : 0,
-      successes: Number.isFinite(raw.successes) ? raw.successes : 0,
-      streak: Number.isFinite(raw.streak) ? raw.streak : 0,
-      lastSeenAt: typeof raw.lastSeenAt === "string" ? raw.lastSeenAt : "",
-    };
-  }
-  return stats;
 }
 
 function registerWordAttempt(wordId) {
@@ -1027,156 +1050,146 @@ function getWordDifficultyScore(word) {
   return Math.max(0, 1 - successRate + lowAttemptBoost - streakPenalty);
 }
 
+function getPracticeWords() {
+  const category = wordCategories.find(entry => entry.id === state.settings.practiceTopic) || wordCategories[0];
+  return words.filter(word => category.words.includes(word.id));
+}
+
 function buildAdaptiveSessionWords() {
-  const ranked = [...words]
-    .map((word) => ({ word, score: getWordDifficultyScore(word) }))
-    .sort((a, b) => b.score - a.score);
-
-  const baseSequence = ranked.map((entry) => entry.word);
-  const repeats = ranked
-    .slice(0, Math.max(4, Math.floor(words.length / 4)))
-    .filter((entry) => entry.score >= 0.35)
-    .map((entry) => entry.word);
-
-  return [...baseSequence, ...repeats];
+  const ranked = shuffleNumbers([...getPracticeWords()])
+    .map(word => ({ word, score: getWordDifficultyScore(word) }))
+    .sort((a, b) => b.score - a.score)
+    .map(entry => entry.word);
+  return Array.from({ length: state.settings.roundLength }, (_, index) => ranked[index % ranked.length]);
 }
 
 function scheduleSupabaseSync() {
-  if (!supabaseReady || syncInFlight) return;
-  window.setTimeout(() => {
-    if (!supabaseReady || syncInFlight) return;
-    syncProgressToSupabase().catch(() => {});
-  }, 120);
+  if (state.supabase.syncPaused || !supabaseReady || !cloudQueue) return;
+  const current = JSON.stringify(state.wordStats);
+  if (current === lastQueuedWords) return;
+  lastQueuedWords = current;
+  cloudQueue.request();
 }
 
+window.addEventListener("online", () => {
+  if (supabaseReady && !state.supabase.syncPaused) cloudQueue?.request();
+});
+
 async function trySupabaseAutoconnect() {
+  if (state.supabase.syncPaused) {
+    setSupabaseStatus("A felhőszinkron szünetel. A helyi eredmények megőrzéséhez csak külön kérésre kapcsolódunk újra.");
+    return;
+  }
+  if (isSharedProfileCode(state.supabase.profileCode)) {
+    setSupabaseStatus("A felhős kapcsolat még nincs személyes profilhoz beállítva. Az eredmények helyben menthetők.");
+    return;
+  }
   if (!state.supabase.url || !state.supabase.publishableKey || !state.supabase.profileCode) {
     setSupabaseStatus("Nincs csatlakoztatva.");
     return;
   }
-  try {
-    await connectSupabase(true);
-  } catch {
-    setSupabaseStatus("Supabase automatikus csatlakozás sikertelen.");
+  const generation = cloudGeneration;
+  try { await connectSupabase(true); }
+  catch {
+    if (cloudGeneration === generation + 1) setSupabaseStatus("A felhőkapcsolat nem érhető el. A helyi eredmények megmaradtak.");
   }
 }
 
-async function connectSupabase(isAuto = false) {
-  state.supabase.activeRole = supabaseRoleSelect.value || state.supabase.activeRole;
-  const locked = Boolean(PROJECT_SUPABASE?.lockConnection);
-  if (!locked) {
-    state.supabase.url = supabaseUrlInput.value.trim();
-    state.supabase.publishableKey = supabasePublishableKeyInput.value.trim();
-  } else {
-    state.supabase.url = PROJECT_SUPABASE?.url || state.supabase.url;
-    state.supabase.publishableKey =
-      PROJECT_SUPABASE?.publishableKey || state.supabase.publishableKey;
-  }
-  applyRoleProfileToState();
-  saveProgress();
-  syncSupabaseControls();
+async function cloudRequest(query, signal) {
+  const controller = new AbortController();
+  const cancel = () => controller.abort();
+  signal?.addEventListener("abort", cancel, { once: true });
+  if (signal?.aborted) controller.abort();
+  let timeout;
+  const expired = new Promise((_, reject) => {
+    timeout = setTimeout(() => { controller.abort(); reject(new Error("A felhő nem válaszolt időben. Próbáld újra; a helyi eredmények megmaradtak.")); }, 12000);
+  });
+  try { return await Promise.race([typeof query.abortSignal === "function" ? query.abortSignal(controller.signal) : query, expired]); }
+  finally { clearTimeout(timeout); signal?.removeEventListener("abort", cancel); }
+}
 
-  if (!state.supabase.url || !state.supabase.publishableKey || !state.supabase.profileCode) {
-    supabaseReady = false;
-    setSupabaseStatus("Hiányzó Supabase adatok.");
-    return;
-  }
-
-  if (state.supabase.publishableKey.startsWith("sb_secret_")) {
-    supabaseReady = false;
-    setSupabaseStatus("Hiba: secret kulcs nem használható frontendben.");
-    return;
-  }
-
+async function connectSupabase(isAuto = false, resumePaused = false) {
+  if (state.supabase.syncPaused && !resumePaused) return;
+  const resuming = cloudResumePending;
+  disconnectCloud();
+  cloudResumePending = resuming;
+  const connection = cloudGeneration;
+  const config = roleProfileConfig({ ...state.supabase,
+    url: PROJECT_SUPABASE?.lockConnection ? PROJECT_SUPABASE.url : supabaseUrlInput.value.trim(),
+    publishableKey: PROJECT_SUPABASE?.lockConnection ? PROJECT_SUPABASE.publishableKey : supabasePublishableKeyInput.value.trim(),
+  });
+  if (!config.url || !config.publishableKey || !config.profileCode) throw new Error("Hiányzó felhős kapcsolati adatok.");
+  if (isSharedProfileCode(config.profileCode)) throw new Error("A közös mintaprofilhoz nem kapcsolódunk. Személyes felhős profil beállítása szükséges; addig mentsd fájlba a helyi eredményeket.");
+  const otherRole = config.activeRole === "admin" ? "kid" : "admin";
+  if (PROJECT_SUPABASE?.profiles?.[otherRole]?.profileCode === config.profileCode) throw new Error("A gyerek és a szülői próba külön felhős profilkódot igényel.");
+  if (config.publishableKey.startsWith("sb_secret_")) throw new Error("Titkos szerverkulcs nem használható a böngészőben.");
   const supaFactory = window.supabase?.createClient;
-  if (typeof supaFactory !== "function") {
-    supabaseReady = false;
-    setSupabaseStatus("Supabase kliens nincs betöltve.");
-    return;
-  }
-
-  if (!isAuto) setSupabaseStatus("Kapcsolódás...");
-  supabaseClient = supaFactory(state.supabase.url, state.supabase.publishableKey);
-
-  const profilePayload = {
-    profile_code: state.supabase.profileCode,
-    child_name: state.supabase.childName || state.supabase.profileCode,
-  };
-
-  const { data: profileRow, error: profileError } = await supabaseClient
-    .from("profiles")
-    .upsert(profilePayload, { onConflict: "profile_code" })
-    .select("id")
-    .single();
-
-  if (profileError || !profileRow?.id) {
-    throw new Error(profileError?.message || "Profil létrehozás hiba");
-  }
-
+  if (typeof supaFactory !== "function") throw new Error("A felhős kapcsolat még nem érhető el. Ellenőrizd az internetkapcsolatot, majd próbáld újra.");
+  checkProgressRevision(localStorage.getItem(STORAGE_KEY));
+  const next = switchProgressProfile(state, config);
+  // Connection/profile changes are committed locally before any network work.
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  Object.assign(state, next);
+  refreshStats(); progressTools.refresh(); syncSupabaseControls();
+  if (!isAuto) setSupabaseStatus("Kapcsolódás…");
+  cloudAbort = new AbortController();
+  const signal = cloudAbort.signal;
+  const client = supaFactory(config.url, config.publishableKey);
+  supabaseClient = client;
+  const profilePayload = { profile_code: config.profileCode, child_name: config.childName || config.profileCode };
+  const { data: profileRow, error: profileError } = await cloudRequest(client.from("profiles").upsert(profilePayload, { onConflict: "profile_code" }).select("id").single(), signal);
+  if (connection !== cloudGeneration) return;
+  if (profileError || !profileRow?.id) throw new Error(profileError?.message || "Profil létrehozási hiba");
   supabaseProfileId = profileRow.id;
+  if (!await pullProgressFromSupabase(client, profileRow.id, connection, signal)) return;
+  if (resumePaused) state.supabase.syncPaused = false;
   supabaseReady = true;
-  await pullProgressFromSupabase();
-  setSupabaseStatus(`Kapcsolódva. Profil: ${state.supabase.profileCode}`);
+  saveProgress({ sync: false });
+  syncSupabaseControls();
+  setSupabaseStatus(`Kapcsolódva. Profil: ${config.profileCode}`);
+  cloudQueue = createCloudSaveQueue({
+    run: () => pushMergedProgress(client, profileRow.id, connection, signal),
+    onError: error => {
+      if (connection !== cloudGeneration) return;
+      lastQueuedWords = "";
+      setSupabaseStatus(`A felhős mentés várakozik: ${error.message || error}`);
+    },
+  });
+  scheduleSupabaseSync();
 }
 
-async function pullProgressFromSupabase() {
-  if (!supabaseReady || !supabaseProfileId) return;
-  const { data, error } = await supabaseClient
-    .from("word_progress")
-    .select("word_id,attempts,successes,streak,last_seen_at")
-    .eq("profile_id", supabaseProfileId);
+async function pullProgressFromSupabase(client, profileId, connection, signal) {
+  const { data, error } = await cloudRequest(client.from("word_progress").select("word_id,attempts,successes,streak,last_seen_at").eq("profile_id", profileId), signal);
+  if (connection !== cloudGeneration || signal.aborted) return false;
+  if (error) throw new Error(error.message || "Eredmények letöltési hibája");
+  if (externalProgressChanged) throw new Error("Másik játékablak módosította az eredményeket. Frissítsd az oldalt a szinkron előtt.");
+  state.wordStats = mergeWordProgress(state.wordStats, data);
+  saveProgress({ sync: false });
+  return true;
+}
 
-  if (error) {
-    throw new Error(error.message || "Progress letöltési hiba");
-  }
-
-  const merged = { ...state.wordStats };
-  for (const row of data || []) {
-    if (!merged[row.word_id]) continue;
-    merged[row.word_id] = {
-      attempts: Number.isFinite(row.attempts) ? row.attempts : 0,
-      successes: Number.isFinite(row.successes) ? row.successes : 0,
-      streak: Number.isFinite(row.streak) ? row.streak : 0,
-      lastSeenAt: typeof row.last_seen_at === "string" ? row.last_seen_at : "",
-    };
-  }
-  state.wordStats = merged;
-  saveProgress();
+async function pushMergedProgress(client, profileId, connection, signal) {
+  if (connection !== cloudGeneration || state.supabase.syncPaused) return;
+  if (!await pullProgressFromSupabase(client, profileId, connection, signal)) return;
+  const rows = words.map(word => ({
+    profile_id: profileId, word_id: word.id, attempts: state.wordStats[word.id].attempts,
+    successes: state.wordStats[word.id].successes, streak: state.wordStats[word.id].streak,
+    last_seen_at: state.wordStats[word.id].lastSeenAt || null, updated_at: new Date().toISOString(),
+  }));
+  const { error } = await cloudRequest(client.from("word_progress").upsert(rows, { onConflict: "profile_id,word_id" }), signal);
+  if (connection !== cloudGeneration || signal.aborted || state.supabase.syncPaused) return;
+  if (error) throw new Error(error.message || "Mentési hiba");
+  setSupabaseStatus(`Szinkron kész: ${new Date().toLocaleTimeString("hu-HU")}`);
 }
 
 async function syncProgressToSupabase() {
-  if (!supabaseReady || !supabaseProfileId || !supabaseClient || syncInFlight) return;
-  syncInFlight = true;
-  try {
-    const rows = words.map((word) => {
-      const stats = state.wordStats[word.id] || baseWordStats();
-      return {
-        profile_id: supabaseProfileId,
-        word_id: word.id,
-        attempts: stats.attempts,
-        successes: stats.successes,
-        streak: stats.streak,
-        last_seen_at: stats.lastSeenAt || null,
-        updated_at: new Date().toISOString(),
-      };
-    });
-
-    const { error } = await supabaseClient
-      .from("word_progress")
-      .upsert(rows, { onConflict: "profile_id,word_id" });
-
-    if (error) {
-      throw new Error(error.message || "Mentési hiba");
-    }
-
-    setSupabaseStatus(`Szinkron kész: ${new Date().toLocaleTimeString("hu-HU")}`);
-  } finally {
-    syncInFlight = false;
-  }
+  if (state.supabase.syncPaused || !supabaseReady || !cloudQueue) return;
+  return cloudQueue.flush();
 }
 
 function burstConfettiOverlay(durationMs) {
   if (!confettiLayer) return Promise.resolve();
+  const token = ++celebrationToken;
   confettiLayer.innerHTML = "";
   confettiLayer.classList.add("is-active");
 
@@ -1195,84 +1208,101 @@ function burstConfettiOverlay(durationMs) {
 
   return new Promise((resolve) => {
     setTimeout(() => {
-      confettiLayer.classList.remove("is-active");
-      confettiLayer.innerHTML = "";
+      if (token === celebrationToken) {
+        confettiLayer.classList.remove("is-active");
+        confettiLayer.innerHTML = "";
+      }
       resolve();
     }, durationMs);
   });
 }
 
 async function startListeningAttempt() {
-  if (listening) return false;
-  listening = true;
-  setListeningUi(true);
-  setEngineState("listening", "Figyelek...");
-  listenStatus.textContent = "Hallgatlak... mondd ki a szót.";
-  hideSuccessBadge();
-  renderDebug({
-    engine: "listening",
-    stage: "listen-start",
-    decision: "figyel",
-    reason: "várja a beszédet",
-    transcript: "",
-    raw: "",
-    score: null,
-    energy: null,
-  });
-  playListeningStartSound();
-  await sleep(180);
-  await ensureMicMonitor();
-
-  state.attempts += 1;
-  saveProgress();
-  refreshStats();
-
-  let result = null;
-  try {
-    result = await detectSpeech(words[currentImitate]);
-  } catch {
-    result = {
-      success: false,
-      engine: "rejected",
-      stage: "error",
-      decision: "hiba",
-      reason: "belső kivétel",
-      transcript: "",
-      raw: "",
-      score: null,
-      energy: null,
-    };
-  }
-  renderDebug(result);
-
-  if (result.success) {
-    await onListeningSuccess();
-  } else {
-    registerWordFailure(words[currentImitate].id);
+  const word = words[currentImitate];
+  return runListeningTask("word", async (signal) => {
+    setListeningUi(true, false);
+    setEngineState("preparing", "A hang előkészítése.");
+    setSpeechRecovery("word", false);
+    hideSuccessBadge();
+    if (state.settings.spokenGuidance) await speakVoice("guide_listening");
+    signal.throwIfAborted();
+    const result = await detectSpeech(word, signal, () => {
+      state.attempts += 1;
+      registerWordAttempt(word.id);
+      saveProgress();
+      refreshStats();
+      setListeningUi(true);
+      setEngineState("listening", "Most te jössz!");
+      playListeningStartSound();
+    });
+    signal.throwIfAborted();
+    renderDebug(result);
+    if (result.success) {
+      setEngineState("success", "Ügyes vagy! Hallottalak.");
+      showSuccessBadge();
+      playSuccessSound();
+      state.rewards += 1;
+      registerWordSuccess(word.id);
+    } else {
+      registerWordFailure(word.id);
+      setEngineState("rejected", "Nem hallottam jól. Próbáljuk újra!");
+    }
     saveProgress();
     refreshStats();
-    setEngineState("rejected", "Észlelve, de nem elég jó.");
-    listenStatus.textContent = "Nem hallottam jól. Próbáljuk újra!";
-    await sleep(220);
-    setEngineState("idle", "Készen áll.");
-  }
-
-  setListeningUi(false);
-  listening = false;
-  return result.success;
+    if (result.success) await burstConfettiOverlay(CELEBRATION_MS);
+    else await sleep(220);
+    signal.throwIfAborted();
+    setEngineState("idle", "");
+    return result.success;
+  });
 }
 
-async function onListeningSuccess() {
-  listenStatus.textContent = "Ügyes volt! Hallottam valamit.";
-  setEngineState("success", "Talált! Szuper!");
-  showSuccessBadge();
-  playSuccessSound();
-  state.rewards += 1;
-  registerWordSuccess(words[currentImitate].id);
-  saveProgress();
-  refreshStats();
-  await burstConfettiOverlay(CELEBRATION_MS);
-  setEngineState("idle", "Készen áll.");
+async function runListeningTask(kind, task) {
+  if (listening || flipBusy) return false;
+  stopPlayback();
+  const controller = new AbortController();
+  activeAttempt = controller;
+  listening = true;
+  flipBusy = kind === "flip";
+  document.querySelector("#stop-listening").hidden = kind !== "word" || autoSessionRunning;
+  try {
+    return await task(controller.signal);
+  } catch (error) {
+    if (controller.signal.aborted) return false;
+    const status = kind === "phrase" ? phraseStatus : kind === "flip" ? flipStatus : listenStatus;
+    document.querySelector("#device-status").textContent = error.message || "A mikrofon nem érhető el.";
+    if (autoSessionRunning) stopAutoImitateSession(false);
+    status.textContent = "Kérj segítséget egy felnőttől. 🔒";
+    setSpeechRecovery(kind, true);
+    speakGuide("mic_help");
+    return false;
+  } finally {
+    if (activeAttempt === controller) {
+      // Release any remaining operation before another attempt can start.
+      controller.abort();
+      activeAttempt = null;
+      listening = false;
+      flipBusy = false;
+      setListeningUi(false);
+      setPhraseListeningUi(false);
+      setEngineState("idle", "");
+      setPhraseState("idle", "");
+      document.querySelector("#stop-listening").hidden = true;
+      flipGrid.querySelectorAll(".is-open").forEach((card) => card.classList.remove("is-open", "is-success", "is-fail"));
+      teardownMicMonitor();
+    }
+  }
+}
+
+async function requireMicrophone(signal) {
+  const monitor = await ensureMicMonitor();
+  signal.throwIfAborted();
+  if (!monitor) throw new Error(micError);
+}
+
+function setSpeechRecovery(kind, visible) {
+  document.querySelector(kind === "phrase" ? "#phrase-recovery" : "#word-recovery").hidden = !visible;
+  if (kind !== "phrase") document.querySelector(".session-controls").hidden = visible;
 }
 
 function showSuccessBadge() {
@@ -1291,333 +1321,49 @@ function hidePhraseSuccessBadge() {
   phraseSuccessBadge.classList.add("is-hidden");
 }
 
-async function detectSpeech(targetWord) {
-  const startedAt = performance.now();
+async function detectSpeech(targetWord, signal, onStart) {
   const targetNorm = normalizeText(targetWord.label);
   const mode = state.detection.mode;
   const threshold = getEffectiveThreshold(targetNorm, state.detection.strictThreshold);
-
-  setEngineState("listening", "Hang detektálás...");
-  renderDebug({
-    engine: "listening",
-    stage: "vad-pass-1",
-    decision: "hang ellenőrzés",
-    reason: "első figyelési ablak",
-    transcript: "",
-    raw: "",
-    score: null,
-    energy: null,
-  });
-  const energyPromise = detectVoiceEnergy({
-    durationMs: MIN_LISTEN_BEFORE_REJECT_MS,
-    threshold: 8,
-    minHits: 6,
-    minConsecutive: 6,
-    minActiveMs: 650,
-  });
-
   if (mode === "encouraging") {
-    const energy1 = await energyPromise;
-    if (!energy1.detected) {
-      await waitRemainingDecisionTime(startedAt);
-      return {
-        success: false,
-        engine: "rejected",
-        stage: "vad",
-        decision: "nincs beszéd",
-        reason: energy1.maxRms >= 8 ? "hang volt, de túl rövid" : "csend vagy háttérzaj",
-        transcript: "",
-        raw: "",
-        score: null,
-        energy: energy1.maxRms,
-      };
-    }
-    renderDebug({
-      engine: "success",
-      stage: "vad-pass-1",
-      decision: "beszéd észlelve",
-      reason: "encouraging mód",
-      transcript: "",
-      raw: "",
-      score: null,
-      energy: energy1.maxRms,
+    await requireMicrophone(signal);
+    onStart();
+    // Let the short readiness tones finish before the energy sampler starts.
+    await sleep(220);
+    signal.throwIfAborted();
+    const energy = await detectVoiceEnergy({
+      durationMs: SPEECH_TIMING.word, threshold: 8,
+      minHits: 6, minConsecutive: 6, minActiveMs: 650, signal,
     });
+    signal.throwIfAborted();
     return {
-      success: true,
-      engine: "success",
-      stage: "vad",
-      decision: "beszéd észlelve",
-      reason: "encouraging mód",
-      transcript: "",
-      raw: "",
-      score: null,
-      energy: energy1.maxRms,
+      success: energy.detected, engine: energy.detected ? "success" : "rejected", stage: "vad",
+      decision: energy.detected ? "beszéd észlelve" : "nincs beszéd",
+      reason: energy.detected ? "encouraging mód" : energy.maxRms >= 8 ? "hang volt, de túl rövid" : "csend vagy háttérzaj",
+      transcript: "", raw: "", score: null, energy: energy.maxRms,
     };
   }
 
-  setEngineState("processing", "Beszédfelismerés...");
-  renderDebug({
-    engine: "processing",
-    stage: "asr",
-    decision: "feldolgozás",
-    reason: "szófelismerés fut (átfedő minták)",
-    transcript: "",
-    raw: "",
-    score: null,
-    energy: null,
+  const scoreFor = result => getBestMatchScore(targetNorm, result.alternatives, targetWord.id);
+  const speech = await recognizeHungarianSpeech({
+    timeoutMs: SPEECH_TIMING.word, signal, onStart,
+    isMatch: result => scoreFor(result) >= threshold,
+    onPartial: partial => renderDebug({
+      engine: "listening", stage: "asr-stream", decision: partial.isFinal ? "végleges részlet" : "részeredmény",
+      reason: "a teljes, aktuális felismerési javaslatot figyeljük", transcript: partial.transcript,
+      raw: partial.raw, score: scoreFor(partial), energy: null,
+    }),
   });
-  let earlyAsrMatch = null;
-  const speech = await recognizeHungarianSpeech(ASR_TIMEOUT_MS, (partial) => {
-    const partialScore = getBestMatchScore(
-      targetNorm,
-      [partial.transcript || "", ...(partial.alternatives || [])],
-      targetWord.id,
-    );
-    const shouldEarlyAccept = partialScore >= threshold;
-    renderDebug({
-      engine: "processing",
-      stage: "asr-stream",
-      decision: "részeredmény",
-      reason: shouldEarlyAccept
-        ? `erős találat (${partialScore.toFixed(2)})`
-        : "dekódolás folyamatban",
-      transcript: partial.transcript || "",
-      raw: partial.raw || "",
-      score: partialScore,
-      energy: null,
-    });
-    if (shouldEarlyAccept) {
-      earlyAsrMatch = {
-        success: true,
-        engine: "success",
-        stage: "asr-early",
-        decision: `gyors találat (>=${threshold.toFixed(2)})`,
-        reason: "teljes szó felismerve, azonnali elfogadás",
-        transcript: partial.transcript || "",
-        raw: partial.raw || "",
-        score: partialScore,
-        energy: null,
-      };
-      return true;
-    }
-    return false;
-  });
-
-  if (earlyAsrMatch) {
-    return earlyAsrMatch;
-  }
-
-  const energy1 = await energyPromise;
-  if (!energy1.detected) {
-    await waitRemainingDecisionTime(startedAt);
-    return {
-      success: false,
-      engine: "rejected",
-      stage: "vad",
-      decision: "nincs beszéd",
-      reason: energy1.maxRms >= 8 ? "hang volt, de túl rövid" : "csend vagy háttérzaj",
-      transcript: speech.transcript || "",
-      raw: speech.alternatives.join(" | "),
-      score: null,
-      energy: energy1.maxRms,
-    };
-  }
-
-  if (speech.error && !speech.transcript) {
-    return {
-      success: false,
-      engine: "rejected",
-      stage: "asr-error",
-      decision: "ASR hiba",
-      reason: `ASR nem működik: ${speech.error}`,
-      transcript: "",
-      raw: speech.alternatives.join(" | "),
-      score: null,
-      energy: energy1.maxRms,
-    };
-  }
-  const bestScore = getBestMatchScore(targetNorm, speech.alternatives, targetWord.id);
-
-  if (speech.transcript && bestScore >= threshold) {
-    return {
-      success: true,
-      engine: "success",
-      stage: "asr-match",
-      decision: `jó közelítés (>=${threshold.toFixed(2)})`,
-      reason: "fuzzy találat",
-      transcript: speech.transcript,
-      raw: speech.alternatives.join(" | "),
-      score: bestScore,
-      energy: energy1.maxRms,
-    };
-  }
-
-  const energy2 = await detectVoiceEnergy({
-    durationMs: 1200,
-    threshold: 8,
-    minHits: 4,
-    minConsecutive: 4,
-    minActiveMs: 420,
-  });
-
-  await waitRemainingDecisionTime(startedAt);
-
+  signal.throwIfAborted();
+  if (speech.error && speech.error !== "no-speech") throw new Error(speechErrorMessage(speech.error));
+  const score = scoreFor(speech);
+  const success = Boolean(speech.transcript) && score >= threshold;
   return {
-    success: false,
-    engine: "rejected",
-    stage: "asr-reject",
-    decision: speech.transcript ? "nem elég közeli szó" : "nincs értelmezhető szó",
-    reason: speech.transcript
-      ? `match ${bestScore.toFixed(2)} < ${threshold.toFixed(2)} (${speech.transcript})`
-      : `ASR nem adott használható szót${speech.error ? ` (${speech.error})` : ""}`,
-    transcript: speech.transcript,
-    raw: speech.alternatives.join(" | "),
-    score: Number.isFinite(bestScore) ? bestScore : null,
-    energy: Math.max(energy1.maxRms, energy2.maxRms),
+    success, engine: success ? "success" : "rejected", stage: "asr",
+    decision: success ? `jó közelítés (>=${threshold.toFixed(2)})` : "még nincs meg a szó",
+    reason: success ? "aktuális felismerési javaslat" : `match ${score.toFixed(2)} < ${threshold.toFixed(2)}`,
+    transcript: speech.transcript, raw: speech.alternatives.join(" | "), score, energy: null,
   };
-}
-
-async function recognizeHungarianSpeech(timeoutMs = 4500, onPartial) {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    return {
-      transcript: "",
-      alternatives: [],
-      confidence: 0,
-      error: "nincs SpeechRecognition API ebben a böngészőben",
-    };
-  }
-
-  const langs = ["hu-HU", "hu", "en-US"];
-  let last = {
-    transcript: "",
-    alternatives: [],
-    confidence: 0,
-    error: "nincs eredmény",
-  };
-
-  for (const lang of langs) {
-    const result = await recognizeSpeechOnce(SpeechRecognition, lang, timeoutMs, onPartial);
-    if (result.transcript || result.alternatives.length > 0) {
-      return result;
-    }
-    last = result;
-  }
-  return last;
-}
-
-function recognizeSpeechOnce(SpeechRecognition, lang, timeoutMs, onPartial) {
-  return new Promise((resolve) => {
-    const recognition = new SpeechRecognition();
-    let settled = false;
-    let lastError = "";
-    let earlySettleTimer = null;
-
-    recognition.lang = lang;
-    recognition.maxAlternatives = 5;
-    recognition.interimResults = true;
-    recognition.continuous = true;
-    let allAlternatives = [];
-    let latestTranscript = "";
-    let bestConfidence = 0;
-
-    const finalize = () => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      clearTimeout(earlySettleTimer);
-      const alternatives = dedupeStrings(allAlternatives);
-      resolve({
-        transcript: latestTranscript || alternatives[0] || "",
-        alternatives,
-        confidence: bestConfidence,
-        error: lastError,
-        lang,
-      });
-    };
-
-    const timer = setTimeout(() => {
-      try {
-        recognition.stop();
-      } catch {}
-      finalize();
-    }, timeoutMs);
-
-    recognition.onresult = (event) => {
-      let hasFinal = false;
-      let hasNewSpeech = false;
-      for (let r = 0; r < event.results.length; r += 1) {
-        const result = event.results[r];
-        if (!result) continue;
-        if (result.isFinal) hasFinal = true;
-        for (let i = 0; i < result.length; i += 1) {
-          const alt = result[i];
-          if (alt?.transcript) {
-            const text = alt.transcript.trim();
-            if (text.length > 0) hasNewSpeech = true;
-            allAlternatives.push(text);
-            latestTranscript = text;
-            if (typeof alt.confidence === "number") {
-              bestConfidence = Math.max(bestConfidence, alt.confidence);
-            }
-          }
-        }
-      }
-      const deduped = dedupeStrings(allAlternatives);
-      if (typeof onPartial === "function") {
-        const shouldStop = onPartial({
-          transcript: latestTranscript || deduped[0] || "",
-          alternatives: deduped,
-          raw: `[${lang}] ${deduped.join(" | ")}`,
-        });
-        if (shouldStop) {
-          try {
-            recognition.stop();
-          } catch {}
-          finalize();
-          return;
-        }
-      }
-
-      if (hasFinal && (latestTranscript || deduped.length > 0)) {
-        try {
-          recognition.stop();
-        } catch {}
-        finalize();
-        return;
-      }
-
-      if (hasNewSpeech) {
-        clearTimeout(earlySettleTimer);
-        earlySettleTimer = setTimeout(() => {
-          try {
-            recognition.stop();
-          } catch {}
-          finalize();
-        }, ASR_EARLY_SETTLE_MS);
-      }
-    };
-
-    recognition.onerror = (event) => {
-      lastError = event?.error ? `${event.error} @${lang}` : `ismeretlen hiba @${lang}`;
-      try {
-        recognition.stop();
-      } catch {}
-      finalize();
-    };
-
-    recognition.onend = () => {
-      finalize();
-    };
-
-    try {
-      recognition.start();
-    } catch (err) {
-      lastError = err instanceof Error ? `${err.message} @${lang}` : `start hiba @${lang}`;
-      finalize();
-    }
-  });
 }
 
 async function detectVoiceEnergy({
@@ -1626,9 +1372,11 @@ async function detectVoiceEnergy({
   minHits = 4,
   minConsecutive = 4,
   minActiveMs = 220,
+  signal,
 } = {}) {
+  if (signal?.aborted) return { detected: false, maxRms: 0 };
   const monitor = await ensureMicMonitor();
-  if (!monitor) return { detected: false, maxRms: 0 };
+  if (!monitor || signal?.aborted) return { detected: false, maxRms: 0 };
 
   let hits = 0;
   let consecutive = 0;
@@ -1638,6 +1386,7 @@ async function detectVoiceEnergy({
   const start = performance.now();
 
   while (performance.now() - start < durationMs) {
+    if (signal?.aborted) return { detected: false, maxRms };
     monitor.analyzer.getByteTimeDomainData(monitor.data);
     let sum = 0;
     for (let i = 0; i < monitor.data.length; i += 1) {
@@ -1669,15 +1418,6 @@ async function detectVoiceEnergy({
     detected: hits >= minHits || consecutive >= minConsecutive || activeMs >= minActiveMs,
     maxRms,
   };
-}
-
-function normalizeText(text) {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9 ]/g, "")
-    .trim();
 }
 
 function getBestMatchScore(target, alternatives, wordId) {
@@ -1713,18 +1453,6 @@ function getEffectiveThreshold(target, baseThreshold) {
   return baseThreshold;
 }
 
-function similarityScore(a, b) {
-  if (!a || !b) return 0;
-  if (a === b) return 1;
-  if (a.includes(b) || b.includes(a)) {
-    const shortLen = Math.min(a.length, b.length);
-    const longLen = Math.max(a.length, b.length);
-    return shortLen / longLen;
-  }
-  const dist = levenshtein(a, b);
-  return 1 - dist / Math.max(a.length, b.length, 1);
-}
-
 function stripHungarianSuffixes(text) {
   const normalized = normalizeText(text);
   return normalized.replace(
@@ -1733,78 +1461,50 @@ function stripHungarianSuffixes(text) {
   );
 }
 
-function dedupeStrings(values) {
-  return [...new Set((values || []).filter(Boolean))];
-}
-
-function levenshtein(a, b) {
-  const rows = a.length + 1;
-  const cols = b.length + 1;
-  const dp = Array.from({ length: rows }, () => new Array(cols).fill(0));
-
-  for (let i = 0; i < rows; i += 1) dp[i][0] = i;
-  for (let j = 0; j < cols; j += 1) dp[0][j] = j;
-
-  for (let i = 1; i < rows; i += 1) {
-    for (let j = 1; j < cols; j += 1) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(
-        dp[i - 1][j] + 1,
-        dp[i][j - 1] + 1,
-        dp[i - 1][j - 1] + cost,
-      );
-    }
-  }
-
-  return dp[rows - 1][cols - 1];
-}
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitRemainingDecisionTime(startedAt) {
-  const elapsed = performance.now() - startedAt;
-  const remaining = MIN_LISTEN_BEFORE_REJECT_MS - elapsed;
-  if (remaining > 0) {
-    await sleep(remaining);
-  }
-}
-
 function setEngineState(kind, text) {
-  imitateWrap.classList.remove("is-listening", "is-processing", "is-success", "is-rejected");
+  imitateWrap.classList.remove("is-preparing", "is-listening", "is-processing", "is-success", "is-rejected");
   if (kind !== "idle") {
     imitateWrap.classList.add(`is-${kind}`);
   }
   debugEngine.textContent = kind;
   if (text && kind !== "idle") {
-    listenStatus.textContent = text;
+    listenStatus.textContent = childStatus(kind);
   }
 }
 
-function setListeningUi(active) {
-  listenBtn.disabled = active;
-  listenBtn.textContent = active ? "🎙️" : "🎤";
-  listenBtn.setAttribute("aria-label", active ? "Figyelek..." : "Figyelek");
-  listenBtn.setAttribute("title", active ? "Figyelek..." : "Figyelek");
-  listeningIndicator.classList.toggle("is-hidden", !active);
+function setListeningUi(active, ready = active) {
+  listenBtn.disabled = active || autoSessionRunning;
+  document.querySelector("#play-model").disabled = active || autoSessionRunning;
+  document.querySelector("#next-word").disabled = active || autoSessionRunning;
+  setButtonIcon(listenBtn, "mic");
+  const label = active ? ready ? "Hallgatlak" : "Hang előkészítése" : "Most én mondom";
+  listenBtn.setAttribute("aria-label", label);
+  listenBtn.setAttribute("title", label);
+  listeningIndicator.classList.toggle("is-hidden", !ready);
 }
 
-function setPhraseListeningUi(active) {
+function setPhraseListeningUi(active, ready = active) {
   listenPhraseBtn.disabled = active;
-  listenPhraseBtn.textContent = active ? "🎙️" : "🎤";
-  listenPhraseBtn.setAttribute("aria-label", active ? "Figyelek..." : "Figyelek");
-  listenPhraseBtn.setAttribute("title", active ? "Figyelek..." : "Figyelek");
-  phraseListeningIndicator.classList.toggle("is-hidden", !active);
+  playPhraseBtn.disabled = active;
+  nextPhraseBtn.disabled = active;
+  setButtonIcon(listenPhraseBtn, "mic");
+  const label = active ? ready ? "Hallgatlak" : "Hang előkészítése" : "Most én mondom";
+  listenPhraseBtn.setAttribute("aria-label", label);
+  listenPhraseBtn.setAttribute("title", label);
+  phraseListeningIndicator.classList.toggle("is-hidden", !ready);
 }
 
 function setPhraseState(kind, text) {
-  phraseWrap.classList.remove("is-listening", "is-processing", "is-success", "is-rejected");
+  phraseWrap.classList.remove("is-preparing", "is-listening", "is-processing", "is-success", "is-rejected");
   if (kind !== "idle") {
     phraseWrap.classList.add(`is-${kind}`);
   }
   if (text && kind !== "idle") {
-    phraseStatus.textContent = text;
+    phraseStatus.textContent = childStatus(kind);
   }
 }
 
@@ -1816,15 +1516,15 @@ function playSuccessSound() {
   }
   const now = context.currentTime;
   const master = context.createGain();
-  master.gain.value = 0.48;
+  master.gain.value = 0.12;
   master.connect(context.destination);
 
   // Bright "clink" style hit with short layered tones.
   playTone(context, master, 1318, now, 0.08, "triangle", 0.23);
-  playTone(context, master, 1760, now + 0.01, 0.07, "square", 0.15);
+  playTone(context, master, 1568, now + 0.06, 0.13, "sine", 0.12);
   playTone(context, master, 2637, now + 0.015, 0.06, "sine", 0.13);
   playTone(context, master, 1568, now + 0.11, 0.11, "triangle", 0.18);
-  playTone(context, master, 2093, now + 0.12, 0.09, "square", 0.12);
+  playTone(context, master, 2093, now + 0.15, 0.18, "sine", 0.09);
 
   setTimeout(() => {
     try {
@@ -1877,45 +1577,71 @@ function playListeningStartSound() {
 }
 
 async function startAutoImitateSession() {
-  autoSessionToken += 1;
+  stopAutoImitateSession(false);
+  document.querySelector("#round-complete").close();
+  autoSessionRunning = true;
   const token = autoSessionToken;
-  listenStatus.textContent = "Kezdjük! Hallgasd és mondd utána.";
-  currentImitate = 0;
-  await ensureMicMonitor();
+  const button = document.querySelector("#auto-session");
+  const status = document.querySelector("#session-status");
+  setButtonIcon(button, "stop");
+  button.setAttribute("aria-label", "Gyakorlás megállítása");
+  button.setAttribute("aria-pressed", "true");
   const sessionWords = buildAdaptiveSessionWords();
-
   for (let i = 0; i < sessionWords.length && token === autoSessionToken; i += 1) {
     const currentWord = sessionWords[i];
-    currentImitate = words.findIndex((w) => w.id === currentWord.id);
-    if (currentImitate < 0) currentImitate = 0;
+    currentImitate = words.findIndex(word => word.id === currentWord.id);
     renderImitate();
+    renderRoundProgress(i, sessionWords.length);
+    status.textContent = `${i + 1} / ${sessionWords.length} szó`;
     playTransitionCue();
-    await sleep(200);
+    await sleep(180);
+    if (token !== autoSessionToken) return;
     await playWord(currentWord);
-
+    if (token !== autoSessionToken) return;
     const wordEndAt = Date.now() + WORD_LISTEN_WINDOW_MS;
     let success = false;
-    while (token === autoSessionToken && Date.now() < wordEndAt && !success) {
+    let attempts = 0;
+    while (token === autoSessionToken && Date.now() < wordEndAt && !success && attempts < 2) {
+      attempts += 1;
       success = await startListeningAttempt();
-      if (!success) {
-        await sleep(120);
+      if (!success && attempts < 2 && token === autoSessionToken) {
+        if (state.settings.spokenGuidance) await speakVoice("guide_again");
+        if (token !== autoSessionToken) return;
+        await playWord(currentWord);
       }
     }
-    if (token === autoSessionToken && success) {
-      await sleep(220);
-    }
+    if (token === autoSessionToken) await sleep(220);
   }
-
   if (token === autoSessionToken) {
-    setListeningUi(false);
-    listening = false;
-    listenStatus.textContent = "Kör vége. Koppints a Mondd utána fülre újrakezdéshez.";
+    stopAutoImitateSession(false);
+    renderRoundProgress(sessionWords.length, sessionWords.length);
+    celebrateRound("imitate", sessionWords.length);
   }
 }
 
-function stopAutoImitateSession() {
+function stopAutoImitateSession(showStatus = true) {
   autoSessionToken += 1;
+  autoSessionRunning = false;
+  activeAttempt?.abort();
+  activeAttempt = null;
+  listening = false;
+  flipBusy = false;
+  stopPlayback();
   teardownMicMonitor();
+  setListeningUi(false);
+  setPhraseListeningUi(false);
+  setEngineState("idle", "");
+  setPhraseState("idle", "");
+  setButtonIcon(document.querySelector("#auto-session"), "play");
+  document.querySelector("#auto-session").setAttribute("aria-label", "Közös gyakorlás indítása");
+  document.querySelector("#auto-session").setAttribute("aria-pressed", "false");
+  document.querySelector("#stop-listening").hidden = true;
+  document.querySelector("#session-status").textContent = "Együtt is gyakorolhattok, szóról szóra.";
+  if (showStatus) listenStatus.textContent = "🔊 → 🎤";
+  flipRoundToken += 1;
+  celebrationToken += 1;
+  confettiLayer.classList.remove("is-active");
+  confettiLayer.replaceChildren();
 }
 
 function playTransitionCue() {
@@ -1928,25 +1654,49 @@ function playTransitionCue() {
 
 async function ensureMicMonitor() {
   if (micMonitor) return micMonitor;
-  if (!navigator.mediaDevices?.getUserMedia) return null;
-
+  if (micRequest) return micRequest;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!navigator.mediaDevices?.getUserMedia || !AudioContext) return null;
+  const generation = micGeneration;
+  const request = (async () => {
+    let stream;
+    let context;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (generation !== micGeneration) {
+        stream.getTracks().forEach((track) => track.stop());
+        return null;
+      }
+      context = new AudioContext();
+      const source = context.createMediaStreamSource(stream);
+      const analyzer = context.createAnalyser();
+      analyzer.fftSize = 1024;
+      source.connect(analyzer);
+      const data = new Uint8Array(analyzer.frequencyBinCount);
+      micMonitor = { stream, context, analyzer, data };
+      return micMonitor;
+    } catch (error) {
+      stream?.getTracks().forEach((track) => track.stop());
+      context?.close().catch(() => {});
+      if (generation === micGeneration) {
+        micError = error.name === "NotFoundError"
+          ? "Nem találok mikrofont. Csatlakoztass egyet, és próbáld újra!"
+          : "A mikrofon nem érhető el. Engedélyezd a böngészőben, majd próbáld újra!";
+      }
+      return null;
+    }
+  })();
+  micRequest = request;
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    const context = new AudioContext();
-    const source = context.createMediaStreamSource(stream);
-    const analyzer = context.createAnalyser();
-    analyzer.fftSize = 1024;
-    source.connect(analyzer);
-    const data = new Uint8Array(analyzer.frequencyBinCount);
-    micMonitor = { stream, context, analyzer, data };
-    return micMonitor;
-  } catch {
-    return null;
+    return await request;
+  } finally {
+    if (micRequest === request) micRequest = null;
   }
 }
 
 function teardownMicMonitor() {
+  micGeneration += 1;
+  micRequest = null;
   if (!micMonitor) return;
   micMonitor.stream.getTracks().forEach((track) => track.stop());
   micMonitor.context.close().catch(() => {});
@@ -1968,4 +1718,207 @@ function primeSfx() {
   if (context.state === "suspended") {
     context.resume().catch(() => {});
   }
+}
+
+function setButtonIcon(button, icon) {
+  button.innerHTML = `<svg class="icon" aria-hidden="true"><use href="#i-${icon}"></use></svg>`;
+}
+
+function childStatus(kind) {
+  return { preparing: "Mindjárt…", listening: "Most te jössz!", processing: "Hallgatlak…", success: "Ügyes vagy!", rejected: "Még egyszer?" }[kind] || "";
+}
+
+function registerPlay() {
+  state.plays += 1;
+  saveProgress();
+  refreshStats();
+}
+
+function normalizeVoiceText(text) {
+  return text.toLowerCase().replace(/[.!?…⭐]/g, "").replace(/\s+/g, " ").trim();
+}
+
+async function speakHungarian(text, token = beginPlayback()) {
+  const clip = voiceByText.get(normalizeVoiceText(text));
+  if (clip) {
+    const played = await tryPlayFile(`./${clip.file}`, token);
+    if (played || token !== playbackToken) return;
+  }
+  await speakWithBrowser(text, token);
+}
+
+async function speakVoice(id, token = beginPlayback()) {
+  const clip = VOICE_CLIPS[id];
+  if (!clip || token !== playbackToken) return;
+  const played = await tryPlayFile(`./${clip.file}`, token);
+  if (!played && token === playbackToken) await speakWithBrowser(clip.text, token);
+}
+
+async function speakVoiceSequence(ids) {
+  const token = beginPlayback();
+  for (const id of ids) {
+    if (token !== playbackToken) return;
+    await speakVoice(id, token);
+  }
+}
+
+function speakGuide(id, force = false) {
+  if (!force && !state.settings.spokenGuidance) return Promise.resolve();
+  return speakVoice(`guide_${id}`);
+}
+
+function setupNavigation() {
+  document.querySelectorAll("[data-open]").forEach(button => {
+    button.addEventListener("click", () => showScreen(button.dataset.open));
+  });
+  document.querySelector("#home-button").addEventListener("click", () => showScreen("home"));
+  document.querySelector("#help-button").addEventListener("click", () => {
+    if (listening || autoSessionRunning) stopAutoImitateSession(false);
+    primeSfx();
+    if (currentScreen === "numbers" && numberMode === "quiz") speakNumberQuestion();
+    else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
+    else speakGuide(screenInfo[currentScreen]?.guide || "welcome", true);
+  });
+  document.querySelector("#parent-button").addEventListener("click", showParentGate);
+  document.querySelector("#close-parent-gate").addEventListener("click", () => document.querySelector("#parent-gate").close());
+  document.querySelector("#flip-new").addEventListener("click", () => {
+    stopPlayback();
+    renderFlipGame();
+    speakGuide("flip");
+  });
+  document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
+  document.querySelector("#round-replay").addEventListener("click", () => {
+    document.querySelector("#round-complete").close();
+    if (completedRoundKind === "flip") showScreen("flip");
+    else if (completedRoundKind === "listening-game") showScreen("listening-game");
+    else startAutoImitateSession();
+  });
+  const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
+  const tones = ["peach", "yellow", "mint", "blue", "mint", "peach"];
+  wordCategories.filter(category => category.id !== "all").forEach((category, index) => {
+    const button = document.createElement("button");
+    button.className = `topic-tile tone-${tones[index]}`;
+    const title = category.label.slice(category.label.indexOf(" ") + 1);
+    button.setAttribute("aria-label", title);
+    button.dataset.topic = category.id;
+    button.innerHTML = `<span class="topic-emoji" aria-hidden="true">${icons[category.id]}</span><span>${title}</span>`;
+    button.addEventListener("click", () => {
+      selectedCategory = category.id;
+      renderCards();
+      showScreen("cards");
+    });
+    document.querySelector("#topic-grid").appendChild(button);
+  });
+  history.replaceState({ screen: "home", category: selectedCategory }, "");
+  window.addEventListener("popstate", event => {
+    if (wordCategories.some(category => category.id === event.state?.category)) selectedCategory = event.state.category;
+    showScreen(screenInfo[event.state?.screen] ? event.state.screen : "home", { pushHistory: false, announce: false });
+  });
+}
+
+function showScreen(screen, { announce = true, pushHistory = true, allowParent = false } = {}) {
+  if (!screenInfo[screen]) return;
+  if (screen === "parent" && !allowParent) {
+    showParentGate();
+    return;
+  }
+  stopAutoImitateSession(false);
+  listeningGame?.stop();
+  if (cloudResumePending) disconnectCloud();
+  progressTools?.cancelPending();
+  document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
+  primeSfx();
+  const previousScreen = currentScreen;
+  currentScreen = screen;
+  document.body.dataset.screen = screen;
+  panels.forEach(panel => panel.classList.toggle("is-active", panel.id === screen));
+  const title = document.querySelector("#screen-title");
+  title.textContent = screen === "cards"
+    ? wordCategories.find(category => category.id === selectedCategory).label
+    : screenInfo[screen].title;
+  syncProfileControls();
+  document.querySelector("#help-button").hidden = screen === "parent";
+  if (screen === "cards") renderCards();
+  if (screen === "imitate") { renderImitate(); renderRoundProgress(); }
+  if (screen === "two-word") renderTwoWordMode();
+  if (screen === "flip") renderFlipGame();
+  if (screen === "listening-game") listeningGame.start({ announce });
+  if (screen === "numbers" && numberMode === "count") renderNumbers();
+  if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
+  title.tabIndex = -1;
+  title.focus({ preventScroll: true });
+  window.scrollTo(0, 0);
+  if (announce && screen !== "listening-game" && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
+}
+
+function showParentGate() {
+  stopPlayback();
+  const dialog = document.querySelector("#parent-gate");
+  const a = 6 + Math.floor(Math.random() * 5);
+  const b = 3 + Math.floor(Math.random() * 5);
+  const correct = a + b;
+  document.querySelector("#parent-gate-question").textContent = `Mennyi ${a} + ${b}?`;
+  document.querySelector("#parent-gate-status").textContent = "";
+  const answers = document.querySelector("#parent-gate-answers");
+  answers.replaceChildren();
+  shuffleNumbers([correct, correct - 2, correct + 3]).forEach(value => {
+    const button = document.createElement("button");
+    button.textContent = value;
+    button.addEventListener("click", () => {
+      if (value === correct) showScreen("parent", { announce: false, allowParent: true });
+      else document.querySelector("#parent-gate-status").textContent = "Próbáld újra!";
+    });
+    answers.appendChild(button);
+  });
+  dialog.showModal();
+}
+
+function setupParentSettings() {
+  const roundLength = document.querySelector("#round-length");
+  const topic = document.querySelector("#practice-topic");
+  const wordVoice = document.querySelector("#word-voice");
+  const guidance = document.querySelector("#spoken-guidance");
+  const listeningChoices = document.querySelector("#listening-choices");
+  wordCategories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.label;
+    topic.appendChild(option);
+  });
+  roundLength.value = state.settings.roundLength;
+  topic.value = state.settings.practiceTopic;
+  wordVoice.value = state.settings.wordVoice;
+  guidance.checked = state.settings.spokenGuidance;
+  listeningChoices.value = state.settings.listeningChoices;
+  document.querySelector("#number-level").value = numberLimit;
+  roundLength.addEventListener("change", () => { state.settings.roundLength = Number(roundLength.value); saveProgress(); renderRoundProgress(); });
+  topic.addEventListener("change", () => { state.settings.practiceTopic = topic.value; saveProgress(); });
+  wordVoice.addEventListener("change", () => { state.settings.wordVoice = wordVoice.value; saveProgress(); });
+  guidance.addEventListener("change", () => { state.settings.spokenGuidance = guidance.checked; stopPlayback(); saveProgress(); });
+  listeningChoices.addEventListener("change", () => { state.settings.listeningChoices = Number(listeningChoices.value); saveProgress(); });
+  document.querySelector("#voice-preview").addEventListener("click", () => {
+    primeSfx();
+    speakVoiceSequence(["guide_welcome", "phrase_kerek_vizet", "number_3"]);
+  });
+}
+
+function renderRoundProgress(current = 0, total = state.settings.roundLength) {
+  const progress = document.querySelector("#round-progress");
+  progress.replaceChildren();
+  progress.setAttribute("aria-label", `${Math.min(current, total)} / ${total} szó`);
+  for (let index = 0; index < total; index += 1) {
+    const dot = document.createElement("span");
+    dot.className = `progress-dot${index < current ? " is-done" : index === current && autoSessionRunning ? " is-current" : ""}`;
+    dot.setAttribute("aria-hidden", "true");
+    progress.appendChild(dot);
+  }
+}
+
+function celebrateRound(kind, count) {
+  completedRoundKind = kind;
+  playSuccessSound();
+  burstConfettiOverlay(1000);
+  document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
+  document.querySelector("#round-complete").showModal();
+  speakGuide("finished");
 }

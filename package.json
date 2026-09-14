@@ -6,7 +6,15 @@
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 5173",
+    "prestart": "npm run build-offline",
+    "build-offline": "node scripts/build-offline.mjs",
     "generate-audio": "node ./scripts/generate-audio.mjs",
+    "generate-voice": "node scripts/build-voice-manifest.mjs && uv run --with edge-tts==7.2.8 scripts/generate-voice.py",
+    "postgenerate-voice": "npm run build-offline",
+    "postgenerate-audio": "npm run build-offline",
+    "postconvert-raw-audio": "npm run build-offline",
+    "postrecord-words": "npm run build-offline",
+    "check": "node --check app.js && node --check game-data.js && node --check voice-library.js && node --check speech-matching.js && node --check speech-recognition.js && node --check offline-client.js && node --check progress-data.js && node --check progress-tools.js && node --check progress-profiles.js && node --check cloud-save-queue.js && node --check listening-game.js && node --check sw.js && node scripts/check-content.mjs && node scripts/build-offline.mjs --check && node --test tests/*.test.mjs",
     "convert-raw-audio": "bash ./scripts/convert-raw-audio.sh",
     "record-words": "node ./scripts/record-words.mjs"
   },
