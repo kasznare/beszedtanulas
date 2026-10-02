@@ -5,6 +5,7 @@
   "description": "Simple Hungarian speech game for toddlers",
   "type": "module",
   "scripts": {
+    "build": "npm run build-offline && npm run check && node scripts/build-site.mjs",
     "start": "python3 -m http.server 5173",
     "prestart": "npm run build-offline",
     "build-offline": "node scripts/build-offline.mjs",

@@ -5,3 +5,4 @@ rawaudio
 .playwright-cli/
 output/playwright/
 output/audio-preview/
+dist/
