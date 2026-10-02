@@ -10,6 +10,8 @@ import { setupListeningGame } from "./listening-game.js";
 import { setupTeddyGame } from "./teddy-game.js";
 import { setupDressGame } from "./dress-game.js";
 import { setupMeadow } from "./meseliget-game.js";
+import { setupLogic } from "./logic-game.js";
+import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
 import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode } from "./progress-profiles.js";
@@ -33,7 +35,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2 };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1 };
 const state = loadProgress();
 let currentScreen = "home";
 let flipRoundToken = 0;
@@ -45,6 +47,7 @@ const screenInfo = {
   "play-menu": { title: "Mivel játsszunk?", guide: "play_menu_more" },
   "dress-game": { title: "Maci öltözik", guide: "dress" },
   meseliget: { title: "Meseliget" },
+  furfangliget: { title: "Furfangliget" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
@@ -83,6 +86,7 @@ let listeningGame;
 let teddyGame;
 let dressGame;
 let meadowGame;
+let logicGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -312,6 +316,15 @@ meadowGame = setupMeadow({
   speak: id => speakVoice(id), stopPlayback, openScreen: showScreen,
   updateProgress: (progress, reward) => {
     state.meadow = progress;
+    if (reward) state.rewards += 1;
+    saveProgress(); refreshStats();
+  },
+});
+logicGame = setupLogic({
+  getProgress: () => state.logic, getOptions: () => state.settings,
+  speak: ids => speakVoiceSequence(ids), stopPlayback,
+  updateProgress: (progress, reward) => {
+    state.logic = progress;
     if (reward) state.rewards += 1;
     saveProgress(); refreshStats();
   },
@@ -790,6 +803,12 @@ function renderDebug(result) {
 }
 
 function refreshStats() {
+  const logic = normalizeLogic(state.logic);
+  const logicSummary = document.querySelector('#logic-summary');
+  if (logicSummary) logicSummary.textContent = Object.entries(LOGIC_NAMES).map(([kind, name]) => {
+    const totals = logic.games[kind].reduce((s,v) => [s[0]+v.independent,s[1]+v.assisted],[0,0]);
+    return `${name}: ${totals[0]} önálló, ${totals[1]} segítséggel. `;
+  }).join('');
   const meadow = normalizeMeadow(state.meadow);
   const summary = document.querySelector('#meadow-summary');
   if (summary) summary.textContent = `Almagyűjtés: ${meadow.collect.independent} önálló, ${meadow.collect.assisted} segítséggel. Terítés: ${meadow.serve.independent} önálló, ${meadow.serve.assisted} segítséggel. Közös piknikek: ${meadow.journeys}.`;
@@ -1025,6 +1044,7 @@ function baseProgress() {
     attempts: 0,
     rewards: 0,
     meadow: normalizeMeadow(),
+    logic: normalizeLogic(),
     settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
@@ -1043,6 +1063,8 @@ function normalizeState(input) {
     profileStore: normalizeProfileStore(input.profileStore),
     settings: {
       roundLength: [3, 5, 10].includes(input.settings?.roundLength) ? input.settings.roundLength : 5,
+      mathLimit: [5, 10, 20].includes(input.settings?.mathLimit) ? input.settings.mathLimit : 5,
+      ...Object.fromEntries(['shopLevel','machineLevel','routeLevel'].map(key => [key, [1,2,3].includes(input.settings?.[key]) ? input.settings[key] : 1])),
       spokenGuidance: input.settings?.spokenGuidance !== false,
       wordVoice: input.settings?.wordVoice === "family" ? "family" : "natural",
       numberLimit: [3, 5, 10].includes(input.settings?.numberLimit) ? input.settings.numberLimit : 3,
@@ -1829,7 +1851,7 @@ async function speakVoiceSequence(ids) {
 
 function speakGuide(id, force = false) {
   if (!force && !state.settings.spokenGuidance) return Promise.resolve();
-  if (id === "play_menu_more") return speakVoice("mese_play_menu");
+  if (id === "play_menu_more") return speakVoice("logic_play_menu");
   return speakVoice(`guide_${id}`);
 }
 
@@ -1843,6 +1865,7 @@ function setupNavigation() {
     primeSfx();
     if (currentScreen === "numbers" && numberMode === "quiz") speakNumberQuestion();
     else if (currentScreen === "meseliget") meadowGame.repeat();
+    else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
     else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
     else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
@@ -1898,6 +1921,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   teddyGame?.stop();
   dressGame?.stop();
   meadowGame?.stop();
+  logicGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -1920,6 +1944,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "teddy-game") teddyGame.start({ announce });
   if (screen === "dress-game") dressGame.start({ announce });
   if (screen === "meseliget") meadowGame.start({ announce });
+  if (screen === "furfangliget") logicGame.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
@@ -1951,6 +1976,10 @@ function showParentGate() {
 }
 
 function setupParentSettings() {
+  for (const [id,key] of [['math-limit','mathLimit'],['shop-level','shopLevel'],['machine-level','machineLevel'],['route-level','routeLevel']]) {
+    const select = document.querySelector(`#${id}`); select.value = state.settings[key];
+    select.addEventListener('change', () => {state.settings[key] = Number(select.value); saveProgress();});
+  }
   const roundLength = document.querySelector("#round-length");
   const topic = document.querySelector("#practice-topic");
   const wordVoice = document.querySelector("#word-voice");

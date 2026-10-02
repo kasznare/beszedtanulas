@@ -9,6 +9,7 @@ const frontendFiles = (await readdir(root, { withFileTypes: true }))
   .map(entry => entry.name);
 const files = [
   'index.html', ...frontendFiles,
+  'assets/furfang-fox.png',
   'app.webmanifest', 'icons/icon.svg', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
   ...words.map(word => `audio/${word.id}.mp3`),
   ...Object.values(VOICE_CLIPS).map(clip => clip.file),

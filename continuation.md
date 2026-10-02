@@ -1,5 +1,57 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 2. – Furfangliget, három összetettebb fejtörő
+
+Önálló fejlesztés külön chatben, a korábbi 19 perces korlát nélkül. A régi játékok és a korábbi munkafaváltozás megmaradtak. Usage-reset kredit nem lett beváltva, automatizmus nem készült.
+
+### Elkészült működés
+
+- Játsszunk! → Furfangliget: Erdei bolt, Szabálygép, Csomagösvény, külön szülői nehézségekkel. A könnyű beszéd-, etetős-, öltözős- és Meseliget-játékok megmaradtak.
+- Bolt: két egymásra épülő, két terméket kérő rendelés; a másodikban egy mennyiség változik. Képes cél, műveletes mód, valamint összeg és különbség szerinti következtetés. Almák és gesztenyék hozzáadása/visszavétele; külön 1–5 / 1–10 / 1–20 számkör.
+- Gép: három példa, szabadon építhető műveletsor, kipróbálás, két új eset kiszámítása. A harmadik fokozat két, sorrendfüggő művelet; több matematikailag egyenértékű megoldás elfogadható. A géppróba önmagában nem ad jutalmat.
+- Ösvény: előre összeállított, kipróbálható út, kerülendő kövek és egy/két csomag. Koppintás, nyílgombok, billentyűzet és folyamatos húzás. A szélességi keresés a felvett csomagok állapotát is figyeli; minden generált pálya megoldható, és több út elfogadható. A segítség a jelenlegi útból is tud folytatást ajánlani, vagy rövidebb újratervezést mutat.
+- Három segítségfokozat, mozdulatonkénti visszavonás (legfeljebb 60 előzmény), kíméletes hibajelzés, nincs büntető időzítő vagy mikrofon. Egy feladat egyszer jutalmaz; a bolti első rész csak ellenőrzőpont.
+- Profilonként három külön félbehagyott feladat. A feladat magja, szintje, munkája és segítsége mentődik, újratöltés után azonosan folytatható. A `logic` séma 1. verziójú, a feladatgenerátor determinisztikus. Ha a generátor később változik, a mentett seed jelentésének megőrzéséről/verziózásáról gondoskodni kell.
+- Játékonként és szintenként külön önálló/segített matematikai eredmények. Beszédpróbák és szóeredmények érintetlenek. Profilváltás, JSON-export/import, nullázás és visszavonás kezeli az új adatokat. A helyi szülői összesítés külön mutatja őket; a fájl-visszaállítás előnézetében külön Fejtörő számláló van. Felhős matematikai szinkron ebben a körben nem készült.
+- 74 új magyar statikus hang, saját hátizsákos róka, offline csomagban mindkettő. A csomag jelenleg 314 gyorsítótárazott fájl + sw.js, összesen 280 MP3. Az útvonal kirajzolása és a csomagok felvétele valódi jelenetváltozás.
+
+### Rövid ManóMatek-kutatás és saját megoldás
+
+[Móricz Attila: Tanulás számítógéppel, PC World, 2000. március, 15. oldal](https://www.doksi.net/hu/get.php?lid=11016) a kisebb/több/páros fogalmakat, játékos számolást és átváltási feladatokat emeli ki, az első részben 20-as, a másodikban 100-as számkörrel. Ez képességfejlesztő szervezésre utal, nem pusztán egymás utáni számpéldákra. [Az 1999-es Könyv és Nevelés ismertető](https://epa.oszk.hu/04200/04290/00002/cikk15.html) kereshető kivonata több témakör könnyebb-nehezebb feladatait és hangos kalauzolást ír le; a teljes oldal most nem töltődött be. [Elek Elemérné tanulmánya, 92. oldal](https://publikacio.uni-eszterhazy.hu/6537/1/89_96_Elek.pdf) a ManóMatek képes/animált tartalomközvetítését mutatja példaként. Az eredeti CD teljes feladatkatalógusát nem sikerült közvetlenül ellenőrizni, ezért konkrét minijátékokat nem tulajdonítunk neki.
+
+A saját bővítés ezeket az elveket viszi tovább: megváltoztatható tárgymennyiségek, példákból kikövetkeztetett szabály, tervezés és végrehajtás. Nem másolja a régi program jeleneteit, képeit vagy hangjait. A falu, a hosszabb kirándulástörténet és további műhelyek későbbi munka.
+
+### Saját kép
+
+`assets/furfang-fox.png`: beépített image_gen, egyetlen generálás, valódi átlátszóság, 1254×1254 PNG. Az eredeti saját generált fájl másolata, nincs külső karakterreferencia. A prompt: „Use case: illustration-story. Asset type: original transparent PNG character illustration for a Hungarian children's math game, readable as an 80px menu icon and a 40px board piece. One small friendly orange fox wearing a teal backpack, whole body in a friendly seated three-quarter view, welcoming expression, simple large eyes, cream muzzle and chest, bushy tail beside the body. Genuinely transparent background, no setting. Simple warm storybook gouache, crisp clean cutout edges, broad expressive shapes, restrained painted texture, strong readable silhouette. Square composition, centered character filling the canvas with small safe margins; entire ears, paws, backpack and tail inside. Warm orange and cream fox, teal backpack. Wholly original design; no existing character copying or ManóMatek assets; no text, numbers, letters, logos, watermark, other props, scene, ground or cast shadows.”
+
+### Ellenőrzés és használhatóság
+
+- 68 Node-teszt: 8 új célzott teszt, ezen belül 2700 bolti, 900 gépes és 1200 útvonalas generált eset; minden szint és bolti számkör. Külön többmegoldásos elfogadás, egyszeri jutalom, segítség, mentésvalidálás és profil/reset/undo.
+- Chrome és WebKit: motoronként 146 játékmeneti és elrendezési ellenőrzés a három játék mindhárom szintjén. Hiányos válasz, három segítségfok, visszavonás, újratöltés, ismételt koppintás, egyszeri jutalom, újrajátszás, 430×932, 932×430, 834×1194, 1194×834, 430×740, 932×350 és 375×667. Vízszintes kilógás nincs. Rövid képernyőn a hosszabb fejtörők függőlegesen görgethetők.
+- Chrome: 19 további ellenőrzés a folyamatos húzásra, koppintásos visszalépésre, billentyűzetre, animációból kilépésre, profilváltásra, tényleges fájlletöltés/import/reset/undo folyamatra, mind a 74 hang és a róka cache-elésére, offline újratöltésre és teljes útvonalmegoldásra. Az új magyar MP3 offline dekódolása sikeres. 200%-os szövegmérettel a gép nem lóg ki vízszintesen.
+- WebKit: a korábbi Meseliget 23 ellenőrzése sikeres, teljes piknik, album, mentett folytatás, régi hét elrendezés. Chrome és WebKit: 8–8 további régi játékellenőrzés – teljes öltözés/etetés, meglepetéskör, eredményelkülönítés, képes és számolási menü.
+- Használhatósági javítások: a 🌰 képet gesztenyének nevezzük, új magyar menühang segít megtalálni a kirakós kaput, a szülői profilválasztó továbbra is felül van, a kisebb gép számos kimenete mellett pöttyök is vannak, a kereszteződő útvonal segítsége sorrendi nyilakat kapott, a húzás tartós mutatófogást használ. A megoldott út újbóli megnyitásakor a róka a célban marad.
+- A tesztböngészők elkülönültek a felhasználó saját böngészőjétől. A fejlesztés közbeni régi HTTP/cache állapot miatt egy próba régi JS-t töltött; friss tesztböngészővel az exportelőnézet és az új csomag ellenőrzése is sikeres. Az egyik régi meglepetésteszt az aszinkron jutalom előtt ellenőrzött; a befejező ablak megvárásával sikeres. Ezek tesztsegéd-javítások, a régi játékok kódját nem módosítottuk.
+- A végső szülői offline-verziófrissítés 13 további Chrome-ellenőrzése sikeres: megmarad a haladás és a jutalom, a kész pályán a róka a célban van, az ösvény öt célméreten kilógás nélkül és legalább 44 px-es gombokkal működik.
+- Tesztsegédek: `tests/browser/furfang-core.js`, `furfang-extra.js`, `furfang-update.js`, `old-games.js`; csak eldobható Playwright CLI-munkamenetben futtatandók. Képernyőképek: `output/playwright/logic-*`.
+
+### Közzététel és következő lépések
+
+A meglévő privát Sites-projektet használjuk: `appgprj_6abff9957a30819186ffcc2af5d90a9e`, `static.directory: dist`, cím: https://meseliget-beszedjatek.kasznare.chatgpt.site/ . Az új csomag közzétételének végállapotát ennek a fejlesztési chatnek a záró válasza rögzíti. A korábbi éles forrás `1b1edabd7ac995834499664ade1fc163cd29bd0e`; a hozzáférési beállításokat változatlanul kell hagyni. `npm run build` végzi a csomagolás előtti teljes ellenőrzést.
+
+Későbbre: fizikai iPhone/iPad próba gyerekkel és valódi érintéses húzással, hanghossz/pedagógiai nehézség finomítása visszajelzésből; további szabálycsaládok, nagy kirándulás, műhely és saját falu. Nincs új többeszközös felhőszinkron vagy automatikus nehézségváltás. Böngészős WebKit-próba nem fizikai iOS-próba.
+
+
+## 2026. október 2. – Privát HTTPS-közzététel
+
+A Sites-közzététel sikeres. Éles cím: https://meseliget-beszedjatek.kasznare.chatgpt.site/ . A tulajdonos ChatGPT-fiókja fér hozzá; a megnyitott alkalmazásbeli böngészőn az éles főképernyő ellenőrizve. A Mac futtatása nem szükséges a webes változathoz.
+
+A .openai/hosting.json rögzíti a meglévő Sites projektet; később ezt kell újra használni. Az npm run build a 60 ellenőrzést és az offline csomagot futtatja, majd a scripts/build-site.mjs kizárólag a hitelesített futtatási fájlokat másolja a dist/ könyvtárba. A publikált csomag 236 futtatási fájl, a Sites-csomagolás a tárhelymetaadatot is hozzáadja. Dokumentáció, helyi mentés és nyers hanganyag nincs a kiszolgált csomagban.
+
+A localhost és az éles cím külön böngészős tárhelyet használ. A korábbi eredményeket JSON-exporttal és az éles oldalon történő visszaállítással lehet átvinni. A korábbi munkanapló közzététel nélküli állapota történeti bejegyzés.
+
+
 ## 2026. október 2. – Meseliget első játszható változat
 
 A felhasználó 19 perces megvalósítási kört kért a ManóMatek ihlette terv első változatára. A korábbi macis fejlesztések megmaradtak.

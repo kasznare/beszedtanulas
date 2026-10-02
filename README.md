@@ -45,13 +45,13 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 151 hangfájlt. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 280 hangfájlt. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
 A hibás vagy megszakadt letöltés újrapróbálható. Az új verzió a szülői felületen indítható; másik nyitott játékablak mellett nem aktiválódik. A böngésző a hely felszabadításakor törölheti a tárolt fájlokat; a hiányzó csomag a szülői felületen újra letölthető.
 
-A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A projekt ebben a fejlesztési körben nem lett közzétéve.
+A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A privát webes változat: [Meseliget](https://meseliget-beszedjatek.kasznare.chatgpt.site/).
 
 Fejlesztés közben HTML-, JavaScript-, CSS- vagy hangmódosítás után:
 
@@ -64,7 +64,7 @@ Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a
 
 ## Hanganyagok
 
-Az alapértelmezett új magyar mesélőhang 127 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, kérdések és rövid segítségek. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett új magyar mesélőhang 256 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, kérdések és rövid segítségek. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 
@@ -122,3 +122,17 @@ A **Játsszunk! → Meseliget** új térképéről rövid piknikkaland indul: sa
 Az **Almáskert** és a **Piknikrét** szabad játéka a szülői 1–3 / 1–5 / 1–10 számolási szintet és a 3 / 5 / 10 feladatos körhosszt használja. Az almák koppintással betehetők és visszavehetők, a tányérok is visszavonhatók. A **Kész!** ellenőrzi a választ; a **Segíts!** mennyiségjelölést vagy a hiányzó tányérok kiemelését adja. Mikrofon nem kell.
 
 35 új magyar hang tartozik a játékhoz. Teljes letöltés után offline is játszható. Az önálló és segítséggel befejezett feladatok, az album és az aktív kaland profilonként külön, a meglévő mentésben tárolódnak, és a JSON-export, visszaállítás, nullázás és visszavonás is kezeli őket. Ezek az új adatok a jelenlegi szóeredmény-alapú felhőszinkronba nem kerülnek.
+
+## Furfangliget – nagyobbaknak is
+
+A **Játsszunk! → Furfangliget** három új, saját tempóban játszható fejtörőt kínál. A korábbi egyszerű játékok megmaradtak.
+
+- **Erdei bolt:** almás és gesztenyés kosár összeállítása, majd egy megváltozott rendelés teljesítése. Mindkét mennyiség szabadon módosítható. A három fokozat képes célokat, hozzáadást/elvételt, végül összegből és különbségből kikövetkeztethető mennyiségeket ad. A szülő 1–5, 1–10 vagy 1–20 bolti számkört állíthat.
+- **Szabálygép:** három megfigyelhető bemenet–kimenet példa alapján egy- vagy kétlépéses gépet kell építeni. A géppróba megmutatja, mit csinál a saját szabály; utána két új bemenet eredményét is a játékos állítja össze. A fokozatok ±1-et, több műveletet és duplázást, majd sorrendfüggő kétlépéses szabályokat adnak, 5-ös, 10-es és 20-as tartományban, nullával is.
+- **Csomagösvény:** 3×3, 4×4 vagy 5×5 mezőn teljes útvonalat kell tervezni, egy vagy két csomagot felvenni, a köveket elkerülni, és eljutni a házhoz. A róka a próba indításakor járja be a tervet. Több helyes út is elfogadható; a generátor minden pálya megoldhatóságát ellenőrzi. A lépésszám a terv hossza, nem időkorlát.
+
+Koppintás és billentyűzet mindenhol használható; az ösvény húzással is rajzolható. Háromfokozatú hangos segítség, visszavonás és újrajátszás van. Egy feladat egyszer ad jutalmat, a boltban csak a második rendelés után. Nincs pontlevonás, időzítő vagy mikrofonkérés. Az új 74 magyar MP3 és a saját rókarajz az offline csomag része.
+
+A szintek külön állíthatók a szülői felületen. A félbehagyott munka – kosarak, műveletek, útiterv és visszavonási előzmények – játékonként és profilonként mentődik. A szintváltás az érintett játékban új feladatot kezd. A `logic` eredménymező játékonként és szintenként külön önálló/segített számlálót tartalmaz; a segítséget vagy javító ellenőrzést használó megoldás a segített csoportba kerül. A beszédpróbák és szóeredmények nem változnak. Az export/import, nullázás és visszavonás az új adatokat is kezeli, a régi mentések üres fejtörőadatokkal tölthetők be. A felhő továbbra is csak szóeredményeket szinkronizál.
+
+Források: `logic-data.js` (generátorok, ellenőrzés, mentés), `logic-game.js`, `logic-voice.js`, `logic.css`, `tests/logic.test.mjs`. A `tests/browser/` fájlok Playwright CLI-függvények: csak külön, eldobható tesztböngészőben futtasd őket, mert annak helyi tesztadatait módosítják. A részletes ellenőrzések és a referencia kutatási jegyzete a continuation.md elején található.

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./teddy-game.css" />
   <link rel="stylesheet" href="./dress-game.css" />
   <link rel="stylesheet" href="./meseliget.css" />
+  <link rel="stylesheet" href="./logic.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -45,7 +46,10 @@
         <button class="choice-tile tone-mint" data-open="meseliget" aria-label="Meseliget, induljunk piknikezni"><span class="choice-art teddy-menu-art" aria-hidden="true">🌳<span>🧸 🍎</span></span><span>Meseliget</span></button>
         <button class="choice-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="choice-art" aria-hidden="true">🎁</span><span>Mi bújt el?</span></button>
       </div>
+      <button class="logic-portal-link" data-open="furfangliget"><span aria-hidden="true">🧩</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span></button>
     </section>
+
+    <section id="furfangliget" class="panel logic-panel" aria-label="Furfangliget gondolkodtató játékok"></section>
 
     <section id="teddy-game" class="panel teddy-panel" aria-label="Etesd meg a macit" data-mood="waiting">
       <div id="teddy-progress" class="round-progress" role="group" aria-label="A piknik haladása"></div>
@@ -212,7 +216,6 @@
       <div class="flip-game"><h2 class="sr-only">Fordíts fel egy kártyát</h2><p id="flip-status" class="listen-status" role="status"></p><div id="flip-grid" class="flip-grid"></div><div class="actions"><button id="flip-new" class="secondary icon-btn" aria-label="Új meglepetések"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button></div></div>
     </section>
       <section id="parent" class="panel parent-panel">
-        <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A szabad játék a számolási szintet és a körhosszt használja. A piknikkaland három állomásból áll, legfeljebb három almával. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
         <div class="parent-controls profile-controls">
           <h2>Ki játszik?</h2>
           <label for="supabase-role">Aktív profil</label>
@@ -227,6 +230,13 @@
           </div>
           <p id="profile-status" class="parent-note" role="status" hidden></p>
         </div>
+        <div class="parent-controls"><h2>Furfangliget – matematika és logika</h2><div class="logic-parent-grid">
+          <label>Bolti számkör<select id="math-limit"><option value="5">1–5</option><option value="10">1–10</option><option value="20">1–20</option></select></label>
+          <label>Erdei bolt<select id="shop-level"><option value="1">Felfedező – képes rendelés</option><option value="2">Gondolkodó – hozzáadás és elvétel</option><option value="3">Tervező – összeg és különbség</option></select></label>
+          <label>Szabálygép<select id="machine-level"><option value="1">Felfedező – ±1, ötig</option><option value="2">Gondolkodó – műveletek, tízig</option><option value="3">Tervező – két művelet, húszig</option></select></label>
+          <label>Csomagösvény<select id="route-level"><option value="1">Felfedező – egy csomag, 3×3</option><option value="2">Gondolkodó – kerülőutak, 4×4</option><option value="3">Tervező – két csomag, 5×5</option></select></label>
+        </div><p class="parent-note">A szintváltás új feladatot indít az érintett játékban. Az eredmények megmaradnak. A beállítások ezen az eszközön közösek; a haladás és a félbehagyott feladatok profilonként külön mentődnek, fájlba is. A gépnél a nulla is szerepelhet.</p><div id="logic-summary" class="logic-summary"></div></div>
+        <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A szabad játék a számolási szintet és a körhosszt használja. A piknikkaland három állomásból áll, legfeljebb három almával. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
         <div class="parent-controls">
           <h2>Így játsszunk</h2>
           <label for="round-length">Egy gyakorlókör</label>
@@ -350,6 +360,7 @@
       <div><dt>Lejátszás</dt><dd id="preview-plays"></dd></div>
       <div><dt>Próba</dt><dd id="preview-attempts"></dd></div>
       <div><dt>Jutalom</dt><dd id="preview-rewards"></dd></div>
+      <div><dt>Fejtörő</dt><dd id="preview-logic"></dd></div>
     </dl>
     <p id="progress-dialog-note" class="parent-note"></p>
     <p id="progress-dialog-error" class="progress-error" role="alert"></p>

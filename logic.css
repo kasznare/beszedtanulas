@@ -1,0 +1,147 @@
+/* Furfangliget keeps the familiar palette, with a distinct ink-blue workshop. */
+.logic-panel { --logic-ink:#24495c; --logic-blue:#246785; max-width:960px; margin:auto; color:var(--logic-ink); }
+.logic-panel button { color:inherit; font:inherit; font-weight:750; cursor:pointer; border:2px solid #d0dedf; background:#fffdf7; border-radius:15px; min-height:48px; padding:10px 16px; touch-action:manipulation; }
+.logic-panel button:focus-visible { outline:4px solid #b56419; outline-offset:3px; }
+.logic-panel button:disabled { cursor:default; opacity:.48; }
+.logic-panel button.logic-primary { background:var(--logic-blue); color:white; border-color:var(--logic-blue); box-shadow:0 3px 0 #18465c; }
+.logic-intro { text-align:center; margin:12px 0 24px; }
+.logic-eyebrow { font-size:.875rem; letter-spacing:.08em; font-weight:800; }
+.logic-intro h2 { font-size:clamp(2rem,5vw,3rem); margin:8px 0; }
+.logic-intro p,.logic-heading p { margin:6px 0; font-size:1rem; }
+.logic-places { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.logic-panel .logic-place { display:flex; flex-direction:column; align-items:center; gap:15px; padding:28px 16px; background:#e1edf2; border-color:#a8c6d3; }
+.logic-panel .logic-place:nth-child(2) { background:#fff0c1; border-color:#dfc77d; }
+.logic-panel .logic-place:nth-child(3) { background:#dfedde; border-color:#afcbae; }
+.logic-place-icon { font-size:4.8rem; line-height:1.25; }
+.logic-place strong { font-size:1.4rem; }
+.logic-place span:not(.logic-place-icon) { font-size:1rem; font-weight:500; }
+.logic-place small { font-size:.875rem; }
+.logic-footer { text-align:center; font-size:.875rem; margin-top:22px; }
+.logic-toolbar { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.logic-toolbar>span { text-align:center; font-size:.875rem; font-weight:700; }
+.logic-heading { text-align:center; margin:12px 0 16px; }
+.logic-heading h2 { margin:0; font-size:1.65rem; }
+.logic-status { min-height:1.5em; text-align:center; font-size:1rem; font-weight:650; margin:14px 0 10px; }
+.logic-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; padding:5px 0 14px; }
+.logic-order { display:flex; justify-content:center; gap:16px; background:#fff0c1; border:2px solid #dec57b; border-radius:18px; padding:14px; margin-bottom:16px; }
+.logic-order>div { display:flex; flex:1; flex-direction:column; align-items:center; gap:7px; text-align:center; min-width:0; }
+.logic-order>div+div { border-left:2px dashed #dec57b; padding-left:12px; }
+.logic-order strong { font-size:1.6rem; }
+.logic-order span { font-size:1rem; }
+.logic-dots { display:flex; justify-content:center; flex-wrap:wrap; gap:4px; max-width:240px; }
+.logic-dots i { font-style:normal; line-height:1.2; }
+.logic-baskets { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.logic-basket { border:3px solid #b8d1c4; background:#e7f0e5; border-radius:22px; padding:15px; min-width:0; }
+.logic-basket:nth-child(2) { background:#f5e6d7; border-color:#dfc2a4; }
+.logic-basket h3 { margin:0 0 10px; text-align:center; font-size:1.1rem; }
+.logic-fruit { min-height:100px; display:flex; justify-content:center; align-items:center; background:#ffffff85; padding:8px; border-radius:14px; }
+.logic-fruit .logic-dots { font-size:1.65rem; }
+.logic-stepper { display:flex; justify-content:center; align-items:center; gap:12px; margin:12px 0 0; }
+.logic-stepper button { width:56px; font-size:1.65rem; line-height:1; }
+.logic-stepper output { min-width:2ch; text-align:center; font-size:1.7rem; font-weight:800; }
+.logic-hint-text { margin:12px 0 0; text-align:center; font-size:1rem; font-weight:700; color:#784a11; }
+.logic-basket.logic-attention { border-style:dashed; border-color:#b56419; }
+.logic-delivery { text-align:center; background:#dfedde; border-radius:16px; padding:12px; margin-bottom:12px; font-size:2.2rem; }
+.logic-machine-layout { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.logic-examples,.logic-build,.logic-predictions { background:#e2edf1; border-radius:20px; padding:14px; min-width:0; }
+.logic-panel h3 { font-size:1rem; margin:0 0 12px; text-align:center; }
+.logic-example { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-evenly; gap:8px; width:100%; margin:8px 0; }
+.logic-quantity { display:flex; flex-direction:column; align-items:center; gap:3px; }
+.logic-quantity b { font-size:1.4rem; }
+.logic-quantity .logic-dots { max-width:85px; font-size:.75rem; }
+.logic-example small { flex-basis:100%; font-size:.875rem; padding-top:5px; border-top:1px solid #d0dedf; }
+.logic-match { color:#1e6341; }.logic-mismatch { color:#8c5216; }
+.logic-slots { display:flex; align-items:center; justify-content:center; gap:10px; margin:10px 0; }
+.logic-slots button { font-size:1.7rem; min-width:80px; min-height:70px; }
+.logic-slots small { font-size:.875rem; }
+.logic-slots .selected { border:3px solid var(--logic-blue); background:white; }
+.logic-ops { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin:14px 0; }
+.logic-ops button { min-width:65px; font-size:1.2rem; background:#fff0c1; border-color:#ddc87f; }
+.logic-build { text-align:center; background:#dce7ec; }
+.logic-test { width:100%; }
+.logic-predictions { margin-top:14px; background:#f4e8d5; }
+.logic-prediction-pair { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+.logic-prediction { text-align:center; }
+.logic-prediction>button { width:100%; display:flex; align-items:center; justify-content:space-evenly; gap:5px; }
+.logic-route-layout { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(180px,.7fr); gap:22px; align-items:center; max-width:760px; margin:auto; }
+.logic-board { display:grid; grid-template-columns:repeat(var(--size),minmax(0,1fr)); gap:7px; padding:12px; border-radius:20px; background:#b4cdbb; touch-action:none; user-select:none; }
+.logic-panel .logic-cell { aspect-ratio:1; min-height:44px; min-width:0; padding:0; border:2px solid #f9fcf3; border-radius:12px; position:relative; font-size:clamp(1.4rem,4vw,2.1rem); background:#f1f7e6; box-shadow:none; touch-action:none; }
+.logic-cell small { position:absolute; bottom:1px; right:5px; font-size:.875rem; font-weight:800; color:#24495c; }
+.logic-panel .logic-cell.blocked { background:#d7d7cf; border-color:#c4c7bd; }
+.logic-panel .logic-cell.on-path { background:#ffdf7e; border-color:#c39d30; }
+.logic-panel .logic-cell.path-end { border:3px solid #246785; }
+.logic-panel .logic-cell.hint-cell { outline:3px dashed #a5520a; outline-offset:-5px; }
+.logic-panel .logic-cell:disabled { opacity:1; }
+.logic-route-plan { text-align:center; }
+.logic-route-plan p { font-size:1rem; line-height:1.4; }
+.logic-parcels { display:flex; justify-content:center; gap:8px; margin:10px 0 15px; font-size:1.5rem; }
+.logic-directions { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:12px 0; }
+.logic-directions button { min-width:44px; padding:8px; font-size:1.4rem; }
+.logic-route-plan>button { width:100%; }
+.logic-parent-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+.logic-parent-grid label { display:flex; flex-direction:column; gap:6px; }
+.logic-parent-grid select { width:100%; }
+.logic-summary { line-height:1.6; }
+.logic-portal-link { display:flex; align-items:center; justify-content:center; gap:14px; width:100%; margin-top:20px; padding:16px; border:2px solid #abc6d2; border-radius:20px; color:#24495c; background:#e1edf2; font:inherit; font-size:1.1rem; cursor:pointer; }
+.logic-portal-link>span:first-child { font-size:2rem; }
+.logic-portal-link small { display:block; font-size:.875rem; margin-top:4px; }
+@media(max-width:600px) {
+ .logic-places { grid-template-columns:1fr; gap:12px; }
+ .logic-panel .logic-place { display:grid; grid-template-columns:64px 1fr; text-align:left; gap:6px 12px; padding:18px 14px; }
+ .logic-place-icon { grid-row:span 3; font-size:3rem; }
+ .logic-place strong { font-size:1.2rem; }
+ .logic-intro { margin:10px 0 18px; }
+ .logic-toolbar button { padding:8px 12px; }
+ .logic-actions { gap:8px; }.logic-actions button { padding:10px; font-size:.95rem; }
+ .logic-baskets { gap:10px; }.logic-basket { padding:10px; }
+ .logic-fruit .logic-dots { font-size:1.3rem; }
+ .logic-fruit { min-height:112px; }
+ .logic-stepper { gap:6px; }.logic-stepper button { width:46px; padding:6px; }
+ .logic-order { gap:8px; padding:10px; }.logic-order strong { font-size:1.35rem; }
+ .logic-machine-layout { gap:10px; }.logic-examples,.logic-build,.logic-predictions { padding:10px; }
+ .logic-slots { gap:4px; }.logic-slots button { min-width:52px; font-size:1.3rem; padding:6px; }
+ .logic-slots small { display:block; }.logic-ops { gap:5px; }.logic-ops button { min-width:48px; padding:8px; font-size:1rem; }
+ .logic-example { padding:8px 4px!important; gap:4px; font-size:.875rem!important; }
+ .logic-example>span:nth-child(2) { font-size:.75rem; }
+ .logic-prediction-pair { gap:8px; }.logic-prediction>button { padding:8px 4px; font-size:.875rem; }
+ .logic-route-layout { grid-template-columns:1fr; gap:10px; max-width:380px; }
+ .logic-board { padding:8px; gap:5px; }.logic-route-plan { display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; align-items:center; }
+ .logic-route-plan p { grid-column:1/-1; margin:0; }.logic-parcels { margin:0; }
+ .logic-route-plan .logic-directions { margin:0; }.logic-directions button { min-width:34px; }.logic-route-plan>button { min-width:0; }
+ .logic-parent-grid { grid-template-columns:1fr; }
+}
+@media(max-width:370px) {
+ .logic-machine-layout { grid-template-columns:1fr; }.logic-examples { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }.logic-examples h3 { grid-column:1/-1; }.logic-example { flex-direction:column; }
+ .logic-actions button { font-size:.875rem; }
+}
+@media(min-width:650px) and (max-height:540px) {
+ body[data-screen="furfangliget"] .app-bar { min-height:56px; margin-bottom:8px; }
+ .logic-heading { margin:6px 0 10px; }.logic-heading h2 { font-size:1.25rem; }
+ .logic-heading p { margin:4px 0; }
+ .logic-order { padding:7px; margin-bottom:10px; }.logic-order>div { flex-direction:row; justify-content:center; flex-wrap:wrap; }
+ .logic-fruit { min-height:44px; }.logic-fruit .logic-dots { font-size:1.3rem; }
+ .logic-basket { padding:8px; }.logic-basket h3 { margin-bottom:5px; }.logic-stepper { margin-top:5px; }
+ .logic-status { margin:8px 0 4px; }.logic-actions { padding-bottom:4px; }
+ .logic-board { max-width:320px; padding:8px; gap:5px; }.logic-route-layout { grid-template-columns:minmax(250px,320px) 1fr; max-width:650px; }
+ .logic-place-icon { font-size:3rem; }.logic-panel .logic-place { padding:16px 12px; gap:8px; }
+}
+@media(prefers-reduced-motion:reduce) { .logic-panel * { animation:none!important; transition:none!important; } }
+.logic-fox { width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; }
+.logic-place-icon .logic-fox { width:100px; height:100px; }
+.logic-cell>span { display:flex; width:100%; height:100%; align-items:center; justify-content:center; }
+.logic-cell .logic-fox { width:86%; height:86%; }
+.logic-hint-route { display:flex; flex-wrap:wrap; justify-content:center; gap:5px; margin:8px 0; grid-column:1/-1; }
+.logic-hint-route span { background:#fff0c1; border-radius:6px; padding:5px; font-size:.875rem; }
+.logic-prediction>.logic-dots { margin:8px auto 0; }
+@media(max-width:600px) { .logic-place-icon .logic-fox { width:64px; height:64px; } }
+.logic-toolbar { flex-wrap:wrap; }
+.logic-machine-layout,.logic-baskets { grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr)); }
+.logic-panel .logic-actions button { max-width:100%; }
+@media(max-width:600px) {
+ .logic-prediction-pair { grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr)); }
+}
+@media(max-width:600px) {
+ .logic-route-plan .logic-directions { grid-column:1/-1; width:min(260px,100%); justify-self:center; }
+ .logic-directions button { min-width:44px; }
+ .logic-route-plan>button { grid-column:1/-1; }
+}

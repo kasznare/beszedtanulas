@@ -136,6 +136,302 @@ export const VOICE_CLIPS = {
     "text": "Próbáld újra! Számold meg egyesével.",
     "file": "audio/voice/guide_retry_count.mp3"
   },
+  "logic_play_menu": {
+    "text": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak.",
+    "file": "audio/voice/logic_play_menu.mp3"
+  },
+  "logic_menu": {
+    "text": "Itt Furfangliget! Rendezzük be az erdei boltot, találjuk ki a gép szabályát, vagy tervezzünk egy csomagszállító utat!",
+    "file": "audio/voice/logic_menu.mp3"
+  },
+  "logic_shop_1": {
+    "text": "Készítsd össze a két kosarat! A képek mutatják a rendelést. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!",
+    "file": "audio/voice/logic_shop_1.mp3"
+  },
+  "logic_shop_2": {
+    "text": "Változtasd meg a kosarak tartalmát a rendelés szerint! A plusz hozzáadást, a mínusz elvételt jelent. Mindkét kosarat készítsd el!",
+    "file": "audio/voice/logic_shop_2.mp3"
+  },
+  "logic_shop_3": {
+    "text": "Két dolgot tudunk a rendelésről: hány termés kell összesen, és mennyivel több alma kell, mint gesztenye. Állítsd össze mindkét kosarat!",
+    "file": "audio/voice/logic_shop_3.mp3"
+  },
+  "logic_change": {
+    "text": "Változott a rendelés! Alakítsd át a kosarakat az új kérés szerint!",
+    "file": "audio/voice/logic_change.mp3"
+  },
+  "logic_apple": {
+    "text": "Alma.",
+    "file": "audio/voice/logic_apple.mp3"
+  },
+  "logic_nut": {
+    "text": "Gesztenye.",
+    "file": "audio/voice/logic_nut.mp3"
+  },
+  "logic_total": {
+    "text": "Összesen ennyi termés kell.",
+    "file": "audio/voice/logic_total.mp3"
+  },
+  "logic_difference": {
+    "text": "Ennyivel több alma kell, mint gesztenye.",
+    "file": "audio/voice/logic_difference.mp3"
+  },
+  "logic_plus": {
+    "text": "Meg",
+    "file": "audio/voice/logic_plus.mp3"
+  },
+  "logic_minus": {
+    "text": "Mínusz",
+    "file": "audio/voice/logic_minus.mp3"
+  },
+  "logic_equals": {
+    "text": "Egyenlő",
+    "file": "audio/voice/logic_equals.mp3"
+  },
+  "logic_shop_hint1": {
+    "text": "Nézd meg külön a két kosarat! Mindegyikben pontosan annyi legyen, amennyit a rendelés kér.",
+    "file": "audio/voice/logic_shop_hint1.mp3"
+  },
+  "logic_shop_hint2": {
+    "text": "A pöttyök segítenek számolni. Tegyél hozzá, vagy vegyél el! A változtatást vissza is vonhatod.",
+    "file": "audio/voice/logic_shop_hint2.mp3"
+  },
+  "logic_shop_hint3": {
+    "text": "Most megmutatom, mennyi kell a két kosárba. Számold meg, és igazítsd hozzá a kosaraidat!",
+    "file": "audio/voice/logic_shop_hint3.mp3"
+  },
+  "logic_shop_more": {
+    "text": "Az egyik kosárba még kell termés. Nézd meg a kiemelt kosarat!",
+    "file": "audio/voice/logic_shop_more.mp3"
+  },
+  "logic_shop_less": {
+    "text": "Az egyik kosárban több van a kelleténél. Vegyél ki belőle a mínusz gombbal!",
+    "file": "audio/voice/logic_shop_less.mp3"
+  },
+  "logic_shop_done": {
+    "text": "Mindkét rendelés elkészült! A barátaink elvitték a kosarakat. Köszönik a segítségedet!",
+    "file": "audio/voice/logic_shop_done.mp3"
+  },
+  "logic_machine_1": {
+    "text": "Figyeld a példákat! Mi történik a gépben? Válassz egy műveletet, és próbáld ki! Utána állítsd be, mi jön ki a két új számból!",
+    "file": "audio/voice/logic_machine_1.mp3"
+  },
+  "logic_machine_2": {
+    "text": "Figyeld a három példát! Ugyanaz a szabály működik minden sorban. Építsd meg a gépet! A próbagombbal kísérletezhetsz. A két új szám eredményét te állítsd be!",
+    "file": "audio/voice/logic_machine_2.mp3"
+  },
+  "logic_machine_3": {
+    "text": "Ebben a gépben két művelet követi egymást. A sorrend is számít! Koppints egy helyre, majd válassz bele műveletet! Próbáld ki, és oldd meg a két új esetet!",
+    "file": "audio/voice/logic_machine_3.mp3"
+  },
+  "logic_input": {
+    "text": "Bemenet.",
+    "file": "audio/voice/logic_input.mp3"
+  },
+  "logic_output": {
+    "text": "Kimenet.",
+    "file": "audio/voice/logic_output.mp3"
+  },
+  "logic_predict": {
+    "text": "Mennyi jön ki a gépből?",
+    "file": "audio/voice/logic_predict.mp3"
+  },
+  "logic_machine_hint1": {
+    "text": "Hasonlítsd össze, mi megy be, és mi jön ki! Mindhárom példában ugyanaz a szabály működik.",
+    "file": "audio/voice/logic_machine_hint1.mp3"
+  },
+  "logic_machine_hint2": {
+    "text": "Az első műveletet megmutatom. Próbáld ki a többi példán is!",
+    "file": "audio/voice/logic_machine_hint2.mp3"
+  },
+  "logic_machine_hint3": {
+    "text": "Megmutatom a gép műveleteit. A két új eredményt továbbra is te állítsd be!",
+    "file": "audio/voice/logic_machine_hint3.mp3"
+  },
+  "logic_machine_retry": {
+    "text": "Ez a gép még másképp dolgozik, mint a példák. Változtass a műveleteken, és próbáld újra!",
+    "file": "audio/voice/logic_machine_retry.mp3"
+  },
+  "logic_machine_fit": {
+    "text": "A géped minden példához illik! Most állítsd be a két új eredményt!",
+    "file": "audio/voice/logic_machine_fit.mp3"
+  },
+  "logic_machine_guess": {
+    "text": "A gép jó! Nézd meg újra a két új szám eredményét!",
+    "file": "audio/voice/logic_machine_guess.mp3"
+  },
+  "logic_machine_empty": {
+    "text": "Előbb tegyél műveletet a gép minden helyére!",
+    "file": "audio/voice/logic_machine_empty.mp3"
+  },
+  "logic_machine_done": {
+    "text": "Megfejtetted a szabályt, és a két új feladatot is megoldottad! Működik a gép!",
+    "file": "audio/voice/logic_machine_done.mp3"
+  },
+  "logic_route_1": {
+    "text": "Tervezz utat a rókának! Vedd fel a csomagot, majd menj a házhoz! Koppints egymás melletti mezőkre, vagy húzd végig az ujjad! A próbagomb indítja a rókát.",
+    "file": "audio/voice/logic_route_1.mp3"
+  },
+  "logic_route_2": {
+    "text": "Vidd el a csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
+    "file": "audio/voice/logic_route_2.mp3"
+  },
+  "logic_route_3": {
+    "text": "Gyűjtsd össze mindkét csomagot, és vidd a házhoz! Gondold végig, merre kerülsz! Figyelj, hogy beleférj a megadott lépésszámba! Több jó út is lehet.",
+    "file": "audio/voice/logic_route_3.mp3"
+  },
+  "logic_route_hint1": {
+    "text": "Előbb a csomagokhoz tervezz utat, aztán a házhoz! Csak egymás melletti mezőkre léphetsz.",
+    "file": "audio/voice/logic_route_hint1.mp3"
+  },
+  "logic_route_hint2": {
+    "text": "A kiemelt mezőre lépve még célba érhetsz. Koppints rá, ha arra szeretnél menni!",
+    "file": "audio/voice/logic_route_hint2.mp3"
+  },
+  "logic_route_hint3": {
+    "text": "Megmutatok egy teljes lehetséges utat. Kövesd a számozott mezőket, vagy találj másikat!",
+    "file": "audio/voice/logic_route_hint3.mp3"
+  },
+  "logic_route_restart_hint": {
+    "text": "Ez az út már túl hosszú lenne. Vonj vissza néhány lépést! A pöttyök egy rövidebb utat mutatnak.",
+    "file": "audio/voice/logic_route_restart_hint.mp3"
+  },
+  "logic_route_adjacent": {
+    "text": "A róka csak szomszédos mezőre léphet. Átlósan nem tud menni.",
+    "file": "audio/voice/logic_route_adjacent.mp3"
+  },
+  "logic_route_full": {
+    "text": "Megtelt az útiterv. Vonj vissza egy lépést, ha másfelé mennél!",
+    "file": "audio/voice/logic_route_full.mp3"
+  },
+  "logic_route_missing": {
+    "text": "Még maradt csomag az ösvényen. Módosítsd az útitervet, és próbáld újra!",
+    "file": "audio/voice/logic_route_missing.mp3"
+  },
+  "logic_route_home": {
+    "text": "A csomag megvan, de még el kell jutni a házhoz. Folytasd az útitervet!",
+    "file": "audio/voice/logic_route_home.mp3"
+  },
+  "logic_route_done": {
+    "text": "Megérkezett minden csomag! A barátaink már vártak. Szép útiterv volt!",
+    "file": "audio/voice/logic_route_done.mp3"
+  },
+  "logic_saved": {
+    "text": "Itt folytathatod a félbehagyott feladatot.",
+    "file": "audio/voice/logic_saved.mp3"
+  },
+  "logic_op_add1": {
+    "text": "Adj hozzá egyet!",
+    "file": "audio/voice/logic_op_add1.mp3"
+  },
+  "logic_op_sub1": {
+    "text": "Vegyél el egyet!",
+    "file": "audio/voice/logic_op_sub1.mp3"
+  },
+  "logic_op_add2": {
+    "text": "Adj hozzá kettőt!",
+    "file": "audio/voice/logic_op_add2.mp3"
+  },
+  "logic_op_sub2": {
+    "text": "Vegyél el kettőt!",
+    "file": "audio/voice/logic_op_sub2.mp3"
+  },
+  "logic_op_double": {
+    "text": "Duplázd meg!",
+    "file": "audio/voice/logic_op_double.mp3"
+  },
+  "logic_op_add3": {
+    "text": "Adj hozzá hármat!",
+    "file": "audio/voice/logic_op_add3.mp3"
+  },
+  "logic_op_sub3": {
+    "text": "Vegyél el hármat!",
+    "file": "audio/voice/logic_op_sub3.mp3"
+  },
+  "logic_n_0": {
+    "text": "nulla",
+    "file": "audio/voice/logic_n_0.mp3"
+  },
+  "logic_n_1": {
+    "text": "egy",
+    "file": "audio/voice/logic_n_1.mp3"
+  },
+  "logic_n_2": {
+    "text": "kettő",
+    "file": "audio/voice/logic_n_2.mp3"
+  },
+  "logic_n_3": {
+    "text": "három",
+    "file": "audio/voice/logic_n_3.mp3"
+  },
+  "logic_n_4": {
+    "text": "négy",
+    "file": "audio/voice/logic_n_4.mp3"
+  },
+  "logic_n_5": {
+    "text": "öt",
+    "file": "audio/voice/logic_n_5.mp3"
+  },
+  "logic_n_6": {
+    "text": "hat",
+    "file": "audio/voice/logic_n_6.mp3"
+  },
+  "logic_n_7": {
+    "text": "hét",
+    "file": "audio/voice/logic_n_7.mp3"
+  },
+  "logic_n_8": {
+    "text": "nyolc",
+    "file": "audio/voice/logic_n_8.mp3"
+  },
+  "logic_n_9": {
+    "text": "kilenc",
+    "file": "audio/voice/logic_n_9.mp3"
+  },
+  "logic_n_10": {
+    "text": "tíz",
+    "file": "audio/voice/logic_n_10.mp3"
+  },
+  "logic_n_11": {
+    "text": "tizenegy",
+    "file": "audio/voice/logic_n_11.mp3"
+  },
+  "logic_n_12": {
+    "text": "tizenkettő",
+    "file": "audio/voice/logic_n_12.mp3"
+  },
+  "logic_n_13": {
+    "text": "tizenhárom",
+    "file": "audio/voice/logic_n_13.mp3"
+  },
+  "logic_n_14": {
+    "text": "tizennégy",
+    "file": "audio/voice/logic_n_14.mp3"
+  },
+  "logic_n_15": {
+    "text": "tizenöt",
+    "file": "audio/voice/logic_n_15.mp3"
+  },
+  "logic_n_16": {
+    "text": "tizenhat",
+    "file": "audio/voice/logic_n_16.mp3"
+  },
+  "logic_n_17": {
+    "text": "tizenhét",
+    "file": "audio/voice/logic_n_17.mp3"
+  },
+  "logic_n_18": {
+    "text": "tizennyolc",
+    "file": "audio/voice/logic_n_18.mp3"
+  },
+  "logic_n_19": {
+    "text": "tizenkilenc",
+    "file": "audio/voice/logic_n_19.mp3"
+  },
+  "logic_n_20": {
+    "text": "húsz",
+    "file": "audio/voice/logic_n_20.mp3"
+  },
   "mese_map": {
     "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
     "file": "audio/voice/mese_map.mp3"
