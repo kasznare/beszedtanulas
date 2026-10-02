@@ -1,5 +1,79 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 2. – Meseliget első játszható változat
+
+A felhasználó 19 perces megvalósítási kört kért a ManóMatek ihlette terv első változatára. A korábbi macis fejlesztések megmaradtak.
+
+- Játsszunk! → Meseliget: négy képes hely (Maciház, Almáskert, Piknikrét, Emlékalbum), valamint vezetett piknikkaland.
+- A kaland három állomás: sapka/cipő, három alma, három állat megterítése. A már befejezett állomások mentődnek, újratöltés után folytatható. Egy teljes történet egy jutalmat és egy albumemléket ad.
+- Külön szabad almaszedés és terítés 1–3 / 1–5 / 1–10 számkörben, 3 / 5 / 10 feladatos körrel. Koppintásos, visszavonható tárgykezelés; Kész gombbal ellenőrzés; hangos és képes segítség. A szabad játék nem lépteti előre a mentett kalandot.
+- 35 új statikus magyar MP3. Offline csomag 235 fájl. Minden hangszöveg bekerült a tartalomellenőrzésbe.
+- Új meadow eredménymező a meglévő profil-, export-, import-, reset- és undo-folyamatban. Régi mentésnél üres Meseliget-adatok. Szülői összesítés: önálló/segített almaszedés és terítés, piknikek száma. A felhő továbbra is csak a meglévő szóeredményeket tárolja.
+- Új fájlok: meseliget-data.js, meseliget-game.js, meseliget.css, tests/meseliget.test.mjs. A dress-art.js macija opcionális célkonténerrel újrahasznosítható, a meglévő öltözős játék hívása változatlanul működik.
+- Böngészős próbák: teljes történet, kevés/sok alma, javítás, egyszeri jutalom dupla koppintás mellett, visszavonható tányér, újratöltéses folytatás, album, szabad játék és történet elkülönítése; hét telefon/tablet méretben vízszintes elférés. A 932×350 nézetben külön egymás melletti alma/kosár elrendezés készült.
+- Ellenőrzés: 60 Node-teszt sikeres, 23 fő játékmeneti/böngészős ellenőrzés, valamint 12 további menü-, kompakt nézet- és offline ellenőrzés. A teljes háromállomásos kaland offline, újratöltés után is befejezhető; mind a 35 új hang gyorsítótárazva, a záró MP3 dekódolása hálózat nélkül sikeres. Ezek Chrome-próbák; új WebKit és fizikai eszközpróba még nincs.
+- Képek: output/playwright/meseliget-*.png. Helyi tesztsegédek: /tmp/meadow-qa.js és /tmp/meadow-final-qa.js.
+
+Következő kör: fizikai iPad/iPhone próba gyerekkel; további történetek; híd/formák és sorozatok; készségenkénti alkalmazkodás. A mostani első változatban a nehézséget a szülő állítja, az album a piknikek számát és egy közös emlékképet tárolja. A terv nagyobb bővítései még nem készültek el. Nem történt commit, push vagy külső publikálás.
+
+
+## 2026. október 2. – Második kör: Maci öltözik
+
+Az újabb fejlesztési kérésre elkészült a **Főképernyő → Játsszunk! → Maci öltözik** játék. A négy főmenücsempe megmaradt; a közös játékmenü három nagy választást kínál. Telefonon a két macis játék alatt széles meglepetéskártya van, tableten és fekvő telefonon a három választás egy sorba rendeződik.
+
+- Egy kör egy teljes öltözet: sapka, póló, sál, cipő. A sorrend változik, minden darabot pontosan egyszer kér a maci. A helyesen választott ruhák láthatóan rajta maradnak a kör végéig; két cipő kerül a lábára.
+- Saját SVG-ruharajzok a választógombokon és a macin; egyező színek és formák, nagy érintési felületek. A korábbi macirajzot használjuk újra, ütköző DOM-azonosítók nélkül.
+- Négy teljes magyar kérés és négy külön válasz, például „Kérem a sapkát.” / „Meleg a sapkám!” Összesen 11 új generált magyar MP3 az új menühanggal, bevezetéssel és búcsúval együtt. A családi hangok megmaradtak.
+- A szülői két/három képes beállítás működik. Az öltözés mindig négy kérés, a beszédgyakorlás 3/5/10 szavas körétől és témájától függetlenül. Ezt a szülői leírás is jelzi.
+- Téves választás újrahallgatható, a második téves választás képes segítséget ad. Olvasás és mikrofon nélkül játszható. A befejezett kör egyszer ad jutalmat, a beszédpróbákat és szóeredményeket nem módosítja.
+- Újrajátszás és visszanavigálás tiszta öltözettel kezd. Kilépés megszakítja a hangot; későn befejeződő hangletöltés sem szólalhat meg másik képernyőn. Csökkentett mozgásnál a ruhák animáció nélkül jelennek meg.
+- A kör végi ablak címe „Indulhat a séta!”; más játékban visszaáll az eredeti cím.
+
+Ellenőrzés: `npm run check` **56 sikeres Node-teszt**, köztük három új öltözős körteszt. A tartalomellenőrzés az új mondatokat és hangfájlokat is vizsgálja. Chrome-ban és WebKitben motoronként **35 játékmenet- és 13 beállítás/hangmegszakítási ellenőrzés** sikeres. A meglévő etetős játék 25 böngészős ellenőrzését is sikeresen újrafuttattuk mindkét motorral. A teljes felöltözésnél tényleges MP3-dekódolást és lejátszást figyeltünk; a csökkentett mozgást és a késleltetett letöltés utáni kilépést is ellenőriztük.
+
+Elrendezés: mindkét motorban **56 állapot**, összesen 112: főmenü, háromjátékos menü, etetős és öltözős játék, két/három képes beállítással, 430 × 932, 932 × 430, 834 × 1194, 1194 × 834, 430 × 740, 932 × 350 és 1024 × 768 méretben. Nincs túllógás, a vizsgált gombok legalább 44 × 44 px méretűek. A teljes ruhát és a kompakt nézetet képen is ellenőriztük.
+
+Offline csomag: **197 fájl, 6dc695e2ec767371**, összesen 171 MP3. Chrome-ban nyolc offline ellenőrzés sikeres: teljes új csomag és 11 hang, hálózat nélküli újratöltés, új menühang, egyszer megszólaló bevezetés után érkező kérés, teljes öltözés és hangos befejezés, újratöltés után megőrzött egyszeri jutalom. A WebKit ellenőrzés emuláció; fizikai iPhone/iPad próbát nem helyettesít. A felhő a külön tesztprofilban szünetelt, a külső SDK helyettesítve volt.
+
+Fájlok: `dress-data.js`, `dress-art.js`, `dress-game.js`, `dress-game.css`, `tests/dress-game.test.mjs`; navigáció és hang az `app.js`-ben. A két új, csak öltözős szó (póló, sál) nem módosítja a beszédgyakorlás mentett szókészletét. Helyi tesztsegédek: `/tmp/dress-play-qa.js`, `/tmp/dress-options-qa.js`, `/tmp/dress-layout-qa.js`, `/tmp/dress-offline-qa.js`; képek: `output/playwright/dress-*.png`. A változtatások még helyben vannak, nincs új commit vagy push.
+
+Következő lépés: valódi iPaden közösen kipróbálni a ruhaválasztást és a hangot. Új tartalomként állathangos kereső vagy egyszerű színválogatás jöhet; a főképernyő négy választása maradjon áttekinthető. A következő fejlesztés előtt nézd meg, melyik játékot használja szívesen a gyerek.
+
+## Korábbi kör, 2026. október 2. – Etesd meg a macit!
+
+Új felhasználói kérésre elkészült a magyar etetős játék. A korábbi szeptemberi határidő lezárva marad; nincs újraindított automatizmus. Az alábbi szeptemberi munkanapló történeti állapotot ír le.
+
+### Most elkészült
+
+- **Főképernyő → Játsszunk! → Etesd meg a macit!** A négy főmenücsempe megmaradt, a negyedik most két játékhoz vezet: a macihoz és a meglévő Mi bújt el? kártyáihoz.
+- Saját SVG-maci, piknikterítő, nagy ételtányérok. A jó választás a maci szájához repül, utána mosoly és magyar köszönet következik. A továbbnyíl kézzel indítja a következő kérést.
+- Öt helyesen ragozott kérés: „Kérek almát / kiflit / kenyeret / tejet / vizet.” Kilenc új, előre generált hu-HU-NoemiNeural MP3; a saját családi felvételek változatlanok. A mondatos kéréseket a mesélőhang mondja a családi szóhang választása mellett is.
+- Olvasás és mikrofon nélkül játszható. Téves választás megismétli a kérést, a második téves választás kiemeli a keresett ételt. Nincs levont pont vagy büntetés.
+- Meglévő szülői beállítások: 3 / 5 / 10 kérés és 2 / 3 választás. A maci témája mindig az öt finomság. Egy ciklus mindegyiket lefedi, közvetlen szóismétlés nélkül.
+- Egy teljes piknik egyszer ad jutalmat. A beszédpróbák és szóeredmények nem változnak. Kilépés leállítja a hangot és az animációt; háttérbe tett, majd visszahozott játék folytatható. Csökkentett mozgásnál nincs repülő étel vagy fejbólintás.
+- Álló tableten függőleges, fekvő tableten kéthasábos elrendezés; kompakt fekvő telefonon egy sorban maradnak a tányérok. A kisebb 1024 × 768-as tabletnél is megszűnt a túllógás.
+- Offline csomag: **182 fájl, 32fa7be51a506e30**; összesen 160 MP3. Korábban telepített játékban a szülői felület frissítésgombja tölti be az új változatot.
+
+### Ellenőrzés
+
+- `npm run check`: 53 meglévő Node-teszt, szintaxis-, tartalom- és offlinejegyzék-ellenőrzés. A tartalomellenőrzés az új ételhivatkozásokat, mondatokat és MP3-akat is védi.
+- Chrome és WebKit: motoronként 25 játékmenet-ellenőrzés, valódi MP3-dekódolással és lejátszással. Téves válasz, segítség, ismételt koppintás, egyszeri jutalom, újrakezdés, animáció közbeni kilépés, háttérbe tétel/visszatérés, mikrofonhívások hiánya.
+- Motoronként további 29 ellenőrzés: újratöltés után megőrzött szülői beállítások, teljes tízes kör, két választás, minden ételt lefedő ciklus, csökkentett mozgás, családi szóhang és állatos gyakorlótéma melletti működés, meglévő kártyajáték és böngészős visszalépés.
+- Elrendezés: főmenü, új játékválasztó és macis játék a 430 × 932, 932 × 430, 834 × 1194, 1194 × 834, 430 × 740, 932 × 350 és 1024 × 768 méretekben. Mindkét motoron sikeres a két- és háromválasztásos próba: összesen 84 elrendezési állapot. Nincs oldalirányú/függőleges túllógás, minden vizsgált gomb legalább 44 × 44 px.
+- Chrome-ban hét új offline ellenőrzés: mind a 182 fájl és kilenc új hang gyorsítótárazva, hálózat nélkül újratöltött főmenü, tízételes kör tényleges hanggal, egyszeri jutalom és újratöltés után megőrzött eredmény.
+- A tesztek külön böngészőprofilban futottak, szüneteltetett felhőszinkronnal és a külső SDK helyettesítésével. Fizikai iPhone/iPad és a hang szubjektív minősége még közös kipróbálásra vár. A WebKit-próba böngészőemuláció, az új offline próba csak Chrome-ban futott.
+- Helyi tesztsegédek: `/tmp/teddy-play-qa.js`, `/tmp/teddy-options-qa.js`, `/tmp/teddy-layout-qa.js`, `/tmp/teddy-offline-qa.js`. Képek: `output/playwright/teddy-*.png` (gitből kizárva).
+
+### Következő értelmes lépések
+
+1. Gyerekkel próbálni, hogy a két választás, a maci beszédtempója és a továbbnyíl érthető-e. Valódi iPaden álló/fekvő fordítás, hang megszakítása és offline visszatérés.
+2. A **Maci öltözik** játék az október 2-i második fejlesztési körben elkészült; részletek a dokumentum elején.
+3. Később **Állathangok** vagy egyszerű **Színválogató**, külön rövid körként. Az új ötletek ne növeljék a főképernyő választásainak számát.
+
+Új kód: `teddy-game.js`, `teddy-game.css`; tartalom: `game-data.js`; bekötés: `index.html`, `app.js`; hanggenerálás: `scripts/build-voice-manifest.mjs`. A fejlesztői kiszolgáló az 5173-as porton elindítva. Ez a fejlesztési kör még nincs commitolva vagy GitHubra küldve.
+
+## Korábbi fejlesztési kör – 2026. szeptember
+
 Lezárva: 2026. szeptember 8., 02:02 UTC / 04:02 Budapest. Az utolsó fejlesztési kör 01:20 UTC körül elkészült; a határidő utáni futás csak a lezárást végezte.
 
 ## A felhasználó célja és a határidő

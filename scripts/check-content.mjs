@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
-import { words, wordCategories, twoWordPhrases } from '../game-data.js';
+import { words, wordCategories, twoWordPhrases, teddyRequests } from '../game-data.js';
 import { VOICE_CLIPS } from '../voice-library.js';
+
+import { dressItems } from '../dress-data.js';
+import { MESE_CLIPS } from '../meseliget-data.js';
 
 const uniqueIds = (items, label) => assert.equal(new Set(items.map(item => item.id)).size, items.length, `Duplicate ${label} ID`);
 uniqueIds(words, 'word');
@@ -18,6 +21,16 @@ uniqueIds(manifest.clips, 'voice');
 assert.deepEqual(VOICE_CLIPS, Object.fromEntries(manifest.clips.map(({id,text,file}) => [id,{text,file}])));
 for (const word of words) assert.equal(VOICE_CLIPS[`word_${word.id}`]?.text, word.label);
 for (const phrase of twoWordPhrases) assert.equal(VOICE_CLIPS[`phrase_${phrase.id}`]?.text, phrase.text);
+for (const [id, text] of Object.entries(teddyRequests)) {
+  assert.ok(wordCategories.find(category => category.id === 'food').words.includes(id), `Not a food: ${id}`);
+  assert.equal(VOICE_CLIPS[`teddy_${id}`]?.text, text);
+}
+uniqueIds(dressItems, 'dress');
+for (const [id, text] of Object.entries(MESE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
+for (const item of dressItems) {
+  assert.equal(VOICE_CLIPS[`dress_request_${item.id}`]?.text, item.request);
+  assert.equal(VOICE_CLIPS[`dress_thanks_${item.id}`]?.text, item.thanks);
+}
 const audioFiles = [...words.map(word => `audio/${word.id}.mp3`), ...manifest.clips.map(clip => clip.file)];
 for (const file of audioFiles) {
   assert.ok((await stat(new URL(`../${file}`, import.meta.url))).size > 1000, `Missing or empty audio: ${file}`);

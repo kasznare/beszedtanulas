@@ -10,6 +10,9 @@
   <title>Beszédtanulás · Játsszunk együtt!</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./child-ui.css" />
+  <link rel="stylesheet" href="./teddy-game.css" />
+  <link rel="stylesheet" href="./dress-game.css" />
+  <link rel="stylesheet" href="./meseliget.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -30,10 +33,79 @@
       </div>
       <div class="home-welcome"><span class="welcome-sun" aria-hidden="true">☀️</span><span>Mivel játsszunk?</span><span class="welcome-flower" aria-hidden="true">🌼</span></div>
       <div class="home-grid">
-<button class="home-tile tone-mint" data-open="picture-menu" aria-label="Képek"><span class="home-art art-topics" aria-hidden="true"><span class="little-card">🐱</span><span class="little-card">🍎</span></span><span class="tile-title">Képek</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-peach" data-open="practice-menu" aria-label="Mondd utánam"><span class="home-art art-practice-menu" aria-hidden="true"><span class="speech-bubble">🐻</span><span class="small-bubble">♪</span></span><span class="tile-title">Mondd utánam</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-blue" data-open="number-menu" aria-label="Számoljunk"><span class="home-art art-number-menu" aria-hidden="true"><span class="number-block">1</span><span class="number-block">2</span><span class="number-block">3</span></span><span class="tile-title">Számoljunk</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="home-art art-flip" aria-hidden="true"><span class="surprise-box">🎁</span><span class="surprise-star">✦</span></span><span class="tile-title">Mi bújt el?</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button>
+<button class="home-tile tone-mint" data-open="picture-menu" aria-label="Képek"><span class="home-art art-topics" aria-hidden="true"><span class="little-card">🐱</span><span class="little-card">🍎</span></span><span class="tile-title">Képek</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-peach" data-open="practice-menu" aria-label="Mondd utánam"><span class="home-art art-practice-menu" aria-hidden="true"><span class="speech-bubble">🐻</span><span class="small-bubble">♪</span></span><span class="tile-title">Mondd utánam</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-blue" data-open="number-menu" aria-label="Számoljunk"><span class="home-art art-number-menu" aria-hidden="true"><span class="number-block">1</span><span class="number-block">2</span><span class="number-block">3</span></span><span class="tile-title">Számoljunk</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button><button class="home-tile tone-yellow" data-open="play-menu" aria-label="Játsszunk!"><span class="home-art art-flip" aria-hidden="true"><span class="surprise-box">🧸</span><span class="surprise-star">✦</span></span><span class="tile-title">Játsszunk!</span><span class="tile-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></span></button>
       </div>
       <p class="home-footer"><span aria-hidden="true">♡</span> Egy kis játék. Együtt.</p>
     </section>
+
+    <section id="play-menu" class="panel menu-panel" aria-label="Válassz játékot">
+      <div class="choice-grid play-choice-grid">
+        <button class="choice-tile tone-peach" data-open="teddy-game" aria-label="Etesd meg a macit"><span class="choice-art teddy-menu-art" aria-hidden="true">🧸<span>🍎 🥛</span></span><span>Etesd meg a macit!</span></button>
+        <button class="choice-tile tone-blue" data-open="dress-game" aria-label="Maci öltözik"><span class="choice-art teddy-menu-art" aria-hidden="true">🧸<span>🧣 👟</span></span><span>Maci öltözik</span></button>
+        <button class="choice-tile tone-mint" data-open="meseliget" aria-label="Meseliget, induljunk piknikezni"><span class="choice-art teddy-menu-art" aria-hidden="true">🌳<span>🧸 🍎</span></span><span>Meseliget</span></button>
+        <button class="choice-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="choice-art" aria-hidden="true">🎁</span><span>Mi bújt el?</span></button>
+      </div>
+    </section>
+
+    <section id="teddy-game" class="panel teddy-panel" aria-label="Etesd meg a macit" data-mood="waiting">
+      <div id="teddy-progress" class="round-progress" role="group" aria-label="A piknik haladása"></div>
+      <div class="teddy-picnic">
+        <div class="teddy-scene">
+          <span class="teddy-sun" aria-hidden="true">☀</span>
+          <span class="teddy-heart" aria-hidden="true">♥</span>
+          <svg class="teddy-illustration" viewBox="0 0 360 330" aria-hidden="true">
+            <ellipse cx="180" cy="310" rx="125" ry="13" fill="#b1c8a4" opacity=".5"/>
+            <g class="teddy-body">
+              <ellipse cx="180" cy="248" rx="83" ry="76" fill="#b97d51"/>
+              <ellipse cx="180" cy="251" rx="53" ry="53" fill="#edc59a"/>
+              <ellipse class="teddy-paw" cx="102" cy="231" rx="28" ry="48" transform="rotate(27 102 231)" fill="#c99162"/>
+              <ellipse cx="259" cy="232" rx="28" ry="48" transform="rotate(-27 259 232)" fill="#c99162"/>
+              <ellipse cx="122" cy="295" rx="39" ry="28" transform="rotate(-12 122 295)" fill="#c99162"/>
+              <ellipse cx="238" cy="295" rx="39" ry="28" transform="rotate(12 238 295)" fill="#c99162"/>
+              <ellipse cx="122" cy="298" rx="23" ry="15" fill="#e9b98b"/>
+              <ellipse cx="238" cy="298" rx="23" ry="15" fill="#e9b98b"/>
+            </g>
+            <g class="teddy-head">
+              <circle cx="108" cy="80" r="37" fill="#b97d51"/><circle cx="252" cy="80" r="37" fill="#b97d51"/>
+              <circle cx="108" cy="80" r="23" fill="#e8b58a"/><circle cx="252" cy="80" r="23" fill="#e8b58a"/>
+              <rect x="81" y="66" width="198" height="150" rx="76" fill="#c99162"/>
+              <ellipse cx="119" cy="160" rx="19" ry="12" fill="#e9a17f"/><ellipse cx="241" cy="160" rx="19" ry="12" fill="#e9a17f"/>
+              <g class="teddy-open-eyes" fill="#49382d"><ellipse cx="141" cy="133" rx="7" ry="10"/><ellipse cx="219" cy="133" rx="7" ry="10"/><circle cx="143" cy="130" r="2" fill="#fff7e7"/><circle cx="221" cy="130" r="2" fill="#fff7e7"/></g>
+              <g class="teddy-happy-eyes" fill="none" stroke="#49382d" stroke-width="6" stroke-linecap="round"><path d="M133 136q8-12 16 0M211 136q8-12 16 0"/></g>
+              <ellipse cx="180" cy="171" rx="40" ry="31" fill="#f5d7af"/>
+              <path d="M168 158q12-7 24 0q-2 13-12 13t-12-13" fill="#49382d"/>
+              <g id="teddy-mouth"><path class="teddy-smile" d="M180 171v7m-13 0q13 16 26 0" fill="none" stroke="#49382d" stroke-width="4" stroke-linecap="round"/><ellipse class="teddy-hamm" cx="180" cy="183" rx="12" ry="11" fill="#634032"/></g>
+            </g>
+            <path d="m156 206 24 11 24-11-4 23-20-8-20 8z" fill="#59846b"/><circle cx="180" cy="218" r="6" fill="#376950"/>
+          </svg>
+          <button id="teddy-replay" class="teddy-replay" aria-label="Mit kér a maci? Hallgasd meg újra!"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button>
+        </div>
+        <div class="teddy-table">
+          <p id="teddy-status" class="teddy-status" role="status">Mit kér a maci?</p>
+          <div id="teddy-answers" class="teddy-answers" role="group" aria-label="Mivel kínálod meg a macit?"></div>
+          <button id="teddy-next" class="teddy-next" aria-label="Következő finomság" disabled><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="dress-game" class="panel teddy-panel dress-panel" aria-label="Maci öltözik" data-mood="waiting">
+      <div id="dress-progress" class="round-progress" role="group" aria-label="Az öltözés haladása"></div>
+      <div class="teddy-picnic">
+        <div class="teddy-scene dress-scene">
+          <span class="dress-leaf" aria-hidden="true">🍂</span>
+          <span class="teddy-heart" aria-hidden="true">♥</span>
+          <div id="dress-bear" class="dress-bear"></div>
+          <button id="dress-replay" class="teddy-replay" aria-label="Mit kér a maci? Hallgasd meg újra!"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button>
+        </div>
+        <div class="teddy-table">
+          <p id="dress-status" class="teddy-status" role="status">Mit vegyen fel a maci?</p>
+          <div id="dress-answers" class="dress-answers" role="group" aria-label="Válassz ruhát a macinak"></div>
+          <button id="dress-next" class="teddy-next" aria-label="Következő ruhadarab" disabled><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="meseliget" class="panel meadow-panel" aria-label="Meseliget kaland"></section>
 
     <section id="picture-menu" class="panel menu-panel" aria-label="Képes játék választása">
       <div class="choice-grid">
@@ -140,6 +212,7 @@
       <div class="flip-game"><h2 class="sr-only">Fordíts fel egy kártyát</h2><p id="flip-status" class="listen-status" role="status"></p><div id="flip-grid" class="flip-grid"></div><div class="actions"><button id="flip-new" class="secondary icon-btn" aria-label="Új meglepetések"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button></div></div>
     </section>
       <section id="parent" class="panel parent-panel">
+        <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A szabad játék a számolási szintet és a körhosszt használja. A piknikkaland három állomásból áll, legfeljebb három almával. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
         <div class="parent-controls profile-controls">
           <h2>Ki játszik?</h2>
           <label for="supabase-role">Aktív profil</label>
@@ -162,8 +235,9 @@
           <select id="practice-topic"></select>
           <label for="number-level">Számolás</label>
           <select id="number-level"><option value="3">1–3</option><option value="5">1–5</option><option value="10">1–10</option></select>
-          <label for="listening-choices">Hol van? · választható képek</label>
+          <label for="listening-choices">Képes játékok · választható képek</label>
           <select id="listening-choices"><option value="2">2 kép · könnyebb választás</option><option value="3">3 kép · több lehetőség</option></select>
+          <p class="parent-note">A Hol van? és a két macis játék választásait állítja. Az öltözés mindig négy ruhadarabból áll. A macis játékok tartalma független a gyakorlás témájától.</p>
           <label for="word-voice">Szavak hangja</label>
           <select id="word-voice"><option value="natural">Új magyar mesélőhang</option><option value="family">Meglévő saját felvételek</option></select>
           <label class="check-label"><input type="checkbox" id="spoken-guidance" checked /> Hangos segítség a játékokban</label>

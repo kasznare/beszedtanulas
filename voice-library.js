@@ -4,6 +4,34 @@ export const VOICE_CLIPS = {
     "text": "Szia! Mivel játsszunk?",
     "file": "audio/voice/guide_welcome.mp3"
   },
+  "guide_play_menu": {
+    "text": "Etessük meg a macit, vagy nézzük meg, mi bújt el!",
+    "file": "audio/voice/guide_play_menu.mp3"
+  },
+  "guide_play_menu_more": {
+    "text": "Etessük meg a macit, öltöztessük fel, vagy nézzük meg, mi bújt el!",
+    "file": "audio/voice/guide_play_menu_more.mp3"
+  },
+  "guide_dress": {
+    "text": "Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!",
+    "file": "audio/voice/guide_dress.mp3"
+  },
+  "guide_dress_finished": {
+    "text": "Felöltöztem! Köszönöm! Indulhat a séta!",
+    "file": "audio/voice/guide_dress_finished.mp3"
+  },
+  "guide_teddy": {
+    "text": "Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!",
+    "file": "audio/voice/guide_teddy.mp3"
+  },
+  "guide_teddy_thanks": {
+    "text": "De finom! Köszönöm!",
+    "file": "audio/voice/guide_teddy_thanks.mp3"
+  },
+  "guide_teddy_finished": {
+    "text": "Tele a pocakom! Köszönöm a finom pikniket!",
+    "file": "audio/voice/guide_teddy_finished.mp3"
+  },
   "guide_topics": {
     "text": "Mit nézzünk meg? Válassz egy képet!",
     "file": "audio/voice/guide_topics.mp3"
@@ -107,6 +135,198 @@ export const VOICE_CLIPS = {
   "guide_retry_count": {
     "text": "Próbáld újra! Számold meg egyesével.",
     "file": "audio/voice/guide_retry_count.mp3"
+  },
+  "mese_map": {
+    "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
+    "file": "audio/voice/mese_map.mp3"
+  },
+  "mese_start": {
+    "text": "Piknikezni indulunk! Először adjuk fel a maci sapkáját és cipőjét!",
+    "file": "audio/voice/mese_start.mp3"
+  },
+  "mese_dressed": {
+    "text": "Felöltöztem! Most szedjünk almát a barátainknak!",
+    "file": "audio/voice/mese_dressed.mp3"
+  },
+  "mese_serve": {
+    "text": "Adj minden állatnak egy tányért! Koppints az állatok elé!",
+    "file": "audio/voice/mese_serve.mp3"
+  },
+  "mese_served": {
+    "text": "Mindenkinek jutott tányér! Kezdődhet a piknik!",
+    "file": "audio/voice/mese_served.mp3"
+  },
+  "mese_more": {
+    "text": "Még kell alma a kosárba. Tegyél bele még!",
+    "file": "audio/voice/mese_more.mp3"
+  },
+  "mese_less": {
+    "text": "Kicsit sok lett! Koppints a kosárban egy almára, és tedd vissza!",
+    "file": "audio/voice/mese_less.mp3"
+  },
+  "mese_count_help": {
+    "text": "Számoljunk együtt! A pöttyök mutatják, hány alma kell a kosárba.",
+    "file": "audio/voice/mese_count_help.mp3"
+  },
+  "mese_plate_help": {
+    "text": "Nézd, kinek nincs még tányérja! Koppints elé, és adj neki egyet!",
+    "file": "audio/voice/mese_plate_help.mp3"
+  },
+  "mese_plate_more": {
+    "text": "Valakinek még nincs tányérja. Nézzük meg együtt!",
+    "file": "audio/voice/mese_plate_more.mp3"
+  },
+  "mese_finish": {
+    "text": "Elkészült a piknik! Köszönöm a segítséget! Ezt a képet eltesszük emlékbe.",
+    "file": "audio/voice/mese_finish.mp3"
+  },
+  "mese_free_finish": {
+    "text": "Ügyesen segítettél! Pihenjünk meg, vagy játsszunk még!",
+    "file": "audio/voice/mese_free_finish.mp3"
+  },
+  "mese_album": {
+    "text": "Ezek a közös piknikjeink emlékei!",
+    "file": "audio/voice/mese_album.mp3"
+  },
+  "mese_empty_album": {
+    "text": "Itt lesz a közös piknikünk képe. Induljunk el egy kalandra!",
+    "file": "audio/voice/mese_empty_album.mp3"
+  },
+  "mese_play_menu": {
+    "text": "Etessük meg a macit, öltöztessük fel, keressünk képeket, vagy kiránduljunk Meseligetben!",
+    "file": "audio/voice/mese_play_menu.mp3"
+  },
+  "mese_collect_1": {
+    "text": "Tegyél egy almát a kosárba!",
+    "file": "audio/voice/mese_collect_1.mp3"
+  },
+  "mese_collected_1": {
+    "text": "Megvan az egy alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_1.mp3"
+  },
+  "mese_collect_2": {
+    "text": "Tegyél két almát a kosárba!",
+    "file": "audio/voice/mese_collect_2.mp3"
+  },
+  "mese_collected_2": {
+    "text": "Megvan a két alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_2.mp3"
+  },
+  "mese_collect_3": {
+    "text": "Tegyél három almát a kosárba!",
+    "file": "audio/voice/mese_collect_3.mp3"
+  },
+  "mese_collected_3": {
+    "text": "Megvan a három alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_3.mp3"
+  },
+  "mese_collect_4": {
+    "text": "Tegyél négy almát a kosárba!",
+    "file": "audio/voice/mese_collect_4.mp3"
+  },
+  "mese_collected_4": {
+    "text": "Megvan a négy alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_4.mp3"
+  },
+  "mese_collect_5": {
+    "text": "Tegyél öt almát a kosárba!",
+    "file": "audio/voice/mese_collect_5.mp3"
+  },
+  "mese_collected_5": {
+    "text": "Megvan a öt alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_5.mp3"
+  },
+  "mese_collect_6": {
+    "text": "Tegyél hat almát a kosárba!",
+    "file": "audio/voice/mese_collect_6.mp3"
+  },
+  "mese_collected_6": {
+    "text": "Megvan a hat alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_6.mp3"
+  },
+  "mese_collect_7": {
+    "text": "Tegyél hét almát a kosárba!",
+    "file": "audio/voice/mese_collect_7.mp3"
+  },
+  "mese_collected_7": {
+    "text": "Megvan a hét alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_7.mp3"
+  },
+  "mese_collect_8": {
+    "text": "Tegyél nyolc almát a kosárba!",
+    "file": "audio/voice/mese_collect_8.mp3"
+  },
+  "mese_collected_8": {
+    "text": "Megvan a nyolc alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_8.mp3"
+  },
+  "mese_collect_9": {
+    "text": "Tegyél kilenc almát a kosárba!",
+    "file": "audio/voice/mese_collect_9.mp3"
+  },
+  "mese_collected_9": {
+    "text": "Megvan a kilenc alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_9.mp3"
+  },
+  "mese_collect_10": {
+    "text": "Tegyél tíz almát a kosárba!",
+    "file": "audio/voice/mese_collect_10.mp3"
+  },
+  "mese_collected_10": {
+    "text": "Megvan a tíz alma! Köszönöm!",
+    "file": "audio/voice/mese_collected_10.mp3"
+  },
+  "teddy_alma": {
+    "text": "Kérek almát.",
+    "file": "audio/voice/teddy_alma.mp3"
+  },
+  "teddy_kifli": {
+    "text": "Kérek kiflit.",
+    "file": "audio/voice/teddy_kifli.mp3"
+  },
+  "teddy_kenyer": {
+    "text": "Kérek kenyeret.",
+    "file": "audio/voice/teddy_kenyer.mp3"
+  },
+  "teddy_tej": {
+    "text": "Kérek tejet.",
+    "file": "audio/voice/teddy_tej.mp3"
+  },
+  "teddy_viz": {
+    "text": "Kérek vizet.",
+    "file": "audio/voice/teddy_viz.mp3"
+  },
+  "dress_request_sapka": {
+    "text": "Kérem a sapkát.",
+    "file": "audio/voice/dress_request_sapka.mp3"
+  },
+  "dress_thanks_sapka": {
+    "text": "Meleg a sapkám!",
+    "file": "audio/voice/dress_thanks_sapka.mp3"
+  },
+  "dress_request_polo": {
+    "text": "Kérem a pólót.",
+    "file": "audio/voice/dress_request_polo.mp3"
+  },
+  "dress_thanks_polo": {
+    "text": "Jó puha a pólóm!",
+    "file": "audio/voice/dress_thanks_polo.mp3"
+  },
+  "dress_request_sal": {
+    "text": "Kérem a sálat.",
+    "file": "audio/voice/dress_request_sal.mp3"
+  },
+  "dress_thanks_sal": {
+    "text": "Meleg a sálam!",
+    "file": "audio/voice/dress_thanks_sal.mp3"
+  },
+  "dress_request_cipo": {
+    "text": "Kérem a cipőt.",
+    "file": "audio/voice/dress_request_cipo.mp3"
+  },
+  "dress_thanks_cipo": {
+    "text": "Kényelmes a cipőm!",
+    "file": "audio/voice/dress_thanks_cipo.mp3"
   },
   "word_viz": {
     "text": "víz",

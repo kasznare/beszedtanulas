@@ -114,3 +114,11 @@ A jelenlegi számlálós séma összevonása szavanként a nagyobb próbálkozá
 Ez az összevonás megőrzi a helyi számlálókat, de több eszköz párhuzamos gyakorlását nem összegzi pontosan, és a szerver két egyidejű írását sem teszi atomivá. Ehhez azonosítható gyakorlási események és szerveroldali tranzakció szükséges. A felhő jelenleg csak szóeredményeket tárol; a lejátszás-, összpróba- és jutalomszámlálók a helyi mentésben és a JSON-fájlban vannak.
 
 A böngészős szinkront elkülönített, szimulált szolgáltatással ellenőriztük; éles adatokon nem történt próba. A részletes folytatási terv: [continuation.md](continuation.md).
+
+## Meseliget
+
+A **Játsszunk! → Meseliget** új térképéről rövid piknikkaland indul: sapka és cipő feladása, három alma összegyűjtése, majd tányér minden állatnak. A befejezett állomások mentődnek; újratöltés után a **Folytassuk a kalandot!** gomb vezet tovább. Egy kaland egyszer ad jutalmat és egy emléket az albumba.
+
+Az **Almáskert** és a **Piknikrét** szabad játéka a szülői 1–3 / 1–5 / 1–10 számolási szintet és a 3 / 5 / 10 feladatos körhosszt használja. Az almák koppintással betehetők és visszavehetők, a tányérok is visszavonhatók. A **Kész!** ellenőrzi a választ; a **Segíts!** mennyiségjelölést vagy a hiányzó tányérok kiemelését adja. Mikrofon nem kell.
+
+35 új magyar hang tartozik a játékhoz. Teljes letöltés után offline is játszható. Az önálló és segítséggel befejezett feladatok, az album és az aktív kaland profilonként külön, a meglévő mentésben tárolódnak, és a JSON-export, visszaállítás, nullázás és visszavonás is kezeli őket. Ezek az új adatok a jelenlegi szóeredmény-alapú felhőszinkronba nem kerülnek.

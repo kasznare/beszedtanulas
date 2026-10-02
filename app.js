@@ -7,6 +7,10 @@ import { setupOffline } from "./offline-client.js";
 import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
 import { setupProgressTools } from "./progress-tools.js";
 import { setupListeningGame } from "./listening-game.js";
+import { setupTeddyGame } from "./teddy-game.js";
+import { setupDressGame } from "./dress-game.js";
+import { setupMeadow } from "./meseliget-game.js";
+import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
 import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode } from "./progress-profiles.js";
 import { createCloudSaveQueue } from "./cloud-save-queue.js";
@@ -38,6 +42,10 @@ let completedRoundKind = "imitate";
 const screenInfo = {
   home: { title: "Játsszunk együtt!", guide: "welcome" },
   "picture-menu": { title: "Játsszunk a képekkel!", guide: "picture_menu" },
+  "play-menu": { title: "Mivel játsszunk?", guide: "play_menu_more" },
+  "dress-game": { title: "Maci öltözik", guide: "dress" },
+  meseliget: { title: "Meseliget" },
+  "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
   "listening-game": { title: "Hol van?", guide: "listening_game" },
@@ -72,6 +80,9 @@ let cloudGeneration = 0;
 let cloudResumePending = false;
 let progressTools;
 let listeningGame;
+let teddyGame;
+let dressGame;
+let meadowGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -269,6 +280,40 @@ listeningGame = setupListeningGame({
     saveProgress();
     refreshStats();
     celebrateRound("listening-game", count);
+  },
+});
+teddyGame = setupTeddyGame({
+  getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
+  playPrompt: playTeddyPrompt,
+  playThanks: () => speakVoice("guide_teddy_thanks"),
+  stopPlayback,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress();
+    refreshStats();
+    celebrateRound("teddy-game", count);
+  },
+});
+dressGame = setupDressGame({
+  getChoiceCount: () => state.settings.listeningChoices,
+  playPrompt: playDressPrompt,
+  playThanks: item => speakVoice(`dress_thanks_${item.id}`),
+  stopPlayback,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress();
+    refreshStats();
+    celebrateRound("dress-game", count);
+  },
+});
+meadowGame = setupMeadow({
+  getProgress: () => state.meadow,
+  getOptions: () => state.settings,
+  speak: id => speakVoice(id), stopPlayback, openScreen: showScreen,
+  updateProgress: (progress, reward) => {
+    state.meadow = progress;
+    if (reward) state.rewards += 1;
+    saveProgress(); refreshStats();
   },
 });
 progressTools = setupProgressTools({
@@ -745,6 +790,9 @@ function renderDebug(result) {
 }
 
 function refreshStats() {
+  const meadow = normalizeMeadow(state.meadow);
+  const summary = document.querySelector('#meadow-summary');
+  if (summary) summary.textContent = `Almagyűjtés: ${meadow.collect.independent} önálló, ${meadow.collect.assisted} segítséggel. Terítés: ${meadow.serve.independent} önálló, ${meadow.serve.assisted} segítséggel. Közös piknikek: ${meadow.journeys}.`;
   playsCount.textContent = String(state.plays);
   attemptCount.textContent = String(state.attempts);
   rewardCount.textContent = String(state.rewards);
@@ -767,6 +815,22 @@ async function playListeningPrompt(word, { intro = false, retry = false, force =
   }
   if (token !== playbackToken || currentScreen !== "listening-game" || document.hidden) return;
   await playWord(word, token);
+}
+
+async function playTeddyPrompt(word, { intro = false, force = false } = {}) {
+  const token = beginPlayback();
+  if (intro && (state.settings.spokenGuidance || force)) await speakVoice("guide_teddy", token);
+  if (token !== playbackToken || currentScreen !== "teddy-game" || document.hidden) return;
+  registerPlay();
+  await speakVoice(`teddy_${word.id}`, token);
+}
+
+async function playDressPrompt(item, { intro = false, force = false } = {}) {
+  const token = beginPlayback();
+  if (intro && (state.settings.spokenGuidance || force)) await speakVoice("guide_dress", token);
+  if (token !== playbackToken || currentScreen !== "dress-game" || document.hidden) return;
+  registerPlay();
+  await speakVoice(`dress_request_${item.id}`, token);
 }
 
 function stopPlayback() {
@@ -960,6 +1024,7 @@ function baseProgress() {
     plays: 0,
     attempts: 0,
     rewards: 0,
+    meadow: normalizeMeadow(),
     settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
@@ -1764,6 +1829,7 @@ async function speakVoiceSequence(ids) {
 
 function speakGuide(id, force = false) {
   if (!force && !state.settings.spokenGuidance) return Promise.resolve();
+  if (id === "play_menu_more") return speakVoice("mese_play_menu");
   return speakVoice(`guide_${id}`);
 }
 
@@ -1776,6 +1842,9 @@ function setupNavigation() {
     if (listening || autoSessionRunning) stopAutoImitateSession(false);
     primeSfx();
     if (currentScreen === "numbers" && numberMode === "quiz") speakNumberQuestion();
+    else if (currentScreen === "meseliget") meadowGame.repeat();
+    else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
+    else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
     else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
     else speakGuide(screenInfo[currentScreen]?.guide || "welcome", true);
   });
@@ -1790,6 +1859,8 @@ function setupNavigation() {
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
     if (completedRoundKind === "flip") showScreen("flip");
+    else if (completedRoundKind === "dress-game") showScreen("dress-game");
+    else if (completedRoundKind === "teddy-game") showScreen("teddy-game");
     else if (completedRoundKind === "listening-game") showScreen("listening-game");
     else startAutoImitateSession();
   });
@@ -1824,6 +1895,9 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   }
   stopAutoImitateSession(false);
   listeningGame?.stop();
+  teddyGame?.stop();
+  dressGame?.stop();
+  meadowGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -1843,12 +1917,15 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "two-word") renderTwoWordMode();
   if (screen === "flip") renderFlipGame();
   if (screen === "listening-game") listeningGame.start({ announce });
+  if (screen === "teddy-game") teddyGame.start({ announce });
+  if (screen === "dress-game") dressGame.start({ announce });
+  if (screen === "meseliget") meadowGame.start({ announce });
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
   title.focus({ preventScroll: true });
   window.scrollTo(0, 0);
-  if (announce && screen !== "listening-game" && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
+  if (announce && !["listening-game", "teddy-game", "dress-game"].includes(screen) && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
 }
 
 function showParentGate() {
@@ -1919,6 +1996,7 @@ function celebrateRound(kind, count) {
   playSuccessSound();
   burstConfettiOverlay(1000);
   document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
+  document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : "De jó volt együtt!";
   document.querySelector("#round-complete").showModal();
-  speakGuide("finished");
+  speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
 }

@@ -1,10 +1,20 @@
 import { writeFile, mkdir } from 'node:fs/promises';
-import { words, twoWordPhrases } from '../game-data.js';
+import { words, twoWordPhrases, teddyRequests } from '../game-data.js';
+
+import { dressItems } from '../dress-data.js';
+import { MESE_CLIPS } from '../meseliget-data.js';
 
 const clips = [];
 const add = (id, text, group = 'guide') => clips.push({ id, text, group, file: `audio/voice/${id}.mp3` });
 const guides = {
   welcome: 'Szia! Mivel játsszunk?',
+  play_menu: 'Etessük meg a macit, vagy nézzük meg, mi bújt el!',
+  play_menu_more: 'Etessük meg a macit, öltöztessük fel, vagy nézzük meg, mi bújt el!',
+  dress: 'Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!',
+  dress_finished: 'Felöltöztem! Köszönöm! Indulhat a séta!',
+  teddy: 'Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!',
+  teddy_thanks: 'De finom! Köszönöm!',
+  teddy_finished: 'Tele a pocakom! Köszönöm a finom pikniket!',
   topics: 'Mit nézzünk meg? Válassz egy képet!',
   picture_menu: 'Nézegessünk képeket, vagy keressük meg, amit hallunk?',
   listening_game: 'Hallgasd meg a szót, és keresd meg a képét!',
@@ -33,6 +43,12 @@ const guides = {
   retry_count: 'Próbáld újra! Számold meg egyesével.',
 };
 for (const [id, text] of Object.entries(guides)) add(`guide_${id}`, text);
+for (const [id, text] of Object.entries(MESE_CLIPS)) add(id, text, 'meseliget');
+for (const [id, text] of Object.entries(teddyRequests)) add(`teddy_${id}`, text, 'teddy');
+for (const item of dressItems) {
+  add(`dress_request_${item.id}`, item.request, 'dress');
+  add(`dress_thanks_${item.id}`, item.thanks, 'dress');
+}
 for (const word of words) add(`word_${word.id}`, word.label, 'word');
 for (const phrase of twoWordPhrases) add(`phrase_${phrase.id}`, phrase.text, 'phrase');
 const names = ['nulla', 'egy', 'kettő', 'három', 'négy', 'öt', 'hat', 'hét', 'nyolc', 'kilenc', 'tíz'];

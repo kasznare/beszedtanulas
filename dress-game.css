@@ -1,0 +1,58 @@
+.play-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.play-choice-grid .choice-tile { font-size: 1.1rem; }
+.dress-scene { background: linear-gradient(#e2edf0, #e4ebd7); }
+.dress-bear { width: 100%; display: grid; place-items: center; }
+.dress-leaf { position: absolute; top: 10%; left: 8%; font-size: 36px; transform: rotate(-15deg); }
+.dress-garment { display: none; }
+.dress-garment.is-worn { display: inline; animation: dress-appear .45s ease-out; transform-box: fill-box; transform-origin: center; }
+.dress-answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 20px; border-radius: 30px; background: #e3eaf0; box-shadow: inset 0 0 0 2px #d5e0e8; }
+.dress-choice { position: relative; display: grid; place-items: center; min-width: 0; min-height: 145px; width: 100%; max-width: 180px; justify-self: center; border: 3px solid #fefcf5; border-radius: 24px; background: #fffaf0; box-shadow: 0 5px 0 #a9b7c32b; padding: 12px; cursor: pointer; touch-action: manipulation; }
+.dress-choice > .dress-icon { width: 100%; max-width: 130px; height: 130px; }
+.dress-answers[data-count="3"] .dress-choice:last-child { grid-column: 1 / -1; width: calc((100% - 18px) / 2); }
+.dress-choice:disabled { cursor: default; opacity: 1; }
+.dress-choice.is-hint { border-color: #6c957b; box-shadow: 0 0 0 5px #b0c9b5; }
+.dress-choice.is-correct { background: #e8f1df; border-color: #6c957b; }
+.dress-mark { position: absolute; bottom: 5px; right: 10px; font-size: 25px; color: #387a58; font-weight: 800; }
+@keyframes dress-appear { from { opacity: .25; transform: scale(.75); } to { opacity: 1; transform: scale(1); } }
+@media (max-width: 649px) {
+  .play-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .play-choice-grid .choice-tile { min-height: 235px; padding: 16px 10px; gap: 12px; }
+  .play-choice-grid .choice-art { font-size: 84px; }
+  .play-choice-grid .teddy-menu-art > span { font-size: 30px; }
+  .play-choice-grid .choice-tile:last-child { grid-column: 1 / -1; flex-direction: row; min-height: 126px; gap: 30px; }
+  .play-choice-grid .choice-tile:last-child .choice-art { font-size: 76px; }
+  .dress-answers { padding: 16px 12px; gap: 12px; }
+  .dress-choice { min-height: 120px; padding: 8px; }
+  .dress-choice > .dress-icon { height: 112px; }
+  .dress-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 14px 10px; }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  .dress-answers[data-count="3"] .dress-choice { min-height: 100px; padding: 6px; border-radius: 19px; }
+  .dress-answers[data-count="3"] .dress-icon { height: 84px; }
+}
+@media (min-width: 650px) and (min-height: 1000px) {
+  .dress-answers, .dress-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dress-answers[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  .dress-choice { min-height: 176px; max-width: 200px; }
+  .dress-choice > .dress-icon { height: 145px; max-width: 145px; }
+}
+@media (orientation: landscape) and (max-height: 600px) and (min-width: 650px) {
+  .play-choice-grid .choice-tile { min-height: 200px; padding: 12px 10px; gap: 8px; }
+  .play-choice-grid .choice-art { font-size: 82px; }
+  .play-choice-grid .teddy-menu-art > span { font-size: 28px; }
+  .dress-answers, .dress-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 12px; }
+  .dress-answers[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  .dress-choice { min-height: 105px; max-width: 150px; padding: 5px; border-radius: 20px; }
+  .dress-choice > .dress-icon { height: 95px; }
+  .dress-leaf { font-size: 28px; }
+}
+@media (orientation: landscape) and (max-height: 390px) and (min-width: 650px) {
+  .play-choice-grid .choice-tile { min-height: 186px; }
+  .dress-choice { min-height: 92px; }
+  .dress-choice > .dress-icon { height: 82px; }
+  .dress-answers { padding: 8px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dress-garment.is-worn { animation: none; }
+}

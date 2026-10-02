@@ -118,3 +118,11 @@ export const TODDLER_ALIASES = {
   vonat: ["vonat", "vonat", "onat"],
   busz: ["busz", "bus", "usz"],
 };
+// The requests are complete Hungarian sentences, including accusative endings.
+export const teddyRequests = {
+  alma: "Kérek almát.",
+  kifli: "Kérek kiflit.",
+  kenyer: "Kérek kenyeret.",
+  tej: "Kérek tejet.",
+  viz: "Kérek vizet.",
+};
