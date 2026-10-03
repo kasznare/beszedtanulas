@@ -72,6 +72,59 @@
 .meadow-album-empty { font-size: 100px; padding: 25px; }
 .meadow-ending > p { color: #52684d; }
 .meadow-summary { line-height: 1.7; }
+.meadow-plan { position: relative; z-index: 2; max-width: 690px; margin: 20px auto 0; padding: 12px; border: 1px solid #fff9; border-radius: 22px; background: #fffaf0de; }
+.meadow-plan-heading { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 10px; color: #4c624b; }
+.meadow-plan-heading span { font-size: .8rem; }
+.meadow-quantities { display: grid; grid-template-columns: repeat(10,minmax(44px,1fr)); gap: 7px; }
+.meadow-quantity { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 5px; min-width: 44px; min-height: 54px; border: 2px solid #dedcc8; border-radius: 14px; color: #50684c; background: #fffdf5; padding: 5px 3px; }
+.meadow-quantity strong { font-size: 1.05rem; line-height: 1; }
+.meadow-quantity[aria-pressed="true"] { border-color: #39764e; background: #e4efdb; box-shadow: 0 2px 0 #39764e33; }
+.meadow-quantity-dots { display: grid; grid-template-columns: repeat(5,4px); gap: 3px; justify-content: center; min-height: 11px; align-content: center; }
+.meadow-quantity-dots i { width: 4px; height: 4px; background: currentColor; border-radius: 50%; }
+.meadow-practice-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border: 0; background: transparent; color: #597153; padding: 6px; margin-top: 4px; font-size: .8rem; }
+.meadow-practice-toggle > span { display: grid; place-items: center; border: 1px solid #819679; width: 22px; height: 22px; border-radius: 7px; }
+.meadow-practice-toggle[aria-pressed="true"] > span { background: #39764e; color: #fffdf5; }
+.meadow-practice-options { max-width: 690px; margin: 0 auto 12px; border-radius: 16px; background: #eeeee1; padding: 0 10px; }
+.meadow-practice-options summary { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px; color: #50684c; font-weight: 650; font-size: .85rem; cursor: pointer; list-style: none; }
+.meadow-practice-options summary::after { content: '⌄'; margin-left: 12px; }
+.meadow-practice-options[open] summary::after { content: '⌃'; }
+.meadow-practice-options summary:focus-visible { outline: 3px solid #235fc1; outline-offset: 3px; border-radius: 12px; }
+.meadow-practice-options .meadow-quantities { padding-bottom: 10px; }
+.meadow-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 14px; }
+.meadow-edit-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.meadow-edit-actions .meadow-quiet { min-height: 44px; padding: 8px 14px; font-size: .85rem; }
+.meadow-scene-sky { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 36px; padding: 0 15px 4px; color: #6d805b; font-size: .8rem; font-weight: 750; }
+.meadow-scene-sky > span:first-child,.meadow-scene-sky > span:last-child { font-size: 26px; color: #c49336; }
+.meadow-garden-scene { border-radius: 30px; background: linear-gradient(#edf4df,#dbe9cc); margin-bottom: 12px; box-shadow: inset 0 0 0 2px #fff7; }
+.meadow-garden-scene .meadow-orchard { margin-bottom: 0; background: radial-gradient(ellipse at 25% 40%,#a9c48c66 0 25%,transparent 26%),radial-gradient(ellipse at 75% 40%,#a9c48c66 0 25%,transparent 26%); }
+.meadow-basket { background-image: repeating-linear-gradient(0deg,transparent 0 11px,#bc97651c 11px 13px); }
+.meadow-basket-label strong { display: inline-grid; place-items: center; min-width: 24px; min-height: 24px; margin-left: 5px; border-radius: 50%; color: #6b5737; background: #fff4d6; }
+.meadow-picnic-scene { border-radius: 28px; padding: 3px 0 8px; background: linear-gradient(#e7eedb,#d0dfb8); box-shadow: inset 0 0 0 2px #fff7; }
+.meadow-picnic-scene .meadow-guests { margin: 0 7px; }
+.meadow-guest { position: relative; }
+.meadow-guest-number { position: absolute; left: 5px; top: 4px; color: #6d805b; font-size: .65rem; font-weight: 750; }
+.meadow-pairing-dot { position: absolute; top: 5px; right: 5px; display: grid; place-items: center; width: 19px; height: 19px; color: #6d805b; font-size: 16px; line-height: 1; border-radius: 50%; background: #e7e5d5; }
+.meadow-pairing-dot.filled { background: #45835a; color: #fff; font-size: 12px; }
+.meadow-help-tray { border-radius: 18px; padding: 7px 8px; margin-top: 10px; background: #f2eedf; text-align: center; }
+.meadow-help-label,.meadow-extra-apples { display: block; color: #597153; font-size: .8rem; font-weight: 650; }
+.meadow-extra-apples { margin-top: 7px; color: #975a36; }
+.meadow-count-guide { margin-top: 6px; gap: 6px; }
+.meadow-count-guide .meadow-count-place { display: flex; flex-direction: column; justify-content: center; gap: 0; width: 38px; height: 48px; border: 2px dotted #869473; border-radius: 50% 50% 12px 12px; background: #fffaf0; color: #597153; }
+.meadow-count-guide .meadow-count-place > span { width: auto; height: auto; background: transparent; color: inherit; font-size: 20px; line-height: 1.2; }
+.meadow-count-place small { font-size: .65rem; }
+.meadow-count-guide .meadow-count-place.filled { border-style: solid; border-color: #72a064; background: #dfebd4; }
+.meadow-memory-friends { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; width: 55%; font-size: clamp(26px,4vw,48px); line-height: 1.2; }
+.meadow-memory-friends > span { display: flex; flex-direction: column; gap: 3px; }
+.meadow-memory-friends small { font-size: .4em; }
+.meadow-just-moved > span { animation: meadow-apple-arrive 330ms ease-out; }
+.meadow-receiving { animation: meadow-basket-settle 340ms ease-out; }
+.meadow-just-served .meadow-plate { animation: meadow-plate-arrive 330ms ease-out; }
+.meadow-just-served.has-plate .meadow-animal { animation: meadow-friend-cheer 420ms ease-out; }
+.meadow-panel[data-mood="happy"] .meadow-basket,.meadow-panel[data-mood="happy"] .meadow-guests { box-shadow: 0 0 0 4px #b9d4a5; }
+@keyframes meadow-apple-arrive { from { transform: translateY(-12px) rotate(-12deg) scale(.75); opacity: .5; } 65% { transform: translateY(3px) rotate(5deg) scale(1.1); } to { transform: none; opacity: 1; } }
+@keyframes meadow-basket-settle { 40% { transform: translateY(3px); } to { transform: none; } }
+@keyframes meadow-plate-arrive { from { transform: translateY(-12px) scale(.75); opacity: .4; } 70% { transform: translateY(2px) scale(1.05); } to { transform: none; opacity: 1; } }
+@keyframes meadow-friend-cheer { 45% { transform: translateY(-5px) rotate(-5deg); } to { transform: none; } }
 @media (max-width: 649px) {
   .play-choice-grid .choice-tile,.play-choice-grid .choice-tile:last-child { min-height: 195px; gap: 10px; }
   .play-choice-grid .choice-art { font-size: 72px; }
@@ -96,6 +149,24 @@
   .meadow-guests { gap: 8px; padding: 12px; }
   .meadow-clothing { width: 120px; height: 116px; }
   .meadow-memory { padding: 12px; }
+  .meadow-place { min-height: 118px; gap: 3px; padding: 9px 6px; }
+  .meadow-place > span { font-size: 39px; }
+  .meadow-place strong { font-size: 1.05rem; }
+  .meadow-map-heading p { margin-bottom: 12px; }
+  .meadow-plan { padding: 8px; margin-top: 14px; }
+  .meadow-plan-heading { gap: 2px 8px; margin-bottom: 8px; font-size: .9rem; }
+  .meadow-plan-heading span { font-size: .7rem; }
+  .meadow-quantities { grid-template-columns: repeat(5,minmax(44px,1fr)); gap: 6px; }
+  .meadow-quantity { min-height: 48px; border-radius: 12px; }
+  .meadow-practice-toggle { font-size: .7rem; }
+  .meadow-garden-scene { margin-bottom: 10px; }
+  .meadow-panel[data-target="7"] .meadow-apple,.meadow-panel[data-target="8"] .meadow-apple,.meadow-panel[data-target="9"] .meadow-apple,.meadow-panel[data-target="10"] .meadow-apple { width: 48px; height: 48px; font-size: 32px; border-radius: 15px; }
+  .meadow-guests[data-count="7"],.meadow-guests[data-count="8"],.meadow-guests[data-count="9"],.meadow-guests[data-count="10"] { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .meadow-count-guide .meadow-count-place { width: 28px; height: 38px; }
+  .meadow-count-guide .meadow-count-place > span { font-size: 16px; }
+  .meadow-count-guide { gap: 3px; }
+  .meadow-panel[data-mode="serve"][data-target="7"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="8"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="9"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="10"] .meadow-guest { min-height: 86px; padding: 4px 3px; gap: 3px; }
+  .meadow-panel[data-mode="serve"][data-target="7"] .meadow-plate,.meadow-panel[data-mode="serve"][data-target="8"] .meadow-plate,.meadow-panel[data-mode="serve"][data-target="9"] .meadow-plate,.meadow-panel[data-mode="serve"][data-target="10"] .meadow-plate { width: 44px; height: 32px; font-size: 25px; }
 }
 @media (max-width: 370px) {
   .meadow-apple { width: 54px; height: 54px; }
@@ -139,8 +210,26 @@
   .meadow-ending > p { margin: 5px 0; }
   .meadow-count-guide { margin-top: 3px; gap: 5px; }
   .meadow-count-guide span { width: 23px; height: 23px; font-size: .8rem; }
+  .meadow-plan { margin-top: 8px; padding: 5px 10px; }
+  .meadow-plan-heading { display: none; }
+  .meadow-quantities { grid-template-columns: repeat(10,minmax(44px,1fr)); gap: 6px; }
+  .meadow-quantity { min-height: 44px; padding: 4px; }
+  .meadow-practice-toggle { min-height: 44px; margin-top: 0; padding: 0 6px; }
+  .meadow-start { margin-top: 8px; }
+  .meadow-practice-options { margin-bottom: 5px; }
+  .meadow-practice-options summary { min-height: 44px; }
+  .meadow-edit-actions { gap: 6px; }
+  .meadow-edit-actions .meadow-quiet { padding: 6px 12px; }
+  .meadow-scene-sky { min-height: 22px; padding: 0 10px 1px; font-size: .7rem; }
+  .meadow-scene-sky > span:first-child,.meadow-scene-sky > span:last-child { font-size: 20px; }
+  .meadow-garden-scene { margin-bottom: 6px; }
+  .meadow-help-tray { margin-top: 3px; padding: 4px 6px; }
+  .meadow-help-label,.meadow-extra-apples { font-size: .7rem; }
+  .meadow-count-guide .meadow-count-place { width: 25px; height: 32px; }
+  .meadow-count-guide .meadow-count-place > span { font-size: 14px; }
+  .meadow-memory-friends { font-size: 25px; }
 }
-@media (prefers-reduced-motion: reduce) { .meadow-panel *, .meadow-panel *::before { animation: none !important; transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .meadow-panel *, .meadow-panel *::before, .meadow-panel *::after { animation: none !important; transition: none !important; } }
 @media (orientation: landscape) and (max-height: 390px) {
   .meadow-task-title { margin: 2px 0; }
   #meadow-bear .teddy-illustration { max-height: 110px; }
@@ -151,6 +240,35 @@
   .meadow-panel[data-mode="collect"] .meadow-stage { display: block; }
   .meadow-panel[data-mode="collect"] #meadow-work { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; }
   .meadow-panel[data-mode="collect"] .meadow-orchard { margin: 0; }
-  .meadow-panel[data-mode="collect"] .meadow-count-guide { grid-column: 1 / -1; }
+  .meadow-panel[data-mode="collect"] .meadow-help-tray { grid-column: 1; grid-row: 2; margin-top: 0; }
+  .meadow-panel[data-mode="collect"] .meadow-help-label { display: none; }
+  .meadow-panel[data-mode="collect"] .meadow-basket { grid-column: 2; grid-row: 1 / span 2; }
+  .meadow-panel[data-mode="collect"] .meadow-help-tray .meadow-count-guide { margin-top: 0; }
   .meadow-panel[data-mode="collect"] .meadow-basket { min-height: 74px; }
+  .meadow-panel[data-mode="collect"] .meadow-garden-scene { margin-bottom: 0; }
+  .meadow-plan { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 10px; }
+  .meadow-practice-toggle { max-width: 180px; font-size: .7rem; }
+  .meadow-plan .meadow-quantities { grid-template-columns: repeat(10,minmax(44px,1fr)); }
+  .meadow-guests .meadow-pairing-dot { position: absolute; right: 3px; top: 3px; width: 15px; height: 15px; font-size: 11px; }
+}
+@media (orientation: landscape) and (max-height: 390px) and (max-width: 899px) {
+  .meadow-plan { display: block; }
+  .meadow-plan .meadow-quantities,.meadow-quantities { grid-template-columns: repeat(auto-fit,minmax(44px,1fr)); }
+  .meadow-practice-toggle { max-width: none; }
+  .meadow-panel[data-mode="serve"] .meadow-guests[data-count] { grid-template-columns: repeat(auto-fit,minmax(58px,1fr)); }
+}
+@media (max-width: 649px) and (max-height: 700px) {
+  .meadow-task-title { margin: 10px 0; font-size: 1.1rem; }
+  .meadow-scene-sky { min-height: 26px; padding-bottom: 0; }
+  .meadow-scene-sky > span:first-child,.meadow-scene-sky > span:last-child { font-size: 22px; }
+  .meadow-orchard { min-height: 64px; padding: 8px; }
+  .meadow-basket { padding: 8px; }
+  .meadow-basket-label { margin-bottom: 4px; }
+  .meadow-help-tray { padding: 6px; }
+  .meadow-help-label { display: none; }
+  .meadow-count-guide { margin-top: 0; }
+  .meadow-status { margin: 8px 0; font-size: .9rem; }
+  .meadow-controls .meadow-primary,.meadow-controls .meadow-quiet { min-height: 44px; padding: 8px 14px; }
+  .meadow-serving-label { display: none; }
+  .meadow-panel[data-mode="serve"][data-target="7"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="8"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="9"] .meadow-guest,.meadow-panel[data-mode="serve"][data-target="10"] .meadow-guest { min-height: 80px; padding: 2px 3px; gap: 2px; }
 }
