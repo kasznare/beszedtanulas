@@ -2,6 +2,9 @@ import { PROJECT_SUPABASE } from "./supabase-config.js";
 
 import { words, wordCategories, twoWordPhrases, TODDLER_ALIASES } from "./game-data.js";
 import { VOICE_CLIPS } from "./voice-library.js";
+import { VOICE_TIMING } from "./voice-timing.js";
+import { createNarration } from "./narration.js";
+import { narrationCue } from "./narration-cues.js";
 import { normalizeText, similarityScore, matchTwoWordPhrase } from "./speech-matching.js";
 import { setupOffline } from "./offline-client.js";
 import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
@@ -41,6 +44,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
 const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, memoryPairs: 3, workshopLevel: 1 };
 const state = loadProgress();
 let currentScreen = "home";
+const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let flipRoundToken = 0;
 let flipRoundComplete = false;
 let completedRoundKind = "imitate";
@@ -65,7 +69,7 @@ const screenInfo = {
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
 };
-const voiceByText = new Map(Object.values(VOICE_CLIPS).map(clip => [normalizeVoiceText(clip.text), clip]));
+const voiceByText = new Map(Object.entries(VOICE_CLIPS).map(([id, clip]) => [normalizeVoiceText(clip.text), {...clip, id}]));
 let currentImitate = 0;
 let autoSessionToken = 0;
 let autoSessionRunning = false;
@@ -320,7 +324,7 @@ dressGame = setupDressGame({
 meadowGame = setupMeadow({
   getProgress: () => state.meadow,
   getOptions: () => state.settings,
-  speak: id => speakVoice(id), stopPlayback, openScreen: showScreen,
+  speak: (id, cue) => speakVoice(id, undefined, cue), stopPlayback, openScreen: showScreen,
   updateProgress: (progress, reward) => {
     state.meadow = progress;
     if (reward) state.rewards += 1;
@@ -344,7 +348,7 @@ logicGame = setupLogic({
 });
 memoryGame = setupMemoryGame({
   getOptions: () => ({ words: getPracticeWords(), memoryPairs: state.settings.memoryPairs }),
-  playWord, speak: id => speakVoice(id), stopPlayback,
+  playWord: (word, cue) => playWord(word, undefined, cue), speak: id => speakVoice(id), stopPlayback,
   setPairs: pairs => {
     state.settings.memoryPairs = pairs;
     document.querySelector('#memory-pairs').value = pairs;
@@ -469,7 +473,7 @@ function setupNumbers() {
     document.querySelector("#number-object-picker").appendChild(button);
   });
   document.querySelector("#number-model").addEventListener("click", () => {
-    speakVoiceSequence([`number_${currentNumber}`, `quantity_${countingObject.id}_${currentNumber}`]);
+    speakVoiceSequence([{id:`number_${currentNumber}`, cue:{target:'#number-symbol'}}, {id:`quantity_${countingObject.id}_${currentNumber}`, cue:{target:'.counting-object'}}]);
   });
   document.querySelector("#number-restart").addEventListener("click", renderNumbers);
   document.querySelector("#number-next").addEventListener("click", () => {
@@ -586,6 +590,7 @@ function renderNumbers() {
   for (let index = 0; index < currentNumber; index += 1) {
     const button = document.createElement("button");
     button.className = "counting-object";
+    button.dataset.countingIndex = index;
     button.setAttribute("aria-label", `${index + 1}. ${countingObject.label}`);
     button.setAttribute("aria-pressed", "false");
     button.innerHTML = `<span aria-hidden="true">${countingObject.emoji}</span><span class="counting-order" aria-hidden="true"></span>`;
@@ -598,7 +603,8 @@ function renderNumbers() {
       button.setAttribute("aria-label", `${index + 1}. ${countingObject.label}, megszámolva: ${count}`);
       const complete = count === currentNumber;
       status.textContent = complete ? "⭐" : `${count} / ${currentNumber}`;
-      speakVoiceSequence(complete ? [`number_${count}`, "guide_good"] : [`number_${count}`]);
+      const counted = {id:`number_${count}`, cue:{target:`[data-counting-index="${index}"]`}};
+      speakVoiceSequence(complete ? [counted, {id:"guide_good", cue:{target:'.counting-object'}}] : [counted]);
     });
     objects.appendChild(button);
   }
@@ -631,10 +637,11 @@ function renderCards() {
   visibleWords.forEach((word) => {
     const button = document.createElement("button");
     button.className = "card";
+    button.dataset.word = word.id;
     button.innerHTML = `<div class="card-emoji">${word.emoji}</div><div class="card-word">${word.label}</div>`;
     button.setAttribute("aria-label", `${word.label} meghallgatása`);
     button.addEventListener("click", async () => {
-      const playback = playWord(word);
+      const playback = playWord(word, undefined, {target:`.card[data-word="${word.id}"] .card-emoji`});
       const token = playbackToken;
       cardsGrid.querySelectorAll(".card").forEach((card) => card.classList.remove("is-speaking"));
       button.classList.add("is-speaking");
@@ -653,6 +660,7 @@ function renderFlipGame() {
   deck.forEach((word, index) => {
     const card = document.createElement("button");
     card.className = "flip-card";
+    card.dataset.word = word.id;
     card.setAttribute("aria-label", `Meglepetés ${index + 1}`);
     card.setAttribute("aria-pressed", "false");
     card.innerHTML = `<span class="flip-card-face flip-card-back" aria-hidden="true">✦</span><span class="flip-card-face flip-card-front" aria-hidden="true"><span class="card-emoji">${word.emoji}</span><span class="card-word">${word.label}</span></span>`;
@@ -666,7 +674,7 @@ function renderFlipGame() {
       flipStatus.textContent = `${found} / ${deck.length}`;
       const completed = found === deck.length;
       if (completed) flipRoundComplete = true;
-      await playWord(word);
+      await playWord(word, undefined, {target:`.flip-card[data-word="${word.id}"] .flip-card-front .card-emoji`});
       if (completed && token === flipRoundToken && currentScreen === "flip") {
         state.rewards += 1;
         saveProgress();
@@ -693,7 +701,10 @@ function renderImitate() {
 
 function renderTwoWordMode() {
   const phrase = twoWordPhrases[currentPhrase];
-  phraseEmoji.textContent = phrase.emojis.join(" ");
+  phraseEmoji.replaceChildren(...phrase.emojis.map((emoji, i) => {
+    const picture = document.createElement('span'); picture.className = 'phrase-picture';
+    picture.dataset.phrasePart = i; picture.textContent = emoji; return picture;
+  }));
   phraseText.textContent = phrase.text;
   phrasePrompt.textContent = `Mondd: ${phrase.text}`;
   setPhraseListeningUi(false);
@@ -705,7 +716,7 @@ function renderTwoWordMode() {
 
 async function playPhrase(phrase) {
   registerPlay();
-  await speakVoice(`phrase_${phrase.id}`);
+  await speakVoice(`phrase_${phrase.id}`, undefined, {parts:phrase.text.split(' ').map((at, i) => ({at, target:`[data-phrase-part="${i}"]`}))});
 }
 
 async function startPhraseListeningAttempt() {
@@ -864,13 +875,14 @@ function refreshStats() {
   rewardCount.textContent = String(state.rewards);
 }
 
-async function playWord(word, token = beginPlayback()) {
+async function playWord(word, token = beginPlayback(), cue = narrationCue(`word_${word.id}`, currentScreen)) {
   registerPlay();
-  if (state.settings.wordVoice === "natural") return speakVoice(`word_${word.id}`, token);
+  if (state.settings.wordVoice === "natural") return speakVoice(`word_${word.id}`, token, cue);
   const src = `./audio/${word.id}.mp3`;
-  const ok = await tryPlayFile(src, token);
+  const visual = narration.prepare(`word_${word.id}`, word.label, cue);
+  const ok = await tryPlayFile(src, token, visual);
   if (!ok && token === playbackToken) {
-    await speakHungarian(word.label, token);
+    await speakVoice(`word_${word.id}`, token, cue);
   }
 }
 
@@ -901,6 +913,7 @@ async function playDressPrompt(item, { intro = false, force = false } = {}) {
 
 function stopPlayback() {
   playbackToken += 1;
+  narration.stop();
   cancelPlayback?.();
   cancelPlayback = null;
   window.speechSynthesis?.cancel();
@@ -912,13 +925,13 @@ function beginPlayback() {
   return playbackToken;
 }
 
-async function tryPlayFile(src, token) {
-  const ok = await tryPlayFileWithBuffer(src, token).catch(() => false);
+async function tryPlayFile(src, token, visual) {
+  const ok = await tryPlayFileWithBuffer(src, token, visual).catch(() => false);
   if (token !== playbackToken) return true;
-  return ok || tryPlayFileWithElement(src, token);
+  return ok || tryPlayFileWithElement(src, token, visual);
 }
 
-async function tryPlayFileWithBuffer(src, token) {
+async function tryPlayFileWithBuffer(src, token, visual) {
   const context = getSfxContext();
   if (!context) return false;
   if (context.state === "suspended") await context.resume().catch(() => {});
@@ -938,6 +951,7 @@ async function tryPlayFileWithBuffer(src, token) {
       done = true;
       clearTimeout(timer);
       source.onended = null;
+      visual?.stop();
       try { source.stop(); source.disconnect(); } catch {}
       if (cancelPlayback === cancel) cancelPlayback = null;
       resolve(result);
@@ -947,6 +961,8 @@ async function tryPlayFileWithBuffer(src, token) {
     source.onended = () => finish(true);
     try {
       source.start();
+      const started = context.currentTime;
+      visual?.start(() => context.currentTime - started);
       timer = setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 60000));
     } catch {
       finish(false);
@@ -954,10 +970,11 @@ async function tryPlayFileWithBuffer(src, token) {
   });
 }
 
-function tryPlayFileWithElement(src, token) {
+function tryPlayFileWithElement(src, token, visual) {
   if (token !== playbackToken) return Promise.resolve(true);
   return new Promise((resolve) => {
     const audio = new Audio(src);
+    let visualStarted = false;
     let done = false;
     let timer;
     const finish = (result) => {
@@ -966,6 +983,8 @@ function tryPlayFileWithElement(src, token) {
       clearTimeout(timer);
       audio.onended = null;
       audio.onerror = null;
+      audio.onplaying = null;
+      visual?.stop();
       audio.pause();
       if (cancelPlayback === cancel) cancelPlayback = null;
       resolve(result);
@@ -974,6 +993,9 @@ function tryPlayFileWithElement(src, token) {
     cancelPlayback = cancel;
     audio.onended = () => finish(true);
     audio.onerror = () => finish(false);
+    audio.onplaying = () => {
+      if (!visualStarted && token === playbackToken) { visualStarted = true; visual?.start(() => audio.currentTime); }
+    };
     timer = setTimeout(() => finish(false), 12000);
     audio.play().then(() => {
       if (done) return;
@@ -1007,7 +1029,7 @@ function decodeAudioData(context, audioData) {
   });
 }
 
-function speakWithBrowser(text, token = beginPlayback()) {
+function speakWithBrowser(text, token = beginPlayback(), visual) {
   if (!("speechSynthesis" in window) || token !== playbackToken) return Promise.resolve();
   return new Promise((resolve) => {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -1017,6 +1039,7 @@ function speakWithBrowser(text, token = beginPlayback()) {
       if (finished) return;
       finished = true;
       clearTimeout(timer);
+      visual?.stop();
       if (cancelPlayback === done) cancelPlayback = null;
       resolve();
     };
@@ -1026,6 +1049,8 @@ function speakWithBrowser(text, token = beginPlayback()) {
     utterance.voice = voices.find(voice => /premium|enhanced|neural/i.test(voice.name)) || voices[0] || null;
     utterance.rate = 0.96;
     utterance.pitch = 1;
+    utterance.onstart = () => { if (token === playbackToken) visual?.start(); };
+    utterance.onboundary = event => { if (token === playbackToken) visual?.boundary(event.charIndex); };
     utterance.onend = done;
     utterance.onerror = done;
     timer = setTimeout(() => {
@@ -1878,24 +1903,25 @@ function normalizeVoiceText(text) {
 async function speakHungarian(text, token = beginPlayback()) {
   const clip = voiceByText.get(normalizeVoiceText(text));
   if (clip) {
-    const played = await tryPlayFile(`./${clip.file}`, token);
-    if (played || token !== playbackToken) return;
+    return speakVoice(clip.id, token);
   }
   await speakWithBrowser(text, token);
 }
 
-async function speakVoice(id, token = beginPlayback()) {
+async function speakVoice(id, token = beginPlayback(), cue = narrationCue(id, currentScreen)) {
   const clip = VOICE_CLIPS[id];
   if (!clip || token !== playbackToken) return;
-  const played = await tryPlayFile(`./${clip.file}`, token);
-  if (!played && token === playbackToken) await speakWithBrowser(clip.text, token);
+  const visual = narration.prepare(id, clip.text, cue);
+  const played = await tryPlayFile(`./${clip.file}`, token, visual);
+  if (!played && token === playbackToken) await speakWithBrowser(clip.text, token, visual);
 }
 
 async function speakVoiceSequence(ids) {
   const token = beginPlayback();
-  for (const id of ids) {
+  for (const entry of ids) {
     if (token !== playbackToken) return;
-    await speakVoice(id, token);
+    const {id, cue} = typeof entry === 'string' ? {id:entry} : entry;
+    await speakVoice(id, token, cue);
   }
 }
 

@@ -39,7 +39,7 @@ export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onC
     if (!active || busy || preview || finished || document.hidden || open.includes(key)) return;
     const card = deck.find(c => c.key === key);
     if (!card || matched.has(card.word.id)) return;
-    open.push(key); playWord(card.word); render(key);
+    open.push(key); playWord(card.word, { target: `.memory-card[data-card="${key}"] .memory-card-face` }); render(key);
     if (open.length !== 2) return;
     const first = deck.find(c => c.key === open[0]);
     if (first.word.id === card.word.id) {

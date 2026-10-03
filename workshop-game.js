@@ -52,7 +52,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     if (session.done) { say(`workshop_${kind}_done`); return; }
     const ids = [`workshop_${kind}_${level}`];
     if (kind === 'sort' && level === 3) ids.push(task.wantedSize ? 'workshop_only_big' : 'workshop_only_small');
-    if (kind === 'balance') ids.push('workshop_target', `workshop_n_${task.target}`);
+    if (kind === 'balance') ids.push('workshop_target', { id: `workshop_n_${task.target}`, cue: { target: '.ws-balance-reference, .ws-balance-heading span:first-child' } });
     say(ids);
   }
   function render(focus) {
@@ -129,7 +129,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
       status = session.help === 1 ? 'Figyeld a mintát és a jeleket. A tárgyakat átrendezheted.' : session.help === 2 ? 'Egy kis részletet kiemeltünk. Haladj egy lépéssel tovább!' : 'A napocskás jelölés egy következő lépést mutat.';
       if (session.help >= 2 && kind === 'pattern') slot = tip.index;
       const ids = [`workshop_${kind}_hint${session.help}`];
-      if (kind === 'balance' && session.help >= 3) ids.push(tip.action === 'remove' ? 'workshop_take_rod' : 'workshop_add_rod', `workshop_n_${tip.value}`);
+      if (kind === 'balance' && session.help >= 3) ids.push(tip.action === 'remove' ? 'workshop_take_rod' : 'workshop_add_rod', { id: `workshop_n_${tip.value}`, cue: { target: '.ws-hint-focus' } });
       say(ids);
     }
     arrived = null; save(); render('ws-hint');

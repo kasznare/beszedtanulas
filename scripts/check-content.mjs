@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 import { words, wordCategories, twoWordPhrases, teddyRequests } from '../game-data.js';
 import { VOICE_CLIPS } from '../voice-library.js';
+import { VOICE_TIMING } from '../voice-timing.js';
 
 import { dressItems } from '../dress-data.js';
 import { MESE_CLIPS } from '../meseliget-data.js';
@@ -49,5 +50,11 @@ for (const clip of manifest.clips) {
   const receipt = generated.clips[clip.id];
   assert.equal(receipt?.fingerprint, sha256(JSON.stringify([manifest.voice, manifest.rate, clip.text])), `Stale spoken text: ${clip.id}. Run npm run generate-voice.`);
   assert.equal(receipt?.sha256, sha256(await readFile(new URL(`../${clip.file}`, import.meta.url))), `Unverified voice file: ${clip.id}. Run npm run generate-voice.`);
+  assert.deepEqual(VOICE_TIMING[clip.id], receipt.words, `Stale speech timing: ${clip.id}`);
+  assert.ok(receipt.words?.length, `Missing word timing: ${clip.id}`);
+  for (const [i, word] of receipt.words.entries()) {
+    assert.ok(word.length === 3 && Number.isFinite(word[0]) && word[0] >= 0 && Number.isFinite(word[1]) && word[1] >= word[0] && typeof word[2] === 'string', `Invalid timing: ${clip.id}`);
+    if (i) assert.ok(word[0] >= receipt.words[i-1][0], `Unordered timing: ${clip.id}`);
+  }
 }
 console.log(`Content ready: ${words.length} words, ${twoWordPhrases.length} phrases, ${audioFiles.length} audio files.`);

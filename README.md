@@ -88,6 +88,16 @@ Források:
 
 Hiányzó saját felvételnél az új hangra, hiányzó generált hangnál a böngésző magyar felolvasására vált a játék. A felolvasás minősége ilyenkor eszközfüggő.
 
+## A hangot követő képi jelzések
+
+A szabálygép példájára koppintva a bemeneti szám, a fogaskerék és a kimeneti szám a narráció sorrendjében mozdul meg. A hosszabb segítségek a felolvasott részt emelik ki: kosarak, plusz/mínusz gombok, csomag és ház, almáskert és kosár, állatok és tányérok. A képkártya, a megszámolt tárgy és a kétszavas gyakorlás képei is követik a hangot. A Képpárokban az éppen felfordított kép, a műhelyekben a tálcák, mintasorok, mérlegoldalak és a segítségben megnevezett rúd kap jelzést. A választós játékokban a beszélő figura vagy a hangszóró mozog; a helyes választ az animáció nem mutatja meg előre.
+
+A jelzés a tényleges lejátszás kezdetéhez és a hangfájlban rögzített szóidőkhöz igazodik. Kilépés és új hang indítása törli a korábbi jelzést. A készülék **Csökkentett mozgás** beállításánál álló keret marad. A működés internet nélkül is elérhető.
+
+Fejlesztés: a `narration.js` vezérli a jelzések életciklusát, a `narration-cues.js` rendeli a mondatrészeket a jelenet elemeihez. A hanggenerátor a `WordBoundary` adatokat az MP3-mal együtt kéri le, majd elkészíti a `voice-timing.js` fájlt; ezt és az `audio/voice/generated.json` fájlt együtt kell menteni a hangokkal. A `speakVoiceSequence` elemei lehetnek sima hangazonosítók vagy `{id, cue: {target, motion, parts}}` objektumok. A célkiválasztók az aktív játékhoz tartoznak. A `parts` elemei `{at: "a felolvasott mondatrész", target: "CSS-kiválasztó", motion: "pulse"}` alakúak. A mozgás lehet `pulse`, `input`, `output` vagy `machine`.
+
+Más jelenetek a dokumentum `narrationstart`, `narrationword`, `narrationend` eseményeihez is kapcsolódhatnak. Az események `detail` mezőjében `id` és `text`, szóhatárnál `word`, `index`, `time`, befejezésnél `reason` érkezik. A böngészős tartalék felolvasás a `boundary` eseményt használja, ha elérhető; a családi szófelvételeknél a teljes szó lejátszását követi a képi jelzés.
+
 ## Saját felvételek
 
 Az audio könyvtár szóazonosító szerint elnevezett MP3-fájljai cserélhetők saját hangra. A beállításban válaszd a „Meglévő saját felvételek” lehetőséget.
