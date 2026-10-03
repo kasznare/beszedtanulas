@@ -145,3 +145,111 @@
  .logic-directions button { min-width:44px; }
  .logic-route-plan>button { grid-column:1/-1; }
 }
+/* Hands-on scenes and controls: visual steps follow the player's own choices. */
+.logic-panel { --logic-gold:#e9bc53; }
+.logic-panel[data-game="shop"] { --logic-blue:#42714b; }
+.logic-panel[data-game="route"] { --logic-blue:#3b7060; }
+.logic-level-control { display:flex; align-items:center; gap:8px; font-size:.875rem; font-weight:750; }
+.logic-level-control select { min-height:48px; max-width:100%; border:2px solid #b8cdd2; border-radius:14px; padding:8px 30px 8px 12px; color:var(--logic-ink); background:#fffdf7; font:inherit; font-weight:750; cursor:pointer; }
+.logic-level-control select:focus-visible,.logic-stepper input:focus-visible { outline:4px solid #b56419; outline-offset:3px; }
+.logic-scene-label { display:block; margin:3px 0 6px; font-size:.7rem; font-weight:850; letter-spacing:.13em; color:#587660; }
+.logic-heading h2 { font-size:clamp(1.45rem,3vw,1.9rem); }
+.logic-dots { align-items:center; gap:6px; max-width:100%; }
+.logic-dot-group { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:3px; padding:3px 5px; border-radius:9px; background:#fff8; box-shadow:inset 0 -2px 0 #24495c12; }
+.logic-dot-group i { display:inline-block; }
+.logic-stepper { display:grid; grid-template-columns:52px 60px 52px; gap:8px; align-items:center; }
+.logic-stepper button { min-width:0; width:100%; min-height:48px; padding:6px; }
+.logic-stepper input { width:100%; min-width:0; min-height:48px; border:2px solid #b7cbd0; border-radius:12px; background:#fffef9; color:var(--logic-ink); text-align:center; font:inherit; font-size:1.5rem; font-weight:850; padding:4px; box-sizing:border-box; appearance:textfield; }
+.logic-stepper input::-webkit-inner-spin-button,.logic-stepper input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.logic-range { display:block; margin-top:9px; text-align:center; font-size:.75rem; line-height:1.35; color:#52654e; }
+.logic-actions small { display:inline-block; padding:2px 5px; border-radius:5px; background:#24495c0b; font-size:.75rem; }
+.logic-market-scene { position:relative; display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:100px; padding:12px 22px; margin-bottom:14px; border:2px solid #c4d5a5; border-radius:22px; overflow:hidden; background:radial-gradient(ellipse at 50% 120%,#aacc7f 0 30%,transparent 31%),linear-gradient(#eff5d8,#dfedc6); }
+.logic-market-scene:before { position:absolute; content:''; height:9px; top:0; left:0; right:0; background:repeating-linear-gradient(90deg,#eff5d8 0 25px,#89ac70 25px 50px); }
+.logic-customer { display:block; font-size:3rem; filter:drop-shadow(0 3px 0 #47704320); }
+.logic-market-sign { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:6px; padding-bottom:12px; text-align:center; }
+.logic-market-sign b { font-size:1rem; }.logic-market-sign>span { font-size:.8rem; }
+.logic-delivery-basket { position:absolute; bottom:6px; left:50%; opacity:0; font-size:1.7rem; transform:translateX(-50%); }
+.logic-delivery-basket i { position:absolute; top:-7px; left:8px; font-size:.8rem; font-style:normal; }
+.is-delivering .delivery-apple { animation:logic-deliver-left .8s ease-in-out forwards; }
+.is-delivering .delivery-nut { animation:logic-deliver-right .8s ease-in-out forwards; }
+.is-delivered .delivery-apple { opacity:1; left:34px; }.is-delivered .delivery-nut { opacity:1; left:calc(100% - 34px); }
+.logic-panel[data-done="true"] .logic-market-scene { border-color:#71a667; }
+@keyframes logic-deliver-left { from { opacity:1; left:45%; transform:translateX(-50%) rotate(-6deg); } to { opacity:1; left:34px; transform:translateX(-50%) rotate(0); } }
+@keyframes logic-deliver-right { from { opacity:1; left:55%; transform:translateX(-50%) rotate(6deg); } to { opacity:1; left:calc(100% - 34px); transform:translateX(-50%) rotate(0); } }
+.logic-workshop-sign { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; padding:8px 12px; margin-bottom:12px; border:2px solid #c4d5dc; border-radius:16px; background:#edf3f3; font-weight:750; }
+.logic-workshop-sign>span:first-child { font-size:1.8rem; }.logic-workshop-sign>span:nth-child(2) { flex:1; }
+.logic-panel .logic-workshop-sign button { min-height:44px; padding:7px 10px; font-size:.8rem; font-weight:650; }
+.logic-example { border-width:2px; transition:border-color .15s,background .15s; }
+.logic-panel .logic-example.is-running { background:#fff0c1; border-color:#ac7d20; }
+.logic-machine-core { flex-shrink:0; white-space:nowrap; }
+.logic-example.is-running .logic-machine-core { animation:logic-machine-pulse .65s ease-in-out infinite alternate; }
+.logic-slots .is-operating { background:#ffe6a0!important; border-color:#a46e18!important; opacity:1!important; }
+.logic-machine-run { display:flex; flex-direction:column; justify-content:center; gap:6px; min-height:68px; margin:12px 0; padding:8px; border:2px dashed #a9c0ca; border-radius:14px; color:#496673; background:#fff8; font-size:.85rem; }
+.logic-machine-run.is-running { border-style:solid; border-color:#bd972f; background:#fff9e6; }
+.logic-machine-trace { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:7px; }
+.logic-machine-trace b { padding:4px 9px; border-radius:8px; color:var(--logic-ink); background:white; font-size:1.25rem; }
+.logic-machine-trace .is-current { background:#ffdd81; animation:logic-number-in .2s ease-out; }
+.logic-trace-op { color:#6c5a31; font-size:.95rem; font-weight:750; }
+.logic-quantity .logic-dots { gap:3px; }.logic-quantity .logic-dot-group { gap:1px; padding:2px; box-shadow:none; font-size:.7rem; }
+@keyframes logic-machine-pulse { to { transform:scale(1.12); } }
+@keyframes logic-number-in { from { transform:translateY(5px); opacity:.4; } to { transform:translateY(0); opacity:1; } }
+.logic-board-wrap { position:relative; width:100%; min-width:0; }
+.logic-board { position:relative; width:100%; box-sizing:border-box; background:linear-gradient(145deg,#9fbea7,#bdd3ad); border:2px solid #92b293; }
+.logic-panel .logic-cell { background:linear-gradient(#fffdf0,#e9f2d5); }
+.logic-panel .logic-cell.next-cell { box-shadow:inset 0 0 0 2px #81a56a; }
+.logic-traveller { position:absolute; left:0; top:0; display:flex; align-items:center; justify-content:center; z-index:2; pointer-events:none; transition:transform 260ms ease-in-out; will-change:transform; }
+.logic-traveller .logic-fox { width:90%; height:90%; filter:drop-shadow(0 2px 1px #23392d30); }
+.logic-traveller.is-walking .logic-fox { animation:logic-fox-walk .18s ease-in-out infinite alternate; }
+@keyframes logic-fox-walk { from { transform:translateY(-1px) rotate(-3deg); } to { transform:translateY(2px) rotate(3deg); } }
+.logic-route-meter { display:flex; flex-direction:column; gap:5px; padding:10px; background:#fff8; border:2px solid #c7d9bd; border-radius:14px; }
+.logic-route-meter strong { font-size:1.15rem; }.logic-route-meter>span { font-size:.8rem; }
+.logic-parcels>span { display:flex; flex-direction:column; gap:3px; padding:8px 10px; border:2px dashed #c5cda7; border-radius:13px; background:#f7f5df; }
+.logic-parcels b { font-size:1.2rem; }.logic-parcels small { font-size:.75rem; font-weight:750; }
+.logic-parcels .is-planned { border-style:solid; border-color:#80aa79; background:#e6f0d9; }
+.logic-path-plan { display:flex; gap:12px; align-items:center; max-width:760px; margin:14px auto 0; padding:12px; border:2px solid #d5dcbf; border-radius:16px; background:#f7f5df; }
+.logic-path-plan>strong { flex-shrink:0; font-size:.9rem; }
+.logic-path-plan ol { display:flex; flex-wrap:wrap; gap:5px; margin:0; padding:0; list-style:none; min-width:0; }
+.logic-path-plan li { display:flex; align-items:center; justify-content:center; gap:3px; min-width:38px; min-height:38px; padding:3px 6px; border:1px solid #d8d7bb; border-radius:9px; background:#fffdf4; font-size:1.15rem; }
+.logic-path-plan li small { font-size:.75rem; font-weight:700; }.logic-path-plan li>span { font-size:.85rem; }
+.logic-path-plan .is-current { color:#123b26; background:#c7e4a6; border-color:#70a054; }
+.logic-path-plan li.logic-plan-empty { font-size:.85rem; }
+@media(max-width:600px) {
+ .logic-level-control { order:3; width:100%; justify-content:center; gap:12px; }.logic-level-control select { flex:1; max-width:230px; min-height:44px; }
+ .logic-toolbar>button { flex:0 0 auto; }.logic-toolbar>button:last-child { margin-left:auto; }
+ .logic-heading { margin:10px 0; }.logic-scene-label { font-size:.65rem; margin-bottom:4px; }
+ .logic-heading p { font-size:.9rem; }
+ .logic-baskets { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }.logic-basket { padding:8px; }
+ .logic-panel .logic-basket h3 { font-size:.85rem; margin-bottom:8px; }
+ .logic-stepper { grid-template-columns:repeat(3,44px); gap:3px; margin-top:9px; }.logic-stepper button,.logic-stepper input { min-height:44px; }
+ .logic-stepper input { font-size:1.25rem; }.logic-range { font-size:.65rem; }
+ .logic-fruit { min-height:100px; padding:6px; }.logic-fruit .logic-dots { font-size:1.05rem; gap:4px; }.logic-fruit .logic-dot-group { gap:1px; padding:2px; }
+ .logic-market-scene { min-height:80px; padding:10px 12px; gap:8px; margin-bottom:10px; }.logic-customer { font-size:2.4rem; }.logic-market-sign b { font-size:.85rem; }.logic-market-sign>span { font-size:.7rem; }
+ .logic-workshop-sign { gap:6px; padding:6px 8px; }.logic-workshop-sign>span:nth-child(2) { font-size:.8rem; }.logic-workshop-sign>span:first-child { font-size:1.5rem; }
+ .logic-workshop-sign>button { width:100%; }
+ .logic-machine-layout { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .logic-panel .logic-example { padding:8px 3px; }.logic-quantity b { font-size:1.1rem; }.logic-quantity .logic-dots { max-width:56px; }
+ .logic-machine-core { font-size:.75rem; }.logic-machine-run { min-height:76px; margin:8px 0; padding:5px; font-size:.7rem; }
+ .logic-slots button { min-width:44px; min-height:56px; }.logic-ops button { min-width:44px; min-height:44px; padding:7px; }.logic-ops { margin:9px 0; }
+ .logic-prediction-pair { grid-template-columns:repeat(2,minmax(0,1fr)); }.logic-prediction>button { min-height:48px; }.logic-prediction .logic-stepper { gap:3px; }
+ .logic-route-layout { max-width:380px; }.logic-board { padding:7px; gap:4px; }.logic-route-plan { grid-template-columns:1fr 1fr; gap:8px; }
+ .logic-route-meter { padding:8px; }.logic-route-meter strong { font-size:1rem; }.logic-route-meter>span { font-size:.7rem; }.logic-parcels { gap:4px; }.logic-parcels>span { padding:6px; }.logic-parcels b { font-size:1rem; }.logic-parcels small { font-size:.65rem; }
+ .logic-route-plan p { font-size:.85rem; }.logic-directions { gap:8px; }.logic-directions button { min-height:44px; }.logic-path-plan { align-items:flex-start; flex-direction:column; gap:7px; margin-top:10px; padding:9px; }
+}
+@media(max-width:350px) {
+ .logic-baskets,.logic-machine-layout,.logic-prediction-pair { grid-template-columns:1fr; }
+ .logic-examples { display:block; }.logic-example { flex-direction:row; }.logic-panel .logic-cell { min-height:44px; }
+ .logic-board { gap:2px; padding:5px; }
+}
+@media(min-width:650px) and (max-height:540px) {
+ .logic-level-control select { min-height:44px; }.logic-level-control>span { display:none; }
+ .logic-heading { margin:5px 0 8px; }.logic-scene-label { display:none; }
+ .logic-market-scene { min-height:64px; margin-bottom:8px; padding:7px 18px; }.logic-customer { font-size:2.3rem; }.logic-market-sign { gap:3px; padding-bottom:8px; }
+ .logic-range { margin-top:4px; }.logic-stepper { margin-top:5px; }.logic-fruit { min-height:44px; }
+ .logic-workshop-sign { margin-bottom:8px; padding:4px 8px; }.logic-workshop-sign>span:first-child { font-size:1.3rem; }.logic-machine-layout { gap:12px; }.logic-examples,.logic-build { padding:10px; }
+ .logic-machine-run { min-height:46px; margin:8px 0; padding:5px; }.logic-slots { margin:5px 0; }.logic-slots button { min-height:50px; }.logic-ops { margin:8px 0; }
+ .logic-board-wrap { max-width:290px; }.logic-route-layout { grid-template-columns:minmax(250px,290px) 1fr; gap:18px; }.logic-board { max-width:none; }.logic-route-meter { padding:7px; }.logic-parcels { margin:8px 0; }
+ .logic-route-plan p { margin:8px 0; font-size:.85rem; }.logic-directions { margin:8px 0; }.logic-path-plan { margin-top:8px; padding:8px; }.logic-path-plan li { min-height:30px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .logic-traveller { transition:none!important; }.is-delivering .logic-delivery-basket { opacity:1; }.is-delivering .delivery-apple { left:34px; }.is-delivering .delivery-nut { left:calc(100% - 34px); }
+}
