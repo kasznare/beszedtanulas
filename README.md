@@ -20,6 +20,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 - **Mondd utánam:** egy vagy két szavas gyakorlás. A mikrofon gomb egy próbát, a nagy lejátszógomb egy vezetett szókört indít. A megállítás és a hazalépés leállítja a figyelést.
 - **Számoljunk:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
+- **Képpárok:** animált képes memóriajáték 2 / 3 / 4 / 6 párral, a választott témakörből. A képes segítség röviden megmutatja a teljes táblát, a rossz párosítás javítható, a teljes kör egyszer ad jutalmat. A párok száma a játékban és a szülői beállításban is választható.
 
 A főképernyő fogaskereke egy egyszerű felnőtt belépőt nyit. Itt választható 3 / 5 / 10 szavas kör, témakör, számolási nehézség, két/három képes választás, hang és hangos segítség. A számtani feladat véletlen belépés ellen szolgál, nem felhasználói hitelesítés.
 

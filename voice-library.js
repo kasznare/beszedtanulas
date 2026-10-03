@@ -432,6 +432,22 @@ export const VOICE_CLIPS = {
     "text": "húsz",
     "file": "audio/voice/logic_n_20.mp3"
   },
+  "memory_start": {
+    "text": "Keress egyforma képeket! Fordíts fel két kártyát!",
+    "file": "audio/voice/memory_start.mp3"
+  },
+  "memory_hint": {
+    "text": "Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!",
+    "file": "audio/voice/memory_hint.mp3"
+  },
+  "memory_match": {
+    "text": "Ez egy pár! A két kép egyforma.",
+    "file": "audio/voice/memory_match.mp3"
+  },
+  "memory_done": {
+    "text": "Minden pár megvan! Szép munka!",
+    "file": "audio/voice/memory_done.mp3"
+  },
   "mese_map": {
     "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
     "file": "audio/voice/mese_map.mp3"

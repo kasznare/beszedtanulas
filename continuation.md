@@ -1,5 +1,13 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 3. – Párhuzamos játékbővítés, első adag
+
+A felhasználó a projektchatek áttekintését, párhuzamos subagent-fejlesztést és ellenőrzött adagok pusholását kérte. Kiinduló main: `765b1bd`. Három külön munkafa: Montessori ihlette Műhelyliget, Furfangliget-felület, Meseliget-opciók. A másik aktív, felhasználó által vezetett chat külön narrated-animation munkafában hanghoz időzített kiemeléseken dolgozik; az integrálást ebben a chatben koordináljuk. A meglévő GitHub Pages CI marad a publikálás módja.
+
+Első adag: **Képpárok**, új memóriajáték 2/3/4/6 párral, témakör szerinti képekkel, visszaforduló téves párral, megszakítható képes segítséggel, újrakezdéssel és egyszeri körjutalommal. Nincs mikrofon vagy pontlevonás; a beszédpróbák számlálóját nem módosítja. Négy új magyar statikus hang. A párok száma eszközbeállítás, a jutalom az aktív profilhoz tartozik. A félbehagyott memóriatábla nem mentődik.
+
+Ellenőrzés: teljes build, 70 Node-teszt, Chrome és WebKit motorban 43–43 játékmeneti/mentési/elrendezési ellenőrzés (mind a négy táblaméret, segítség, téves pár, újrajátszás, egyszeri jutalom, beállítás újratöltés után, 375×667 / 932×350 / 834×1194 / 1194×834, legalább 44 px-es gombok). Tesztsegéd: `tests/browser/memory.js`, csak elkülönített tesztböngészőben. A további három fejlesztési ág integrálása a következő adag.
+
 ## 2026. október 3. – Magyar hangszövegek és GitHub Pages
 
 **Aktuális közzététel:** a felhasználó kifejezett kérése alapján kizárólag a meglévő GitHub Pages folyamatot használjuk. `npm run build`, commit, majd push az `origin/main` ágra; a **pages build and deployment** automatikusan telepít. Éles cím: https://kasznare.github.io/beszedtanulas/ . A korábbi Sites-utasítások történeti bejegyzések. A helyi `.openai/hosting.json` kötést eltávolítottuk; a privát távoli másolatot nem töröltük és a hozzáférését nem módosítottuk.

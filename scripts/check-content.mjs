@@ -7,6 +7,7 @@ import { VOICE_CLIPS } from '../voice-library.js';
 import { dressItems } from '../dress-data.js';
 import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
+import { MEMORY_CLIPS } from '../memory-data.js';
 
 const uniqueIds = (items, label) => assert.equal(new Set(items.map(item => item.id)).size, items.length, `Duplicate ${label} ID`);
 uniqueIds(words, 'word');
@@ -31,6 +32,7 @@ for (const [id, text] of Object.entries(teddyRequests)) {
   assert.equal(VOICE_CLIPS[`teddy_${id}`]?.text, text);
 }
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
+for (const [id, text] of Object.entries(MEMORY_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 uniqueIds(dressItems, 'dress');
 for (const [id, text] of Object.entries(MESE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const item of dressItems) {

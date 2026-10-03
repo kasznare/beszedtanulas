@@ -652,6 +652,30 @@
       "file": "audio/voice/logic_n_20.mp3"
     },
     {
+      "id": "memory_start",
+      "text": "Keress egyforma képeket! Fordíts fel két kártyát!",
+      "group": "memory",
+      "file": "audio/voice/memory_start.mp3"
+    },
+    {
+      "id": "memory_hint",
+      "text": "Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!",
+      "group": "memory",
+      "file": "audio/voice/memory_hint.mp3"
+    },
+    {
+      "id": "memory_match",
+      "text": "Ez egy pár! A két kép egyforma.",
+      "group": "memory",
+      "file": "audio/voice/memory_match.mp3"
+    },
+    {
+      "id": "memory_done",
+      "text": "Minden pár megvan! Szép munka!",
+      "group": "memory",
+      "file": "audio/voice/memory_done.mp3"
+    },
+    {
       "id": "mese_map",
       "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
       "group": "meseliget",

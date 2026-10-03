@@ -1,0 +1,28 @@
+.memory-panel { max-width:780px; margin:0 auto; color:#344f45; }
+.memory-heading { text-align:center; margin:8px 0 14px; }
+.memory-eyebrow { font-size:.75rem; font-weight:800; letter-spacing:.06em; }
+.memory-heading h2 { margin:6px 0; font-size:clamp(1.8rem,5vw,2.6rem); }
+.memory-heading p { margin:4px 0; }
+.memory-options,.memory-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:9px; }
+.memory-panel button { min-height:48px; padding:10px 16px; border:2px solid #afc7bc; border-radius:16px; color:inherit; background:#fffdf4; font:inherit; font-weight:750; cursor:pointer; touch-action:manipulation; }
+.memory-panel button:focus-visible { outline:4px solid #ad6b1d; outline-offset:3px; }
+.memory-options [aria-pressed="true"] { background:#d7eddc; border-color:#397457; }
+.memory-progress { text-align:center; margin:14px 0; font-weight:750; }
+.memory-progress span { display:block; min-height:1.2em; letter-spacing:.12em; }
+.memory-board { display:grid; grid-template-columns:repeat(var(--memory-cols),minmax(0,1fr)); gap:12px; max-width:540px; margin:auto; }
+.memory-board .memory-card { position:relative; min-width:0; height:clamp(86px,18vw,130px); padding:0; border-radius:20px; border:3px solid #b5cfc0; background:linear-gradient(145deg,#e4f0df,#c9e3cf); box-shadow:0 4px 0 #9bbca5; perspective:600px; }
+.memory-card-back,.memory-card-face { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:16px; transition:transform .3s,opacity .3s; backface-visibility:hidden; }
+.memory-card-back { color:#56846a; font-size:3.3rem; }
+.memory-card-face { transform:rotateY(180deg); opacity:0; background:#fffaf0; font-size:clamp(2.8rem,9vw,4.3rem); }
+.memory-card-face small { position:absolute; right:8px; bottom:5px; font-size:1.15rem; color:#397457; }
+.memory-card.is-open .memory-card-back { transform:rotateY(180deg); opacity:0; }
+.memory-card.is-open .memory-card-face { transform:rotateY(0); opacity:1; }
+.memory-board .memory-card.is-matched { border-color:#568568; box-shadow:0 2px 0 #9bbca5; }
+.memory-status { text-align:center; min-height:1.5em; margin:16px 0 12px; }
+.memory-actions { padding-bottom:18px; }
+@media(max-height:500px) and (orientation:landscape) {
+  .memory-heading { margin:4px 0 8px; }.memory-eyebrow { display:none; }.memory-heading h2 { font-size:1.6rem; }
+  .memory-board { max-width:620px; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+  .memory-board .memory-card { height:80px; }.memory-progress { margin:8px 0; }.memory-progress span { display:inline; margin-left:8px; }
+}
+@media(prefers-reduced-motion:reduce) { .memory-card-back,.memory-card-face { transition:none; } }

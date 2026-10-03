@@ -4,6 +4,7 @@ import { words, twoWordPhrases, teddyRequests } from '../game-data.js';
 import { dressItems } from '../dress-data.js';
 import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
+import { MEMORY_CLIPS } from '../memory-data.js';
 
 const clips = [];
 const add = (id, text, group = 'guide') => clips.push({ id, text, group, file: `audio/voice/${id}.mp3` });
@@ -45,6 +46,7 @@ const guides = {
 };
 for (const [id, text] of Object.entries(guides)) add(`guide_${id}`, text);
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
+for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(MESE_CLIPS)) add(id, text, 'meseliget');
 for (const [id, text] of Object.entries(teddyRequests)) add(`teddy_${id}`, text, 'teddy');
 for (const item of dressItems) {

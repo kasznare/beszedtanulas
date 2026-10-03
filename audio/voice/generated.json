@@ -1024,6 +1024,22 @@
     "question_alma_10": {
       "fingerprint": "5cc5d4f15b1a90ee7f9c28e23d4b639ad51ad79ef95592df658bfbb7f01e95f0",
       "sha256": "a4cda432bfe23d7a5feff84a2ca7997d2a18102bdf4fff586f7dd8c6e5e9b9f5"
+    },
+    "memory_start": {
+      "fingerprint": "17984a09ff635aafbb6e4956a9b5ea2bed15410f57341fba6ef750a5e8d9dcff",
+      "sha256": "f3ce0f38d789c46ca102d0bdf5e9e9fe94bfb4d4770c7c33fcb68f253ceec5a5"
+    },
+    "memory_hint": {
+      "fingerprint": "5824eb076e9f56663d5732ffaa82afa4006caf681ab6c940a67927b9ad89286a",
+      "sha256": "bad88cc440f996a9ea2fcab8bd9c005a1221e8e6dcd239143b254707f8c9ef35"
+    },
+    "memory_match": {
+      "fingerprint": "c152a1083890d3ba23b9481a3a8b308dc609821b56c9dcd0ad568a0d174d1ecd",
+      "sha256": "7b716b902a08b5b90268fbcd1d12c897b4d3d8a4d370bffa6da5d56fc506aaa1"
+    },
+    "memory_done": {
+      "fingerprint": "df4f5640b1f4a3dee246ed6d63c14230ea0e9915cc459c2d2436a2b9756356ef",
+      "sha256": "29a95f2ff893a963c39d74a93efc74eae0fd6228f435134f5816dfe7d4e1ec63"
     }
   }
 }
