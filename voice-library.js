@@ -280,6 +280,22 @@ export const VOICE_CLIPS = {
     "text": "Mindkét csomagot el kell vinni a házhoz. Gondold végig, merre kerülsz! Az utadnak bele kell férnie a megadott lépésszámba. Több jó út is lehet.",
     "file": "audio/voice/logic_route_3.mp3"
   },
+  "logic_route_steps": {
+    "text": "Most kép nélkül tervezünk. A leírásból tudjuk, hol vannak a csomagok, a kövek és a ház. A nyilakkal sorban megadod a lépéseket. Fejben követed az utat, majd a próbagombbal ellenőrzöd.",
+    "file": "audio/voice/logic_route_steps.mp3"
+  },
+  "logic_route_steps_hint2": {
+    "text": "A segítségnél megjelenik a következő lehetséges irány. A nyilakkal folytathatod az útitervet.",
+    "file": "audio/voice/logic_route_steps_hint2.mp3"
+  },
+  "logic_route_steps_hint3": {
+    "text": "A segítségnél egy teljes lehetséges út lépései szerepelnek. Más jó út is lehet.",
+    "file": "audio/voice/logic_route_steps_hint3.mp3"
+  },
+  "logic_route_steps_restart": {
+    "text": "Ez az út már túl hosszú lenne. Visszavonással javíthatsz, vagy újratervezhetsz. A segítségnél egy rövidebb út lépései szerepelnek.",
+    "file": "audio/voice/logic_route_steps_restart.mp3"
+  },
   "logic_route_hint1": {
     "text": "Előbb a csomagokhoz tervezz utat, aztán a házhoz! Csak egymás melletti mezőkre léphetsz.",
     "file": "audio/voice/logic_route_hint1.mp3"

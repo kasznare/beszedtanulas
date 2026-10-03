@@ -41,7 +41,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, memoryPairs: 3, workshopLevel: 1 };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1 };
 const state = loadProgress();
 let currentScreen = "home";
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
@@ -334,6 +334,11 @@ meadowGame = setupMeadow({
 logicGame = setupLogic({
   getProgress: () => state.logic, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
+  setRouteView: view => {
+    state.settings.routeView = view === 'steps' ? 'steps' : 'map';
+    document.querySelector('#route-view').value = state.settings.routeView;
+    saveProgress();
+  },
   setLevel: (kind, level) => {
     if (!Object.hasOwn(LOGIC_NAMES, kind) || ![1, 2, 3].includes(level)) return;
     state.settings[`${kind}Level`] = level;
@@ -1138,6 +1143,7 @@ function normalizeState(input) {
       roundLength: [3, 5, 10].includes(input.settings?.roundLength) ? input.settings.roundLength : 5,
       mathLimit: [5, 10, 20].includes(input.settings?.mathLimit) ? input.settings.mathLimit : 5,
       ...Object.fromEntries(['shopLevel','machineLevel','routeLevel'].map(key => [key, [1,2,3].includes(input.settings?.[key]) ? input.settings[key] : 1])),
+      routeView: input.settings?.routeView === 'steps' ? 'steps' : 'map',
       spokenGuidance: input.settings?.spokenGuidance !== false,
       wordVoice: input.settings?.wordVoice === "family" ? "family" : "natural",
       numberLimit: [3, 5, 10].includes(input.settings?.numberLimit) ? input.settings.numberLimit : 3,
@@ -2059,6 +2065,9 @@ function showParentGate() {
 }
 
 function setupParentSettings() {
+  const routeView = document.querySelector('#route-view');
+  routeView.value = state.settings.routeView;
+  routeView.addEventListener('change', () => { state.settings.routeView = routeView.value === 'steps' ? 'steps' : 'map'; saveProgress(); });
   for (const [id,key] of [['math-limit','mathLimit'],['shop-level','shopLevel'],['machine-level','machineLevel'],['route-level','routeLevel'],['memory-pairs','memoryPairs'],['workshop-level','workshopLevel']]) {
     const select = document.querySelector(`#${id}`); select.value = state.settings[key];
     select.addEventListener('change', () => {state.settings[key] = Number(select.value); saveProgress();});

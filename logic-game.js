@@ -1,10 +1,11 @@
 import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, generateTask, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove } from './logic-data.js';
 
-export function setupLogic({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel }) {
+export function setupLogic({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
   const root = document.querySelector('#furfangliget');
   let active = false, kind = null, session = null, task = null, slot = 0, trial = false, busy = false;
   let animation = 0, status = '', ghost = [], fox = null, walked = 0, machineRun = null, delivering = false, counters = true;
   let dragging = false, dragged = false, dragStart = null;
+  let localRouteView;
   const timers = new Set(), localLevels = {};
   const foxArt = '<img class="logic-fox" src="./assets/furfang-fox.png" alt="" draggable="false">';
   const $ = selector => root.querySelector(selector);
@@ -12,6 +13,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   const bind = (selector, fn) => $(selector)?.addEventListener('click', fn);
   const allowed = () => active && !document.hidden && !busy && session && !session.done;
   const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const textRoute = () => (typeof setRouteView === 'function' ? getOptions().routeView : localRouteView ?? getOptions().routeView) === 'steps';
   const levelFor = game => (typeof setLevel === 'function' ? getOptions()[`${game}Level`] : localLevels[game] || getOptions()[`${game}Level`]) || 1;
   function save(reward = false) {
     const p = normalizeLogic(getProgress());
@@ -69,7 +71,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
         ids.push(...itemIds.map(id => ({ id, cue })));
       }
       say(ids);
-    } else say(`logic_${kind}_${session.level}`);
+    } else say(kind === 'route' && textRoute() ? 'logic_route_steps' : `logic_${kind}_${session.level}`);
   }
   const dots = (n, emoji = '●') => `<span class="logic-dots" aria-hidden="true">${n ? Array.from({ length: Math.ceil(n / 5) }, (_, group) => `<span class="logic-dot-group">${Array.from({ length: Math.min(5, n - group * 5) }, () => `<i>${emoji}</i>`).join('')}</span>`).join('') : '<i>∅</i>'}</span>`;
   const quantity = (n, role = '') => `<span class="logic-quantity ${role}" data-value="${n}" data-narration-part="${role === 'logic-input' ? 'input' : role === 'logic-output' ? 'output' : ''}"><b>${n}</b>${counters ? dots(n) : ''}</span>`;
@@ -87,7 +89,10 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     bind('#logic-undo', () => { if (!allowed()) return; undoMove(session); trial = false; ghost = []; fox = null; walked = 0; status = ''; save(); render('logic-undo'); });
     bind('#logic-hint', hint); bind('#logic-check', check); bind('#logic-next', () => startGame(kind, true));
     if (kind === 'shop') renderShop(); else if (kind === 'machine') renderMachine(); else renderRoute();
-    if (hadFocus) root.querySelector(`#${hadFocus}`)?.focus({ preventScroll: true });
+    if (hadFocus) {
+      const target = root.querySelector(`#${hadFocus}`);
+      (kind === 'route' && target?.disabled ? $('.logic-directions') : target)?.focus({ preventScroll: true });
+    }
   }
   function stepper(index, label) {
     return `<div class="logic-stepper"><button id="logic-minus-${index}" data-amount="${index}" data-delta="-1" aria-label="${label}: egy visszavétele" ${session.values[index] === 0 || session.done || busy ? 'disabled' : ''}>−</button><input id="logic-value-${index}" data-number="${index}" type="number" inputmode="numeric" min="0" max="${task.limit}" step="1" value="${session.values[index]}" aria-label="${label} mennyisége, 0 és ${task.limit} között" ${session.done || busy ? 'disabled' : ''}><button id="logic-plus-${index}" data-amount="${index}" data-delta="1" aria-label="${label}: egy hozzáadása" ${session.values[index] >= task.limit || session.done || busy ? 'disabled' : ''}>+</button></div>`;
@@ -180,20 +185,45 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     tick();
   }
   const direction = delta => ({ [-task.size]: ['↑', 'Fel'], [task.size]: ['↓', 'Le'], [-1]: ['←', 'Balra'], [1]: ['→', 'Jobbra'] })[delta];
+  const coordinates = cell => `${Math.floor(cell / task.size) + 1}. sor, ${cell % task.size + 1}. oszlop`;
+  function routeBriefing() {
+    return `<section class="logic-route-briefing" aria-label="Szöveges pályaleírás">
+      <h3>Fejben tervezünk</h3>
+      <p>A pálya ${task.size} sorból és ${task.size} oszlopból áll. A sorokat fentről lefelé, az oszlopokat balról jobbra számoljuk.</p>
+      <dl><div><dt>Indulás</dt><dd>${coordinates(task.start)}</dd></div>
+        ${task.parcels.map((cell, i) => `<div><dt>${i + 1}. csomag</dt><dd data-parcel="${i}">${coordinates(cell)}</dd></div>`).join('')}
+        <div><dt>Ház</dt><dd data-destination>${coordinates(task.end)}</dd></div>
+        <div><dt>Kövek</dt><dd data-blocked>${task.blocked.length ? task.blocked.map(cell => `<span>${coordinates(cell)}</span>`).join('') : 'Nincsenek kövek.'}</dd></div></dl>
+    </section>`;
+  }
   function renderRoute() {
-    const end = session.path.at(-1), visited = session.path, planned = task.parcels.filter(cell => visited.includes(cell)).length;
+    const textOnly = textRoute(), end = session.path.at(-1), visited = session.path, planned = task.parcels.filter(cell => visited.includes(cell)).length;
     const nextCells = neighbours(end, task.size).filter(cell => !task.blocked.includes(cell));
-    $('#logic-work').innerHTML = `<div class="logic-route-layout"><div class="logic-board-wrap"><div class="logic-board" role="group" aria-label="Csomagösvény, ${task.size} sor és ${task.size} oszlop" style="--size:${task.size}">${Array.from({ length: task.size ** 2 }, (_, cell) => {
+    const board = textOnly ? routeBriefing() : `<div class="logic-board-wrap"><div class="logic-board" role="group" aria-label="Csomagösvény, ${task.size} sor és ${task.size} oszlop" style="--size:${task.size}">${Array.from({ length: task.size ** 2 }, (_, cell) => {
       const indexes = visited.map((v, i) => v === cell ? i : -1).filter(i => i >= 0), hintIndex = ghost.indexOf(cell), parcel = task.parcels.indexOf(cell);
       const collected = session.done || (fox !== null && visited.slice(0, walked + 1).includes(cell));
       return `<button id="logic-cell-${cell}" data-cell="${cell}" ${parcel >= 0 ? 'data-parcel' : ''} ${cell === task.end ? 'data-destination' : ''} class="logic-cell ${task.blocked.includes(cell) ? 'blocked' : ''} ${indexes.length ? 'on-path' : ''} ${cell === end ? 'path-end' : ''} ${hintIndex >= 0 ? 'hint-cell' : ''} ${!busy && nextCells.includes(cell) ? 'next-cell' : ''}" aria-label="${Math.floor(cell / task.size) + 1}. sor, ${cell % task.size + 1}. oszlop${cell === task.start ? ', indulás' : ''}${cell === task.end ? ', ház' : ''}${parcel >= 0 ? ', csomag' : ''}${task.blocked.includes(cell) ? ', kő' : ''}${indexes.length ? `, az út lépései: ${indexes.join(', ')}` : ''}" ${busy || session.done ? 'disabled' : ''}><span aria-hidden="true">${task.blocked.includes(cell) ? '🪨' : cell === task.end ? '🏡' : parcel >= 0 ? (collected ? '✓' : '📦') : cell === task.start ? '🏁' : indexes.length ? '·' : ''}</span>${indexes.some(i => i > 0) ? `<small>${indexes.filter(i => i > 0).join('·')}</small>` : hintIndex > 0 ? `<small>${hintIndex}</small>` : ''}</button>`;
-    }).join('')}</div><div class="logic-traveller ${busy ? 'is-walking' : ''}" aria-hidden="true">${foxArt}</div></div><div class="logic-route-plan"><div class="logic-route-meter"><strong class="logic-step-count">${visited.length - 1} / ${task.maxSteps} lépés</strong><span>Még ${task.maxSteps - visited.length + 1} lépést tervezhetsz</span></div><div class="logic-parcels" aria-label="${planned} a ${task.parcels.length} csomagból szerepel az útitervben">${task.parcels.map((cell, i) => `<span class="${visited.includes(cell) ? 'is-planned' : ''}"><b>📦 ${i + 1}.</b><small>${session.done ? 'Megérkezett' : visited.includes(cell) ? 'Útba ejtve ✓' : 'Keresd meg!'}</small></span>`).join('')}</div><p>${session.done ? 'Minden csomag megérkezett! 🎉' : 'Koppints szomszédos mezőkre, vagy használd a nyilakat! Az út végét megérintve visszaléphetsz.'}</p><div class="logic-directions" aria-label="Útvonal építése nyilakkal">${[['up', '↑', 'Fel'], ['left', '←', 'Balra'], ['down', '↓', 'Le'], ['right', '→', 'Jobbra']].map(([d, symbol, label]) => {
-      const next = end + ({ up: -task.size, down: task.size, left: -1, right: 1 }[d]);
-      return `<button data-direction="${d}" aria-label="${label}" ${busy || session.done || !nextCells.includes(next) || visited.length > task.maxSteps ? 'disabled' : ''}>${symbol}</button>`;
-    }).join('')}</div><button id="logic-clear" ${busy || session.done || visited.length === 1 ? 'disabled' : ''}>↺ Újratervezés</button></div></div><div class="logic-path-plan"><strong>Útiterv</strong><ol aria-label="A tervezett lépések">${visited.length === 1 ? '<li class="logic-plan-empty">🏁 Innen indul a róka</li>' : visited.slice(1).map((cell, i) => `<li class="${busy && walked === i + 1 ? 'is-current' : ''}" data-plan-step="${i + 1}" aria-label="${i + 1}. lépés: ${direction(cell - visited[i])[1]}"><small>${i + 1}.</small><b aria-hidden="true">${direction(cell - visited[i])[0]}</b>${task.parcels.includes(cell) ? '<span aria-hidden="true">📦</span>' : cell === task.end ? '<span aria-hidden="true">🏡</span>' : ''}</li>`).join('')}</ol></div>${ghost.length > 2 ? `<div class="logic-hint-route" aria-label="Segítő útvonal">${ghost.slice(1).map((cell, i) => `<span>${i + 1}. ${direction(cell - ghost[i])[0]}</span>`).join('')}</div>` : ''}`;
+    }).join('')}</div><div class="logic-traveller ${busy ? 'is-walking' : ''}" aria-hidden="true">${foxArt}</div></div>`;
+    $('#logic-work').innerHTML = `<div class="logic-route-view"><label for="logic-route-view">Segítség</label><select id="logic-route-view" ${busy ? 'disabled' : ''}><option value="map" ${!textOnly ? 'selected' : ''}>Térképes</option><option value="steps" ${textOnly ? 'selected' : ''}>Csak lépések – kép nélkül</option></select></div>
+      <div class="logic-route-layout ${textOnly ? 'logic-route-text' : ''}">${board}<div class="logic-route-plan">
+        <div class="logic-route-meter"><strong class="logic-step-count">${visited.length - 1} / ${task.maxSteps} lépés</strong><span>Még ${task.maxSteps - visited.length + 1} lépést tervezhetsz</span></div>
+        ${textOnly ? '' : `<div class="logic-parcels" aria-label="${planned} a ${task.parcels.length} csomagból szerepel az útitervben">${task.parcels.map((cell, i) => `<span class="${visited.includes(cell) ? 'is-planned' : ''}"><b>📦 ${i + 1}.</b><small>${session.done ? 'Megérkezett' : visited.includes(cell) ? 'Útba ejtve ✓' : 'Keresd meg!'}</small></span>`).join('')}</div>`}
+        <p>${session.done ? 'Minden csomag megérkezett!' : textOnly ? 'A nyilakkal add meg az utat. Minden lépés egy mező. A csomagok helyét és az út végét fejben kövesd!' : 'Koppints szomszédos mezőkre, vagy használd a nyilakat! Az út végét megérintve visszaléphetsz.'}</p>
+        <div id="logic-directions" class="logic-directions" role="group" tabindex="0" aria-label="Útvonal építése nyilakkal">${[['up', '↑', 'Fel'], ['left', '←', 'Balra'], ['down', '↓', 'Le'], ['right', '→', 'Jobbra']].map(([d, symbol, label]) => {
+          const next = end + ({ up: -task.size, down: task.size, left: -1, right: 1 }[d]);
+          return `<button id="logic-direction-${d}" data-direction="${d}" aria-label="${label}" ${busy || session.done || !nextCells.includes(next) || visited.length > task.maxSteps ? 'disabled' : ''}>${symbol}</button>`;
+        }).join('')}</div><button id="logic-clear" ${busy || session.done || visited.length === 1 ? 'disabled' : ''}>↺ Újratervezés</button>
+      </div></div>
+      <div class="logic-path-plan ${textOnly ? 'logic-path-text' : ''}"><strong>Útiterv</strong><ol aria-label="A tervezett lépések">${visited.length === 1 ? '<li class="logic-plan-empty">Még nincs lépés.</li>' : visited.slice(1).map((cell, i) => `<li class="${busy && walked === i + 1 ? 'is-current' : ''}" data-plan-step="${i + 1}" aria-label="${i + 1}. lépés: ${direction(cell - visited[i])[1]}"><small>${i + 1}.</small><b${textOnly ? '' : ' aria-hidden="true"'}>${direction(cell - visited[i])[textOnly ? 1 : 0]}</b>${!textOnly && task.parcels.includes(cell) ? '<span aria-hidden="true">📦</span>' : !textOnly && cell === task.end ? '<span aria-hidden="true">🏡</span>' : ''}</li>`).join('')}</ol></div>
+      ${ghost.length > 1 ? `<div class="logic-hint-route" aria-label="Segítő útvonal">${ghost.length === 2 ? '<strong>Következő lehetséges lépés:</strong>' : '<strong>Egy lehetséges teljes út:</strong>'}${ghost.slice(1).map((cell, i) => `<span>${i + 1}. ${direction(cell - ghost[i])[textOnly ? 1 : 0]}</span>`).join('')}</div>` : ''}`;
     positionFox(fox ?? (session.done ? task.end : task.start), false);
+    $('#logic-route-view').addEventListener('change', event => {
+      if (busy) return;
+      localRouteView = event.target.value === 'steps' ? 'steps' : 'map';
+      setRouteView?.(localRouteView); stopPlayback(); ghost = []; status = ''; render('logic-route-view'); repeat();
+    });
     root.querySelectorAll('[data-cell]').forEach(button => button.addEventListener('click', () => { if (dragged) { dragged = false; return; } move(Number(button.dataset.cell)); }));
-    root.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => move(end + ({ up: -task.size, down: task.size, left: -1, right: 1 }[button.dataset.direction]))));
+    root.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => move(end + ({ up: -task.size, down: task.size, left: -1, right: 1 }[button.dataset.direction]), false, button.id)));
     bind('#logic-clear', () => { if (!allowed()) return; remember(session); session.path = [task.start]; ghost = []; fox = null; walked = 0; status = ''; save(); render('logic-clear'); });
   }
   function positionFox(cell, animate = true) {
@@ -204,7 +234,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     traveller.style.width = `${position.width}px`; traveller.style.height = `${position.height}px`;
     traveller.style.transform = `translate(${position.left - board.left}px, ${position.top - board.top}px)`;
   }
-  function move(cell, drag = false) {
+  function move(cell, drag = false, focus = '') {
     if (!allowed()) return;
     const last = session.path.at(-1);
     if (cell === last) { if (drag || session.path.length === 1) return; remember(session); session.path.pop(); }
@@ -215,7 +245,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
       if (!drag) { status = 'Csak szomszédos, szabad mezőre léphetsz.'; say('logic_route_adjacent'); render(); }
       return;
     }
-    ghost = []; fox = null; walked = 0; status = ''; save(); render(`logic-cell-${cell}`);
+    ghost = []; fox = null; walked = 0; status = ''; save(); render(focus || (textRoute() ? 'logic-route-view' : `logic-cell-${cell}`));
   }
   // Delegated pointer listeners survive rendering. Buttons and arrow keys provide the same actions.
   root.addEventListener('pointerdown', event => {
@@ -238,7 +268,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   root.addEventListener('keydown', event => {
     if (kind !== 'route' || !allowed() || !event.target.closest('.logic-board, .logic-directions')) return;
     const delta = { ArrowUp: -task.size, ArrowDown: task.size, ArrowLeft: -1, ArrowRight: 1 }[event.key];
-    if (delta !== undefined) { event.preventDefault(); move(session.path.at(-1) + delta); }
+    if (delta !== undefined) { event.preventDefault(); move(session.path.at(-1) + delta, false, event.target.id); }
   });
   window.addEventListener('resize', () => { if (active && kind === 'route') positionFox(fox ?? (session.done ? task.end : task.start), false); });
   function hint() {
@@ -246,8 +276,8 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     session.help = Math.min(3, session.help + 1); const h = session.help;
     if (kind === 'route' && h >= 2) {
       const solution = routeSolution(task, session.path);
-      if (!solution || solution.length - 1 > task.maxSteps) { ghost = routeSolution(task); status = 'Érdemes rövidebb utat tervezni. Vonj vissza, vagy kezdd újra!'; say('logic_route_restart_hint'); }
-      else { ghost = h === 2 ? [session.path.at(-1), solution[session.path.length]].filter(cell => cell !== undefined) : solution; status = h === 2 ? 'A kiemelt mező felé még célba érhetsz.' : 'Ez egy lehetséges út. Más jó út is lehet.'; say(`logic_route_hint${h}`); }
+      if (!solution || solution.length - 1 > task.maxSteps) { ghost = routeSolution(task); status = 'Érdemes rövidebb utat tervezni. Vonj vissza, vagy kezdd újra!'; say(textRoute() ? 'logic_route_steps_restart' : 'logic_route_restart_hint'); }
+      else { ghost = h === 2 ? [session.path.at(-1), solution[session.path.length]].filter(cell => cell !== undefined) : solution; status = h === 2 ? (ghost.length < 2 ? 'Az útiterved már célba ér. Próbáld ki!' : textRoute() ? 'Lent egy lehetséges következő irányt találsz.' : 'A kiemelt mező felé még célba érhetsz.') : 'Ez egy lehetséges út. Más jó út is lehet.'; say(textRoute() ? `logic_route_steps_hint${h}` : `logic_route_hint${h}`); }
     } else {
       status = kind === 'shop' ? (h === 3 ? 'A kosarak alatt megmutattuk a célmennyiségeket.' : h === 2 ? 'Számold meg a terméseket, és változtass a kosarakon!' : 'Nézd meg külön az almás és a gesztenyés rendelést!') : kind === 'machine' ? (h === 1 ? 'Ugyanaz a szabály illik mindhárom példára.' : h === 2 ? 'Segítség az első művelethez lent, a géped alatt.' : 'A műveleteket megmutattuk. A két eredményt te számold ki!') : 'Előbb csomag, aztán ház. Tervezd meg az egész utat!';
       say(`logic_${kind}_hint${h}`);
@@ -284,8 +314,15 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     status = 'A róka kipróbálja az útitervedet.'; render();
     const tick = () => {
       walked = index; fox = session.path[index++]; positionFox(fox);
-      root.querySelectorAll('[data-plan-step]').forEach(step => step.classList.toggle('is-current', Number(step.dataset.planStep) === walked));
-      task.parcels.forEach(cell => { if (session.path.slice(0, walked + 1).includes(cell)) $(`#logic-cell-${cell} > span`).textContent = '✓'; });
+      root.querySelectorAll('[data-plan-step]').forEach(step => {
+        const current = Number(step.dataset.planStep) === walked;
+        step.classList.toggle('is-current', current);
+        if (current) step.setAttribute('aria-current', 'step'); else step.removeAttribute('aria-current');
+      });
+      task.parcels.forEach(cell => {
+        const marker = $(`#logic-cell-${cell} > span`);
+        if (marker && session.path.slice(0, walked + 1).includes(cell)) marker.textContent = '✓';
+      });
       if (index < session.path.length) later(token, tick, 360);
       else later(token, () => { busy = false; resolve(); }, 320);
     };
