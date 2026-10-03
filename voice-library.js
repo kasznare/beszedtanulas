@@ -448,6 +448,206 @@ export const VOICE_CLIPS = {
     "text": "Minden pár megvan! Szép munka!",
     "file": "audio/voice/memory_done.mp3"
   },
+  "workshop_menu": {
+    "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
+    "file": "audio/voice/workshop_menu.mp3"
+  },
+  "workshop_level_1": {
+    "text": "Felfedező. Egyszerűbb minták és kisebb mennyiségek várnak.",
+    "file": "audio/voice/workshop_level_1.mp3"
+  },
+  "workshop_level_2": {
+    "text": "Gondolkodó. Több tulajdonságot és a rudak számát is figyeld!",
+    "file": "audio/voice/workshop_level_2.mp3"
+  },
+  "workshop_level_3": {
+    "text": "Tervező. Több szabály működik egyszerre. Haladj lépésenként!",
+    "file": "audio/voice/workshop_level_3.mp3"
+  },
+  "workshop_sort_1": {
+    "text": "A tárgyakat színük szerint válogasd! Koppints egy tárgyra, majd a hozzá illő tálcára! A tárgy és a tálca színjele segít. A tálcáról vissza is veheted a tárgyat.",
+    "file": "audio/voice/workshop_sort_1.mp3"
+  },
+  "workshop_sort_2": {
+    "text": "Most a szín és a forma együtt mutatja a helyet. Válassz egy tárgyat, majd koppints a hozzá illő tálcára! A tárgyakat át is rendezheted.",
+    "file": "audio/voice/workshop_sort_2.mp3"
+  },
+  "workshop_sort_3": {
+    "text": "A megadott méretű tárgyakat szín és forma szerint válogasd a tálcákra! A másik méretű tárgyak a levélre kerülnek. Koppints a tárgyra, majd a helyére!",
+    "file": "audio/voice/workshop_sort_3.mp3"
+  },
+  "workshop_only_big": {
+    "text": "Csak a nagy tárgyak kerülnek a színes tálcákra. A kis tárgyakat a levélre tedd!",
+    "file": "audio/voice/workshop_only_big.mp3"
+  },
+  "workshop_only_small": {
+    "text": "Csak a kis tárgyak kerülnek a színes tálcákra. A nagy tárgyakat a levélre tedd!",
+    "file": "audio/voice/workshop_only_small.mp3"
+  },
+  "workshop_sort_hint1": {
+    "text": "A tárgy és a tálca színjele megegyezik. A nehezebb feladatban a formát és a megadott méretet is figyeld!",
+    "file": "audio/voice/workshop_sort_hint1.mp3"
+  },
+  "workshop_sort_hint2": {
+    "text": "A napocskás tárggyal folytasd! Nézd meg a színjelét és a formáját, majd válassz tálcát!",
+    "file": "audio/voice/workshop_sort_hint2.mp3"
+  },
+  "workshop_sort_hint3": {
+    "text": "A napocskás tárgy a napocskás tálcára illik. Koppints a tárgyra, majd arra a tálcára!",
+    "file": "audio/voice/workshop_sort_hint3.mp3"
+  },
+  "workshop_sort_retry": {
+    "text": "Néhány tárgynak még keresünk helyet. Figyeld a jeleket, és rendezd át őket! A lépéseket vissza is vonhatod.",
+    "file": "audio/voice/workshop_sort_retry.mp3"
+  },
+  "workshop_sort_done": {
+    "text": "Minden tárgy megtalálta a helyét! Rendezett lett a válogatókert. Szép munka!",
+    "file": "audio/voice/workshop_sort_done.mp3"
+  },
+  "workshop_pattern_1": {
+    "text": "Figyeld az ismétlődő mintát! Koppints egy üres helyre, majd válassz rá egy formát a készletből! A kitöltött helyet később át is cserélheted.",
+    "file": "audio/voice/workshop_pattern_1.mp3"
+  },
+  "workshop_pattern_2": {
+    "text": "A minta néhány helye üres. Az elején látod az ismétlődő egységet. Koppints egy üres helyre, és válassz rá formát! Minden hely illeszkedjen a mintához!",
+    "file": "audio/voice/workshop_pattern_2.mp3"
+  },
+  "workshop_pattern_3": {
+    "text": "Két szín váltakozik, a forma hármasával ismétlődik. A kettőt együtt figyeld! Koppints egy üres helyre, majd válassz rá formát a készletből!",
+    "file": "audio/voice/workshop_pattern_3.mp3"
+  },
+  "workshop_pattern_hint1": {
+    "text": "A minta elején kiemeltem az ismétlődő elemeket. Kövesd a sorrendjüket a következő helyeken is!",
+    "file": "audio/voice/workshop_pattern_hint1.mp3"
+  },
+  "workshop_pattern_hint2": {
+    "text": "A minta alatt külön is látod az ismétlődő egységet. A napocskás helyet töltsd ki vele!",
+    "file": "audio/voice/workshop_pattern_hint2.mp3"
+  },
+  "workshop_pattern_hint3": {
+    "text": "A napocskás forma a napocskás helyre illik. Koppints rá a formakészletben!",
+    "file": "audio/voice/workshop_pattern_hint3.mp3"
+  },
+  "workshop_pattern_retry": {
+    "text": "Néhány elem még hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!",
+    "file": "audio/voice/workshop_pattern_retry.mp3"
+  },
+  "workshop_pattern_done": {
+    "text": "Minden elem illeszkedik! Végigfut a színes minta a műhelyen. Szép munka!",
+    "file": "audio/voice/workshop_pattern_done.mp3"
+  },
+  "workshop_balance_1": {
+    "text": "A bal oldalon lévő mennyiséget rudakkal rakd ki a jobb oldalon! Egy pötty egy egység. Koppints egy rúdra a készletben! A jobb oldalról a rúdra koppintva visszaveheted.",
+    "file": "audio/voice/workshop_balance_1.mp3"
+  },
+  "workshop_balance_2": {
+    "text": "Két különböző hosszúságú rudat tegyél a jobb oldalra! Együtt pontosan annyit érjenek, mint a bal oldal. Vissza is vehetsz egy rudat, és kipróbálhatsz másikat.",
+    "file": "audio/voice/workshop_balance_2.mp3"
+  },
+  "workshop_balance_3": {
+    "text": "Három különböző hosszúságú rudat válassz! Mindegyik hosszúságból csak egy van. A három együtt pontosan annyit érjen, mint a bal oldal. Rendezd át őket, amíg egyensúlyba kerül a mérleg!",
+    "file": "audio/voice/workshop_balance_3.mp3"
+  },
+  "workshop_balance_hint1": {
+    "text": "Egy pötty egy egység. Hasonlítsd össze a két oldalt! A hosszabb rúd többet ér.",
+    "file": "audio/voice/workshop_balance_hint1.mp3"
+  },
+  "workshop_balance_hint2": {
+    "text": "Megmutattam, mennyi hiányzik, vagy mennyivel van több a jobb oldalon. A nehezebb feladatban különböző rudakat válassz, a megadott darabszámban!",
+    "file": "audio/voice/workshop_balance_hint2.mp3"
+  },
+  "workshop_balance_hint3": {
+    "text": "A napocskás rúd mutatja a következő lépést. A készletből beteheted, a jobb oldalról visszaveheted. Így tovább alakíthatod az egyensúlyt.",
+    "file": "audio/voice/workshop_balance_hint3.mp3"
+  },
+  "workshop_add_rod": {
+    "text": "Tegyél be egy ilyen hosszúságú rudat!",
+    "file": "audio/voice/workshop_add_rod.mp3"
+  },
+  "workshop_take_rod": {
+    "text": "Vegyél vissza egy ilyen hosszúságú rudat!",
+    "file": "audio/voice/workshop_take_rod.mp3"
+  },
+  "workshop_target": {
+    "text": "A bal oldalon ennyi egység van.",
+    "file": "audio/voice/workshop_target.mp3"
+  },
+  "workshop_balance_retry": {
+    "text": "A rudakat még átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod.",
+    "file": "audio/voice/workshop_balance_retry.mp3"
+  },
+  "workshop_balance_done": {
+    "text": "A két oldal egyensúlyban van! Megtaláltad az összeillő rudakat. Szép munka!",
+    "file": "audio/voice/workshop_balance_done.mp3"
+  },
+  "workshop_ready": {
+    "text": "Minden a helyén van. Koppints a Kész gombra!",
+    "file": "audio/voice/workshop_ready.mp3"
+  },
+  "workshop_n_0": {
+    "text": "nulla",
+    "file": "audio/voice/workshop_n_0.mp3"
+  },
+  "workshop_n_1": {
+    "text": "egy",
+    "file": "audio/voice/workshop_n_1.mp3"
+  },
+  "workshop_n_2": {
+    "text": "kettő",
+    "file": "audio/voice/workshop_n_2.mp3"
+  },
+  "workshop_n_3": {
+    "text": "három",
+    "file": "audio/voice/workshop_n_3.mp3"
+  },
+  "workshop_n_4": {
+    "text": "négy",
+    "file": "audio/voice/workshop_n_4.mp3"
+  },
+  "workshop_n_5": {
+    "text": "öt",
+    "file": "audio/voice/workshop_n_5.mp3"
+  },
+  "workshop_n_6": {
+    "text": "hat",
+    "file": "audio/voice/workshop_n_6.mp3"
+  },
+  "workshop_n_7": {
+    "text": "hét",
+    "file": "audio/voice/workshop_n_7.mp3"
+  },
+  "workshop_n_8": {
+    "text": "nyolc",
+    "file": "audio/voice/workshop_n_8.mp3"
+  },
+  "workshop_n_9": {
+    "text": "kilenc",
+    "file": "audio/voice/workshop_n_9.mp3"
+  },
+  "workshop_n_10": {
+    "text": "tíz",
+    "file": "audio/voice/workshop_n_10.mp3"
+  },
+  "workshop_n_11": {
+    "text": "tizenegy",
+    "file": "audio/voice/workshop_n_11.mp3"
+  },
+  "workshop_n_12": {
+    "text": "tizenkettő",
+    "file": "audio/voice/workshop_n_12.mp3"
+  },
+  "workshop_n_13": {
+    "text": "tizenhárom",
+    "file": "audio/voice/workshop_n_13.mp3"
+  },
+  "workshop_n_14": {
+    "text": "tizennégy",
+    "file": "audio/voice/workshop_n_14.mp3"
+  },
+  "workshop_n_15": {
+    "text": "tizenöt",
+    "file": "audio/voice/workshop_n_15.mp3"
+  },
   "mese_map": {
     "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
     "file": "audio/voice/mese_map.mp3"

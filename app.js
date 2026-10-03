@@ -12,6 +12,8 @@ import { setupDressGame } from "./dress-game.js";
 import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
+import { setupWorkshop } from "./workshop-game.js";
+import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
@@ -36,7 +38,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, memoryPairs: 3 };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, memoryPairs: 3, workshopLevel: 1 };
 const state = loadProgress();
 let currentScreen = "home";
 let flipRoundToken = 0;
@@ -50,6 +52,7 @@ const screenInfo = {
   meseliget: { title: "Meseliget" },
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
+  workshop: { title: "Műhelyliget" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
@@ -90,6 +93,7 @@ let dressGame;
 let meadowGame;
 let logicGame;
 let memoryGame;
+let workshopGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -326,6 +330,12 @@ meadowGame = setupMeadow({
 logicGame = setupLogic({
   getProgress: () => state.logic, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
+  setLevel: (kind, level) => {
+    if (!Object.hasOwn(LOGIC_NAMES, kind) || ![1, 2, 3].includes(level)) return;
+    state.settings[`${kind}Level`] = level;
+    document.querySelector(`#${kind}-level`).value = level;
+    saveProgress();
+  },
   updateProgress: (progress, reward) => {
     state.logic = progress;
     if (reward) state.rewards += 1;
@@ -343,6 +353,21 @@ memoryGame = setupMemoryGame({
   onComplete: count => {
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound('memory', count);
+  },
+});
+workshopGame = setupWorkshop({
+  getProgress: () => state.workshop, getOptions: () => state.settings,
+  speak: ids => speakVoiceSequence(ids), stopPlayback,
+  setLevel: level => {
+    if (![1, 2, 3].includes(level)) return;
+    state.settings.workshopLevel = level;
+    document.querySelector('#workshop-level').value = level;
+    saveProgress();
+  },
+  updateProgress: (progress, reward) => {
+    state.workshop = progress;
+    if (reward) state.rewards += 1;
+    saveProgress(); refreshStats();
   },
 });
 progressTools = setupProgressTools({
@@ -819,6 +844,12 @@ function renderDebug(result) {
 }
 
 function refreshStats() {
+  const workshop = normalizeWorkshop(state.workshop);
+  const workshopSummary = document.querySelector('#workshop-summary');
+  if (workshopSummary) workshopSummary.textContent = Object.entries(WORKSHOP_NAMES).map(([kind, name]) => {
+    const totals = workshop.games[kind].reduce((sum, result) => [sum[0] + result.independent, sum[1] + result.assisted], [0, 0]);
+    return `${name}: ${totals[0]} önálló, ${totals[1]} segítséggel. `;
+  }).join('');
   const logic = normalizeLogic(state.logic);
   const logicSummary = document.querySelector('#logic-summary');
   if (logicSummary) logicSummary.textContent = Object.entries(LOGIC_NAMES).map(([kind, name]) => {
@@ -1061,6 +1092,7 @@ function baseProgress() {
     rewards: 0,
     meadow: normalizeMeadow(),
     logic: normalizeLogic(),
+    workshop: normalizeWorkshop(),
     settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
@@ -1086,6 +1118,7 @@ function normalizeState(input) {
       numberLimit: [3, 5, 10].includes(input.settings?.numberLimit) ? input.settings.numberLimit : 3,
       listeningChoices: input.settings?.listeningChoices === 3 ? 3 : 2,
       memoryPairs: [2, 3, 4, 6].includes(input.settings?.memoryPairs) ? input.settings.memoryPairs : 3,
+      workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
     detection: {
@@ -1884,6 +1917,7 @@ function setupNavigation() {
     else if (currentScreen === "meseliget") meadowGame.repeat();
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
+    else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
     else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
     else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
@@ -1942,6 +1976,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   meadowGame?.stop();
   logicGame?.stop();
   memoryGame?.stop();
+  workshopGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -1966,6 +2001,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "meseliget") meadowGame.start({ announce });
   if (screen === "furfangliget") logicGame.start();
   if (screen === "memory") memoryGame.start();
+  if (screen === "workshop") workshopGame.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
@@ -1997,7 +2033,7 @@ function showParentGate() {
 }
 
 function setupParentSettings() {
-  for (const [id,key] of [['math-limit','mathLimit'],['shop-level','shopLevel'],['machine-level','machineLevel'],['route-level','routeLevel'],['memory-pairs','memoryPairs']]) {
+  for (const [id,key] of [['math-limit','mathLimit'],['shop-level','shopLevel'],['machine-level','machineLevel'],['route-level','routeLevel'],['memory-pairs','memoryPairs'],['workshop-level','workshopLevel']]) {
     const select = document.querySelector(`#${id}`); select.value = state.settings[key];
     select.addEventListener('change', () => {state.settings[key] = Number(select.value); saveProgress();});
   }

@@ -1,4 +1,5 @@
 import { normalizeLogic, validateLogic } from "./logic-data.js";
+import { normalizeWorkshop, validateWorkshop } from "./workshop-data.js";
 import { words } from "./game-data.js";
 import { normalizeMeadow, validateMeadow } from "./meseliget-data.js";
 
@@ -22,7 +23,7 @@ export function snapshotProgress(source = {}) {
       lastSeenAt: validDate(raw.lastSeenAt) ? new Date(raw.lastSeenAt).toISOString() : "",
     };
   }
-  return { plays: cleanCounter(source.plays), attempts: cleanCounter(source.attempts), rewards: cleanCounter(source.rewards), wordStats, meadow: normalizeMeadow(source.meadow), logic: normalizeLogic(source.logic) };
+  return { plays: cleanCounter(source.plays), attempts: cleanCounter(source.attempts), rewards: cleanCounter(source.rewards), wordStats, meadow: normalizeMeadow(source.meadow), logic: normalizeLogic(source.logic), workshop: normalizeWorkshop(source.workshop) };
 }
 
 export function validateProgress(source) {
@@ -31,6 +32,7 @@ export function validateProgress(source) {
   }
   validateMeadow(source.meadow);
   validateLogic(source.logic);
+  validateWorkshop(source.workshop);
   for (const [id, stats] of Object.entries(source.wordStats)) {
     if (!wordIds.has(id)) throw new Error("Ez a mentés más vagy újabb szóanyagot használ. Előbb frissítsd a játékot.");
     if (!isObject(stats) || ![stats.attempts, stats.successes, stats.streak].every(counter) ||

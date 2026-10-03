@@ -41,6 +41,7 @@ export function setupProgressTools({ getState, getRevision, applyProgress, resum
       document.querySelector("#preview-attempts").textContent = progress.attempts.toLocaleString("hu-HU");
       document.querySelector("#preview-rewards").textContent = progress.rewards.toLocaleString("hu-HU");
       document.querySelector("#preview-logic").textContent = Object.values(progress.logic.games).flat().reduce((sum, v) => sum + v.independent + v.assisted, 0).toLocaleString("hu-HU");
+      document.querySelector("#preview-workshop").textContent = Object.values(progress.workshop.games).flat().reduce((sum, v) => sum + v.independent + v.assisted, 0).toLocaleString("hu-HU");
     }
     document.querySelector("#progress-dialog-note").textContent = kind === "cloud"
       ? "A helyi és felhős szóeredmények nagyobb számlálóit tartjuk meg. A korábban helyben nullázott eredmények így visszakerülhetnek a felhőből."
@@ -84,7 +85,7 @@ export function setupProgressTools({ getState, getRevision, applyProgress, resum
   });
   document.querySelector("#reset-progress").addEventListener("click", () => {
     const current = snapshotProgress(getState());
-    openConfirmation("reset", current, "Az alábbi helyi számlálók, szóeredmények, Meseliget- és Furfangliget-adatok nullára állnak. A legutóbbi nullázás visszavonható.");
+    openConfirmation("reset", current, "Az alábbi helyi számlálók, szóeredmények, Meseliget-, Furfangliget- és Műhelyliget-adatok nullára állnak. A legutóbbi nullázás visszavonható.");
   });
   document.querySelector("#undo-progress").addEventListener("click", () => {
     const undo = getState().undoProgress;

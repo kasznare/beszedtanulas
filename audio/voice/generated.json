@@ -1040,6 +1040,206 @@
     "memory_done": {
       "fingerprint": "df4f5640b1f4a3dee246ed6d63c14230ea0e9915cc459c2d2436a2b9756356ef",
       "sha256": "29a95f2ff893a963c39d74a93efc74eae0fd6228f435134f5816dfe7d4e1ec63"
+    },
+    "workshop_menu": {
+      "fingerprint": "0cb190c04e3e3d9ed95cbe74474096f8c91a21fca3766fe89bb552cd68c67cfe",
+      "sha256": "34764868933f5f14d165f1d83befd6b78d17506e8bbc5ed5d09e8f5545851569"
+    },
+    "workshop_level_1": {
+      "fingerprint": "cfc9488abf04d19b23616c4faf8968c0950a06a524d1733f13f194fb3f227dc4",
+      "sha256": "b1ca5d839a74fbd11b56ca0fb40a3ec2a764655e131c9f65bff8f0fe10cf60a8"
+    },
+    "workshop_level_2": {
+      "fingerprint": "238457791cafcf23acbc755066e962dc93e37e8d767e204f445a888535660b7c",
+      "sha256": "05a365e2bc417cb6873fd3339b09b9b8641dd517d88b2fd4edbe903f15e47c32"
+    },
+    "workshop_level_3": {
+      "fingerprint": "af75d8ae5696d18ef05e75b76217b0873267049661697e1ef4190f1ea574a9ca",
+      "sha256": "63e0b910afa3c15187c235416c471ab79d378858e398da10751e9fc6a701d630"
+    },
+    "workshop_sort_2": {
+      "fingerprint": "1dd0abfb069008279c13c01351e2006a23d3691abe14b331e5d6b8e1b6b63c46",
+      "sha256": "ae3dea3a4e716056438d601156bcdab694420555656573a5f035f19c6a8046af"
+    },
+    "workshop_sort_1": {
+      "fingerprint": "68f5a077b7ab53b86afcffd6f2ea7a10184910769e3f4eca9133034ea1c8bf4a",
+      "sha256": "015c897e0729cca3b0b7f3b7469671accfe84acf72831c752ef7434699dc9baf"
+    },
+    "workshop_sort_3": {
+      "fingerprint": "43455b13eda690d6a51ec5c6e4b00e1faac3a0456576a26235865a8672dfe306",
+      "sha256": "a69d57dd02944788daadc1c97f719423fb7f16a82ce7873dff54b0324952b702"
+    },
+    "workshop_only_big": {
+      "fingerprint": "2fc42c6b11eef15e0799b7ba5d970b28ddfcc2ffdc5ba812ea3e3e82c1d216e0",
+      "sha256": "39c57bd1bd6834cb112b34c5ce19d13ab831224dcacb89126a50dbf7f3598481"
+    },
+    "workshop_only_small": {
+      "fingerprint": "b9406bc3360e82bd01bfa6bc6fd6e6339348d3c40c88ad77348d2c760cc320b2",
+      "sha256": "26b41ce9d38f5822d4970bc97f42a70ce6d03b8b54cad19af90591a76c1a151f"
+    },
+    "workshop_sort_hint1": {
+      "fingerprint": "069ee33a192c54c78bcc59ace41bc728105f2454992169561e9f1b376c0b6035",
+      "sha256": "5a6237e20103117cff139c9d246f8d426abe0ceef20103f4853518296c97f5fc"
+    },
+    "workshop_sort_hint2": {
+      "fingerprint": "2b13e308d705edc7e7c2eb1ffbbcff7a3c5784576725391d1eb5e4e48813622d",
+      "sha256": "60169f18302bb822661388cf278d4f0533ba55e0400579f3701d6f22b99b2bcc"
+    },
+    "workshop_sort_hint3": {
+      "fingerprint": "6b38bca35b5e05f1b3c99ac3d270637dfaff9f7ff2080be76b03316af3d7f770",
+      "sha256": "5551adc83b0eddc204e5b33b6172c5f38fa830a3e20c90a0c0f63435335ad98e"
+    },
+    "workshop_sort_retry": {
+      "fingerprint": "a0c45704a0ac587f152a570fc32ff33bf78b46e662c5e8237b00cbc360e77012",
+      "sha256": "cdd8f9c1790f6185e34b07cdaaf3497e5cac8100f3ac33ca5f7c23ff4162a6db"
+    },
+    "workshop_sort_done": {
+      "fingerprint": "1ed9a1eb1ec1509dcec3ce222458fbffc33449c8d50b77bf86acfb97a59f0118",
+      "sha256": "3a745159931a4c1d4949498b8af661f49728d37bf58b8e02898b388b63b9ed68"
+    },
+    "workshop_pattern_1": {
+      "fingerprint": "4da4d6afe533e079e4f5ac7e1ee266e39663af8def7d582611409fbe40ba1e56",
+      "sha256": "683587d70c00c0a960e1efd16e16c68ee5588e1fa6940dd38ad41a49c4f6032a"
+    },
+    "workshop_pattern_2": {
+      "fingerprint": "6fadafa93c8c02ff9519bcb75dc36c46e3fbdd011b8dddd5fc23b5682acc9c78",
+      "sha256": "4e4bb8cfc6285b5972f4a8f0e5f11adf403ba7da7b7b2894adba5e13d5d4c2c6"
+    },
+    "workshop_pattern_hint1": {
+      "fingerprint": "65ad36c0afd7c799616801609d5c7e99b7202de1fadc81495f15fcc8d3c3a75c",
+      "sha256": "b765a3649ca93169dc70fec6980a7b3f0956d66ff55e44d97edeb87ea413e08d"
+    },
+    "workshop_pattern_3": {
+      "fingerprint": "8d8a0b6840d396c0ae2d7dc61376eb1132bf9448d3aea4d27ed3417be62f8e4b",
+      "sha256": "64af8693909e1535b91de8ec3c6ca908ea3c618a99c4ef5712ec6ffcc6b9e9f0"
+    },
+    "workshop_pattern_hint2": {
+      "fingerprint": "eb48b9e98b8cb06f235fa3e5932de472076f8439ceff4b5d82ab488bfc5e1da6",
+      "sha256": "a72cad7073b683047714ff0dd90cd24ef68dc8485c8ede284e95e34c9e97a636"
+    },
+    "workshop_pattern_retry": {
+      "fingerprint": "4ba5746c47001fd9c3b3995a363b7b5c9fe46bec8a74184a6af3f9aef121c6c5",
+      "sha256": "2af05617168d65c2390ceb084238a232f987c1e3300013c4c6bebf029d7b6d63"
+    },
+    "workshop_pattern_hint3": {
+      "fingerprint": "57e276fb3b0d910e8acc613d0a93f938d6cb4aa71b76ebbcfc255e00e75a4149",
+      "sha256": "ed424a81938abb812f44de13101006ee5811d2283f1491ab8d74408117c9e40e"
+    },
+    "workshop_pattern_done": {
+      "fingerprint": "7b2a4730861f1d90d96b6d977a0b5dd67ee20bb22f616e4e0f0fb730e22c90d3",
+      "sha256": "b6228ef6c7a30dee41b0e0d60a065ac2a3a489bcb9c5294f4669dcdf71b0e553"
+    },
+    "workshop_balance_1": {
+      "fingerprint": "8f3eac9b6f83c4d4b5273561f3658fde95c3ae57b84d178709ae327f1a5eeec1",
+      "sha256": "1597c940b444fc0f1b6acb6ffe30f9e8a78e34ce28ab8830d740528e886a1278"
+    },
+    "workshop_balance_3": {
+      "fingerprint": "5ab3bbdd81c5e58b97c5da72411aa6e98f0743b80b1fbb58958dde8f7de95930",
+      "sha256": "f5a66e923fde5ac6d3016c8509acbec498dc335e64c00e39a7820066979b0614"
+    },
+    "workshop_balance_2": {
+      "fingerprint": "14bcfea2dd56e377f8b5638cb9962de2aa28d44b87639fe61865099f8705706b",
+      "sha256": "00730382458b500be31f147087fa4894b19705a70844650efaffc13101d6d0ac"
+    },
+    "workshop_balance_hint1": {
+      "fingerprint": "f6185037f3673351b67127be0c5f1be99dfb29b7fe687059d601137404651c67",
+      "sha256": "de6f922c121ff76ff1aeca05235607d87c25b5bc159957b98706700842c668e0"
+    },
+    "workshop_balance_hint3": {
+      "fingerprint": "91a988178fb074dbebc81d3c6921c90d06eadd0219aa776a3ef236feaba0cc8c",
+      "sha256": "50721007a4cf6b441587a6ac02193a6d9d6eaa86b92eb73b2340be78a452295c"
+    },
+    "workshop_balance_hint2": {
+      "fingerprint": "197ebe96a3ed17d1c2e7e8d029eb366126f278f9fb9cbc8761050304923c3388",
+      "sha256": "0b0e889c959b33b1475a8b367d2faeca5bacb8f4300e44e37b5d2d3f4bf1342c"
+    },
+    "workshop_add_rod": {
+      "fingerprint": "a2bec12b32386ce32d69e85d81d18f32a61ccbaf2c86c2e2816f45be5d5114ba",
+      "sha256": "760f7844bd99087ae368a52f2a02322aa96c75d9db30213416ac80282ddcb29e"
+    },
+    "workshop_take_rod": {
+      "fingerprint": "292f3b3c3504c4673bd9a79877668545592d529b161311aa3cc7f54ad68ab734",
+      "sha256": "fcf058180a18dddd08ac12f754e72c4ecf57fb966510ab56ceaacdcdc93a67bf"
+    },
+    "workshop_target": {
+      "fingerprint": "35867d70219298cd2aa918e994d84316e4606c15f410a197b5651691cf90d457",
+      "sha256": "aa0c76397c1ea194b00ec881f8c9908249571f941bd2cc827db225126471904d"
+    },
+    "workshop_balance_retry": {
+      "fingerprint": "097968857da394bcfd91e595f6e012ed0dc934ce25a13106d253ddacd3a3dee1",
+      "sha256": "78ca1d2f3feb824fd0f7ca9253dd2a237fef8d15650e375f9ee663601c7a94c8"
+    },
+    "workshop_balance_done": {
+      "fingerprint": "62fb3c2777c405e4585ce304f961af997e4b73add90e757b03c96dbaee7e3772",
+      "sha256": "d2a2156a2eda8d9ca45e2bc18c304ac504546dbd42980d970e3dc6827fc1ba01"
+    },
+    "workshop_ready": {
+      "fingerprint": "53560c5dad31d058fcd1ed79da64d8046ffa1e7173985a169c78799191ca440a",
+      "sha256": "1aac928b4360254ceb8b16f6304ef47431be59d3e1b73cbadac29440215f1829"
+    },
+    "workshop_n_0": {
+      "fingerprint": "7cb2b4dfcd44912634887e1a0f44b2433ef254ad54c260ae3970fd79a020cf89",
+      "sha256": "36db70d7b5a0c2160d61bb015db97aeff41e0b5b8e8ccd3634ffe14191e9f9d5"
+    },
+    "workshop_n_1": {
+      "fingerprint": "927156cbe50dc3aa5fb715aa56a5c270d6f310193284a9b6e72f07d04b760215",
+      "sha256": "5540b5b3e8e36ccc27ca950e2b404d64a8c85d9db7516665f3a8ab1b32e3c576"
+    },
+    "workshop_n_2": {
+      "fingerprint": "2f0ece3ce2e77bdb1d101acb913f163276dc740a24050dd725ab3d4e24fb22ec",
+      "sha256": "bc42cdfd240fb7e3c9f6c333185c58b0c45a2682c8985ee070482fd6e2052cad"
+    },
+    "workshop_n_3": {
+      "fingerprint": "2ea2845c1e137c2384842439ff3cd5b641547078c716c218bed1c59e4892ab09",
+      "sha256": "1d0319a5b62384a07393cd056c3d955a57846e6b7df23bde5f0d8a632c846ab6"
+    },
+    "workshop_n_4": {
+      "fingerprint": "0632465c92bb6ce648bf9c1c4d86ae2242dccaf2944fff2d703357de89fdc369",
+      "sha256": "6a1a3f3962716aee7243530cdf3544ea6055c23e87ddcbe3c5687a748d62b272"
+    },
+    "workshop_n_5": {
+      "fingerprint": "f7ca73b483fe3b2256760cf83020ba8f4950bbff1f4f964acc2c0a9205717dea",
+      "sha256": "6caf4be20ab1db978d4b8d5adef636e18e7fe2b7361cdad72aa36acab31c5c72"
+    },
+    "workshop_n_6": {
+      "fingerprint": "fcb7cb9c300f93d7bce35c83e84e8fe4b998e5d4efac6495d239cac3f09f5830",
+      "sha256": "a1374dca51f5bc459c3629021a82d57ed91a58292dbbebbfcafa4e158313aaa1"
+    },
+    "workshop_n_7": {
+      "fingerprint": "7595a7bf4eef7d978125f9aa1c09792fe6191a03c6e8cc8cd5ce1895ebba4526",
+      "sha256": "033958cfa4d997ec842af6ae60af4efbc3ca0214f6cca0794b191b9945a5e78c"
+    },
+    "workshop_n_8": {
+      "fingerprint": "62e6a02e16f43679ac9a65285f8b153994bc3050bc8f365b3308985351e5cabf",
+      "sha256": "588b83cd2fc6ac8647fe08dbc173a736013d9f15691b95406ca0f931607ffbc1"
+    },
+    "workshop_n_9": {
+      "fingerprint": "eb6c3209972f32fa4eeec07a4d30336959e1bdc0dc723d11b67d61c4c9f1e4da",
+      "sha256": "007f3f20a094210dccbf556f029e9276d8d3cf7855a470f5a189baed929317ae"
+    },
+    "workshop_n_10": {
+      "fingerprint": "fb53a9c2ba6c14b08e451b3128298fb491a0d47c8802d5efef3725b8289306ad",
+      "sha256": "798839668ba138b2f97600d0c923a2f9620d3c8cf405a25dd20440e193dc23ef"
+    },
+    "workshop_n_11": {
+      "fingerprint": "5e5b516c1c35760d266e08080a0823f92777000b9fb7a7dd707fae18ece30e81",
+      "sha256": "86e51450fee470784cacbf9fa163cc727b9ee9102860f1807e702df6a3ea6893"
+    },
+    "workshop_n_12": {
+      "fingerprint": "0db145c01511d89c96a0a2d95c954f2843e334433a7b06b3072d463dfbcc0c0a",
+      "sha256": "b379c045f0d34f42ade00fb9a60f90234fab596be6ed0d90ca1c59e395c23c77"
+    },
+    "workshop_n_13": {
+      "fingerprint": "8f9c481f8fff177fdaa54a1bd13e55a39556361d1e12ec3eebd74cb079d84e26",
+      "sha256": "b7872b31726e2b1f4df4e13ab3b76b95690f2d18fc4a63d794f21a6b34f55712"
+    },
+    "workshop_n_14": {
+      "fingerprint": "248b86ac53e690ac216083a9a232b3d882048a4216309e992ccf9c96e9404235",
+      "sha256": "72914795b3d239e3103ba5555bb29d4fc3a1e5386ebd976afd64f9d67e18ae5f"
+    },
+    "workshop_n_15": {
+      "fingerprint": "a4b294a4b486fb28f29ade28da93b512dd95ef0ef1dc98ff7ac4300ef00b3775",
+      "sha256": "1e81d8e4748c5417ab0dc430c7e989a75dd6cae37f2c17c434eaa2371d607fbf"
     }
   }
 }

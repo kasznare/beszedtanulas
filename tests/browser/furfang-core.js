@@ -6,7 +6,7 @@ async (page) => {
  const enter=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="furfangliget"]').click();};
  const parent=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#parent-button').click();const text=await page.locator('#parent-gate-question').innerText(),n=text.match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  const task=async kind=>page.evaluate(async k=>{const {generateTask}=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions[k];return generateTask(k,s.level,s.limit,s.seed)},kind);
- const fill=async values=>{const current=await page.locator('.logic-stepper output').allTextContents();for(let i=0;i<values.length;i++){const d=values[i]-Number(current[i]);for(let j=0;j<Math.abs(d);j++)await page.locator(`#logic-${d>0?'plus':'minus'}-${i}`).click();}};
+ const fill=async values=>{for(let i=0;i<values.length;i++){const input=page.locator(`#logic-value-${i}`);await input.fill(String(values[i]));await input.press('Tab');}};
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.evaluate(async()=>{localStorage.clear();for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();for(const c of await caches.keys())await caches.delete(c);});const url=page.url();await page.goto('about:blank');await page.goto(url);await enter();
  const original=(await saved())?.attempts||0;
@@ -19,11 +19,11 @@ async (page) => {
    await page.locator('#logic-hint').click();await page.locator('#logic-hint').click();await page.locator('#logic-hint').click();
    ok((await saved()).logic.sessions[kind].help===3,`${kind} ${level}: progressive hint saved`);
    if(kind==='shop'){
-    await fill(t.orders[0]);await page.locator('#logic-check').click();ok((await saved()).logic.sessions.shop.stage===1,`Shop ${level}: second order follows`);ok((await saved()).rewards===before,`Shop ${level}: first order not rewarded`);
+    await fill(t.orders[0]);await page.locator('#logic-check').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');ok((await saved()).logic.sessions.shop.stage===1,`Shop ${level}: second order follows`);ok((await saved()).rewards===before,`Shop ${level}: first order not rewarded`);
     await fill(t.orders[1]);
    }else if(kind==='machine'){
     for(let i=0;i<t.program.length;i++){await page.locator(`#logic-slot-${i}`).click();await page.locator(`[data-op="${t.program[i]}"]`).click();}
-    await page.locator('#logic-trial').click();ok((await page.locator('.logic-match').count())===3,`Machine ${level}: trial runs examples`);
+    await page.locator('#logic-trial').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');ok((await page.locator('.logic-match').count())===3,`Machine ${level}: trial runs examples`);
     const values=await page.evaluate(async t=>{const {applyRule}=await import('./logic-data.js');return t.questions.map(n=>applyRule(n,t.program));},t);await fill(values);
    }else{
     const path=await page.evaluate(async t=>(await import('./logic-data.js')).routeSolution(t),t);

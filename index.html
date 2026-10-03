@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="./meseliget.css" />
   <link rel="stylesheet" href="./logic.css" />
   <link rel="stylesheet" href="./memory.css" />
+  <link rel="stylesheet" href="./workshop.css" />
+  <link rel="stylesheet" href="./portal.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -47,12 +49,16 @@
         <button class="choice-tile tone-mint" data-open="meseliget" aria-label="Meseliget, induljunk piknikezni"><span class="choice-art teddy-menu-art" aria-hidden="true">🌳<span>🧸 🍎</span></span><span>Meseliget</span></button>
         <button class="choice-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="choice-art" aria-hidden="true">🎁</span><span>Mi bújt el?</span></button>
       </div>
-      <button class="logic-portal-link" data-open="furfangliget"><span aria-hidden="true">🧩</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span></button>
-      <button class="logic-portal-link" data-open="memory"><span aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Fordíts · jegyezd meg · találd meg a párját</small></span></button>
+      <div class="game-worlds">
+        <button class="logic-portal-link" data-open="furfangliget"><span aria-hidden="true">🧩</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span></button>
+        <button class="logic-portal-link" data-open="workshop"><span aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Válogatókert · Mintaszövő · Egyensúlyműhely</small></span></button>
+        <button class="logic-portal-link" data-open="memory"><span aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Fordíts · jegyezd meg · találd meg a párját</small></span></button>
+      </div>
     </section>
 
     <section id="furfangliget" class="panel logic-panel" aria-label="Furfangliget gondolkodtató játékok"></section>
     <section id="memory" class="panel memory-panel" aria-label="Képpárok memóriajáték"></section>
+    <section id="workshop" class="panel workshop-panel" aria-label="Műhelyliget képes gondolkodtató játékok"></section>
 
     <section id="teddy-game" class="panel teddy-panel" aria-label="Etesd meg a macit" data-mood="waiting">
       <div id="teddy-progress" class="round-progress" role="group" aria-label="A piknik haladása"></div>
@@ -239,7 +245,8 @@
           <label>Szabálygép<select id="machine-level"><option value="1">Felfedező – ±1, ötig</option><option value="2">Gondolkodó – műveletek, tízig</option><option value="3">Tervező – két művelet, húszig</option></select></label>
           <label>Csomagösvény<select id="route-level"><option value="1">Felfedező – egy csomag, 3×3</option><option value="2">Gondolkodó – kerülőutak, 4×4</option><option value="3">Tervező – két csomag, 5×5</option></select></label>
         </div><p class="parent-note">A szintváltás új feladatot indít az érintett játékban. Az eredmények megmaradnak. A beállítások ezen az eszközön közösek; a haladás és a félbehagyott feladatok profilonként külön mentődnek, fájlba is. A gépnél a nulla is szerepelhet.</p><div id="logic-summary" class="logic-summary"></div></div>
-        <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A szabad játék a számolási szintet és a körhosszt használja. A piknikkaland három állomásból áll, legfeljebb három almával. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
+        <div class="parent-controls"><h2>Műhelyliget – formák, minták és egyensúly</h2><label for="workshop-level">Műhelyek nehézsége</label><select id="workshop-level"><option value="1">Felfedező – színek, egyszerű minták, számbontás</option><option value="2">Gondolkodó – szín és forma, hosszabb minták, két rúd</option><option value="3">Tervező – több tulajdonság, kettős minták, három különböző rúd</option></select><p id="workshop-summary" class="logic-summary"></p><p class="parent-note">A szint a ligetben is választható. Minden játék minden szintje külön félbehagyott feladatot és önálló/segített eredményt őriz; profilváltással és fájlmentéssel együtt.</p></div>
+        <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A térképen az új piknik mérete is választható, a számolási szintig (1–3 / 1–5 / 1–10). A félbehagyott kaland megtartja a méretét. A szabad játék a körhosszt használja; választott mennyiséggel is gyakorolható. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
         <div class="parent-controls">
           <h2>Így játsszunk</h2>
           <label for="round-length">Egy gyakorlókör</label>
@@ -367,6 +374,7 @@
       <div><dt>Próba</dt><dd id="preview-attempts"></dd></div>
       <div><dt>Jutalom</dt><dd id="preview-rewards"></dd></div>
       <div><dt>Fejtörő</dt><dd id="preview-logic"></dd></div>
+      <div><dt>Műhely</dt><dd id="preview-workshop"></dd></div>
     </dl>
     <p id="progress-dialog-note" class="parent-note"></p>
     <p id="progress-dialog-error" class="progress-error" role="alert"></p>
