@@ -1,5 +1,18 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 3. – Magyar hangszövegek és GitHub Pages
+
+**Aktuális közzététel:** a felhasználó kifejezett kérése alapján kizárólag a meglévő GitHub Pages folyamatot használjuk. `npm run build`, commit, majd push az `origin/main` ágra; a **pages build and deployment** automatikusan telepít. Éles cím: https://kasznare.github.io/beszedtanulas/ . A korábbi Sites-utasítások történeti bejegyzések. A helyi `.openai/hosting.json` kötést eltávolítottuk; a privát távoli másolatot nem töröltük és a hozzáférését nem módosítottuk.
+
+A felhasználó pontosítása: az **sz** kiejtése alapvetően jó. A konkrét probléma például az „építsd meg a gépet” torlódó hangalakja és a kérdő mondatok gépi hangsúlya. A mesélőhang és tempó maradt `hu-HU-NoemiNeural`, `-6%`; nincs általános betűhelyettesítés vagy az sz-t érintő kiejtési átírás.
+
+- 51 hangszöveg változott. Mind a 40 kérdő hangszöveg kijelentésre vagy egyszerű felszólításra cserélve. Példa: „Ezen a képen három alma van. Keresd meg!” Az „építsd” helyén „Most te rakod össze a gépet” szerepel; hasonló egyszerűsítés az állítsd/készítsd/gyűjtsd alakoknál. A számolási feladat közvetlen hangazonosítót használ, a kiírt szöveg ugyanabból a hangjegyzékből érkezik.
+- Mind a 256 generált MP3 újragenerálva. A 24 saját felvétel változatlan. Az `audio/voice/generated.json` a szöveg/hang/tempó lenyomatát és a tényleges MP3 ellenőrzőösszegét tárolja. A generátor csak az igazoltan aktuális fájlt hagyja ki. Az ellenőrzés visszautasítja az elavult vagy eltérő hangfájlt; sikertelen letöltés megtartja a régi MP3-at. A következő generálás valódi no-op volt: 0 új, 256 változatlan fájl.
+- A 12 másodperces lejátszási levágást kijavítottuk. Az MP3 lejátszásának védőideje a fájl hosszát követi, legfeljebb 60 másodpercig; a böngészős tartalék felolvasás a szöveghosszhoz igazodik. A kilépés és új koppintás továbbra is megszakítja a beszédet.
+- Ellenőrzés: `npm run build` sikeres, 68 Node-teszt; minden generált MP3 hibamentesen dekódolható. A generátor 7 elkülönített próbája sikeres (első generálás, kihagyás, szöveg/tempó változása, sérült/hiányzó fájl, megszakadt csere).
+- Chrome és WebKit: 13–13 ellenőrzés, teljes 13,656 másodperces MP3, gyors kilépési megszakítás, számolási válasz/továbblépés, 375×667 / 932×350 / 834×1194 nézet, offline újratöltés és mind a 256 hang gyorsítótárazása. Külön Chrome-próba az AudioContext nélküli HTML audio lejátszásra: a teljes hosszú hang ott is végigszól. Tartós tesztsegéd: `tests/browser/voice-playback.js`; kizárólag eldobható tesztböngészőben futtatható.
+- A kiejtés és a hangsúly szubjektív minőségét a felhasználó következő meghallgatása erősítheti meg; a technikai hangteszt ezt nem helyettesíti. A szülői **Új verzió betöltése** gomb aktiválja az új offline csomagot a már telepített játékban.
+
 ## 2026. október 2. – Furfangliget, három összetettebb fejtörő
 
 Önálló fejlesztés külön chatben, a korábbi 19 perces korlát nélkül. A régi játékok és a korábbi munkafaváltozás megmaradtak. Usage-reset kredit nem lett beváltva, automatizmus nem készült.
@@ -38,7 +51,7 @@ A saját bővítés ezeket az elveket viszi tovább: megváltoztatható tárgyme
 
 ### Közzététel és következő lépések
 
-A meglévő privát Sites-projektet használjuk: `appgprj_6abff9957a30819186ffcc2af5d90a9e`, `static.directory: dist`, cím: https://meseliget-beszedjatek.kasznare.chatgpt.site/ . Az új csomag közzétételének végállapotát ennek a fejlesztési chatnek a záró válasza rögzíti. A korábbi éles forrás `1b1edabd7ac995834499664ade1fc163cd29bd0e`; a hozzáférési beállításokat változatlanul kell hagyni. `npm run build` végzi a csomagolás előtti teljes ellenőrzést.
+Történeti állapot, a 2026. október 3-i GitHub Pages-döntés felülírja. A korábbi privát Sites-projekt: `appgprj_6abff9957a30819186ffcc2af5d90a9e`, `static.directory: dist`, cím: https://meseliget-beszedjatek.kasznare.chatgpt.site/ . Az új csomag közzétételének végállapotát ennek a fejlesztési chatnek a záró válasza rögzíti. A korábbi éles forrás `1b1edabd7ac995834499664ade1fc163cd29bd0e`; a hozzáférési beállításokat változatlanul kell hagyni. `npm run build` végzi a csomagolás előtti teljes ellenőrzést.
 
 Későbbre: fizikai iPhone/iPad próba gyerekkel és valódi érintéses húzással, hanghossz/pedagógiai nehézség finomítása visszajelzésből; további szabálycsaládok, nagy kirándulás, műhely és saját falu. Nincs új többeszközös felhőszinkron vagy automatikus nehézségváltás. Böngészős WebKit-próba nem fizikai iOS-próba.
 
@@ -47,7 +60,7 @@ Későbbre: fizikai iPhone/iPad próba gyerekkel és valódi érintéses húzás
 
 A Sites-közzététel sikeres. Éles cím: https://meseliget-beszedjatek.kasznare.chatgpt.site/ . A tulajdonos ChatGPT-fiókja fér hozzá; a megnyitott alkalmazásbeli böngészőn az éles főképernyő ellenőrizve. A Mac futtatása nem szükséges a webes változathoz.
 
-A .openai/hosting.json rögzíti a meglévő Sites projektet; később ezt kell újra használni. Az npm run build a 60 ellenőrzést és az offline csomagot futtatja, majd a scripts/build-site.mjs kizárólag a hitelesített futtatási fájlokat másolja a dist/ könyvtárba. A publikált csomag 236 futtatási fájl, a Sites-csomagolás a tárhelymetaadatot is hozzáadja. Dokumentáció, helyi mentés és nyers hanganyag nincs a kiszolgált csomagban.
+Történeti állapot: a .openai/hosting.json ekkor a Sites projektet rögzítette. A 2026. október 3-i döntés szerint a további kitelepítés kizárólag a GitHub Pages folyamatával történik. Az npm run build a 60 ellenőrzést és az offline csomagot futtatja, majd a scripts/build-site.mjs kizárólag a hitelesített futtatási fájlokat másolja a dist/ könyvtárba. A publikált csomag 236 futtatási fájl, a Sites-csomagolás a tárhelymetaadatot is hozzáadja. Dokumentáció, helyi mentés és nyers hanganyag nincs a kiszolgált csomagban.
 
 A localhost és az éles cím külön böngészős tárhelyet használ. A korábbi eredményeket JSON-exporttal és az éles oldalon történő visszaállítással lehet átvinni. A korábbi munkanapló közzététel nélküli állapota történeti bejegyzés.
 

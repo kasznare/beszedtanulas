@@ -8,7 +8,7 @@ import { LOGIC_CLIPS } from '../logic-voice.js';
 const clips = [];
 const add = (id, text, group = 'guide') => clips.push({ id, text, group, file: `audio/voice/${id}.mp3` });
 const guides = {
-  welcome: 'Szia! Mivel játsszunk?',
+  welcome: 'Szia! Kezdődhet a játék. Válassz egy képet!',
   play_menu: 'Etessük meg a macit, vagy nézzük meg, mi bújt el!',
   play_menu_more: 'Etessük meg a macit, öltöztessük fel, vagy nézzük meg, mi bújt el!',
   dress: 'Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!',
@@ -16,21 +16,21 @@ const guides = {
   teddy: 'Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!',
   teddy_thanks: 'De finom! Köszönöm!',
   teddy_finished: 'Tele a pocakom! Köszönöm a finom pikniket!',
-  topics: 'Mit nézzünk meg? Válassz egy képet!',
-  picture_menu: 'Nézegessünk képeket, vagy keressük meg, amit hallunk?',
+  topics: 'Itt vannak a képek. Válassz egyet!',
+  picture_menu: 'Itt képeket nézegethetünk, és szavakat hallgathatunk. Válassz egy játékot!',
   listening_game: 'Hallgasd meg a szót, és keresd meg a képét!',
   cards: 'Koppints egy képre! Hallgassuk meg együtt!',
-  practice: 'Egy szót mondjunk, vagy kettőt?',
+  practice: 'Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!',
   imitate: 'Hallgasd meg a szót, és mondd utánam!',
   phrase: 'Hallgasd meg, és mondd utánam a két szót!',
-  number_menu: 'Számoljunk, vagy keressük meg a képet?',
+  number_menu: 'Itt együtt számolunk. Válassz egy játékot!',
   count: 'Koppints a tárgyakra! Számoljuk meg őket együtt!',
-  quiz: 'Keresd meg a képet! Hol van ennyi?',
-  flip: 'Mi bújt a kártya mögé? Koppints rá!',
+  quiz: 'Hallgasd meg, melyik képet keressük. Koppints rá!',
+  flip: 'A kártya mögött egy kép bújik meg. Koppints rá!',
   listening: 'Most te jössz!',
   again: 'Próbáljuk meg együtt!',
   good: 'Ez az! Ügyes vagy!',
-  finished: 'De jó volt együtt játszani! Jöhet még egy kör?',
+  finished: 'De jó volt együtt játszani! Újabb kör vár rád.',
   mic_help: 'Kérj meg egy felnőttet, hogy kapcsolja be a mikrofont!',
   goodbye: 'Válasszunk egy másik játékot!',
   one_word: 'Egy szó.',
@@ -59,7 +59,7 @@ for (let n = 1; n <= 10; n++) {
   for (const object of words.filter(w => ['alma', 'labda', 'auto'].includes(w.id))) {
     const quantity = `${n === 2 ? 'két' : names[n]} ${object.label}`;
     add(`quantity_${object.id}_${n}`, quantity, 'number');
-    add(`question_${object.id}_${n}`, `Hol van ${quantity}?`, 'number');
+    add(`question_${object.id}_${n}`, `Ezen a képen ${quantity} van. Keresd meg!`, 'number');
   }
 }
 await mkdir(new URL('../audio/voice/', import.meta.url), { recursive: true });

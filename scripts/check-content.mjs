@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 import { words, wordCategories, twoWordPhrases, teddyRequests } from '../game-data.js';
 import { VOICE_CLIPS } from '../voice-library.js';
@@ -18,6 +19,9 @@ for (const category of wordCategories) {
   for (const id of category.words) assert.ok(wordIds.has(id), `Unknown word: ${id}`);
 }
 const manifest = JSON.parse(await readFile(new URL('../audio/voice/manifest.json', import.meta.url), 'utf8'));
+const generated = JSON.parse(await readFile(new URL('../audio/voice/generated.json', import.meta.url), 'utf8'));
+assert.equal(generated.version, 1, 'Unknown voice generation receipt version');
+const sha256 = value => createHash('sha256').update(value).digest('hex');
 uniqueIds(manifest.clips, 'voice');
 assert.deepEqual(VOICE_CLIPS, Object.fromEntries(manifest.clips.map(({id,text,file}) => [id,{text,file}])));
 for (const word of words) assert.equal(VOICE_CLIPS[`word_${word.id}`]?.text, word.label);
@@ -36,5 +40,10 @@ for (const item of dressItems) {
 const audioFiles = [...words.map(word => `audio/${word.id}.mp3`), ...manifest.clips.map(clip => clip.file)];
 for (const file of audioFiles) {
   assert.ok((await stat(new URL(`../${file}`, import.meta.url))).size > 1000, `Missing or empty audio: ${file}`);
+}
+for (const clip of manifest.clips) {
+  const receipt = generated.clips[clip.id];
+  assert.equal(receipt?.fingerprint, sha256(JSON.stringify([manifest.voice, manifest.rate, clip.text])), `Stale spoken text: ${clip.id}. Run npm run generate-voice.`);
+  assert.equal(receipt?.sha256, sha256(await readFile(new URL(`../${clip.file}`, import.meta.url))), `Unverified voice file: ${clip.id}. Run npm run generate-voice.`);
 }
 console.log(`Content ready: ${words.length} words, ${twoWordPhrases.length} phrases, ${audioFiles.length} audio files.`);

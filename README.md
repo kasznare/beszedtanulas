@@ -2,6 +2,8 @@
 
 Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és iPad képernyőre. Négy nagy képes csempéről indul: beszélő képek, utánzás, számolás és meglepetéskártyák. Minden játékból a házikó vezet vissza a főképernyőre.
 
+Éles oldal: [Beszédtanulás a GitHub Pagesen](https://kasznare.github.io/beszedtanulas/). Nincs szükség ChatGPT-bejelentkezésre. A `main` ágra küldött commitot a meglévő GitHub Pages **pages build and deployment** folyamata automatikusan kitelepíti. Közzététel előtt `npm run build` és `git diff --check`, utána commit és push; külön Sites-kitelepítés nem kell.
+
 ## Indítás
 
 A projekt könyvtárában:
@@ -51,7 +53,7 @@ iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával 
 
 A hibás vagy megszakadt letöltés újrapróbálható. Az új verzió a szülői felületen indítható; másik nyitott játékablak mellett nem aktiválódik. A böngésző a hely felszabadításakor törölheti a tárolt fájlokat; a hiányzó csomag a szülői felületen újra letölthető.
 
-A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A privát webes változat: [Meseliget](https://meseliget-beszedjatek.kasznare.chatgpt.site/).
+A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A [GitHub Pages-oldal](https://kasznare.github.io/beszedtanulas/) HTTPS-t használ.
 
 Fejlesztés közben HTML-, JavaScript-, CSS- vagy hangmódosítás után:
 
@@ -64,7 +66,7 @@ Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a
 
 ## Hanganyagok
 
-Az alapértelmezett új magyar mesélőhang 256 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, kérdések és rövid segítségek. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 256 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 
@@ -72,7 +74,7 @@ Az alapértelmezett új magyar mesélőhang 256 statikus MP3-fájlból áll: sza
 npm run generate-voice
 ~~~
 
-Ehhez uv, internetkapcsolat és az elkülönítve futtatott edge-tts 7.2.8 szükséges. A generátor csak a rögzített szóanyagot és a játék szövegeit küldi a hangszolgáltatáshoz. A lejátszás már a helyi MP3-fájlokat használja. A generátor kihagyja a meglévő hangfájlokat; megváltoztatott szövegnél az adott generált fájlt előbb külön el kell távolítani.
+Ehhez uv, internetkapcsolat és az elkülönítve futtatott edge-tts 7.2.8 szükséges. A generátor csak a rögzített szóanyagot és a játék szövegeit küldi a hangszolgáltatáshoz. A lejátszás már a helyi MP3-fájlokat használja. A generátor a szöveg, a hang és a tempó lenyomatát, valamint az MP3 ellenőrzőösszegét menti az **audio/voice/generated.json** fájlba. Csak az ezekkel egyező hangot hagyja ki; szövegváltozás, hiányzó vagy sérült fájl esetén új hangot készít. Sikertelen letöltéskor a korábbi MP3 megmarad. Az `npm run check` az elavult vagy nem igazolt hangot is jelzi. A generált hangokat, hangjegyzékeket és ellenőrzőösszegeket együtt kell commitolni.
 
 Források:
 

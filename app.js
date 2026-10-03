@@ -472,7 +472,7 @@ function setupNumbers() {
 }
 
 function speakNumberQuestion() {
-  speakHungarian(document.querySelector("#number-question").textContent);
+  speakVoice(`question_${countingObject.id}_${quizTarget}`);
 }
 
 function shuffleNumbers(values) {
@@ -489,7 +489,7 @@ function renderNumberQuiz() {
   quizTarget = shuffleNumbers(candidates.filter((number) => number !== quizTarget))[0];
   const alternatives = shuffleNumbers(candidates.filter((number) => number !== quizTarget)).slice(0, 2);
   const choices = shuffleNumbers([quizTarget, ...alternatives]);
-  document.querySelector("#number-question").textContent = `Hol van ${numberQuantityLabel(quizTarget)}?`;
+  document.querySelector("#number-question").textContent = VOICE_CLIPS[`question_${countingObject.id}_${quizTarget}`].text;
   document.querySelector("#number-quiz-status").textContent = "";
   document.querySelector("#number-quiz-next").disabled = true;
   const answers = document.querySelector("#number-answers");
@@ -900,7 +900,7 @@ async function tryPlayFileWithBuffer(src, token) {
     source.onended = () => finish(true);
     try {
       source.start();
-      timer = setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 12000));
+      timer = setTimeout(() => finish(true), Math.min(buffer.duration * 1000 + 700, 60000));
     } catch {
       finish(false);
     }
@@ -931,7 +931,7 @@ function tryPlayFileWithElement(src, token) {
     audio.play().then(() => {
       if (done) return;
       clearTimeout(timer);
-      timer = setTimeout(() => finish(true), Math.min((audio.duration || 2) * 1000 + 1200, 12000));
+      timer = setTimeout(() => finish(true), Math.min((audio.duration || 2) * 1000 + 1200, 60000));
     }, () => finish(false));
   });
 }
@@ -984,7 +984,7 @@ function speakWithBrowser(text, token = beginPlayback()) {
     timer = setTimeout(() => {
       if (token === playbackToken) window.speechSynthesis.cancel();
       done();
-    }, 12000);
+    }, Math.min(Math.max(text.length * 150, 12000), 60000));
     window.speechSynthesis.speak(utterance);
   });
 }
