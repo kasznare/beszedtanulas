@@ -17,6 +17,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 ## Játék és beállítások
 
 - **Képek:** nézegetés hat témakörrel és 24 magyar szóval, vagy a **Hol van?** hallás utáni választójáték. Elhangzik egy szó, és két vagy három nagy kép közül kell választani, olvasás és mikrofon nélkül. Hibás választás után újra megszólal a szó; a kör végén egy jutalom jár.
+- **Hangos állatkönyv:** négy részletes, lapozható jelenet: tanya, kert, tópart és erdő. Tizenkét valódi állathang; a képen lévő állat és az alsó szimbólumgomb is megszólaltatja. Gombbal, nyílbillentyűvel vagy vízszintes húzással lapozható, az utolsó lap és a hangpontok beállítása megmarad. A megnyomott állat a hang tényleges indulásától a végéig kap jelzést. A Képek és a Játsszunk! menüből is elérhető.
 - **Mondd utánam:** egy vagy két szavas gyakorlás. A mikrofon gomb egy próbát, a nagy lejátszógomb egy vezetett szókört indít. A megállítás és a hazalépés leállítja a figyelést.
 - **Számoljunk:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
@@ -32,6 +33,14 @@ A szülői oldal tetején a **Ki játszik?** rész választja ki a gyereket vagy
 A rövidebb fekvő telefonos nézet külön tömör elrendezést kapott. A számolás tárgyválasztója és a meglepetésjáték újrakezdése oldalra kerül; a kör végi ablak mindkét nagy gombja görgetés nélkül elérhető. A 932 × 350-es nézetet szimulált oldalsó és alsó biztonsági térközzel is ellenőriztük.
 
 A haladás a böngésző helyi tárolójába kerül. A **Gyerek** és a **Szülői próba** külön eredményt tárol; a szülői profilváltás újratöltés után is megmarad. A hang és a többi játékbeállítás az eszközön közös. A bátorító felismerési mód a megszólalást jutalmazza; nem ellenőrzi a kiejtés helyességét. A szófelismerő és két szavas mód a böngésző beszédfelismerését használja. A valódi iPhone/iPad mikrofonos működés még eszközön ellenőrzendő.
+
+## Állathangos képeskönyv
+
+A könyv négy eredeti, 1536 × 1024-es illusztrációja a beépített képalkotóval készült. WebP formában, összesen kb. 2 MB mérettel kerülnek az offline csomagba. A képeken megnyomható területek a tényleges állatok helyéhez igazodnak; a hangpontok elrejthetők. A lapozás megszakítja az előző hangot. A könyvben nincs mikrofon, jutalom vagy pontozás; a beszédpróbák és a meglévő játékok mentése változatlan.
+
+A tizenkét állathang rövid, 1,67–4,8 másodperces, mérsékelt hangerejű valódi felvétel. A hangok és a forrásjegyzék teljes letöltés után offline is elérhetők. A hanghibát a felület jelzi, és újra meg lehet nyomni az állatot; a játék nem helyettesíti az állathangot szövegfelolvasással. A szerzők, eredeti Commons-felvételek, közkincs/CC BY-SA licencek és az átalakítások a könyv **Képek és hangok forrása** gombján keresztül jelennek meg. A CC BY-SA kivágások az eredeti licencüket megtartják.
+
+Megvalósítás: `animal-book-data.js`, `animal-book-game.js`, `animal-book.css`; források, kivágások és SHA256: `animal-book-audio.json`; képek és a végső promptkészlet: [assets/animal-book/README.md](assets/animal-book/README.md). Az utolsó lap és a jelölők külön eszközbeállításban (`beszedtanulas.animalBook.v1`) tárolódnak, nem eredményadatként.
 
 ## Mikrofonos próbák
 
@@ -51,7 +60,7 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 334 hangfájlt. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 350 hangfájlt, köztük a tizenkét állathangot. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
@@ -70,7 +79,7 @@ Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a
 
 ## Hanganyagok
 
-Az alapértelmezett magyar mesélőhang 310 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 314 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 

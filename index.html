@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./workshop.css" />
   <link rel="stylesheet" href="./portal.css" />
   <link rel="stylesheet" href="./narration.css" />
+  <link rel="stylesheet" href="./animal-book.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -51,6 +52,7 @@
         <button class="choice-tile tone-yellow" data-open="flip" aria-label="Mi bújt el?"><span class="choice-art" aria-hidden="true">🎁</span><span>Mi bújt el?</span></button>
       </div>
       <div class="game-worlds">
+        <button class="logic-portal-link animal-book-portal" data-open="animal-book"><span aria-hidden="true">📖</span><span><strong>Hangos állatkönyv</strong><small>Lapozz · fedezd fel · hallgasd meg az állatokat</small></span></button>
         <button class="logic-portal-link" data-open="furfangliget"><span aria-hidden="true">🧩</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span></button>
         <button class="logic-portal-link" data-open="workshop"><span aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Válogatókert · Mintaszövő · Egyensúlyműhely</small></span></button>
         <button class="logic-portal-link" data-open="memory"><span aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Fordíts · jegyezd meg · találd meg a párját</small></span></button>
@@ -60,6 +62,7 @@
     <section id="furfangliget" class="panel logic-panel" aria-label="Furfangliget gondolkodtató játékok"></section>
     <section id="memory" class="panel memory-panel" aria-label="Képpárok memóriajáték"></section>
     <section id="workshop" class="panel workshop-panel" aria-label="Műhelyliget képes gondolkodtató játékok"></section>
+    <section id="animal-book" class="panel animal-book-panel" aria-label="Lapozható állathangos képeskönyv"></section>
 
     <section id="teddy-game" class="panel teddy-panel" aria-label="Etesd meg a macit" data-mood="waiting">
       <div id="teddy-progress" class="round-progress" role="group" aria-label="A piknik haladása"></div>
@@ -126,6 +129,7 @@
         <button class="choice-tile tone-mint" data-open="topics" aria-label="Nézegessünk képeket"><span class="choice-art" aria-hidden="true">🐱</span><span>Nézegessünk!</span></button>
         <button class="choice-tile tone-yellow" data-open="listening-game" aria-label="Hallgasd meg, és keresd meg a képet"><span class="choice-art listening-menu-art" aria-hidden="true"><svg class="icon"><use href="#i-sound"></use></svg><span>🐶 🍎</span></span><span>Hol van?</span></button>
       </div>
+      <div class="game-worlds"><button class="logic-portal-link animal-book-portal" data-open="animal-book"><span aria-hidden="true">📖</span><span><strong>Hangos állatkönyv</strong><small>Négy nagy kép · tizenkét állathang</small></span></button></div>
     </section>
 
     <section id="listening-game" class="panel listening-panel" aria-label="Hallgasd meg, és válassz képet">
@@ -361,6 +365,12 @@
     <p id="parent-gate-question"></p>
     <div id="parent-gate-answers" class="gate-answers"></div>
     <p id="parent-gate-status" role="status"></p>
+  </dialog>
+  <dialog id="animal-book-credits" class="animal-credits-dialog" aria-labelledby="animal-book-credits-title">
+    <form method="dialog"><button class="small-icon dialog-close" aria-label="Források bezárása"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></form>
+    <h2 id="animal-book-credits-title">A hangoskönyv forrásai</h2>
+    <p>A négy illusztráció ehhez a könyvhöz készült, az OpenAI képgeneráló eszközével. A hangok valódi állatfelvételek rövid, kiegyenlített hangerejű részletei.</p>
+    <div id="animal-book-credit-list" role="status">Források betöltése…</div>
   </dialog>
   <dialog id="round-complete" class="round-complete" aria-labelledby="round-complete-title">
     <span class="complete-sun" aria-hidden="true">🌟</span>

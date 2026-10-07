@@ -2,6 +2,7 @@ import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { words } from '../game-data.js';
 import { VOICE_CLIPS } from '../voice-library.js';
+import { ANIMAL_BOOK_PAGES } from '../animal-book-data.js';
 
 const root = new URL('../', import.meta.url);
 const frontendFiles = (await readdir(root, { withFileTypes: true }))
@@ -10,6 +11,8 @@ const frontendFiles = (await readdir(root, { withFileTypes: true }))
 const files = [
   'index.html', ...frontendFiles,
   'assets/furfang-fox.png',
+  'animal-book-audio.json',
+  ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),
   'app.webmanifest', 'icons/icon.svg', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
   ...words.map(word => `audio/${word.id}.mp3`),
   ...Object.values(VOICE_CLIPS).map(clip => clip.file),

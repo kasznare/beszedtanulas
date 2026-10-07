@@ -16,6 +16,8 @@ import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
 import { setupWorkshop } from "./workshop-game.js";
+import { setupAnimalBook } from "./animal-book-game.js";
+import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
 import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
@@ -57,6 +59,7 @@ const screenInfo = {
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
   workshop: { title: "Műhelyliget" },
+  "animal-book": { title: "Állathangos könyv" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
@@ -98,6 +101,7 @@ let meadowGame;
 let logicGame;
 let memoryGame;
 let workshopGame;
+let animalBook;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -378,6 +382,16 @@ workshopGame = setupWorkshop({
     if (reward) state.rewards += 1;
     saveProgress(); refreshStats();
   },
+});
+animalBook = setupAnimalBook({
+  playSound: async (id, { onStart } = {}) => {
+    if (!ANIMAL_BOOK_PAGES.some(page => page.animals.some(animal => animal.id === id))) return false;
+    const token = beginPlayback();
+    const played = await tryPlayFile(`./audio/animals/${id}.mp3`, token, { start: () => onStart?.(), stop() {} });
+    return token === playbackToken && played;
+  },
+  stopPlayback,
+  onShowCredits: showAnimalBookCredits,
 });
 progressTools = setupProgressTools({
   getState: () => state,
@@ -1937,6 +1951,47 @@ function speakGuide(id, force = false) {
   return speakVoice(`guide_${id}`);
 }
 
+async function showAnimalBookCredits() {
+  stopPlayback();
+  const dialog = document.querySelector('#animal-book-credits');
+  if (!dialog.open) dialog.showModal();
+  const list = document.querySelector('#animal-book-credit-list');
+  if (list.dataset.loaded) return;
+  try {
+    const response = await fetch('./animal-book-audio.json');
+    if (!response.ok) throw new Error('Missing animal sound sources');
+    const { sounds } = await response.json();
+    const fragment = document.createDocumentFragment();
+    const link = (text, url) => {
+      const element = document.createElement('a');
+      element.textContent = text;
+      if (typeof url === 'string' && url.startsWith('https://')) {
+        element.href = url;
+        element.target = '_blank';
+        element.rel = 'noopener noreferrer';
+      }
+      return element;
+    };
+    for (const sound of sounds) {
+      const article = document.createElement('article');
+      const title = document.createElement('h3');
+      title.textContent = sound.label;
+      const source = document.createElement('p');
+      source.append(link(sound.title, sound.sourceUrl), ` — ${sound.author}`);
+      const license = document.createElement('p');
+      license.append('Licenc: ', link(sound.derivedLicense || sound.license, sound.licenseUrl));
+      const changes = document.createElement('p');
+      changes.textContent = sound.changes;
+      article.append(title, source, license, changes);
+      fragment.append(article);
+    }
+    list.replaceChildren(fragment);
+    list.dataset.loaded = 'true';
+  } catch {
+    list.textContent = 'A hangok forrásjegyzékét most nem sikerült betölteni. Próbáld meg újra!';
+  }
+}
+
 function setupNavigation() {
   document.querySelectorAll("[data-open]").forEach(button => {
     button.addEventListener("click", () => showScreen(button.dataset.open));
@@ -1950,6 +2005,7 @@ function setupNavigation() {
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
+    else if (currentScreen === "animal-book") animalBook.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
     else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
     else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
@@ -2009,6 +2065,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   logicGame?.stop();
   memoryGame?.stop();
   workshopGame?.stop();
+  animalBook?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -2034,6 +2091,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "furfangliget") logicGame.start();
   if (screen === "memory") memoryGame.start();
   if (screen === "workshop") workshopGame.start();
+  if (screen === "animal-book") animalBook.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
