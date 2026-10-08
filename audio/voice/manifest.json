@@ -22,6 +22,36 @@
       "file": "audio/voice/guide_play_menu_more.mp3"
     },
     {
+      "id": "guide_menu_pictures",
+      "text": "Képek és hangok. Nézegessünk képeket, keressünk hang után, vagy lapozzuk az állatkönyvet!",
+      "group": "guide",
+      "file": "audio/voice/guide_menu_pictures.mp3"
+    },
+    {
+      "id": "guide_menu_speech",
+      "text": "Mondjuk együtt! Válassz szavakat, rövid kifejezést vagy a róka R-kalandját!",
+      "group": "guide",
+      "file": "audio/voice/guide_menu_speech.mp3"
+    },
+    {
+      "id": "guide_menu_thinking",
+      "text": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!",
+      "group": "guide",
+      "file": "audio/voice/guide_menu_thinking.mp3"
+    },
+    {
+      "id": "guide_menu_stories",
+      "text": "Játsszunk a macival! Etessük meg, öltöztessük fel, vagy induljunk piknikezni!",
+      "group": "guide",
+      "file": "audio/voice/guide_menu_stories.mp3"
+    },
+    {
+      "id": "guide_menu_activity",
+      "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!",
+      "group": "guide",
+      "file": "audio/voice/guide_menu_activity.mp3"
+    },
+    {
       "id": "guide_dress",
       "text": "Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!",
       "group": "guide",

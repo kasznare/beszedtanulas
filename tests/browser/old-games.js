@@ -20,7 +20,7 @@ async(page)=>{
  await home();await page.locator('#home [data-open="picture-menu"]').click();await page.locator('[data-open="listening-game"]').first().click();
  ok(await page.locator('#listening-game').isVisible(),'Listening game still opens');await home();
  await page.locator('#home [data-open="number-menu"]').click();ok(await page.locator('#number-menu').isVisible(),'Original counting menu still opens');await home();
- await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="flip"]').click();const before=(await state()).rewards;
+ await page.locator('#home [data-open="activity-menu"]').click();await page.locator('#activity-menu [data-open="flip"]').click();const before=(await state()).rewards;
  for(const button of await page.locator('#flip-grid button').all())await button.click();await page.waitForSelector('#round-complete[open]');ok((await state()).rewards===before+1,'Original six-card surprise round rewards once');
  ok(JSON.stringify((await state()).logic)===logic,'Old games preserve new math progress');return {count:checks.length,checks};
 }

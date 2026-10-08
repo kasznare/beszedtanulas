@@ -1,6 +1,6 @@
 # Beszédtanulás
 
-Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és iPad képernyőre. Négy nagy képes csempéről indul: beszélő képek, utánzás, számolás és meglepetéskártyák. Minden játékból a házikó vezet vissza a főképernyőre.
+Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és iPad képernyőre. Öt nagy képes csoportból indul. A visszanyíl az előző választóhoz vezet, a házikó közvetlenül a főképernyőre visz.
 
 Éles oldal: [Beszédtanulás a GitHub Pagesen](https://kasznare.github.io/beszedtanulas/). Nincs szükség ChatGPT-bejelentkezésre. A `main` ágra küldött commitot a meglévő GitHub Pages **pages build and deployment** folyamata automatikusan kitelepíti. Közzététel előtt `npm run build` és `git diff --check`, utána commit és push; külön Sites-kitelepítés nem kell.
 
@@ -16,11 +16,21 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 
 ## Játék és beállítások
 
-- **Képek:** nézegetés hat témakörrel és 24 magyar szóval, vagy a **Hol van?** hallás utáni választójáték. Elhangzik egy szó, és két vagy három nagy kép közül kell választani, olvasás és mikrofon nélkül. Hibás választás után újra megszólal a szó; a kör végén egy jutalom jár.
-- **Hangos állatkönyv:** négy részletes, lapozható jelenet: tanya, kert, tópart és erdő. Tizenkét valódi állathang; a képen lévő állat és az alsó szimbólumgomb is megszólaltatja. Gombbal, nyílbillentyűvel vagy vízszintes húzással lapozható, az utolsó lap és a hangpontok beállítása megmarad. A megnyomott állat a hang tényleges indulásától a végéig kap jelzést. A Képek és a Játsszunk! menüből is elérhető.
-- **Róka R-kalandja:** Hangvadász, Robotpostás, Perecműhely, Mondókaliget és Saját visszhang. Harminc képes R-es szó, rövid kifejezések, négy saját mondóka; közös, hangészlelős és magyar szófelismerős gyakorlás. A Mondd utánam és a Játsszunk! menüből is elérhető.
+| Csoport | Játékok |
+| --- | --- |
+| **Képek és hangok** | Képes témák, Hol van?, Hangos állatkönyv |
+| **Mondd utánam** | Egy szó, Két szó együtt, Róka R-kalandja |
+| **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget |
+| **Mesék és Maci** | Etesd meg a macit!, Maci öltözik, Meseliget |
+| **Kirakók és ügyesség** | Képpárok, Képkirakó, Töltsünk a barátainknak!, Mi bújt el? |
+
+Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl megnevezi a célját. A többjátékos ligetekben és az R-kalandban először a saját választó nyílik meg, majd a csoport. A kör végi ablakból is vissza lehet lépni a csoporthoz. A böngésző vissza/előre gombja megtartja a kiválasztott képes témát és a számolási módot. A mentett ligetfeladatok és eredmények kilépés után is megmaradnak; az új körrel induló játékok visszatéréskor új kört kezdenek.
+
+- **Képek és hangok:** nézegetés hat témakörrel és 24 magyar szóval, vagy a **Hol van?** hallás utáni választójáték. Elhangzik egy szó, és két vagy három nagy kép közül kell választani, olvasás és mikrofon nélkül. Hibás választás után újra megszólal a szó; a kör végén egy jutalom jár.
+- **Hangos állatkönyv:** négy részletes, lapozható jelenet: tanya, kert, tópart és erdő. Tizenkét valódi állathang; a képen lévő állat és az alsó szimbólumgomb is megszólaltatja. Gombbal, nyílbillentyűvel vagy vízszintes húzással lapozható, az utolsó lap és a hangpontok beállítása megmarad. A megnyomott állat a hang tényleges indulásától a végéig kap jelzést. A Képek és hangok menüből érhető el.
+- **Róka R-kalandja:** Hangvadász, Robotpostás, Perecműhely, Mondókaliget és Saját visszhang. Harminc képes R-es szó, rövid kifejezések, négy saját mondóka; közös, hangészlelős és magyar szófelismerős gyakorlás. A Mondd utánam menüből érhető el.
 - **Mondd utánam:** egy vagy két szavas gyakorlás. A mikrofon gomb egy próbát, a nagy lejátszógomb egy vezetett szókört indít. A megállítás és a hazalépés leállítja a figyelést.
-- **Számoljunk:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás.
+- **Számok és logika:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás, valamint a Furfangliget és Műhelyliget fejtörői.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
 - **Képpárok:** animált képes memóriajáték 2 / 3 / 4 / 6 párral, a választott témakörből. A képes segítség röviden megmutatja a teljes táblát, a rossz párosítás javítható, a teljes kör egyszer ad jutalmat. A párok száma a játékban és a szülői beállításban is választható.
 - **Töltsünk a barátainknak!:** öntős ügyességi játék Macival és Nyuszival, két jelölt pohárral. Telefonon balra/jobbra döntve, érintéssel vagy egérrel az öntésgombot nyomva tartva, gépen a bal/jobb nyíllal játszható. Három szint: automatikus megállás, önálló adagolás, két különböző mennyiség. Túltöltés után egyetlen pohár újrapróbálható; a befejezett piknik egyszer ad jutalmat.
@@ -33,7 +43,7 @@ A főképernyő fogaskereke egy egyszerű felnőtt belépőt nyit. Itt választh
 
 A szülői oldal tetején a **Ki játszik?** rész választja ki a gyereket vagy a szülői próbát. A **Próba indítása** a játékokhoz vezet; közben a fejléc és a főképernyő is jelzi a próbát. A **Vissza a gyerekhez** gomb visszatölti a gyerek eredményeit és megnyitja a főmenüt. Sikertelen helyi mentésnél az előző profil marad aktív, a hiba a gomb mellett jelenik meg. A felhős kapcsolat technikai mezői a **Kapcsolat adatai** alatt nyithatók ki.
 
-A rövidebb fekvő telefonos nézet külön tömör elrendezést kapott. A számolás tárgyválasztója és a meglepetésjáték újrakezdése oldalra kerül; a kör végi ablak mindkét nagy gombja görgetés nélkül elérhető. A 932 × 350-es nézetet szimulált oldalsó és alsó biztonsági térközzel is ellenőriztük.
+A rövidebb fekvő telefonos nézet külön tömör elrendezést kapott. A számolás tárgyválasztója és a meglepetésjáték újrakezdése oldalra kerül; a kör végi ablak három nagy gombja görgetés nélkül elérhető. A 932 × 350-es nézetet szimulált oldalsó és alsó biztonsági térközzel is ellenőriztük.
 
 A haladás a böngésző helyi tárolójába kerül. A **Gyerek** és a **Szülői próba** külön eredményt tárol; a szülői profilváltás újratöltés után is megmarad. A hang és a többi játékbeállítás az eszközön közös. A bátorító felismerési mód a megszólalást jutalmazza; nem ellenőrzi a kiejtés helyességét. A szófelismerő és két szavas mód a böngésző beszédfelismerését használja. A valódi iPhone/iPad mikrofonos működés még eszközön ellenőrzendő.
 
@@ -67,7 +77,7 @@ Megvalósítás: `r-practice-data.js`, `r-practice-game.js`, `r-practice-media.j
 
 ## Képkirakó puzzle
 
-A **Játsszunk! → Képkirakó** a hangos állatkönyv négy eredeti illusztrációját használja, külön képletöltés nélkül. A kép 3 × 2, 4 × 2 vagy 5 × 2 négyszögletes darabra oszlik; a tálca minden új körben megkeveredik. A helyére tett darab rögzül, a hibás elhelyezés javítható. Billentyűzettel a Tab és Enter/Space választ darabot és helyet; az Escape megszünteti a kijelölést. A darab húzását a kilépés, az érintés megszakítása vagy az ablak elrejtése megszakítja.
+A **Kirakók és ügyesség → Képkirakó** a hangos állatkönyv négy eredeti illusztrációját használja, külön képletöltés nélkül. A kép 3 × 2, 4 × 2 vagy 5 × 2 négyszögletes darabra oszlik; a tálca minden új körben megkeveredik. A helyére tett darab rögzül, a hibás elhelyezés javítható. Billentyűzettel a Tab és Enter/Space választ darabot és helyet; az Escape megszünteti a kijelölést. A darab húzását a kilépés, az érintés megszakítása vagy az ablak elrejtése megszakítja.
 
 Az utolsó kép és darabszám az eszköz közös játékbeállításaiban megmarad. Képváltás, darabszámváltás, újrakezdés vagy újbóli belépés új táblát indít; félbehagyott táblát nem mentünk. Egy befejezett tábla egy jutalmat ad az aktív gyerek/szülői próba profilnak, a beszédpróbák számlálóját nem módosítja. Öt magyar hang tartozik hozzá, teljes offline letöltés után hálózat nélkül is működik.
 
@@ -75,7 +85,7 @@ Megvalósítás: `puzzle-data.js`, `puzzle-game.js`, `puzzle.css`; belépés, be
 
 ## Öntős ügyességi játék
 
-A **Játsszunk! → Töltsünk a barátainknak!** saját SVG-jelenetet, látható vízszintet, tíz magyar hangot és halk, helyben előállított csobogást használ. A kezdőszinten a víz magától megáll a jelnél; a két nehezebb szinten az öntés elengedése vagy a telefon középhelyzetbe hozása ellenőrzi a jel körüli elfogadó sávot. A túl sok víz javítható a kiválasztott pohár kiürítésével. A szint az eszköz közös beállításaiban megmarad, a jutalom az aktív profilhoz kerül; a beszédpróbákat nem növeli.
+A **Kirakók és ügyesség → Töltsünk a barátainknak!** saját SVG-jelenetet, látható vízszintet, tíz magyar hangot és halk, helyben előállított csobogást használ. A kezdőszinten a víz magától megáll a jelnél; a két nehezebb szinten az öntés elengedése vagy a telefon középhelyzetbe hozása ellenőrzi a jel körüli elfogadó sávot. A túl sok víz javítható a kiválasztott pohár kiürítésével. A szint az eszköz közös beállításaiban megmarad, a jutalom az aktív profilhoz kerül; a beszédpróbákat nem növeli.
 
 A **Döntögetéssel** gomb indítja a mozgásengedély kérését, ha a böngésző igényli. HTTPS és használható orientációs adatok szükségesek. A kényelmes kezdő kéztartást fél másodperc alatt kalibrálja; a kis mozdulatokat figyelmen kívül hagyja, az adatokat simítja. Másik pohárra váltás előtt középhelyzet szükséges. Álló/fekvő képernyőváltás új kalibrálást indít. Elutasított engedély vagy elmaradó szenzoradat esetén a gombos mód elérhető. Háttérbe lépés, ablakfókusz-vesztés és kilépés leállítja a folyást és a csobogást; visszatérés nem folytatja a nyomva tartott gombot. Mozgásengedélyt minden új belépéskor a játékos kezdeményez. A fizikai iPhone/iPad Safari és főképernyős döntésvezérlés még készüléken ellenőrizendő.
 
@@ -85,7 +95,7 @@ Megvalósítás: `pour-data.js`, `pour-game.js`, `pour.css`; hangjegyzék és na
 
 A villogó jelzés akkor indul, amikor a hangfigyelés ténylegesen készen áll. Egy szó kimondására 6,5 másodperc, két szóra 9 másodperc áll rendelkezésre; a felismert jó végleges eredmény hamarabb lezárhatja a próbát. A két külön részletként felismert szó összetartozhat, az ugyanarra a részletre adott egymást kizáró javaslatok nem számítanak két szónak. A később kijavított részeredmény nem marad a válaszok között.
 
-A szófelismerő és két szavas mód a böngésző saját beszédfelismerőjét használja; külön hangenergia-mikrofont csak a bátorító mód nyit. Nincs automatikus angol nyelvű újrapróbálás. Engedélyezési, indítási vagy hálózati hiba esetén megjelenik a **Képekkel játszom** gomb, a szülői oldalon pedig az ok. Az indulás előtt meghiúsult kapcsolat nem számít gyermekpróbának. A házikó és a leállítás megszakítja a figyelést.
+A szófelismerő és két szavas mód a böngésző saját beszédfelismerőjét használja; külön hangenergia-mikrofont csak a bátorító mód nyit. Nincs automatikus angol nyelvű újrapróbálás. Engedélyezési, indítási vagy hálózati hiba esetén megjelenik a **Képekkel játszom** gomb, a szülői oldalon pedig az ok. Az indulás előtt meghiúsult kapcsolat nem számít gyermekpróbának. A visszanyíl, a házikó és a leállítás megszakítja a figyelést.
 
 A böngészős ellenőrzés szimulált felismerési eseményekkel és szintetikus mikrofonjellel történt. A valódi gyerekbeszéd, a Bluetooth és az iPhone/iPad kezdőképernyős használat még készüléken ellenőrzendő.
 
@@ -99,11 +109,13 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 461 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tíz hangját és az R-kaland 96 mintahangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 466 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tíz hangját, az R-kaland 96 mintahangját és az öt csoport új útmutatóját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
-A hibás vagy megszakadt letöltés újrapróbálható. Az új verzió a szülői felületen indítható; másik nyitott játékablak mellett nem aktiválódik. A böngésző a hely felszabadításakor törölheti a tárolt fájlokat; a hiányzó csomag a szülői felületen újra letölthető.
+A játék megnyitáskor, előtérbe kerüléskor és a főképernyőre visszatéréskor ellenőrzi a frissítést. A teljesen letöltött új verzió a látható főképernyőn automatikusan betöltődik, amikor nincs nyitott párbeszédablak. Játék közben és háttérben vár; másik nyitott játékablak mellett sem aktiválódik. A főképernyő jelzi a letöltést és az esetleges hibát. Sikertelen letöltés után a korábbi teljes verzió tovább használható; az eredményeket a frissítés megtartja. A szülői letöltési és újrapróbálási gombok megmaradtak. A böngésző a hely felszabadításakor törölheti a tárolt fájlokat; a hiányzó csomag a szülői felületen újra letölthető.
+
+A már nyitva tartott régi verzió még a korábbi frissítési módot használja: egyszer zárd be a többi játékablakot, és a szülői oldalon válaszd az **Új verzió betöltése** gombot. Az új verziótól a főképernyő automatikus frissítése működik.
 
 A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A [GitHub Pages-oldal](https://kasznare.github.io/beszedtanulas/) HTTPS-t használ.
 
@@ -114,11 +126,11 @@ npm run build-offline
 npm run check
 ~~~
 
-Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a **service-worker-runtime.js**, a fájljegyzék összeállítása a **scripts/build-offline.mjs**, a szülői vezérlés az **offline-client.js** fájlban van. A gyökérkönyvtár JavaScript- és CSS-fájljai automatikusan bekerülnek; új almappás modulok vagy képek esetén bővítsd a generátor fájllistáját is. A már megnyitott játékban a szülői **Új verzió betöltése** gombbal alkalmazható a frissítés.
+Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a **service-worker-runtime.js**, a fájljegyzék összeállítása a **scripts/build-offline.mjs**, a frissítési vezérlés az **offline-client.js** fájlban van. A gyökérkönyvtár JavaScript- és CSS-fájljai automatikusan bekerülnek; új almappás modulok vagy képek esetén bővítsd a generátor fájllistáját is. A frissítés a főképernyőre visszatérve automatikusan alkalmazódik, ha a teljes csomag elkészült és nincs másik nyitott játékablak.
 
 ## Hanganyagok
 
-Az alapértelmezett magyar mesélőhang 425 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 430 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 
@@ -181,7 +193,7 @@ A böngészős szinkront elkülönített, szimulált szolgáltatással ellenőri
 
 ## Meseliget
 
-A **Játsszunk! → Meseliget** új térképéről rövid piknikkaland indul: sapka és cipő feladása, három alma összegyűjtése, majd tányér minden állatnak. A befejezett állomások mentődnek; újratöltés után a **Folytassuk a kalandot!** gomb vezet tovább. Egy kaland egyszer ad jutalmat és egy emléket az albumba.
+A **Mesék és Maci → Meseliget** új térképéről rövid piknikkaland indul: sapka és cipő feladása, három alma összegyűjtése, majd tányér minden állatnak. A befejezett állomások mentődnek; újratöltés után a **Folytassuk a kalandot!** gomb vezet tovább. Egy kaland egyszer ad jutalmat és egy emléket az albumba.
 
 Az **Almáskert** és a **Piknikrét** szabad játéka a szülői 1–3 / 1–5 / 1–10 számolási szintet és a 3 / 5 / 10 feladatos körhosszt használja. Az almák koppintással betehetők és visszavehetők, a tányérok is visszavonhatók. A **Kész!** ellenőrzi a választ; a **Segíts!** mennyiségjelölést vagy a hiányzó tányérok kiemelését adja. Mikrofon nem kell.
 
@@ -189,7 +201,7 @@ Az **Almáskert** és a **Piknikrét** szabad játéka a szülői 1–3 / 1–5 
 
 ## Furfangliget – nagyobbaknak is
 
-A **Játsszunk! → Furfangliget** három új, saját tempóban játszható fejtörőt kínál. A korábbi egyszerű játékok megmaradtak.
+A **Számok és logika → Furfangliget** három új, saját tempóban játszható fejtörőt kínál. A korábbi egyszerű játékok megmaradtak.
 
 - **Erdei bolt:** almás és gesztenyés kosár összeállítása, majd egy megváltozott rendelés teljesítése. Mindkét mennyiség szabadon módosítható. A három fokozat képes célokat, hozzáadást/elvételt, végül összegből és különbségből kikövetkeztethető mennyiségeket ad. A szülő 1–5, 1–10 vagy 1–20 bolti számkört állíthat.
 - **Szabálygép:** három megfigyelhető bemenet–kimenet példa alapján egy- vagy kétlépéses gépet kell építeni. A géppróba megmutatja, mit csinál a saját szabály; utána két új bemenet eredményét is a játékos állítja össze. A fokozatok ±1-et, több műveletet és duplázást, majd sorrendfüggő kétlépéses szabályokat adnak, 5-ös, 10-es és 20-as tartományban, nullával is.

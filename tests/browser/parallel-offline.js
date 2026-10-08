@@ -19,7 +19,7 @@ async page => {
   ok(files.filter(f=>/\/memory_.*\.mp3$/.test(f)).length===4,'All memory sounds are cached');
   ok(files.filter(f=>/\/workshop_.*\.mp3$/.test(f)).length===50,'All 50 workshop sounds are cached');
   const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
-  const enter=async screen=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#home [data-open="play-menu"]').click();await page.locator(`#play-menu [data-open="${screen}"]`).click();};
+  const enter=async screen=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();const group=await page.evaluate(async screen=>(await import('./navigation.js')).parentScreen(screen),screen);await page.locator(`#home [data-open="${group}"]`).click();await page.locator(`#${group} [data-open="${screen}"]`).click();};
   await page.context().setOffline(true);
   try{
     await page.reload();await enter('workshop');

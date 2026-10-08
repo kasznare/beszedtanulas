@@ -17,7 +17,7 @@ async page => {
  await page.goto('about:blank');await page.goto(url);
  await page.waitForFunction(()=>document.querySelector('#offline-status').textContent.startsWith('Letöltve.'));
  const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
- const enter=async game=>{await home();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="furfangliget"]').click();await page.locator(`[data-game="${game}"]`).click();};
+ const enter=async game=>{await home();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-open="furfangliget"]').click();await page.locator(`[data-game="${game}"]`).click();};
  const clear=()=>page.evaluate(()=>{narrationEvents.length=0});
  const waitMark=async selector=>page.waitForFunction(s=>!!document.querySelector(s+'.is-narrated'),selector);
  await enter('machine');await clear();await page.locator('[data-example="0"]').click();

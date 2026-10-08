@@ -64,8 +64,8 @@ async page => {
   await page.goto('about:blank'); await page.goto(url);
   const enter = async () => {
     if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
-    await page.locator('#home [data-open="play-menu"]').click();
-    await page.locator('#play-menu [data-open="animal-book"]').click();
+    await page.locator('#home [data-open="picture-menu"]').click();
+    await page.locator('#picture-menu [data-open="animal-book"]').click();
   };
   const currentPage = () => page.locator('#animal-book').getAttribute('data-page');
   const preferences = () => page.evaluate(() => JSON.parse(localStorage.getItem('beszedtanulas.animalBook.v1')));
@@ -84,6 +84,13 @@ async page => {
   };
   let harness;
   try {
+    ok(await page.locator('[data-open="animal-book"]').count() === 1, 'The animal book has one clear home in the picture menu');
+    await enter();
+    await page.locator('#back-button').click();
+    await page.waitForFunction(() => document.body.dataset.screen === 'picture-menu');
+    ok(await page.locator('#picture-menu').isVisible(), 'Back from the animal book returns to its picture menu');
+    await page.locator('#home-button').click();
+    ok(await page.locator('#home').isVisible(), 'The house button returns straight home from the picture menu');
     await enter();
     const pages = await page.evaluate(async () => (await import('./animal-book-data.js')).ANIMAL_BOOK_PAGES.map(page => ({id:page.id,title:page.title,animals:page.animals.map(animal => animal.id)})));
     ok(pages.length === 4 && new Set(pages.flatMap(value => value.animals)).size === 12, 'Four book pages expose twelve different animals');

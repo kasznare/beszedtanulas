@@ -12,6 +12,26 @@ export const VOICE_CLIPS = {
     "text": "Etessük meg a macit, öltöztessük fel, vagy nézzük meg, mi bújt el!",
     "file": "audio/voice/guide_play_menu_more.mp3"
   },
+  "guide_menu_pictures": {
+    "text": "Képek és hangok. Nézegessünk képeket, keressünk hang után, vagy lapozzuk az állatkönyvet!",
+    "file": "audio/voice/guide_menu_pictures.mp3"
+  },
+  "guide_menu_speech": {
+    "text": "Mondjuk együtt! Válassz szavakat, rövid kifejezést vagy a róka R-kalandját!",
+    "file": "audio/voice/guide_menu_speech.mp3"
+  },
+  "guide_menu_thinking": {
+    "text": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!",
+    "file": "audio/voice/guide_menu_thinking.mp3"
+  },
+  "guide_menu_stories": {
+    "text": "Játsszunk a macival! Etessük meg, öltöztessük fel, vagy induljunk piknikezni!",
+    "file": "audio/voice/guide_menu_stories.mp3"
+  },
+  "guide_menu_activity": {
+    "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!",
+    "file": "audio/voice/guide_menu_activity.mp3"
+  },
   "guide_dress": {
     "text": "Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!",
     "file": "audio/voice/guide_dress.mp3"

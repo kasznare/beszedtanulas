@@ -7,7 +7,7 @@ async page => {
   const url = page.url(); await page.goto('about:blank'); await page.goto(url);
   const state = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const home = async () => { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); };
-  const enter = async () => { await home(); await page.locator('#home [data-open="play-menu"]').click(); await page.locator('#play-menu [data-open="workshop"]').click(); };
+  const enter = async () => { await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="workshop"]').click(); };
   const parent = async () => { await home(); await page.locator('#parent-button').click(); const numbers = (await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number); await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${numbers[0]+numbers[1]}$`)}).click(); };
   const task = (kind, level) => page.evaluate(async ({kind,level}) => { const d = await import('./workshop-data.js'), session = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions[kind][level-1]; const task = d.generateWorkshopTask(kind,level,session.seed); return { ...task, destinations: kind === 'sort' ? task.objects.map(object => d.workshopSortTarget(task,object)) : [], solution: kind === 'balance' ? d.workshopBalanceSolutions(task)[0] : [] }; }, {kind,level});
   const solve = async (kind,t) => {

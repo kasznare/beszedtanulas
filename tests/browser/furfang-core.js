@@ -3,7 +3,7 @@
 async (page) => {
  const checks=[],errors=[];const ok=(v,m)=>{if(!v)throw Error(m);checks.push(m)};page.on('pageerror',e=>errors.push(e.message));
  const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
- const enter=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="furfangliget"]').click();};
+ const enter=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-open="furfangliget"]').click();};
  const parent=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#parent-button').click();const text=await page.locator('#parent-gate-question').innerText(),n=text.match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  const task=async kind=>page.evaluate(async k=>{const {generateTask}=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions[k];return generateTask(k,s.level,s.limit,s.seed)},kind);
  const fill=async values=>{for(let i=0;i<values.length;i++){const input=page.locator(`#logic-value-${i}`);await input.fill(String(values[i]));await input.press('Tab');}};

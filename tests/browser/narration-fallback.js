@@ -13,7 +13,7 @@ async page=>{
      speechSynthesis.speak=utterance=>{window.testUtterance=utterance;queueMicrotask(()=>utterance.onstart?.());};
     }
    },mode);
-   const p=await context.newPage();await p.goto(page.url());await p.locator('#home [data-open="play-menu"]').click();await p.locator('#play-menu [data-open="furfangliget"]').click();await p.locator('[data-game="machine"]').click();
+   const p=await context.newPage();await p.goto(page.url());await p.locator('#home [data-open="number-menu"]').click();await p.locator('#number-menu [data-open="furfangliget"]').click();await p.locator('[data-game="machine"]').click();
    if(mode==='element'){
     await p.locator('[data-example="0"]').click();const output='logic_n_'+await p.locator('[data-example="0"] [data-narration-part="output"] b').innerText();
     await p.waitForFunction(id=>events.some(e=>e.type==='narrationend'&&e.id===id),output);

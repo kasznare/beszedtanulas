@@ -7,6 +7,7 @@ import { createNarration } from "./narration.js";
 import { narrationCue } from "./narration-cues.js";
 import { normalizeText, similarityScore, matchTwoWordPhrase } from "./speech-matching.js";
 import { setupOffline } from "./offline-client.js";
+import { GROUPS, parentScreen, canonicalTrail, transitionTrail, createHistoryState, restoreHistoryState } from "./navigation.js";
 import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
 import { setupProgressTools } from "./progress-tools.js";
 import { setupListeningGame } from "./listening-game.js";
@@ -52,14 +53,18 @@ const SUPABASE_CONFIG_DEFAULTS = {
 const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions() };
 const state = loadProgress();
 let currentScreen = "home";
+let appNavigation = restoreHistoryState(null);
+let offlineClient;
+const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let flipRoundToken = 0;
 let flipRoundComplete = false;
 let completedRoundKind = "imitate";
 const screenInfo = {
   home: { title: "Játsszunk együtt!", guide: "welcome" },
-  "picture-menu": { title: "Játsszunk a képekkel!", guide: "picture_menu" },
-  "play-menu": { title: "Mivel játsszunk?", guide: "play_menu_more" },
+  "picture-menu": { title: "Képek és hangok", guide: "menu_pictures" },
+  "play-menu": { title: "Mesék és Maci", guide: "menu_stories" },
+  "activity-menu": { title: "Kirakók és ügyesség", guide: "menu_activity" },
   "dress-game": { title: "Maci öltözik", guide: "dress" },
   meseliget: { title: "Meseliget" },
   furfangliget: { title: "Furfangliget" },
@@ -73,10 +78,10 @@ const screenInfo = {
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
   "listening-game": { title: "Hol van?", guide: "listening_game" },
-  "practice-menu": { title: "Mondd utánam", guide: "practice" },
+  "practice-menu": { title: "Mondd utánam", guide: "menu_speech" },
   imitate: { title: "Mondd utánam", guide: "imitate" },
   "two-word": { title: "Két szó", guide: "phrase" },
-  "number-menu": { title: "Számoljunk!", guide: "number_menu" },
+  "number-menu": { title: "Számok és logika", guide: "menu_thinking" },
   numbers: { title: "Számoljunk!", guide: "count" },
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
@@ -278,7 +283,8 @@ function syncProfileControls() {
   document.querySelector("#profile-explainer").textContent = preview
     ? "Kipróbálhatod a játékokat: a próba eredményei külön maradnak. Ha végeztél, a Vissza a gyerekhez gombbal add át a játékot."
     : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
-  document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : "BESZÉDTANULÁS";
+  const group = GROUPS.find(value => value.screen === currentScreen || value.screens.includes(currentScreen) || (currentScreen === 'cards' && value.screen === 'picture-menu'));
+  document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
 }
 
 supabaseConnectBtn.addEventListener("click", () => {
@@ -461,7 +467,11 @@ window.addEventListener("storage", event => {
     setSupabaseStatus("Másik játékablak módosította a mentést. Frissítsd ezt az oldalt a további mentéshez; az itteni eredményeket előbb fájlba mentheted.");
   }
 });
-setupOffline({ beforeReload: () => { stopAutoImitateSession(false); rPractice?.stop(); } });
+offlineClient = setupOffline({
+  beforeReload: () => { stopAutoImitateSession(false); rPractice?.stop(); },
+  isSafeToReload: () => currentScreen === 'home' && !document.hidden && !document.querySelector('dialog[open]'),
+});
+document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('close', () => offlineClient?.notifyScreenChange()));
 
 document.querySelector("#auto-session").addEventListener("click", () => {
   primeSfx();
@@ -545,16 +555,9 @@ function setupNumbers() {
   document.querySelectorAll(".number-mode").forEach((button) => {
     button.addEventListener("click", () => {
       numberMode = button.dataset.mode;
-      document.querySelectorAll(".number-mode").forEach((modeButton) => {
-        modeButton.setAttribute("aria-pressed", String(modeButton === button));
-      });
-      document.querySelector("#number-count-view").hidden = numberMode !== "count";
-      document.querySelector("#number-quiz-view").hidden = numberMode !== "quiz";
-      showScreen("numbers", { announce: numberMode === "count" });
-      if (numberMode === "quiz") {
-        renderNumberQuiz();
-        speakNumberQuestion();
-      }
+      showScreen("numbers", { announce: false });
+      if (numberMode === "quiz") speakNumberQuestion();
+      else speakGuide('count');
     });
   });
   document.querySelector("#number-level").addEventListener("change", (event) => {
@@ -2039,11 +2042,42 @@ async function showAnimalBookCredits() {
   }
 }
 
+function innerBackButton() {
+  return innerBackSelectors[currentScreen] && document.getElementById(currentScreen)?.querySelector(innerBackSelectors[currentScreen]);
+}
+function updateBackButton() {
+  const button = document.querySelector('#back-button');
+  button.hidden = currentScreen === 'home';
+  const destination = innerBackButton() ? screenInfo[currentScreen].title : screenInfo[appNavigation.trail.at(-2)?.screen || parentScreen(currentScreen)]?.title;
+  button.setAttribute('aria-label', `Vissza: ${destination || 'Főképernyő'}`);
+  button.title = `Vissza: ${destination || 'Főképernyő'}`;
+}
+function goBack() {
+  if (document.querySelector('#back-button').disabled) return;
+  document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close());
+  const internal = innerBackButton();
+  if (internal) { internal.click(); updateBackButton(); window.scrollTo(0, 0); return; }
+  if (appNavigation.ownedDepth > 0) { document.querySelector('#back-button').disabled = true; history.back(); return; }
+  const route = { screen: parentScreen(currentScreen), category: selectedCategory, numberMode };
+  appNavigation = restoreHistoryState(createHistoryState(canonicalTrail(route), 0));
+  history.replaceState(createHistoryState(appNavigation.trail, 0), '');
+  showScreen(route.screen, { pushHistory: false });
+}
+function syncNumberMode() {
+  document.querySelectorAll('.number-mode').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === numberMode)));
+  document.querySelector('#number-count-view').hidden = numberMode !== 'count';
+  document.querySelector('#number-quiz-view').hidden = numberMode !== 'quiz';
+}
+
 function setupNavigation() {
   document.querySelectorAll("[data-open]").forEach(button => {
     button.addEventListener("click", () => showScreen(button.dataset.open));
   });
   document.querySelector("#home-button").addEventListener("click", () => showScreen("home"));
+  document.querySelector('#back-button').addEventListener('click', goBack);
+  for (const screen of Object.keys(innerBackSelectors)) {
+    new MutationObserver(updateBackButton).observe(document.getElementById(screen), { childList: true });
+  }
   document.querySelector("#help-button").addEventListener("click", () => {
     if (listening || autoSessionRunning) stopAutoImitateSession(false);
     primeSfx();
@@ -2069,6 +2103,7 @@ function setupNavigation() {
     speakGuide("flip");
   });
   document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
+  document.querySelector('#round-back').addEventListener('click', goBack);
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
     if (completedRoundKind === "flip") showScreen("flip");
@@ -2096,10 +2131,21 @@ function setupNavigation() {
     });
     document.querySelector("#topic-grid").appendChild(button);
   });
-  history.replaceState({ screen: "home", category: selectedCategory }, "");
+  history.replaceState(createHistoryState(appNavigation.trail, 0), "");
+  updateBackButton();
   window.addEventListener("popstate", event => {
-    if (wordCategories.some(category => category.id === event.state?.category)) selectedCategory = event.state.category;
-    showScreen(screenInfo[event.state?.screen] ? event.state.screen : "home", { pushHistory: false, announce: false });
+    document.querySelector('#back-button').disabled = false;
+    appNavigation = restoreHistoryState(event.state);
+    selectedCategory = appNavigation.route.category;
+    numberMode = appNavigation.route.numberMode;
+    if (appNavigation.route.screen === 'parent') {
+      appNavigation = restoreHistoryState(null);
+      history.replaceState(createHistoryState(appNavigation.trail, 0), '');
+      showScreen('home', { pushHistory: false, announce: false });
+      showParentGate();
+      return;
+    }
+    showScreen(appNavigation.route.screen, { pushHistory: false, announce: false });
   });
 }
 
@@ -2127,13 +2173,23 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   primeSfx();
   const previousScreen = currentScreen;
   currentScreen = screen;
+  if (pushHistory) {
+    const trail = transitionTrail(appNavigation.trail, { screen, category: selectedCategory, numberMode });
+    const depth = screen === 'home' ? 0 : previousScreen === screen ? appNavigation.ownedDepth : appNavigation.ownedDepth + 1;
+    const next = createHistoryState(trail, depth);
+    appNavigation = restoreHistoryState(next);
+    if (previousScreen !== screen) history.pushState(next, '');
+    else history.replaceState(next, '');
+  }
   document.body.dataset.screen = screen;
   panels.forEach(panel => panel.classList.toggle("is-active", panel.id === screen));
   const title = document.querySelector("#screen-title");
   title.textContent = screen === "cards"
     ? wordCategories.find(category => category.id === selectedCategory).label
-    : screenInfo[screen].title;
+    : screen === 'numbers' ? numberMode === 'quiz' ? 'Keresd meg!' : 'Számoljuk meg!' : screenInfo[screen].title;
   syncProfileControls();
+  syncNumberMode();
+  updateBackButton();
   document.querySelector("#help-button").hidden = screen === "parent";
   if (screen === "cards") renderCards();
   if (screen === "imitate") { renderImitate(); renderRoundProgress(); }
@@ -2151,11 +2207,12 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "pour") pourGame.start();
   if (screen === "r-practice") rPractice.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
-  if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
+  if (screen === 'numbers' && numberMode === 'quiz') renderNumberQuiz();
   title.tabIndex = -1;
   title.focus({ preventScroll: true });
   window.scrollTo(0, 0);
   if (announce && !["listening-game", "teddy-game", "dress-game"].includes(screen) && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
+  offlineClient?.notifyScreenChange();
 }
 
 function showParentGate() {

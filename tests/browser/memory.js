@@ -5,7 +5,7 @@ async page => {
   await page.evaluate(async () => { localStorage.clear(); for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister(); for (const c of await caches.keys()) await caches.delete(c); });
   const url = page.url(); await page.goto('about:blank'); await page.goto(url);
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
-  const enter = async () => { if (await page.locator('#round-complete').isVisible()) await page.locator('#round-home').click(); else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); await page.locator('#home [data-open="play-menu"]').click(); await page.locator('#play-menu [data-open="memory"]').click(); };
+  const enter = async () => { if (await page.locator('#round-complete').isVisible()) await page.locator('#round-home').click(); else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); await page.locator('#home [data-open="activity-menu"]').click(); await page.locator('#activity-menu [data-open="memory"]').click(); };
   await enter();
   for (const pairs of [2, 3, 4, 6]) {
     await page.locator(`[data-pairs="${pairs}"]`).click();

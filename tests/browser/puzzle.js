@@ -17,8 +17,8 @@ async page => {
   const enter = async () => {
     if (await page.locator('#round-complete').isVisible()) await page.locator('#round-home').click();
     else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
-    await page.locator('#home [data-open="play-menu"]').click();
-    await page.locator('#play-menu [data-open="puzzle"]').click();
+    await page.locator('#home [data-open="activity-menu"]').click();
+    await page.locator('#activity-menu [data-open="puzzle"]').click();
   };
   const move = async (piece, target, finish = true) => {
     await page.locator(`[data-piece="${piece}"]`).scrollIntoViewIfNeeded();

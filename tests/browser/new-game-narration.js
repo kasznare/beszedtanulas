@@ -12,7 +12,7 @@ async page => {
   const url = page.url(); await page.goto('about:blank'); await page.goto(url);
   await page.waitForFunction(() => document.querySelector('#offline-status').textContent.startsWith('Letöltve.'));
   const home = async () => { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); };
-  const enter = async name => { await home(); await page.locator('#home [data-open="play-menu"]').click(); await page.locator(`#play-menu [data-open="${name}"]`).click(); };
+  const enter = async name => { await home(); const group = await page.evaluate(async name => (await import('./navigation.js')).parentScreen(name), name); await page.locator(`#home [data-open="${group}"]`).click(); await page.locator(`#${group} [data-open="${name}"]`).click(); };
   const waitMark = selector => page.waitForFunction(selector => !!document.querySelector(selector + '.is-narrated'), selector);
   const clear = () => page.evaluate(() => { narrationEvents.length = 0; });
 

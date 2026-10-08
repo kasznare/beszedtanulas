@@ -26,8 +26,8 @@ async page => {
   await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();
   await page.locator('#machine-level').selectOption('2');
   await page.locator('#home-button').click();
-  await page.locator('#home [data-open="play-menu"]').click();
-  await page.locator('#play-menu [data-open="furfangliget"]').click();
+  await page.locator('#home [data-open="number-menu"]').click();
+  await page.locator('#number-menu [data-open="furfangliget"]').click();
   await page.locator('[data-game="machine"]').click();
   await page.waitForFunction(() => voiceQA.played.some(a => a.duration > 13));
   await page.waitForFunction(() => voiceQA.played.some(a => a.duration > 13 && a.ended), undefined, {timeout:20000});
@@ -69,9 +69,25 @@ async page => {
   ok((await page.locator('#number-question').innerText()).startsWith('Ezen a képen '),'Updated quantity prompt and audio work offline');
   const all=await page.evaluate(async()=>{
     const {VOICE_CLIPS}=await import('./voice-library.js');
-    return {total:Object.keys(VOICE_CLIPS).length, cached:(await Promise.all(Object.values(VOICE_CLIPS).map(c=>caches.match(new URL(c.file,location.href))))).filter(Boolean).length,questions:Object.values(VOICE_CLIPS).filter(c=>c.text.includes('?')).length};
+    const response=await fetch('./audio/voice/manifest.json');
+    if(!response.ok)throw Error('Voice manifest is unavailable offline');
+    const manifest=await response.json();
+    if(manifest.version!==1||!Array.isArray(manifest.clips)||!manifest.clips.length)throw Error('Invalid voice inventory');
+    const expected=new Map(manifest.clips.map(clip=>[clip.id,clip]));
+    const mismatched=manifest.clips.filter(clip=>VOICE_CLIPS[clip.id]?.file!==clip.file||VOICE_CLIPS[clip.id]?.text!==clip.text).map(clip=>clip.id);
+    const extra=Object.keys(VOICE_CLIPS).filter(id=>!expected.has(id));
+    const audio=await Promise.all(manifest.clips.map(async clip=>{
+      const cached=await caches.match(new URL(clip.file,location.href));
+      if(!cached?.ok)return {id:clip.id,missing:true};
+      const bytes=new Uint8Array(await cached.arrayBuffer());
+      const mp3=bytes.length>128&&((bytes[0]===0x49&&bytes[1]===0x44&&bytes[2]===0x33)||(bytes[0]===0xff&&(bytes[1]&0xe0)===0xe0));
+      return {id:clip.id,invalid:!mp3};
+    }));
+    return {expected:manifest.clips.length,unique:expected.size,total:Object.keys(VOICE_CLIPS).length,mismatched,extra,missing:audio.filter(clip=>clip.missing).map(clip=>clip.id),invalid:audio.filter(clip=>clip.invalid).map(clip=>clip.id),questions:manifest.clips.filter(clip=>clip.text.includes('?')).length};
   });
-  ok(all.total===256&&all.cached===256&&all.questions===0,'All 256 updated voices cached, no spoken questions remain');
+  ok(all.unique===all.expected&&all.total===all.expected&&!all.mismatched.length&&!all.extra.length,`Voice library matches all ${all.expected} manifest clips (${all.mismatched.concat(all.extra).join(', ')})`);
+  ok(!all.missing.length&&!all.invalid.length,`All ${all.expected} manifest voices are cached as nonempty MP3 audio (missing: ${all.missing.join(', ')}; invalid: ${all.invalid.join(', ')})`);
+  ok(all.questions===0,'The voice inventory uses statements instead of spoken questions');
   ok(errors.length===0,'No browser errors');
   await page.context().setOffline(false);
   return {count:checks.length,checks,longAudio:played};

@@ -7,7 +7,7 @@ async(page)=>{
  await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
  const state=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
  const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
- const enter=async()=>{await home();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="furfangliget"]').click();};
+ const enter=async()=>{await home();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-open="furfangliget"]').click();};
  const parent=async()=>{await home();await page.locator('#parent-button').click();const n=(await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  await parent();await page.locator('#route-level').selectOption('1');await enter();await page.locator('[data-game="route"]').click();if(await page.locator('#logic-next').count())await page.locator('#logic-next').click();
  await page.setViewportSize({width:834,height:1194});

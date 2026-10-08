@@ -15,7 +15,7 @@ async page => {
   await page.goto('about:blank'); await page.goto(url);
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const home = async () => { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); };
-  const enter = async () => { await home(); await page.locator('#home [data-open="play-menu"]').click(); await page.locator('#play-menu [data-open="furfangliget"]').click(); await page.locator('[data-game="route"]').click(); };
+  const enter = async () => { await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="furfangliget"]').click(); await page.locator('[data-game="route"]').click(); };
   const parent = async () => { await home(); await page.locator('#parent-button').click(); const n = (await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number); await page.locator('#parent-gate-answers button').filter({ hasText: new RegExp(`^${n[0] + n[1]}$`) }).click(); };
   const puzzle = () => page.evaluate(async () => { const d = await import('./logic-data.js'), s = JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions.route, t = d.generateTask('route', s.level, s.limit, s.seed); return { ...t, solution: d.routeSolution(t) }; });
   const direction = (delta, size) => ({ [-size]: 'up', [size]: 'down', [-1]: 'left', [1]: 'right' })[delta];
