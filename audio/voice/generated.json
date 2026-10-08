@@ -13049,6 +13049,1977 @@
           "piknik"
         ]
       ]
+    },
+    "r_hunter": {
+      "fingerprint": "1ccdf7636ddb6791ee0125070cc9fdb09a6b11f7c0e9ac26c9c06c386951d992",
+      "sha256": "3644266ce3f9fdf0c878f0c585c0958337b8fda5d1b820f42c1cf7edb8519dbe",
+      "words": [
+        [
+          0.1,
+          0.7516,
+          "Hallgasd"
+        ],
+        [
+          0.7516,
+          0.9377,
+          "meg"
+        ],
+        [
+          0.9377,
+          1.0175,
+          "a"
+        ],
+        [
+          1.0175,
+          1.6027,
+          "sz\u00f3t"
+        ],
+        [
+          2.4968,
+          3.1218,
+          "Koppints"
+        ],
+        [
+          3.1218,
+          3.1883,
+          "a"
+        ],
+        [
+          3.1883,
+          3.9862,
+          "k\u00e9p\u00e9re"
+        ]
+      ]
+    },
+    "r_hub": {
+      "fingerprint": "55fcb0b074cd3f58301290b89516d5fa7c5f87594951edc7021d3a74954fbcf5",
+      "sha256": "242fcb3b6b7a8e0d11684657cd89e3d6ee78e1ea272f998611052d31007321c1",
+      "words": [
+        [
+          0.1,
+          0.6984,
+          "R\u00f3ka"
+        ],
+        [
+          0.6984,
+          0.9511,
+          "\u00e9s"
+        ],
+        [
+          0.9511,
+          1.3367,
+          "robot"
+        ],
+        [
+          1.3367,
+          1.6027,
+          "v\u00e1r"
+        ],
+        [
+          1.6027,
+          2.0282,
+          "r\u00e1d"
+        ],
+        [
+          2.9223,
+          3.667,
+          "Hallgassunk"
+        ],
+        [
+          3.667,
+          4.3186,
+          "szavakat"
+        ],
+        [
+          4.6112,
+          5.0633,
+          "mondjunk"
+        ],
+        [
+          5.0633,
+          5.9277,
+          "mond\u00f3k\u00e1t"
+        ],
+        [
+          6.2069,
+          6.433,
+          "\u00e9s"
+        ],
+        [
+          6.433,
+          6.9516,
+          "j\u00e1tsszunk"
+        ],
+        [
+          6.9516,
+          7.5367,
+          "egy\u00fctt"
+        ]
+      ]
+    },
+    "r_hunter_sound": {
+      "fingerprint": "37746c6a2009879e559c47900c26ad056e49ba428e82ec0b9af9053548f79591",
+      "sha256": "50d33e6f4474cd05619cb1248817e5b095ba4ffd6ad679b1dbbdfa0e5e03c56b",
+      "words": [
+        [
+          0.1,
+          0.7117,
+          "Hallgasd"
+        ],
+        [
+          0.7117,
+          0.858,
+          "meg"
+        ],
+        [
+          0.858,
+          0.9245,
+          "a"
+        ],
+        [
+          0.9245,
+          1.4298,
+          "k\u00e9pek"
+        ],
+        [
+          1.4298,
+          2.0548,
+          "nev\u00e9t"
+        ],
+        [
+          2.9489,
+          3.401,
+          "Keresd"
+        ],
+        [
+          3.4011,
+          3.5872,
+          "meg"
+        ],
+        [
+          3.5873,
+          3.9995,
+          "azt"
+        ],
+        [
+          4.3319,
+          4.9702,
+          "amelyikben"
+        ],
+        [
+          4.9702,
+          5.3027,
+          "hallod"
+        ],
+        [
+          5.3027,
+          5.4755,
+          "az"
+        ],
+        [
+          5.4755,
+          5.675,
+          "R"
+        ],
+        [
+          5.675,
+          6.3266,
+          "hangot"
+        ]
+      ]
+    },
+    "r_post": {
+      "fingerprint": "6427f8dac51bda2130bbb26f0f193ea6c9c5a36ba27e158965afa41c8deceef7",
+      "sha256": "0e6903e4e687da3e8197ffd1cc5c5298a2236177989099515f2914494cddbf35",
+      "words": [
+        [
+          0.1,
+          0.6319,
+          "Robot"
+        ],
+        [
+          0.6319,
+          1.1505,
+          "csomagot"
+        ],
+        [
+          1.1505,
+          1.5894,
+          "v\u00e1r"
+        ],
+        [
+          2.4835,
+          3.0952,
+          "Hallgasd"
+        ],
+        [
+          3.0952,
+          3.2548,
+          "meg"
+        ],
+        [
+          3.2548,
+          3.3213,
+          "a"
+        ],
+        [
+          3.3213,
+          3.8665,
+          "sz\u00f3t"
+        ],
+        [
+          4.159,
+          4.4117,
+          "\u00e9s"
+        ],
+        [
+          4.4117,
+          4.6511,
+          "mondd"
+        ],
+        [
+          4.6511,
+          5.409,
+          "ut\u00e1nam"
+        ]
+      ]
+    },
+    "r_workshop": {
+      "fingerprint": "aa9dec55ff873f0322ae85700804e04e8ca137c249905394e41fd3dfa4d73460",
+      "sha256": "afad96fe89b63c46a0e54d30ff4bf8d264d9dd976856db76daf2f5cdd598efa4",
+      "words": [
+        [
+          0.1,
+          0.9245,
+          "D\u00edsz\u00edts\u00fck"
+        ],
+        [
+          0.9245,
+          1.084,
+          "fel"
+        ],
+        [
+          1.084,
+          1.1372,
+          "a"
+        ],
+        [
+          1.1373,
+          2.2144,
+          "perecm\u0171helyt"
+        ],
+        [
+          3.1085,
+          3.7069,
+          "Hallgasd"
+        ],
+        [
+          3.7069,
+          3.8665,
+          "meg"
+        ],
+        [
+          3.8665,
+          3.933,
+          "a"
+        ],
+        [
+          3.933,
+          4.4782,
+          "sz\u00f3t"
+        ],
+        [
+          4.784,
+          5.0367,
+          "\u00e9s"
+        ],
+        [
+          5.0367,
+          5.2894,
+          "mondd"
+        ],
+        [
+          5.2894,
+          6.074,
+          "ut\u00e1nam"
+        ]
+      ]
+    },
+    "r_rhyme": {
+      "fingerprint": "75c16cd353d2867b2df7a3b3ef92cb8f14700d34b3f9117f22b3769b5f0d3d21",
+      "sha256": "c8290583a75687f501dd6765ce11545506bc79f6772a8b8e954a844c7495c1f5",
+      "words": [
+        [
+          0.1,
+          0.9112,
+          "Hallgassunk"
+        ],
+        [
+          0.9112,
+          1.8819,
+          "mond\u00f3k\u00e1t"
+        ],
+        [
+          2.7761,
+          3.3745,
+          "Koppints"
+        ],
+        [
+          3.3745,
+          3.5074,
+          "egy"
+        ],
+        [
+          3.5075,
+          4.0792,
+          "sorra"
+        ],
+        [
+          4.3851,
+          4.6245,
+          "\u00e9s"
+        ],
+        [
+          4.6245,
+          4.8505,
+          "mondd"
+        ],
+        [
+          4.8505,
+          5.6351,
+          "ut\u00e1nam"
+        ]
+      ]
+    },
+    "r_try": {
+      "fingerprint": "d9f51973e10fd9eec1cc3f5c3a5aea260949b76a00baec2dc2f261257dc9c4fa",
+      "sha256": "07a44ed90b15b4a68f9fcdea28863e663df5645f35c1371945ae7a28683ab5f7",
+      "words": [
+        [
+          0.1,
+          0.4856,
+          "Most"
+        ],
+        [
+          0.4856,
+          0.6452,
+          "te"
+        ],
+        [
+          0.6452,
+          1.2037,
+          "j\u00f6ssz"
+        ]
+      ]
+    },
+    "r_echo": {
+      "fingerprint": "afdd321c9d496e33cef3f09ea4b89eb5c252811e08ce127a0348dd9f1601d01e",
+      "sha256": "f604f4cca880c6b1d00c4493a0056a9cefaca9d8d1de2e389fc09393b57818a3",
+      "words": [
+        [
+          0.1,
+          0.7383,
+          "Hallgasd"
+        ],
+        [
+          0.7383,
+          0.8979,
+          "meg"
+        ],
+        [
+          0.8979,
+          0.9644,
+          "a"
+        ],
+        [
+          0.9644,
+          1.7223,
+          "mint\u00e1t"
+        ],
+        [
+          2.6165,
+          2.7894,
+          "A"
+        ],
+        [
+          2.7894,
+          3.4144,
+          "mikrofon"
+        ],
+        [
+          3.4144,
+          3.8665,
+          "gombbal"
+        ],
+        [
+          3.8665,
+          4.5048,
+          "felveheted"
+        ],
+        [
+          4.5048,
+          4.558,
+          "a"
+        ],
+        [
+          4.558,
+          5.0101,
+          "saj\u00e1t"
+        ],
+        [
+          5.0101,
+          5.7415,
+          "hangodat"
+        ]
+      ]
+    },
+    "r_retry": {
+      "fingerprint": "49edf7b465265c1f09219246ef8f2e9d5f448ff73b3935e4ce9a8866ed768efe",
+      "sha256": "e3076f9ac63bdd924d32871c8297dbad886d5d4985f50402433c1c73b1da1499",
+      "words": [
+        [
+          0.1,
+          0.8048,
+          "Hallgassuk"
+        ],
+        [
+          0.8048,
+          0.991,
+          "meg"
+        ],
+        [
+          0.991,
+          1.2569,
+          "m\u00e9g"
+        ],
+        [
+          1.2569,
+          1.9085,
+          "egyszer"
+        ],
+        [
+          2.8027,
+          3.7335,
+          "Pr\u00f3b\u00e1lhatjuk"
+        ],
+        [
+          3.7335,
+          4.159,
+          "egy\u00fctt"
+        ],
+        [
+          4.159,
+          4.5314,
+          "is"
+        ]
+      ]
+    },
+    "r_found": {
+      "fingerprint": "1f0677c43317a893025ea5c7148219af6baad230ea3c07df0fce3985e54ce950",
+      "sha256": "3a0d51b8f000e2c2bd3e7355bb6cc1d478afcc76ffb2e6134e616715b607f747",
+      "words": [
+        [
+          0.1,
+          0.9377,
+          "Megtal\u00e1ltad"
+        ],
+        [
+          0.9377,
+          1.0043,
+          "a"
+        ],
+        [
+          1.0043,
+          1.709,
+          "k\u00e9pet"
+        ]
+      ]
+    },
+    "r_try_thanks": {
+      "fingerprint": "b77761d6a7f780ec8252fa95d04b96f5a3e6f300157af81fcf429de6c95c5253",
+      "sha256": "28dd182823413cc558ab13931a340b271dda98bad4abd4386cc4bcc9378f59f6",
+      "words": [
+        [
+          0.1,
+          0.8846,
+          "K\u00f6sz\u00f6n\u00f6m"
+        ],
+        [
+          1.1638,
+          1.3633,
+          "hogy"
+        ],
+        [
+          1.3633,
+          2.5601,
+          "pr\u00f3b\u00e1lkozt\u00e1l"
+        ]
+      ]
+    },
+    "r_delivered": {
+      "fingerprint": "b517836b2dcd160ff8cba2572ac686e0c0f622ee94feed89717a1d256752d0a7",
+      "sha256": "9cdfbb80b794ef3d5a8cb9f384fcb72964149afe5c2e4abbe2a9078b79961a8f",
+      "words": [
+        [
+          0.1,
+          0.7516,
+          "Elindult"
+        ],
+        [
+          0.7516,
+          0.8181,
+          "a"
+        ],
+        [
+          0.8181,
+          1.3766,
+          "csomag"
+        ],
+        [
+          2.2708,
+          2.8425,
+          "Robot"
+        ],
+        [
+          2.8425,
+          3.1617,
+          "\u00f6r\u00fcl"
+        ],
+        [
+          3.1617,
+          3.6404,
+          "neki"
+        ]
+      ]
+    },
+    "r_decorated": {
+      "fingerprint": "3db397e41553e724cefa04d648087df3c1660eb29f31652831b93214ad70cee4",
+      "sha256": "ae48a9a0de82e50f38db6650c2c84fdd4c0441e891e9ae70ad24a4bb6bd54151",
+      "words": [
+        [
+          0.1,
+          0.4058,
+          "\u00daj"
+        ],
+        [
+          0.4058,
+          0.7117,
+          "d\u00edsz"
+        ],
+        [
+          0.7117,
+          1.1106,
+          "ker\u00fclt"
+        ],
+        [
+          1.1106,
+          1.1771,
+          "a"
+        ],
+        [
+          1.1771,
+          1.9218,
+          "m\u0171helybe"
+        ]
+      ]
+    },
+    "r_round_done": {
+      "fingerprint": "eef93b1d4dfa0033085d3acefaead62eea5f9a0a1d63b48d7f8d0ca2e24e9e44",
+      "sha256": "f2057a705540e06fa89b4f0bf3a44ec5a30594a6043ec96a8e911997ff1738eb",
+      "words": [
+        [
+          0.1,
+          0.8447,
+          "Elk\u00e9sz\u00fclt"
+        ],
+        [
+          0.8447,
+          0.9112,
+          "a"
+        ],
+        [
+          0.9112,
+          1.3766,
+          "k\u00f6z\u00f6s"
+        ],
+        [
+          1.3766,
+          2.0681,
+          "j\u00e1t\u00e9k"
+        ],
+        [
+          2.9623,
+          3.4675,
+          "J\u00f6het"
+        ],
+        [
+          3.4675,
+          3.6404,
+          "egy"
+        ],
+        [
+          3.6404,
+          4.066,
+          "\u00fajabb"
+        ],
+        [
+          4.066,
+          4.6377,
+          "kaland"
+        ]
+      ]
+    },
+    "r_word_roka": {
+      "fingerprint": "37f6b65074b358dfcc26f8a1f21f8719cc45ebebfc35e9c9bea4162cd65ac9cd",
+      "sha256": "a37db6c8145a01b81da9990ab4c168af9ed6dfc4d50bca5e0d0facce45926064",
+      "words": [
+        [
+          0.1,
+          0.7782,
+          "r\u00f3ka"
+        ]
+      ]
+    },
+    "r_word_repa": {
+      "fingerprint": "20089e74d1861177cd5623e6e59f8fe7a7bf1928ed09355fdf3d1e8c93886b2b",
+      "sha256": "2d41eb087db3ff45611881efaa2e2f55fb3321320ee33faf375da9e1fa3d0c5f",
+      "words": [
+        [
+          0.1,
+          0.8314,
+          "r\u00e9pa"
+        ]
+      ]
+    },
+    "r_word_robot": {
+      "fingerprint": "2a2f5db2df337e7d2eb4bb3181603ac5347533b835c98acaf709e8fdbf7c741b",
+      "sha256": "4e19ca0d26680deefa81b06580cb709838c937b458deb2410341b63518b3ef23",
+      "words": [
+        [
+          0.1,
+          0.7915,
+          "robot"
+        ]
+      ]
+    },
+    "r_word_ruha": {
+      "fingerprint": "b2e85a88af029a809fbbff8c5c824105fdd7d30ef9a24413444522f4c8c145f3",
+      "sha256": "cf9a89c8accb3f587ad3d0749ca1e19ebdf864b359624916f0f49aeec18158d7",
+      "words": [
+        [
+          0.1,
+          0.7516,
+          "ruha"
+        ]
+      ]
+    },
+    "r_word_rozsa": {
+      "fingerprint": "7bcf635cb7f4a480c7918ba440fe0a645b695f8cabcaebca94863d46c0275622",
+      "sha256": "597f0d71e3815a670fc098dff7dfdbff64915b638e3d402d7241e12b636404e7",
+      "words": [
+        [
+          0.1,
+          0.8447,
+          "r\u00f3zsa"
+        ]
+      ]
+    },
+    "r_word_raketa": {
+      "fingerprint": "2f6c1817c2e143f49c8f386ee487d5656d3cb7e319743cd89ce845f54c5b9d51",
+      "sha256": "26e752bd00d02790e293dd722f9173a4742539c800cfc25418f4a3d103c7be9d",
+      "words": [
+        [
+          0.1,
+          0.9644,
+          "rak\u00e9ta"
+        ]
+      ]
+    },
+    "r_word_rak": {
+      "fingerprint": "ea3c159dd6a1cb12b4ca70bd66b3b04b608fd63c560ef9989306493329fcdf48",
+      "sha256": "f96ae95aba3aac28d65b8b8875a78b8f6c3f105327e67526e9fe99b98b9d3984",
+      "words": [
+        [
+          0.1,
+          0.7782,
+          "r\u00e1k"
+        ]
+      ]
+    },
+    "r_word_radio": {
+      "fingerprint": "fa375ec2f644c0edf2f5f6e80ea908fbe9e23f389869b3a68e84d8b699ca6f0f",
+      "sha256": "bda2df94c6de00ecf86cbd0e9e2d587ff332cc4881a31e025eaa40357b752624",
+      "words": [
+        [
+          0.1,
+          1.0708,
+          "r\u00e1di\u00f3"
+        ]
+      ]
+    },
+    "r_word_roller": {
+      "fingerprint": "b21c60d1d610f9a4b6c3d69916177bac88cdbde53066fc2089391458774f5c6a",
+      "sha256": "5a509d28919da1d56ad234e762563499e86a79f66b72705de7a9f1c295fdef34",
+      "words": [
+        [
+          0.1,
+          0.9377,
+          "roller"
+        ]
+      ]
+    },
+    "r_word_rizs": {
+      "fingerprint": "86220267527ea4065422faefacd4b3dbd0e40b698c00c16dbb4d1c3ea709c3e4",
+      "sha256": "8fca68693767891099d060848111b62adeec0a65751d93e00b6a14e9a0d032fd",
+      "words": [
+        [
+          0.1,
+          0.725,
+          "rizs"
+        ]
+      ]
+    },
+    "r_word_korte": {
+      "fingerprint": "9e7e152d6cd8c254b7954e4737fd56a0228832ae2d51be73563d374cc9cb5881",
+      "sha256": "3f4b0d267c9d01514eda1f782325d9db0ffe59a158d8d5b967314d8a951ca96e",
+      "words": [
+        [
+          0.1,
+          0.7915,
+          "k\u00f6rte"
+        ]
+      ]
+    },
+    "r_word_virag": {
+      "fingerprint": "7ba9c74cbdb15cb55fadc4fe4e0ba7906f0bd20197829f343f89012dacaa967a",
+      "sha256": "4f7767fc2aa8ab57bd3adcb0ada87a031c60baae6e46ad071d4a808e8596e348",
+      "words": [
+        [
+          0.1,
+          0.8048,
+          "vir\u00e1g"
+        ]
+      ]
+    },
+    "r_word_perec": {
+      "fingerprint": "aa1c8a12f83b9c321ca089674198f34bde81ff1e5f266d4e2271894672780ba4",
+      "sha256": "92e4bafc631c7bf579386c729d76fef9ca077b7dea4152d08181984c3a5b0979",
+      "words": [
+        [
+          0.1,
+          0.7649,
+          "perec"
+        ]
+      ]
+    },
+    "r_word_korona": {
+      "fingerprint": "4368cb9bbd2efd0cd290b570ea0a07e77a6cd0fee46411244843ecf726406a1b",
+      "sha256": "dacb45664a3e8d7e9c8334663052449c2b60730beb109e12f2ef2f66d0b14917",
+      "words": [
+        [
+          0.1,
+          0.7383,
+          "korona"
+        ]
+      ]
+    },
+    "r_word_barack": {
+      "fingerprint": "8fcb82ee570a23ee38a0677f58f8d6dd8526531f8debbad67cdd5961f764a41f",
+      "sha256": "c49ee6f6ab5aeb9b56b09ca145a6b4ad4d45316a1179cdd6d21fd5fcb0813270",
+      "words": [
+        [
+          0.1,
+          0.8979,
+          "barack"
+        ]
+      ]
+    },
+    "r_word_ceruza": {
+      "fingerprint": "8f9eb7c395f1edc5b04bd3d9fa2b93da60b58b6e05662ac32afef20f9a0baba2",
+      "sha256": "019446e2996d17a9e4c6c25786ecadfe94237fb1b63ac25dfc7c98a50564a40a",
+      "words": [
+        [
+          0.1,
+          0.8048,
+          "ceruza"
+        ]
+      ]
+    },
+    "r_word_erdo": {
+      "fingerprint": "b6707633b3fa2947096dd04bd4d3e5912565b6008b0613a385243b8bf8d4fb17",
+      "sha256": "ce9bcd251734433b4b443e4b5fce2e08b6de23b949f989c2fbc07364ad6e95f0",
+      "words": [
+        [
+          0.1,
+          0.8979,
+          "erd\u0151"
+        ]
+      ]
+    },
+    "r_word_sarkany": {
+      "fingerprint": "3dcad2a652f98aeb116c1fd9ecb63bb9c37aea46f3c5b77217ea8c9ab5267bb4",
+      "sha256": "e07bdd7bee55a394179166f94099d4d3dfaa135f540762db5cf60508e2b50a3a",
+      "words": [
+        [
+          0.1,
+          1.1106,
+          "s\u00e1rk\u00e1ny"
+        ]
+      ]
+    },
+    "r_word_torta": {
+      "fingerprint": "460ccef5500f8b0cfaf046ed337ebb05ec5004864bde7cc1e4e47691757f6532",
+      "sha256": "ac408ce0486924cdf52ce15c0748cfdd4129fe4891864d999c60dd60fb525f6f",
+      "words": [
+        [
+          0.1,
+          0.7383,
+          "torta"
+        ]
+      ]
+    },
+    "r_word_dinnye": {
+      "fingerprint": "e94a726c08f661285e7b7291de6a5bc16caebcaf57795718db1f97ef386c6db2",
+      "sha256": "e408a3a45826bba3e33f10a3bdf8ec8986b8d87c0cd61d625d631fdb455a502b",
+      "words": [
+        [
+          0.1,
+          1.084,
+          "g\u00f6r\u00f6gdinnye"
+        ]
+      ]
+    },
+    "r_word_var": {
+      "fingerprint": "b06ab916287cd52802f5b136ac868a75e8a5d6a4f90e8590a2e502348c4232fa",
+      "sha256": "9e090bd388ee4943be50b9068356a9a12d3cf2bd0473dd396b37efcc7492b1f3",
+      "words": [
+        [
+          0.1,
+          0.7516,
+          "v\u00e1r"
+        ]
+      ]
+    },
+    "r_word_pohar": {
+      "fingerprint": "9b1dceb4462d4c94c025dd4b24b7574300f9d0b3323212cc15dcfa1ba4dc1707",
+      "sha256": "feaf760b546c00f0080706be4064e85b3d3edfce1a17bd5a6207ec02e5659d64",
+      "words": [
+        [
+          0.1,
+          0.7649,
+          "poh\u00e1r"
+        ]
+      ]
+    },
+    "r_word_madar": {
+      "fingerprint": "498e60d3212b00abd47d8ecbc66013b13582f8b2e642629d3f5ae30e1bef0f9d",
+      "sha256": "b5da5f8a8360d3416d384bd8c92ade7c3b4cca32393752619ad1e71893433956",
+      "words": [
+        [
+          0.1,
+          0.8713,
+          "mad\u00e1r"
+        ]
+      ]
+    },
+    "r_word_eger": {
+      "fingerprint": "f6c9e285a1d2ce0afd18f0d9f7dd3930cf2b43fb2853efc2cdbd569446789bd8",
+      "sha256": "59d34955a4ed864dfc9afa9d24ca03df5c243961a81fde0806310c69080a47a4",
+      "words": [
+        [
+          0.1,
+          0.7915,
+          "eg\u00e9r"
+        ]
+      ]
+    },
+    "r_word_hoember": {
+      "fingerprint": "a9ad002ff9b8d59e65d940d3e332d993245443fdc7171fdbd38d2bb21548ce3f",
+      "sha256": "bc97879cd67ad6c6a5ff2211ea0994a13d0de2b836a1c97444a3d6ab16690a87",
+      "words": [
+        [
+          0.1,
+          1.1239,
+          "h\u00f3ember"
+        ]
+      ]
+    },
+    "r_word_naptar": {
+      "fingerprint": "e7ce06516e5bb886bc4ecd7543a3919e8a02d023b4c15b8d75768ee911afe51c",
+      "sha256": "2772593356455ad6013b5da43a98b557fef80a1eb4ededcd5900112605d204e4",
+      "words": [
+        [
+          0.1,
+          1.0043,
+          "napt\u00e1r"
+        ]
+      ]
+    },
+    "r_word_szamar": {
+      "fingerprint": "47acad1abef5dc644c5b375cbe476d90199815f84d178bc37badc31df24d635d",
+      "sha256": "f2c090d370c260ab31c77be6d0a88e3236d2d3dfd18ebc0b39e867377a4fd320",
+      "words": [
+        [
+          0.1,
+          0.9245,
+          "szam\u00e1r"
+        ]
+      ]
+    },
+    "r_word_vodor": {
+      "fingerprint": "b1786b59561b82084fbf448b009401f07c1cd7b0dd191cecd44a7913fefd37fc",
+      "sha256": "0a25976fb77eb4a4e08ea977eb1db2b6302c2bd4a72d457d1ece40df1f24c7dc",
+      "words": [
+        [
+          0.1,
+          0.8447,
+          "v\u00f6d\u00f6r"
+        ]
+      ]
+    },
+    "r_word_sator": {
+      "fingerprint": "08983cd197c37dd820595d60e695cac114a3c8050848f1328e491152e3af89d4",
+      "sha256": "9c4fc3e250562e99593b1e3d3cdd25c1daf1c99d9e19b92f7a0109ba94464b06",
+      "words": [
+        [
+          0.1,
+          1.0043,
+          "s\u00e1tor"
+        ]
+      ]
+    },
+    "r_word_kosar": {
+      "fingerprint": "1b7b001867ce6474d19c92b8e3ae8955cd9c3bd86e8061100b7ae7f40365258c",
+      "sha256": "9f3bd5fbb463d43db76bf5d52bba8b79f2bbe22ad93eb276cec5910908385cff",
+      "words": [
+        [
+          0.1,
+          0.8314,
+          "kos\u00e1r"
+        ]
+      ]
+    },
+    "r_word_alma": {
+      "fingerprint": "f95f435f158e31cfc8ca12cd377ff4e3f85d21cf79d18975d10e68eff986bd99",
+      "sha256": "e32f9f7cea171d5e24a33c47d7e671cc1802eb2a6cc81c4974ff6fdc541d8266",
+      "words": [
+        [
+          0.1,
+          0.7782,
+          "alma"
+        ]
+      ]
+    },
+    "r_word_cica": {
+      "fingerprint": "87b7b47ac57341c03253a872c33f65fab245e2e83bc989cab4336f6e6b2b603b",
+      "sha256": "7859aa2d320ac6e2c7d0ee78165c6ec1d090e377116bf8090c04b7f728f1f75b",
+      "words": [
+        [
+          0.1,
+          0.5122,
+          "cica"
+        ]
+      ]
+    },
+    "r_word_kutya": {
+      "fingerprint": "36a42b07310fd26d5331fb60958e1a501fca3fcef76f366f2c32f5e8edfdbdcb",
+      "sha256": "966f9842836ffa3f7daa6502a93bfc8d184b3aeba4cbb3d8cf610908e40cf215",
+      "words": [
+        [
+          0.1,
+          0.6851,
+          "kutya"
+        ]
+      ]
+    },
+    "r_word_labda": {
+      "fingerprint": "d7f2af1356038cf09bfcba350fb85e33ea293d2e98ce18fe49a430a0ea3787f2",
+      "sha256": "77f571b3cd8739c1f84a849c15ab92b24a02e277c3e75bd9777de2a8d9f618b3",
+      "words": [
+        [
+          0.1,
+          0.7117,
+          "labda"
+        ]
+      ]
+    },
+    "r_word_baba": {
+      "fingerprint": "c3685c4415a931e003a5ff656b55fb2baefd0a554aaf659c795dfd29572a3bf0",
+      "sha256": "76f9cce278137a6edf509a78119d20d7612e02bd560692195168036299862b02",
+      "words": [
+        [
+          0.1,
+          0.7516,
+          "baba"
+        ]
+      ]
+    },
+    "r_word_banan": {
+      "fingerprint": "51152b412909a2c88346d70ccbf86d815f2858016c60a6bb4493f4f9d254b9f5",
+      "sha256": "16f5c4eb377a1d84c70fa903f9fac28e7ae640733653cb25c5aaf099afdd4931",
+      "words": [
+        [
+          0.1,
+          0.9245,
+          "ban\u00e1n"
+        ]
+      ]
+    },
+    "r_phrase_roka": {
+      "fingerprint": "ae05939c1f1dd7a47db42bb8cd747ec748dcb0131d54b5a1add26aa84e10ea69",
+      "sha256": "ff585eee2d8bfb93301308c68b2c950699ff9f30c7ab52c7a8d7f809825e0640",
+      "words": [
+        [
+          0.1,
+          0.6851,
+          "v\u00f6r\u00f6s"
+        ],
+        [
+          0.6851,
+          1.2303,
+          "r\u00f3ka"
+        ]
+      ]
+    },
+    "r_phrase_repa": {
+      "fingerprint": "caa8f6df255fe7ccb7a9e093273ae569e12af38c1f243c413314520c4677da37",
+      "sha256": "7dc4f84ad7c4fd0ab132668d5d8d8a27f88dd79f639a272d4b556b51f3befb35",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "piros"
+        ],
+        [
+          0.6053,
+          1.1905,
+          "r\u00e9pa"
+        ]
+      ]
+    },
+    "r_phrase_robot": {
+      "fingerprint": "88b71ff82d1c0eb2174577badce642a00d146044fef60283beddb8db33200d6a",
+      "sha256": "d2f68798296d250a27de0dd1122858e5da92f029cf781b52d2fd9e285caa9288",
+      "words": [
+        [
+          0.1,
+          0.6984,
+          "vid\u00e1m"
+        ],
+        [
+          0.6984,
+          1.2835,
+          "robot"
+        ]
+      ]
+    },
+    "r_phrase_ruha": {
+      "fingerprint": "c209e9fef4e7d354b3b25e97345e604af6ccb1cabb7ba8120811330e832fadf5",
+      "sha256": "e82a3b0d46d5ac08fa21edfe9cb85fb15c8ee8d5c96a811d126cdfde1a11d73c",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "piros"
+        ],
+        [
+          0.6053,
+          1.084,
+          "ruha"
+        ]
+      ]
+    },
+    "r_phrase_rozsa": {
+      "fingerprint": "99b439757cf6f161e452d64924aeb72495b12e848645ff9955be54e328045114",
+      "sha256": "8653a21c5d0e721cb9b0eee0ca0733449cdd2ee801b51ac647d9abbc24899687",
+      "words": [
+        [
+          0.1,
+          0.6186,
+          "piros"
+        ],
+        [
+          0.6186,
+          1.2303,
+          "r\u00f3zsa"
+        ]
+      ]
+    },
+    "r_phrase_raketa": {
+      "fingerprint": "e93e88322bd37c8f30df85ffe80e03b165ff9fe02740ff90a30fc1fc8944d969",
+      "sha256": "f6faaaf8f03d3f27a015a8cb2580a8772b6c171ecfb9af2d5de6d972d166624b",
+      "words": [
+        [
+          0.1,
+          0.6186,
+          "rep\u00fcl"
+        ],
+        [
+          0.6186,
+          0.6851,
+          "a"
+        ],
+        [
+          0.6851,
+          1.4032,
+          "rak\u00e9ta"
+        ]
+      ]
+    },
+    "r_phrase_radio": {
+      "fingerprint": "0874ef5b14fd5a3b3e638a5bef818ff07293cf7d7ba71b16cf2cae6b5bc54879",
+      "sha256": "c7ef3ddb627d6b5a03670bd6223c50ca74447b1e770322a7e64233b8f1587163",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "sz\u00f3l"
+        ],
+        [
+          0.6053,
+          0.6718,
+          "a"
+        ],
+        [
+          0.6718,
+          1.4564,
+          "r\u00e1di\u00f3"
+        ]
+      ]
+    },
+    "r_phrase_rak": {
+      "fingerprint": "869b950bdc9c3b06b91ef96fa912b077268c30289d7d8f67863b8b2146c6b420",
+      "sha256": "6a430eaa7832d768aa77b45af38b25a374a91be59204415cfefa02b2bfbebc6f",
+      "words": [
+        [
+          0.1,
+          0.592,
+          "apr\u00f3"
+        ],
+        [
+          0.592,
+          1.1372,
+          "r\u00e1k"
+        ]
+      ]
+    },
+    "r_phrase_roller": {
+      "fingerprint": "74de7ce30ea2fcef1672478b9c62232a0ab81cded76b64ef179e51e5adcb70fc",
+      "sha256": "fae3fd55da96ecb229c7c76f9fd7b55f9033338ba43f4aeca4b4d46571118f98",
+      "words": [
+        [
+          0.1,
+          0.7383,
+          "gurul"
+        ],
+        [
+          0.7383,
+          0.858,
+          "a"
+        ],
+        [
+          0.858,
+          1.5495,
+          "roller"
+        ]
+      ]
+    },
+    "r_phrase_rizs": {
+      "fingerprint": "473443c71242b9c7ba5ce210741e88df07bed6b275a1aaa392147d626cfbea6d",
+      "sha256": "901bc839f97e5a88a51743fc07cb4fd21f44618ad125fa0eb4a557d507904f3a",
+      "words": [
+        [
+          0.1,
+          0.6851,
+          "forr\u00f3"
+        ],
+        [
+          0.6851,
+          1.1373,
+          "rizs"
+        ]
+      ]
+    },
+    "r_phrase_korte": {
+      "fingerprint": "248172823571ffabb2fe68564cf31a214c553bf1cb81dd0f4cb607ec34d48ba4",
+      "sha256": "bcafb506ab627f42aba751a2baefb640ff4158498a72c0632f71c0a29d475d70",
+      "words": [
+        [
+          0.1,
+          0.5787,
+          "\u00e9rett"
+        ],
+        [
+          0.5787,
+          1.1904,
+          "k\u00f6rte"
+        ]
+      ]
+    },
+    "r_phrase_virag": {
+      "fingerprint": "bda0363c2acf3bb6a677f1caa1fc5534be03f800ce7677a674f549264491738d",
+      "sha256": "a8f78d61b5e2bbdf35539c3829f902724c16c49a734c47c55c0bbcc1ecbca3a8",
+      "words": [
+        [
+          0.1,
+          0.5787,
+          "piros"
+        ],
+        [
+          0.5787,
+          1.1771,
+          "vir\u00e1g"
+        ]
+      ]
+    },
+    "r_phrase_korona": {
+      "fingerprint": "83763922502ac650efad3f3512f5ed84ee0eb9cb9ea4da009a79a16e830ca538",
+      "sha256": "21066cbffb1fa20b9e34e1b19c5d40fb379458ed0ec17f189cefc85bb667aa22",
+      "words": [
+        [
+          0.1,
+          0.5654,
+          "arany"
+        ],
+        [
+          0.5654,
+          1.1505,
+          "korona"
+        ]
+      ]
+    },
+    "r_phrase_perec": {
+      "fingerprint": "87e9f0cc01cb0df392c14edd135bd5bea4f5e050b9ab5577cee9ffa995a9d02e",
+      "sha256": "aa8448f31f3b8ca948dbcc80ae9bd32b3d6127f642ce0768c8b326273ff9cbc1",
+      "words": [
+        [
+          0.1,
+          0.5388,
+          "kerek"
+        ],
+        [
+          0.5388,
+          1.1505,
+          "perec"
+        ]
+      ]
+    },
+    "r_phrase_barack": {
+      "fingerprint": "5ce0dfeb2daf376e4c3c37d9c6b11ba6167560a2563b70100018fef4f36f311a",
+      "sha256": "3b6b8ece913175dce71807c8e174825254ac296a4e74754033cd8aae96066d6e",
+      "words": [
+        [
+          0.1,
+          0.5654,
+          "\u00e9rett"
+        ],
+        [
+          0.5654,
+          1.2569,
+          "barack"
+        ]
+      ]
+    },
+    "r_phrase_ceruza": {
+      "fingerprint": "84fcbd97c93a12a1a58eb80e7397afb75bd407a04d93c068a51c33ea0f5c8655",
+      "sha256": "309cff176e09d11679b38b71c792e1173221fab6463a6b56564fb57c88ef874d",
+      "words": [
+        [
+          0.1,
+          0.592,
+          "piros"
+        ],
+        [
+          0.592,
+          1.1772,
+          "ceruza"
+        ]
+      ]
+    },
+    "r_phrase_sarkany": {
+      "fingerprint": "4212f5e3d08b574de3ca719906a7d644ae23618bf3d820e6eaef69cd51a56b62",
+      "sha256": "354c286499084d0680bb008e1255c86a5449e746589083b0a0a1ee06737f3e21",
+      "words": [
+        [
+          0.1,
+          0.6186,
+          "rep\u00fcl"
+        ],
+        [
+          0.6186,
+          0.6851,
+          "a"
+        ],
+        [
+          0.6851,
+          1.5229,
+          "s\u00e1rk\u00e1ny"
+        ]
+      ]
+    },
+    "r_phrase_erdo": {
+      "fingerprint": "13176d6c2a45f30833baf15a8691980b3a010889636079b86b80e36a4eb1a2d5",
+      "sha256": "619b52d95494d0f133fd1741675e2af753522ed8d4dc03ece6f79d0a40a4b241",
+      "words": [
+        [
+          0.1,
+          0.7117,
+          "s\u0171r\u0171"
+        ],
+        [
+          0.7117,
+          1.3633,
+          "erd\u0151"
+        ]
+      ]
+    },
+    "r_phrase_torta": {
+      "fingerprint": "59ce215877b06755b6aac50376b774daa0b66f76fab05839457cca5be0555e79",
+      "sha256": "5454c0633222d3435060654181a4ae37058cf7adb193ad59e656cbad9b2cece0",
+      "words": [
+        [
+          0.1,
+          0.5388,
+          "kerek"
+        ],
+        [
+          0.5388,
+          1.1505,
+          "torta"
+        ]
+      ]
+    },
+    "r_phrase_dinnye": {
+      "fingerprint": "90f449f10a915d617e2b367c6f0b4ad3921338fef1a3e701a812ea3f8b891e2a",
+      "sha256": "11d51ece0de11ea25075e683f71850d743743fdb3685c3746505b3f3eb1a60d2",
+      "words": [
+        [
+          0.1,
+          0.5787,
+          "\u00e9rett"
+        ],
+        [
+          0.5787,
+          1.4564,
+          "g\u00f6r\u00f6gdinnye"
+        ]
+      ]
+    },
+    "r_phrase_var": {
+      "fingerprint": "be494a7888c5de08066b0dff32be2e6186a142318ae4083bef3b0fa2c67cbe03",
+      "sha256": "13e08ae491c7435f720e7823cb090485a401fa23cc5e3c6463ea265aede755b5",
+      "words": [
+        [
+          0.1,
+          0.6452,
+          "magas"
+        ],
+        [
+          0.6452,
+          1.1372,
+          "v\u00e1r"
+        ]
+      ]
+    },
+    "r_phrase_pohar": {
+      "fingerprint": "a0704558f0671203fa0b7d0ddb63e6aad8245218d17393b035e873b3bcf341b2",
+      "sha256": "722be8e92bf842c4249fb97769050798d65d8a5848034541d775b0fff76bca94",
+      "words": [
+        [
+          0.1,
+          0.5521,
+          "\u00fcres"
+        ],
+        [
+          0.5521,
+          1.2037,
+          "poh\u00e1r"
+        ]
+      ]
+    },
+    "r_phrase_madar": {
+      "fingerprint": "bc405ec61144c23e466dd2d1cccd3697368dfc40d65bb9a30d523695050a654b",
+      "sha256": "093bfb72f990019323af8e01b834fbc32bb8b66136efeddee9753cef491329a5",
+      "words": [
+        [
+          0.1,
+          0.6186,
+          "rep\u00fcl"
+        ],
+        [
+          0.6186,
+          0.6851,
+          "a"
+        ],
+        [
+          0.6851,
+          1.2968,
+          "mad\u00e1r"
+        ]
+      ]
+    },
+    "r_phrase_eger": {
+      "fingerprint": "d15c806561858ce48b139ef5e4d9fe32653eb362cecf7a24c1477c2775d79b16",
+      "sha256": "e928bca322b023a5b6069b236a8131973b25eeb0c412037612baf1669e1e8120",
+      "words": [
+        [
+          0.1,
+          0.6186,
+          "apr\u00f3"
+        ],
+        [
+          0.6186,
+          1.217,
+          "eg\u00e9r"
+        ]
+      ]
+    },
+    "r_phrase_hoember": {
+      "fingerprint": "bb790c33b0e4a0f4d7d26c333d4b5336116b6dff32a1c482e9df590892ef66f1",
+      "sha256": "4b2af5f3351d14277de699036ab09ea550c652229bf610e62c0bfc40f79c5c6c",
+      "words": [
+        [
+          0.1,
+          0.725,
+          "feh\u00e9r"
+        ],
+        [
+          0.725,
+          1.6027,
+          "h\u00f3ember"
+        ]
+      ]
+    },
+    "r_phrase_naptar": {
+      "fingerprint": "52bb563aeee1c0fc0fae3968cf35d1026785e0f1ca732e38dae361f0068a2f7b",
+      "sha256": "27ad795122b534c049b83d6659b3dab0e4d78e144853edc293967228ea041345",
+      "words": [
+        [
+          0.1,
+          0.4192,
+          "\u00faj"
+        ],
+        [
+          0.4192,
+          1.1638,
+          "napt\u00e1r"
+        ]
+      ]
+    },
+    "r_phrase_vodor": {
+      "fingerprint": "7c787a2bc008ae61f7f986befd24f85988bf6fdcd0885432c0021db792a84db8",
+      "sha256": "537a86841d0da6974d73e586c25e0b9c18c074ae53c0060b3d4d5ab5412ab582",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "\u00fcres"
+        ],
+        [
+          0.6053,
+          1.1771,
+          "v\u00f6d\u00f6r"
+        ]
+      ]
+    },
+    "r_phrase_szamar": {
+      "fingerprint": "352fdb94b3885e7b4891a8ababe8c654f10eef360ad92dd683e296dc47f5933e",
+      "sha256": "e64d556c192f1186cce1b3ed37e20582994067c433aab8ca3e71f8a12e14e7ff",
+      "words": [
+        [
+          0.1,
+          0.6585,
+          "sz\u00fcrke"
+        ],
+        [
+          0.6585,
+          1.3367,
+          "szam\u00e1r"
+        ]
+      ]
+    },
+    "r_phrase_sator": {
+      "fingerprint": "d059987f200fb14f00e89c28593b9745dca81d9bd54e4286f8d6e0847e7455aa",
+      "sha256": "6756341696aa43d87c155402dac3afa3091eead700bea8c5053e8c060a24fa29",
+      "words": [
+        [
+          0.1,
+          0.592,
+          "piros"
+        ],
+        [
+          0.592,
+          1.3234,
+          "s\u00e1tor"
+        ]
+      ]
+    },
+    "r_phrase_kosar": {
+      "fingerprint": "a6c071c28d34bf28003c909da3fbf3f113263c49c325d392524c2a7226a5b179",
+      "sha256": "b1d8497755ea947d9c1fa6768e4bac3415dac0c5a0fed564a5df170dd118d790",
+      "words": [
+        [
+          0.1,
+          0.5654,
+          "\u00fcres"
+        ],
+        [
+          0.5654,
+          1.217,
+          "kos\u00e1r"
+        ]
+      ]
+    },
+    "r_rhyme_roka_1": {
+      "fingerprint": "217c374561e96fa88587b9a6529f591c0eb46f45847b7e86fe0744e3370e8e95",
+      "sha256": "0c59800d504ec3b5e9748b774fdd101399c3821bad000a406e48e6a0f333a752",
+      "words": [
+        [
+          0.1,
+          0.6851,
+          "Robot"
+        ],
+        [
+          0.6851,
+          1.0708,
+          "\u0151rzi"
+        ],
+        [
+          1.0708,
+          1.1239,
+          "a"
+        ],
+        [
+          1.1239,
+          1.8686,
+          "r\u00e9p\u00e1t"
+        ]
+      ]
+    },
+    "r_rhyme_roka_0": {
+      "fingerprint": "21513dd27e9c61828e13a7b4d6acc7ffce33b81ceeb9de7d1cde0140903a816d",
+      "sha256": "e036d10d50ba50694daa30e3b3f6f3c4edd09e8314a5ab03dd0a3ea6d3599819",
+      "words": [
+        [
+          0.1,
+          0.592,
+          "R\u00f3ka"
+        ],
+        [
+          0.592,
+          0.858,
+          "fut"
+        ],
+        [
+          0.858,
+          0.9112,
+          "a"
+        ],
+        [
+          0.9112,
+          1.35,
+          "r\u00e9ten"
+        ],
+        [
+          1.35,
+          1.7888,
+          "\u00e1t"
+        ]
+      ]
+    },
+    "r_rhyme_roka_3": {
+      "fingerprint": "9b8a3989658baf1cf865e6ca174b5e11ac20353f5d6ce744b10ea3f4b0e6abd3",
+      "sha256": "3e2515edf87b3b2edd9e033bfee5baa8f8353802d52b902b527d7b313d54bb45",
+      "words": [
+        [
+          0.1,
+          0.5787,
+          "Vel\u00fck"
+        ],
+        [
+          0.5787,
+          1.0707,
+          "j\u00e1tszik"
+        ],
+        [
+          1.0708,
+          1.5362,
+          "minden"
+        ],
+        [
+          1.5362,
+          2.0415,
+          "gyerek"
+        ]
+      ]
+    },
+    "r_rhyme_roka_2": {
+      "fingerprint": "f0e3ea68639d34e9d32ac3fb482d2f964e3c77d27bfd08417cc7e4978704da15",
+      "sha256": "292ebd516f07695637ed579f15d03d1999942188489484ed1f780671b3b0d13d",
+      "words": [
+        [
+          0.1,
+          0.5654,
+          "Ropi"
+        ],
+        [
+          0.5654,
+          1.2303,
+          "roppan"
+        ],
+        [
+          1.5495,
+          1.9351,
+          "perec"
+        ],
+        [
+          1.9351,
+          2.4537,
+          "kerek"
+        ]
+      ]
+    },
+    "r_rhyme_kert_1": {
+      "fingerprint": "9987722950c7b16e4f0de403658357a0ba82bf70ed68358fd409d9f480e78e4d",
+      "sha256": "560488513819c9a060147919a14b8c65d71bf3e668397f668f4be6db31e8aff5",
+      "words": [
+        [
+          0.1,
+          0.6319,
+          "Robot"
+        ],
+        [
+          0.6319,
+          1.0575,
+          "locsol"
+        ],
+        [
+          1.0575,
+          1.4032,
+          "friss"
+        ],
+        [
+          1.4032,
+          2.3207,
+          "v\u00edzcseppel"
+        ]
+      ]
+    },
+    "r_rhyme_kert_0": {
+      "fingerprint": "448f094684361a8d6d8f44b541dd48fee47b4ceccad71c1b80fd4a3b2d5f982f",
+      "sha256": "1e25609a12ab9d7711c0db8f4691e2d46cc90e725eb02d06b2019afbf15074ad",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "Piros"
+        ],
+        [
+          0.6053,
+          0.991,
+          "r\u00f3zsa"
+        ],
+        [
+          0.991,
+          1.4564,
+          "ny\u00edlik"
+        ],
+        [
+          1.4564,
+          2.0947,
+          "reggel"
+        ]
+      ]
+    },
+    "r_rhyme_kert_2": {
+      "fingerprint": "3a4ef6bdbec9665bbf1142b30f995bb8866f0d1abc83ba059f67027aca956959",
+      "sha256": "03aed28c90088231cae9f200359510c2dccb4337300399a379d987d855b73385",
+      "words": [
+        [
+          0.1,
+          0.592,
+          "R\u00f3ka"
+        ],
+        [
+          0.592,
+          1.1106,
+          "k\u00f6rben"
+        ],
+        [
+          1.1106,
+          1.576,
+          "t\u00e1ncot"
+        ],
+        [
+          1.5761,
+          2.0016,
+          "j\u00e1r"
+        ]
+      ]
+    },
+    "r_rhyme_kert_3": {
+      "fingerprint": "8114887d50f5b8331757c1669b2b13ca963314f37b5eb7643dc5b2271bc30762",
+      "sha256": "c53837314ea5325ea7f9abca347d082007ba698ced8327a01d28d08ceae85162",
+      "words": [
+        [
+          0.1,
+          0.5654,
+          "R\u00e1nk"
+        ],
+        [
+          0.5654,
+          0.6984,
+          "egy"
+        ],
+        [
+          0.6984,
+          1.0707,
+          "sz\u00e9p"
+        ],
+        [
+          1.0708,
+          1.7888,
+          "vir\u00e1gkert"
+        ],
+        [
+          1.7888,
+          2.2144,
+          "v\u00e1r"
+        ]
+      ]
+    },
+    "r_rhyme_sator_0": {
+      "fingerprint": "eb761586b7b77877dd74c6be1cda3074fb9ce67c20c1a62ca31012402eebd64b",
+      "sha256": "682d3b4d3a320a612ac22272337354fbc4be113559c20c30f94bc6dab083fdbe",
+      "words": [
+        [
+          0.1,
+          0.4723,
+          "Erre"
+        ],
+        [
+          0.4723,
+          0.9245,
+          "gyere"
+        ],
+        [
+          1.2835,
+          1.6027,
+          "erre"
+        ],
+        [
+          1.6027,
+          2.3075,
+          "v\u00e1runk"
+        ]
+      ]
+    },
+    "r_rhyme_sator_1": {
+      "fingerprint": "b441214efb46667e9a87364a38d21d00705a70a9ee3788ed0c19e19c6a131e08",
+      "sha256": "46024c3658a4ff4e5e85a897173edb7a02f8446007b24c33a0d955b9966f2d49",
+      "words": [
+        [
+          0.1,
+          0.5521,
+          "Erd\u0151"
+        ],
+        [
+          0.5521,
+          0.9644,
+          "mellett"
+        ],
+        [
+          0.9644,
+          1.4564,
+          "s\u00e1trat"
+        ],
+        [
+          1.4564,
+          2.1212,
+          "\u00e1llunk"
+        ]
+      ]
+    },
+    "r_rhyme_sator_2": {
+      "fingerprint": "cb4ecee929dea9a85a884ef277dae5686a4216fa5f5a0a13c98bb82b5e34e4ee",
+      "sha256": "ab61031b275badd0f75dc8a45e2cb620dc3ce4e4ea2004f8c9e94a38b340db00",
+      "words": [
+        [
+          0.1,
+          0.5521,
+          "K\u00f6rte"
+        ],
+        [
+          0.5521,
+          0.8979,
+          "ker\u00fcl"
+        ],
+        [
+          0.8979,
+          0.9644,
+          "a"
+        ],
+        [
+          0.9644,
+          1.7755,
+          "kos\u00e1rba"
+        ]
+      ]
+    },
+    "r_rhyme_sator_3": {
+      "fingerprint": "995363a07e80cf74fdf63f1efbe91d9c39acb7575b6d465010be367dd66c2b5f",
+      "sha256": "36da23d847f9b3b4f594a3f8d30c1d6f687ed9b3bb6f3831f03d12de38d47486",
+      "words": [
+        [
+          0.1,
+          0.6053,
+          "R\u00f3ka"
+        ],
+        [
+          0.6053,
+          1.0442,
+          "indul"
+        ],
+        [
+          1.0442,
+          1.8287,
+          "vacsor\u00e1ra"
+        ]
+      ]
+    },
+    "r_rhyme_robot_0": {
+      "fingerprint": "a99c2585ceddf9227757a4199e149039df70966d7af9b3f87edb7bd7ea966fc9",
+      "sha256": "7921f935a41ea09f825996d0eeb6a02858c3b26dca021b778b205a8f2c149ca0",
+      "words": [
+        [
+          0.1,
+          0.7117,
+          "Rajzol"
+        ],
+        [
+          0.7117,
+          0.7649,
+          "a"
+        ],
+        [
+          0.7649,
+          1.3367,
+          "robot"
+        ],
+        [
+          1.6825,
+          2.0415,
+          "kerek"
+        ],
+        [
+          2.0415,
+          2.108,
+          "a"
+        ],
+        [
+          2.108,
+          2.5335,
+          "nap"
+        ]
+      ]
+    },
+    "r_rhyme_robot_1": {
+      "fingerprint": "c2f68418afe82ef9624b9e2f2faa12595c579d32535f1ce8cfabc5af1d0c8d29",
+      "sha256": "0c7c323c7d735943ef2397373687bbb2bc6879dd997c20f2fea858466fde484c",
+      "words": [
+        [
+          0.1,
+          0.5521,
+          "Piros"
+        ],
+        [
+          0.5521,
+          1.1106,
+          "ceruz\u00e1t"
+        ],
+        [
+          1.1106,
+          1.1638,
+          "a"
+        ],
+        [
+          1.1638,
+          1.6692,
+          "kez\u00e9be"
+        ],
+        [
+          1.6692,
+          2.0814,
+          "kap"
+        ]
+      ]
+    },
+    "r_rhyme_robot_2": {
+      "fingerprint": "22b2b9f546b0204f5010df8d98be2382735c8dfcef51379826fd5ee8bed79133",
+      "sha256": "698d8b6d97409fa4573982be15c0116c63bb2198ebd41f48b6d688ed2b26c14a",
+      "words": [
+        [
+          0.1,
+          0.6851,
+          "Rajzol"
+        ],
+        [
+          0.6851,
+          0.858,
+          "egy"
+        ],
+        [
+          0.858,
+          1.576,
+          "r\u00f3k\u00e1t"
+        ],
+        [
+          1.8819,
+          2.3606,
+          "rajzol"
+        ],
+        [
+          2.3606,
+          2.4936,
+          "egy"
+        ],
+        [
+          2.4936,
+          3.1186,
+          "v\u00e1rat"
+        ]
+      ]
+    },
+    "r_rhyme_robot_3": {
+      "fingerprint": "1c13dfd97f64a3f8adb273242ac0873157783bcfebc7f0e84926faf62600509b",
+      "sha256": "f0b91b669ee5b19af3b17059de8467a397663ffcbc9123a93d240397c7b6b19b",
+      "words": [
+        [
+          0.1,
+          0.725,
+          "Rajzol"
+        ],
+        [
+          0.725,
+          0.8846,
+          "az"
+        ],
+        [
+          0.8846,
+          1.2436,
+          "\u00e9gre"
+        ],
+        [
+          1.2436,
+          1.709,
+          "rep\u00fcl\u0151"
+        ],
+        [
+          1.709,
+          2.3739,
+          "madarat"
+        ]
+      ]
     }
   }
 }

@@ -724,6 +724,390 @@ export const VOICE_CLIPS = {
     "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",
     "file": "audio/voice/pour_done.mp3"
   },
+  "r_hub": {
+    "text": "Róka és robot vár rád! Hallgassunk szavakat, mondjunk mondókát, és játsszunk együtt!",
+    "file": "audio/voice/r_hub.mp3"
+  },
+  "r_hunter": {
+    "text": "Hallgasd meg a szót! Koppints a képére!",
+    "file": "audio/voice/r_hunter.mp3"
+  },
+  "r_hunter_sound": {
+    "text": "Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!",
+    "file": "audio/voice/r_hunter_sound.mp3"
+  },
+  "r_post": {
+    "text": "Robot csomagot vár. Hallgasd meg a szót, és mondd utánam!",
+    "file": "audio/voice/r_post.mp3"
+  },
+  "r_workshop": {
+    "text": "Díszítsük fel a perecműhelyt! Hallgasd meg a szót, és mondd utánam!",
+    "file": "audio/voice/r_workshop.mp3"
+  },
+  "r_rhyme": {
+    "text": "Hallgassunk mondókát! Koppints egy sorra, és mondd utánam!",
+    "file": "audio/voice/r_rhyme.mp3"
+  },
+  "r_echo": {
+    "text": "Hallgasd meg a mintát! A mikrofon gombbal felveheted a saját hangodat.",
+    "file": "audio/voice/r_echo.mp3"
+  },
+  "r_try": {
+    "text": "Most te jössz!",
+    "file": "audio/voice/r_try.mp3"
+  },
+  "r_retry": {
+    "text": "Hallgassuk meg még egyszer! Próbálhatjuk együtt is.",
+    "file": "audio/voice/r_retry.mp3"
+  },
+  "r_found": {
+    "text": "Megtaláltad a képet!",
+    "file": "audio/voice/r_found.mp3"
+  },
+  "r_try_thanks": {
+    "text": "Köszönöm, hogy próbálkoztál!",
+    "file": "audio/voice/r_try_thanks.mp3"
+  },
+  "r_delivered": {
+    "text": "Elindult a csomag! Robot örül neki.",
+    "file": "audio/voice/r_delivered.mp3"
+  },
+  "r_decorated": {
+    "text": "Új dísz került a műhelybe!",
+    "file": "audio/voice/r_decorated.mp3"
+  },
+  "r_round_done": {
+    "text": "Elkészült a közös játék! Jöhet egy újabb kaland.",
+    "file": "audio/voice/r_round_done.mp3"
+  },
+  "r_word_roka": {
+    "text": "róka",
+    "file": "audio/voice/r_word_roka.mp3"
+  },
+  "r_word_repa": {
+    "text": "répa",
+    "file": "audio/voice/r_word_repa.mp3"
+  },
+  "r_word_robot": {
+    "text": "robot",
+    "file": "audio/voice/r_word_robot.mp3"
+  },
+  "r_word_ruha": {
+    "text": "ruha",
+    "file": "audio/voice/r_word_ruha.mp3"
+  },
+  "r_word_rozsa": {
+    "text": "rózsa",
+    "file": "audio/voice/r_word_rozsa.mp3"
+  },
+  "r_word_raketa": {
+    "text": "rakéta",
+    "file": "audio/voice/r_word_raketa.mp3"
+  },
+  "r_word_radio": {
+    "text": "rádió",
+    "file": "audio/voice/r_word_radio.mp3"
+  },
+  "r_word_rak": {
+    "text": "rák",
+    "file": "audio/voice/r_word_rak.mp3"
+  },
+  "r_word_rizs": {
+    "text": "rizs",
+    "file": "audio/voice/r_word_rizs.mp3"
+  },
+  "r_word_roller": {
+    "text": "roller",
+    "file": "audio/voice/r_word_roller.mp3"
+  },
+  "r_word_virag": {
+    "text": "virág",
+    "file": "audio/voice/r_word_virag.mp3"
+  },
+  "r_word_korte": {
+    "text": "körte",
+    "file": "audio/voice/r_word_korte.mp3"
+  },
+  "r_word_perec": {
+    "text": "perec",
+    "file": "audio/voice/r_word_perec.mp3"
+  },
+  "r_word_korona": {
+    "text": "korona",
+    "file": "audio/voice/r_word_korona.mp3"
+  },
+  "r_word_barack": {
+    "text": "barack",
+    "file": "audio/voice/r_word_barack.mp3"
+  },
+  "r_word_ceruza": {
+    "text": "ceruza",
+    "file": "audio/voice/r_word_ceruza.mp3"
+  },
+  "r_word_erdo": {
+    "text": "erdő",
+    "file": "audio/voice/r_word_erdo.mp3"
+  },
+  "r_word_sarkany": {
+    "text": "sárkány",
+    "file": "audio/voice/r_word_sarkany.mp3"
+  },
+  "r_word_torta": {
+    "text": "torta",
+    "file": "audio/voice/r_word_torta.mp3"
+  },
+  "r_word_dinnye": {
+    "text": "görögdinnye",
+    "file": "audio/voice/r_word_dinnye.mp3"
+  },
+  "r_word_var": {
+    "text": "vár",
+    "file": "audio/voice/r_word_var.mp3"
+  },
+  "r_word_pohar": {
+    "text": "pohár",
+    "file": "audio/voice/r_word_pohar.mp3"
+  },
+  "r_word_madar": {
+    "text": "madár",
+    "file": "audio/voice/r_word_madar.mp3"
+  },
+  "r_word_eger": {
+    "text": "egér",
+    "file": "audio/voice/r_word_eger.mp3"
+  },
+  "r_word_hoember": {
+    "text": "hóember",
+    "file": "audio/voice/r_word_hoember.mp3"
+  },
+  "r_word_naptar": {
+    "text": "naptár",
+    "file": "audio/voice/r_word_naptar.mp3"
+  },
+  "r_word_szamar": {
+    "text": "szamár",
+    "file": "audio/voice/r_word_szamar.mp3"
+  },
+  "r_word_vodor": {
+    "text": "vödör",
+    "file": "audio/voice/r_word_vodor.mp3"
+  },
+  "r_word_sator": {
+    "text": "sátor",
+    "file": "audio/voice/r_word_sator.mp3"
+  },
+  "r_word_kosar": {
+    "text": "kosár",
+    "file": "audio/voice/r_word_kosar.mp3"
+  },
+  "r_word_alma": {
+    "text": "alma",
+    "file": "audio/voice/r_word_alma.mp3"
+  },
+  "r_word_cica": {
+    "text": "cica",
+    "file": "audio/voice/r_word_cica.mp3"
+  },
+  "r_word_kutya": {
+    "text": "kutya",
+    "file": "audio/voice/r_word_kutya.mp3"
+  },
+  "r_word_labda": {
+    "text": "labda",
+    "file": "audio/voice/r_word_labda.mp3"
+  },
+  "r_word_baba": {
+    "text": "baba",
+    "file": "audio/voice/r_word_baba.mp3"
+  },
+  "r_word_banan": {
+    "text": "banán",
+    "file": "audio/voice/r_word_banan.mp3"
+  },
+  "r_phrase_roka": {
+    "text": "vörös róka",
+    "file": "audio/voice/r_phrase_roka.mp3"
+  },
+  "r_phrase_repa": {
+    "text": "piros répa",
+    "file": "audio/voice/r_phrase_repa.mp3"
+  },
+  "r_phrase_robot": {
+    "text": "vidám robot",
+    "file": "audio/voice/r_phrase_robot.mp3"
+  },
+  "r_phrase_ruha": {
+    "text": "piros ruha",
+    "file": "audio/voice/r_phrase_ruha.mp3"
+  },
+  "r_phrase_rozsa": {
+    "text": "piros rózsa",
+    "file": "audio/voice/r_phrase_rozsa.mp3"
+  },
+  "r_phrase_raketa": {
+    "text": "repül a rakéta",
+    "file": "audio/voice/r_phrase_raketa.mp3"
+  },
+  "r_phrase_radio": {
+    "text": "szól a rádió",
+    "file": "audio/voice/r_phrase_radio.mp3"
+  },
+  "r_phrase_rak": {
+    "text": "apró rák",
+    "file": "audio/voice/r_phrase_rak.mp3"
+  },
+  "r_phrase_rizs": {
+    "text": "forró rizs",
+    "file": "audio/voice/r_phrase_rizs.mp3"
+  },
+  "r_phrase_roller": {
+    "text": "gurul a roller",
+    "file": "audio/voice/r_phrase_roller.mp3"
+  },
+  "r_phrase_virag": {
+    "text": "piros virág",
+    "file": "audio/voice/r_phrase_virag.mp3"
+  },
+  "r_phrase_korte": {
+    "text": "érett körte",
+    "file": "audio/voice/r_phrase_korte.mp3"
+  },
+  "r_phrase_perec": {
+    "text": "kerek perec",
+    "file": "audio/voice/r_phrase_perec.mp3"
+  },
+  "r_phrase_korona": {
+    "text": "arany korona",
+    "file": "audio/voice/r_phrase_korona.mp3"
+  },
+  "r_phrase_barack": {
+    "text": "érett barack",
+    "file": "audio/voice/r_phrase_barack.mp3"
+  },
+  "r_phrase_ceruza": {
+    "text": "piros ceruza",
+    "file": "audio/voice/r_phrase_ceruza.mp3"
+  },
+  "r_phrase_erdo": {
+    "text": "sűrű erdő",
+    "file": "audio/voice/r_phrase_erdo.mp3"
+  },
+  "r_phrase_sarkany": {
+    "text": "repül a sárkány",
+    "file": "audio/voice/r_phrase_sarkany.mp3"
+  },
+  "r_phrase_torta": {
+    "text": "kerek torta",
+    "file": "audio/voice/r_phrase_torta.mp3"
+  },
+  "r_phrase_dinnye": {
+    "text": "érett görögdinnye",
+    "file": "audio/voice/r_phrase_dinnye.mp3"
+  },
+  "r_phrase_var": {
+    "text": "magas vár",
+    "file": "audio/voice/r_phrase_var.mp3"
+  },
+  "r_phrase_pohar": {
+    "text": "üres pohár",
+    "file": "audio/voice/r_phrase_pohar.mp3"
+  },
+  "r_phrase_madar": {
+    "text": "repül a madár",
+    "file": "audio/voice/r_phrase_madar.mp3"
+  },
+  "r_phrase_eger": {
+    "text": "apró egér",
+    "file": "audio/voice/r_phrase_eger.mp3"
+  },
+  "r_phrase_hoember": {
+    "text": "fehér hóember",
+    "file": "audio/voice/r_phrase_hoember.mp3"
+  },
+  "r_phrase_naptar": {
+    "text": "új naptár",
+    "file": "audio/voice/r_phrase_naptar.mp3"
+  },
+  "r_phrase_szamar": {
+    "text": "szürke szamár",
+    "file": "audio/voice/r_phrase_szamar.mp3"
+  },
+  "r_phrase_vodor": {
+    "text": "üres vödör",
+    "file": "audio/voice/r_phrase_vodor.mp3"
+  },
+  "r_phrase_sator": {
+    "text": "piros sátor",
+    "file": "audio/voice/r_phrase_sator.mp3"
+  },
+  "r_phrase_kosar": {
+    "text": "üres kosár",
+    "file": "audio/voice/r_phrase_kosar.mp3"
+  },
+  "r_rhyme_roka_0": {
+    "text": "Róka fut a réten át.",
+    "file": "audio/voice/r_rhyme_roka_0.mp3"
+  },
+  "r_rhyme_roka_1": {
+    "text": "Robot őrzi a répát.",
+    "file": "audio/voice/r_rhyme_roka_1.mp3"
+  },
+  "r_rhyme_roka_2": {
+    "text": "Ropi roppan, perec kerek.",
+    "file": "audio/voice/r_rhyme_roka_2.mp3"
+  },
+  "r_rhyme_roka_3": {
+    "text": "Velük játszik minden gyerek.",
+    "file": "audio/voice/r_rhyme_roka_3.mp3"
+  },
+  "r_rhyme_kert_0": {
+    "text": "Piros rózsa nyílik reggel.",
+    "file": "audio/voice/r_rhyme_kert_0.mp3"
+  },
+  "r_rhyme_kert_1": {
+    "text": "Robot locsol friss vízcseppel.",
+    "file": "audio/voice/r_rhyme_kert_1.mp3"
+  },
+  "r_rhyme_kert_2": {
+    "text": "Róka körben táncot jár.",
+    "file": "audio/voice/r_rhyme_kert_2.mp3"
+  },
+  "r_rhyme_kert_3": {
+    "text": "Ránk egy szép virágkert vár.",
+    "file": "audio/voice/r_rhyme_kert_3.mp3"
+  },
+  "r_rhyme_sator_0": {
+    "text": "Erre gyere, erre várunk!",
+    "file": "audio/voice/r_rhyme_sator_0.mp3"
+  },
+  "r_rhyme_sator_1": {
+    "text": "Erdő mellett sátrat állunk.",
+    "file": "audio/voice/r_rhyme_sator_1.mp3"
+  },
+  "r_rhyme_sator_2": {
+    "text": "Körte kerül a kosárba.",
+    "file": "audio/voice/r_rhyme_sator_2.mp3"
+  },
+  "r_rhyme_sator_3": {
+    "text": "Róka indul vacsorára.",
+    "file": "audio/voice/r_rhyme_sator_3.mp3"
+  },
+  "r_rhyme_robot_0": {
+    "text": "Rajzol a robot: kerek a nap.",
+    "file": "audio/voice/r_rhyme_robot_0.mp3"
+  },
+  "r_rhyme_robot_1": {
+    "text": "Piros ceruzát a kezébe kap.",
+    "file": "audio/voice/r_rhyme_robot_1.mp3"
+  },
+  "r_rhyme_robot_2": {
+    "text": "Rajzol egy rókát, rajzol egy várat.",
+    "file": "audio/voice/r_rhyme_robot_2.mp3"
+  },
+  "r_rhyme_robot_3": {
+    "text": "Rajzol az égre repülő madarat.",
+    "file": "audio/voice/r_rhyme_robot_3.mp3"
+  },
   "mese_map": {
     "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
     "file": "audio/voice/mese_map.mp3"

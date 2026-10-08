@@ -1090,6 +1090,582 @@
       "file": "audio/voice/pour_done.mp3"
     },
     {
+      "id": "r_hub",
+      "text": "Róka és robot vár rád! Hallgassunk szavakat, mondjunk mondókát, és játsszunk együtt!",
+      "group": "r-practice",
+      "file": "audio/voice/r_hub.mp3"
+    },
+    {
+      "id": "r_hunter",
+      "text": "Hallgasd meg a szót! Koppints a képére!",
+      "group": "r-practice",
+      "file": "audio/voice/r_hunter.mp3"
+    },
+    {
+      "id": "r_hunter_sound",
+      "text": "Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!",
+      "group": "r-practice",
+      "file": "audio/voice/r_hunter_sound.mp3"
+    },
+    {
+      "id": "r_post",
+      "text": "Robot csomagot vár. Hallgasd meg a szót, és mondd utánam!",
+      "group": "r-practice",
+      "file": "audio/voice/r_post.mp3"
+    },
+    {
+      "id": "r_workshop",
+      "text": "Díszítsük fel a perecműhelyt! Hallgasd meg a szót, és mondd utánam!",
+      "group": "r-practice",
+      "file": "audio/voice/r_workshop.mp3"
+    },
+    {
+      "id": "r_rhyme",
+      "text": "Hallgassunk mondókát! Koppints egy sorra, és mondd utánam!",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme.mp3"
+    },
+    {
+      "id": "r_echo",
+      "text": "Hallgasd meg a mintát! A mikrofon gombbal felveheted a saját hangodat.",
+      "group": "r-practice",
+      "file": "audio/voice/r_echo.mp3"
+    },
+    {
+      "id": "r_try",
+      "text": "Most te jössz!",
+      "group": "r-practice",
+      "file": "audio/voice/r_try.mp3"
+    },
+    {
+      "id": "r_retry",
+      "text": "Hallgassuk meg még egyszer! Próbálhatjuk együtt is.",
+      "group": "r-practice",
+      "file": "audio/voice/r_retry.mp3"
+    },
+    {
+      "id": "r_found",
+      "text": "Megtaláltad a képet!",
+      "group": "r-practice",
+      "file": "audio/voice/r_found.mp3"
+    },
+    {
+      "id": "r_try_thanks",
+      "text": "Köszönöm, hogy próbálkoztál!",
+      "group": "r-practice",
+      "file": "audio/voice/r_try_thanks.mp3"
+    },
+    {
+      "id": "r_delivered",
+      "text": "Elindult a csomag! Robot örül neki.",
+      "group": "r-practice",
+      "file": "audio/voice/r_delivered.mp3"
+    },
+    {
+      "id": "r_decorated",
+      "text": "Új dísz került a műhelybe!",
+      "group": "r-practice",
+      "file": "audio/voice/r_decorated.mp3"
+    },
+    {
+      "id": "r_round_done",
+      "text": "Elkészült a közös játék! Jöhet egy újabb kaland.",
+      "group": "r-practice",
+      "file": "audio/voice/r_round_done.mp3"
+    },
+    {
+      "id": "r_word_roka",
+      "text": "róka",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_roka.mp3"
+    },
+    {
+      "id": "r_word_repa",
+      "text": "répa",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_repa.mp3"
+    },
+    {
+      "id": "r_word_robot",
+      "text": "robot",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_robot.mp3"
+    },
+    {
+      "id": "r_word_ruha",
+      "text": "ruha",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_ruha.mp3"
+    },
+    {
+      "id": "r_word_rozsa",
+      "text": "rózsa",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_rozsa.mp3"
+    },
+    {
+      "id": "r_word_raketa",
+      "text": "rakéta",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_raketa.mp3"
+    },
+    {
+      "id": "r_word_radio",
+      "text": "rádió",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_radio.mp3"
+    },
+    {
+      "id": "r_word_rak",
+      "text": "rák",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_rak.mp3"
+    },
+    {
+      "id": "r_word_rizs",
+      "text": "rizs",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_rizs.mp3"
+    },
+    {
+      "id": "r_word_roller",
+      "text": "roller",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_roller.mp3"
+    },
+    {
+      "id": "r_word_virag",
+      "text": "virág",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_virag.mp3"
+    },
+    {
+      "id": "r_word_korte",
+      "text": "körte",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_korte.mp3"
+    },
+    {
+      "id": "r_word_perec",
+      "text": "perec",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_perec.mp3"
+    },
+    {
+      "id": "r_word_korona",
+      "text": "korona",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_korona.mp3"
+    },
+    {
+      "id": "r_word_barack",
+      "text": "barack",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_barack.mp3"
+    },
+    {
+      "id": "r_word_ceruza",
+      "text": "ceruza",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_ceruza.mp3"
+    },
+    {
+      "id": "r_word_erdo",
+      "text": "erdő",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_erdo.mp3"
+    },
+    {
+      "id": "r_word_sarkany",
+      "text": "sárkány",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_sarkany.mp3"
+    },
+    {
+      "id": "r_word_torta",
+      "text": "torta",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_torta.mp3"
+    },
+    {
+      "id": "r_word_dinnye",
+      "text": "görögdinnye",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_dinnye.mp3"
+    },
+    {
+      "id": "r_word_var",
+      "text": "vár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_var.mp3"
+    },
+    {
+      "id": "r_word_pohar",
+      "text": "pohár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_pohar.mp3"
+    },
+    {
+      "id": "r_word_madar",
+      "text": "madár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_madar.mp3"
+    },
+    {
+      "id": "r_word_eger",
+      "text": "egér",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_eger.mp3"
+    },
+    {
+      "id": "r_word_hoember",
+      "text": "hóember",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_hoember.mp3"
+    },
+    {
+      "id": "r_word_naptar",
+      "text": "naptár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_naptar.mp3"
+    },
+    {
+      "id": "r_word_szamar",
+      "text": "szamár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_szamar.mp3"
+    },
+    {
+      "id": "r_word_vodor",
+      "text": "vödör",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_vodor.mp3"
+    },
+    {
+      "id": "r_word_sator",
+      "text": "sátor",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_sator.mp3"
+    },
+    {
+      "id": "r_word_kosar",
+      "text": "kosár",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_kosar.mp3"
+    },
+    {
+      "id": "r_word_alma",
+      "text": "alma",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_alma.mp3"
+    },
+    {
+      "id": "r_word_cica",
+      "text": "cica",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_cica.mp3"
+    },
+    {
+      "id": "r_word_kutya",
+      "text": "kutya",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_kutya.mp3"
+    },
+    {
+      "id": "r_word_labda",
+      "text": "labda",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_labda.mp3"
+    },
+    {
+      "id": "r_word_baba",
+      "text": "baba",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_baba.mp3"
+    },
+    {
+      "id": "r_word_banan",
+      "text": "banán",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_banan.mp3"
+    },
+    {
+      "id": "r_phrase_roka",
+      "text": "vörös róka",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_roka.mp3"
+    },
+    {
+      "id": "r_phrase_repa",
+      "text": "piros répa",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_repa.mp3"
+    },
+    {
+      "id": "r_phrase_robot",
+      "text": "vidám robot",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_robot.mp3"
+    },
+    {
+      "id": "r_phrase_ruha",
+      "text": "piros ruha",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_ruha.mp3"
+    },
+    {
+      "id": "r_phrase_rozsa",
+      "text": "piros rózsa",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_rozsa.mp3"
+    },
+    {
+      "id": "r_phrase_raketa",
+      "text": "repül a rakéta",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_raketa.mp3"
+    },
+    {
+      "id": "r_phrase_radio",
+      "text": "szól a rádió",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_radio.mp3"
+    },
+    {
+      "id": "r_phrase_rak",
+      "text": "apró rák",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_rak.mp3"
+    },
+    {
+      "id": "r_phrase_rizs",
+      "text": "forró rizs",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_rizs.mp3"
+    },
+    {
+      "id": "r_phrase_roller",
+      "text": "gurul a roller",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_roller.mp3"
+    },
+    {
+      "id": "r_phrase_virag",
+      "text": "piros virág",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_virag.mp3"
+    },
+    {
+      "id": "r_phrase_korte",
+      "text": "érett körte",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_korte.mp3"
+    },
+    {
+      "id": "r_phrase_perec",
+      "text": "kerek perec",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_perec.mp3"
+    },
+    {
+      "id": "r_phrase_korona",
+      "text": "arany korona",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_korona.mp3"
+    },
+    {
+      "id": "r_phrase_barack",
+      "text": "érett barack",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_barack.mp3"
+    },
+    {
+      "id": "r_phrase_ceruza",
+      "text": "piros ceruza",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_ceruza.mp3"
+    },
+    {
+      "id": "r_phrase_erdo",
+      "text": "sűrű erdő",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_erdo.mp3"
+    },
+    {
+      "id": "r_phrase_sarkany",
+      "text": "repül a sárkány",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_sarkany.mp3"
+    },
+    {
+      "id": "r_phrase_torta",
+      "text": "kerek torta",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_torta.mp3"
+    },
+    {
+      "id": "r_phrase_dinnye",
+      "text": "érett görögdinnye",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_dinnye.mp3"
+    },
+    {
+      "id": "r_phrase_var",
+      "text": "magas vár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_var.mp3"
+    },
+    {
+      "id": "r_phrase_pohar",
+      "text": "üres pohár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_pohar.mp3"
+    },
+    {
+      "id": "r_phrase_madar",
+      "text": "repül a madár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_madar.mp3"
+    },
+    {
+      "id": "r_phrase_eger",
+      "text": "apró egér",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_eger.mp3"
+    },
+    {
+      "id": "r_phrase_hoember",
+      "text": "fehér hóember",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_hoember.mp3"
+    },
+    {
+      "id": "r_phrase_naptar",
+      "text": "új naptár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_naptar.mp3"
+    },
+    {
+      "id": "r_phrase_szamar",
+      "text": "szürke szamár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_szamar.mp3"
+    },
+    {
+      "id": "r_phrase_vodor",
+      "text": "üres vödör",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_vodor.mp3"
+    },
+    {
+      "id": "r_phrase_sator",
+      "text": "piros sátor",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_sator.mp3"
+    },
+    {
+      "id": "r_phrase_kosar",
+      "text": "üres kosár",
+      "group": "r-practice",
+      "file": "audio/voice/r_phrase_kosar.mp3"
+    },
+    {
+      "id": "r_rhyme_roka_0",
+      "text": "Róka fut a réten át.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_roka_0.mp3"
+    },
+    {
+      "id": "r_rhyme_roka_1",
+      "text": "Robot őrzi a répát.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_roka_1.mp3"
+    },
+    {
+      "id": "r_rhyme_roka_2",
+      "text": "Ropi roppan, perec kerek.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_roka_2.mp3"
+    },
+    {
+      "id": "r_rhyme_roka_3",
+      "text": "Velük játszik minden gyerek.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_roka_3.mp3"
+    },
+    {
+      "id": "r_rhyme_kert_0",
+      "text": "Piros rózsa nyílik reggel.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_kert_0.mp3"
+    },
+    {
+      "id": "r_rhyme_kert_1",
+      "text": "Robot locsol friss vízcseppel.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_kert_1.mp3"
+    },
+    {
+      "id": "r_rhyme_kert_2",
+      "text": "Róka körben táncot jár.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_kert_2.mp3"
+    },
+    {
+      "id": "r_rhyme_kert_3",
+      "text": "Ránk egy szép virágkert vár.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_kert_3.mp3"
+    },
+    {
+      "id": "r_rhyme_sator_0",
+      "text": "Erre gyere, erre várunk!",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_sator_0.mp3"
+    },
+    {
+      "id": "r_rhyme_sator_1",
+      "text": "Erdő mellett sátrat állunk.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_sator_1.mp3"
+    },
+    {
+      "id": "r_rhyme_sator_2",
+      "text": "Körte kerül a kosárba.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_sator_2.mp3"
+    },
+    {
+      "id": "r_rhyme_sator_3",
+      "text": "Róka indul vacsorára.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_sator_3.mp3"
+    },
+    {
+      "id": "r_rhyme_robot_0",
+      "text": "Rajzol a robot: kerek a nap.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_robot_0.mp3"
+    },
+    {
+      "id": "r_rhyme_robot_1",
+      "text": "Piros ceruzát a kezébe kap.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_robot_1.mp3"
+    },
+    {
+      "id": "r_rhyme_robot_2",
+      "text": "Rajzol egy rókát, rajzol egy várat.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_robot_2.mp3"
+    },
+    {
+      "id": "r_rhyme_robot_3",
+      "text": "Rajzol az égre repülő madarat.",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_robot_3.mp3"
+    },
+    {
       "id": "mese_map",
       "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
       "group": "meseliget",

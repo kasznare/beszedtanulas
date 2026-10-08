@@ -18,6 +18,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 
 - **Képek:** nézegetés hat témakörrel és 24 magyar szóval, vagy a **Hol van?** hallás utáni választójáték. Elhangzik egy szó, és két vagy három nagy kép közül kell választani, olvasás és mikrofon nélkül. Hibás választás után újra megszólal a szó; a kör végén egy jutalom jár.
 - **Hangos állatkönyv:** négy részletes, lapozható jelenet: tanya, kert, tópart és erdő. Tizenkét valódi állathang; a képen lévő állat és az alsó szimbólumgomb is megszólaltatja. Gombbal, nyílbillentyűvel vagy vízszintes húzással lapozható, az utolsó lap és a hangpontok beállítása megmarad. A megnyomott állat a hang tényleges indulásától a végéig kap jelzést. A Képek és a Játsszunk! menüből is elérhető.
+- **Róka R-kalandja:** Hangvadász, Robotpostás, Perecműhely, Mondókaliget és Saját visszhang. Harminc képes R-es szó, rövid kifejezések, négy saját mondóka; közös, hangészlelős és magyar szófelismerős gyakorlás. A Mondd utánam és a Játsszunk! menüből is elérhető.
 - **Mondd utánam:** egy vagy két szavas gyakorlás. A mikrofon gomb egy próbát, a nagy lejátszógomb egy vezetett szókört indít. A megállítás és a hazalépés leállítja a figyelést.
 - **Számoljunk:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
@@ -43,6 +44,26 @@ A könyv négy eredeti, 1536 × 1024-es illusztrációja a beépített képalkot
 A tizenkét állathang rövid, 1,67–4,8 másodperces, mérsékelt hangerejű valódi felvétel. A hangok és a forrásjegyzék teljes letöltés után offline is elérhetők. A hanghibát a felület jelzi, és újra meg lehet nyomni az állatot; a játék nem helyettesíti az állathangot szövegfelolvasással. A szerzők, eredeti Commons-felvételek, közkincs/CC BY-SA licencek és az átalakítások a könyv **Képek és hangok forrása** gombján keresztül jelennek meg. A CC BY-SA kivágások az eredeti licencüket megtartják.
 
 Megvalósítás: `animal-book-data.js`, `animal-book-game.js`, `animal-book.css`; források, kivágások és SHA256: `animal-book-audio.json`; képek és a végső promptkészlet: [assets/animal-book/README.md](assets/animal-book/README.md). Az utolsó lap és a jelölők külön eszközbeállításban (`beszedtanulas.animalBook.v1`) tárolódnak, nem eredményadatként.
+
+## Róka R-kalandja
+
+Öt önálló játék közös, nagy gombos felülettel:
+
+- **Hangvadász:** hallott szó képének keresése, vagy R-t tartalmazó szó kiválasztása két/három meghallgatható kép közül. Téves választás után újrapróbálható; három/öt képből álló körök.
+- **Robotpostás:** szavak vagy rövid kifejezések utánmondása, majd a csomag elküldése. A felismert szó, a hang észlelése és a közös kimondás külön visszajelzés.
+- **Perecműhely:** szóeleji, szóközi és szóvégi szócsoportra váltható gyakorlás. Minden továbbjelzett feladat új díszt ad a műhelyhez.
+- **Mondókaliget:** négy eredeti, négysoros mondóka. Teljes felolvasás, sorválasztás, soronkénti közös vagy mikrofonos gyakorlás; a hanghoz igazodó képes jelzés. Egy sor ismétlése nem számít új befejezett körnek.
+- **Saját visszhang:** natív böngészős hangfelvétel, legfeljebb nyolc másodpercig, majd saját hang és mintahang felváltva hallgatható. Elutasított engedély vagy hiányzó felvevő esetén a közös gyakorlás elérhető marad.
+
+A felnőtt beállításai külön eszközbeállításban (`beszedtanulas.rPractice.v1`) őrzik a szócsoportra, szóra/kifejezésre, körhosszra, képszámra és gyakorlási módra vonatkozó választást. A csoportok a hang helyét jelzik, nem kötelező nehézségi sorrendet. A mintahangok gépi magyar felvételek. A szólistát a gyerekhez, szükség esetén logopédus útmutatásához lehet igazítani.
+
+Alapból **Együtt · mikrofon nélkül** mód indul. A **Bátorító** mód elegendő ideig tartó hangot észlel; a **Szófelismerés** mód a magyar beszédfelismerő szövegét ellenőrzi teljes szavakkal, egyetlen felismerési változaton belül. Egyik sem minősíti az R hang képzését. Hiba vagy bizonytalan felismerés után új próba és közös továbbhaladás is választható. A szófelismerő böngészőszolgáltatása internetet használhat és feldolgozhatja a hangot; a közös mód, a mintahangok és a helyi felvevő offline is működnek.
+
+A visszhang felvétele csak a nyitott oldal memóriájában marad: nincs feltöltés, fájlmentés, felhőszinkron vagy eredménymentés a hangból. Új szó, másik játék, kilépés, frissítés vagy elrejtett dokumentum elengedi a felvételt. Minden megszakítás leállítja a mikrofont, a késve megérkező engedélyhez tartozó streamet is. A visszajátszási Blob URL a lejátszás végén/megszakításakor visszavonódik. A rögzítés 2 MB fölött is leáll.
+
+A közös körök, képes találatok/mikrofonos próbák, felismert szavak/sorok és felnőtt által jelzett gyakorlások profilonként kerülnek az eredménymentés `rPractice` részébe. Fájlmentés, visszaállítás és nullázás/visszavonás támogatott; a régi mentésekben hiányzó rész nulláról indul. Az alap beszédjáték szóeredményei és jutalomszámlálója ettől függetlenek. Saját felvétel és felismert szöveg nem kerül az eredménymentésbe.
+
+Megvalósítás: `r-practice-data.js`, `r-practice-game.js`, `r-practice-media.js`, `r-practice-voice.js`, `r-practice.css`; célzott ellenőrzések: `tests/r-practice.test.mjs`, `tests/browser/r-practice.js`. A saját mondókák, szavak és útmutatók 96 új, lenyomattal és szóidőkkel hitelesített statikus hangot kaptak.
 
 ## Képkirakó puzzle
 
@@ -78,7 +99,7 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 365 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét és az öntős játék tíz hangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 461 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tíz hangját és az R-kaland 96 mintahangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
@@ -97,7 +118,7 @@ Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a
 
 ## Hanganyagok
 
-Az alapértelmezett magyar mesélőhang 329 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 425 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 

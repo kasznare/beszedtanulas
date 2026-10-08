@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./narration.css" />
   <link rel="stylesheet" href="./animal-book.css" />
   <link rel="stylesheet" href="./pour.css" />
+  <link rel="stylesheet" href="./r-practice.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -55,6 +56,7 @@
       </div>
       <div class="game-worlds">
         <button class="logic-portal-link" data-open="pour"><span aria-hidden="true">💧</span><span><strong>Töltsünk a barátainknak!</strong><small>Dönts · adagolj · kínáld meg Macit és Nyuszit</small></span></button>
+        <button class="logic-portal-link r-practice-portal" data-open="r-practice"><span aria-hidden="true">🦊</span><span><strong>Róka R-kalandja</strong><small>Öt játék · szavak · mondókák · saját hang</small></span></button>
         <button class="logic-portal-link animal-book-portal" data-open="animal-book"><span aria-hidden="true">📖</span><span><strong>Hangos állatkönyv</strong><small>Lapozz · fedezd fel · hallgasd meg az állatokat</small></span></button>
         <button class="logic-portal-link" data-open="furfangliget"><span aria-hidden="true">🧩</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span></button>
         <button class="logic-portal-link" data-open="workshop"><span aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Válogatókert · Mintaszövő · Egyensúlyműhely</small></span></button>
@@ -69,6 +71,7 @@
     <section id="workshop" class="panel workshop-panel" aria-label="Műhelyliget képes gondolkodtató játékok"></section>
     <section id="animal-book" class="panel animal-book-panel" aria-label="Lapozható állathangos képeskönyv"></section>
     <section id="pour" class="panel pour-panel" aria-label="Öntős ügyességi játék Macival és Nyuszival"></section>
+    <section id="r-practice" class="panel r-practice-panel" aria-label="Róka R-kalandja, öt hanggyakorló játék"></section>
 
     <section id="teddy-game" class="panel teddy-panel" aria-label="Etesd meg a macit" data-mood="waiting">
       <div id="teddy-progress" class="round-progress" role="group" aria-label="A piknik haladása"></div>
@@ -158,6 +161,7 @@
         <button class="choice-tile tone-peach" data-open="imitate" aria-label="Egy szó"><span class="choice-art" aria-hidden="true">🍎</span><span>Egy szó</span></button>
         <button class="choice-tile tone-mint" data-open="two-word" aria-label="Két szó"><span class="choice-art phrase-art" aria-hidden="true">🙏 💧</span><span>Két szó</span></button>
       </div>
+      <div class="game-worlds"><button class="logic-portal-link r-practice-portal" data-open="r-practice"><span aria-hidden="true">🦊</span><span><strong>Róka R-kalandja</strong><small>Hallgatás · utánmondás · mondókák · saját visszhang</small></span></button></div>
     </section>
 
     <section id="number-menu" class="panel menu-panel" aria-label="Számjáték választása">
@@ -259,6 +263,7 @@
         </div><p class="parent-note">A szintváltás új feladatot indít az érintett játékban. Az eredmények megmaradnak. A beállítások ezen az eszközön közösek; a haladás és a félbehagyott feladatok profilonként külön mentődnek, fájlba is. A gépnél a nulla is szerepelhet.</p><div id="logic-summary" class="logic-summary"></div></div>
         <div class="parent-controls"><h2>Műhelyliget – formák, minták és egyensúly</h2><label for="workshop-level">Műhelyek nehézsége</label><select id="workshop-level"><option value="1">Felfedező – színek, egyszerű minták, számbontás</option><option value="2">Gondolkodó – szín és forma, hosszabb minták, két rúd</option><option value="3">Tervező – több tulajdonság, kettős minták, három különböző rúd</option></select><p id="workshop-summary" class="logic-summary"></p><p class="parent-note">A szint a ligetben is választható. Minden játék minden szintje külön félbehagyott feladatot és önálló/segített eredményt őriz; profilváltással és fájlmentéssel együtt.</p></div>
         <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A térképen az új piknik mérete is választható, a számolási szintig (1–3 / 1–5 / 1–10). A félbehagyott kaland megtartja a méretét. A szabad játék a körhosszt használja; választott mennyiséggel is gyakorolható. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
+        <div class="parent-controls"><h2>Róka R-kalandja</h2><p id="r-practice-summary" class="logic-summary"></p><p class="parent-note">A képes találat, a mikrofonos próba, a felismert szó és a közösen jelzett gyakorlás külön eredmény. Ezek nem az R kiejtésének minősítései. A haladás profilonként menthető; saját hangfelvétel nem kerül a mentésbe.</p></div>
         <div class="parent-controls">
           <h2>Így játsszunk</h2>
           <label for="round-length">Egy gyakorlókör</label>

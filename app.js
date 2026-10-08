@@ -21,6 +21,9 @@ import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
 import { setupPourGame } from "./pour-game.js";
 import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
+import { setupRPractice } from "./r-practice-game.js";
+import { normalizeRProgress, matchRPracticeSpeech } from "./r-practice-data.js";
+import { detectRVoiceActivity } from "./r-practice-media.js";
 import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
@@ -65,6 +68,7 @@ const screenInfo = {
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
   pour: { title: "Töltsünk a barátainknak!" },
+  "r-practice": { title: "Róka R-kalandja" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
@@ -109,6 +113,7 @@ let puzzleGame;
 let workshopGame;
 let animalBook;
 let pourGame;
+let rPractice;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -419,6 +424,17 @@ pourGame = setupPourGame({
     saveProgress(); refreshStats(); celebrateRound('pour', count);
   },
 });
+rPractice = setupRPractice({
+  getProgress: () => state.rPractice,
+  updateProgress: progress => { state.rPractice=progress; saveProgress({sync:false}); refreshStats(); },
+  speak: (id,cue) => speakVoice(id,undefined,cue), stopPlayback,
+  listen: async ({text,mode,signal,onStart}) => {
+    if(mode==='encouraging')return detectRVoiceActivity({signal,onStart});
+    const speech=await recognizeHungarianSpeech({signal,onStart,timeoutMs:text.split(' ').length>1?SPEECH_TIMING.phrase:SPEECH_TIMING.word,isMatch:result=>matchRPracticeSpeech(text,result.alternatives)});
+    if(speech.error&&speech.error!=='no-speech'&&speech.error!=='aborted')throw Error(speechErrorMessage(speech.error));
+    return {matched:matchRPracticeSpeech(text,speech.alternatives),transcript:speech.transcript};
+  },
+});
 progressTools = setupProgressTools({
   getState: () => state,
   getRevision: () => localStorage.getItem(STORAGE_KEY),
@@ -445,7 +461,7 @@ window.addEventListener("storage", event => {
     setSupabaseStatus("Másik játékablak módosította a mentést. Frissítsd ezt az oldalt a további mentéshez; az itteni eredményeket előbb fájlba mentheted.");
   }
 });
-setupOffline({ beforeReload: () => stopAutoImitateSession(false) });
+setupOffline({ beforeReload: () => { stopAutoImitateSession(false); rPractice?.stop(); } });
 
 document.querySelector("#auto-session").addEventListener("click", () => {
   primeSfx();
@@ -900,6 +916,8 @@ function renderDebug(result) {
 }
 
 function refreshStats() {
+  const rSummary = document.querySelector('#r-practice-summary');
+  if(rSummary){const games=Object.values(normalizeRProgress(state.rPractice).games);rSummary.textContent=`Közös körök: ${games.reduce((sum,game)=>sum+game.rounds,0)}. Mikrofonos próbák és képes találatok: ${games.reduce((sum,game)=>sum+game.practices,0)}. Felismert szavak vagy sorok: ${games.reduce((sum,game)=>sum+game.recognized,0)}. Közösen jelzett gyakorlások: ${games.reduce((sum,game)=>sum+game.confirmed,0)}.`;}
   const workshop = normalizeWorkshop(state.workshop);
   const workshopSummary = document.querySelector('#workshop-summary');
   if (workshopSummary) workshopSummary.textContent = Object.entries(WORKSHOP_NAMES).map(([kind, name]) => {
@@ -1163,6 +1181,7 @@ function baseProgress() {
     meadow: normalizeMeadow(),
     logic: normalizeLogic(),
     workshop: normalizeWorkshop(),
+    rPractice: normalizeRProgress(),
     settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
@@ -2036,6 +2055,7 @@ function setupNavigation() {
     else if (currentScreen === "puzzle") puzzleGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
+    else if (currentScreen === "r-practice") rPractice.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
     else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
     else if (currentScreen === "listening-game") listeningGame.repeat({ intro: true, force: true });
@@ -2100,6 +2120,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   workshopGame?.stop();
   animalBook?.stop();
   pourGame?.stop();
+  rPractice?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -2128,6 +2149,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
   if (screen === "pour") pourGame.start();
+  if (screen === "r-practice") rPractice.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
