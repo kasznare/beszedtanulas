@@ -464,6 +464,26 @@ export const VOICE_CLIPS = {
     "text": "Minden pár megvan! Szép munka!",
     "file": "audio/voice/memory_done.mp3"
   },
+  "puzzle_start": {
+    "text": "Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.",
+    "file": "audio/voice/puzzle_start.mp3"
+  },
+  "puzzle_hint": {
+    "text": "Nézzük meg a teljes képet! Keresd meg rajta a darabod helyét!",
+    "file": "audio/voice/puzzle_hint.mp3"
+  },
+  "puzzle_retry": {
+    "text": "Ez a darab másik helyre illik. Próbáld újra!",
+    "file": "audio/voice/puzzle_retry.mp3"
+  },
+  "puzzle_place": {
+    "text": "Ez az! A darab a helyén van.",
+    "file": "audio/voice/puzzle_place.mp3"
+  },
+  "puzzle_done": {
+    "text": "Elkészült a kép! Szép munka!",
+    "file": "audio/voice/puzzle_done.mp3"
+  },
   "workshop_menu": {
     "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
     "file": "audio/voice/workshop_menu.mp3"

@@ -40,6 +40,7 @@ const map = {
  mese_served:{target:'.meadow-plate'},mese_more:{target:'.meadow-basket'},mese_less:{target:'.meadow-basket-apples'},mese_count_help:{target:'.meadow-count-guide'},mese_plate_help:{target:'.needs-plate .meadow-plate'},mese_plate_more:{target:'.needs-plate'},
  mese_dressed:{target:'#meadow-bear'},mese_finish:{target:'.meadow-memory'},mese_free_finish:{target:'.meadow-memory'},mese_album:{target:'.meadow-memory'},mese_empty_album:{target:'.meadow-album-empty'},
  memory_start:{target:'.memory-board'},memory_hint:{target:'.memory-card.is-open'},memory_match:{target:'.memory-card.is-matched'},memory_done:{target:'.memory-progress'},
+ puzzle_start:{parts:[part('Válassz egy darabot','.puzzle-tray'),part('koppints a helyére','.puzzle-board')]},puzzle_hint:{target:'.puzzle-board'},puzzle_retry:{target:'#puzzle-status'},puzzle_place:{target:'.puzzle-progress'},puzzle_done:{target:'.puzzle-board.is-complete'},
  workshop_menu:{parts:[part('Válogasd a tárgyakat','[data-game="sort"]'),part('folytasd a mintát','[data-game="pattern"]'),part('egyensúlyba a mérleget','[data-game="balance"]')]},
  workshop_sort_1:{target:'.ws-token',parts:[part('Koppints egy tárgyra','.ws-token'),part('hozzá illő tálcára','.ws-bin-target')]},
  workshop_sort_2:{target:'.ws-token',parts:[part('szín és a forma','.ws-bin-target'),part('Válassz egy tárgyat','.ws-token'),part('hozzá illő tálcára','.ws-bin-target')]},

@@ -5,10 +5,11 @@
 .game-worlds .logic-portal-link small { line-height:1.45; }
 .game-worlds .logic-portal-link[data-open="workshop"] { background:#f9ecd0; border-color:#d8bd80; color:#654f33; box-shadow:0 4px 0 #dec899; }
 .game-worlds .logic-portal-link[data-open="memory"] { background:#e2eedf; border-color:#b3cdaa; color:#38594a; box-shadow:0 4px 0 #bfd5b7; }
+.game-worlds .logic-portal-link[data-open="puzzle"] { background:#eee2f2; border-color:#c4aaca; color:#614a68; box-shadow:0 4px 0 #d8c4df; }
 .game-worlds .logic-portal-link[data-open="animal-book"] { background:#f3e4d7; border-color:#cdb39b; color:#674c39; box-shadow:0 4px 0 #d8c1a9; }
 .game-worlds .logic-portal-link:active { transform:translateY(3px); box-shadow:none; }
 .game-worlds .logic-portal-link:focus-visible { outline:4px solid #ac681d; outline-offset:4px; }
 @media(min-width:850px) { .game-worlds { grid-template-columns:repeat(3,minmax(0,1fr)); }.game-worlds .logic-portal-link { flex-direction:column; text-align:center; padding:20px 14px; align-items:center; } }
-@media(min-width:850px) { #play-menu .game-worlds { grid-template-columns:repeat(4,minmax(0,1fr)); } #picture-menu .game-worlds { grid-template-columns:1fr; } #picture-menu .animal-book-portal { flex-direction:row; text-align:left; } }
+@media(min-width:850px) { #play-menu .game-worlds { grid-template-columns:repeat(3,minmax(0,1fr)); } #picture-menu .game-worlds { grid-template-columns:1fr; } #picture-menu .animal-book-portal { flex-direction:row; text-align:left; } }
 @media(max-width:420px) { .game-worlds .logic-portal-link { padding:13px; gap:12px; }.game-worlds .logic-portal-link>span:first-child { min-width:52px; width:52px; height:52px; font-size:2.2rem; }.game-worlds .logic-portal-link strong { font-size:1.1rem; } }
 @media(prefers-reduced-motion:reduce) { .game-worlds .logic-portal-link { transition:none; } }

@@ -700,6 +700,36 @@
       "file": "audio/voice/memory_done.mp3"
     },
     {
+      "id": "puzzle_start",
+      "text": "Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_start.mp3"
+    },
+    {
+      "id": "puzzle_hint",
+      "text": "Nézzük meg a teljes képet! Keresd meg rajta a darabod helyét!",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_hint.mp3"
+    },
+    {
+      "id": "puzzle_retry",
+      "text": "Ez a darab másik helyre illik. Próbáld újra!",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_retry.mp3"
+    },
+    {
+      "id": "puzzle_place",
+      "text": "Ez az! A darab a helyén van.",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_place.mp3"
+    },
+    {
+      "id": "puzzle_done",
+      "text": "Elkészült a kép! Szép munka!",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_done.mp3"
+    },
+    {
       "id": "workshop_menu",
       "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
       "group": "workshop",

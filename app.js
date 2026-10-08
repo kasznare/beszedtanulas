@@ -15,6 +15,8 @@ import { setupDressGame } from "./dress-game.js";
 import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
+import { setupPuzzleGame } from "./puzzle-game.js";
+import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
 import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
@@ -43,7 +45,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1 };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, ...normalizePuzzleOptions() };
 const state = loadProgress();
 let currentScreen = "home";
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
@@ -58,6 +60,7 @@ const screenInfo = {
   meseliget: { title: "Meseliget" },
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
+  puzzle: { title: "Képkirakó" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
@@ -100,6 +103,7 @@ let dressGame;
 let meadowGame;
 let logicGame;
 let memoryGame;
+let puzzleGame;
 let workshopGame;
 let animalBook;
 let externalProgressChanged = false;
@@ -366,6 +370,15 @@ memoryGame = setupMemoryGame({
   onComplete: count => {
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound('memory', count);
+  },
+});
+puzzleGame = setupPuzzleGame({
+  getOptions: () => state.settings,
+  setOptions: options => { Object.assign(state.settings, normalizePuzzleOptions(options)); saveProgress(); },
+  speak: id => speakVoice(id), stopPlayback,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress(); refreshStats(); celebrateRound('puzzle', count);
   },
 });
 workshopGame = setupWorkshop({
@@ -1163,6 +1176,7 @@ function normalizeState(input) {
       numberLimit: [3, 5, 10].includes(input.settings?.numberLimit) ? input.settings.numberLimit : 3,
       listeningChoices: input.settings?.listeningChoices === 3 ? 3 : 2,
       memoryPairs: [2, 3, 4, 6].includes(input.settings?.memoryPairs) ? input.settings.memoryPairs : 3,
+      ...normalizePuzzleOptions(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
@@ -2004,6 +2018,7 @@ function setupNavigation() {
     else if (currentScreen === "meseliget") meadowGame.repeat();
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
+    else if (currentScreen === "puzzle") puzzleGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
@@ -2026,6 +2041,7 @@ function setupNavigation() {
     else if (completedRoundKind === "teddy-game") showScreen("teddy-game");
     else if (completedRoundKind === "listening-game") showScreen("listening-game");
     else if (completedRoundKind === "memory") showScreen("memory");
+    else if (completedRoundKind === "puzzle") showScreen("puzzle");
     else startAutoImitateSession();
   });
   const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
@@ -2064,6 +2080,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   meadowGame?.stop();
   logicGame?.stop();
   memoryGame?.stop();
+  puzzleGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
   if (cloudResumePending) disconnectCloud();
@@ -2090,6 +2107,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "meseliget") meadowGame.start({ announce });
   if (screen === "furfangliget") logicGame.start();
   if (screen === "memory") memoryGame.start();
+  if (screen === "puzzle") puzzleGame.start();
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
@@ -2175,8 +2193,9 @@ function celebrateRound(kind, count) {
   playSuccessSound();
   burstConfettiOverlay(1000);
   document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
-  document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : "De jó volt együtt!";
+  document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : "De jó volt együtt!";
   document.querySelector("#round-complete").showModal();
   if (kind === "memory") speakVoice('memory_done');
+  else if (kind === "puzzle") speakVoice('puzzle_done');
   else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
 }
