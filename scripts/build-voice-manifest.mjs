@@ -7,6 +7,7 @@ import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
+import { POUR_CLIPS } from '../pour-data.js';
 
 const clips = [];
 const add = (id, text, group = 'guide') => clips.push({ id, text, group, file: `audio/voice/${id}.mp3` });
@@ -51,6 +52,7 @@ for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) add(id, text, 'puzzle');
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop');
+for (const [id, text] of Object.entries(POUR_CLIPS)) add(id, text, 'pour');
 for (const [id, text] of Object.entries(MESE_CLIPS)) add(id, text, 'meseliget');
 for (const [id, text] of Object.entries(teddyRequests)) add(`teddy_${id}`, text, 'teddy');
 for (const item of dressItems) {

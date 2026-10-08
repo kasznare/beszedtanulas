@@ -1,5 +1,15 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 8. – Döntögetős öntés Macinak és Nyuszinak
+
+A felhasználó telefon döntögetésével vezérelt öntős ügyességi játékot kért a meglévő játékok közé. **Játsszunk! → Töltsünk a barátainknak!**: saját SVG-kancsó, két pohár, Maci és Nyuszi, jelölt vízszintek, tíz magyar MP3 és halk, helyben előállított csobogás. Három helyben választható, mentett szint: automatikus megállás; önálló adagolás és elfogadó sáv; két különböző mennyiség. Túltöltésnél a kiválasztott pohár üríthető. Mindkét elkészült pohár után a Kész a piknik! gomb egyszer ad jutalmat az aktív profilnak; a beszédpróbákhoz nem ad eredményt.
+
+- Telefonon külön gombból indított mozgásengedély, fél másodperces kezdőhelyzet-kalibrálás, simítás és holtzóna. A döntés iránya választ poharat, mértéke adja a folyás sebességét. Pohárváltás középhelyzet után; álló/fekvő fordításkor új kalibrálás. Elutasítás, késői engedély és hiányzó szenzoradat kezelve. Gombos mód minden eszközön elérhető; érintés/egér nyomva tartás, bal/jobb nyíl, a gombon Enter/Space és kisegítő kattintás támogatott.
+- Kilépés, háttér és fókuszvesztés leállítja a folyást, a hangot és a lenyomott bemenetet. Visszatérve a döntést újrakalibrálja; késői engedély nem hozza vissza az elhagyott játékot. Csökkentett mozgásnál álló vízszint és animáció nélküli vízsugár marad.
+- Fájlok: `pour-data.js`, `pour-game.js`, `pour.css`, `tests/pour.test.mjs`, `tests/browser/pour.js`. Integráció: app/index, közös hangjegyzék/narráció, helyi beállítás, jutalom és offline csomag. Csomag: 426 futtatási fájl, 365 MP3 (329 magyar + 24 családi + 12 állathang).
+
+Ellenőrzés: teljes build, 107 sikeres Node-teszt; Chrome és WebKit alatt egyaránt 32 sikeres böngészős próba. Teljes kör, egyszeri jutalom, újrajátszás, egér, nyilak, túltöltés-javítás, mentett szint, szimulált mozgásengedély és orientációs adatok, kilépés, nyolc telefon/tablet/gép méret (375×667–1440×900, köztük 932×350), legalább 44px gombok, csökkentett mozgás, offline újratöltés és új hangok cache-elése. Játékszkript-hiba nincs. A valódi iPhone/iPad Safari és főképernyős döntésvezérlés fizikai készülékpróbája még szükséges; a szimulált szenzorpróba ezt nem helyettesíti. A publikálás a meglévő GitHub Pages main-folyamattal történik.
+
 ## 2026. október 7. – Lapozható állathangos képeskönyv
 
 A felhasználó a megnyomható állatszimbólumokkal működő hangos könyvekhez hasonló játékot kért, komplexebb képekkel és lapozással. A korábbi párhuzamos fejlesztési engedély alapján a műhely-agent készítette a könyvvezérlőt, a Furfang-agent a valódi állatfelvételeket, a Meseliget-agent a célzott böngészős tesztet; a root generálta az illusztrációkat, végezte az integrációt és a közzétételt. Kiinduló main: `49eff45`; a térkép nélküli ösvényváltozat megmaradt. Usage-reset kredit nem lett beváltva.

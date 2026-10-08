@@ -19,6 +19,7 @@ import { setupPuzzleGame } from "./puzzle-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
+import { setupPourGame } from "./pour-game.js";
 import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
 import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
@@ -45,7 +46,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, ...normalizePuzzleOptions() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions() };
 const state = loadProgress();
 let currentScreen = "home";
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
@@ -63,6 +64,7 @@ const screenInfo = {
   puzzle: { title: "Képkirakó" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
+  pour: { title: "Töltsünk a barátainknak!" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
   topics: { title: "Mit nézzünk meg?", guide: "topics" },
   cards: { title: "Beszélő képek", guide: "cards" },
@@ -106,6 +108,7 @@ let memoryGame;
 let puzzleGame;
 let workshopGame;
 let animalBook;
+let pourGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
@@ -405,6 +408,16 @@ animalBook = setupAnimalBook({
   },
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
+});
+pourGame = setupPourGame({
+  getOptions: () => state.settings,
+  setLevel: level => { state.settings.pourLevel = level; saveProgress(); },
+  speak: id => { if (state.settings.spokenGuidance) return speakVoice(id); },
+  stopPlayback, getAudioContext: getSfxContext,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress(); refreshStats(); celebrateRound('pour', count);
+  },
 });
 progressTools = setupProgressTools({
   getState: () => state,
@@ -1178,6 +1191,7 @@ function normalizeState(input) {
       memoryPairs: [2, 3, 4, 6].includes(input.settings?.memoryPairs) ? input.settings.memoryPairs : 3,
       ...normalizePuzzleOptions(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
+      pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
     detection: {
@@ -2018,6 +2032,7 @@ function setupNavigation() {
     else if (currentScreen === "meseliget") meadowGame.repeat();
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
+    else if (currentScreen === "pour") pourGame.repeat();
     else if (currentScreen === "puzzle") puzzleGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
@@ -2041,6 +2056,7 @@ function setupNavigation() {
     else if (completedRoundKind === "teddy-game") showScreen("teddy-game");
     else if (completedRoundKind === "listening-game") showScreen("listening-game");
     else if (completedRoundKind === "memory") showScreen("memory");
+    else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") showScreen("puzzle");
     else startAutoImitateSession();
   });
@@ -2083,6 +2099,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   puzzleGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
+  pourGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -2110,6 +2127,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "puzzle") puzzleGame.start();
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
+  if (screen === "pour") pourGame.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (pushHistory && previousScreen !== screen) history.pushState({ screen, category: selectedCategory }, "");
   title.tabIndex = -1;
@@ -2195,7 +2213,8 @@ function celebrateRound(kind, count) {
   document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
   document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : "De jó volt együtt!";
   document.querySelector("#round-complete").showModal();
-  if (kind === "memory") speakVoice('memory_done');
+  if (kind === "pour") speakVoice('pour_done');
+  else if (kind === "memory") speakVoice('memory_done');
   else if (kind === "puzzle") speakVoice('puzzle_done');
   else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
 }

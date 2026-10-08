@@ -684,6 +684,46 @@ export const VOICE_CLIPS = {
     "text": "tizenöt",
     "file": "audio/voice/workshop_n_15.mp3"
   },
+  "pour_start": {
+    "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! Tölts a jelzésig!",
+    "file": "audio/voice/pour_start.mp3"
+  },
+  "pour_tilt": {
+    "text": "Tartsd kényelmesen a telefont! Döntsd balra a macihoz, jobbra a nyuszihoz! Középen megáll az öntés.",
+    "file": "audio/voice/pour_tilt.mp3"
+  },
+  "pour_centre": {
+    "text": "Hozd vissza középre a telefont! Utána tölthetünk a másik pohárba.",
+    "file": "audio/voice/pour_centre.mp3"
+  },
+  "pour_manual": {
+    "text": "Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a víz.",
+    "file": "audio/voice/pour_manual.mp3"
+  },
+  "pour_two": {
+    "text": "A macinak kevesebb, a nyuszinak több víz kell. Figyeld a jelzéseket!",
+    "file": "audio/voice/pour_two.mp3"
+  },
+  "pour_bear_done": {
+    "text": "A maci pohara elkészült! Köszönöm!",
+    "file": "audio/voice/pour_bear_done.mp3"
+  },
+  "pour_rabbit_done": {
+    "text": "A nyuszi pohara elkészült! Köszönöm!",
+    "file": "audio/voice/pour_rabbit_done.mp3"
+  },
+  "pour_more": {
+    "text": "Még egy kicsi víz kell. Töltsünk a jelzésig!",
+    "file": "audio/voice/pour_more.mp3"
+  },
+  "pour_over": {
+    "text": "Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!",
+    "file": "audio/voice/pour_over.mp3"
+  },
+  "pour_done": {
+    "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",
+    "file": "audio/voice/pour_done.mp3"
+  },
   "mese_map": {
     "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
     "file": "audio/voice/mese_map.mp3"

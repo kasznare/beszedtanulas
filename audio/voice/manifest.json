@@ -1030,6 +1030,66 @@
       "file": "audio/voice/workshop_n_15.mp3"
     },
     {
+      "id": "pour_start",
+      "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! Tölts a jelzésig!",
+      "group": "pour",
+      "file": "audio/voice/pour_start.mp3"
+    },
+    {
+      "id": "pour_tilt",
+      "text": "Tartsd kényelmesen a telefont! Döntsd balra a macihoz, jobbra a nyuszihoz! Középen megáll az öntés.",
+      "group": "pour",
+      "file": "audio/voice/pour_tilt.mp3"
+    },
+    {
+      "id": "pour_centre",
+      "text": "Hozd vissza középre a telefont! Utána tölthetünk a másik pohárba.",
+      "group": "pour",
+      "file": "audio/voice/pour_centre.mp3"
+    },
+    {
+      "id": "pour_manual",
+      "text": "Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a víz.",
+      "group": "pour",
+      "file": "audio/voice/pour_manual.mp3"
+    },
+    {
+      "id": "pour_two",
+      "text": "A macinak kevesebb, a nyuszinak több víz kell. Figyeld a jelzéseket!",
+      "group": "pour",
+      "file": "audio/voice/pour_two.mp3"
+    },
+    {
+      "id": "pour_bear_done",
+      "text": "A maci pohara elkészült! Köszönöm!",
+      "group": "pour",
+      "file": "audio/voice/pour_bear_done.mp3"
+    },
+    {
+      "id": "pour_rabbit_done",
+      "text": "A nyuszi pohara elkészült! Köszönöm!",
+      "group": "pour",
+      "file": "audio/voice/pour_rabbit_done.mp3"
+    },
+    {
+      "id": "pour_more",
+      "text": "Még egy kicsi víz kell. Töltsünk a jelzésig!",
+      "group": "pour",
+      "file": "audio/voice/pour_more.mp3"
+    },
+    {
+      "id": "pour_over",
+      "text": "Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!",
+      "group": "pour",
+      "file": "audio/voice/pour_over.mp3"
+    },
+    {
+      "id": "pour_done",
+      "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",
+      "group": "pour",
+      "file": "audio/voice/pour_done.mp3"
+    },
+    {
       "id": "mese_map",
       "text": "Szia! Ez itt Meseliget. Szedjünk almát, terítsünk meg, vagy induljunk együtt piknikezni!",
       "group": "meseliget",

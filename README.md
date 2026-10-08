@@ -22,6 +22,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 - **Számoljunk:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
 - **Képpárok:** animált képes memóriajáték 2 / 3 / 4 / 6 párral, a választott témakörből. A képes segítség röviden megmutatja a teljes táblát, a rossz párosítás javítható, a teljes kör egyszer ad jutalmat. A párok száma a játékban és a szülői beállításban is választható.
+- **Töltsünk a barátainknak!:** öntős ügyességi játék Macival és Nyuszival, két jelölt pohárral. Telefonon balra/jobbra döntve, érintéssel vagy egérrel az öntésgombot nyomva tartva, gépen a bal/jobb nyíllal játszható. Három szint: automatikus megállás, önálló adagolás, két különböző mennyiség. Túltöltés után egyetlen pohár újrapróbálható; a befejezett piknik egyszer ad jutalmat.
 - **Képkirakó:** négy részletes puzzle kép (tanya, kert, tópart, erdő), képenként 6 / 8 / 10 darabbal. Koppints egy darabra, majd az üres helyére, vagy húzd oda egérrel/érintéssel. A **Mutasd a képet!** kapcsolható halvány mintaképet ad; a rossz helyre tett darab a tálcán marad. A kész kép egyszer ad jutalmat.
 - **Műhelyliget:** három Montessori ihlette, kézzel alakítható fejtörő, három választható szinten. **Válogatókert:** szín, majd szín és forma, végül méret szerinti válogatás. **Mintaszövő:** egyszerű és összetett ismétlődések, a legnehezebb szinten külön szín- és formaszabály. **Egyensúlyműhely:** számbontás színes rudakkal; nehezebb szinten pontosan két/három különböző hosszúságú rúd szükséges. Minden mozdulat visszavonható; három fokozatú segítség, játékonként és szintenként külön mentett feladat és eredmény. A szín mellett jel is segít az azonosításban.
 
@@ -51,6 +52,14 @@ Az utolsó kép és darabszám az eszköz közös játékbeállításaiban megma
 
 Megvalósítás: `puzzle-data.js`, `puzzle-game.js`, `puzzle.css`; belépés, beállításmentés és jutalom: `app.js`, `index.html`. A képfeldarabolás, keverés, elhelyezés és beállításbetöltés ellenőrzése: `tests/puzzle.test.mjs`; a teljes böngészős próba: `tests/browser/puzzle.js`, elkülönített Playwright-munkamenetben.
 
+## Öntős ügyességi játék
+
+A **Játsszunk! → Töltsünk a barátainknak!** saját SVG-jelenetet, látható vízszintet, tíz magyar hangot és halk, helyben előállított csobogást használ. A kezdőszinten a víz magától megáll a jelnél; a két nehezebb szinten az öntés elengedése vagy a telefon középhelyzetbe hozása ellenőrzi a jel körüli elfogadó sávot. A túl sok víz javítható a kiválasztott pohár kiürítésével. A szint az eszköz közös beállításaiban megmarad, a jutalom az aktív profilhoz kerül; a beszédpróbákat nem növeli.
+
+A **Döntögetéssel** gomb indítja a mozgásengedély kérését, ha a böngésző igényli. HTTPS és használható orientációs adatok szükségesek. A kényelmes kezdő kéztartást fél másodperc alatt kalibrálja; a kis mozdulatokat figyelmen kívül hagyja, az adatokat simítja. Másik pohárra váltás előtt középhelyzet szükséges. Álló/fekvő képernyőváltás új kalibrálást indít. Elutasított engedély vagy elmaradó szenzoradat esetén a gombos mód elérhető. Háttérbe lépés, ablakfókusz-vesztés és kilépés leállítja a folyást és a csobogást; visszatérés nem folytatja a nyomva tartott gombot. Mozgásengedélyt minden új belépéskor a játékos kezdeményez. A fizikai iPhone/iPad Safari és főképernyős döntésvezérlés még készüléken ellenőrizendő.
+
+Megvalósítás: `pour-data.js`, `pour-game.js`, `pour.css`; hangjegyzék és narráció a meglévő rendszerben. A szabályok ellenőrzése: `tests/pour.test.mjs`; a billentyűzetes, egérrel végzett, szimulált szenzoros és offline folyamat: `tests/browser/pour.js`, külön Playwright-munkamenetben. A játék és hangjai az offline csomag részei.
+
 ## Mikrofonos próbák
 
 A villogó jelzés akkor indul, amikor a hangfigyelés ténylegesen készen áll. Egy szó kimondására 6,5 másodperc, két szóra 9 másodperc áll rendelkezésre; a felismert jó végleges eredmény hamarabb lezárhatja a próbát. A két külön részletként felismert szó összetartozhat, az ugyanarra a részletre adott egymást kizáró javaslatok nem számítanak két szónak. A később kijavított részeredmény nem marad a válaszok között.
@@ -69,7 +78,7 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 355 hangfájlt, köztük a tizenkét állathangot és a puzzle öt magyar segítségét. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 365 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét és az öntős játék tíz hangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
@@ -88,7 +97,7 @@ Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a
 
 ## Hanganyagok
 
-Az alapértelmezett magyar mesélőhang 319 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 329 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 

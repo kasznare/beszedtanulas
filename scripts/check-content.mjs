@@ -11,6 +11,7 @@ import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
+import { POUR_CLIPS } from '../pour-data.js';
 
 const uniqueIds = (items, label) => assert.equal(new Set(items.map(item => item.id)).size, items.length, `Duplicate ${label} ID`);
 uniqueIds(words, 'word');
@@ -38,6 +39,7 @@ for (const [id, text] of Object.entries(LOGIC_CLIPS)) assert.equal(VOICE_CLIPS[i
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
+for (const [id, text] of Object.entries(POUR_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 uniqueIds(dressItems, 'dress');
 for (const [id, text] of Object.entries(MESE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const item of dressItems) {
