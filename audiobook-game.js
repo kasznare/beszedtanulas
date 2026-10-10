@@ -1,5 +1,7 @@
 import { AUDIOBOOKS } from './audiobook-data.js';
 import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
+import { createStoryVisual } from './story-visuals.js';
+import { STORY_VISUAL_ID } from './story-visual-data.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
 export const formatStoryTime = seconds => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, '0')}`;
@@ -8,7 +10,7 @@ export function setupAudiobooks({ stopPlayback }) {
   const root = document.querySelector('#audiobooks');
   let storage;
   try { storage = localStorage; } catch { storage = null; }
-  let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false;
+  let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false, visual;
   const $ = selector => root.querySelector(selector);
   const player = createAudiobookPlayer({
     preferences: loadAudiobookPreferences(storage), resolveSource: resolveAudiobookSource,
@@ -20,6 +22,10 @@ export function setupAudiobooks({ stopPlayback }) {
     const story = AUDIOBOOKS.find(story => story.id === state.storyId);
     if (!story) return;
     const playing = ['playing', 'buffering'].includes(state.phase);
+    const illustrated = story.id === STORY_VISUAL_ID;
+    root.dataset.illustrated = String(illustrated);
+    $('#story-visual-wrap').hidden = !illustrated;
+    visual?.sync(illustrated ? player.getPosition() : 0, illustrated && state.phase === 'playing');
     $('#story-title').textContent = story.title;
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
@@ -53,8 +59,16 @@ export function setupAudiobooks({ stopPlayback }) {
     }
   }
   function render() {
+    visual?.destroy();
     root.innerHTML = `<div class="story-library"><p class="story-intro">Válassz egy mesét, és kuckózzunk be!</p><article class="story-player" aria-labelledby="story-title"><div id="story-cover" class="story-cover" aria-hidden="true"></div><div class="story-player-main"><span class="story-eyebrow">HANGOS MESE</span><h2 id="story-title"></h2><div class="story-actions"><button id="story-toggle" class="story-toggle"></button><button id="story-restart" class="story-restart" aria-label="Mese újrakezdése"><span aria-hidden="true">↺</span><span>Elölről</span></button></div><label class="sr-only" for="story-seek">Hol tartunk a mesében?</label><input id="story-seek" class="story-seek" type="range" min="0" step="1" value="0"><div class="story-times" aria-hidden="true"><span id="story-elapsed"></span><span id="story-duration"></span></div><p id="story-status" class="story-status" role="status"></p></div><div class="story-download-row"><button id="story-download" class="story-download"></button><p id="story-offline" role="status"></p></div><p id="story-bookmark-warning" class="story-status" role="status" hidden>A böngésző most nem tudja megjegyezni, hol tartunk.</p><details id="story-transcript" class="story-transcript"><summary>Mese szövege</summary><div id="story-text"></div></details></article><h3 class="story-list-title">Melyiket hallgassuk?</h3><div class="story-grid" role="group" aria-label="Mesék">${AUDIOBOOKS.map(story => `<button class="story-card" data-story="${story.id}" aria-label="${escape(story.title)} kiválasztása"><span class="story-card-cover" aria-hidden="true">${story.emoji}</span><strong>${escape(story.title)}</strong><small class="story-card-note">${Math.ceil(story.duration / 60)} perc</small></button>`).join('')}</div></div>`;
     $('#story-toggle').addEventListener('click', () => ['playing', 'buffering'].includes(player.getState().phase) ? player.pause() : void player.play());
+    const visualWrap = document.createElement('div');
+    visualWrap.id = 'story-visual-wrap'; visualWrap.className = 'story-visual-wrap';
+    visualWrap.innerHTML = '<div id="story-visual" class="story-visual"></div><div class="story-visual-footer"><p id="story-scene-title"></p><label class="story-motion-label"><input id="story-motion" type="checkbox"> Mozgás</label></div>';
+    root.querySelector('.story-download-row').before(visualWrap);
+    visual = createStoryVisual($('#story-visual'), { readTime: player.getPosition, onScene: scene => { $('#story-scene-title').textContent = scene.title; } });
+    $('#story-motion').checked = visual.motion;
+    $('#story-motion').addEventListener('change', event => visual.setMotion(event.target.checked));
     $('#story-restart').addEventListener('click', () => void player.restart());
     $('#story-seek').addEventListener('input', event => { player.seek(Number(event.target.value)); });
     root.querySelectorAll('.story-card[data-story]').forEach(button => button.addEventListener('click', () => {
@@ -84,7 +98,7 @@ export function setupAudiobooks({ stopPlayback }) {
       update();
     },
     pause: player.pause,
-    stop() { player.stop(); active = false; session++; },
+    stop() { player.stop(); active = false; session++; visual?.destroy(); visual = null; },
     repeat() { if (active) $('#story-status').textContent = 'Válassz egy mesét! A nagy gombbal elindíthatod vagy szüneteltetheted.'; },
   };
 }

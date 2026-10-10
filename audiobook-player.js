@@ -117,6 +117,7 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     restart() { if (!audio) return; state.position = 0; if (state.metadata) audio.currentTime = 0; remember(); return play(); },
     stop() { pause(); generation++; release(); state.phase = 'idle'; state.metadata = false; emit(); },
     getState: () => ({ ...state }), getPreferences: () => structuredClone(saved),
+    getPosition: () => audio?.currentTime ?? state.position,
   };
 }
 
