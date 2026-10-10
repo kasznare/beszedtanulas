@@ -9,6 +9,8 @@ const worker = await readFile(resolve(root, 'sw.js'), 'utf8');
 const match = worker.match(/const ASSETS = (\[[\s\S]*?\]);/);
 if (!match) throw new Error('Missing offline asset manifest. Run npm run build-offline.');
 const assets = JSON.parse(match[1]);
+const optionalMatch = worker.match(/const OPTIONAL_ASSETS = (\[[\s\S]*?\]);/);
+if (optionalMatch) assets.push(...JSON.parse(optionalMatch[1]));
 // Only the verified runtime asset list is published; source notes and backups stay out.
 for (const asset of assets) {
   if (typeof asset.file !== 'string' || asset.file.startsWith('/') || asset.file.split('/').includes('..')) throw new Error('Invalid asset path');

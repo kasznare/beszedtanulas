@@ -9,6 +9,16 @@ const scope = 'https://game.test/child/';
 const prefix = `beszedtanulas:${scope}:`;
 const content = { 'index.html': '<h1>Játék</h1>', 'audio/word.mp3': '0123456789' };
 
+test('game activation preserves separately downloaded audiobooks', async () => {
+  const h = harness();
+  const audiobookCache = `beszedtanulas-audiobooks:${scope}:v1`;
+  h.stores.set(audiobookCache, new Map([['story-01', new Response('saved story')]]));
+  h.stores.set(prefix + 'old', new Map());
+  await h.emit('install'); await h.emit('activate');
+  assert.equal(await h.stores.get(audiobookCache).get('story-01').text(), 'saved story');
+  assert.equal(h.stores.has(prefix + 'old'), false);
+});
+
 function harness({ includeRefresh = false } = {}) {
   const stores = new Map();
   const listeners = new Map();

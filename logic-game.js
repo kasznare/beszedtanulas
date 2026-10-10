@@ -349,7 +349,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     tick();
   }
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { cancelAnimation(); stopPlayback(); }
+    if (document.hidden && active) { cancelAnimation(); stopPlayback(); }
     else if (active && kind) { status = ''; render(); }
   });
   return { start() { active = true; menu(); }, stop, repeat };

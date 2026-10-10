@@ -21,6 +21,7 @@ import { setupPuzzleGame } from "./puzzle-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
+import { setupAudiobooks } from "./audiobook-game.js";
 import { setupPourGame } from "./pour-game.js";
 import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
 import { setupRPractice } from "./r-practice-game.js";
@@ -74,6 +75,7 @@ const screenInfo = {
   puzzle: { title: "Képkirakó" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
+  audiobooks: { title: "Mesetár" },
   pour: { title: "Töltsünk a barátainknak!" },
   "r-practice": { title: "Róka R-kalandja" },
   "teddy-game": { title: "Etesd meg a macit!", guide: "teddy" },
@@ -119,6 +121,7 @@ let memoryGame;
 let puzzleGame;
 let workshopGame;
 let animalBook;
+let audiobooks;
 let pourGame;
 let rPractice;
 let externalProgressChanged = false;
@@ -427,6 +430,7 @@ animalBook = setupAnimalBook({
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
 });
+audiobooks = setupAudiobooks({ stopPlayback });
 pourGame = setupPourGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
@@ -488,7 +492,7 @@ document.querySelector("#auto-session").addEventListener("click", () => {
 });
 document.querySelector("#stop-listening").addEventListener("click", stopAutoImitateSession);
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) stopAutoImitateSession();
+  if (document.hidden && currentScreen !== "audiobooks") stopAutoImitateSession();
 });
 window.addEventListener("pagehide", stopAutoImitateSession);
 window.addEventListener("pagehide", () => roundSuccess.cancel());
@@ -989,6 +993,7 @@ async function playDressPrompt(item, { intro = false, force = false } = {}) {
 }
 
 function stopPlayback() {
+  audiobooks?.pause();
   playbackToken += 1;
   narration.stop();
   cancelPlayback?.();
@@ -2104,6 +2109,7 @@ function setupNavigation() {
     else if (currentScreen === "puzzle") puzzleGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
+    else if (currentScreen === "audiobooks") audiobooks.repeat();
     else if (currentScreen === "r-practice") rPractice.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
     else if (currentScreen === "teddy-game") teddyGame.repeat({ intro: true, force: true });
@@ -2181,6 +2187,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   puzzleGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
+  audiobooks?.stop();
   pourGame?.stop();
   rPractice?.stop();
   if (cloudResumePending) disconnectCloud();
@@ -2220,6 +2227,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "puzzle") puzzleGame.start();
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
+  if (screen === "audiobooks") audiobooks.start();
   if (screen === "pour") pourGame.start();
   if (screen === "r-practice") rPractice.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();

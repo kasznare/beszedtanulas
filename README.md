@@ -21,7 +21,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 | **Képek és hangok** | Képes témák, Hol van?, Hangos állatkönyv |
 | **Mondd utánam** | Egy szó, Két szó együtt, Róka R-kalandja |
 | **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget |
-| **Mesék és Maci** | Etesd meg a macit!, Maci öltözik, Meseliget |
+| **Mesék és Maci** | Mesetár, Etesd meg a macit!, Maci öltözik, Meseliget |
 | **Kirakók és ügyesség** | Képpárok, Képkirakó, Töltsünk a barátainknak!, Mi bújt el? |
 
 Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl megnevezi a célját. A többjátékos ligetekben és az R-kalandban először a saját választó nyílik meg, majd a csoport. A kör végi ablakból is vissza lehet lépni a csoporthoz. A böngésző vissza/előre gombja megtartja a kiválasztott képes témát és a számolási módot. A mentett ligetfeladatok és eredmények kilépés után is megmaradnak; az új körrel induló játékok visszatéréskor új kört kezdenek.
@@ -133,6 +133,12 @@ npm run check
 Ez frissíti a generált **sw.js** fájlt. A kézzel szerkesztendő működés a **service-worker-runtime.js**, a fájljegyzék összeállítása a **scripts/build-offline.mjs**, a frissítési vezérlés az **offline-client.js** fájlban van. A gyökérkönyvtár JavaScript- és CSS-fájljai automatikusan bekerülnek; új almappás modulok vagy képek esetén bővítsd a generátor fájllistáját is. A frissítés a főképernyőre visszatérve automatikusan alkalmazódik, ha a teljes csomag elkészült és nincs másik nyitott játékablak.
 
 ## Hanganyagok
+
+A **Mesék és Maci → Mesetár** tizenkét előre elkészített hangos mesét tartalmaz. A magyar Noémi mesélőhang és a lassított tempó megegyezik a játékokéval. A nagy gomb lejátszást/szünetet vált, az **Elölről** újrakezd, a csúszkával bármelyik részhez vissza lehet térni. Mesénként megmarad a hallgatási pozíció és az utoljára választott történet. A meseválasztás és a menüváltás leállítja az előző felvételt; az app más hangjai szüneteltetik a mesét. A kész mesék nem váltanak böngészős szövegfelolvasásra.
+
+A hosszú MP3-fájlok az oldal telepítésekor nem töltődnek le automatikusan. A **Letöltés** gomb az adott mesét ellenőrzőösszeggel ellenőrzi és külön helyi cache-be menti; a **Letöltve** jelzés után hálózat nélkül is hallgatható. Ez a cache a játékok verziófrissítésekor megmarad. Böngészős tárhelytörlés után újra le kell tölteni a meséket. A pozíció eszközbeállítás, nem gyermekeredmény; a profilváltás nem készít második mesekönyvjelzőt.
+
+A változtatás nélkül kimentett eredeti szövegek a `content/stories/` könyvtárban vannak. Csak a cím és a mese szövege kerül a hangszolgáltatáshoz; a chat üzenetei és forrásadatai nem. A hangkészítés eltávolítja a formázási jeleket, de nem írja át a történetet. Újragenerálás: `npm run generate-audiobooks` (uv, internet és ffmpeg/ffprobe szükséges). Az ellenőrzött MP3-ak az `audio/audiobooks/` könyvtárba, a hangkészítési bizonylat az ottani `generated.json` fájlba, a lejátszható jegyzék az `audiobook-data.js` fájlba kerül. Mindhármat együtt kell menteni. A generátor rövid szövegrészekből készít ellenőrzött hangot, majd veszteségmentesen fűzi össze; megszakítás után újrafuttatható. A `scripts/check-audiobooks.mjs` a forrást, a szöveget, a hangot, a tempót és az MP3 ellenőrzőösszegét ellenőrzi. A forrásimport és a chat adatai nem részei a publikált csomagnak.
 
 Az alapértelmezett magyar mesélőhang 430 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 

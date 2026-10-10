@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "extractedOn": "2026-10-08",
+  "note": "A címek azonosítást segítő munkacímek. A meseszövegek változtatás nélkül, a kiemelési jelekkel együtt kerültek mentésre. Az augusztus 30-i dátum a szomszédos üzenetekből következik.",
+  "stories": [
+    {
+      "id": "story-01",
+      "title": "Boribon és a rendőrautó",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-20",
+      "file": "01-boribon-rendorauto.txt",
+      "words": 427,
+      "sha256": "276ef250cf28cb43d21225833dcca02807eab3d0afcdd94521a65d04d9f89435"
+    },
+    {
+      "id": "story-02",
+      "title": "Boribon és a munkagépek",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-21",
+      "file": "02-boribon-munkagepek.txt",
+      "words": 788,
+      "sha256": "bae09b085ff2f99308d70775ad0f76e68d7886c4f11ad2dada29d47d6e8cd6cc"
+    },
+    {
+      "id": "story-03",
+      "title": "Boribon az autószerelő műhelyben",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-23",
+      "file": "03-boribon-autoszerelo.txt",
+      "words": 941,
+      "sha256": "4f1b0352fc83e3743f24540e3377765284a5d3e5083003d5b90ff4520f501f39"
+    },
+    {
+      "id": "story-04",
+      "title": "A három versenyautó és az alagút",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-25",
+      "file": "04-versenyautok-alagut.txt",
+      "words": 1014,
+      "sha256": "25d6b5b6e64d33f442afbb161444a37f4dda604d1355545f69b58dbd97425dd3"
+    },
+    {
+      "id": "story-05",
+      "title": "A három versenyautó esős kalandja",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-27",
+      "file": "05-versenyautok-esos-kaland.txt",
+      "words": 1115,
+      "sha256": "0c5466885ef5bda5a657cc1b959e135fdf4c759914a0ded37751f9ef7df92f60"
+    },
+    {
+      "id": "story-06",
+      "title": "A három versenyautó és a Hegykirály futam",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-29",
+      "file": "06-versenyautok-hegykiraly-futam.txt",
+      "words": 1466,
+      "sha256": "4d509daffe64a2f0b57c83917a5a0faf6dbc5526b5b9d99406bb3f44b6e17b63"
+    },
+    {
+      "id": "story-07",
+      "title": "A három versenyautó úszni tanul",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-08-30",
+      "file": "07-versenyautok-uszni-tanulnak.txt",
+      "words": 1630,
+      "sha256": "63dc654fdc7d829ac5cc51252f87f669d468fca7a50d3929fcac6afb9049ce76"
+    },
+    {
+      "id": "story-08",
+      "title": "A három versenyautó havas kalandja",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-09-05",
+      "file": "08-versenyautok-havas-kaland.txt",
+      "words": 1216,
+      "sha256": "bce22791e1266e7984b72ce659f54f8085b8aa91ea2f0503d0b8046b22ccc0a4"
+    },
+    {
+      "id": "story-09",
+      "title": "A három versenyautó korcsolyázni tanul",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-09-11",
+      "file": "09-versenyautok-korcsolyazas.txt",
+      "words": 1254,
+      "sha256": "e18b47b14db945a51cecba246e74c9940a248c506a8e2702a342fb6488f9fbfa"
+    },
+    {
+      "id": "story-10",
+      "title": "A három versenyautó és a titkos sziget",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-09-14",
+      "file": "10-versenyautok-titkos-sziget.txt",
+      "words": 1492,
+      "sha256": "ec4333f48830a259e1dbc67c1a2ffc1d4d35146d3c7f8ec6dbda0d87c305ca1e"
+    },
+    {
+      "id": "story-11",
+      "title": "Márk és a korona",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-09-21",
+      "file": "11-mark-es-a-korona.txt",
+      "words": 1439,
+      "sha256": "5df9f52f88a810b9eff6251b1591fdfbc1e31ec64d2c31ccacfdb0410f96f60f"
+    },
+    {
+      "id": "story-12",
+      "title": "A három versenyautó és az ezüst autó",
+      "titleIsDescriptiveLabel": true,
+      "sourceDate": "2026-09-29",
+      "file": "12-versenyautok-ezust-auto.txt",
+      "words": 1555,
+      "sha256": "17f2c8f9d072b26cb77c9503544e617c177a31df5fa4966abef745fb337d10c6"
+    }
+  ]
+}

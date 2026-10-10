@@ -19,7 +19,7 @@ const guides = {
   menu_pictures: 'Képek és hangok. Nézegessünk képeket, keressünk hang után, vagy lapozzuk az állatkönyvet!',
   menu_speech: 'Mondjuk együtt! Válassz szavakat, rövid kifejezést vagy a róka R-kalandját!',
   menu_thinking: 'Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!',
-  menu_stories: 'Játsszunk a macival! Etessük meg, öltöztessük fel, vagy induljunk piknikezni!',
+  menu_stories: 'Hallgassunk mesét, vagy játsszunk a macival! Válassz egy képet!',
   menu_activity: 'Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!',
   dress: 'Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!',
   dress_finished: 'Felöltöztem! Köszönöm! Indulhat a séta!',

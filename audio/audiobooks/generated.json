@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "voice": "hu-HU-NoemiNeural",
+  "rate": "-6%",
+  "stories": {
+    "story-01": {
+      "fingerprint": "ea0f4b64434baefd11c25f41e3e7280aed5515e4b2932d6c87fe7774083615ca",
+      "sha256": "6e919eb76fc779b8a0fe755057c3f4ec22ea07b072c4411166dc74b790f6bffa",
+      "sourceSha256": "276ef250cf28cb43d21225833dcca02807eab3d0afcdd94521a65d04d9f89435",
+      "duration": 246.168,
+      "spokenWords": 414,
+      "parts": 1
+    },
+    "story-02": {
+      "fingerprint": "565bcfcc50f3bdf034ff50c30e7ad5c2238e01361b764b4b4b9461a92cb75776",
+      "sha256": "c1a3d712b57faac29b17bd2bced9feb9546a34fd6833ecf074b937a7cb8de453",
+      "sourceSha256": "bae09b085ff2f99308d70775ad0f76e68d7886c4f11ad2dada29d47d6e8cd6cc",
+      "duration": 493.872,
+      "spokenWords": 738,
+      "parts": 2
+    },
+    "story-03": {
+      "fingerprint": "043c808f52828105cc8091a6ceb31a8da483aced79c4013467bf96d70f9e3161",
+      "sha256": "fffaff3db037aede3a8c0793bd6d350f2815f0816ecc23181781d806d786942e",
+      "sourceSha256": "4f1b0352fc83e3743f24540e3377765284a5d3e5083003d5b90ff4520f501f39",
+      "duration": 622.44,
+      "spokenWords": 850,
+      "parts": 3
+    },
+    "story-04": {
+      "fingerprint": "5bcaf0ee3c6d8b0a021d08c65f022b916351223d55367bc51ced6b85310c754f",
+      "sha256": "5199a6b7476ca56bc6ded3c30f56d6ca3838c6aac9491f000097eacfd1944a9c",
+      "sourceSha256": "25d6b5b6e64d33f442afbb161444a37f4dda604d1355545f69b58dbd97425dd3",
+      "duration": 746.448,
+      "spokenWords": 957,
+      "parts": 3
+    },
+    "story-05": {
+      "fingerprint": "1f7cc72c0a445d32513845eb15b7563d483b7a669f5f046dbf011d92f48e587c",
+      "sha256": "8664d81efbd6f0906fbf8110527259d174290a370390f11a34029c09176821e7",
+      "sourceSha256": "0c5466885ef5bda5a657cc1b959e135fdf4c759914a0ded37751f9ef7df92f60",
+      "duration": 747.816,
+      "spokenWords": 1021,
+      "parts": 3
+    },
+    "story-06": {
+      "fingerprint": "b9c58f29f82917ded673acfbba37f08d42eeaa47df97d0ba4273f41de5201a9a",
+      "sha256": "3a6e2e32a0fc6cf94c2e7053ba3b2e0b9d6c398c7c7cedc67af02d829c32ebd6",
+      "sourceSha256": "4d509daffe64a2f0b57c83917a5a0faf6dbc5526b5b9d99406bb3f44b6e17b63",
+      "duration": 1022.448,
+      "spokenWords": 1335,
+      "parts": 4
+    },
+    "story-07": {
+      "fingerprint": "6811ca8724f749677459637e32a890ab600b572cb268030ac9f9d9ca54804059",
+      "sha256": "0f116dcae7b947c748d745c520d012215671f6629ac823e302ca09494892e1e0",
+      "sourceSha256": "63dc654fdc7d829ac5cc51252f87f669d468fca7a50d3929fcac6afb9049ce76",
+      "duration": 1089.024,
+      "spokenWords": 1459,
+      "parts": 4
+    },
+    "story-08": {
+      "fingerprint": "2f50470bbe6b3d9587a9ccdb283208b1fe94aaa4c846754b59a257dc379febcf",
+      "sha256": "1f003779c1907fbec252dd9e24f676a438dbaea94dd1108a16596fedd872509f",
+      "sourceSha256": "bce22791e1266e7984b72ce659f54f8085b8aa91ea2f0503d0b8046b22ccc0a4",
+      "duration": 836.04,
+      "spokenWords": 1108,
+      "parts": 3
+    },
+    "story-09": {
+      "fingerprint": "4c8b9e5dc96021ba6d6e3758cfbb4e03354d13ef4ef49d8cedbbae7a7b2d26aa",
+      "sha256": "5771599a0980cb2df4af63445cee6e87f010cec731f20a51da2e3f58d868e5e5",
+      "sourceSha256": "e18b47b14db945a51cecba246e74c9940a248c506a8e2702a342fb6488f9fbfa",
+      "duration": 909.912,
+      "spokenWords": 1141,
+      "parts": 3
+    },
+    "story-10": {
+      "fingerprint": "7a5b079990c8affa3627deecefa5a46348e16b06715af11c757a4183f5a9877f",
+      "sha256": "e51991d511f46907766e513eb6eb5e35c76b4433a5895234de043291cab69798",
+      "sourceSha256": "ec4333f48830a259e1dbc67c1a2ffc1d4d35146d3c7f8ec6dbda0d87c305ca1e",
+      "duration": 1021.032,
+      "spokenWords": 1373,
+      "parts": 4
+    },
+    "story-11": {
+      "fingerprint": "d8f2351e3cbb12ff291d9f6bf75a35dc955fa7068e41f3bd7d1a52e6c272055c",
+      "sha256": "2d2e8afcd194de598be0197e1d6fa6e3453f07ce22cd2d9e3986c1ba26ccfd42",
+      "sourceSha256": "5df9f52f88a810b9eff6251b1591fdfbc1e31ec64d2c31ccacfdb0410f96f60f",
+      "duration": 954.936,
+      "spokenWords": 1299,
+      "parts": 4
+    },
+    "story-12": {
+      "fingerprint": "0f85b4a6c18209f9feb5b467a963a782381e744b42ee476b76b504d8131ae752",
+      "sha256": "1803ed955c6238daebf9566c1294928c179028eb7d85bfadea4a5980f22e6f14",
+      "sourceSha256": "17f2c8f9d072b26cb77c9503544e617c177a31df5fa4966abef745fb337d10c6",
+      "duration": 1115.664,
+      "spokenWords": 1432,
+      "parts": 4
+    }
+  }
+}

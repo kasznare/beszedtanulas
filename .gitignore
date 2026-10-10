@@ -5,4 +5,8 @@ rawaudio
 .playwright-cli/
 output/playwright/
 output/audio-preview/
+output/audiobooks/
+content/stories/import-*.json
+content/stories/catalog.txt
+__pycache__/
 dist/

@@ -25,7 +25,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/guide_menu_thinking.mp3"
   },
   "guide_menu_stories": {
-    "text": "Játsszunk a macival! Etessük meg, öltöztessük fel, vagy induljunk piknikezni!",
+    "text": "Hallgassunk mesét, vagy játsszunk a macival! Válassz egy képet!",
     "file": "audio/voice/guide_menu_stories.mp3"
   },
   "guide_menu_activity": {
