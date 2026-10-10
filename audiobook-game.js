@@ -1,7 +1,6 @@
 import { AUDIOBOOKS } from './audiobook-data.js';
 import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
-import { createStoryVisual } from './story-visuals.js';
-import { STORY_VISUAL_ID } from './story-visual-data.js';
+import { createIllustratedStory } from './story-visual-player.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
 export const formatStoryTime = seconds => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, '0')}`;
@@ -22,10 +21,9 @@ export function setupAudiobooks({ stopPlayback }) {
     const story = AUDIOBOOKS.find(story => story.id === state.storyId);
     if (!story) return;
     const playing = ['playing', 'buffering'].includes(state.phase);
-    const illustrated = story.id === STORY_VISUAL_ID;
-    root.dataset.illustrated = String(illustrated);
-    $('#story-visual-wrap').hidden = !illustrated;
-    visual?.sync(illustrated ? player.getPosition() : 0, illustrated && state.phase === 'playing');
+    root.dataset.illustrated = 'true';
+    $('#story-visual-wrap').hidden = false;
+    visual?.select(story.id, player.getPosition(), state.phase === 'playing');
     $('#story-title').textContent = story.title;
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
@@ -66,7 +64,7 @@ export function setupAudiobooks({ stopPlayback }) {
     visualWrap.id = 'story-visual-wrap'; visualWrap.className = 'story-visual-wrap';
     visualWrap.innerHTML = '<div id="story-visual" class="story-visual"></div><div class="story-visual-footer"><p id="story-scene-title"></p><label class="story-motion-label"><input id="story-motion" type="checkbox"> Mozgás</label></div>';
     root.querySelector('.story-download-row').before(visualWrap);
-    visual = createStoryVisual($('#story-visual'), { readTime: player.getPosition, onScene: scene => { $('#story-scene-title').textContent = scene.title; } });
+    visual = createIllustratedStory($('#story-visual'), { storyId: player.getPreferences().selected, readTime: player.getPosition, onScene: scene => { $('#story-scene-title').textContent = scene.title; } });
     $('#story-motion').checked = visual.motion;
     $('#story-motion').addEventListener('change', event => visual.setMotion(event.target.checked));
     $('#story-restart').addEventListener('click', () => void player.restart());

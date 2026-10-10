@@ -9,8 +9,13 @@ const root = new URL('../', import.meta.url);
 const frontendFiles = (await readdir(root, { withFileTypes: true }))
   .filter(entry => entry.isFile() && /\.(js|css)$/.test(entry.name) && !['sw.js', 'service-worker-runtime.js'].includes(entry.name))
   .map(entry => entry.name);
+const storyFiles = (await Promise.all(['story-art','story-scenes'].map(async directory =>
+  (await readdir(new URL(`${directory}/`, root), { withFileTypes: true }))
+    .filter(entry => entry.isFile() && entry.name.endsWith('.js'))
+    .map(entry => `${directory}/${entry.name}`)
+))).flat();
 const files = [
-  'index.html', 'refresh.html', ...frontendFiles,
+  'index.html', 'refresh.html', ...frontendFiles, ...storyFiles,
   'assets/furfang-fox.png',
   'animal-book-audio.json',
   ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),

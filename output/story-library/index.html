@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Képes mesetár · 12 teljes mese</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../story-visuals.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+<main>
+  <header><span class="eyebrow">KUCKÓZZUNK BE EGY MESÉHEZ</span><h1 id="title"></h1><p id="description"></p></header>
+  <div id="visual" class="story-visual"></div>
+  <section class="toolbar" aria-label="Mese lejátszása">
+    <div class="buttons"><button id="play" disabled>▶ Meghallgatom</button><button id="restart">↺ Elölről</button><button id="fullscreen">⛶ Nagy kép</button><label><input id="motion" type="checkbox"> Mozgás</label></div>
+    <div class="timeline"><span id="elapsed">0:00</span><label class="sr-only" for="seek">Hol tartunk a mesében?</label><input id="seek" type="range" min="0" step=".1" value="0"><span id="duration"></span></div>
+    <p id="status" role="status">A hang betöltődik…</p>
+  </section>
+  <section class="details"><div class="scene-row"><button id="previous" aria-label="Előző jelenet">←</button><label for="scene">Jelenet</label><select id="scene"></select><button id="next" aria-label="Következő jelenet">→</button></div><p id="caption"></p></section>
+  <section class="library"><h2>Melyiket nézzük?</h2><div id="books" class="book-grid" role="group" aria-label="Mesék"></div></section>
+  <p class="site-link"><a href="../../index.html">Megnyitom a Mesetárat →</a></p>
+  <audio id="audio" preload="metadata" playsinline></audio>
+</main>
+<script type="module" src="preview.js"></script>
+</body>
+</html>

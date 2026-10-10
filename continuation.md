@@ -1,5 +1,21 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 10. – Tizenkét mese közös SVG-rajztárral
+
+A felhasználó párhuzamos alügynököket kért a további tizenegy meséhez, több mozgással és közös, később minden mesét javító modellekkel. A négy engedélyezett aktív szálból három alügynök a történetcsoportokat, a fő szál a rajztárat, időadatokat, lejátszót és integrációt készítette. Eredmény: **12 teljes mese, 398 jelenet, 163,43 perc**. Jelenetszámok sorrendben: **14, 24, 27, 29, 32, 33, 40, 34, 38, 47, 38, 42**. Az eredeti szövegek és fix Noémi-MP3-ak változatlanok.
+
+Közös SVG-factoryk a `story-art/` könyvtárban: `base.js` a Boribon-szereplők és gépek; `vehicles.js` a piros Villám, sárga szárnyas Turbó, kék Pötty és ezüst autó; `animate.js` közös felhősodródás, növényringás, pislogás, madarak, pillangók és kerekek; `workshop.js`, `routes.js`, `seasons.js` az újrahasznált helyszínek és kellékek. Egy modell javítása minden használó jelenetet javít. A `story-scenes/` három modulja teljes időzített jelenetsorokat exportál. Interfész: `story-art/README.md`, `CONTRACT.md`.
+
+A `story-visual-player.js` az MP3 aktuális idejével rajzol, mesét vált és reduced-motion állóképet ad; a `story-visual-library.js` mind a tizenkét mesét összeköti. A Mesetár minden felvételéhez van kép. Felhők, eső, hó, hullámok, nádas, halak, buborékok, gépkarok, buszmentés, műhely-mechanika, érzékelők, korcsolyázás, vihar és korona mozog a narrációhoz igazodva. Az első mese régi előnézete és videója megmaradt, rajzai már a közös könyvtárból jönnek.
+
+Az eredeti részfelvételek szóhatáradatait a `scripts/extract-story-timing.py` fűzi össze; a `scripts/build-story-captions.mjs` exportálja a bekezdésidőket. Mind a 3107 eredeti bekezdés azonosítva, a részfelvételek időösszege minden mesénél megegyezik a végleges MP3-mal. Részletes helyi adatok: `output/story-timing/`; futtatási idősor: `story-caption-timing.js`, szöveg: `audiobook-data.js`.
+
+Végleges ellenőrzés: teljes build és **195 Node-teszt**. Chrome és WebKit motoronként **42 könyvtári ellenőrzés**, ezen belül **398 jelenet / 1194 póz**, minden jelenet determinisztikus előre-vissza keresése és állóképe; **21 Mesetár-integrációs ellenőrzés** minden mese választásával és keresésével; **32 hangosmese-ellenőrzés**, benne letöltés, könyvjelző, offline újratöltés és a második mese új illusztrációjának offline hanglejátszása. Az első mese 43 próbája ismét sikeres mindkét motoron. A WebKit szünetpróbája kivárja a natív médiaóra véglegesítését. Fizikai iPhone/iPad próba nincs. Átnézett 36 fő mintakép és az alügynökök célzott kontaktlapjai. Javítva a kellékek attribútum-visszaállítása, hengerforgás, külön vizsgált kerék, koronafelhelyezés, figurák rétegezése, buszkihelyezés és az ezüst autó visszahúzott kereke.
+
+Offline csomag: **587 kötelező + 12 opcionális hang**, **600 futtatási fájl**, lenyomat `26801df9d89171bd`. A build a két új könyvtár JS-fájljait automatikusan csomagolja. Helyi előnézet: **http://127.0.0.1:5187/output/story-library/**, forrás: `output/story-library/`, közvetlen mese: `?story=story-07`. Szerver: `python3 tests/browser/audiobooks-fixture.py 5187`. A saját QA-böngészők lezárva; a kiszolgáló megmaradt. Nyers chat/cache, képernyőképek és szóadatok nem részei a futtatási csomagnak.
+
+Managed munkafa: `/Users/celestial/.codex/worktrees/fixed-audiobooks/beszedtanulas`, ág `codex/fixed-audiobooks`. A közös checkout más chatekhez tartozó munkája érintetlen. Ebben a körben helyi változat és commit készült; push és éles közzététel nincs. Usage-reset kreditet nem váltottunk be.
+
 ## 2026. október 10. – Egy teljes, animált SVG-mese
 
 A felhasználó a három rövid látványminta közül az SVG-t választotta: jobb formák, egységesebb részletek, sok apró mozgás, visszafogott mesekönyves minőség. A **Boribon és a rendőrautó** teljes **246,168 másodperces** fix Noémi-felvételéhez **14 jelenet** készült. Kert, üldözés, kanyar és baleset, markoló érkezése/munkája, tűzoltók/vízsugár, mentő, daru, köszönet, közös segítség, Annipanni, rendeződés és zárókép. A `story-visual-data.js` jelenet- és bekezdésidői az eredeti MP3 WordBoundary adataiból származnak; a teljes szöveg és hang változatlan.

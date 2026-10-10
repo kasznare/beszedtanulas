@@ -20,7 +20,17 @@ async page => {
   await page.waitForFunction(()=>document.querySelector('#story-visual').dataset.scene==='crane');
   ok(true,'The existing seek control updates the narrated rescue scene');
   await page.locator('[data-story="story-02"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
-  ok(!await page.locator('#story-visual-wrap').isVisible(),'Other recordings retain their regular audiobook player');
+  ok(await page.locator('#story-visual-wrap').isVisible() && await page.locator('#story-visual').getAttribute('data-story')==='story-02','Switching recordings loads its complete animation');
+  for(let number=3;number<=12;number++){
+    const id=`story-${String(number).padStart(2,'0')}`;
+    await page.locator(`[data-story="${id}"]`).click();
+    await page.waitForFunction(id=>document.querySelector('#story-visual').dataset.story===id&&document.querySelector('#audiobooks').dataset.phase==='ready',id);
+    await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+    const time=await page.locator('#story-seek').evaluate(input=>Math.floor(Number(input.max)*.6));
+    await page.locator('#story-seek').evaluate((input,time)=>{input.value=time;input.dispatchEvent(new Event('input',{bubbles:true}));},time);
+    await page.waitForFunction(time=>Math.abs(Number(document.querySelector('#story-visual').dataset.time)-time)<.1,time);
+    ok(await page.locator('#story-visual svg').count()===1,`${id}: switching and seeking through the existing audiobook player`);
+  }
   await page.locator('[data-story="story-01"]').click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   await page.waitForFunction(()=>document.querySelector('#story-visual').dataset.scene==='crane');
   ok(true,'The saved audio bookmark restores the matching illustration');
