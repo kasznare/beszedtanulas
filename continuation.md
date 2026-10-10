@@ -1,5 +1,9 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 10. – Nyugodt hangos segítség a kirakóban
+
+A felhasználó a kirakó elemei körüli narancssárga villogásra kérdezett rá, majd jóváhagyta a finom, statikus kiemelést. A `puzzle.css` a kirakó narrációs jelzéseit 2 px zsályazöld kontúrra állítja, animáció nélkül. A hanghoz kötött jelzés és a darabkijelölés, húzás, billentyűzetes fókusz működése megmarad. Kiindulás `3d3548d`, elkülönített `puzzle-gentle-cues` munkafa; a közös checkout többi chatből származó munkája érintetlen. Ellenőrzés: teljes build és 189 sikeres Node-teszt. Chrome és WebKit alatt a tényleges puzzle_start/puzzle_hint lejátszás közben az animationName none, a kontúr 2 px és rgb(120,149,127); a tábla helye/mérete két időpontban azonos, a billentyűzetes kijelölés és az elrendezés megfelelő. A képernyőkép ellenőrizve. Offline lenyomat a8d8f13d698f1dbd; 585 futtatási fájl. A változtatás négy fájlban: puzzle.css, generált sw.js, README.md és continuation.md.
+
 ## 2026. október 10. – Tizenkét fix hangos mese a Mesetárban
 
 A felhasználó jóváhagyta a Safariból korábban kimentett tizenkét mese hanganyagának elkészítését és beépítését. **Mesék és Maci → Mesetár**: a játékokkal egyező `hu-HU-NoemiNeural` magyar hang, `-6%` tempó; tizenkét ellenőrzött statikus MP3, összesen **163,43 perc / 58,84 MB**. A szöveg csak a formázási jelektől tisztult, átírás nem történt. A teljes helyi forrásimport megmaradt; a chat URL-je és a forrásüzenetek nem kerültek a Git-commitba. A Pages `_config.yml` kizárja a `content/` forráskönyvtárat a webhelyről, a dist is csak a futtatási fájlokat tartalmazza.

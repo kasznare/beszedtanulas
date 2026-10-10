@@ -1,4 +1,6 @@
 .puzzle-panel { max-width:920px; margin:0 auto; color:#344f45; }
+/* Keep spoken puzzle guidance visible without the shared pulsing animation. */
+#puzzle .is-narrated { outline:2px solid #78957f !important; outline-offset:3px; animation:none !important; }
 .puzzle-heading { text-align:center; margin:0 0 12px; }
 .puzzle-heading h2 { margin:0 0 4px; font-size:1.6rem; }
 .puzzle-heading p { margin:0; font-size:.95rem; }
