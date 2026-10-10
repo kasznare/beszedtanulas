@@ -57,10 +57,11 @@ async page => {
   await page.locator('[data-story="story-01"]').click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   ok(await current()>=124,'The first story retains its own bookmark');
   await page.reload();
-  await page.waitForFunction(()=>document.querySelector('#audiobooks')?.classList.contains('is-active')&&!document.querySelector('#story-seek').disabled);
+  await open();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   ok(await current()>=124,'A reload restores the bookmark without starting playback');
+  ok(await page.evaluate(()=>storyQA.audios.every(a=>a.paused)),'Reloading and reopening does not autoplay the story');
   await context.setOffline(true);await page.reload();
-  await page.waitForFunction(()=>document.querySelector('#audiobooks')?.classList.contains('is-active')&&!document.querySelector('#story-seek').disabled);
+  await open();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(await page.evaluate(()=>storyQA.audios.some(a=>a.src.startsWith('blob:')&&!a.paused)),'The downloaded MP3 plays with the network disconnected');
   await page.locator('#story-toggle').click();await page.locator('[data-story="story-02"]').click();
@@ -71,10 +72,11 @@ async page => {
   await context.setOffline(false);await page.locator('#story-toggle').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(true,'Retry starts the fixed recording when the network returns');await page.locator('#story-toggle').click();
-  await page.route('**/audio/audiobooks/story-02.mp3*',route=>route.fulfill({status:200,contentType:'audio/mpeg',body:'corrupt'}));
+  // SW-owned network requests bypass page.route; inject only the download failure.
+  await page.evaluate(()=>{window.storyQAFetch=fetch;window.fetch=(input,init)=>String(input).includes('/audio/audiobooks/story-02.mp3')?Promise.resolve(new Response('corrupt',{status:200})):storyQAFetch(input,init);});
   await page.locator('#story-download').click();await page.waitForFunction(()=>document.querySelector('#story-offline').textContent.includes('nem sikerült'));
   ok(!(await page.locator('#story-download').isDisabled()),'A corrupt download is not marked saved and remains retryable');
-  await page.unroute('**/audio/audiobooks/story-02.mp3*');await page.locator('#story-download').click();
+  await page.evaluate(()=>{window.fetch=storyQAFetch;delete window.storyQAFetch;});await page.locator('#story-download').click();
   await page.waitForFunction(()=>document.querySelector('#story-download').textContent.includes('Letöltve'));ok(true,'Retry stores the full verified story');
   await page.locator('#story-restart').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(await current()<3,'Restart begins at the start of the story');await page.locator('#story-toggle').click();

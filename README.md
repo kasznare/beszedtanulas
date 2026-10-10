@@ -20,7 +20,7 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 | --- | --- |
 | **Képek és hangok** | Képes témák, Hol van?, Hangos állatkönyv |
 | **Mondd utánam** | Egy szó, Két szó együtt, Róka R-kalandja |
-| **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget |
+| **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget, Sakkliget |
 | **Mesék és Maci** | Mesetár, Etesd meg a macit!, Maci öltözik, Meseliget |
 | **Kirakók és ügyesség** | Képpárok, Képkirakó, Töltsünk a barátainknak!, Mi bújt el? |
 
@@ -31,6 +31,7 @@ Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl me
 - **Róka R-kalandja:** Hangvadász, Robotpostás, Perecműhely, Mondókaliget és Saját visszhang. Harminc képes R-es szó, rövid kifejezések, négy saját mondóka; közös, hangészlelős és magyar szófelismerős gyakorlás. A Mondd utánam menüből érhető el.
 - **Mondd utánam:** egy vagy két szavas gyakorlás. A mikrofon gomb egy próbát, a nagy lejátszógomb egy vezetett szókört indít. A megállítás és a hazalépés leállítja a figyelést.
 - **Számok és logika:** tárgyak egyenkénti megszámolása és képes mennyiségválasztás, valamint a Furfangliget és Műhelyliget fejtörői.
+- **Sakkliget:** hat sakkfigura lépésfelfedezése, három csillag gyűjtése és tíz egyetlen lépéssel megoldható kis helyzet. Az útban álló figurák, az ütés, a huszár ugrása, a gyalog első kettős lépése és a király biztonsága is gyakorolható. Pöttyös segítség, visszavonás, magyar hang és billentyűzetes kezelés; nincs ellenfélkör vagy időkorlát.
 - **Mi bújt el?:** hat felfordítható, beszélő kép; mikrofon nélkül is játszható.
 - **Képpárok:** animált képes memóriajáték 2 / 3 / 4 / 6 párral, a választott témakörből. A képes segítség röviden megmutatja a teljes táblát, a rossz párosítás javítható, a teljes kör egyszer ad jutalmat. A párok száma a játékban és a szülői beállításban is választható.
 - **Töltsünk a barátainknak!:** öntős ügyességi játék Macival és Nyuszival, két jelölt pohárral. Telefonon balra/jobbra döntve, érintéssel vagy egérrel az öntésgombot nyomva tartva, gépen a bal/jobb nyíllal játszható. Három szint: automatikus megállás, önálló adagolás, két különböző mennyiség. Túltöltés után egyetlen pohár újrapróbálható; a befejezett piknik egyszer ad jutalmat.
@@ -87,7 +88,9 @@ Megvalósítás: `puzzle-data.js`, `puzzle-game.js`, `puzzle.css`; belépés, be
 
 ## Öntős ügyességi játék
 
-A **Kirakók és ügyesség → Töltsünk a barátainknak!** saját SVG-jelenetet, látható vízszintet, tíz magyar hangot és halk, helyben előállított csobogást használ. A kezdőszinten a víz magától megáll a jelnél; a két nehezebb szinten az öntés elengedése vagy a telefon középhelyzetbe hozása ellenőrzi a jel körüli elfogadó sávot. A túl sok víz javítható a kiválasztott pohár kiürítésével. A szint az eszköz közös beállításaiban megmarad, a jutalom az aktív profilhoz kerül; a beszédpróbákat nem növeli.
+A **Kirakók és ügyesség → Töltsünk a barátainknak!** saját SVG-jelenetet, tizenhárom magyar hangot és halk, helyben előállított csobogást használ. A nagyobb kancsó finoman billen és mozog a kiválasztott pohárhoz; benne a fogyó víz felszíne döntés közben is vízszintes marad. A folyamatos vízsugár a valódi csőrtől a pohár emelkedő vízfelszínéig ér. A tele pohárból kétoldalt kifolyik a víz, az asztalon tócsa marad. A kancsó véges mennyiségű vizet tartalmaz; a **Feltöltöm** gomb megőrzi a poharak tartalmát. A kiválasztott pohár kiürítése a mellette levő tócsát is eltünteti.
+
+Mindhárom szinten a játékos állítja meg az öntést; a kezdőszint lassabb és szélesebb elfogadó sávot ad. A jelnél elengedett pohár elkészül, de továbbra is tölthető és túltölthető. Két megfelelő pohár után a **Kész a piknik!** ad egyszeri jutalmat az aktív profilnak, a beszédpróbákat nem növeli. Egérrel vagy ujjal a kancsót lefelé húzva is önthetünk: a húzás mértéke adja a folyás erősségét, az elengedés/megszakítás megállítja a vizet. A nyomva tartott gomb és a bal/jobb nyíl megmarad. A szint az eszköz közös beállításaiban megmarad.
 
 A **Döntögetéssel** gomb indítja a mozgásengedély kérését, ha a böngésző igényli. HTTPS és használható orientációs adatok szükségesek. A kényelmes kezdő kéztartást fél másodperc alatt kalibrálja; a kis mozdulatokat figyelmen kívül hagyja, az adatokat simítja. Másik pohárra váltás előtt középhelyzet szükséges. Álló/fekvő képernyőváltás új kalibrálást indít. Elutasított engedély vagy elmaradó szenzoradat esetén a gombos mód elérhető. Háttérbe lépés, ablakfókusz-vesztés és kilépés leállítja a folyást és a csobogást; visszatérés nem folytatja a nyomva tartott gombot. Mozgásengedélyt minden új belépéskor a játékos kezdeményez. A fizikai iPhone/iPad Safari és főképernyős döntésvezérlés még készüléken ellenőrizendő.
 
@@ -111,7 +114,7 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 466 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tíz hangját, az R-kaland 96 mintahangját és az öt csoport új útmutatóját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet és mind a 495 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tizenhárom hangját, az R-kaland 96 mintahangját, az öt csoport új útmutatóját és a sakk 26 magyar hangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 
@@ -140,7 +143,7 @@ A hosszú MP3-fájlok az oldal telepítésekor nem töltődnek le automatikusan.
 
 A változtatás nélkül kimentett eredeti szövegek a `content/stories/` könyvtárban vannak. Csak a cím és a mese szövege kerül a hangszolgáltatáshoz; a chat üzenetei és forrásadatai nem. A hangkészítés eltávolítja a formázási jeleket, de nem írja át a történetet. Újragenerálás: `npm run generate-audiobooks` (uv, internet és ffmpeg/ffprobe szükséges). Az ellenőrzött MP3-ak az `audio/audiobooks/` könyvtárba, a hangkészítési bizonylat az ottani `generated.json` fájlba, a lejátszható jegyzék az `audiobook-data.js` fájlba kerül. Mindhármat együtt kell menteni. A generátor rövid szövegrészekből készít ellenőrzött hangot, majd veszteségmentesen fűzi össze; megszakítás után újrafuttatható. A `scripts/check-audiobooks.mjs` a forrást, a szöveget, a hangot, a tempót és az MP3 ellenőrzőösszegét ellenőrzi. A forrásimport és a chat adatai nem részei a publikált csomagnak.
 
-Az alapértelmezett magyar mesélőhang 430 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
+Az alapértelmezett magyar mesélőhang 459 statikus MP3-fájlból áll: szavak, kifejezések, számok, mennyiségek, feladatok és rövid segítségek. A hangos feladatok rövid kijelentéseket és egyszerű felszólításokat használnak. Kerüljük a gépi hangon nehezen érthető kérdő hangsúlyt és az „építsd” jellegű torlódó alakokat. A géppel készült hangok az **audio/voice/** könyvtárban találhatók. A meglévő 24 saját szófelvétel az **audio/** könyvtárban maradt, és a szülői beállításból visszaválasztható.
 
 Új hangok készítése vagy hiányzó hangok pótlása:
 
@@ -223,3 +226,17 @@ Koppintás és billentyűzet mindenhol használható; az ösvény húzással is 
 A szintek külön állíthatók a szülői felületen. A félbehagyott munka – kosarak, műveletek, útiterv és visszavonási előzmények – játékonként és profilonként mentődik. A szintváltás az érintett játékban új feladatot kezd. A `logic` eredménymező játékonként és szintenként külön önálló/segített számlálót tartalmaz; a segítséget vagy javító ellenőrzést használó megoldás a segített csoportba kerül. A beszédpróbák és szóeredmények nem változnak. Az export/import, nullázás és visszavonás az új adatokat is kezeli, a régi mentések üres fejtörőadatokkal tölthetők be. A felhő továbbra is csak szóeredményeket szinkronizál.
 
 Források: `logic-data.js` (generátorok, ellenőrzés, mentés), `logic-game.js`, `logic-voice.js`, `logic.css`, `tests/logic.test.mjs`. A `tests/browser/` fájlok Playwright CLI-függvények: csak külön, eldobható tesztböngészőben futtasd őket, mert annak helyi tesztadatait módosítják. A részletes ellenőrzések és a referencia kutatási jegyzete a continuation.md elején található.
+
+## Sakkliget – az első sakkfigurák
+
+A **Számok és logika → Sakkliget** három rövid, önálló gyakorlási módot ad:
+
+- **Lépések:** válassz bástyát, futót, huszárt, vezért, királyt vagy gyalogot. A pöttyök mutatják a szabályos mezőket; a figura szabadon mozgatható és minden lépés visszavonható.
+- **Csillagok:** egy figurával három kijelölt mezőre kell eljutni, akár több lépéssel. A gyalog csak előre halad; a harmadik csillag egy jutalmat ad.
+- **Kis feladatok:** tíz választható helyzet ütést, szabad utat, gyaloglépést és biztonságos királylépést tanít. A sötét figurák helyben maradnak. Csak a szabályos, célhoz vezető lépés zárja le a feladatot; más választás után újra lehet próbálni.
+
+A király nem léphet támadott mezőre vagy a másik király mellé; a királyt védő figura sem teheti szabaddá a támadás útját. A gyalog a tábla végén automatikusan vezérré változik. Sáncolás, menet közbeni ütés és teljes parti nincs ezekben a kezdőfeladatokban. A sakkfigurák saját SVG-rajzok; a teljes modul és a 26 magyar MP3 az offline csomag része.
+
+Koppintás, Tab és Enter/Space használható; a táblán a nyilak mozgatják a fókuszt, az Escape törli a kijelölést. A mód és a figura az eszköz közös `beszedtanulas.chess.v1` beállításában megmarad, belépéskor friss feladat indul. A felfedezés nem ad jutalmat; a befejezett csillagkör vagy kis feladat egyszer ad jutalmat az aktív gyerek/szülői próba profilnak. A beszédpróbákat nem módosítja. A közös sikerablak az elkészült tábla egy másodperces megtekintése után nyílik; újrakezdés, módváltás vagy kilépés megszakítja a várakozást.
+
+Források: `chess-data.js`, `chess-art.js`, `chess-game.js`, `chess.css`; célzott szabálytesztek: `tests/chess.test.mjs`; böngészős ellenőrzés: `tests/browser/chess.js`, `tests/browser/chess-lifecycle.js`.

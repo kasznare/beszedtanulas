@@ -504,6 +504,110 @@ export const VOICE_CLIPS = {
     "text": "Elkészült a kép! Szép munka!",
     "file": "audio/voice/puzzle_done.mp3"
   },
+  "chess_start": {
+    "text": "Ismerkedjünk a sakkfigurákkal! Válassz egy figurát. Koppints rá, aztán egy pöttyös mezőre!",
+    "file": "audio/voice/chess_start.mp3"
+  },
+  "chess_stars": {
+    "text": "Gyűjtsd össze a három csillagot! Koppints a figurára, aztán arra a mezőre, ahová lépni szeretnél!",
+    "file": "audio/voice/chess_stars.mp3"
+  },
+  "chess_puzzles": {
+    "text": "Oldjunk meg egy kis sakkfeladatot! A világos figurával lépj. A sötét figurák most a helyükön maradnak.",
+    "file": "audio/voice/chess_puzzles.mp3"
+  },
+  "chess_rook": {
+    "text": "Bástya. Egyenesen lép: előre, hátra és oldalra. Más figurán nem ugorhat át.",
+    "file": "audio/voice/chess_rook.mp3"
+  },
+  "chess_bishop": {
+    "text": "Futó. Átlósan lép. Mindig ugyanolyan színű mezőn marad. Más figurán nem ugorhat át.",
+    "file": "audio/voice/chess_bishop.mp3"
+  },
+  "chess_knight": {
+    "text": "Huszár. Kettőt lép az egyik irányba, egyet oldalra. L alakban. Átugorhat más figurákat.",
+    "file": "audio/voice/chess_knight.mp3"
+  },
+  "chess_queen": {
+    "text": "Vezér. Egyenesen és átlósan is lép. Más figurán nem ugorhat át.",
+    "file": "audio/voice/chess_queen.mp3"
+  },
+  "chess_king": {
+    "text": "Király. Egy mezőt lép bármelyik irányba. Olyan mezőre nem léphet, ahol leütnék.",
+    "file": "audio/voice/chess_king.mp3"
+  },
+  "chess_pawn": {
+    "text": "Gyalog. Előre egyet lép. Az induló helyéről kettőt is léphet, ha szabad az út. Átlósan előre üt.",
+    "file": "audio/voice/chess_pawn.mp3"
+  },
+  "chess_retry": {
+    "text": "Ide most nem léphet ez a figura. Próbálj egy másik mezőt, vagy kérj segítséget!",
+    "file": "audio/voice/chess_retry.mp3"
+  },
+  "chess_select": {
+    "text": "Előbb koppints a világos figurára!",
+    "file": "audio/voice/chess_select.mp3"
+  },
+  "chess_star": {
+    "text": "Megvan a csillag! Keresd meg a következőt!",
+    "file": "audio/voice/chess_star.mp3"
+  },
+  "chess_solved": {
+    "text": "Ez az! Megoldottad a feladatot!",
+    "file": "audio/voice/chess_solved.mp3"
+  },
+  "chess_done": {
+    "text": "Mind a három csillag megvan! Szép munka!",
+    "file": "audio/voice/chess_done.mp3"
+  },
+  "chess_hint": {
+    "text": "A pöttyök megmutatják, hová léphet a figura. A karika azt mutatja, hol üthet.",
+    "file": "audio/voice/chess_hint.mp3"
+  },
+  "chess_capture_rook": {
+    "text": "Üsd le a sötét gyalogot a bástyával! A bástya egyenesen lép.",
+    "file": "audio/voice/chess_capture_rook.mp3"
+  },
+  "chess_capture_bishop": {
+    "text": "Üsd le a sötét bástyát a futóval! A futó átlósan lép.",
+    "file": "audio/voice/chess_capture_bishop.mp3"
+  },
+  "chess_capture_knight": {
+    "text": "Üsd le a sötét bástyát a huszárral! A huszár átugorhatja a többi figurát.",
+    "file": "audio/voice/chess_capture_knight.mp3"
+  },
+  "chess_capture_queen": {
+    "text": "Üsd le a sötét huszárt a vezérrel! Egyenesen vagy átlósan léphetsz.",
+    "file": "audio/voice/chess_capture_queen.mp3"
+  },
+  "chess_pawn_forward": {
+    "text": "Vidd a gyalogot a csillagra! Az induló helyéről kettőt is léphet, ha szabad az út.",
+    "file": "audio/voice/chess_pawn_forward.mp3"
+  },
+  "chess_pawn_capture": {
+    "text": "Üsd le a sötét huszárt a gyaloggal! A gyalog átlósan előre üt.",
+    "file": "audio/voice/chess_pawn_capture.mp3"
+  },
+  "chess_safe_king": {
+    "text": "Vidd a királyt a csillagra! A sötét bástya útjába nem léphetsz.",
+    "file": "audio/voice/chess_safe_king.mp3"
+  },
+  "chess_near_king": {
+    "text": "Vidd a királyt a csillagra! A két király nem állhat egymás mellett.",
+    "file": "audio/voice/chess_near_king.mp3"
+  },
+  "chess_blocked_rook": {
+    "text": "Vidd a bástyát a csillagra! A világos gyalogon nem ugorhat át.",
+    "file": "audio/voice/chess_blocked_rook.mp3"
+  },
+  "chess_blocked_bishop": {
+    "text": "Vidd a futót a csillagra! A világos gyalogon nem ugorhat át.",
+    "file": "audio/voice/chess_blocked_bishop.mp3"
+  },
+  "chess_promote": {
+    "text": "A gyalog elérte a tábla végét, és vezér lett belőle!",
+    "file": "audio/voice/chess_promote.mp3"
+  },
   "workshop_menu": {
     "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
     "file": "audio/voice/workshop_menu.mp3"
@@ -705,7 +809,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/workshop_n_15.mp3"
   },
   "pour_start": {
-    "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! Tölts a jelzésig!",
+    "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.",
     "file": "audio/voice/pour_start.mp3"
   },
   "pour_tilt": {
@@ -739,6 +843,18 @@ export const VOICE_CLIPS = {
   "pour_over": {
     "text": "Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!",
     "file": "audio/voice/pour_over.mp3"
+  },
+  "pour_spill": {
+    "text": "Hopp, kicsordult a víz! Állítsd meg az öntést, és ürítsd ki a poharat!",
+    "file": "audio/voice/pour_spill.mp3"
+  },
+  "pour_empty": {
+    "text": "Elfogyott a víz a kancsóból. A feltöltöm gombbal hozhatunk még vizet!",
+    "file": "audio/voice/pour_empty.mp3"
+  },
+  "pour_refill": {
+    "text": "Újra tele a kancsó! Folytathatjuk az öntést.",
+    "file": "audio/voice/pour_refill.mp3"
   },
   "pour_done": {
     "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",

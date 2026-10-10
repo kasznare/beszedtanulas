@@ -4,7 +4,7 @@ import { wordCategories } from './game-data.js';
 export const GROUPS = Object.freeze([
   { screen: 'picture-menu', title: 'Képek és hangok', screens: ['topics', 'listening-game', 'animal-book'] },
   { screen: 'practice-menu', title: 'Mondd utánam', screens: ['imitate', 'two-word', 'r-practice'] },
-  { screen: 'number-menu', title: 'Számok és logika', screens: ['numbers', 'furfangliget', 'workshop'] },
+  { screen: 'number-menu', title: 'Számok és logika', screens: ['numbers', 'furfangliget', 'workshop', 'chess'] },
   { screen: 'play-menu', title: 'Mesék és Maci', screens: ['audiobooks', 'teddy-game', 'dress-game', 'meseliget'] },
   { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'pour', 'flip'] },
 ].map(group => Object.freeze({ ...group, screens: Object.freeze(group.screens) })));
