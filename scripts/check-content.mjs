@@ -10,6 +10,7 @@ import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
+import { CHESS_CLIPS } from '../chess-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -39,6 +40,7 @@ for (const [id, text] of Object.entries(teddyRequests)) {
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
+for (const [id, text] of Object.entries(CHESS_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(POUR_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(R_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);

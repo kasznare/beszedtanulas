@@ -18,6 +18,7 @@ import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
 import { setupPuzzleGame } from "./puzzle-game.js";
+import { setupChessGame } from "./chess-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
@@ -72,6 +73,7 @@ const screenInfo = {
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
   puzzle: { title: "Képkirakó" },
+  chess: { title: "Sakkliget" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
   pour: { title: "Töltsünk a barátainknak!" },
@@ -117,6 +119,7 @@ let meadowGame;
 let logicGame;
 let memoryGame;
 let puzzleGame;
+let chessGame;
 let workshopGame;
 let animalBook;
 let pourGame;
@@ -400,6 +403,14 @@ puzzleGame = setupPuzzleGame({
   onComplete: count => {
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound('puzzle', count);
+  },
+});
+chessGame = setupChessGame({
+  onRestart: () => roundSuccess.cancel(),
+  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id, undefined, { target: '.chess-rule', motion: 'pulse' }); }, stopPlayback,
+  onComplete: count => {
+    state.rewards += 1;
+    saveProgress(); refreshStats(); celebrateRound("chess", count);
   },
 });
 workshopGame = setupWorkshop({
@@ -2102,6 +2113,7 @@ function setupNavigation() {
     else if (currentScreen === "memory") memoryGame.repeat();
     else if (currentScreen === "pour") pourGame.repeat();
     else if (currentScreen === "puzzle") puzzleGame.repeat();
+    else if (currentScreen === "chess") chessGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
     else if (currentScreen === "r-practice") rPractice.repeat();
@@ -2128,6 +2140,7 @@ function setupNavigation() {
     else if (completedRoundKind === "memory") showScreen("memory");
     else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") showScreen("puzzle");
+    else if (completedRoundKind === "chess") showScreen("chess");
     else startAutoImitateSession();
   });
   const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
@@ -2179,6 +2192,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   logicGame?.stop();
   memoryGame?.stop();
   puzzleGame?.stop();
+  chessGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
   pourGame?.stop();
@@ -2218,6 +2232,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "furfangliget") logicGame.start();
   if (screen === "memory") memoryGame.start();
   if (screen === "puzzle") puzzleGame.start();
+  if (screen === "chess") chessGame.start();
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
   if (screen === "pour") pourGame.start();
@@ -2309,11 +2324,13 @@ function celebrateRound(kind, count) {
     playSuccessSound();
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
-    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : "De jó volt együtt!";
+    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
     document.querySelector("#round-complete").showModal();
     if (kind === "pour") speakVoice('pour_done');
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');
+    else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(count === 3 ? 'chess_done' : 'chess_solved');
+    else if (kind === "chess") return;
     else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
   });
 }
