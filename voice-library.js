@@ -705,7 +705,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/workshop_n_15.mp3"
   },
   "pour_start": {
-    "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! Tölts a jelzésig!",
+    "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.",
     "file": "audio/voice/pour_start.mp3"
   },
   "pour_tilt": {
@@ -739,6 +739,18 @@ export const VOICE_CLIPS = {
   "pour_over": {
     "text": "Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!",
     "file": "audio/voice/pour_over.mp3"
+  },
+  "pour_spill": {
+    "text": "Hopp, kicsordult a víz! Állítsd meg az öntést, és ürítsd ki a poharat!",
+    "file": "audio/voice/pour_spill.mp3"
+  },
+  "pour_empty": {
+    "text": "Elfogyott a víz a kancsóból. A feltöltöm gombbal hozhatunk még vizet!",
+    "file": "audio/voice/pour_empty.mp3"
+  },
+  "pour_refill": {
+    "text": "Újra tele a kancsó! Folytathatjuk az öntést.",
+    "file": "audio/voice/pour_refill.mp3"
   },
   "pour_done": {
     "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",

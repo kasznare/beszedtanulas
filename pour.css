@@ -7,11 +7,20 @@
 .pour-levels button { min-width:48px; padding:8px 12px; }
 .pour-levels button[aria-pressed="true"] { background:#217c63; border-color:#217c63; color:#fff; }
 .pour-layout { display:grid; gap:12px; }
-.pour-scene { position:relative; overflow:hidden; border:2px solid #d6e6d8; border-radius:30px; background:linear-gradient(#e5f1ec,#f5f5de); }
+.pour-scene { position:relative; overflow:hidden; border:2px solid #d6e6d8; border-radius:30px; background:linear-gradient(#e5f1ec,#f5f5de); touch-action:none; user-select:none; -webkit-user-select:none; }
 .pour-art { display:block; width:100%; max-height:430px; }
-.pour-stream { stroke:#69b8d5; stroke-width:10; fill:none; stroke-linecap:round; stroke-dasharray:14 6; animation:pour-flow .4s linear infinite; }
+.pour-stream { stroke:#47b8dd; stroke-width:13; fill:none; stroke-linecap:round; }
+.pour-stream-glint { stroke:#cff7ff; stroke-width:3; fill:none; stroke-linecap:round; stroke-dasharray:16 24; animation:pour-flow .38s linear infinite; }
+.pour-surface { fill:none; stroke:#b9f1fc; stroke-width:4; }
+.pour-overflow { fill:none; stroke:#59bedf; stroke-width:8; stroke-linecap:round; }
+.pour-drips { stroke-dasharray:10 15; animation:pour-flow .45s linear infinite; }
+.pour-puddle { fill:#69c9e5; opacity:.65; }
+.pour-jug { cursor:grab; }
+
+.pour-jug-note { fill:#587266; font-size:17px; font-weight:600; pointer-events:none; }
+.pour-jug-amount { display:block; margin-top:2px; font-size:.8rem; font-weight:600; }
 .pour-target { stroke:#816522; stroke-width:4; stroke-dasharray:7 5; }
-.pour-water { fill:#80c7df; }
+.pour-water { fill:url(#pour-water-color); }
 .pour-glass { fill:#ffffff50; stroke:#528394; stroke-width:5; }
 .pour-cup-highlight { stroke:#e5b33e; stroke-width:5; fill:none; }
 .pour-cup-ready { fill:#217c63; font-size:26px; font-weight:800; }
@@ -34,16 +43,16 @@
 .pour-sensor-note { font-size:.83rem; margin:0; color:#587266; line-height:1.4; }
 .pour-sensor-note:empty { display:none; }
 .pour-footer { display:flex; gap:8px; }
-.pour-footer button { flex:1; }
+.pour-footer button { flex:1; min-width:0; padding:8px 6px; font-size:.9rem; }
 .pour-panel .pour-finish { background:#f9edbd; border-color:#dfc165; }
 .game-worlds .logic-portal-link[data-open="pour"] { background:#dceff0; border-color:#9fc7cd; color:#365f63; box-shadow:0 4px 0 #b3d5d7; }
-@keyframes pour-flow { to { stroke-dashoffset:-20; } }
+@keyframes pour-flow { to { stroke-dashoffset:-40; } }
 @media(min-width:760px) { .pour-layout { grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr); align-items:center; }.pour-art { min-height:310px; }.pour-heading { margin-bottom:16px; } }
 @media(max-width:500px) { .pour-heading p { font-size:.84rem; max-width:210px; }.pour-art { max-height:310px; }.pour-panel button { padding:8px 10px; }.pour-cup .pour-cup-name { font-size:1rem; } }
 @media(orientation:landscape) and (max-height:600px) { .pour-layout { grid-template-columns:minmax(0,1.4fr) minmax(270px,1fr); gap:14px; align-items:center; }.pour-heading { margin-bottom:6px; }.pour-art { max-height:330px; min-height:0; }.pour-controls { gap:6px; }.pour-panel .pour-hold { min-height:52px; }.pour-cup { gap:1px; }.pour-status { min-height:0; padding:7px 10px; font-size:.86rem; }.pour-hint,.pour-sensor-note { font-size:.76rem; }.pour-mode button,.pour-footer button { padding:5px 8px; }.pour-scene { border-radius:22px; } }
 @media(orientation:landscape) and (max-height:390px) { .pour-heading { margin-bottom:4px; }.pour-heading p { font-size:.8rem; }.pour-heading .pour-levels button { min-height:44px; }.pour-controls { gap:4px; }.pour-panel button { min-height:44px; }.pour-art { max-height:235px; }.pour-cup small { font-size:.74rem; }.pour-panel .pour-hold { min-height:44px; font-size:1rem; }.pour-status { padding:5px 8px; }.pour-hint { display:none; }.pour-sensor-note { line-height:1.25; }.pour-mode button,.pour-footer button { font-size:.8rem; } }
-@media(prefers-reduced-motion:reduce) { .pour-stream { animation:none; stroke-dasharray:none; }.pour-hold[data-held="true"] { transform:none; } }
-@media(max-width:600px) and (max-height:780px) { .pour-art { max-height:clamp(150px,25svh,195px); }.pour-controls { gap:6px; }.pour-hint { display:none; }.pour-heading { margin-bottom:8px; }.pour-heading .pour-levels button { min-height:44px; }.pour-panel .pour-hold { min-height:54px; }.pour-status { padding:8px 10px; font-size:.9rem; } }
+@media(prefers-reduced-motion:reduce) { .pour-stream-glint,.pour-drips { animation:none; stroke-dasharray:none; }.pour-hold[data-held="true"] { transform:none; } }
+@media(max-width:600px) and (max-height:780px) { .pour-art { max-height:clamp(150px,25svh,195px); }.pour-controls { gap:6px; }.pour-hint { display:none; }.pour-heading { margin-bottom:8px; }.pour-heading .pour-levels button { min-height:44px; }.pour-panel .pour-hold { min-height:54px; font-size:1.05rem; }.pour-heading p strong,.pour-heading p br { display:none; }.pour-status { padding:8px 10px; font-size:.9rem; } }
 @media(orientation:landscape) and (max-height:600px) {
   .pour-panel.is-active { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,1fr); grid-template-rows:auto 1fr; column-gap:16px; align-items:center; }
   .pour-layout { display:contents; }.pour-heading { grid-column:1; grid-row:1; margin:0 0 4px; }.pour-scene { grid-column:1; grid-row:2; }.pour-controls { grid-column:2; grid-row:1 / span 2; gap:5px; }
