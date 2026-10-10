@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fcf7ed">
+  <title>Frissítés · Beszédtanulás</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#fcf7ed;color:#28463b;font:18px/1.6 system-ui,sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}main{width:min(100%,540px);padding:30px;background:#fffdf8;border:2px solid #dae4d3;border-radius:28px}h1{margin:0 0 14px;font-size:1.7rem}p{margin:12px 0}.note{font-size:.92rem;color:#607568}#status{font-weight:700}progress{width:100%;height:16px;accent-color:#1e7c62}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}button,a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 18px;border:0;border-radius:15px;background:#1e7c62;color:white;font:700 1rem/1.4 system-ui,sans-serif;text-decoration:none;cursor:pointer}a{background:#ede8d9;color:#28463b}:focus-visible{outline:3px solid #c1993e;outline-offset:3px}[hidden]{display:none!important}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>↻ Játék frissítése</h1>
+    <p class="note">Az elmentett eredmények és beállítások megmaradnak. Más nyitott játékablakok is frissülhetnek.</p>
+    <p id="status" role="status">Legújabb játékverzió keresése…</p>
+    <progress id="progress" hidden aria-label="Játék és hangok letöltése"></progress>
+    <div class="actions"><button id="retry" hidden>Frissítés újrapróbálása</button><a href="./">Vissza a játékhoz</a></div>
+    <noscript><p>A frissítéshez engedélyezett JavaScript szükséges.</p></noscript>
+  </main>
+  <script>
+    // Standalone bootstrap: old workers do not cache this new page. New workers
+    // always fetch it from the network, so recovery never depends on cached app.js.
+    const status = document.querySelector('#status');
+    const progress = document.querySelector('#progress');
+    const retry = document.querySelector('#retry');
+    const home = new URL('./', location.href);
+    let busy = false, applying = false, finished = false, deadline;
+    const fail = message => {
+      clearTimeout(deadline); busy = false; applying = false; refresh.currentRun = null;
+      status.textContent = message; progress.hidden = true; retry.hidden = false;
+    };
+    const finish = () => { if (finished) return; finished = true; clearTimeout(deadline); location.replace(home.href); };
+    function installed(worker) {
+      return new Promise((resolve, reject) => {
+        const change = () => {
+          if (['installed', 'activated'].includes(worker.state)) {
+            worker.removeEventListener('statechange', change); resolve(worker);
+          } else if (worker.state === 'redundant') {
+            worker.removeEventListener('statechange', change); reject(new Error('download'));
+          }
+        };
+        worker.addEventListener('statechange', change); change();
+      });
+    }
+    async function refresh() {
+      if (busy) return;
+      busy = true; retry.hidden = true; progress.hidden = true;
+      status.textContent = 'Legújabb játékverzió keresése…';
+      if (!('serviceWorker' in navigator) || !window.isSecureContext) {
+        fail('Ebben a böngészőben a frissítő nem használható. Nyisd meg a játékot HTTPS címen egy támogatott böngészőben.'); return;
+      }
+      if (navigator.onLine === false) {
+        fail('A frissítéshez internetkapcsolat kell. A korábbi játék tovább használható.'); return;
+      }
+      const run = {};
+      refresh.currentRun = run;
+      deadline = setTimeout(() => {
+        if (refresh.currentRun === run) {
+          refresh.currentRun = null;
+          fail('A frissítés még nem fejeződött be. Ellenőrizd az internetkapcsolatot, majd próbáld újra.');
+        }
+      }, 180000);
+      try {
+        const registration = await navigator.serviceWorker.register(new URL('./sw.js', location.href), { updateViaCache: 'none' });
+        if (registration.active) await registration.update();
+        const candidate = registration.installing || registration.waiting;
+        if (candidate) {
+          await installed(candidate);
+          if (refresh.currentRun !== run) return;
+          status.textContent = 'Új verzió betöltése…'; progress.hidden = true;
+          if (candidate.state === 'activated') { finish(); return; }
+          applying = true;
+          candidate.postMessage({ type: 'ACTIVATE_UPDATE', manual: true });
+          candidate.addEventListener('statechange', () => {
+            if (applying && candidate.state === 'activated') finish();
+            if (applying && candidate.state === 'redundant') fail('A frissítés nem sikerült. A korábbi játék tovább használható.');
+          });
+        } else if (registration.active?.state === 'activated') {
+          finish();
+        } else {
+          throw new Error('worker');
+        }
+      } catch {
+        if (refresh.currentRun === run) {
+          refresh.currentRun = null;
+          fail('A frissítés nem sikerült. A korábbi játék és az elmentett eredmények megmaradtak. Próbáld újra!');
+        }
+      }
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => { if (applying) finish(); });
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (!busy) return;
+        if (event.data?.type === 'OFFLINE_PROGRESS') {
+          status.textContent = `Játék és hangok letöltése: ${event.data.completed} / ${event.data.total}`;
+          progress.hidden = false; progress.max = event.data.total; progress.value = event.data.completed;
+        }
+        if (event.data?.type === 'UPDATE_CLOSE_WINDOWS' && applying) {
+          fail('Zárd be a többi játékablakot, majd próbáld újra a frissítést.');
+        }
+      });
+    }
+    retry.addEventListener('click', refresh);
+    refresh();
+  </script>
+</body>
+</html>

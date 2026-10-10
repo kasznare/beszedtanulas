@@ -9,11 +9,15 @@ const scope = 'https://game.test/child/';
 const prefix = `beszedtanulas:${scope}:`;
 const content = { 'index.html': '<h1>Játék</h1>', 'audio/word.mp3': '0123456789' };
 
-function harness() {
+function harness({ includeRefresh = false } = {}) {
   const stores = new Map();
   const listeners = new Map();
   const messages = [];
   const network = [];
+  const networkOptions = [];
+  const resourceContent = { ...content, 'refresh.html': '<h1>Latest refresh page</h1>' };
+  const assets = includeRefresh ? resourceContent : content;
+  let offline = false;
   let failures = new Set();
   let changed = new Set();
   let clients = [{ id: 'parent', url: scope, postMessage: message => messages.push(message) }];
@@ -31,15 +35,17 @@ function harness() {
     keys: async () => [...stores.keys()],
     delete: async name => stores.delete(name),
   };
-  const fetch = async request => {
+  const fetch = async (request, options) => {
     const file = new URL(request.url).pathname.replace('/child/', '');
     network.push(file);
+    networkOptions.push({ url: request.url, cache: options?.cache || request.cache });
+    if (offline) throw new Error('network offline');
     if (failures.has(file)) return new Response('unavailable', {status:503});
-    return new Response(changed.has(file) ? 'unexpected bytes' : content[file], {headers:{'Content-Type':file.endsWith('.mp3')?'audio/mpeg':'text/html'}});
+    return new Response(changed.has(file) ? 'unexpected bytes' : resourceContent[file], {headers:{'Content-Type':file.endsWith('.mp3')?'audio/mpeg':'text/html'}});
   };
   vm.runInNewContext(runtime, {
     CACHE_VERSION: 'new',
-    ASSETS: Object.entries(content).map(([file, text]) => ({file, sha256:createHash('sha256').update(text).digest('hex')})),
+    ASSETS: Object.entries(assets).map(([file, text]) => ({file, sha256:createHash('sha256').update(text).digest('hex')})),
     self: {
       registration: {scope},
       clients: {matchAll:async()=>clients, claim:async()=>{claimed++;}},
@@ -53,9 +59,10 @@ function harness() {
     listeners.get(type)({ ...extras, waitUntil:promise=>{pending=promise;}, respondWith:promise=>{pending=promise;} });
     return pending;
   };
-  return { stores, messages, network, emit, cacheApi,
+  return { stores, messages, network, networkOptions, emit, cacheApi,
     fail:files=>{failures=new Set(files);}, change:files=>{changed=new Set(files);},
     clients:value=>{clients=value;}, skipped:()=>skipped, claimed:()=>claimed,
+    offline:value=>{offline=value;},
     request:(url,headers={},mode='cors')=>emit('fetch',{request:{url,method:'GET',mode,headers:new Headers(headers)}}),
   };
 }
@@ -150,4 +157,85 @@ test('a parent cannot activate an update while another game window is open', asy
   h.clients([{id:'parent',url:scope}]);
   await h.emit('message',{data:{type:'ACTIVATE_UPDATE'},source});
   assert.equal(h.skipped(),1);
+});
+
+test('the listed exact refresh page can explicitly activate despite another same-scope window', async () => {
+  const h = harness();
+  await h.emit('install');
+  const replies = [];
+  const source = { id: 'refresh', url: scope + 'refresh.html?reload=1', postMessage: message => replies.push(message) };
+  h.clients([{ id: 'refresh', url: source.url }, { id: 'game', url: scope }]);
+  await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual: true }, source });
+  assert.equal(h.skipped(), 1);
+  assert.equal(replies.length, 0);
+});
+
+test('manual payloads do not bypass the guard for home, similar paths or unlisted clients', async () => {
+  for (const url of [scope, scope + 'refresh.html/extra', scope + 'nested/refresh.html', 'https://other.test/child/refresh.html']) {
+    const h = harness();
+    const replies = [];
+    // The actual clients list, rather than a claimed source URL, establishes identity.
+    const source = { id: 'requester', url: scope + 'refresh.html', postMessage: message => replies.push(message) };
+    h.clients([{ id: source.id, url }, { id: 'game', url: scope }]);
+    await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual: true }, source });
+    assert.equal(h.skipped(), 0, url);
+    if (url.startsWith(scope)) assert.equal(replies[0].type, 'UPDATE_CLOSE_WINDOWS');
+  }
+  const h = harness();
+  h.clients([{ id: 'game', url: scope }]);
+  await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual: true }, source: { id: 'unlisted', url: scope + 'refresh.html' } });
+  assert.equal(h.skipped(), 0);
+});
+
+test('a missing source cannot activate even when no windows remain', async () => {
+  const h = harness();
+  h.clients([]);
+  for (const manual of [false, true]) {
+    await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual } });
+    assert.equal(h.skipped(), 0);
+  }
+});
+
+test('manual activation also requires the message source URL itself to be the refresh page', async () => {
+  const h = harness();
+  const replies = [];
+  h.clients([{ id: 'refresh', url: scope + 'refresh.html' }, { id: 'game', url: scope }]);
+  for (const url of [undefined, scope, scope + 'refresh.html/other', 'not a URL']) {
+    const source = { id: 'refresh', url, postMessage: message => replies.push(message) };
+    await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual: true }, source });
+    assert.equal(h.skipped(), 0);
+    assert.equal(replies.at(-1).type, 'UPDATE_CLOSE_WINDOWS');
+  }
+});
+
+test('automatic refresh-page requests and nonboolean manual flags preserve the other-window guard', async () => {
+  const h = harness();
+  const replies = [];
+  const source = { id: 'refresh', postMessage: message => replies.push(message) };
+  h.clients([{ id: source.id, url: scope + 'refresh.html' }, { id: 'game', url: scope }]);
+  for (const manual of [undefined, false, 'true', 1]) {
+    await h.emit('message', { data: { type: 'ACTIVATE_UPDATE', manual }, source });
+    assert.equal(h.skipped(), 0);
+    assert.equal(replies.at(-1).type, 'UPDATE_CLOSE_WINDOWS');
+  }
+});
+
+test('refresh page always uses the network with no-store even when its receipt is cached', async () => {
+  const h = harness({ includeRefresh: true });
+  await h.emit('install');
+  const cache = await h.cacheApi.open(prefix + 'new');
+  await cache.put(scope + 'refresh.html', new Response('stale refresh page'));
+  h.network.length = 0;
+  h.networkOptions.length = 0;
+  const response = await h.request(scope + 'refresh.html?check=latest', {}, 'navigate');
+  assert.equal(await response.text(), '<h1>Latest refresh page</h1>');
+  assert.deepEqual(h.network, ['refresh.html']);
+  assert.deepEqual(h.networkOptions, [{ url: scope + 'refresh.html?check=latest', cache: 'no-store' }]);
+  assert.equal(await (await cache.match(scope + 'refresh.html')).text(), 'stale refresh page');
+  // Ordinary game navigation still serves the complete offline package.
+  assert.equal(await (await h.request(scope, {}, 'navigate')).text(), content['index.html']);
+  assert.equal(h.network.length, 1);
+  h.offline(true);
+  await assert.rejects(h.request(scope + 'refresh.html', {}, 'navigate'), /network offline/);
+  assert.equal(await (await h.request(scope, {}, 'navigate')).text(), content['index.html']);
 });

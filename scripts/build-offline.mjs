@@ -9,7 +9,7 @@ const frontendFiles = (await readdir(root, { withFileTypes: true }))
   .filter(entry => entry.isFile() && /\.(js|css)$/.test(entry.name) && !['sw.js', 'service-worker-runtime.js'].includes(entry.name))
   .map(entry => entry.name);
 const files = [
-  'index.html', ...frontendFiles,
+  'index.html', 'refresh.html', ...frontendFiles,
   'assets/furfang-fox.png',
   'animal-book-audio.json',
   ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),

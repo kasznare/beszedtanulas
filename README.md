@@ -115,7 +115,9 @@ iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával 
 
 A játék megnyitáskor, előtérbe kerüléskor és a főképernyőre visszatéréskor ellenőrzi a frissítést. A teljesen letöltött új verzió a látható főképernyőn automatikusan betöltődik, amikor nincs nyitott párbeszédablak. Játék közben és háttérben vár; másik nyitott játékablak mellett sem aktiválódik. A főképernyő jelzi a letöltést és az esetleges hibát. Sikertelen letöltés után a korábbi teljes verzió tovább használható; az eredményeket a frissítés megtartja. A szülői letöltési és újrapróbálási gombok megmaradtak. A böngésző a hely felszabadításakor törölheti a tárolt fájlokat; a hiányzó csomag a szülői felületen újra letölthető.
 
-A már nyitva tartott régi verzió még a korábbi frissítési módot használja: egyszer zárd be a többi játékablakot, és a szülői oldalon válaszd az **Új verzió betöltése** gombot. Az új verziótól a főképernyő automatikus frissítése működik.
+A főképernyő jól látható **Frissítés** gombja szülői belépő nélkül indít kézi frissítést. A külön frissítőoldal mindig hálózatról érkezik, megkeresi és teljesen letölti/ellenőrzi a legújabb csomagot, majd a főképernyőre tér vissza a régi `?v=` paraméter nélkül. A kézi művelet más nyitott játékablakokat is frissíthet; ezt az oldal előre jelzi. Automatikus frissítésnél megmarad a többablakos védelem. Az eredmények, profilok és beállítások megmaradnak; a frissítés nem törli a helyi tárolót. Hibánál újrapróbálás és visszalépés érhető el. Offline a főképernyő gombja a játszható változatban tart.
+
+Ha a régi változatban még nincs Frissítés gomb, a [közvetlen frissítőoldal](https://kasznare.github.io/beszedtanulas/refresh.html) arról is használható, szülői mód nélkül. A sima újratöltés vagy egy új `?v=` paraméter önmagában nem kerüli meg a játék offline gyorsítótárát.
 
 A service worker HTTPS vagy localhost címet igényel. A helyi hálózatos HTTP-cím önmagában nem biztosít offline telepítést és mikrofonhozzáférést. A [GitHub Pages-oldal](https://kasznare.github.io/beszedtanulas/) HTTPS-t használ.
 

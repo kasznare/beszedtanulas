@@ -3,6 +3,7 @@ const SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `beszedtanulas:${SCOPE.href}:`;
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 const INDEX_URL = new URL("index.html", SCOPE).href;
+const REFRESH_URL = new URL("refresh.html", SCOPE).href;
 const ASSET_URLS = new Set(ASSETS.map(asset => new URL(asset.file, SCOPE).href));
 
 async function tellClients(message) {
@@ -54,7 +55,7 @@ async function installOffline(repair = false) {
     throw failure;
   }
   await tellClients({ type: repair ? "OFFLINE_READY" : "OFFLINE_DOWNLOADED", total: ASSETS.length });
-  // Updates wait until all existing windows close or a parent requests activation.
+  // Activation is requested at a safe screen or explicitly from the refresh page.
 }
 
 self.addEventListener("install", event => event.waitUntil(installOffline()));
@@ -99,6 +100,11 @@ self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
   if (url.origin !== SCOPE.origin) return;
   const key = url.origin + url.pathname;
+  if (key === REFRESH_URL) {
+    // A recovery page must bypass both the offline cache and HTTP cache.
+    event.respondWith(fetch(event.request, { cache: "no-store" }));
+    return;
+  }
   const isHome = event.request.mode === "navigate" && (key === SCOPE.href || key === INDEX_URL);
   if (isHome || ASSET_URLS.has(key)) {
     event.respondWith(serveOffline(event.request, isHome ? INDEX_URL : key));
@@ -121,7 +127,16 @@ self.addEventListener("message", event => {
   if (event.data?.type === "ACTIVATE_UPDATE") {
     event.waitUntil((async () => {
       const clients = (await self.clients.matchAll({ type: "window", includeUncontrolled: true })).filter(client => client.url.startsWith(SCOPE.href));
-      if (clients.some(client => client.id !== event.source?.id)) {
+      const sourceClient = event.source?.id && clients.find(client => client.id === event.source.id);
+      if (!sourceClient) return;
+      const isRefreshPage = value => {
+        try {
+          const url = new URL(value);
+          return url.origin + url.pathname === REFRESH_URL;
+        } catch { return false; }
+      };
+      const manualRefresh = event.data.manual === true && isRefreshPage(sourceClient.url) && isRefreshPage(event.source.url);
+      if (!manualRefresh && clients.some(client => client.id !== sourceClient.id)) {
         event.source?.postMessage({ type: "UPDATE_CLOSE_WINDOWS" });
         return;
       }

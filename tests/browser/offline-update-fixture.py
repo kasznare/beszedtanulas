@@ -1,15 +1,31 @@
 """Disposable localhost fixture for offline-update.js. Never serves production.
 Run after npm run build: python3 tests/browser/offline-update-fixture.py 5190
+Optional --legacy serves the actual b009234 release as version A.
 """
-import hashlib,json,pathlib,re,shutil,sys,tempfile
+import hashlib,io,json,pathlib,re,shutil,subprocess,sys,tarfile,tempfile
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 repo=pathlib.Path(__file__).resolve().parents[2]
 base=pathlib.Path(tempfile.mkdtemp(prefix='beszed-update-'))
-source=(repo/'dist/sw.js').read_text()
-assets=json.loads(source.split('const ASSETS = ',1)[1].split(';\n\n',1)[0])
-runtime=source[source.index('/* CACHE_VERSION'):]
+legacy=None
+if '--legacy' in sys.argv:
+ legacy=base/'legacy';legacy.mkdir()
+ archive=subprocess.check_output(['git','archive','b009234'],cwd=repo)
+ with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
+  for member in tar.getmembers():
+   target=(legacy/member.name).resolve()
+   if legacy.resolve() not in target.parents and target!=legacy.resolve(): raise ValueError('Invalid archive path')
+   if member.isdir(): target.mkdir(parents=True,exist_ok=True)
+   elif member.isfile():
+    target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(tar.extractfile(member).read())
+   else: raise ValueError('Unexpected archive member')
 for version in 'ABCDE':
- dest=base/version;shutil.copytree(repo/'dist',dest)
+ template=legacy if version=='A' and legacy else repo/'dist'
+ source=(template/'sw.js').read_text()
+ assets=json.loads(source.split('const ASSETS = ',1)[1].split(';\n\n',1)[0])
+ runtime=source[source.index('/* CACHE_VERSION'):]
+ dest=base/version;dest.mkdir()
+ for name in [asset['file'] for asset in assets]+['sw.js']:
+  target=dest/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(template/name,target)
  index=(dest/'index.html').read_text().replace('<body data-screen="home">',f'<body data-screen="home" data-update-test="{version}">')
  (dest/'index.html').write_text(index)
  listed=[dict(asset) for asset in assets]
@@ -22,6 +38,7 @@ class Handler(SimpleHTTPRequestHandler):
  def end_headers(self): self.send_header('Cache-Control','no-store');super().end_headers()
  def log_message(self,*args): pass
  def do_GET(self):
+  self.directory=str(base/state['version'])
   if self.path.split('?',1)[0].lstrip('/') in state['fail']:
    self.send_response(503);self.end_headers();self.wfile.write(b'QA unavailable');return
   super().do_GET()

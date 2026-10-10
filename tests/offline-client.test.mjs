@@ -25,7 +25,7 @@ function worker(state = 'installed') {
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
 function harness(t, { supported = true, controlled = true, homeElement = true, safe = true } = {}) {
-  const elements = Object.fromEntries(['offline-status', 'offline-progress', 'offline-retry', 'offline-update', 'install-game', ...(homeElement ? ['home-update-status'] : [])].map(id => [id, Object.assign(new Events(), { hidden: true, disabled: false, textContent: '' })]));
+  const elements = Object.fromEntries(['offline-status', 'offline-progress', 'offline-retry', 'offline-update', 'install-game', 'home-refresh', ...(homeElement ? ['home-update-status'] : [])].map(id => [id, Object.assign(new Events(), { hidden: true, disabled: false, textContent: '' })]));
   const doc = Object.assign(new Events(), { visibilityState: 'visible', querySelector: selector => elements[selector.slice(1)] || null });
   const timers = [];
   const win = Object.assign(new Events(), { isSecureContext: true,
@@ -434,4 +434,28 @@ test('installation prompt behavior remains independent of automatic updates', as
   assert.equal(prevented, 1);
   assert.equal(prompted, 1);
   assert.equal(h.elements['install-game'].hidden, true);
+});
+
+
+test('home refresh opens the standalone recovery with a fresh URL and cleans up playback', async t => {
+  const h = harness(t);
+  await h.elements['home-refresh'].emit('click', { preventDefault() { assert.fail('Online navigation should remain available'); } });
+  const url = new URL(h.elements['home-refresh'].href);
+  assert.ok(url.pathname.endsWith('/refresh.html'));
+  assert.equal(url.searchParams.get('t'), '100000');
+  assert.equal(h.state.beforeReloads, 1);
+  assert.equal(h.state.clears, 0);
+});
+
+test('home refresh stays in the playable cached game when offline', async t => {
+  const h = harness(t);
+  h.nav.onLine = false;
+  let prevented = false;
+  await h.elements['home-refresh'].emit('click', { preventDefault() { prevented = true; } });
+  assert.equal(prevented, true);
+  assert.equal(h.state.beforeReloads, 0);
+  assert.equal(h.elements['home-refresh'].href, undefined);
+  assert.equal(h.elements['home-update-status'].hidden, false);
+  assert.match(h.elements['home-update-status'].textContent, /internetkapcsolat/);
+  assert.equal(h.state.clears, 0);
 });

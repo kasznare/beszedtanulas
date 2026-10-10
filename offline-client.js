@@ -4,6 +4,7 @@ const ACTIVATION_RETRY_DELAY_MS = 1_000;
 export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => false } = {}) {
   const status = document.querySelector("#offline-status");
   const homeStatus = document.querySelector("#home-update-status");
+  const refresh = document.querySelector("#home-refresh");
   const progress = document.querySelector("#offline-progress");
   const retry = document.querySelector("#offline-retry");
   const update = document.querySelector("#offline-update");
@@ -29,6 +30,18 @@ export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => f
   const text = (element, value) => { if (element) element.textContent = value; };
   const hidden = (element, value) => { if (element) element.hidden = value; };
   const disabled = (element, value) => { if (element) element.disabled = value; };
+
+  refresh?.addEventListener("click", event => {
+    if (navigator.onLine === false) {
+      event.preventDefault();
+      showHomeStatus("A frissítéshez internetkapcsolat kell. A letöltött játék tovább használható.");
+      return;
+    }
+    const target = new URL("./refresh.html", import.meta.url);
+    target.searchParams.set("t", String(Date.now()));
+    refresh.href = target.href;
+    beforeReload();
+  });
 
   function showHomeStatus(message = "") {
     text(homeStatus, message);
