@@ -1,7 +1,7 @@
 /* Furfangliget keeps the familiar palette, with a distinct ink-blue workshop. */
 .logic-panel { --logic-ink:#24495c; --logic-blue:#246785; max-width:960px; margin:auto; color:var(--logic-ink); }
 .logic-panel button { color:inherit; font:inherit; font-weight:750; cursor:pointer; border:2px solid #d0dedf; background:#fffdf7; border-radius:15px; min-height:48px; padding:10px 16px; touch-action:manipulation; }
-.logic-panel button:focus-visible { outline:4px solid #b56419; outline-offset:3px; }
+.logic-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .logic-panel button:disabled { cursor:default; opacity:.48; }
 .logic-panel button.logic-primary { background:var(--logic-blue); color:white; border-color:var(--logic-blue); box-shadow:0 3px 0 #18465c; }
 .logic-intro { text-align:center; margin:12px 0 24px; }
@@ -40,7 +40,7 @@
 .logic-stepper button { width:56px; font-size:1.65rem; line-height:1; }
 .logic-stepper output { min-width:2ch; text-align:center; font-size:1.7rem; font-weight:800; }
 .logic-hint-text { margin:12px 0 0; text-align:center; font-size:1rem; font-weight:700; color:#784a11; }
-.logic-basket.logic-attention { border-style:dashed; border-color:#b56419; }
+.logic-basket.logic-attention { border-style:dashed; border-color:#48724d; }
 .logic-delivery { text-align:center; background:#dfedde; border-radius:16px; padding:12px; margin-bottom:12px; font-size:2.2rem; }
 .logic-machine-layout { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 .logic-examples,.logic-build,.logic-predictions { background:#e2edf1; border-radius:20px; padding:14px; min-width:0; }
@@ -70,7 +70,7 @@
 .logic-panel .logic-cell.blocked { background:#d7d7cf; border-color:#c4c7bd; }
 .logic-panel .logic-cell.on-path { background:#ffdf7e; border-color:#c39d30; }
 .logic-panel .logic-cell.path-end { border:3px solid #246785; }
-.logic-panel .logic-cell.hint-cell { outline:3px dashed #a5520a; outline-offset:-5px; }
+.logic-panel .logic-cell.hint-cell { outline:3px dashed #48724d; outline-offset:-5px; }
 .logic-panel .logic-cell:disabled { opacity:1; }
 .logic-route-plan { text-align:center; }
 .logic-route-plan p { font-size:1rem; line-height:1.4; }
@@ -151,7 +151,7 @@
 .logic-panel[data-game="route"] { --logic-blue:#3b7060; }
 .logic-level-control { display:flex; align-items:center; gap:8px; font-size:.875rem; font-weight:750; }
 .logic-level-control select { min-height:48px; max-width:100%; border:2px solid #b8cdd2; border-radius:14px; padding:8px 30px 8px 12px; color:var(--logic-ink); background:#fffdf7; font:inherit; font-weight:750; cursor:pointer; }
-.logic-level-control select:focus-visible,.logic-stepper input:focus-visible { outline:4px solid #b56419; outline-offset:3px; }
+.logic-level-control select:focus-visible,.logic-stepper input:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .logic-scene-label { display:block; margin:3px 0 6px; font-size:.7rem; font-weight:850; letter-spacing:.13em; color:#587660; }
 .logic-heading h2 { font-size:clamp(1.45rem,3vw,1.9rem); }
 .logic-dots { align-items:center; gap:6px; max-width:100%; }
@@ -180,18 +180,17 @@
 .logic-workshop-sign>span:first-child { font-size:1.8rem; }.logic-workshop-sign>span:nth-child(2) { flex:1; }
 .logic-panel .logic-workshop-sign button { min-height:44px; padding:7px 10px; font-size:.8rem; font-weight:650; }
 .logic-example { border-width:2px; transition:border-color .15s,background .15s; }
-.logic-panel .logic-example.is-running { background:#fff0c1; border-color:#ac7d20; }
+.logic-panel .logic-example.is-running { background:#e5eddf; border-color:#78957f; }
 .logic-machine-core { flex-shrink:0; white-space:nowrap; }
-.logic-example.is-running .logic-machine-core { animation:logic-machine-pulse .65s ease-in-out infinite alternate; }
-.logic-slots .is-operating { background:#ffe6a0!important; border-color:#a46e18!important; opacity:1!important; }
+.logic-example.is-running .logic-machine-core { background:#e5eddf; border-color:#78957f; }
+.logic-slots .is-operating { background:#e5eddf!important; border-color:#78957f!important; opacity:1!important; }
 .logic-machine-run { display:flex; flex-direction:column; justify-content:center; gap:6px; min-height:68px; margin:12px 0; padding:8px; border:2px dashed #a9c0ca; border-radius:14px; color:#496673; background:#fff8; font-size:.85rem; }
-.logic-machine-run.is-running { border-style:solid; border-color:#bd972f; background:#fff9e6; }
+.logic-machine-run.is-running { border-style:solid; border-color:#78957f; background:#e5eddf; }
 .logic-machine-trace { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:7px; }
 .logic-machine-trace b { padding:4px 9px; border-radius:8px; color:var(--logic-ink); background:white; font-size:1.25rem; }
-.logic-machine-trace .is-current { background:#ffdd81; animation:logic-number-in .2s ease-out; }
+.logic-machine-trace .is-current { background:#e5eddf; animation:logic-number-in .2s ease-out; }
 .logic-trace-op { color:#6c5a31; font-size:.95rem; font-weight:750; }
 .logic-quantity .logic-dots { gap:3px; }.logic-quantity .logic-dot-group { gap:1px; padding:2px; box-shadow:none; font-size:.7rem; }
-@keyframes logic-machine-pulse { to { transform:scale(1.12); } }
 @keyframes logic-number-in { from { transform:translateY(5px); opacity:.4; } to { transform:translateY(0); opacity:1; } }
 .logic-board-wrap { position:relative; width:100%; min-width:0; }
 .logic-board { position:relative; width:100%; box-sizing:border-box; background:linear-gradient(145deg,#9fbea7,#bdd3ad); border:2px solid #92b293; }
@@ -223,7 +222,7 @@
 .logic-route-briefing dt { font-weight:750; }.logic-route-briefing dd { margin:0; line-height:1.5; }
 .logic-route-briefing dd>span { display:block; }
 .logic-route-text .logic-route-meter { grid-column:1/-1; }
-.logic-directions:focus-visible { outline:3px solid #b56419; outline-offset:4px; border-radius:12px; }
+.logic-directions:focus-visible { outline:3px solid #48724d; outline-offset:4px; border-radius:12px; }
 .logic-path-text { align-items:flex-start; }
 .logic-path-text ol { flex-direction:column; width:100%; }
 .logic-path-text li { justify-content:flex-start; gap:10px; padding:6px 12px; font-size:1rem; }

@@ -3,7 +3,7 @@
 .workshop-panel *, .workshop-panel *::before, .workshop-panel *::after { box-sizing:border-box; }
 .workshop-panel button { min-height:48px; min-width:44px; max-width:100%; padding:9px 13px; border:2px solid var(--ws-border); border-radius:14px; color:var(--ws-ink); background:var(--ws-paper); font:inherit; font-size:1rem; font-weight:700; cursor:pointer; touch-action:manipulation; box-shadow:none; }
 .workshop-panel button:disabled { opacity:.5; cursor:default; }
-.workshop-panel button:focus-visible { outline:4px solid #925017; outline-offset:3px; }
+.workshop-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .workshop-panel button:hover:not(:disabled) { border-color:#688d73; background:#f2f6e9; }
 .workshop-panel .ws-primary { background:var(--ws-green); border-color:var(--ws-green); color:white; box-shadow:0 3px 0 #2c4c3c; }
 .workshop-panel .ws-primary:hover:not(:disabled) { background:#345b49; border-color:#345b49; }
@@ -71,7 +71,7 @@
 .ws-leaf-bin .ws-bin-tokens { padding-top:0; min-height:60px; align-content:center; }
 .ws-leaf { color:#52775e; font-size:2.4rem; }
 .workshop-panel .ws-selected { border:3px solid #426e5a; background:#f0f7df; box-shadow:0 0 0 2px #fffdf5; }
-.ws-hint-focus { position:relative; outline:3px dashed #a26d1d; outline-offset:2px; }
+.ws-hint-focus { position:relative; outline:3px dashed #48724d; outline-offset:2px; }
 .ws-hint-focus::after { content:'☀'; position:absolute; right:-5px; top:-12px; width:23px; height:23px; border-radius:50%; color:#714511; background:#fff1bd; display:grid; place-items:center; font-size:18px; z-index:2; pointer-events:none; }
 .workshop-panel .ws-review { border-style:dashed; border-color:#a87943; }
 .ws-arrived { animation:ws-arrive .25s ease-out; }

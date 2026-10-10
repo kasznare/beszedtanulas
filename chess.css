@@ -3,7 +3,7 @@
 .chess-intro h2 { margin:0; font-size:1.6rem; }.chess-intro p { margin:4px 0 0; font-size:.95rem; }
 .chess-badge { display:grid; place-items:center; width:56px; height:56px; background:#e3ecda; border-radius:18px; font-size:2.4rem; color:#446a53; transform:rotate(-6deg); }
 .chess-panel button { min-height:44px; min-width:44px; border:2px solid #b6cbb5; border-radius:13px; background:#fffdf5; color:inherit; padding:9px 13px; font:inherit; font-weight:700; cursor:pointer; touch-action:manipulation; }
-.chess-panel button:focus-visible { outline:3px solid #965815; outline-offset:3px; }
+.chess-panel button:focus-visible { outline:3px solid #48724d; outline-offset:3px; }
 .chess-panel button:disabled { cursor:default; opacity:.5; }
 .chess-panel button[aria-pressed="true"] { border-color:#456f54; background:#e1ecd8; }
 .chess-modes { display:flex; justify-content:center; gap:8px; margin-bottom:15px; }

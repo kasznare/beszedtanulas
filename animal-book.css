@@ -2,7 +2,7 @@
 .animal-book-panel *, .animal-book-panel *::before, .animal-book-panel *::after { box-sizing:border-box; }
 .animal-book-panel button { min-width:44px; min-height:44px; padding:8px 12px; border:2px solid #d5d4bb; border-radius:13px; background:#fffdf4; color:var(--abk-ink); font:inherit; font-size:1rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
 .animal-book-panel button:hover:not(:disabled) { border-color:var(--abk-accent); background:#fff9e6; }
-.animal-book-panel button:focus-visible { outline:4px solid #966021; outline-offset:3px; }
+.animal-book-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .animal-book-panel button:disabled { opacity:.38; cursor:default; }
 .abk-book { position:relative; padding:7px 7px 11px 15px; background:#a28b63; border:2px solid #8a7758; border-radius:20px 24px 24px 20px; box-shadow:0 8px 0 -4px #7f7156,0 12px 22px #56493417; overflow:hidden; }
 .abk-book::before { content:''; position:absolute; top:12px; bottom:13px; left:7px; width:4px; border-radius:4px; background:#645842; box-shadow:2px 0 2px #5c523a40; }
@@ -20,11 +20,11 @@
 .abk-image-fallback[hidden] { display:none; }
 .animal-book-panel .abk-hotspot { position:absolute; display:flex; align-items:flex-end; justify-content:center; min-width:44px; min-height:44px; padding:4px; border:3px solid transparent; border-radius:25%; background:transparent; touch-action:pan-y; z-index:1; }
 .animal-book-panel .abk-hotspot:hover:not(:disabled) { border-color:#fffdf4a6; background:#fffdf410; }
-.animal-book-panel .abk-hotspot:focus-visible { outline:4px solid #966021; outline-offset:1px; background:#fffcf324; border-color:#fffdf4; }
+.animal-book-panel .abk-hotspot:focus-visible { outline:4px solid #48724d; outline-offset:1px; background:#fffcf324; border-color:#fffdf4; }
 .abk-sound-marker { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; border:1px solid #fffdf4da; background:#fffdf4cf; box-shadow:0 2px 4px #2f3e3329; color:#334e40; font-size:21px; line-height:1; transition:opacity .15s ease; pointer-events:none; }
 .hide-markers .abk-hotspot .abk-sound-marker { opacity:0; }
-.animal-book-panel .abk-hotspot.is-playing { border-color:#fff6b7c9; background:#fffac015; box-shadow:0 0 0 3px #fff5af24; }
-.abk-hotspot.is-playing .abk-sound-marker { color:#55441c; background:#fff3ad; animation:abk-pulse .85s ease-in-out infinite; }
+.animal-book-panel .abk-hotspot.is-playing { border-color:#78957f; background:#e5eddf24; box-shadow:0 0 0 2px #fffdf480; }
+.abk-hotspot.is-playing .abk-sound-marker { color:#344f45; background:#e5eddf; }
 .abk-hotspot.is-loading .abk-sound-marker { background:#fff9e6; }
 .abk-hotspot.is-loading .abk-sound-marker::after { content:''; position:absolute; width:29px; height:29px; border:2px dotted #5c735c; border-radius:50%; animation:abk-loading 1.5s linear infinite; }
 .abk-image-corner { position:absolute; right:0; top:0; width:18px; height:18px; background:linear-gradient(225deg,#fffdf4 49%,#fffdf450 51%,transparent 72%); border-top-right-radius:14px; pointer-events:none; }
@@ -33,7 +33,7 @@
 .abk-animal-symbol { display:block; font-size:2.65rem; line-height:1.1; transform-origin:center 80%; }
 .abk-animal-name { display:block; font-size:1rem; line-height:1.25; }
 .abk-animal-speaker { position:absolute; top:8px; right:9px; font-size:.9rem; }
-.animal-book-panel .abk-animal.is-playing { border-color:var(--abk-accent); background:var(--abk-tint); box-shadow:0 0 0 3px #e9d895,0 3px 0 #d4c995; }
+.animal-book-panel .abk-animal.is-playing { border-color:#78957f; background:#e5eddf; box-shadow:0 0 0 2px #78957f; }
 .abk-animal.is-playing .abk-animal-symbol { animation:abk-listen .8s ease-in-out infinite; }
 .abk-animal.is-loading .abk-animal-speaker { opacity:.5; }
 .abk-status { text-align:center; min-height:2.8em; line-height:1.4; font-size:.89rem; margin:12px auto 8px; max-width:620px; }
@@ -53,7 +53,6 @@
 .abk-footer #abk-markers[aria-pressed=true] { background:#f0f0df; border-color:#d9dac2; }
 @keyframes abk-turn-forward { from { opacity:.55; transform:perspective(900px) rotateY(-4deg) translateX(6px); } to { opacity:1; transform:none; } }
 @keyframes abk-turn-backward { from { opacity:.55; transform:perspective(900px) rotateY(4deg) translateX(-6px); } to { opacity:1; transform:none; } }
-@keyframes abk-pulse { 50% { transform:scale(1.12); box-shadow:0 0 0 5px #fff8c13d; } }
 @keyframes abk-listen { 30% { transform:rotate(-4deg) translateY(-2px); } 65% { transform:rotate(4deg) translateY(-1px); } }
 @keyframes abk-loading { to { transform:rotate(360deg); } }
 @media(max-width:600px) {

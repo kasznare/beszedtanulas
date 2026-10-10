@@ -1,6 +1,6 @@
 .pour-panel { max-width:860px; margin:auto; }
 .pour-panel button { min-height:48px; border:2px solid #c7dcd9; border-radius:16px; background:#fffdf8; color:#31594e; font-weight:750; cursor:pointer; padding:10px 14px; }
-.pour-panel button:focus-visible { outline:4px solid #a35f28; outline-offset:3px; }
+.pour-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .pour-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
 .pour-heading p { margin:0; color:#587266; font-size:.95rem; }
 .pour-levels { display:flex; gap:6px; }
