@@ -1,7 +1,7 @@
 /* Shared destinations keep the same size and rhythm across the five menus. */
 .tone-lilac { background:#eee2f2; }
-.home-tools { display:flex; justify-content:flex-end; margin:0 0 10px; }
-.home-refresh { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:8px 16px; border:1px solid #b7cbbb; border-radius:15px; background:#edf3e8; color:#285b47; font-weight:700; text-decoration:none; }
+.home-refresh { display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:8px 16px; border:1px solid #b7cbbb; border-radius:15px; background:#edf3e8; color:#285b47; font-weight:700; text-decoration:none; }
+body:not([data-screen="home"]) .home-refresh { display:none; }
 .home-refresh .icon { width:22px; height:22px; }
 .home-refresh:hover { background:#e1ecda; }
 .home-refresh:focus-visible { outline:3px solid var(--primary); outline-offset:3px; }
@@ -35,6 +35,8 @@
 .game-menu-card:active,.back-button:active { transform:translateY(3px); box-shadow:none; }
 @media(max-width:600px) {
   .app-bar { gap:7px; }
+  .home-refresh { width:44px; padding:0; }
+  .home-refresh span { display:none; }
   .back-button { width:48px; height:48px; border-radius:17px; }
   .home-button,.help-button { width:44px; height:44px; }
   .screen-heading h1 { font-size:1.08rem; }

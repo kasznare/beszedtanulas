@@ -1,5 +1,11 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 10. – Frissítés a felső sorban, egyszerűbb főképernyő
+
+A felhasználó kérésére a meglévő Frissítés link a főképernyő fejlécébe került, a hangos segítség mellé. Keskeny, legfeljebb 600 px széles nézetben 44 × 44 px ikonként látszik, hozzáférhető neve és tooltipje Frissítés; nagyobb képernyőn a felirat is látható. Más képernyőkön továbbra sem jelenik meg. A „Mivel játsszunk?” sor és díszei, valamint az elavult stílusai és narrációs célja megszűntek. A Válassz hangrész továbbra is a játékkártyákat jelöli. A kézi frissítés meglévő működése megmaradt.
+
+Kiindulás `7fde870`, külön managed `home-header-refresh` munkafa, ág `codex/home-header-refresh`. A közös checkout más chatek munkája érintetlen. Ellenőrzés: teljes build, 189 sikeres Node-teszt, 585 futtatási fájl. Chrome és WebKit motoronként 30 ellenőrzés hét képernyőméretben (320–1440 px): egy sorban lévő fejléc, legalább 44 px frissítésgomb, átfedés és vízszintes túlcsordulás nélkül, felirat törlése, menü/játék/szülői oldal elrejtése, hazatérés, offline hibaüzenet és online frissítőlink. A böngészőpróba saját, service worker nélküli kontextust használ; az online útvonal egy rövid fixture-rel igazolt, a közzétett teljes frissítést külön az éles oldalon ellenőrizzük. Böngészőszkript-hiba nincs. Offline lenyomat: `608e5c9b04cd4b83`. Közzététel a meglévő GitHub Pages main-folyamatával.
+
 ## 2026. október 10. – A megmaradt kiválasztási és segítségkeretek javítása
 
 A felhasználó a narancssárga kereteket továbbra is látta. Az éles `3277381` kiadásban reprodukáltuk az R-mondóka kettős keretét: a külső narrációs kontúr már zöld, de a kiválasztott mondóka és az aktuális sor belső borderje még aranybarna volt. Az előző audit a `.is-narrated` külső outline-ját ellenőrizte, a saját kiválasztási állapotok egy részét kihagyta. Ez ténylegesen megmaradt stílus volt; a felhasználó másik böngészőjének gyorsítótárát nem igazoltuk hibaforrásként.
