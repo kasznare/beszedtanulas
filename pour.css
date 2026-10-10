@@ -19,17 +19,17 @@
 
 .pour-jug-note { fill:#587266; font-size:17px; font-weight:600; pointer-events:none; }
 .pour-jug-amount { display:block; margin-top:2px; font-size:.8rem; font-weight:600; }
-.pour-target { stroke:#816522; stroke-width:4; stroke-dasharray:7 5; }
+.pour-target { stroke:#48724d; stroke-width:4; stroke-dasharray:7 5; }
 .pour-water { fill:url(#pour-water-color); }
 .pour-glass { fill:#ffffff50; stroke:#528394; stroke-width:5; }
-.pour-cup-highlight { stroke:#e5b33e; stroke-width:5; fill:none; }
+.pour-cup-highlight { stroke:#78957f; stroke-width:5; fill:none; }
 .pour-cup-ready { fill:#217c63; font-size:26px; font-weight:800; }
 .pour-controls { display:grid; gap:10px; }
 .pour-cups { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .pour-cup { display:grid; gap:3px; text-align:center; }
 .pour-cup .pour-cup-name { font-size:1.05rem; }
 .pour-cup small { font-weight:500; font-size:.85rem; }
-.pour-cup[aria-pressed="true"] { background:#f9edbd; border-color:#d6b35c; box-shadow:0 3px 0 #ead8a2; }
+.pour-cup[aria-pressed="true"] { background:#e5eddf; border-color:#78957f; box-shadow:0 3px 0 #c9d8be; }
 .pour-cup[data-done="true"] { background:#dceddf; border-color:#86b79a; }
 .pour-actions { display:flex; gap:8px; }
 .pour-panel .pour-hold { flex:1; background:#217c63; color:#fff; border-color:#17664f; box-shadow:0 4px 0 #17664f; font-size:1.2rem; min-height:64px; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
@@ -44,7 +44,7 @@
 .pour-sensor-note:empty { display:none; }
 .pour-footer { display:flex; gap:8px; }
 .pour-footer button { flex:1; min-width:0; padding:8px 6px; font-size:.9rem; }
-.pour-panel .pour-finish { background:#f9edbd; border-color:#dfc165; }
+.pour-panel .pour-finish { background:#e5eddf; border-color:#78957f; }
 .game-worlds .logic-portal-link[data-open="pour"] { background:#dceff0; border-color:#9fc7cd; color:#365f63; box-shadow:0 4px 0 #b3d5d7; }
 @keyframes pour-flow { to { stroke-dashoffset:-40; } }
 @media(min-width:760px) { .pour-layout { grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr); align-items:center; }.pour-art { min-height:310px; }.pour-heading { margin-bottom:16px; } }

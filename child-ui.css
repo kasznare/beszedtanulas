@@ -87,7 +87,7 @@ body[data-screen="parent"] .app-bar { position: sticky; top: 0; background: var(
 .listening-answer { position: relative; display: grid; place-items: center; min-width: 0; min-height: 240px; padding: 24px 8px; border: 3px solid #ece5d8; border-radius: 30px; background: #fffdf8; color: var(--ink); box-shadow: 0 6px 0 #29413808; cursor: pointer; }
 .listening-picture { font-size: clamp(76px, 12vw, 130px); line-height: 1.25; }
 .listening-mark { position: absolute; right: 12px; bottom: 12px; font-size: 30px; line-height: 1; }
-.listening-answer.is-retry { border-color: #d8b970; background: #fff7e5; }
+.listening-answer.is-retry { border-color: #7b929f; background: #edf1f3; }
 .listening-answer.is-correct { border-color: #6eaa80; background: #e5f4df; }
 .listening-answer:disabled { opacity: 1; cursor: default; }
 #listening-next.is-ready { box-shadow: 0 5px 0 #16634d; }
@@ -133,7 +133,7 @@ body[data-screen="parent"] .app-bar { position: sticky; top: 0; background: var(
 .round-play .icon { width: 34px; height: 34px; }
 .round-progress { display: flex; justify-content: center; gap: 9px; min-height: 24px; margin-bottom: 8px; }
 .progress-dot { width: 12px; height: 12px; border-radius: 50%; background: #e9e7d9; }
-.progress-dot.is-current { background: #f0c364; box-shadow: 0 0 0 4px #faefd5; }
+.progress-dot.is-current { background: #48724d; box-shadow: 0 0 0 4px #e5eddf; }
 .progress-dot.is-done { background: #7baa80; }
 .reward { background: transparent; box-shadow: none; font-size: 38px; padding: 0; margin: 0 auto; }
 .listening-indicator { margin: 0; min-height: 12px; }

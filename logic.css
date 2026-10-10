@@ -68,7 +68,7 @@
 .logic-panel .logic-cell { aspect-ratio:1; min-height:44px; min-width:0; padding:0; border:2px solid #f9fcf3; border-radius:12px; position:relative; font-size:clamp(1.4rem,4vw,2.1rem); background:#f1f7e6; box-shadow:none; touch-action:none; }
 .logic-cell small { position:absolute; bottom:1px; right:5px; font-size:.875rem; font-weight:800; color:#24495c; }
 .logic-panel .logic-cell.blocked { background:#d7d7cf; border-color:#c4c7bd; }
-.logic-panel .logic-cell.on-path { background:#ffdf7e; border-color:#c39d30; }
+.logic-panel .logic-cell.on-path { background:#e5eddf; border-color:#78957f; }
 .logic-panel .logic-cell.path-end { border:3px solid #246785; }
 .logic-panel .logic-cell.hint-cell { outline:3px dashed #48724d; outline-offset:-5px; }
 .logic-panel .logic-cell:disabled { opacity:1; }

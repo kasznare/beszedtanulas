@@ -325,7 +325,7 @@ body {
 
 @media (hover: hover) {
   .card:hover {
-    border-color: #d7b678;
+    border-color: #8ab29a;
     background: #fff9eb;
   }
 }
@@ -460,22 +460,22 @@ body {
 }
 
 .imitate-wrap.is-processing {
-  box-shadow: 0 0 0 4px rgba(243, 213, 140, 0.45);
+  box-shadow: 0 0 0 4px rgba(120, 149, 127, 0.45);
   border-radius: 18px;
 }
 
 .phrase-wrap.is-processing {
-  box-shadow: 0 0 0 4px rgba(243, 213, 140, 0.45);
+  box-shadow: 0 0 0 4px rgba(120, 149, 127, 0.45);
   border-radius: 18px;
 }
 
 .imitate-wrap.is-rejected {
-  box-shadow: 0 0 0 4px rgba(242, 169, 160, 0.4);
+  box-shadow: 0 0 0 4px rgba(123, 146, 159, 0.4);
   border-radius: 18px;
 }
 
 .phrase-wrap.is-rejected {
-  box-shadow: 0 0 0 4px rgba(242, 169, 160, 0.4);
+  box-shadow: 0 0 0 4px rgba(123, 146, 159, 0.4);
   border-radius: 18px;
 }
 

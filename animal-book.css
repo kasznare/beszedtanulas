@@ -1,7 +1,7 @@
 .animal-book-panel { --abk-accent:#886241; --abk-tint:#f1e4c8; --abk-ink:#454436; --abk-paper:#fffdf4; color:var(--abk-ink); max-width:1000px; margin:auto; }
 .animal-book-panel *, .animal-book-panel *::before, .animal-book-panel *::after { box-sizing:border-box; }
 .animal-book-panel button { min-width:44px; min-height:44px; padding:8px 12px; border:2px solid #d5d4bb; border-radius:13px; background:#fffdf4; color:var(--abk-ink); font:inherit; font-size:1rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
-.animal-book-panel button:hover:not(:disabled) { border-color:var(--abk-accent); background:#fff9e6; }
+.animal-book-panel button:hover:not(:disabled) { border-color:#78957f; background:#e5eddf; }
 .animal-book-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .animal-book-panel button:disabled { opacity:.38; cursor:default; }
 .abk-book { position:relative; padding:7px 7px 11px 15px; background:#a28b63; border:2px solid #8a7758; border-radius:20px 24px 24px 20px; box-shadow:0 8px 0 -4px #7f7156,0 12px 22px #56493417; overflow:hidden; }
@@ -45,8 +45,8 @@
 .animal-book-panel .abk-page-index button { display:flex; align-items:center; justify-content:center; gap:5px; min-height:44px; padding:6px 10px; border-color:transparent; background:transparent; font-size:.86rem; }
 .abk-page-index small { font-size:.83rem; font-weight:600; }
 .abk-page-index button>span { display:grid; place-items:center; min-width:18px; width:18px; height:18px; border-radius:50%; background:#e8e4d1; font-size:.73rem; }
-.animal-book-panel .abk-page-index button[aria-current=page] { color:var(--abk-accent); border-color:var(--abk-accent); background:var(--abk-tint); }
-.abk-page-index button[aria-current=page]>span { color:white; background:var(--abk-accent); }
+.animal-book-panel .abk-page-index button[aria-current=page] { color:#344f45; border-color:#78957f; background:#e5eddf; }
+.abk-page-index button[aria-current=page]>span { color:white; background:#48724d; }
 .abk-footer { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:4px 12px; padding-top:8px; margin-top:7px; border-top:1px solid #e1deca; }
 .animal-book-panel .abk-footer button { border-color:transparent; background:transparent; font-size:.8rem; font-weight:600; min-height:44px; padding:6px 8px; }
 .abk-footer>span { font-size:.8rem; line-height:1.4; color:#786f56; }
