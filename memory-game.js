@@ -1,6 +1,6 @@
 import { buildMemoryDeck } from './memory-data.js';
 
-export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onComplete, setPairs }) {
+export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onComplete, setPairs, onRestart = () => {} }) {
   const root = document.querySelector('#memory');
   let active = false, deck = [], open = [], matched = new Set(), preview = false, busy = false, finished = false;
   let generation = 0, timer;
@@ -31,6 +31,7 @@ export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onC
     if (focusKey) root.querySelector(`[data-card="${focusKey}"]`)?.focus({ preventScroll: true });
   }
   function start() {
+    onRestart();
     cancel(); active = true; finished = false; open = []; matched = new Set();
     const options = getOptions(); deck = buildMemoryDeck(options.words, options.memoryPairs);
     render(); root.querySelector('h2').focus({ preventScroll: true }); say('memory_start');
@@ -46,7 +47,7 @@ export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onC
       matched.add(card.word.id); open = []; render();
       root.querySelector('#memory-status').textContent = 'Egyforma képek! Megvan egy pár.';
       if (matched.size === deck.length / 2) {
-        finished = true; render(); say('memory_done'); onComplete(matched.size);
+        finished = true; render(); onComplete(matched.size);
       }
     } else {
       busy = true; render(key);

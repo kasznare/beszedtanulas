@@ -1,10 +1,15 @@
 import { WORKSHOP_GAMES, WORKSHOP_NAMES, WORKSHOP_LEVEL_NAMES, WORKSHOP_COLORS, WORKSHOP_SHAPES, workshopObjectName, generateWorkshopTask, newWorkshopSession, normalizeWorkshop, workshopSortTarget, workshopHint, completeWorkshop, rememberWorkshop, undoWorkshop } from './workshop-data.js';
+import { createSuccessDelay } from './success-delay.js';
 
 export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel }) {
   const root = document.querySelector('#workshop');
   if (!root) return { start() {}, stop() {}, repeat() {} };
   root.classList.add('workshop-panel');
   let active = false, kind = null, level = 1, session = null, task = null, selected = null, slot = 0, status = '', arrived = null, tried = false;
+  let successPending = false;
+  const successDelay = createSuccessDelay();
+  const finished = () => session?.done && !successPending;
+  function cancelSuccess() { successDelay.cancel(); successPending = false; }
   const $ = selector => root.querySelector(selector);
   const bind = (selector, fn) => $(selector)?.addEventListener('click', fn);
   const say = (...ids) => { if (active && !document.hidden) speak(ids.flat()); };
@@ -23,7 +28,8 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     balance: '<span class="ws-menu-balance" aria-hidden="true">⚖</span>',
   };
   function menu(focus) {
-    stopPlayback(); kind = null; session = null; selected = null; status = ''; arrived = null;
+    cancelSuccess(); stopPlayback(); kind = null; session = null; selected = null; status = ''; arrived = null;
+    delete root.dataset.successPending;
     root.dataset.game = 'menu'; root.dataset.done = 'false'; root.dataset.level = level;
     const progress = normalizeWorkshop(getProgress());
     root.innerHTML = `<div class="ws-intro"><span class="ws-eyebrow">FIGYELJ · RENDEZD · PRÓBÁLD KI</span><h2 tabindex="-1">Műhelyliget</h2><p>Formák, minták és egyensúly a liget kis műhelyében.</p></div><div class="ws-levels" role="group" aria-label="Nehézség">${WORKSHOP_LEVEL_NAMES.map((name, i) => `<button id="ws-level-${i + 1}" data-level="${i + 1}" aria-pressed="${level === i + 1}"><span aria-hidden="true">${'◆'.repeat(i + 1)}</span>${name}</button>`).join('')}</div><div class="ws-places">${WORKSHOP_GAMES.map(game => {
@@ -39,7 +45,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     if (focus) $(`#${focus}`)?.focus({ preventScroll: true }); else $('h2')?.focus({ preventScroll: true });
   }
   function startGame(game, fresh = false) {
-    stopPlayback(); kind = game;
+    cancelSuccess(); stopPlayback(); kind = game;
     const previous = normalizeWorkshop(getProgress()).sessions[kind][level - 1];
     session = !fresh && previous ? previous : newWorkshopSession(kind, level);
     task = generateWorkshopTask(kind, level, session.seed);
@@ -47,7 +53,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     save(); render(); $('h2')?.focus({ preventScroll: true }); repeat();
   }
   function repeat() {
-    if (!active) return;
+    if (!active || successPending) return;
     if (!kind) { say('workshop_menu'); return; }
     if (session.done) { say(`workshop_${kind}_done`); return; }
     const ids = [`workshop_${kind}_${level}`];
@@ -57,13 +63,14 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
   }
   function render(focus) {
     const previousFocus = focus || (root.contains(document.activeElement) ? document.activeElement.id : null);
-    root.dataset.game = kind; root.dataset.done = session.done; root.dataset.level = level;
+    root.dataset.game = kind; root.dataset.done = finished(); root.dataset.successPending = successPending; root.dataset.level = level;
     const instructions = kind === 'sort' ? (level === 1 ? 'Válassz egy tárgyat, majd a hozzá illő színes tálcát!' : level === 2 ? 'A szín és a forma együtt mutatja a helyet.' : `A ${task.wantedSize ? 'nagy' : 'kis'} tárgyakat szín és forma szerint válogasd. A többi a levélre kerül.`) : kind === 'pattern' ? (level === 3 ? 'Két szín váltakozik. A forma hármasával ismétlődik.' : 'Figyeld a mintát! Töltsd ki az üres helyeket!') : (level === 1 ? 'A rudakkal rakj ugyanannyit a jobb oldalra!' : `${task.countRequired} különböző hosszúságú rúddal legyen ugyanannyi mindkét oldalon!`);
-    root.innerHTML = `<div class="ws-toolbar"><button id="ws-back">↶ Liget</button><span>${WORKSHOP_LEVEL_NAMES[level - 1]} <span aria-hidden="true">${'◆'.repeat(level)}</span></span><button id="ws-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="ws-heading"><h2 tabindex="-1">${WORKSHOP_NAMES[kind]}</h2><p>${session.done ? 'Elkészült! A kis műhelyben új feladat vár.' : instructions}</p></div>${session.done ? '<div class="ws-celebration" role="img" aria-label="Elkészült a feladat"><span aria-hidden="true">✿</span><strong>Szép munka!</strong><span aria-hidden="true">✿</span></div>' : ''}<div id="ws-work"></div><p id="ws-status" class="ws-status" role="status" aria-live="polite">${status}</p><div class="ws-actions"><button id="ws-undo" ${session.done || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="ws-hint" ${session.done ? 'disabled' : ''}>☀ Segítség${session.help ? ` ${session.help}/3` : ''}</button>${session.done ? '<button id="ws-next" class="ws-primary">Új feladat →</button>' : '<button id="ws-check" class="ws-primary">Kész! ✓</button>'}</div>`;
+    root.innerHTML = `<div class="ws-toolbar"><button id="ws-back">↶ Liget</button><span>${WORKSHOP_LEVEL_NAMES[level - 1]} <span aria-hidden="true">${'◆'.repeat(level)}</span></span><button id="ws-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="ws-heading"><h2 tabindex="-1">${WORKSHOP_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! A kis műhelyben új feladat vár.' : instructions}</p></div>${finished() ? '<div class="ws-celebration" role="img" aria-label="Elkészült a feladat"><span aria-hidden="true">✿</span><strong>Szép munka!</strong><span aria-hidden="true">✿</span></div>' : ''}<div id="ws-work"></div><p id="ws-status" class="ws-status" role="status" aria-live="polite">${status}</p><div class="ws-actions"><button id="ws-undo" ${session.done || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="ws-hint" ${session.done ? 'disabled' : ''}>☀ Segítség${session.help ? ` ${session.help}/3` : ''}</button>${finished() ? '<button id="ws-next" class="ws-primary">Új feladat →</button>' : `<button id="ws-check" class="ws-primary" ${session.done ? 'disabled' : ''}>Kész! ✓</button>`}</div>`;
     bind('#ws-back', () => { if (active) { menu(); say('workshop_menu'); } }); bind('#ws-repeat', repeat);
     bind('#ws-undo', () => { if (!allowed()) return; undoWorkshop(session); selected = null; status = 'Visszavontad az utolsó lépést. Folytathatod.'; arrived = null; tried = false; save(); render('ws-undo'); });
     bind('#ws-hint', hint); bind('#ws-check', check); bind('#ws-next', () => { if (active) startGame(kind, true); });
     if (kind === 'sort') renderSort(); else if (kind === 'pattern') renderPattern(); else renderBalance();
+    if (successPending) $('#ws-repeat').disabled = true;
     if (previousFocus) $(`#${previousFocus}`)?.focus({ preventScroll: true });
   }
   function correction() { return session.help ? workshopHint(task, session) : null; }
@@ -93,7 +100,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     $('#ws-work').innerHTML = `<section class="ws-pattern-panel"><div class="ws-pattern-thread" aria-label="Az ismétlődő minta">${task.sequence.map((value, index) => {
       const hole = task.holes.indexOf(index), answer = hole < 0 ? value : session.moves.answers[hole];
       return hole < 0 ? `<span class="ws-pattern-fixed ${session.help && index < task.motif.length ? 'ws-motif-glow' : ''}">${objectArt(task.palette[value])}<small>${index + 1}.</small></span>` : `<button id="ws-slot-${hole}" class="ws-pattern-slot ${slot === hole ? 'ws-selected' : ''} ${session.help >= 2 && tip?.index === hole ? 'ws-hint-focus' : ''} ${tried && answer !== value ? 'ws-review' : ''}" data-slot="${hole}" aria-label="${index + 1}. hely: ${answer === null ? 'üres' : workshopObjectName(task.palette[answer])}" aria-pressed="${slot === hole}" ${session.done ? 'disabled' : ''}>${answer === null ? (session.help >= 3 && tip?.index === hole ? `<span class="ws-ghost">${objectArt(task.palette[tip.target])}</span>` : '<span class="ws-slot-empty" aria-hidden="true">＋</span>') : objectArt(task.palette[answer])}<small>${index + 1}.</small></button>`;
-    }).join('')}</div><p class="ws-slot-label">${session.done ? 'A minta végig összeillik.' : `${task.holes[slot] + 1}. hely kijelölve · Válassz rá formát!`}</p></section><section class="ws-pattern-toolbox"><h3>Formakészlet</h3><div class="ws-pattern-choices">${task.palette.map((object, index) => `<button id="ws-choice-${index}" data-choice="${index}" class="ws-choice ${session.help >= 3 && tip?.target === index ? 'ws-hint-focus' : ''}" aria-label="Tedd a kijelölt helyre: ${workshopObjectName(object)}" ${session.done ? 'disabled' : ''}>${objectArt(object)}<small>${WORKSHOP_COLORS[object.color].name}<br>${WORKSHOP_SHAPES[object.shape]}</small></button>`).join('')}</div><button id="ws-clear-slot" ${session.done || session.moves.answers[slot] === null ? 'disabled' : ''}>↶ Hely kiürítése</button></section>${session.help >= 2 ? `<div class="ws-pattern-key"><span>Ismétlődő egység</span><div>${task.motif.map(index => objectArt(task.palette[index])).join('')}</div></div>` : session.help === 1 ? '<p class="ws-hint-note">A kiemelt elemek mutatják az ismétlődő egységet.</p>' : ''}`;
+    }).join('')}</div><p class="ws-slot-label">${finished() ? 'A minta végig összeillik.' : `${task.holes[slot] + 1}. hely kijelölve · Válassz rá formát!`}</p></section><section class="ws-pattern-toolbox"><h3>Formakészlet</h3><div class="ws-pattern-choices">${task.palette.map((object, index) => `<button id="ws-choice-${index}" data-choice="${index}" class="ws-choice ${session.help >= 3 && tip?.target === index ? 'ws-hint-focus' : ''}" aria-label="Tedd a kijelölt helyre: ${workshopObjectName(object)}" ${session.done ? 'disabled' : ''}>${objectArt(object)}<small>${WORKSHOP_COLORS[object.color].name}<br>${WORKSHOP_SHAPES[object.shape]}</small></button>`).join('')}</div><button id="ws-clear-slot" ${session.done || session.moves.answers[slot] === null ? 'disabled' : ''}>↶ Hely kiürítése</button></section>${session.help >= 2 ? `<div class="ws-pattern-key"><span>Ismétlődő egység</span><div>${task.motif.map(index => objectArt(task.palette[index])).join('')}</div></div>` : session.help === 1 ? '<p class="ws-hint-note">A kiemelt elemek mutatják az ismétlődő egységet.</p>' : ''}`;
     root.querySelectorAll('[data-slot]').forEach(button => button.addEventListener('click', () => { if (!allowed()) return; slot = Number(button.dataset.slot); render(button.id); }));
     root.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click', () => {
       if (!allowed() || session.moves.answers[slot] === Number(button.dataset.choice)) return;
@@ -139,7 +146,15 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     const progress = normalizeWorkshop(getProgress()); progress.sessions[kind][level - 1] = structuredClone(session);
     const result = completeWorkshop(progress, kind, level);
     if (result.reward) {
-      session = result.progress.sessions[kind][level - 1]; selected = null; status = '✓ Elkészült a feladat!'; arrived = null; updateProgress(result.progress, true); render(); $('#ws-next')?.focus({ preventScroll: true }); say(`workshop_${kind}_done`); return;
+      session = result.progress.sessions[kind][level - 1]; selected = null; status = ''; arrived = null; successPending = true;
+      const completedSession = session, completedKind = kind;
+      stopPlayback(); updateProgress(result.progress, true); render();
+      successDelay.schedule(() => {
+        if (!active || session !== completedSession || kind !== completedKind) return;
+        successPending = false; status = '✓ Elkészült a feladat!'; render();
+        if (!document.querySelector('dialog[open]')) { $('#ws-next')?.focus({ preventScroll: true }); say(`workshop_${kind}_done`); }
+      });
+      return;
     }
     session.misses = Math.min(9999, session.misses + 1); tried = true;
     if (kind === 'sort') status = session.moves.placements.some(n => n < 0) ? 'Még van tárgy az asztalon. Mindegyiknek keress helyet!' : 'Néhány tárgy másik helyre illik. A pontozott szél segít megkeresni.';
@@ -150,7 +165,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
   document.addEventListener('visibilitychange', () => { if (document.hidden && active) stopPlayback(); });
   return {
     start() { active = true; level = configuredLevel(); menu(); say('workshop_menu'); },
-    stop() { active = false; selected = null; stopPlayback(); },
+    stop() { active = false; cancelSuccess(); selected = null; stopPlayback(); },
     repeat,
   };
 }

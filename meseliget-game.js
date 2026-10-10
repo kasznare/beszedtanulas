@@ -1,5 +1,6 @@
 import { normalizeMeadow, recordMeadowTask, countFeedback, MESE_WORDS } from './meseliget-data.js';
 import { createDressBear, createDressIcon } from './dress-art.js';
+import { createSuccessDelay } from './success-delay.js';
 
 const animals = ['🐰', '🐱', '🐶', '🐼', '🦊', '🐨', '🐸', '🐯', '🐷', '🐵'];
 const names = ['nyuszi', 'cica', 'kutya', 'panda', 'róka', 'koala', 'béka', 'tigris', 'malac', 'majom'];
@@ -8,11 +9,14 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
   let active = false, mode = 'map', story = false, solved = false, helped = false;
   let target = 3, round = 0, length = 3, selected = new Set(), dressed = 0, bear, lastClip = 'mese_map';
   let chosenTarget = 3, variedPractice = true, moves = [];
+  let successPending = false;
+  const successDelay = createSuccessDelay();
+  function cancelSuccess() { successDelay.cancel(); successPending = false; delete root.dataset.successPending; }
   const progress = () => normalizeMeadow(getProgress());
   const numberLimit = () => Math.max(1, Math.min(10, Math.floor(Number(getOptions().numberLimit) || 3)));
   function say(id) { lastClip = id; if (active && !document.hidden) speak(id); }
   function repeat() {
-    if (!active) return;
+    if (!active || successPending) return;
     if (!solved && mode === 'collect') say(`mese_collect_${target}`);
     else if (!solved && mode === 'serve') say('mese_serve');
     else if (!solved && mode === 'dress') say(`dress_request_${dressed ? 'cipo' : 'sapka'}`);
@@ -32,7 +36,7 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     }));
   }
   function map(announce = true) {
-    stopPlayback(); mode = 'map'; story = false; root.dataset.mode = mode; root.dataset.mood = 'waiting';
+    cancelSuccess(); stopPlayback(); mode = 'map'; story = false; root.dataset.mode = mode; root.dataset.mood = 'waiting';
     chosenTarget = Math.min(chosenTarget, numberLimit());
     const p = progress();
     root.innerHTML = `<div class="meadow-map">
@@ -88,7 +92,7 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     focusTitle();
   }
   function question(kind) {
-    stopPlayback(); mode = kind; solved = false; helped = false; selected = new Set(); dressed = 0; moves = [];
+    cancelSuccess(); stopPlayback(); mode = kind; solved = false; helped = false; selected = new Set(); dressed = 0; moves = [];
     const title = kind === 'dress' ? 'Készüljünk a kirándulásra!' : kind === 'collect' ? `Tegyél ${MESE_WORDS[target]} almát a kosárba!` : 'Adj mindenkinek egy tányért!';
     shell(title);
     if (kind === 'dress') { renderDress(); say('dress_request_sapka'); }
@@ -156,7 +160,7 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     if (focusId !== undefined) root.querySelector(`[data-apple="${focusId}"]`)?.focus({preventScroll:true});
   }
   function renderServe(focusId, movement) {
-    root.querySelector('#meadow-work').innerHTML = `<div class="meadow-picnic-scene"><div class="meadow-scene-sky" aria-hidden="true"><span>🌼</span><span>Piknikrét</span><span>🧺</span></div><div class="meadow-guests" data-count="${target}" role="group" aria-label="Piknikező állatok">${Array.from({length:target},(_,i)=>`<button class="meadow-guest ${selected.has(i)?'has-plate':''} ${helped&&!selected.has(i)?'needs-plate':''} ${movement?.id===i?'meadow-just-served':''}" data-guest="${i}" aria-label="${names[i]}: ${selected.has(i)?'tányér visszavétele':'adj egy tányért'}" aria-pressed="${selected.has(i)}" ${solved?'disabled':''}><span class="meadow-animal" aria-hidden="true">${animals[i]}</span>${helped?`<small class="meadow-guest-number" aria-hidden="true">${i+1}</small>`:''}<span class="meadow-plate" aria-hidden="true">${selected.has(i)?'🍽️':'＋'}</span>${helped?`<span class="meadow-pairing-dot ${selected.has(i)?'filled':''}" aria-hidden="true">${selected.has(i)?'✓':'•'}</span>`:''}</button>`).join('')}</div></div><p class="meadow-serving-label">${solved?'Megterítettünk!':helped?'Egy barát, egy tányér.':'Koppints az állatok elé!'}</p>`;
+    root.querySelector('#meadow-work').innerHTML = `<div class="meadow-picnic-scene"><div class="meadow-scene-sky" aria-hidden="true"><span>🌼</span><span>Piknikrét</span><span>🧺</span></div><div class="meadow-guests" data-count="${target}" role="group" aria-label="Piknikező állatok">${Array.from({length:target},(_,i)=>`<button class="meadow-guest ${selected.has(i)?'has-plate':''} ${helped&&!selected.has(i)?'needs-plate':''} ${movement?.id===i?'meadow-just-served':''}" data-guest="${i}" aria-label="${names[i]}: ${selected.has(i)?'tányér visszavétele':'adj egy tányért'}" aria-pressed="${selected.has(i)}" ${solved?'disabled':''}><span class="meadow-animal" aria-hidden="true">${animals[i]}</span>${helped?`<small class="meadow-guest-number" aria-hidden="true">${i+1}</small>`:''}<span class="meadow-plate" aria-hidden="true">${selected.has(i)?'🍽️':'＋'}</span>${helped?`<span class="meadow-pairing-dot ${selected.has(i)?'filled':''}" aria-hidden="true">${selected.has(i)?'✓':'•'}</span>`:''}</button>`).join('')}</div></div><p class="meadow-serving-label">${solved&&!successPending?'Megterítettünk!':helped?'Egy barát, egy tányér.':'Koppints az állatok elé!'}</p>`;
     root.querySelectorAll('[data-guest]').forEach(button => button.addEventListener('click', () => {
       moveItem(Number(button.dataset.guest));
     }));
@@ -180,7 +184,8 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     say(mode === 'serve' ? 'mese_plate_more' : `mese_${result}`);
   }
   function win() {
-    if (solved) return; solved = true; stopPlayback();
+    if (solved) return; solved = true; successPending = true; stopPlayback();
+    root.dataset.successPending = 'true';
     const p = progress();
     // Free play must never advance a saved story.
     const adventure = p.adventure;
@@ -189,21 +194,30 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     if (!story) result.progress.adventure = adventure;
     const reward = story ? result.finished : round === length - 1;
     updateProgress(result.progress, reward);
-    root.dataset.mood = 'happy';
     if (mode === 'collect') renderCollect();
     else if (mode === 'serve') renderServe();
     else root.querySelectorAll('.meadow-clothing').forEach(b=>b.disabled=true);
-    root.querySelector('#meadow-status').textContent = mode === 'collect' ? `Megvan ${target === 1 ? 'az' : 'a'} ${MESE_WORDS[target]} alma!` : mode === 'serve' ? 'Mindenkinek jutott tányér!' : 'Felöltöztem! Indulhatunk!';
+    root.querySelector('#meadow-status').textContent = '';
     root.querySelector('#meadow-check').hidden = true; root.querySelector('#meadow-hint').hidden = true;
     root.querySelector('.meadow-edit-actions')?.setAttribute('hidden','');
     root.querySelector('.meadow-practice-options')?.setAttribute('hidden','');
-    const nextButton = root.querySelector('#meadow-next'); nextButton.hidden = false;
-    nextButton.textContent = round === length - 1 ? (story ? 'Kezdődhet a piknik! ▶' : 'Elkészültünk! ▶') : 'Tovább ▶';
-    nextButton.focus({preventScroll:true});
-    say(mode === 'collect' ? `mese_collected_${target}` : mode === 'serve' ? 'mese_served' : 'mese_dressed');
+    root.querySelector('#meadow-repeat').disabled = true;
+    const completedMode = mode, completedRound = round;
+    successDelay.schedule(() => {
+      if (!active || !solved || mode !== completedMode || round !== completedRound) return;
+      successPending = false; root.dataset.successPending = 'false'; root.dataset.mood = 'happy';
+      root.querySelector('#meadow-repeat').disabled = false;
+      root.querySelector('#meadow-status').textContent = mode === 'collect' ? `Megvan ${target === 1 ? 'az' : 'a'} ${MESE_WORDS[target]} alma!` : mode === 'serve' ? 'Mindenkinek jutott tányér!' : 'Felöltöztem! Indulhatunk!';
+      const nextButton = root.querySelector('#meadow-next'); nextButton.hidden = false;
+      nextButton.textContent = round === length - 1 ? (story ? 'Kezdődhet a piknik! ▶' : 'Elkészültünk! ▶') : 'Tovább ▶';
+      if (!document.querySelector('dialog[open]')) {
+        nextButton.focus({preventScroll:true});
+        say(mode === 'collect' ? `mese_collected_${target}` : mode === 'serve' ? 'mese_served' : 'mese_dressed');
+      }
+    });
   }
   function next() {
-    if (!active || !solved || document.hidden) return;
+    if (!active || !solved || successPending || document.hidden) return;
     solved = false;
     if (round === length - 1) { finish(story); return; }
     if (story) { startStory(); return; }
@@ -214,14 +228,15 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
   }
   function dressMemory() { const b = createDressBear(root.querySelector('.meadow-memory-bear')); ['polo','sapka','cipo'].forEach(id=>b.wear(id)); }
   function finish(wasStory) {
-    stopPlayback(); mode = 'finish'; root.dataset.mode = mode; root.dataset.mood = 'happy';
+    cancelSuccess(); stopPlayback(); mode = 'finish'; root.dataset.mode = mode; root.dataset.mood = 'happy';
     root.innerHTML = `<div class="meadow-ending"><span class="meadow-eyebrow">DE JÓ VOLT EGYÜTT!</span><h2 tabindex="-1">${wasStory?'Elkészült a piknik!':'Köszönöm a segítséget!'}</h2>${memoryScene()}<p>${wasStory?'Egy új emlék került az albumodba.':'Mára szépen megdolgoztunk.'}</p><div class="meadow-actions"><button id="meadow-home" class="meadow-quiet">⌂ Mára vége</button><button id="meadow-map" class="meadow-primary">Vissza a ligetbe ▶</button></div></div>`;
     dressMemory(); bind('meadow-home',()=>openScreen('home')); bind('meadow-map',map); focusTitle(); say(wasStory?'mese_finish':'mese_free_finish');
   }
   function album() {
-    stopPlayback(); mode = 'album'; root.dataset.mode = mode; const total = progress().journeys;
+    cancelSuccess(); stopPlayback(); mode = 'album'; root.dataset.mode = mode; const total = progress().journeys;
     root.innerHTML = `<div class="meadow-ending"><button id="meadow-back" class="meadow-quiet">↶ Térkép</button><h2 tabindex="-1">A mi emlékalbumunk</h2>${total?memoryScene():'<div class="meadow-album-empty" aria-hidden="true">📖</div>'}<p>${total?`${total} közös piknik emléke`:'Az első emlékképünk még ránk vár.'}</p><button id="meadow-start" class="meadow-primary">${progress().adventure?'Folytassuk!':'Induljunk piknikezni!'} ▶</button></div>`;
     if(total)dressMemory(); bind('meadow-back',map);bind('meadow-start',startStory);focusTitle();say(total?'mese_album':'mese_empty_album');
   }
-  return { start(){active=true;map();},stop(){active=false;stopPlayback();},repeat };
+  document.addEventListener('visibilitychange', () => { if (active && document.hidden) stopPlayback(); });
+  return { start(){active=true;map();},stop(){active=false;cancelSuccess();stopPlayback();},repeat };
 }

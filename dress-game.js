@@ -1,7 +1,7 @@
 import { buildDressRound } from "./dress-data.js";
 import { createDressBear, createDressIcon } from "./dress-art.js";
 
-export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPlayback, onComplete }) {
+export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
   const panel = document.querySelector("#dress-game");
   const answers = document.querySelector("#dress-answers");
   const progress = document.querySelector("#dress-progress");
@@ -97,6 +97,7 @@ export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPla
 
   return {
     start({ announce = true } = {}) {
+      onRestart();
       stopPlayback();
       round = buildDressRound(getChoiceCount());
       index = 0;

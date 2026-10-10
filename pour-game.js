@@ -1,6 +1,6 @@
 import { POUR_LEVELS, newPourRound, advancePour, settlePour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from './pour-data.js';
 
-export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onComplete, getAudioContext }) {
+export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onComplete, getAudioContext, onRestart = () => {} }) {
   const root = document.querySelector('#pour');
   const names = ['Maci', 'Nyuszi'];
   let active = false, suspended = false, awarded = false, round = newPourRound(), selected = 0;
@@ -260,6 +260,7 @@ export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onCom
   }
 
   function restart(level) {
+    onRestart();
     release(); generation++; pending = false; awarded = false; round = newPourRound(level); selected = 0;
     if (mode === 'tilt') resetCalibration();
     status = round.level === 1 ? 'Tölts a jelzésig! Ott magától megáll a víz.' : 'Tölts a jelzésig, majd állítsd meg az öntést!';

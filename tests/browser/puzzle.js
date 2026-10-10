@@ -44,16 +44,28 @@ async page => {
     await page.locator('[data-slot="0"]').focus(); await page.keyboard.press('Enter');
     ok(await page.locator('.puzzle-slot.is-placed').count() === 1, 'Keyboard places a piece');
     await move(1, '[data-slot="2"]');
-    ok(await page.locator('[data-piece="1"]').count() === 1 && await page.locator('.puzzle-slot.is-placed').count() === 1, 'Wrong drag keeps the piece retryable');
+    ok(await page.locator('[data-slot="2"]').getAttribute('data-piece') === '1' && await page.locator('.puzzle-slot.is-placed').count() === 2, 'A wrong destination accepts the piece without marking completion');
     await move(1, '[data-slot="1"]');
-    ok(await page.locator('.puzzle-slot.is-placed').count() === 2 && await page.locator('.puzzle-drag-preview').count() === 0, 'Real drag places once and removes its preview');
-    await move(2, '.puzzle-heading');
-    ok(await page.locator('[data-piece="2"]').count() === 1 && await page.locator('.puzzle-drag-preview').count() === 0, 'Dropping outside the board preserves the piece');
-    await page.locator('[data-slot="2"]').click();
-    ok(await page.locator('.puzzle-slot.is-placed').count() === 3, 'A dropped piece can immediately be placed by tapping');
-    await move(3, '[data-slot="3"]', false);
+    ok(await page.locator('[data-slot="1"]').getAttribute('data-piece') === '1' && await page.locator('.puzzle-drag-preview').count() === 0, 'A board piece can be dragged again to another slot');
+    await move(2, '[data-slot="0"]');
+    ok(await page.locator('[data-slot="0"]').getAttribute('data-piece') === '2' && await page.locator('.puzzle-tray [data-piece="0"]').count() === 1, 'Tray to occupied slot returns the displaced piece to the tray');
+    await page.locator('[data-piece="0"]').click(); await page.locator('[data-slot="2"]').click();
+    await page.locator('[data-slot="0"]').click(); await page.locator('[data-slot="2"]').click();
+    ok(await page.locator('[data-slot="0"]').getAttribute('data-piece') === '0' && await page.locator('[data-slot="2"]').getAttribute('data-piece') === '2', 'Tapping two board pieces swaps their positions');
+    await page.locator('[data-slot="1"]').focus(); await page.keyboard.press('Enter');
+    await page.locator('#puzzle-return').focus(); await page.keyboard.press('Enter');
+    ok(await page.locator('.puzzle-tray [data-piece="1"]').count() === 1 && await page.locator('[data-slot="1"]').getAttribute('data-piece') === null, 'Keyboard can return a placed piece to the tray');
+    await move(1, '[data-slot="1"]');
+    await move(1, '.puzzle-tray');
+    ok(await page.locator('.puzzle-tray [data-piece="1"]').count() === 1, 'Dropping a board piece onto the tray returns it');
+    await move(1, '[data-slot="1"]');
+    await move(3, '.puzzle-heading');
+    ok(await page.locator('.puzzle-tray [data-piece="3"]').count() === 1 && await page.locator('.puzzle-drag-preview').count() === 0, 'Dropping outside board and tray preserves the piece');
+    await page.locator('[data-slot="3"]').click();
+    ok(await page.locator('.puzzle-slot.is-placed').count() === 4, 'An outside drop can immediately be corrected by tapping');
+    await move(4, '[data-slot="4"]', false);
     await page.locator('#puzzle').dispatchEvent('pointercancel'); await page.mouse.up();
-    ok(await page.locator('.puzzle-drag-preview').count() === 0 && await page.locator('[data-piece="3"]').count() === 1, 'Interrupted pointer gesture cleans up without placing');
+    ok(await page.locator('.puzzle-drag-preview').count() === 0 && await page.locator('.puzzle-tray [data-piece="4"]').count() === 1, 'Interrupted gesture cleans up without moving a piece');
     await page.locator('#puzzle-restart').click();
     ok(await page.locator('.puzzle-slot.is-placed').count() === 0, 'Restart clears placed pieces');
 
@@ -68,15 +80,22 @@ async page => {
       await page.locator('#puzzle-hint').click();
       ok(await page.locator('.puzzle-board.has-hint').count() === 0, `${image}/${size}: picture guide dismisses`);
       const before = await saved();
-      await page.locator('[data-piece="0"]').click(); await page.locator('[data-slot="1"]').click();
-      ok(await page.locator('.puzzle-slot.is-placed').count() === 0 && (await saved()).rewards === before.rewards, `${image}/${size}: mistake adds no placement/reward`);
-      const order = await page.locator('[data-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.piece));
-      for (const id of order) {
-        // The wrong attempt has left piece 0 selected.
-        if (await page.locator(`[data-piece="${id}"]`).getAttribute('aria-pressed') !== 'true') await page.locator(`[data-piece="${id}"]`).click();
-        await page.locator(`[data-slot="${id}"]`).click();
+      for (let id = 0; id < size; id++) {
+        await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${(id + 1) % size}"]`).click();
       }
+      ok(await page.locator('.puzzle-slot.is-placed').count() === size && await page.locator('.puzzle-tray [data-piece]').count() === 0 && !(await page.locator('#round-complete').isVisible()) && (await saved()).rewards === before.rewards, `${image}/${size}: a full incorrectly arranged board stays movable and earns no reward`);
+      let completedAt;
+      for (let id = 0; id < size; id++) {
+        if (await page.locator('.puzzle-board.is-complete').count()) break;
+        if (await page.locator(`[data-slot="${id}"]`).getAttribute('data-piece') === String(id)) continue;
+        await page.locator(`[data-piece="${id}"]`).click();
+        await page.locator(`[data-slot="${id}"]`).click();
+        completedAt = Date.now();
+      }
+      ok(await page.locator('.puzzle-board.is-complete').count() === 1 && !(await page.locator('#round-complete').isVisible()), `${image}/${size}: the finished picture is visible before the success window`);
+      if (image === 'farm' && size === 6) await page.screenshot({path:`output/playwright/puzzle-finished-${context.browser().browserType().name()}.png`, fullPage:true, animations:'disabled'});
       await page.waitForSelector('#round-complete[open]');
+      ok(Date.now() - completedAt >= 900, `${image}/${size}: success waits about one second`);
       ok((await saved()).rewards === before.rewards + 1, `${image}/${size}: one complete picture gives exactly one reward`);
       ok((await saved()).attempts === before.attempts, `${image}/${size}: speech attempts unaffected`);
       ok(await page.locator('#round-complete-title').innerText() === 'Elkészült a kép!', `${image}/${size}: puzzle celebration`);
@@ -86,6 +105,21 @@ async page => {
       ok((await saved()).rewards === before.rewards + 1, `${image}/${size}: revisiting completion cannot reward twice`);
       await page.locator('#puzzle-restart').click();
     }
+
+    await page.locator('[data-puzzle-size="6"]').click();
+    const solve = async () => {
+      for (let id = 0; id < 6; id++) {
+        await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${id}"]`).click();
+      }
+    };
+    const beforeRestart = (await saved()).rewards;
+    await solve(); await page.locator('#puzzle-restart').click();
+    await page.waitForTimeout(1200);
+    ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('.puzzle-slot.is-placed').count() === 0 && (await saved()).rewards === beforeRestart + 1, 'Restart during success delay cancels the window and preserves the earned reward');
+    await solve(); await page.locator('#home-button').click();
+    await page.waitForTimeout(1200);
+    ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('#home').isVisible() && (await saved()).rewards === beforeRestart + 2, 'Leaving during success delay cannot open a window on the home screen');
+    await enter(); await page.locator('[data-puzzle-size="10"]').click();
 
     for (const [width, height] of [[320,568],[375,667],[390,844],[932,350],[834,1194],[1194,834]]) {
       await page.setViewportSize({ width, height });

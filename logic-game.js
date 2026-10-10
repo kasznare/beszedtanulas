@@ -1,4 +1,5 @@
 import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, generateTask, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove } from './logic-data.js';
+import { createSuccessDelay } from './success-delay.js';
 
 export function setupLogic({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
   const root = document.querySelector('#furfangliget');
@@ -6,6 +7,10 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   let animation = 0, status = '', ghost = [], fox = null, walked = 0, machineRun = null, delivering = false, counters = true;
   let dragging = false, dragged = false, dragStart = null;
   let localRouteView;
+  let successPending = false;
+  const successDelay = createSuccessDelay();
+  const finished = () => session?.done && !successPending;
+  function cancelSuccess() { successDelay.cancel(); successPending = false; }
   const timers = new Set(), localLevels = {};
   const foxArt = '<img class="logic-fox" src="./assets/furfang-fox.png" alt="" draggable="false">';
   const $ = selector => root.querySelector(selector);
@@ -33,9 +38,9 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     }, reducedMotion() ? 0 : delay);
     timers.add(timer);
   }
-  function stop() { active = false; cancelAnimation(); stopPlayback(); }
+  function stop() { active = false; cancelSuccess(); cancelAnimation(); stopPlayback(); }
   function menu() {
-    cancelAnimation(); stopPlayback(); kind = null; root.dataset.game = 'menu'; delete root.dataset.done;
+    cancelSuccess(); cancelAnimation(); stopPlayback(); kind = null; root.dataset.game = 'menu'; delete root.dataset.done; delete root.dataset.successPending;
     const p = normalizeLogic(getProgress());
     root.innerHTML = `<div class="logic-intro"><span class="logic-eyebrow">GONDOLKODJ · PRÓBÁLD KI · ALAKÍTSD ÁT</span><h2 tabindex="-1">Furfangliget</h2><p>Ma melyik fejtörőt választod?</p></div><div class="logic-places">${LOGIC_GAMES.map((game, i) => {
       const saved = p.sessions[game], level = levelFor(game), resume = saved && !saved.done && saved.level === level && (game !== 'shop' || saved.limit === getOptions().mathLimit);
@@ -46,7 +51,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     $('h2').focus({ preventScroll: true }); say('logic_menu');
   }
   function startGame(game, fresh = false) {
-    cancelAnimation(); stopPlayback(); kind = game;
+    cancelSuccess(); cancelAnimation(); stopPlayback(); kind = game;
     const level = levelFor(kind), limit = getOptions().mathLimit || 5, previous = normalizeLogic(getProgress()).sessions[kind];
     session = !fresh && previous && previous.level === level && (kind !== 'shop' || previous.limit === limit) ? previous : newSession(kind, level, limit);
     task = generateTask(kind, session.level, session.limit, session.seed);
@@ -54,6 +59,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     save(); render(); $('h2').focus({ preventScroll: true }); repeat();
   }
   function repeat() {
+    if (successPending) return;
     if (!kind) { say('logic_menu'); return; }
     if (session.done) { say(`logic_${kind}_done`); return; }
     if (kind === 'shop') {
@@ -77,8 +83,8 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   const quantity = (n, role = '') => `<span class="logic-quantity ${role}" data-value="${n}" data-narration-part="${role === 'logic-input' ? 'input' : role === 'logic-output' ? 'output' : ''}"><b>${n}</b>${counters ? dots(n) : ''}</span>`;
   function render(focus) {
     const hadFocus = focus || (root.contains(document.activeElement) ? document.activeElement.id : '');
-    root.dataset.game = kind; root.dataset.done = session.done; root.dataset.level = session.level; root.dataset.busy = busy;
-    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back">↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><span class="logic-scene-label">${{ shop: 'ERDEI PIAC', machine: 'FURFANG MŰHELYE', route: 'RÓKAPOSTA' }[kind]}</span><h2 tabindex="-1">${LOGIC_NAMES[kind]}</h2><p>${session.done ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${session.done ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>`;
+    root.dataset.game = kind; root.dataset.done = finished(); root.dataset.successPending = successPending; root.dataset.level = session.level; root.dataset.busy = busy;
+    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back">↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><span class="logic-scene-label">${{ shop: 'ERDEI PIAC', machine: 'FURFANG MŰHELYE', route: 'RÓKAPOSTA' }[kind]}</span><h2 tabindex="-1">${LOGIC_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${finished() ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${session.done || busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>`;
     bind('#logic-back', menu); bind('#logic-repeat', repeat);
     $('#logic-level').addEventListener('change', event => {
       if (busy) return;
@@ -89,6 +95,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     bind('#logic-undo', () => { if (!allowed()) return; undoMove(session); trial = false; ghost = []; fox = null; walked = 0; status = ''; save(); render('logic-undo'); });
     bind('#logic-hint', hint); bind('#logic-check', check); bind('#logic-next', () => startGame(kind, true));
     if (kind === 'shop') renderShop(); else if (kind === 'machine') renderMachine(); else renderRoute();
+    if (successPending) root.querySelectorAll('[data-example], [data-question], #logic-counters, #logic-route-view, #logic-repeat').forEach(button => { button.disabled = true; });
     if (hadFocus) {
       const target = root.querySelector(`#${hadFocus}`);
       (kind === 'route' && target?.disabled ? $('.logic-directions') : target)?.focus({ preventScroll: true });
@@ -142,7 +149,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   }
   function renderMachine() {
     const run = machineRun, sequence = run ? machineTrace(task.examples[run.example][0], session.program) : [];
-    $('#logic-work').innerHTML = `<div class="logic-workshop-sign"><span aria-hidden="true">⚙️</span><span>A példákból keresd a szabályt!</span><button id="logic-counters" aria-pressed="${counters}">${counters ? '● Korongok elrejtése' : '● Korongok mutatása'}</button></div><div class="logic-machine-layout"><section class="logic-examples"><h3>Így dolgozik a titkos gép</h3>${task.examples.map(([a, b], i) => `<button class="logic-example ${run?.example === i ? 'is-running' : ''}" data-example="${i}" aria-label="Példa meghallgatása: ${a} bemenet, ${b} kimenet">${quantity(a, 'logic-input')}<span class="logic-machine-core" aria-hidden="true"><span class="logic-machine-arrow">⇢</span> <span class="logic-machine-gear" data-narration-part="machine">⚙️</span> <span class="logic-machine-arrow">⇢</span></span>${quantity(b, 'logic-output')}${trial ? `<small class="${applyRule(a, session.program) === b ? 'logic-match' : 'logic-mismatch'}">A te géped: ${Number.isFinite(applyRule(a, session.program)) ? applyRule(a, session.program) : '?'} ${applyRule(a, session.program) === b ? '✓' : '≠'}</small>` : ''}</button>`).join('')}</section><section class="logic-build"><h3>Az én gépem</h3><div class="logic-slots">${session.program.map((op, i) => `<button id="logic-slot-${i}" data-slot="${i}" class="${slot === i ? 'selected' : ''} ${run?.step === i + 1 ? 'is-operating' : ''}" aria-label="${i + 1}. művelet: ${OPS[op]?.label || 'üres'}" aria-pressed="${slot === i}" ${session.done || busy ? 'disabled' : ''}><small>${i + 1}.</small> ${OPS[op]?.label || '?'}</button>`).join('<span aria-hidden="true">⇢</span>')}</div><div class="logic-ops">${task.choices.map(op => `<button id="logic-op-${op}" data-op="${op}" ${session.done || busy ? 'disabled' : ''}>${OPS[op].label}</button>`).join('')}</div><div class="logic-machine-run ${run ? 'is-running' : ''}" aria-live="off">${run ? `<span>${run.example + 1}. próba</span><div class="logic-machine-trace">${sequence.slice(0, run.step + 1).map((n, i) => `${i ? `<span class="logic-trace-op">${OPS[session.program[i - 1]].label} →</span>` : ''}<b class="${i === run.step ? 'is-current' : ''}">${n}</b>`).join('')}</div>` : '<span>Válassz műveletet, aztán próbáld ki!</span>'}</div><button id="logic-trial" class="logic-test" ${session.done || busy ? 'disabled' : ''}>⚙️ ${busy ? 'Dolgozik a géped…' : 'Géppróba'}</button>${session.help >= 2 ? `<p class="logic-hint-text">${session.help === 2 ? 'Az első művelet: ' + OPS[task.program[0]].label : 'Egy jó szabály: ' + task.program.map(op => OPS[op].label).join(' ⇢ ')}</p>` : ''}</section></div><section class="logic-predictions"><h3>${session.done ? '⚙️ ✓ Működik a géped!' : 'Most te számolj!'}</h3><div class="logic-prediction-pair">${task.questions.map((n, i) => `<div class="logic-prediction"><button data-question="${i}" aria-label="${n} megy a gépbe. Add meg a kijövő számot!">${quantity(n, 'logic-input')} <span class="logic-machine-core" aria-hidden="true"><span class="logic-machine-arrow">⇢</span> <span class="logic-machine-gear" data-narration-part="machine">⚙️</span> <span class="logic-machine-arrow">⇢</span></span> <span data-narration-part="output">? 🔊</span></button>${stepper(i, `${i + 1}. eredmény`)}${counters ? dots(session.values[i]) : ''}</div>`).join('')}</div></section>`;
+    $('#logic-work').innerHTML = `<div class="logic-workshop-sign"><span aria-hidden="true">⚙️</span><span>A példákból keresd a szabályt!</span><button id="logic-counters" aria-pressed="${counters}">${counters ? '● Korongok elrejtése' : '● Korongok mutatása'}</button></div><div class="logic-machine-layout"><section class="logic-examples"><h3>Így dolgozik a titkos gép</h3>${task.examples.map(([a, b], i) => `<button class="logic-example ${run?.example === i ? 'is-running' : ''}" data-example="${i}" aria-label="Példa meghallgatása: ${a} bemenet, ${b} kimenet">${quantity(a, 'logic-input')}<span class="logic-machine-core" aria-hidden="true"><span class="logic-machine-arrow">⇢</span> <span class="logic-machine-gear" data-narration-part="machine">⚙️</span> <span class="logic-machine-arrow">⇢</span></span>${quantity(b, 'logic-output')}${trial ? `<small class="${applyRule(a, session.program) === b ? 'logic-match' : 'logic-mismatch'}">A te géped: ${Number.isFinite(applyRule(a, session.program)) ? applyRule(a, session.program) : '?'} ${applyRule(a, session.program) === b ? '✓' : '≠'}</small>` : ''}</button>`).join('')}</section><section class="logic-build"><h3>Az én gépem</h3><div class="logic-slots">${session.program.map((op, i) => `<button id="logic-slot-${i}" data-slot="${i}" class="${slot === i ? 'selected' : ''} ${run?.step === i + 1 ? 'is-operating' : ''}" aria-label="${i + 1}. művelet: ${OPS[op]?.label || 'üres'}" aria-pressed="${slot === i}" ${session.done || busy ? 'disabled' : ''}><small>${i + 1}.</small> ${OPS[op]?.label || '?'}</button>`).join('<span aria-hidden="true">⇢</span>')}</div><div class="logic-ops">${task.choices.map(op => `<button id="logic-op-${op}" data-op="${op}" ${session.done || busy ? 'disabled' : ''}>${OPS[op].label}</button>`).join('')}</div><div class="logic-machine-run ${run ? 'is-running' : ''}" aria-live="off">${run ? `<span>${run.example + 1}. próba</span><div class="logic-machine-trace">${sequence.slice(0, run.step + 1).map((n, i) => `${i ? `<span class="logic-trace-op">${OPS[session.program[i - 1]].label} →</span>` : ''}<b class="${i === run.step ? 'is-current' : ''}">${n}</b>`).join('')}</div>` : '<span>Válassz műveletet, aztán próbáld ki!</span>'}</div><button id="logic-trial" class="logic-test" ${session.done || busy ? 'disabled' : ''}>⚙️ ${busy ? 'Dolgozik a géped…' : 'Géppróba'}</button>${session.help >= 2 ? `<p class="logic-hint-text">${session.help === 2 ? 'Az első művelet: ' + OPS[task.program[0]].label : 'Egy jó szabály: ' + task.program.map(op => OPS[op].label).join(' ⇢ ')}</p>` : ''}</section></div><section class="logic-predictions"><h3>${finished() ? '⚙️ ✓ Működik a géped!' : 'Most te számolj!'}</h3><div class="logic-prediction-pair">${task.questions.map((n, i) => `<div class="logic-prediction"><button data-question="${i}" aria-label="${n} megy a gépbe. Add meg a kijövő számot!">${quantity(n, 'logic-input')} <span class="logic-machine-core" aria-hidden="true"><span class="logic-machine-arrow">⇢</span> <span class="logic-machine-gear" data-narration-part="machine">⚙️</span> <span class="logic-machine-arrow">⇢</span></span> <span data-narration-part="output">? 🔊</span></button>${stepper(i, `${i + 1}. eredmény`)}${counters ? dots(session.values[i]) : ''}</div>`).join('')}</div></section>`;
     root.querySelectorAll('[data-slot]').forEach(button => button.addEventListener('click', () => { if (!allowed()) return; slot = Number(button.dataset.slot); render(button.id); }));
     root.querySelectorAll('[data-op]').forEach(button => button.addEventListener('click', () => {
       if (!allowed()) return;
@@ -287,9 +294,21 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   function resolve() {
     const p = normalizeLogic(getProgress()); p.sessions[kind] = session; const result = completeLogic(p, kind);
     if (result.changed) {
-      session = result.progress.sessions[kind]; updateProgress(result.progress, result.reward); trial = false; ghost = [];
-      status = result.reward ? '✓ Sikerült! Szép munka.' : '✓ Az első kosarak készek. Most változott a rendelés!';
-      render(); if (result.reward) say(`logic_${kind}_done`); else repeat(); return;
+      session = result.progress.sessions[kind]; trial = false; ghost = [];
+      successPending = result.reward;
+      updateProgress(result.progress, result.reward);
+      status = result.reward ? '' : '✓ Az első kosarak készek. Most változott a rendelés!';
+      if (result.reward) {
+        stopPlayback(); const completedSession = session, completedKind = kind;
+        render();
+        successDelay.schedule(() => {
+          if (!active || session !== completedSession || kind !== completedKind) return;
+          successPending = false; delivering = false; status = '✓ Sikerült! Szép munka.';
+          render();
+          if (!document.querySelector('dialog[open]')) { $('#logic-next')?.focus({ preventScroll: true }); say(`logic_${kind}_done`); }
+        });
+      } else { render(); repeat(); }
+      return;
     }
     session.misses = Math.min(9999, session.misses + 1);
     if (kind === 'shop') {
@@ -306,6 +325,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   function check() {
     if (!allowed()) return;
     if (kind === 'shop' && taskSolved(task, session)) {
+      if (session.stage === task.orders.length - 1) { delivering = true; resolve(); return; }
       busy = true; delivering = true; stopPlayback(); const token = ++animation; status = 'A vásárlókhoz indulnak a kosarak.'; render();
       later(token, () => { busy = false; delivering = false; resolve(); }, 850); return;
     }

@@ -7,6 +7,7 @@ import { createNarration } from "./narration.js";
 import { narrationCue } from "./narration-cues.js";
 import { normalizeText, similarityScore, matchTwoWordPhrase } from "./speech-matching.js";
 import { setupOffline } from "./offline-client.js";
+import { createSuccessDelay } from "./success-delay.js";
 import { GROUPS, parentScreen, canonicalTrail, transitionTrail, createHistoryState, restoreHistoryState } from "./navigation.js";
 import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
 import { setupProgressTools } from "./progress-tools.js";
@@ -53,6 +54,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
 const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions() };
 const state = loadProgress();
 let currentScreen = "home";
+const roundSuccess = createSuccessDelay();
 let appNavigation = restoreHistoryState(null);
 let offlineClient;
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', 'r-practice': '[data-action="hub"]' };
@@ -308,6 +310,7 @@ supabaseSyncNowBtn.addEventListener("click", () => {
 setupNavigation();
 setupParentSettings();
 listeningGame = setupListeningGame({
+  onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ words: getPracticeWords(), length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playListeningPrompt,
   playCorrect: () => { stopPlayback(); playSuccessSound(); speakGuide("good"); },
@@ -320,6 +323,7 @@ listeningGame = setupListeningGame({
   },
 });
 teddyGame = setupTeddyGame({
+  onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playTeddyPrompt,
   playThanks: () => speakVoice("guide_teddy_thanks"),
@@ -332,6 +336,7 @@ teddyGame = setupTeddyGame({
   },
 });
 dressGame = setupDressGame({
+  onRestart: () => roundSuccess.cancel(),
   getChoiceCount: () => state.settings.listeningChoices,
   playPrompt: playDressPrompt,
   playThanks: item => speakVoice(`dress_thanks_${item.id}`),
@@ -374,6 +379,7 @@ logicGame = setupLogic({
   },
 });
 memoryGame = setupMemoryGame({
+  onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ words: getPracticeWords(), memoryPairs: state.settings.memoryPairs }),
   playWord: (word, cue) => playWord(word, undefined, cue), speak: id => speakVoice(id), stopPlayback,
   setPairs: pairs => {
@@ -387,6 +393,7 @@ memoryGame = setupMemoryGame({
   },
 });
 puzzleGame = setupPuzzleGame({
+  onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
   setOptions: options => { Object.assign(state.settings, normalizePuzzleOptions(options)); saveProgress(); },
   speak: id => speakVoice(id), stopPlayback,
@@ -421,6 +428,7 @@ animalBook = setupAnimalBook({
   onShowCredits: showAnimalBookCredits,
 });
 pourGame = setupPourGame({
+  onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
   setLevel: level => { state.settings.pourLevel = level; saveProgress(); },
   speak: id => { if (state.settings.spokenGuidance) return speakVoice(id); },
@@ -483,6 +491,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) stopAutoImitateSession();
 });
 window.addEventListener("pagehide", stopAutoImitateSession);
+window.addEventListener("pagehide", () => roundSuccess.cancel());
 
 setupCategories();
 renderRoundProgress();
@@ -717,6 +726,7 @@ function renderCards() {
 }
 
 function renderFlipGame() {
+  roundSuccess.cancel();
   flipRoundToken += 1;
   flipRoundComplete = false;
   flipGrid.replaceChildren();
@@ -752,6 +762,7 @@ function renderFlipGame() {
 }
 
 function renderImitate() {
+  roundSuccess.cancel();
   const word = words[currentImitate];
   imitateEmoji.textContent = word.emoji;
   imitateWord.textContent = word.label;
@@ -1450,6 +1461,7 @@ function burstConfettiOverlay(durationMs) {
 }
 
 async function startListeningAttempt() {
+  roundSuccess.cancel();
   const word = words[currentImitate];
   return runListeningTask("word", async (signal) => {
     setListeningUi(true, false);
@@ -1809,6 +1821,7 @@ function playListeningStartSound() {
 }
 
 async function startAutoImitateSession() {
+  roundSuccess.cancel();
   stopAutoImitateSession(false);
   document.querySelector("#round-complete").close();
   autoSessionRunning = true;
@@ -2002,6 +2015,7 @@ function speakGuide(id, force = false) {
 }
 
 async function showAnimalBookCredits() {
+  roundSuccess.cancel();
   stopPlayback();
   const dialog = document.querySelector('#animal-book-credits');
   if (!dialog.open) dialog.showModal();
@@ -2054,6 +2068,7 @@ function updateBackButton() {
 }
 function goBack() {
   if (document.querySelector('#back-button').disabled) return;
+  roundSuccess.cancel();
   document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close());
   const internal = innerBackButton();
   if (internal) { internal.click(); updateBackButton(); window.scrollTo(0, 0); return; }
@@ -2151,6 +2166,7 @@ function setupNavigation() {
 
 function showScreen(screen, { announce = true, pushHistory = true, allowParent = false } = {}) {
   if (!screenInfo[screen]) return;
+  roundSuccess.cancel();
   if (screen === "parent" && !allowParent) {
     showParentGate();
     return;
@@ -2216,6 +2232,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
 }
 
 function showParentGate() {
+  roundSuccess.cancel();
   stopPlayback();
   const dialog = document.querySelector("#parent-gate");
   const a = 6 + Math.floor(Math.random() * 5);
@@ -2286,14 +2303,17 @@ function renderRoundProgress(current = 0, total = state.settings.roundLength) {
 }
 
 function celebrateRound(kind, count) {
-  completedRoundKind = kind;
-  playSuccessSound();
-  burstConfettiOverlay(1000);
-  document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
-  document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : "De jó volt együtt!";
-  document.querySelector("#round-complete").showModal();
-  if (kind === "pour") speakVoice('pour_done');
-  else if (kind === "memory") speakVoice('memory_done');
-  else if (kind === "puzzle") speakVoice('puzzle_done');
-  else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
+  roundSuccess.schedule(() => {
+    if (currentScreen !== kind || document.querySelector('dialog[open]')) return;
+    completedRoundKind = kind;
+    playSuccessSound();
+    burstConfettiOverlay(1000);
+    document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
+    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : "De jó volt együtt!";
+    document.querySelector("#round-complete").showModal();
+    if (kind === "pour") speakVoice('pour_done');
+    else if (kind === "memory") speakVoice('memory_done');
+    else if (kind === "puzzle") speakVoice('puzzle_done');
+    else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
+  });
 }

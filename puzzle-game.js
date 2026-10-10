@@ -1,9 +1,9 @@
-import { PUZZLE_IMAGES, PUZZLE_SIZES, normalizePuzzleOptions, buildPuzzle, placePuzzlePiece } from './puzzle-data.js';
+import { PUZZLE_IMAGES, PUZZLE_SIZES, normalizePuzzleOptions, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete } from './puzzle-data.js';
 
-export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, onComplete }) {
+export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, onComplete, onRestart = () => {} }) {
   const root = document.querySelector('#puzzle');
   let active = false, puzzle, picture, placed, selected = null, hint = false, finished = false;
-  let drag = null, blockClickUntil = 0, blockedPieceId = null;
+  let drag = null, blockClickUntil = 0, blockedClick = null;
   const playable = () => active && !finished && !document.hidden;
   const say = id => { if (active && !document.hidden) speak(id); };
   const crop = piece => `background-image:url('${picture.image}');background-size:${puzzle.columns * 100}% ${puzzle.rows * 100}%;background-position:${piece.x}% ${piece.y}%;`;
@@ -17,51 +17,67 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
       button.setAttribute('aria-pressed', String(chosen));
     });
     root.querySelector('.puzzle-board').classList.toggle('has-selection', selected !== null);
+    root.querySelector('#puzzle-return').disabled = selected === null || ![...placed.values()].includes(selected);
   }
 
   function render(focusSelector) {
-    root.innerHTML = `<div class="puzzle-heading"><h2>${picture.name}</h2><p id="puzzle-instructions">Koppints egy darabra, majd a helyére — vagy húzd oda!</p></div>
+    root.innerHTML = `<div class="puzzle-heading"><h2>${picture.name}</h2><p id="puzzle-instructions">Koppints egy darabra, majd egy mezőre — vagy húzd oda! Később is átteheted.</p></div>
       <div class="puzzle-pictures" role="group" aria-label="Válassz puzzle képet">${PUZZLE_IMAGES.map(image => `<button data-puzzle-image="${image.id}" aria-pressed="${image.id === picture.id}" aria-label="${image.name} kirakó"><img src="${image.image}" alt="" draggable="false" width="1536" height="1024"><span>${image.name}</span></button>`).join('')}</div>
-      <div class="puzzle-toolbar"><div class="puzzle-sizes" role="group" aria-label="Képdarabok száma">${PUZZLE_SIZES.map(count => `<button data-puzzle-size="${count}" aria-pressed="${count === puzzle.pieces.length}">${count} darab</button>`).join('')}</div><span class="puzzle-progress" role="status">${placed.size} / ${puzzle.pieces.length} a helyén</span></div>
+      <div class="puzzle-toolbar"><div class="puzzle-sizes" role="group" aria-label="Képdarabok száma">${PUZZLE_SIZES.map(count => `<button data-puzzle-size="${count}" aria-pressed="${count === puzzle.pieces.length}">${count} darab</button>`).join('')}</div><span class="puzzle-progress" role="status">${placed.size} / ${puzzle.pieces.length} lerakva</span></div>
       <div class="puzzle-workspace" style="--puzzle-cols:${puzzle.columns};--piece-ratio:${3 / puzzle.columns}">
-        <div class="puzzle-board ${hint ? 'has-hint' : ''} ${finished ? 'is-complete' : ''} ${selected !== null ? 'has-selection' : ''}" role="group" aria-label="${picture.name}, ide kerülnek a képdarabok" aria-describedby="puzzle-instructions"><img class="puzzle-reference" src="${picture.image}" alt="" draggable="false">${puzzle.pieces.map(piece => `<button class="puzzle-slot ${placed.has(piece.id) ? 'is-placed' : ''}" data-slot="${piece.id}" aria-label="${piece.row + 1}. sor, ${piece.column + 1}. hely${placed.has(piece.id) ? ', kész' : ', üres'}" ${placed.has(piece.id) ? `disabled style="${crop(piece)}"` : ''}><span aria-hidden="true">${placed.has(piece.id) ? '' : '✧'}</span></button>`).join('')}</div>
-        <div class="puzzle-tray-wrap"><h3>${finished ? 'Minden darab a helyén!' : 'Képdarabok'}</h3><div class="puzzle-tray" role="group" aria-label="Válassz egy képdarabot">${puzzle.order.filter(id => !placed.has(id)).map((id, index) => `<button class="puzzle-piece ${selected === id ? 'is-selected' : ''}" data-piece="${id}" aria-label="${index + 1}. képdarab" aria-pressed="${selected === id}" style="${crop(puzzle.pieces[id])}" draggable="false"></button>`).join('')}${finished ? '<span class="puzzle-finished" aria-hidden="true">🌟</span>' : ''}</div></div>
+        <div class="puzzle-board ${hint ? 'has-hint' : ''} ${finished ? 'is-complete' : ''} ${selected !== null ? 'has-selection' : ''}" role="group" aria-label="${picture.name}, ide kerülnek a képdarabok" aria-describedby="puzzle-instructions"><img class="puzzle-reference" src="${picture.image}" alt="" draggable="false">${puzzle.pieces.map(slot => {
+          const id = placed.get(slot.id), occupied = id !== undefined;
+          return `<button class="puzzle-slot ${occupied ? `is-placed puzzle-piece ${selected === id ? 'is-selected' : ''}` : ''}" data-slot="${slot.id}" ${occupied && !finished ? `data-piece="${id}" aria-pressed="${selected === id}"` : ''} aria-label="${slot.row + 1}. sor, ${slot.column + 1}. hely${occupied ? `, ${id + 1}. képdarab${finished ? ', kész' : ', áthelyezhető'}` : ', üres'}" ${finished ? 'disabled' : ''} ${occupied ? `style="${crop(puzzle.pieces[id])}" draggable="false"` : ''}><span aria-hidden="true">${occupied ? '' : '✧'}</span></button>`;
+        }).join('')}</div>
+        <div class="puzzle-tray-wrap"><h3>${finished ? 'Minden darab a helyén!' : 'Képdarabok'}</h3><div class="puzzle-tray" role="group" aria-label="Válassz egy képdarabot">${puzzle.order.filter(id => ![...placed.values()].includes(id)).map((id, index) => `<button class="puzzle-piece ${selected === id ? 'is-selected' : ''}" data-piece="${id}" aria-label="${id + 1}. képdarab, a tálcán" aria-pressed="${selected === id}" style="${crop(puzzle.pieces[id])}" draggable="false"></button>`).join('')}${finished ? '<span class="puzzle-finished" aria-hidden="true">🌟</span>' : ''}</div></div>
       </div>
-      <p id="puzzle-status" class="puzzle-status" role="status" aria-live="polite">${finished ? 'Elkészült a kép! Szép munka!' : selected !== null ? 'Hová illik ez a darab? Koppints egy üres helyre!' : 'Válassz egy képdarabot!'}</p>
-      <div class="puzzle-actions"><button id="puzzle-hint" aria-pressed="${hint}" ${finished ? 'disabled' : ''}>${hint ? '🙈 Minta elrejtése' : '👀 Mutasd a képet!'}</button><button id="puzzle-restart">↻ Újrakezdem</button></div>`;
+      <p id="puzzle-status" class="puzzle-status" role="status" aria-live="polite">${finished ? 'Elkészült a kép! Szép munka!' : selected !== null ? 'Válassz egy mezőt! A foglalt helyen a darabok cserélődnek.' : 'Válassz egy képdarabot!'}</p>
+      <div class="puzzle-actions"><button id="puzzle-return" ${selected === null || ![...placed.values()].includes(selected) || finished ? 'disabled' : ''}>↶ Vissza a tálcára</button><button id="puzzle-hint" aria-pressed="${hint}" ${finished ? 'disabled' : ''}>${hint ? '🙈 Minta elrejtése' : '👀 Mutasd a képet!'}</button><button id="puzzle-restart">↻ Újrakezdem</button></div>`;
     if (focusSelector) focus(focusSelector);
   }
 
   function start() {
-    cleanupDrag(); stopPlayback();
+    onRestart(); cleanupDrag(); stopPlayback();
     const options = normalizePuzzleOptions(getOptions());
     picture = PUZZLE_IMAGES.find(image => image.id === options.puzzleImage);
     puzzle = buildPuzzle(options.puzzlePieces);
-    active = true; placed = new Set(); selected = null; hint = false; finished = false; blockClickUntil = 0;
+    active = true; placed = new Map(); selected = null; hint = false; finished = false; blockClickUntil = 0;
     render(); say('puzzle_start');
   }
   function select(id) {
-    if (!playable() || !puzzle.pieces.some(piece => piece.id === id) || placed.has(id)) return;
+    if (!playable() || !puzzle.pieces.some(piece => piece.id === id)) return;
     selected = selected === id ? null : id;
     syncSelection();
-    status(selected === null ? 'Válassz egy képdarabot!' : 'Hová illik ez a darab? Koppints egy üres helyre!');
+    status(selected === null ? 'Válassz egy képdarabot!' : 'Válassz egy mezőt! A foglalt helyen a darabok cserélődnek.');
   }
   function place(id) {
     if (!playable()) return;
     if (selected === null) { status('Előbb válassz egy képdarabot!'); return; }
-    if (placed.has(id)) return;
-    if (!placePuzzlePiece(puzzle, placed, selected, id)) {
-      status('Ez a darab máshová illik. Próbáld egy másik helyen!');
-      const slot = root.querySelector(`[data-slot="${id}"]`);
-      slot?.classList.remove('is-retry');
-      if (slot) { void slot.offsetWidth; slot.classList.add('is-retry'); }
-      say('puzzle_retry'); return;
+    const pieceId = selected;
+    if (!placePuzzlePiece(puzzle, placed, pieceId, id)) {
+      selected = null; syncSelection(); status('Válassz egy képdarabot!'); return;
     }
     selected = null;
-    finished = placed.size === puzzle.pieces.length;
-    render(finished ? '#puzzle-restart' : '[data-piece]');
+    finished = isPuzzleComplete(puzzle, placed);
+    render(finished ? '#puzzle-restart' : `[data-piece="${pieceId}"]`);
     if (finished) onComplete(puzzle.pieces.length);
-    else { status('A darab a helyén van! Válassz egy másikat!'); say('puzzle_place'); }
+    else {
+      status(placed.size === puzzle.pieces.length ? 'Minden darab a táblán van. Nézd meg a képet, és cseréld meg, amit szeretnél!' : 'Letetted a darabot. Bármikor átteheted máshová!');
+      // This recording describes a correct position, so only play it there.
+      if (pieceId === id) say('puzzle_place'); else stopPlayback();
+    }
+  }
+  function returnToTray() {
+    if (!playable() || selected === null) return;
+    const id = selected;
+    if (!removePuzzlePiece(puzzle, placed, id)) return;
+    selected = null; stopPlayback(); render(`[data-piece="${id}"]`);
+    status('A darab újra a tálcán van. Válassz neki egy másik helyet!');
+  }
+  function activatePiece(button) {
+    const id = Number(button.dataset.piece);
+    if (button.dataset.slot !== undefined && selected !== null && selected !== id) place(Number(button.dataset.slot));
+    else select(id);
   }
 
   function cleanupDrag() {
@@ -97,21 +113,23 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     drag.ghost.style.left = `${event.clientX - drag.width / 2}px`;
     drag.ghost.style.top = `${event.clientY - drag.height / 2}px`;
     root.querySelector('.is-drop-target')?.classList.remove('is-drop-target');
-    const slot = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-slot]:not(:disabled)');
-    if (slot && root.contains(slot)) slot.classList.add('is-drop-target');
+    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-slot]:not(:disabled), .puzzle-tray');
+    if (target && root.contains(target)) target.classList.add('is-drop-target');
   });
   root.addEventListener('pointerup', event => {
     if (!drag || drag.pointerId !== event.pointerId) return;
-    const wasDragged = Boolean(drag.ghost), pieceId = drag.id;
+    const wasDragged = Boolean(drag.ghost), pieceId = drag.id, button = drag.button;
+    const target = document.elementFromPoint(event.clientX, event.clientY);
     const slot = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-slot]');
     cleanupDrag();
     // Capturing on the stable root also routes ordinary taps here.
-    blockClickUntil = performance.now() + 350; blockedPieceId = pieceId;
+    blockClickUntil = performance.now() + 350; blockedClick = { pieceId, slotId: button.dataset.slot };
     if (!playable()) return;
     if (wasDragged) {
       if (slot && root.contains(slot)) place(Number(slot.dataset.slot));
+      else if (target?.closest('.puzzle-tray') && root.contains(target)) returnToTray();
       else { status('A darab itt vár. Koppints a helyére, vagy húzd oda!'); focus(`[data-piece="${pieceId}"]`); }
-    } else { select(pieceId); focus(`[data-piece="${pieceId}"]`); }
+    } else { activatePiece(button); focus(`[data-piece="${pieceId}"]`); }
   });
   root.addEventListener('pointercancel', cleanupDrag);
   root.addEventListener('lostpointercapture', cleanupDrag);
@@ -119,8 +137,8 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     if (!active || document.hidden) return;
     const button = event.target.closest('button');
     if (!button || button.disabled) return;
-    if (button.dataset.piece !== undefined && Number(button.dataset.piece) === blockedPieceId && performance.now() < blockClickUntil && event.detail > 0) return;
-    if (button.dataset.piece !== undefined) select(Number(button.dataset.piece));
+    if (blockedClick && performance.now() < blockClickUntil && event.detail > 0 && (Number(button.dataset.piece) === blockedClick.pieceId || (blockedClick.slotId !== undefined && button.dataset.slot === blockedClick.slotId))) return;
+    if (button.dataset.piece !== undefined) activatePiece(button);
     else if (button.dataset.slot !== undefined) place(Number(button.dataset.slot));
     else if (button.dataset.puzzleImage) {
       setOptions({ ...normalizePuzzleOptions(getOptions()), puzzleImage: button.dataset.puzzleImage });
@@ -129,6 +147,7 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
       setOptions({ ...normalizePuzzleOptions(getOptions()), puzzlePieces: Number(button.dataset.puzzleSize) });
       start(); focus(`[data-puzzle-size="${button.dataset.puzzleSize}"]`);
     } else if (button.id === 'puzzle-restart') { start(); focus('#puzzle-restart'); }
+    else if (button.id === 'puzzle-return') returnToTray();
     else if (button.id === 'puzzle-hint' && !finished) {
       hint = !hint; render('#puzzle-hint');
       if (hint) { status('A halvány kép segít megtalálni a darabok helyét.'); say('puzzle_hint'); }

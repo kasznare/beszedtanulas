@@ -39,9 +39,49 @@ export function buildPuzzle(pieceCount = 6, random = Math.random) {
   return { columns, rows, pieces, order };
 }
 
+function placementIds(puzzle, placed) {
+  if (!Array.isArray(puzzle?.pieces) || !puzzle.pieces.length || !(placed instanceof Map)) return null;
+  const ids = new Set();
+  for (const piece of puzzle.pieces) {
+    if (!Number.isInteger(piece?.id) || piece.id < 0 || ids.has(piece.id)) return null;
+    ids.add(piece.id);
+  }
+  const used = new Set();
+  for (const [slotId, pieceId] of placed) {
+    if (!ids.has(slotId) || !ids.has(pieceId) || used.has(pieceId)) return null;
+    used.add(pieceId);
+  }
+  return ids;
+}
+
+function pieceSlot(placed, pieceId) {
+  for (const [slotId, occupant] of placed) if (occupant === pieceId) return slotId;
+  return undefined;
+}
+
 export function placePuzzlePiece(puzzle, placed, pieceId, slotId) {
-  if (!Number.isInteger(pieceId) || !Number.isInteger(slotId) || pieceId !== slotId ||
-      !puzzle.pieces.some(piece => piece.id === pieceId) || placed.has(pieceId)) return false;
-  placed.add(pieceId);
+  const ids = placementIds(puzzle, placed);
+  if (!ids?.has(pieceId) || !ids.has(slotId)) return false;
+  const source = pieceSlot(placed, pieceId);
+  if (source === slotId) return false;
+
+  // A board-to-board move swaps an occupied destination into the old slot.
+  // A tray piece replaces its destination; that old occupant returns to the tray.
+  if (source !== undefined) {
+    if (placed.has(slotId)) placed.set(source, placed.get(slotId));
+    else placed.delete(source);
+  }
+  placed.set(slotId, pieceId);
   return true;
+}
+
+export function removePuzzlePiece(puzzle, placed, pieceId) {
+  if (!placementIds(puzzle, placed)?.has(pieceId)) return false;
+  const source = pieceSlot(placed, pieceId);
+  return source !== undefined && placed.delete(source);
+}
+
+export function isPuzzleComplete(puzzle, placed) {
+  const ids = placementIds(puzzle, placed);
+  return Boolean(ids && placed.size === ids.size && [...ids].every(id => placed.get(id) === id));
 }

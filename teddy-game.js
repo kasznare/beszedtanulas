@@ -1,7 +1,7 @@
 import { words, teddyRequests } from "./game-data.js";
 import { buildListeningRound } from "./listening-game.js";
 
-export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlayback, onComplete }) {
+export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
   const panel = document.querySelector("#teddy-game");
   const answers = document.querySelector("#teddy-answers");
   const progress = document.querySelector("#teddy-progress");
@@ -154,6 +154,7 @@ export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlaybac
 
   return {
     start({ announce = true } = {}) {
+      onRestart();
       ++generation;
       clearFlight();
       const options = getOptions();

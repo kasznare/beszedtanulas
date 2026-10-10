@@ -24,7 +24,7 @@ export function buildListeningRound(pool, length = 5, choiceCount = 2, random = 
   }));
 }
 
-export function setupListeningGame({ getOptions, playPrompt, playCorrect, stopPlayback, onComplete }) {
+export function setupListeningGame({ getOptions, playPrompt, playCorrect, stopPlayback, onComplete, onRestart = () => {} }) {
   const answers = document.querySelector("#listening-answers");
   const progress = document.querySelector("#listening-progress");
   const status = document.querySelector("#listening-status");
@@ -113,6 +113,7 @@ export function setupListeningGame({ getOptions, playPrompt, playCorrect, stopPl
 
   return {
     start({ announce = true } = {}) {
+      onRestart();
       stopPlayback();
       const options = getOptions();
       round = buildListeningRound(options.words, options.length, options.choiceCount);
