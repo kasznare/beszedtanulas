@@ -64,7 +64,13 @@ export function createIllustratedStory(host, { storyId = 'story-01', readTime = 
   const readAnimationTime = () => animationTime(readTime());
   function select(id, seconds = 0, active = false) {
     const story = storyVisualFor(id);
-    if (destroyed || !story) return false;
+    if (destroyed) return false;
+    if (!story) {
+      if (controller) motion = controller.motion;
+      controller?.destroy(); controller = null; currentId = undefined;
+      delete host.dataset.story;
+      return false;
+    }
     if (id !== currentId) {
       if (controller) motion = controller.motion;
       controller?.destroy(); currentId = id; host.dataset.story = id;

@@ -29,6 +29,12 @@ test('the illustration boundary maps seeks, frame clocks and motion changes exac
     assert.ok(cancellations > 0);
     visual.select('story-02', 20);
     assert.equal(host.dataset.time, '20.000');
+    assert.equal(visual.select('local-audio', 20, true), false);
+    assert.equal(host.innerHTML, '');
+    assert.equal(host.dataset.story, undefined);
+    assert.equal(visual.storyId, undefined);
+    assert.equal(visual.select('story-02', 20), true);
+    assert.equal(host.dataset.time, '20.000');
     visual.destroy();
     assert.equal(host.innerHTML, '');
   } finally {

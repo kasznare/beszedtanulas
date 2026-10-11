@@ -147,9 +147,9 @@ export async function saveAudiobookOffline(story, { signal } = {}) {
   for (const key of await cache.keys()) if (new URL(key.url).pathname === pathname && key.url !== cacheKey(story)) await cache.delete(key);
 }
 
-export function loadAudiobookPreferences(storage) {
-  try { return normalizeAudiobookState(JSON.parse(storage?.getItem(STORAGE_KEY) || 'null')); }
-  catch { return normalizeAudiobookState(null); }
+export function loadAudiobookPreferences(storage, stories = AUDIOBOOKS) {
+  try { return normalizeAudiobookState(JSON.parse(storage?.getItem(STORAGE_KEY) || 'null'), stories); }
+  catch { return normalizeAudiobookState(null, stories); }
 }
 export function saveAudiobookPreferences(storage, value) {
   try { storage?.setItem(STORAGE_KEY, JSON.stringify(value)); return Boolean(storage); } catch { return false; }

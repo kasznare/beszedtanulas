@@ -91,7 +91,7 @@ async page => {
   for(const [width,height] of [[375,667],[932,350],[834,1194],[1194,834]]){
     await page.setViewportSize({width,height});
     ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`No horizontal overflow at ${width}×${height}`);
-    ok(await page.locator('#audiobooks button').evaluateAll(buttons=>buttons.every(button=>button.getBoundingClientRect().height>=44)),`Touch targets are at least 44px at ${width}×${height}`);
+    ok(await page.locator('#audiobooks button').evaluateAll(buttons=>buttons.filter(button=>button.getClientRects().length).every(button=>button.getBoundingClientRect().height>=44)),`Touch targets are at least 44px at ${width}×${height}`);
     if(width===375||width===834)await page.screenshot({path:`output/playwright/audiobooks-${width}-${context.browser().browserType().name()}.png`,fullPage:true});
   }
   ok(errors.length===0,'No application JavaScript errors');

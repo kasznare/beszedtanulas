@@ -1,6 +1,7 @@
 import { AUDIOBOOKS } from './audiobook-data.js';
 import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
 import { createIllustratedStory } from './story-visual-player.js';
+import { importPrivateAudiobook, loadLocalAudiobooks, resolveLocalAudiobookSource, deleteLocalAudiobook } from './local-audiobooks.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
 export const formatStoryTime = seconds => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, '0')}`;
@@ -10,20 +11,22 @@ export function setupAudiobooks({ stopPlayback }) {
   let storage;
   try { storage = localStorage; } catch { storage = null; }
   let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false, visual;
+  let stories = [...AUDIOBOOKS], player, importMessage = '', importing = false;
   const $ = selector => root.querySelector(selector);
-  const player = createAudiobookPlayer({
-    preferences: loadAudiobookPreferences(storage), resolveSource: resolveAudiobookSource,
+  const makePlayer = () => createAudiobookPlayer({
+    stories, preferences: loadAudiobookPreferences(storage, stories),
+    resolveSource: story => story.local ? resolveLocalAudiobookSource(story) : resolveAudiobookSource(story),
     persist: value => { if (!saveAudiobookPreferences(storage, value)) bookmarkWarning = true; },
     beforePlay: stopPlayback, onChange: update,
   });
   function update(state = player.getState()) {
     if (!active) return;
-    const story = AUDIOBOOKS.find(story => story.id === state.storyId);
+    const story = stories.find(story => story.id === state.storyId);
     if (!story) return;
     const playing = ['playing', 'buffering'].includes(state.phase);
-    root.dataset.illustrated = 'true';
-    $('#story-visual-wrap').hidden = false;
-    visual?.select(story.id, player.getPosition(), state.phase === 'playing');
+    const illustrated = visual?.select(story.id, player.getPosition(), state.phase === 'playing') === true;
+    root.dataset.illustrated = String(illustrated);
+    $('#story-visual-wrap').hidden = !illustrated;
     $('#story-title').textContent = story.title;
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
@@ -40,9 +43,11 @@ export function setupAudiobooks({ stopPlayback }) {
     const status = state.phase === 'error' ? 'A mese most nem indult el. Ellenőrizd az internetet, és próbáld újra!' : state.phase === 'loading' ? 'Előkészítjük a mesét…' : state.phase === 'buffering' ? 'A mese betöltődik…' : state.phase === 'playing' ? 'Szól a mese.' : state.phase === 'ended' ? 'Vége a mesének. Újra meghallgathatod, vagy választhatsz egy másikat.' : state.phase === 'paused' ? 'Itt tartunk. Folytassuk, amikor szeretnéd!' : 'A nagy gombbal indul a mese.';
     if ($('#story-status').textContent !== status) $('#story-status').textContent = status;
     const download = $('#story-download');
+    download.hidden = Boolean(story.local);
+    $('#story-remove').hidden = !story.local;
     download.disabled = saving.has(story.id) || downloaded.has(story.id);
     download.textContent = saving.has(story.id) ? 'Letöltés…' : downloaded.has(story.id) ? '✓ Letöltve' : '↓ Letöltés';
-    $('#story-offline').textContent = notices.get(story.id) || (downloaded.has(story.id) ? 'Ez a mese internet nélkül is hallgatható ezen az eszközön.' : `Internet nélkül is szeretnétek? Töltsd le ezt a mesét! (${(story.bytes / 1e6).toFixed(1).replace('.', ',')} MB)`);
+    $('#story-offline').textContent = notices.get(story.id) || (story.local ? 'Saját mese: ezen az eszközön, internet nélkül is hallgatható.' : downloaded.has(story.id) ? 'Ez a mese internet nélkül is hallgatható ezen az eszközön.' : `Internet nélkül is szeretnétek? Töltsd le ezt a mesét! (${(story.bytes / 1e6).toFixed(1).replace('.', ',')} MB)`);
     if ($('#story-text').dataset.story !== story.id) {
       $('#story-text').textContent = story.text; $('#story-text').dataset.story = story.id;
       $('#story-transcript').open = false;
@@ -53,12 +58,13 @@ export function setupAudiobooks({ stopPlayback }) {
       button.setAttribute('aria-pressed', String(selected));
       button.classList.toggle('is-selected', selected);
       const seconds = player.getPreferences().positions[button.dataset.story]?.seconds || 0;
-      button.querySelector('.story-card-note').textContent = downloaded.has(button.dataset.story) ? '✓ Letöltve' : seconds >= 1 ? `Folytatás: ${formatStoryTime(seconds)}` : `${Math.ceil(AUDIOBOOKS.find(s => s.id === button.dataset.story).duration / 60)} perc`;
+      const entry = stories.find(s => s.id === button.dataset.story);
+      button.querySelector('.story-card-note').textContent = seconds >= 1 ? `Folytatás: ${formatStoryTime(seconds)}` : entry.local ? `Saját mese • ${Math.ceil(entry.duration / 60)} perc` : downloaded.has(entry.id) ? '✓ Letöltve' : `${Math.ceil(entry.duration / 60)} perc`;
     }
   }
   function render() {
     visual?.destroy();
-    root.innerHTML = `<div class="story-library"><p class="story-intro">Válassz egy mesét, és kuckózzunk be!</p><article class="story-player" aria-labelledby="story-title"><div id="story-cover" class="story-cover" aria-hidden="true"></div><div class="story-player-main"><span class="story-eyebrow">HANGOS MESE</span><h2 id="story-title"></h2><div class="story-actions"><button id="story-toggle" class="story-toggle"></button><button id="story-restart" class="story-restart" aria-label="Mese újrakezdése"><span aria-hidden="true">↺</span><span>Elölről</span></button></div><label class="sr-only" for="story-seek">Hol tartunk a mesében?</label><input id="story-seek" class="story-seek" type="range" min="0" step="1" value="0"><div class="story-times" aria-hidden="true"><span id="story-elapsed"></span><span id="story-duration"></span></div><p id="story-status" class="story-status" role="status"></p></div><div class="story-download-row"><button id="story-download" class="story-download"></button><p id="story-offline" role="status"></p></div><p id="story-bookmark-warning" class="story-status" role="status" hidden>A böngésző most nem tudja megjegyezni, hol tartunk.</p><details id="story-transcript" class="story-transcript"><summary>Mese szövege</summary><div id="story-text"></div></details></article><h3 class="story-list-title">Melyiket hallgassuk?</h3><div class="story-grid" role="group" aria-label="Mesék">${AUDIOBOOKS.map(story => `<button class="story-card" data-story="${story.id}" aria-label="${escape(story.title)} kiválasztása"><span class="story-card-cover" aria-hidden="true">${story.emoji}</span><strong>${escape(story.title)}</strong><small class="story-card-note">${Math.ceil(story.duration / 60)} perc</small></button>`).join('')}</div></div>`;
+    root.innerHTML = `<div class="story-library"><p class="story-intro">Válassz egy mesét, és kuckózzunk be!</p><article class="story-player" aria-labelledby="story-title"><div id="story-cover" class="story-cover" aria-hidden="true"></div><div class="story-player-main"><span class="story-eyebrow">HANGOS MESE</span><h2 id="story-title"></h2><div class="story-actions"><button id="story-toggle" class="story-toggle"></button><button id="story-restart" class="story-restart" aria-label="Mese újrakezdése"><span aria-hidden="true">↺</span><span>Elölről</span></button></div><label class="sr-only" for="story-seek">Hol tartunk a mesében?</label><input id="story-seek" class="story-seek" type="range" min="0" step="1" value="0"><div class="story-times" aria-hidden="true"><span id="story-elapsed"></span><span id="story-duration"></span></div><p id="story-status" class="story-status" role="status"></p></div><div class="story-download-row"><button id="story-download" class="story-download"></button><button id="story-remove" class="story-download" hidden>Eltávolítás</button><p id="story-offline" role="status"></p></div><p id="story-bookmark-warning" class="story-status" role="status" hidden>A böngésző most nem tudja megjegyezni, hol tartunk.</p><details id="story-transcript" class="story-transcript"><summary>Mese szövege</summary><div id="story-text"></div></details></article><h3 class="story-list-title">Melyiket hallgassuk?</h3><div class="story-grid" role="group" aria-label="Mesék">${stories.map(story => `<button class="story-card" data-story="${escape(story.id)}" aria-label="${escape(story.title)} kiválasztása"><span class="story-card-cover" aria-hidden="true">${story.emoji}</span><strong>${escape(story.title)}</strong><small class="story-card-note">${Math.ceil(story.duration / 60)} perc</small></button>`).join('')}</div><section class="story-local-import" aria-labelledby="story-local-title"><h3 id="story-local-title">Saját mesék</h3><p>A hozzáadott mesék ezen a böngészőn maradnak. Másik eszközön ugyanebből a fájlból adhatod hozzá őket.</p><button id="story-import" class="story-download">Saját mese hozzáadása</button><input id="story-import-file" type="file" accept=".json,.mese.json,application/json" hidden aria-label="Saját mesefájl kiválasztása"><p id="story-import-status" role="status"></p></section></div>`;
     $('#story-toggle').addEventListener('click', () => ['playing', 'buffering'].includes(player.getState().phase) ? player.pause() : void player.play());
     const visualWrap = document.createElement('div');
     visualWrap.id = 'story-visual-wrap'; visualWrap.className = 'story-visual-wrap';
@@ -74,7 +80,7 @@ export function setupAudiobooks({ stopPlayback }) {
       $('#story-title').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     }));
     $('#story-download').addEventListener('click', async () => {
-      const story = AUDIOBOOKS.find(s => s.id === player.getState().storyId);
+      const story = stories.find(s => s.id === player.getState().storyId);
       if (!story || saving.has(story.id) || downloaded.has(story.id)) return;
       saving.add(story.id); notices.delete(story.id); update();
       const abort = new AbortController(), timer = setTimeout(() => abort.abort(), 120000);
@@ -82,21 +88,74 @@ export function setupAudiobooks({ stopPlayback }) {
       catch { notices.set(story.id, 'A letöltés nem sikerült. Ellenőrizd a kapcsolatot vagy a szabad tárhelyet, és próbáld újra!'); }
       finally { clearTimeout(timer); saving.delete(story.id); update(); }
     });
+    $('#story-import-status').textContent = importMessage;
+    $('#story-import').disabled = importing;
+    $('#story-import').addEventListener('click', () => $('#story-import-file').click());
+    $('#story-import-file').addEventListener('change', async event => {
+      const file = event.target.files[0], token = session;
+      if (!file || importing) return;
+      importing = true; $('#story-import').disabled = true;
+      $('#story-import-status').textContent = 'Előkészítjük és mentjük a saját mesét…';
+      try {
+        const story = await importPrivateAudiobook(file);
+        importMessage = 'A saját mese elkészült. A nagy gombbal meghallgathatod.';
+        if (!active || token !== session) return;
+        const index = stories.findIndex(entry => entry.id === story.id);
+        if (index >= 0) stories[index] = story; else stories.push(story);
+        downloaded.add(story.id); player.pause(); render();
+        await player.select(story.id);
+        if (active && token === session) $('#story-toggle').focus({ preventScroll: true });
+      } catch (error) {
+        importMessage = error.message || 'A saját mesét nem sikerült hozzáadni.';
+      } finally {
+        importing = false;
+        if (active && token === session) {
+          $('#story-import').disabled = false;
+          $('#story-import-status').textContent = importMessage;
+          $('#story-import-file').value = '';
+        }
+      }
+    });
+    $('#story-remove').addEventListener('click', async () => {
+      const story = stories.find(entry => entry.id === player.getState().storyId), token = session;
+      if (!story?.local) return;
+      $('#story-remove').disabled = true;
+      try {
+        await deleteLocalAudiobook(story.id);
+        if (!active || token !== session) return;
+        player.stop(); stories.splice(stories.findIndex(entry => entry.id === story.id), 1);
+        downloaded.delete(story.id); importMessage = 'A saját mesét eltávolítottuk erről az eszközről. A fájlból bármikor visszateheted.';
+        render(); await player.select(stories[0].id);
+      } catch (error) {
+        if (active && token === session) {
+          notices.set(story.id, error.message); $('#story-remove').disabled = false; update();
+        }
+      }
+    });
   }
-  window.addEventListener('pagehide', () => player.pause());
+  window.addEventListener('pagehide', () => player?.pause());
   return {
     async start() {
-      active = true; const token = ++session; render();
+      active = false; player?.stop(); visual?.destroy(); visual = null;
+      active = true; const token = ++session;
+      root.dataset.phase = 'loading';
+      root.innerHTML = '<p class="story-intro" role="status">Előkészítjük a Mesetárat…</p>';
+      let local = [];
+      try { local = await loadLocalAudiobooks(); }
+      catch (error) { importMessage = error.message; }
+      if (!active || token !== session) return;
+      stories = [...AUDIOBOOKS, ...local];
+      player = makePlayer(); render();
       void player.select(player.getPreferences().selected);
-      for (const story of AUDIOBOOKS) {
-        const exists = await isAudiobookSaved(story);
+      for (const story of stories) {
+        const exists = story.local || await isAudiobookSaved(story);
         if (!active || token !== session) return;
         if (exists) downloaded.add(story.id); else downloaded.delete(story.id);
       }
       update();
     },
-    pause: player.pause,
-    stop() { player.stop(); active = false; session++; visual?.destroy(); visual = null; },
-    repeat() { if (active) $('#story-status').textContent = 'Válassz egy mesét! A nagy gombbal elindíthatod vagy szüneteltetheted.'; },
+    pause() { player?.pause(); },
+    stop() { active = false; player?.stop(); session++; visual?.destroy(); visual = null; },
+    repeat() { const status = $('#story-status'); if (active && status) status.textContent = 'Válassz egy mesét! A nagy gombbal elindíthatod vagy szüneteltetheted.'; },
   };
 }
