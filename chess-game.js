@@ -104,6 +104,12 @@ export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = ()
     stopPlayback();
     say(solved ? options.mode === 'stars' ? 'chess_done' : 'chess_solved' : options.mode === 'puzzles' ? puzzle.voice : `chess_${board.find(piece => piece.color === 'white')?.type || options.piece}`, true);
   }
+  function changePuzzle(direction, focusSelector) {
+    const count = chessPuzzlesForLevel(options.level).length;
+    puzzleIndex = (puzzleIndex + direction + count) % count;
+    reset(focusSelector);
+  }
+  const canAdvance = () => active && solved && options.mode === 'puzzles';
   root.addEventListener('click', event => {
     if (!active || document.hidden) return;
     const button = event.target.closest('button');
@@ -115,9 +121,7 @@ export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = ()
     else if (button.id === 'chess-listen') repeat();
     else if (button.id === 'chess-restart') reset('#chess-restart');
     else if (['chess-prev', 'chess-next', 'chess-another'].includes(button.id)) {
-      const count = chessPuzzlesForLevel(options.level).length;
-      puzzleIndex = (puzzleIndex + (button.id === 'chess-prev' ? -1 : 1) + count) % count;
-      reset(button.id === 'chess-another' ? '#chess-next' : `#${button.id}`);
+      changePuzzle(button.id === 'chess-prev' ? -1 : 1, button.id === 'chess-another' ? '#chess-next' : `#${button.id}`);
     } else if (button.id === 'chess-hint' && playable()) {
       hint = !hint;
       if (hint && selected === null) selected = primary();
@@ -147,5 +151,10 @@ export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = ()
     }
   });
   document.addEventListener('visibilitychange', () => { if (active && document.hidden) stopPlayback(); });
-  return { start() { active = true; reset(); }, stop() { active = false; stopPlayback(); }, repeat };
+  return { start() { active = true; reset(); }, stop() { active = false; stopPlayback(); }, repeat, canAdvance,
+    nextPuzzle() {
+      if (!canAdvance()) return false;
+      changePuzzle(1, '#chess-next');
+      return true;
+    } };
 }

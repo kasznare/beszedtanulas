@@ -137,7 +137,7 @@ async page => {
     await page.waitForSelector('#round-complete[open]');
     ok((await saved()).rewards === beforeOffline.rewards+1, 'Cooperative task finishes completely offline');
     await page.locator('#round-replay').click();
-    ok(await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 2' && await cell('b3').locator('.chess-piece-black').count() === 1, 'Replay restores the task and targets');
+    ok(await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 2' && await cell('c1').locator('.chess-piece-bishop').count() === 1 && (await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 6'), 'Celebration continues to the next cooperative task');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
     return { count:checks.length, engine:context.browser().browserType().name(), checks };
   } finally { await context.setOffline(false); page.off('pageerror',listener); }

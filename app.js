@@ -2146,7 +2146,7 @@ function setupNavigation() {
     else if (completedRoundKind === "memory") showScreen("memory");
     else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") showScreen("puzzle");
-    else if (completedRoundKind === "chess") showScreen("chess");
+    else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
     else startAutoImitateSession();
   });
   const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
@@ -2333,7 +2333,18 @@ function celebrateRound(kind, count) {
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
     document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
+    const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
+    const continueButton = document.querySelector('#round-replay');
+    continueButton.classList.toggle('round-next', nextPuzzle);
+    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy kör');
+    setButtonIcon(continueButton, nextPuzzle ? 'next' : 'repeat');
+    if (nextPuzzle) {
+      const label = document.createElement('span');
+      label.textContent = 'Következő feladat';
+      continueButton.append(label);
+    }
     document.querySelector("#round-complete").showModal();
+    if (nextPuzzle) continueButton.focus({ preventScroll: true });
     if (kind === "pour") speakVoice('pour_done');
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');

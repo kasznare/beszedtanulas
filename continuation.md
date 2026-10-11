@@ -1,5 +1,15 @@
 # Beszédtanulás – folytatási terv
 
+## 2026. október 11. – Sakkfeladat utáni továbblépés a sikerablakból
+
+A felhasználó jelezte, hogy a sikerablak ismétlésgombja a megoldott sakkfeladványt újrapróbáltatja. Feladat módban most a fő gomb **Következő feladat** felirattal és előrenyíllal jelenik meg, megkapja a billentyűzetes fókuszt, és a megoldott állás után a következő feladványt nyitja. A választott nehézség megmarad, a szint utolsó feladata után az első következik. A következő tábla és a hozzá tartozó magyar utasítás frissen indul, további jutalom vagy beszédpróba nélkül. A Csillagok és más játékok sikerablaka továbbra is új kört indít; a közös ablak minden megnyitáskor visszaállítja a megfelelő ikont, feliratot és elrendezést.
+
+A sakkmodul védett `canAdvance` / `nextPuzzle` műveletet ad az alkalmazásnak; csak aktív, megoldott feladványból léptet. A táblán lévő következő/előző gombok ugyanazt a váltást használják. A feliratos gomb álló nézetben külön széles sorban, alacsony fekvő telefonon a többi gomb mellett látszik. A meglévő sakkböngésző-fixture-ök elvárásai az új továbblépéshez igazítva.
+
+Ellenőrzés: teljes build, **199 sikeres Node-teszt**; Chrome és WebKit motoronként **37 célzott böngészős ellenőrzés**. Mindhárom nehézség első/utolsó feladata, billentyűzet, egyszeri jutalom, megmaradt nehézség, Csillagok ismétlése, másik játék közös sikerablakának helyreállítása, 6 képernyőméret, tényleges offline továbblépés és a következő magyar hang indulása, változatlan visszaút igazolva. Az első próbában a 932×350 nézet belső görgetést okozott; a végleges kompakt gombsorral mindkét motorban javítva. Telefonos és fekvő képek átnézve. A WebKit emuláció, nem fizikai készülékpróba.
+
+Kiindulás `6502971`, a chat meglévő `sakkliget` managed munkafája; a közös checkout más munkájához nem nyúltunk. Új hang, alügynök és usage-reset kredit nem volt. Forrás: `app.js`, `chess-game.js`, `child-ui.css`; célzott próba: `tests/browser/chess-next.js`. Offline lenyomat: `1b19f367d4426678`, 600 kötelező + 12 opcionális hang, 613 futtatási fájl. Közzététel a meglévő GitHub Pages main-folyamatával.
+
 ## 2026. október 11. – Tizenkét több lépéses sakkfeladat
 
 A felhasználó bonyolultabb sakkfeladatokat kért. A Sakkliget Feladatok módja három nehézséget ad: **Kezdő** (a meglévő 10 egylépéses helyzet), **Gondolkodós** (6 új helyzet, 2–3 lépés), **Kihívás** (6 új helyzet, 2–4 lépés). Bástya- és futókerülő, két huszárugrás, több figura leütése, biztonságos királyút, gyalogütések, a bástyának/futónak utat nyitó segítő figura, kötött bástya, huszárhármas, gyalogátváltozás utáni vezérütés és közös bástya–király feladat. A sötét figurák továbbra sem lépnek; csak a feladatban megnevezett világos figurák mozgathatók. Teljes sakkparti nem került be.
