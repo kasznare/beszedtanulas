@@ -11,6 +11,7 @@ async page => {
     await home(); await page.locator('#home [data-open="number-menu"]').click();
     await page.locator('#number-menu [data-open="chess"]').click();
     await page.locator('[data-chess-mode="puzzles"]').click();
+    await page.locator('[data-chess-level="easy"]').click();
   };
   const finish = async () => {
     await page.locator('[data-chess-square="49"]').click();
@@ -40,7 +41,7 @@ async page => {
   await page.waitForSelector('#round-complete[open]');
   const elapsed = await page.evaluate(start => performance.now()-start, immediate.start); timings.push(elapsed);
   ok(elapsed>=1000, 'Celebration follows at least one second of visible play');
-  await page.locator('#round-replay').click(); await finish();
+  await page.locator('#round-replay').click(); await page.locator('#chess-prev').click(); await finish();
   await page.locator('#chess-restart').click(); await page.waitForTimeout(1200);
   ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('[data-chess-square="49"] .chess-piece').count()===1, 'Restart cancels the pending celebration');
   await finish(); await page.locator('[data-chess-mode="explore"]').click(); await page.waitForTimeout(1200);

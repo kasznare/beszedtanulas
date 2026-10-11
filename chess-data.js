@@ -9,6 +9,11 @@ export const CHESS_PIECES = Object.freeze([
 ]);
 
 export const CHESS_MODES = ['explore', 'stars', 'puzzles'];
+export const CHESS_LEVELS = Object.freeze([
+  { id: 'easy', label: 'Kezdő' },
+  { id: 'planning', label: 'Gondolkodós' },
+  { id: 'challenge', label: 'Kihívás' },
+]);
 export const CHESS_CLIPS = {
   chess_start: 'Ismerkedjünk a sakkfigurákkal! Válassz egy figurát. Koppints rá, aztán egy pöttyös mezőre!',
   chess_stars: 'Gyűjtsd össze a három csillagot! Koppints a figurára, aztán arra a mezőre, ahová lépni szeretnél!',
@@ -36,12 +41,26 @@ export const CHESS_CLIPS = {
   chess_blocked_rook: 'Vidd a bástyát a csillagra! A világos gyalogon nem ugorhat át.',
   chess_blocked_bishop: 'Vidd a futót a csillagra! A világos gyalogon nem ugorhat át.',
   chess_promote: 'A gyalog elérte a tábla végét, és vezér lett belőle!',
+  chess_rook_detour: 'Vidd a bástyát a csillagra, legfeljebb három lépésből! Kerüld meg a világos gyalogot. A gyalog most a helyén marad.',
+  chess_bishop_detour: 'Vidd a futót a csillagra, legfeljebb három lépésből! A világos gyalog lezárja a közvetlen átlót. Keress másik utat!',
+  chess_knight_route: 'Vidd a huszárt a csillagra, legfeljebb két lépésből! Keress egy köztes mezőt, ahonnan eléred a csillagot!',
+  chess_queen_collect: 'Üsd le mindkét megjelölt sötét figurát a vezérrel, legfeljebb két lépésből! A végén a vezér a csillagon álljon.',
+  chess_king_route: 'Vidd a királyt a csillagra, legfeljebb három lépésből! Kerüld meg a világos gyalogot, és figyelj a sötét gyalog támadására!',
+  chess_pawn_route: 'Vidd a gyalogot a csillagra, legfeljebb három lépésből! Üsd le mindkét megjelölt sötét figurát. Gondolj az átlós ütésekre!',
+  chess_rook_team: 'Vidd a bástyát a csillagra, legfeljebb két lépésből! A világos gyaloggal is léphetsz. Szabadítsd fel az utat, és üsd le a megjelölt sötét huszárt!',
+  chess_bishop_team: 'Vidd a futót a csillagra, legfeljebb két lépésből! A világos huszárral is léphetsz. Előbb nyiss utat a futónak!',
+  chess_pin: 'Üsd le mindkét megjelölt sötét figurát a bástyával, legfeljebb két lépésből! A világos királyt egy pillanatra sem hagyhatod támadásban.',
+  chess_knight_collect: 'Üsd le mindhárom megjelölt sötét figurát a huszárral, legfeljebb három lépésből! A végén a huszár a csillagon álljon.',
+  chess_promotion_route: 'Vidd a gyalogot a tábla végére, hogy vezér legyen belőle! Üsd le mindkét megjelölt sötét figurát, legfeljebb három lépésből. A vezér a csillagon álljon!',
+  chess_king_team: 'Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!',
+  chess_steps_used: 'Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!',
 };
 
 export function normalizeChessOptions(value = {}) {
   return {
     mode: CHESS_MODES.includes(value?.mode) ? value.mode : 'explore',
     piece: CHESS_PIECES.some(piece => piece.id === value?.piece) ? value.piece : 'rook',
+    level: CHESS_LEVELS.some(level => level.id === value?.level) ? value.level : 'easy',
   };
 }
 
@@ -138,7 +157,50 @@ export const CHESS_PUZZLES = Object.freeze([
   { id: 'bishop-block', piece: 'bishop', title: 'Válassz szabad átlót', voice: 'chess_blocked_bishop', from: 'd4', goal: 'b6', pieces: [['bishop', 'd4'], ['pawn', 'e5']] },
 ]);
 
-export function buildChessPuzzle(index = 0) {
-  const definition = CHESS_PUZZLES[((Math.trunc(index) || 0) % CHESS_PUZZLES.length + CHESS_PUZZLES.length) % CHESS_PUZZLES.length];
-  return { ...definition, from: squareIndex(definition.from), goal: squareIndex(definition.goal), board: definition.pieces.map(([type, name, color]) => pieceAt(type, name, color)) };
+export const CHESS_COMPLEX_PUZZLES = Object.freeze([
+  { id: 'rook-detour', level: 'planning', piece: 'rook', title: 'Bástya a kerülőúton', voice: 'chess_rook_detour', from: 'd4', goal: 'g4', maxMoves: 3, tip: 'Előbb lépj egy másik sorba. Onnan megkerülheted az akadályt.', pieces: [['rook', 'd4'], ['pawn', 'e4']] },
+  { id: 'bishop-detour', level: 'planning', piece: 'bishop', title: 'Három átló', voice: 'chess_bishop_detour', from: 'c1', goal: 'g5', maxMoves: 3, tip: 'A futó másik átlóján indulj el. A csillag színét figyeld!', pieces: [['bishop', 'c1'], ['pawn', 'e3']] },
+  { id: 'knight-route', level: 'planning', piece: 'knight', title: 'Két huszárugrás', voice: 'chess_knight_route', from: 'b1', goal: 'c4', maxMoves: 2, tip: 'Melyik első ugrás után lesz a csillag egy L alakú lépésre?', pieces: [['knight', 'b1'], ['pawn', 'd2'], ['pawn', 'b2']] },
+  { id: 'queen-collect', level: 'planning', piece: 'queen', title: 'A vezér két zsákmánya', voice: 'chess_queen_collect', from: 'b2', goal: 'g5', maxMoves: 2, requiredCaptures: ['d2', 'g5'], tip: 'Előbb az egy sorban álló figurát keresd. Utána átlót válthatsz.', pieces: [['queen', 'b2'], ['pawn', 'd2', 'black'], ['knight', 'g5', 'black']] },
+  { id: 'king-route', level: 'planning', piece: 'king', title: 'Óvatos királyút', voice: 'chess_king_route', from: 'c2', goal: 'e4', maxMoves: 3, tip: 'A sötét gyalog átlósan lefelé támad. A jobb oldalon keress biztonságos utat.', pieces: [['king', 'c2'], ['pawn', 'd3'], ['pawn', 'b4', 'black']] },
+  { id: 'pawn-route', level: 'planning', piece: 'pawn', title: 'Gyalog a kanyarban', voice: 'chess_pawn_route', from: 'd4', goal: 'f7', maxMoves: 3, requiredCaptures: ['e5', 'f6'], tip: 'Két átlós ütés után egy egyenes lépés vezet a csillagra.', pieces: [['pawn', 'd4'], ['pawn', 'd5', 'black'], ['knight', 'e5', 'black'], ['rook', 'f6', 'black']] },
+  { id: 'rook-team', level: 'challenge', piece: 'rook', title: 'A gyalog utat nyit', voice: 'chess_rook_team', from: 'a1', goal: 'a4', maxMoves: 2, movers: ['a1', 'a2'], requiredCaptures: ['b3'], tip: 'A gyalog egyenes lépése még elzárná az utat. Próbálj átlós ütést!', pieces: [['rook', 'a1'], ['pawn', 'a2'], ['knight', 'b3', 'black']] },
+  { id: 'bishop-team', level: 'challenge', piece: 'bishop', title: 'A huszár segítsége', voice: 'chess_bishop_team', from: 'c1', goal: 'h6', maxMoves: 2, movers: ['c1', 'd2'], tip: 'A huszárnak el kell hagynia a futó átlóját.', pieces: [['bishop', 'c1'], ['knight', 'd2']] },
+  { id: 'pinned-rook', level: 'challenge', piece: 'rook', title: 'Védd a királyt!', voice: 'chess_pin', from: 'e2', goal: 'h8', maxMoves: 2, requiredCaptures: ['e8', 'h8'], tip: 'A bástya oldalra lépve magára hagyná a királyt. Előbb a támadót üsd le!', pieces: [['king', 'e1'], ['rook', 'e2'], ['rook', 'e8', 'black'], ['knight', 'h8', 'black']] },
+  { id: 'knight-collect', level: 'challenge', piece: 'knight', title: 'Huszárhármas', voice: 'chess_knight_collect', from: 'b1', goal: 'f6', maxMoves: 3, requiredCaptures: ['c3', 'e4', 'f6'], tip: 'Keresd azt a figurát, amelyet már az első ugrással elérsz.', pieces: [['knight', 'b1'], ['rook', 'c3', 'black'], ['bishop', 'e4', 'black'], ['knight', 'f6', 'black']] },
+  { id: 'promotion-route', level: 'challenge', piece: 'pawn', title: 'Gyalogból vezér', voice: 'chess_promotion_route', from: 'd6', goal: 'h8', goalType: 'queen', maxMoves: 3, requiredCaptures: ['e7', 'h8'], tip: 'Előbb átlósan üss, aztán lépj a tábla végére. A vezér már oldalra is léphet.', pieces: [['pawn', 'd6'], ['pawn', 'd7', 'black'], ['knight', 'e7', 'black'], ['rook', 'h8', 'black']] },
+  { id: 'king-team', level: 'challenge', piece: 'king', title: 'Együtt a biztonságért', voice: 'chess_king_team', from: 'c2', goal: 'e4', maxMoves: 4, movers: ['c2', 'a1'], requiredCaptures: ['d8'], tip: 'A világos bástya két lépéssel elérheti a sötét bástyát. Utána indulhat a király.', pieces: [['king', 'c2'], ['rook', 'a1'], ['rook', 'd8', 'black']] },
+]);
+
+export function chessPuzzlesForLevel(level = 'easy') {
+  return level === 'planning' || level === 'challenge' ? CHESS_COMPLEX_PUZZLES.filter(puzzle => puzzle.level === level) : CHESS_PUZZLES;
+}
+
+export function buildChessPuzzle(index = 0, level = 'easy') {
+  const puzzles = chessPuzzlesForLevel(level);
+  const definition = puzzles[((Math.trunc(index) || 0) % puzzles.length + puzzles.length) % puzzles.length];
+  return { ...definition, level, maxMoves: definition.maxMoves || 1,
+    from: squareIndex(definition.from), goal: squareIndex(definition.goal),
+    movers: (definition.movers || [definition.from]).map(squareIndex),
+    requiredCaptures: (definition.requiredCaptures || (definition.capture ? [definition.goal] : [])).map(squareIndex),
+    board: definition.pieces.map(([type, name, color]) => ({ ...pieceAt(type, name, color), id: squareIndex(name) })) };
+}
+
+export function chessPuzzleMovers(puzzle, board) {
+  return board.filter(piece => piece.color === 'white' && puzzle.movers.includes(piece.id));
+}
+
+export function evaluateChessPuzzle(puzzle, board, moveCount) {
+  const capturesRemaining = puzzle.requiredCaptures.filter(id => board.some(piece => piece.id === id));
+  const actor = board.find(piece => piece.id === puzzle.from);
+  const atGoal = actor?.square === puzzle.goal && (!puzzle.goalType || actor.type === puzzle.goalType);
+  const solved = moveCount > 0 && moveCount <= puzzle.maxMoves && atGoal && !capturesRemaining.length;
+  return { solved, atGoal, capturesRemaining, exhausted: !solved && moveCount >= puzzle.maxMoves };
+}
+
+export function moveChessPuzzlePiece(puzzle, board, from, to, moveCount = 0) {
+  if (moveCount >= puzzle.maxMoves || evaluateChessPuzzle(puzzle, board, moveCount).solved
+    || !chessPuzzleMovers(puzzle, board).some(piece => piece.square === from)
+    || (puzzle.maxMoves === 1 && to !== puzzle.goal)) return null;
+  return moveChessPiece(board, from, to);
 }

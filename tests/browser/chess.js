@@ -121,7 +121,7 @@ async page => {
     await page.locator('#round-back').click(); ok(await page.locator('#number-menu').isVisible(), 'Celebration back returns to group');
     await page.locator('#number-menu [data-open="chess"]').click();
     await move('b2','b6'); await page.waitForSelector('#round-complete[open]'); await page.locator('#round-replay').click();
-    ok(await cell('b2').locator('.chess-piece').count() === 1, 'Celebration replay starts a new chess task');
+    ok(await cell('c2').locator('.chess-piece-bishop').count() === 1 && (await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 10'), 'Celebration continues with the next chess task');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
     return {count:checks.length, engine:context.browser().browserType().name(), checks};
   } finally { await context.setOffline(false); page.off('pageerror', listener); }

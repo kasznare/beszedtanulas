@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CHESS_PIECES, CHESS_PUZZLES, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions } from '../chess-data.js';
+import { CHESS_PIECES, CHESS_PUZZLES, CHESS_LEVELS, CHESS_CLIPS, chessPuzzlesForLevel, chessPuzzleMovers, evaluateChessPuzzle, moveChessPuzzlePiece, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions } from '../chess-data.js';
 const at = (type, square, color = 'white') => ({ type, square: squareIndex(square), color });
 const moves = (board, from) => legalMoves(board, squareIndex(from)).map(squareName).sort();
 
@@ -98,9 +98,85 @@ test('every star can be collected in sequence, including the pawn needing two si
 });
 
 test('settings recover safely and board coordinates match standard orientation', () => {
-  assert.deepEqual(normalizeChessOptions(null), { mode: 'explore', piece: 'rook' });
-  assert.deepEqual(normalizeChessOptions({ mode: 'puzzles', piece: 'knight', extra: 1 }), { mode: 'puzzles', piece: 'knight' });
-  assert.deepEqual(normalizeChessOptions({ mode: 'bad', piece: 'bad' }), { mode: 'explore', piece: 'rook' });
+  assert.deepEqual(normalizeChessOptions(null), { mode: 'explore', piece: 'rook', level: 'easy' });
+  assert.deepEqual(normalizeChessOptions({ mode: 'puzzles', piece: 'knight', extra: 1 }), { mode: 'puzzles', piece: 'knight', level: 'easy' });
+  assert.deepEqual(normalizeChessOptions({ mode: 'bad', piece: 'bad', level: 'bad' }), { mode: 'explore', piece: 'rook', level: 'easy' });
+  assert.equal(normalizeChessOptions({ level: 'challenge' }).level, 'challenge');
   for (let square = 0; square < 64; square++) assert.equal(squareIndex(squareName(square)), square);
   assert.equal(squareName(0), 'a8'); assert.equal(squareName(63), 'h1');
+});
+
+test('all twelve harder positions need exactly their advertised move budget', () => {
+  assert.deepEqual(CHESS_LEVELS.map(({ id }) => chessPuzzlesForLevel(id).length), [10, 6, 6]);
+  for (const { id: level } of CHESS_LEVELS.slice(1)) {
+    for (let index = 0; index < chessPuzzlesForLevel(level).length; index++) {
+      const puzzle = buildChessPuzzle(index, level), snapshot = structuredClone(puzzle.board);
+      assert.ok(CHESS_CLIPS[puzzle.voice]); assert.ok(puzzle.tip);
+      assert.equal(new Set(puzzle.board.map(piece => piece.square)).size, puzzle.board.length, puzzle.id);
+      assert.ok(puzzle.requiredCaptures.every(id => puzzle.board.find(piece => piece.id === id)?.color === 'black'));
+      const queue = [{ board: puzzle.board, steps: 0 }], visited = new Set();
+      let shortest;
+      for (let q = 0; q < queue.length; q++) {
+        const { board, steps } = queue[q];
+        if (evaluateChessPuzzle(puzzle, board, steps).solved) { shortest = steps; break; }
+        if (steps === puzzle.maxMoves) continue;
+        for (const piece of chessPuzzleMovers(puzzle, board)) {
+          for (const to of legalMoves(board, piece.square)) {
+            const next = moveChessPuzzlePiece(puzzle, board, piece.square, to, steps);
+            const key = next.map(item => `${item.id}:${item.type}:${item.square}`).sort().join(',');
+            if (!visited.has(key)) { visited.add(key); queue.push({ board: next, steps: steps + 1 }); }
+          }
+        }
+      }
+      assert.equal(shortest, puzzle.maxMoves, puzzle.id);
+      assert.deepEqual(puzzle.board, snapshot, 'Search does not mutate the initial position');
+    }
+  }
+});
+
+test('detours accept different legal routes and stop at the budget without losing the board', () => {
+  const puzzle = buildChessPuzzle(0, 'planning');
+  for (const route of [['d5', 'g5', 'g4'], ['d3', 'g3', 'g4']]) {
+    let board = puzzle.board, from = puzzle.from;
+    route.forEach((name, index) => {
+      const to = squareIndex(name); board = moveChessPuzzlePiece(puzzle, board, from, to, index); from = to;
+      assert.ok(board); assert.equal(evaluateChessPuzzle(puzzle, board, index + 1).solved, index === 2);
+    });
+  }
+  let board = moveChessPuzzlePiece(puzzle, puzzle.board, puzzle.from, squareIndex('d3'));
+  const undoBoard = board;
+  board = moveChessPuzzlePiece(puzzle, board, squareIndex('d3'), squareIndex('d2'), 1);
+  board = moveChessPuzzlePiece(puzzle, board, squareIndex('d2'), squareIndex('d1'), 2);
+  assert.ok(evaluateChessPuzzle(puzzle, board, 3).exhausted);
+  assert.equal(moveChessPuzzlePiece(puzzle, board, squareIndex('d1'), squareIndex('g1'), 3), null);
+  assert.ok(moveChessPuzzlePiece(puzzle, undoBoard, squareIndex('d3'), squareIndex('g3'), 1));
+  assert.equal(moveChessPuzzlePiece(puzzle, puzzle.board, squareIndex('e4'), squareIndex('e5')), null, 'Static blockers cannot be moved');
+});
+
+test('capture objectives require every marked enemy and the correct final piece', () => {
+  const puzzle = buildChessPuzzle(0, 'challenge');
+  const fakeGoal = puzzle.board.map(piece => piece.id === squareIndex('a2') ? { ...piece, square: puzzle.goal } : piece);
+  assert.equal(evaluateChessPuzzle(puzzle, fakeGoal, 1).solved, false, 'The helper pawn cannot replace the rook');
+  const atGoal = puzzle.board.map(piece => piece.id === puzzle.from ? { ...piece, square: puzzle.goal } : piece);
+  assert.equal(evaluateChessPuzzle(puzzle, atGoal, 1).solved, false, 'Arriving without the required capture is insufficient');
+  let board = moveChessPuzzlePiece(puzzle, puzzle.board, squareIndex('a2'), squareIndex('b3'));
+  assert.equal(evaluateChessPuzzle(puzzle, board, 1).capturesRemaining.length, 0);
+  assert.equal(evaluateChessPuzzle(puzzle, board, 1).solved, false);
+  board = moveChessPuzzlePiece(puzzle, board, squareIndex('a1'), squareIndex('a4'), 1);
+  assert.ok(evaluateChessPuzzle(puzzle, board, 2).solved);
+  assert.equal(moveChessPuzzlePiece(puzzle, board, squareIndex('a4'), squareIndex('a5'), 2), null);
+});
+
+test('promotion retains the pawn identity so its new queen can finish the objective', () => {
+  const puzzle = buildChessPuzzle(4, 'challenge');
+  let board = puzzle.board;
+  for (const [index, [from, to]] of [['d6', 'e7'], ['e7', 'e8'], ['e8', 'h8']].entries()) {
+    board = moveChessPuzzlePiece(puzzle, board, squareIndex(from), squareIndex(to), index);
+    assert.ok(board);
+  }
+  assert.equal(board.find(piece => piece.id === puzzle.from).type, 'queen');
+  assert.ok(evaluateChessPuzzle(puzzle, board, 3).solved);
+  assert.equal(evaluateChessPuzzle(puzzle, board, 4).solved, false);
+  assert.equal(buildChessPuzzle(-1, 'planning').id, 'pawn-route');
+  assert.equal(buildChessPuzzle(6, 'challenge').id, 'rook-team');
 });
