@@ -38,6 +38,11 @@
 .chess-status { margin:0; min-height:2.5em; font-size:.93rem; line-height:1.4; }
 .chess-actions { display:flex; flex-wrap:wrap; gap:8px; }.chess-actions button { flex:1 1 90px; min-width:0; padding:9px 8px; font-size:.84rem; white-space:normal; }
 .chess-puzzle-nav { display:flex; align-items:center; justify-content:center; gap:14px; margin:0 0 18px; }.chess-puzzle-nav span { text-align:center; font-size:.9rem; }
+.chess-levels { display:flex; justify-content:center; gap:7px; margin:0 auto 12px; max-width:540px; }.chess-levels button { flex:1; min-width:0; padding:9px 5px; font-size:.88rem; }
+.chess-board .chess-square.is-movable:not(.is-selected) { box-shadow:inset 0 0 0 2px #63846a; }
+.chess-progress { display:flex; flex-wrap:wrap; align-items:center; gap:7px 12px; margin-top:12px; font-size:.85rem; font-weight:700; }
+.chess-step-dots { display:flex; gap:5px; }.chess-step-dots i { width:12px; height:12px; border:1.5px solid #63846a; border-radius:50%; }.chess-step-dots .is-used { background:#63846a; }
+.chess-task-card .chess-movers { margin-top:10px; font-size:.85rem; }.chess-task-card .chess-tip { margin-top:10px; padding-top:10px; border-top:1px solid #c8d2bd; font-size:.88rem; font-weight:400; }
 @keyframes chess-arrive { from { transform:translateY(-8px); } to { transform:translateY(0); } }
 @media(max-width:700px) { .chess-workspace { grid-template-columns:1fr; gap:18px; }.chess-board-wrap { max-width:440px; }.chess-guide { display:grid; grid-template-columns:1fr 1fr; gap:10px; }.chess-rule { padding:13px; }.chess-rule h3 { font-size:1.2rem; }.chess-rule p { font-size:.88rem; }.chess-task-card { padding:12px; font-size:.9rem; }.chess-status,.chess-actions { grid-column:1/-1; }.chess-intro { margin-bottom:12px; }.chess-picker { gap:4px; }.chess-picker button { font-size:.73rem; }.chess-picker .chess-piece { width:36px; height:36px; }.chess-board { border-width:4px; } }
 @media(max-width:360px) { .chess-picker { grid-template-columns:repeat(3,1fr); }.chess-picker button { display:flex; align-items:center; justify-content:center; gap:4px; }.chess-picker .chess-piece { width:29px; height:29px; margin:0; }.chess-guide { grid-template-columns:1fr; }.chess-intro p { font-size:.82rem; } }

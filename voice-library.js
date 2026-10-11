@@ -608,6 +608,58 @@ export const VOICE_CLIPS = {
     "text": "A gyalog elérte a tábla végét, és vezér lett belőle!",
     "file": "audio/voice/chess_promote.mp3"
   },
+  "chess_rook_detour": {
+    "text": "Vidd a bástyát a csillagra, legfeljebb három lépésből! Kerüld meg a világos gyalogot. A gyalog most a helyén marad.",
+    "file": "audio/voice/chess_rook_detour.mp3"
+  },
+  "chess_bishop_detour": {
+    "text": "Vidd a futót a csillagra, legfeljebb három lépésből! A világos gyalog lezárja a közvetlen átlót. Keress másik utat!",
+    "file": "audio/voice/chess_bishop_detour.mp3"
+  },
+  "chess_knight_route": {
+    "text": "Vidd a huszárt a csillagra, legfeljebb két lépésből! Keress egy köztes mezőt, ahonnan eléred a csillagot!",
+    "file": "audio/voice/chess_knight_route.mp3"
+  },
+  "chess_queen_collect": {
+    "text": "Üsd le mindkét megjelölt sötét figurát a vezérrel, legfeljebb két lépésből! A végén a vezér a csillagon álljon.",
+    "file": "audio/voice/chess_queen_collect.mp3"
+  },
+  "chess_king_route": {
+    "text": "Vidd a királyt a csillagra, legfeljebb három lépésből! Kerüld meg a világos gyalogot, és figyelj a sötét gyalog támadására!",
+    "file": "audio/voice/chess_king_route.mp3"
+  },
+  "chess_pawn_route": {
+    "text": "Vidd a gyalogot a csillagra, legfeljebb három lépésből! Üsd le mindkét megjelölt sötét figurát. Gondolj az átlós ütésekre!",
+    "file": "audio/voice/chess_pawn_route.mp3"
+  },
+  "chess_rook_team": {
+    "text": "Vidd a bástyát a csillagra, legfeljebb két lépésből! A világos gyaloggal is léphetsz. Szabadítsd fel az utat, és üsd le a megjelölt sötét huszárt!",
+    "file": "audio/voice/chess_rook_team.mp3"
+  },
+  "chess_bishop_team": {
+    "text": "Vidd a futót a csillagra, legfeljebb két lépésből! A világos huszárral is léphetsz. Előbb nyiss utat a futónak!",
+    "file": "audio/voice/chess_bishop_team.mp3"
+  },
+  "chess_pin": {
+    "text": "Üsd le mindkét megjelölt sötét figurát a bástyával, legfeljebb két lépésből! A világos királyt egy pillanatra sem hagyhatod támadásban.",
+    "file": "audio/voice/chess_pin.mp3"
+  },
+  "chess_knight_collect": {
+    "text": "Üsd le mindhárom megjelölt sötét figurát a huszárral, legfeljebb három lépésből! A végén a huszár a csillagon álljon.",
+    "file": "audio/voice/chess_knight_collect.mp3"
+  },
+  "chess_promotion_route": {
+    "text": "Vidd a gyalogot a tábla végére, hogy vezér legyen belőle! Üsd le mindkét megjelölt sötét figurát, legfeljebb három lépésből. A vezér a csillagon álljon!",
+    "file": "audio/voice/chess_promotion_route.mp3"
+  },
+  "chess_king_team": {
+    "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
+    "file": "audio/voice/chess_king_team.mp3"
+  },
+  "chess_steps_used": {
+    "text": "Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!",
+    "file": "audio/voice/chess_steps_used.mp3"
+  },
   "workshop_menu": {
     "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
     "file": "audio/voice/workshop_menu.mp3"
