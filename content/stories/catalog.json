@@ -1,7 +1,7 @@
 {
   "version": 1,
   "extractedOn": "2026-10-08",
-  "note": "A címek azonosítást segítő munkacímek. A meseszövegek változtatás nélkül, a kiemelési jelekkel együtt kerültek mentésre. Az augusztus 30-i dátum a szomszédos üzenetekből következik.",
+  "note": "Az első tizenkét mese a korábban mentett, saját generált mesekatalógusból származik. A 13–17. mű közkincs magyar klasszikus az OSZK MEK eredeti szövegével, szerző- és forrásmegjelöléssel; illusztráció nélküli felolvasás.",
   "stories": [
     {
       "id": "story-01",
@@ -110,6 +110,145 @@
       "file": "12-versenyautok-ezust-auto.txt",
       "words": 1555,
       "sha256": "17f2c8f9d072b26cb77c9503544e617c177a31df5fa4966abef745fb337d10c6"
+    },
+    {
+      "id": "story-13",
+      "title": "A kis kakas gyémánt félkrajcárja",
+      "author": "Arany László gyűjtése",
+      "kind": "Mese",
+      "emoji": "🐓",
+      "file": "13-kiskakas-gyemant-felkrajcar.txt",
+      "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#4",
+      "description": "A bátor kiskakas kitartóan visszakéri, ami az övé.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 524,
+      "sha256": "8f83bef0383298aa97a42ee81a7261c2110e15fb29df4758c7130f2f1ef40d70",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1898,
+        "biographyUrl": "https://www.nekb.gov.hu/nemzeti-sirkert/budapest/fiumei-uti-sirkert/arany-laszlo",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak."
+    },
+    {
+      "id": "story-14",
+      "title": "A vadgalamb és a szarka",
+      "author": "Arany László gyűjtése",
+      "kind": "Mese",
+      "emoji": "🕊️",
+      "file": "14-vadgalamb-szarka.txt",
+      "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#8",
+      "description": "Fészekrakó lecke arról, miért érdemes figyelmesen végighallgatni másokat.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 124,
+      "sha256": "138afaa237dc6f02368c8123a39c7f378b8d28deaca4075692cc695d1eefd885",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1898,
+        "biographyUrl": "https://www.nekb.gov.hu/nemzeti-sirkert/budapest/fiumei-uti-sirkert/arany-laszlo",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak. A digitális forrás hibásan kettévágott szavai és egy vessző előtti szóköz javítva; a történet változatlan.",
+      "editorialCorrections": {
+        "gal lyat": "gallyat"
+      }
+    },
+    {
+      "id": "story-15",
+      "title": "A só",
+      "author": "Benedek Elek",
+      "kind": "Mese",
+      "emoji": "🧂",
+      "file": "15-a-so.txt",
+      "sourceUrl": "https://mek.oszk.hu/00200/00232/html/01.htm#16",
+      "description": "A legkisebb királylány megmutatja, mennyit ér egy egyszerű, fontos dolog.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 866,
+      "sha256": "a6bde3e758a359f626a084a2e9a7412ee5380aa33de6fb8b2eabb9b4661fd859",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1929,
+        "biographyUrl": "https://bpk.uni-sopron.hu/benedek-elekrol",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak. A digitális forrás hibásan kettévágott szavai és egy vessző előtti szóköz javítva; a történet változatlan.",
+      "editorialCorrections": {
+        "egymag ában": "egymagában",
+        "kir álykisasszony": "királykisasszony",
+        "süt-fő z": "süt-főz",
+        "élnek ,": "élnek,"
+      }
+    },
+    {
+      "id": "story-16",
+      "title": "A cinege cipője",
+      "author": "Móra Ferenc",
+      "kind": "Vers",
+      "emoji": "🐦",
+      "file": "16-cinege-cipoje.txt",
+      "sourceUrl": "https://mek.oszk.hu/00900/00968/00968.htm#66",
+      "description": "Őszi madárvers a kis cinegéről, aki cipőcskét keres.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 103,
+      "sha256": "f6f118bf59cf4013e94ff15fd1ba7c62140ba7e588a1d1ace38f16deb54a8a75",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1934,
+        "biographyUrl": "https://intezet.nori.gov.hu/nemzeti-sirkert/szeged/belvarosi-temeto/mora-ferenc",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak."
+    },
+    {
+      "id": "story-17",
+      "title": "Anyám tyúkja",
+      "author": "Petőfi Sándor",
+      "kind": "Vers",
+      "emoji": "🐔",
+      "file": "17-anyam-tyukja.txt",
+      "sourceUrl": "https://mek.oszk.hu/01000/01006/html/vs184801.htm#21",
+      "description": "Vidám vers a szobában lakó tyúkról és Morzsa kutyáról.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 108,
+      "sha256": "cad9979337cd3a839625e321c489adcd2e151afac3bff829cacafdc510b98cc2",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1849,
+        "biographyUrl": "https://archivum.pim.hu/pim.hu/2024/pim.hu/hu/dia/dia-tagjai/petofi-sandor.html",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak."
     }
   ]
 }

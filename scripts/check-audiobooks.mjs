@@ -54,6 +54,6 @@ for (const story of AUDIOBOOKS) {
   assert.equal(receipt.sourceSha256, entry.sha256);
   assert.equal(story.bytes, audio.length);
   assert.equal(story.duration, receipt.duration);
-  assert.ok(Number.isFinite(story.duration) && story.duration > 60 && receipt.spokenWords >= text.split(/\s+/).length * .75);
+  assert.ok(Number.isFinite(story.duration) && story.duration >= spoken.split(/\s+/).length / 5 && receipt.spokenWords >= text.split(/\s+/).length * .75);
 }
 console.log(`Audiobooks ready: ${AUDIOBOOKS.length} verified MP3s, ${Math.round(AUDIOBOOKS.reduce((sum, story) => sum + story.duration, 0) / 60)} minutes.`);

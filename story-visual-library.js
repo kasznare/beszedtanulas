@@ -8,7 +8,7 @@ import { STORIES as seasons } from './story-scenes/seasons.js';
 
 const definitions = new Map([...workshop, ...routes, ...seasons].map(story => [story.id, story]));
 definitions.set('story-01', { id: 'story-01', legacy: true, duration: STORY_VISUAL_DURATION, scenes: STORY_VISUAL_SCENES });
-export const STORY_VISUAL_LIBRARY = AUDIOBOOKS.map(story => {
+export const STORY_VISUAL_LIBRARY = AUDIOBOOKS.filter(story => story.illustrated !== false).map(story => {
   const definition = definitions.get(story.id);
   if (!definition) throw Error(`Missing story visuals: ${story.id}`);
   return { ...story, ...definition, duration: story.duration,

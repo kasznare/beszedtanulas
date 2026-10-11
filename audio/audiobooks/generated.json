@@ -138,6 +138,56 @@
         "maxLexicalDriftSeconds": 0.2,
         "appliedLexicalDriftSeconds": 0.16
       }
+    },
+    "story-13": {
+      "fingerprint": "4d72dd0cd37a18bc63a697a76590ee2ec8a26d3dc1dcd8885621208d8227cc80",
+      "sha256": "ac524037c7e267dc0abb06380680b2d741604388ca463413a60a8fc038a3b512",
+      "sourceSha256": "8f83bef0383298aa97a42ee81a7261c2110e15fb29df4758c7130f2f1ef40d70",
+      "duration": 215.28,
+      "spokenWords": 529,
+      "credits": 339.0,
+      "parts": 1,
+      "characterCount": 3081
+    },
+    "story-14": {
+      "fingerprint": "0bf5a64787777be8d40def638072914fd2d88cc74e968d5490dbff0a6de3b692",
+      "sha256": "28538cbf60e13b1c73e0a186cb0660377bbc515eda91f5b07a7668f433723569",
+      "sourceSha256": "138afaa237dc6f02368c8123a39c7f378b8d28deaca4075692cc695d1eefd885",
+      "duration": 58.56,
+      "spokenWords": 129,
+      "credits": 88.0,
+      "parts": 1,
+      "characterCount": 797
+    },
+    "story-15": {
+      "fingerprint": "264e7af90212de11d2fa090a74ba3c81f368e0fd62129a2337a9e9c4ae251c24",
+      "sha256": "3d96f7d2aa69fc428e6dbc50f4fb4eeb2aaae13d4c32e836aa4898b10b3feccf",
+      "sourceSha256": "a6bde3e758a359f626a084a2e9a7412ee5380aa33de6fb8b2eabb9b4661fd859",
+      "duration": 383.92,
+      "spokenWords": 868,
+      "credits": 586.0,
+      "parts": 1,
+      "characterCount": 5327
+    },
+    "story-16": {
+      "fingerprint": "f3e927c293e7745aad2c1abbf4cfea1b2ede790eee9b98a68082b0009bd1ddae",
+      "sha256": "0300e28d417a63f973aadc3e9bd0d596a6e07e9392b01dba5653c81e28dc269b",
+      "sourceSha256": "f6f118bf59cf4013e94ff15fd1ba7c62140ba7e588a1d1ace38f16deb54a8a75",
+      "duration": 51.52,
+      "spokenWords": 106,
+      "credits": 70.0,
+      "parts": 1,
+      "characterCount": 637
+    },
+    "story-17": {
+      "fingerprint": "5e6ac604e2535f11fea8355da55ea2cac4d5ffc2158ad59b1e567eac3f58b369",
+      "sha256": "7af1e035e85c958501126358bf7dfce37db961ed60b2d0c5e21c4832a2a429ad",
+      "sourceSha256": "cad9979337cd3a839625e321c489adcd2e151afac3bff829cacafdc510b98cc2",
+      "duration": 53.52,
+      "spokenWords": 110,
+      "credits": 74.0,
+      "parts": 1,
+      "characterCount": 669
     }
   }
 }

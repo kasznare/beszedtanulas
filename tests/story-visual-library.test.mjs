@@ -6,7 +6,7 @@ import { STORY_VISUAL_LIBRARY, storySceneAt, storyCaptionAt } from '../story-vis
 import { createBaseArt } from '../story-art/base.js';
 
 test('every recording has ordered playback captions and an original animation timeline', () => {
-  assert.deepEqual(STORY_VISUAL_LIBRARY.map(story => story.id), AUDIOBOOKS.map(story => story.id));
+  assert.deepEqual(STORY_VISUAL_LIBRARY.map(story => story.id), AUDIOBOOKS.filter(story => story.illustrated !== false).map(story => story.id));
   for (const story of STORY_VISUAL_LIBRARY) {
     assert.ok(story.scenes.length >= 12, story.id);
     assert.equal(story.scenes[0].time, 0, story.id);

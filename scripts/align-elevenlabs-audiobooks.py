@@ -231,6 +231,17 @@ def transform(staged, original, verified_tail=None):
     return timing, warp
 
 
+def transform_audio_only(staged, verified_tail=None):
+    """New recordings have no earlier animation clock to preserve."""
+    words, source_to_spoken, alignment_info = select_alignment(staged, verified_tail)
+    original = {'paragraphs': [{'index': index, 'text': text}
+                             for index, text in enumerate(staged['text'].split('\n')) if text.strip()]}
+    paragraphs = paragraph_cues(staged, source_to_spoken, words, original)
+    return {'id': staged['id'], 'title': staged['title'], 'duration': staged['duration'],
+            'words': [{**word, 'time': round(word['time'], 3), 'duration': round(word['duration'], 3)} for word in words],
+            'paragraphs': paragraphs, 'alignment': alignment_info, 'illustrated': False}
+
+
 def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
@@ -262,17 +273,20 @@ def main():
         if args.allow_partial and not source.exists():
             continue
         staged = json.loads(source.read_text())
-        original = json.loads((args.original / source.name).read_text())
         verified_tail = verify_tail(staged, args.source)
-        timing, warp = transform(staged, original, verified_tail)
-        transformed[entry["id"]], maps[entry["id"]] = timing, warp
+        if entry.get('illustrated') is False:
+            transformed[entry['id']] = transform_audio_only(staged, verified_tail)
+        else:
+            original = json.loads((args.original / source.name).read_text())
+            timing, warp = transform(staged, original, verified_tail)
+            transformed[entry["id"]], maps[entry["id"]] = timing, warp
     if not transformed:
         raise ValueError("No finished story alignments found")
     # Finish all validation before updating the output batch.
     for story_id, timing in transformed.items():
         write_json(out / f"{story_id}.json", timing)
         print(f"{story_id}: {len(timing['words'])} words, {len(timing['paragraphs'])} captions, "
-              f"{len(timing['warp']['points'])} clock anchors, {timing['duration']:.3f}s", flush=True)
+              f"{len(timing.get('warp', {}).get('points', []))} clock anchors, {timing['duration']:.3f}s", flush=True)
     write_json(args.source / "warp.json", {"version": 1, "stories": maps})
     if args.module:
         args.module.parent.mkdir(parents=True, exist_ok=True)

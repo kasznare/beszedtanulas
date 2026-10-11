@@ -36,7 +36,14 @@ class AlignmentTest(unittest.TestCase):
                 spoken = entry["title"] + ".\n\n" + body
                 staged = {"id": entry["id"], "title": entry["title"], "text": body, "spokenText": spoken,
                           "duration": len(spoken) * .01 + .1, "alignment": alignment(spoken)}
-                original = json.loads((ROOT / "output/story-timing" / f"{entry['id']}.json").read_text())
+                if entry.get('illustrated') is False:
+                    cues = timing.transform_audio_only(staged)
+                    self.assertFalse(cues['illustrated'])
+                    self.assertNotIn('warp', cues)
+                    self.assertEqual([cue['text'] for cue in cues['paragraphs']], [line for line in body.split('\n') if line.strip()])
+                    self.assertTrue(cues['alignment']['exactInput'])
+                    continue
+                original = json.loads((ROOT / "content/stories/visual-timing" / f"{entry['id']}.json").read_text())
                 cues, warp = timing.transform(staged, original)
                 self.assertTrue(cues["alignment"]["exactInput"])
                 self.assertEqual(cues["alignment"]["originalWordCoverage"], 1)
@@ -53,6 +60,17 @@ class AlignmentTest(unittest.TestCase):
         words, indices, info = timing.select_alignment(staged)
         self.assertEqual(info["source"], "alignment")
         self.assertEqual(words[indices[1]]["text"], "12")
+
+    def test_short_poem_keeps_stanza_breaks_without_requiring_an_old_visual_timeline(self):
+        body = 'Első sor.\nMásodik sor.\n\nHarmadik sor.'
+        spoken = 'Vers.\n\n' + body
+        staged = {'id': 'short-poem', 'title': 'Vers', 'text': body, 'spokenText': spoken,
+                  'duration': 12, 'alignment': alignment(spoken)}
+        cues = timing.transform_audio_only(staged)
+        self.assertEqual(cues['duration'], 12)
+        self.assertEqual([cue['index'] for cue in cues['paragraphs']], [0, 1, 3])
+        self.assertEqual([cue['text'] for cue in cues['paragraphs']], ['Első sor.', 'Második sor.', 'Harmadik sor.'])
+        self.assertNotIn('warp', cues)
 
     def test_missing_words_are_rejected(self):
         staged = {"spokenText": "One two three four five six seven eight nine ten.",

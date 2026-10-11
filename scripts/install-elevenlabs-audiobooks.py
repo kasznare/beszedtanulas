@@ -34,8 +34,9 @@ def main():
     existing = json.loads(current.split('export const AUDIOBOOKS = ', 1)[1].strip().removesuffix(';'))
     previous = {story['id']: story for story in existing}
     maps = json.loads((STAGED / 'warp.json').read_text())['stories']
-    if set(maps) != {entry['id'] for entry in catalog}:
-        raise ValueError('All stories must have verified SVG clock maps')
+    illustrated_ids = {entry['id'] for entry in catalog if entry.get('illustrated') is not False}
+    if set(maps) != illustrated_ids:
+        raise ValueError('Every illustrated story must have a verified SVG clock map')
     new_stories, receipts, captions = [], {}, {}
     metadata = None
     for entry in catalog:
@@ -50,12 +51,16 @@ def main():
         audio = STAGED / f"{entry['id']}.mp3"
         if sha(audio.read_bytes()) != story['sha256'] or audio.stat().st_size != story['bytes']:
             raise ValueError(f"Unverified MP3: {entry['id']}")
-        if (timing['duration'] != story['duration'] or maps[entry['id']]['duration'] != story['duration']
-                or not math.isfinite(story['duration']) or story['duration'] <= 60):
+        illustrated = entry.get('illustrated') is not False
+        if (timing['duration'] != story['duration']
+                or (illustrated and maps[entry['id']]['duration'] != story['duration'])
+                or not math.isfinite(story['duration']) or story['duration'] <= 0):
             raise ValueError(f"Wrong playback duration: {entry['id']}")
-        if [cue['text'] for cue in timing['paragraphs']] != text.split('\n'):
+        if not illustrated and ('warp' in timing or timing.get('illustrated') is not False):
+            raise ValueError(f"Unexpected animation clock for audio-only story: {entry['id']}")
+        if [cue['text'] for cue in timing['paragraphs']] != [line for line in text.split('\n') if line.strip()]:
             raise ValueError(f"Wrong caption text: {entry['id']}")
-        if timing['alignment']['sourceWordCoverage'] < .97 or timing['alignment']['originalWordCoverage'] < .97:
+        if timing['alignment']['sourceWordCoverage'] < .97 or (illustrated and timing['alignment']['originalWordCoverage'] < .97):
             raise ValueError(f"Incomplete alignment: {entry['id']}")
         generation = [story['voiceId'], story['modelId'], story['languageCode'], story['voiceSettings'],
                       story['outputFormat'], story['seed'], spoken]
@@ -68,8 +73,11 @@ def main():
         if metadata is not None and metadata != settings:
             raise ValueError('The batch must use one consistent voice and model')
         metadata = settings
-        new_stories.append({**previous[entry['id']], 'duration': story['duration'],
-                            'bytes': story['bytes'], 'sha256': story['sha256']})
+        published = {**previous.get(entry['id'], {}), 'id': entry['id'], 'title': entry['title'], 'text': text,
+                     'file': f"audio/audiobooks/{entry['id']}.mp3", 'emoji': entry.get('emoji', previous.get(entry['id'], {}).get('emoji', '📖')),
+                     'duration': story['duration'], 'bytes': story['bytes'], 'sha256': story['sha256']}
+        published.update({key: entry[key] for key in ['author', 'kind', 'description', 'sourceUrl', 'illustrated'] if key in entry})
+        new_stories.append(published)
         receipts[entry['id']] = {key: story[key] for key in
                                 ['fingerprint', 'sha256', 'sourceSha256', 'duration', 'spokenWords', 'credits']}
         receipts[entry['id']].update(parts=len(story['parts']), characterCount=story['characters'])
