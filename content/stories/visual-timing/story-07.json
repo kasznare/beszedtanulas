@@ -1,0 +1,9831 @@
+{
+  "id": "story-07",
+  "title": "A három versenyautó úszni tanul",
+  "duration": 1089.024,
+  "words": [
+    {
+      "time": 0.1,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 0.286,
+      "duration": 0.465,
+      "text": "három"
+    },
+    {
+      "time": 0.752,
+      "duration": 0.798,
+      "text": "versenyautó"
+    },
+    {
+      "time": 1.549,
+      "duration": 0.412,
+      "text": "úszni"
+    },
+    {
+      "time": 1.962,
+      "duration": 0.572,
+      "text": "tanul"
+    },
+    {
+      "time": 3.428,
+      "duration": 0.572,
+      "text": "Forró"
+    },
+    {
+      "time": 3.999,
+      "duration": 0.372,
+      "text": "nyári"
+    },
+    {
+      "time": 4.372,
+      "duration": 0.213,
+      "text": "nap"
+    },
+    {
+      "time": 4.585,
+      "duration": 0.293,
+      "text": "volt"
+    },
+    {
+      "time": 4.877,
+      "duration": 1.197,
+      "text": "Autóvárosban"
+    },
+    {
+      "time": 6.965,
+      "duration": 0.399,
+      "text": "Olyan"
+    },
+    {
+      "time": 7.364,
+      "duration": 0.718,
+      "text": "forró"
+    },
+    {
+      "time": 8.401,
+      "duration": 0.213,
+      "text": "hogy"
+    },
+    {
+      "time": 8.614,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 9.558,
+      "duration": 0.12,
+      "text": "a"
+    },
+    {
+      "time": 9.678,
+      "duration": 0.412,
+      "text": "piros"
+    },
+    {
+      "time": 10.09,
+      "duration": 0.798,
+      "text": "versenyautó"
+    },
+    {
+      "time": 10.888,
+      "duration": 0.213,
+      "text": "már"
+    },
+    {
+      "time": 11.101,
+      "duration": 0.465,
+      "text": "reggel"
+    },
+    {
+      "time": 11.566,
+      "duration": 0.904,
+      "text": "panaszkodott"
+    },
+    {
+      "time": 13.361,
+      "duration": 0.758,
+      "text": "Megsülnek"
+    },
+    {
+      "time": 14.119,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 14.172,
+      "duration": 0.838,
+      "text": "kerekeim"
+    },
+    {
+      "time": 15.901,
+      "duration": 0.745,
+      "text": "Turbó"
+    },
+    {
+      "time": 16.898,
+      "duration": 0.106,
+      "text": "a"
+    },
+    {
+      "time": 17.005,
+      "duration": 0.452,
+      "text": "sárga"
+    },
+    {
+      "time": 17.457,
+      "duration": 1.024,
+      "text": "versenyautó"
+    },
+    {
+      "time": 18.747,
+      "duration": 0.12,
+      "text": "a"
+    },
+    {
+      "time": 18.866,
+      "duration": 0.452,
+      "text": "garázs"
+    },
+    {
+      "time": 19.319,
+      "duration": 0.811,
+      "text": "árnyékában"
+    },
+    {
+      "time": 20.13,
+      "duration": 0.452,
+      "text": "állt"
+    },
+    {
+      "time": 21.473,
+      "duration": 0.319,
+      "text": "Én"
+    },
+    {
+      "time": 21.792,
+      "duration": 0.133,
+      "text": "ma"
+    },
+    {
+      "time": 21.925,
+      "duration": 0.492,
+      "text": "sehova"
+    },
+    {
+      "time": 22.417,
+      "duration": 0.279,
+      "text": "nem"
+    },
+    {
+      "time": 22.696,
+      "duration": 0.572,
+      "text": "megyek"
+    },
+    {
+      "time": 24.159,
+      "duration": 0.306,
+      "text": "Itt"
+    },
+    {
+      "time": 24.465,
+      "duration": 0.532,
+      "text": "maradok"
+    },
+    {
+      "time": 24.997,
+      "duration": 0.572,
+      "text": "estig"
+    },
+    {
+      "time": 26.46,
+      "duration": 0.585,
+      "text": "Pötty"
+    },
+    {
+      "time": 27.364,
+      "duration": 0.146,
+      "text": "a"
+    },
+    {
+      "time": 27.51,
+      "duration": 0.279,
+      "text": "kis"
+    },
+    {
+      "time": 27.789,
+      "duration": 0.279,
+      "text": "kék"
+    },
+    {
+      "time": 28.069,
+      "duration": 0.891,
+      "text": "versenyautó"
+    },
+    {
+      "time": 28.96,
+      "duration": 0.572,
+      "text": "azonban"
+    },
+    {
+      "time": 29.531,
+      "duration": 0.665,
+      "text": "izgatottan"
+    },
+    {
+      "time": 30.196,
+      "duration": 0.745,
+      "text": "érkezett"
+    },
+    {
+      "time": 31.832,
+      "duration": 0.824,
+      "text": "Fiúk"
+    },
+    {
+      "time": 33.547,
+      "duration": 0.785,
+      "text": "Megnyitott"
+    },
+    {
+      "time": 34.332,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 34.398,
+      "duration": 0.638,
+      "text": "Tóparti"
+    },
+    {
+      "time": 35.037,
+      "duration": 0.572,
+      "text": "Strand"
+    },
+    {
+      "time": 36.499,
+      "duration": 0.612,
+      "text": "Turbó"
+    },
+    {
+      "time": 37.111,
+      "duration": 0.572,
+      "text": "azonnal"
+    },
+    {
+      "time": 37.683,
+      "duration": 0.625,
+      "text": "kigördült"
+    },
+    {
+      "time": 38.308,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 38.441,
+      "duration": 0.957,
+      "text": "árnyékból"
+    },
+    {
+      "time": 40.289,
+      "duration": 0.479,
+      "text": "Van"
+    },
+    {
+      "time": 40.768,
+      "duration": 0.745,
+      "text": "medence"
+    },
+    {
+      "time": 42.404,
+      "duration": 0.625,
+      "text": "Van"
+    },
+    {
+      "time": 43.92,
+      "duration": 0.745,
+      "text": "Csúszda"
+    },
+    {
+      "time": 45.555,
+      "duration": 0.625,
+      "text": "Van"
+    },
+    {
+      "time": 47.071,
+      "duration": 1.077,
+      "text": "Ugródeszka"
+    },
+    {
+      "time": 49.039,
+      "duration": 0.306,
+      "text": "Az"
+    },
+    {
+      "time": 49.345,
+      "duration": 0.426,
+      "text": "is"
+    },
+    {
+      "time": 50.662,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 51.313,
+      "duration": 0.838,
+      "text": "beindította"
+    },
+    {
+      "time": 52.151,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 52.204,
+      "duration": 0.864,
+      "text": "motorját"
+    },
+    {
+      "time": 53.96,
+      "duration": 0.532,
+      "text": "Akkor"
+    },
+    {
+      "time": 54.492,
+      "duration": 0.293,
+      "text": "mire"
+    },
+    {
+      "time": 54.784,
+      "duration": 0.745,
+      "text": "várunk"
+    },
+    {
+      "time": 56.42,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 56.593,
+      "duration": 0.598,
+      "text": "Tóparti"
+    },
+    {
+      "time": 57.191,
+      "duration": 0.492,
+      "text": "Strand"
+    },
+    {
+      "time": 57.683,
+      "duration": 0.838,
+      "text": "Autóváros"
+    },
+    {
+      "time": 58.521,
+      "duration": 0.785,
+      "text": "legkülönösebb"
+    },
+    {
+      "time": 59.305,
+      "duration": 0.425,
+      "text": "strandja"
+    },
+    {
+      "time": 59.731,
+      "duration": 0.465,
+      "text": "volt"
+    },
+    {
+      "time": 61.087,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 61.273,
+      "duration": 0.279,
+      "text": "nagy"
+    },
+    {
+      "time": 61.553,
+      "duration": 0.279,
+      "text": "tó"
+    },
+    {
+      "time": 61.832,
+      "duration": 0.386,
+      "text": "egyik"
+    },
+    {
+      "time": 62.218,
+      "duration": 0.465,
+      "text": "részét"
+    },
+    {
+      "time": 62.683,
+      "duration": 0.452,
+      "text": "bóják"
+    },
+    {
+      "time": 63.135,
+      "duration": 0.439,
+      "text": "vették"
+    },
+    {
+      "time": 63.574,
+      "duration": 0.519,
+      "text": "körül"
+    },
+    {
+      "time": 64.984,
+      "duration": 0.279,
+      "text": "Ott"
+    },
+    {
+      "time": 65.263,
+      "duration": 0.705,
+      "text": "fürödhettek"
+    },
+    {
+      "time": 65.968,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 66.034,
+      "duration": 0.465,
+      "text": "város"
+    },
+    {
+      "time": 66.499,
+      "duration": 0.625,
+      "text": "lakói"
+    },
+    {
+      "time": 68.015,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 68.188,
+      "duration": 0.532,
+      "text": "parton"
+    },
+    {
+      "time": 68.72,
+      "duration": 0.293,
+      "text": "volt"
+    },
+    {
+      "time": 69.013,
+      "duration": 0.12,
+      "text": "egy"
+    },
+    {
+      "time": 69.132,
+      "duration": 0.439,
+      "text": "sekély"
+    },
+    {
+      "time": 69.571,
+      "duration": 0.758,
+      "text": "tanmedence"
+    },
+    {
+      "time": 70.329,
+      "duration": 0.399,
+      "text": "is"
+    },
+    {
+      "time": 71.619,
+      "duration": 0.718,
+      "text": "Mellette"
+    },
+    {
+      "time": 72.337,
+      "duration": 0.638,
+      "text": "zuhanyok"
+    },
+    {
+      "time": 73.281,
+      "duration": 0.745,
+      "text": "napernyők"
+    },
+    {
+      "time": 74.026,
+      "duration": 0.16,
+      "text": "és"
+    },
+    {
+      "time": 74.186,
+      "duration": 0.133,
+      "text": "egy"
+    },
+    {
+      "time": 74.319,
+      "duration": 0.745,
+      "text": "hatalmas"
+    },
+    {
+      "time": 75.303,
+      "duration": 0.678,
+      "text": "kanyargós"
+    },
+    {
+      "time": 75.981,
+      "duration": 0.412,
+      "text": "csúszda"
+    },
+    {
+      "time": 76.393,
+      "duration": 0.452,
+      "text": "állt"
+    },
+    {
+      "time": 77.736,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 77.909,
+      "duration": 0.957,
+      "text": "bejáratnál"
+    },
+    {
+      "time": 78.867,
+      "duration": 0.199,
+      "text": "egy"
+    },
+    {
+      "time": 79.066,
+      "duration": 0.279,
+      "text": "öreg"
+    },
+    {
+      "time": 79.345,
+      "duration": 0.625,
+      "text": "kétéltű"
+    },
+    {
+      "time": 79.97,
+      "duration": 0.439,
+      "text": "autó"
+    },
+    {
+      "time": 80.409,
+      "duration": 0.519,
+      "text": "fogadta"
+    },
+    {
+      "time": 80.928,
+      "duration": 0.545,
+      "text": "őket"
+    },
+    {
+      "time": 82.364,
+      "duration": 0.306,
+      "text": "Őt"
+    },
+    {
+      "time": 82.67,
+      "duration": 0.426,
+      "text": "Béka"
+    },
+    {
+      "time": 83.095,
+      "duration": 0.572,
+      "text": "bácsinak"
+    },
+    {
+      "time": 83.667,
+      "duration": 0.758,
+      "text": "hívták"
+    },
+    {
+      "time": 85.316,
+      "duration": 0.519,
+      "text": "Béka"
+    },
+    {
+      "time": 85.835,
+      "duration": 0.372,
+      "text": "bácsi"
+    },
+    {
+      "time": 86.207,
+      "duration": 0.386,
+      "text": "tudott"
+    },
+    {
+      "time": 86.593,
+      "duration": 0.479,
+      "text": "úszni"
+    },
+    {
+      "time": 87.071,
+      "duration": 0.173,
+      "text": "és"
+    },
+    {
+      "time": 87.244,
+      "duration": 0.505,
+      "text": "gurulni"
+    },
+    {
+      "time": 87.749,
+      "duration": 0.399,
+      "text": "is"
+    },
+    {
+      "time": 89.039,
+      "duration": 0.612,
+      "text": "Tudtok"
+    },
+    {
+      "time": 89.651,
+      "duration": 0.652,
+      "text": "úszni"
+    },
+    {
+      "time": 91.194,
+      "duration": 0.864,
+      "text": "kérdezte"
+    },
+    {
+      "time": 92.949,
+      "duration": 1.13,
+      "text": "Természetesen"
+    },
+    {
+      "time": 94.079,
+      "duration": 0.426,
+      "text": "mondta"
+    },
+    {
+      "time": 94.505,
+      "duration": 0.692,
+      "text": "Villám"
+    },
+    {
+      "time": 96.087,
+      "duration": 0.346,
+      "text": "Én"
+    },
+    {
+      "time": 96.433,
+      "duration": 0.332,
+      "text": "nagyon"
+    },
+    {
+      "time": 96.765,
+      "duration": 0.426,
+      "text": "jól"
+    },
+    {
+      "time": 97.191,
+      "duration": 0.372,
+      "text": "mondta"
+    },
+    {
+      "time": 97.563,
+      "duration": 0.665,
+      "text": "Turbó"
+    },
+    {
+      "time": 99.119,
+      "duration": 0.332,
+      "text": "Pötty"
+    },
+    {
+      "time": 99.452,
+      "duration": 0.891,
+      "text": "hallgatott"
+    },
+    {
+      "time": 101.234,
+      "duration": 0.532,
+      "text": "Béka"
+    },
+    {
+      "time": 101.765,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 102.178,
+      "duration": 0.572,
+      "text": "ránézett"
+    },
+    {
+      "time": 102.749,
+      "duration": 0.758,
+      "text": "Villámra"
+    },
+    {
+      "time": 104.398,
+      "duration": 0.532,
+      "text": "Mikor"
+    },
+    {
+      "time": 104.93,
+      "duration": 0.492,
+      "text": "úsztál"
+    },
+    {
+      "time": 105.422,
+      "duration": 0.878,
+      "text": "utoljára"
+    },
+    {
+      "time": 107.191,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 107.843,
+      "duration": 1.011,
+      "text": "gondolkodott"
+    },
+    {
+      "time": 109.744,
+      "duration": 0.425,
+      "text": "Még"
+    },
+    {
+      "time": 110.17,
+      "duration": 0.545,
+      "text": "soha"
+    },
+    {
+      "time": 111.606,
+      "duration": 0.824,
+      "text": "Turbó"
+    },
+    {
+      "time": 113.321,
+      "duration": 0.332,
+      "text": "Én"
+    },
+    {
+      "time": 113.654,
+      "duration": 0.545,
+      "text": "sem"
+    },
+    {
+      "time": 115.09,
+      "duration": 0.545,
+      "text": "Béka"
+    },
+    {
+      "time": 115.635,
+      "duration": 0.399,
+      "text": "bácsi"
+    },
+    {
+      "time": 116.034,
+      "duration": 0.572,
+      "text": "felvonta"
+    },
+    {
+      "time": 116.606,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 116.659,
+      "duration": 1.024,
+      "text": "szemöldökét"
+    },
+    {
+      "time": 118.574,
+      "duration": 0.465,
+      "text": "Akkor"
+    },
+    {
+      "time": 119.039,
+      "duration": 0.452,
+      "text": "honnan"
+    },
+    {
+      "time": 119.492,
+      "duration": 0.771,
+      "text": "tudjátok"
+    },
+    {
+      "time": 120.542,
+      "duration": 0.213,
+      "text": "hogy"
+    },
+    {
+      "time": 120.755,
+      "duration": 0.665,
+      "text": "tudtok"
+    },
+    {
+      "time": 122.311,
+      "duration": 0.745,
+      "text": "Villám"
+    },
+    {
+      "time": 123.055,
+      "duration": 0.878,
+      "text": "magabiztosan"
+    },
+    {
+      "time": 123.933,
+      "duration": 0.612,
+      "text": "felelt"
+    },
+    {
+      "time": 125.436,
+      "duration": 0.452,
+      "text": "Négy"
+    },
+    {
+      "time": 125.888,
+      "duration": 0.558,
+      "text": "kerekem"
+    },
+    {
+      "time": 126.446,
+      "duration": 0.372,
+      "text": "van"
+    },
+    {
+      "time": 127.71,
+      "duration": 0.465,
+      "text": "Annak"
+    },
+    {
+      "time": 128.175,
+      "duration": 0.173,
+      "text": "mi"
+    },
+    {
+      "time": 128.348,
+      "duration": 0.346,
+      "text": "köze"
+    },
+    {
+      "time": 128.694,
+      "duration": 0.16,
+      "text": "az"
+    },
+    {
+      "time": 128.853,
+      "duration": 0.957,
+      "text": "úszáshoz"
+    },
+    {
+      "time": 130.702,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 131.353,
+      "duration": 1.024,
+      "text": "gondolkodott"
+    },
+    {
+      "time": 133.268,
+      "duration": 0.731,
+      "text": "Semmi"
+    },
+    {
+      "time": 134.89,
+      "duration": 0.918,
+      "text": "Pontosan"
+    },
+    {
+      "time": 136.699,
+      "duration": 0.346,
+      "text": "Pötty"
+    },
+    {
+      "time": 137.045,
+      "duration": 0.984,
+      "text": "megszólalt"
+    },
+    {
+      "time": 138.92,
+      "duration": 0.332,
+      "text": "Én"
+    },
+    {
+      "time": 139.252,
+      "duration": 0.186,
+      "text": "nem"
+    },
+    {
+      "time": 139.438,
+      "duration": 0.332,
+      "text": "tudok"
+    },
+    {
+      "time": 139.771,
+      "duration": 0.598,
+      "text": "úszni"
+    },
+    {
+      "time": 141.26,
+      "duration": 0.572,
+      "text": "Béka"
+    },
+    {
+      "time": 141.832,
+      "duration": 0.479,
+      "text": "bácsi"
+    },
+    {
+      "time": 142.311,
+      "duration": 1.064,
+      "text": "elmosolyodott"
+    },
+    {
+      "time": 144.265,
+      "duration": 0.718,
+      "text": "Remek"
+    },
+    {
+      "time": 145.874,
+      "duration": 0.785,
+      "text": "Villám"
+    },
+    {
+      "time": 146.659,
+      "duration": 0.173,
+      "text": "és"
+    },
+    {
+      "time": 146.832,
+      "duration": 0.452,
+      "text": "Turbó"
+    },
+    {
+      "time": 147.284,
+      "duration": 0.505,
+      "text": "egyszerre"
+    },
+    {
+      "time": 147.789,
+      "duration": 0.479,
+      "text": "néztek"
+    },
+    {
+      "time": 148.268,
+      "duration": 0.293,
+      "text": "rá"
+    },
+    {
+      "time": 149.452,
+      "duration": 0.771,
+      "text": "Remek"
+    },
+    {
+      "time": 151.486,
+      "duration": 0.692,
+      "text": "Persze"
+    },
+    {
+      "time": 153.069,
+      "duration": 0.306,
+      "text": "Pötty"
+    },
+    {
+      "time": 153.374,
+      "duration": 0.266,
+      "text": "már"
+    },
+    {
+      "time": 153.64,
+      "duration": 0.412,
+      "text": "tudja"
+    },
+    {
+      "time": 154.053,
+      "duration": 0.16,
+      "text": "az"
+    },
+    {
+      "time": 154.212,
+      "duration": 0.412,
+      "text": "első"
+    },
+    {
+      "time": 154.624,
+      "duration": 0.558,
+      "text": "dolgot"
+    },
+    {
+      "time": 155.436,
+      "duration": 0.266,
+      "text": "amit"
+    },
+    {
+      "time": 155.702,
+      "duration": 0.186,
+      "text": "meg"
+    },
+    {
+      "time": 155.888,
+      "duration": 0.213,
+      "text": "kell"
+    },
+    {
+      "time": 156.101,
+      "duration": 0.785,
+      "text": "tanulnia"
+    },
+    {
+      "time": 157.776,
+      "duration": 0.598,
+      "text": "Mit"
+    },
+    {
+      "time": 159.279,
+      "duration": 0.678,
+      "text": "kérdezte"
+    },
+    {
+      "time": 159.957,
+      "duration": 0.692,
+      "text": "Turbó"
+    },
+    {
+      "time": 161.539,
+      "duration": 0.293,
+      "text": "Hogy"
+    },
+    {
+      "time": 161.832,
+      "duration": 0.239,
+      "text": "mit"
+    },
+    {
+      "time": 162.071,
+      "duration": 0.293,
+      "text": "nem"
+    },
+    {
+      "time": 162.364,
+      "duration": 0.359,
+      "text": "tud"
+    },
+    {
+      "time": 163.614,
+      "duration": 0.665,
+      "text": "Először"
+    },
+    {
+      "time": 164.279,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 164.332,
+      "duration": 1.064,
+      "text": "tanmedencéhez"
+    },
+    {
+      "time": 165.396,
+      "duration": 0.572,
+      "text": "mentek"
+    },
+    {
+      "time": 166.858,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 167.045,
+      "duration": 0.412,
+      "text": "víz"
+    },
+    {
+      "time": 167.457,
+      "duration": 0.306,
+      "text": "olyan"
+    },
+    {
+      "time": 167.763,
+      "duration": 0.465,
+      "text": "sekély"
+    },
+    {
+      "time": 168.228,
+      "duration": 0.399,
+      "text": "volt"
+    },
+    {
+      "time": 168.906,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 169.093,
+      "duration": 0.652,
+      "text": "mindhárman"
+    },
+    {
+      "time": 169.744,
+      "duration": 0.492,
+      "text": "leértek"
+    },
+    {
+      "time": 170.236,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 170.369,
+      "duration": 0.652,
+      "text": "aljára"
+    },
+    {
+      "time": 171.912,
+      "duration": 0.731,
+      "text": "Villám"
+    },
+    {
+      "time": 172.643,
+      "duration": 0.652,
+      "text": "óvatosan"
+    },
+    {
+      "time": 173.295,
+      "duration": 0.838,
+      "text": "belegurult"
+    },
+    {
+      "time": 175.023,
+      "duration": 0.612,
+      "text": "Hideg"
+    },
+    {
+      "time": 176.526,
+      "duration": 0.399,
+      "text": "Pötty"
+    },
+    {
+      "time": 176.925,
+      "duration": 0.692,
+      "text": "utána"
+    },
+    {
+      "time": 178.507,
+      "duration": 0.745,
+      "text": "Szerintem"
+    },
+    {
+      "time": 179.252,
+      "duration": 0.399,
+      "text": "jó"
+    },
+    {
+      "time": 180.542,
+      "duration": 0.519,
+      "text": "Turbó"
+    },
+    {
+      "time": 181.061,
+      "duration": 0.957,
+      "text": "nekifutott"
+    },
+    {
+      "time": 182.909,
+      "duration": 0.745,
+      "text": "BOMBA"
+    },
+    {
+      "time": 184.545,
+      "duration": 0.745,
+      "text": "Turbó"
+    },
+    {
+      "time": 185.608,
+      "duration": 0.558,
+      "text": "ne"
+    },
+    {
+      "time": 187.364,
+      "duration": 0.479,
+      "text": "kezdte"
+    },
+    {
+      "time": 187.843,
+      "duration": 0.412,
+      "text": "Béka"
+    },
+    {
+      "time": 188.255,
+      "duration": 0.598,
+      "text": "bácsi"
+    },
+    {
+      "time": 189.744,
+      "duration": 0.745,
+      "text": "Csobban"
+    },
+    {
+      "time": 191.38,
+      "duration": 0.745,
+      "text": "Hatalmas"
+    },
+    {
+      "time": 192.124,
+      "duration": 0.346,
+      "text": "víz"
+    },
+    {
+      "time": 192.47,
+      "duration": 0.426,
+      "text": "repült"
+    },
+    {
+      "time": 192.896,
+      "duration": 0.878,
+      "text": "mindenfelé"
+    },
+    {
+      "time": 194.664,
+      "duration": 0.758,
+      "text": "Villám"
+    },
+    {
+      "time": 195.422,
+      "duration": 0.798,
+      "text": "csuromvizes"
+    },
+    {
+      "time": 196.22,
+      "duration": 0.426,
+      "text": "lett"
+    },
+    {
+      "time": 197.537,
+      "duration": 0.399,
+      "text": "Pötty"
+    },
+    {
+      "time": 197.936,
+      "duration": 0.771,
+      "text": "csuromvizes"
+    },
+    {
+      "time": 198.707,
+      "duration": 0.426,
+      "text": "lett"
+    },
+    {
+      "time": 200.023,
+      "duration": 0.585,
+      "text": "Béka"
+    },
+    {
+      "time": 200.608,
+      "duration": 0.439,
+      "text": "bácsi"
+    },
+    {
+      "time": 201.047,
+      "duration": 0.771,
+      "text": "csuromvizes"
+    },
+    {
+      "time": 201.819,
+      "duration": 0.412,
+      "text": "lett"
+    },
+    {
+      "time": 203.122,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 203.295,
+      "duration": 0.665,
+      "text": "mellettük"
+    },
+    {
+      "time": 203.96,
+      "duration": 0.692,
+      "text": "üldögélő"
+    },
+    {
+      "time": 204.651,
+      "duration": 0.293,
+      "text": "öreg"
+    },
+    {
+      "time": 204.944,
+      "duration": 0.519,
+      "text": "kabrió"
+    },
+    {
+      "time": 205.462,
+      "duration": 0.652,
+      "text": "újságja"
+    },
+    {
+      "time": 206.114,
+      "duration": 0.133,
+      "text": "is"
+    },
+    {
+      "time": 206.247,
+      "duration": 0.718,
+      "text": "csuromvizes"
+    },
+    {
+      "time": 206.965,
+      "duration": 0.399,
+      "text": "lett"
+    },
+    {
+      "time": 208.255,
+      "duration": 0.505,
+      "text": "Turbó"
+    },
+    {
+      "time": 208.76,
+      "duration": 0.532,
+      "text": "kidugta"
+    },
+    {
+      "time": 209.292,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 209.372,
+      "duration": 0.652,
+      "text": "fejét"
+    },
+    {
+      "time": 210.914,
+      "duration": 0.306,
+      "text": "Ez"
+    },
+    {
+      "time": 211.22,
+      "duration": 1.051,
+      "text": "fantasztikus"
+    },
+    {
+      "time": 213.162,
+      "duration": 0.306,
+      "text": "Az"
+    },
+    {
+      "time": 213.468,
+      "duration": 0.266,
+      "text": "öreg"
+    },
+    {
+      "time": 213.733,
+      "duration": 0.545,
+      "text": "kabrió"
+    },
+    {
+      "time": 214.279,
+      "duration": 0.479,
+      "text": "lassan"
+    },
+    {
+      "time": 214.757,
+      "duration": 0.612,
+      "text": "leengedte"
+    },
+    {
+      "time": 215.369,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 215.502,
+      "duration": 0.585,
+      "text": "átázott"
+    },
+    {
+      "time": 216.087,
+      "duration": 0.931,
+      "text": "újságját"
+    },
+    {
+      "time": 217.909,
+      "duration": 0.505,
+      "text": "Neked"
+    },
+    {
+      "time": 218.414,
+      "duration": 0.811,
+      "text": "biztosan"
+    },
+    {
+      "time": 220.117,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 220.648,
+      "duration": 1.064,
+      "text": "körülnézett"
+    },
+    {
+      "time": 222.603,
+      "duration": 0.638,
+      "text": "Jaj"
+    },
+    {
+      "time": 224.132,
+      "duration": 0.785,
+      "text": "Kimászott"
+    },
+    {
+      "time": 224.917,
+      "duration": 0.066,
+      "text": "a"
+    },
+    {
+      "time": 224.983,
+      "duration": 0.758,
+      "text": "vízből"
+    },
+    {
+      "time": 226.632,
+      "duration": 1.13,
+      "text": "Elnézést"
+    },
+    {
+      "time": 228.654,
+      "duration": 0.798,
+      "text": "Köszönöm"
+    },
+    {
+      "time": 229.452,
+      "duration": 0.426,
+      "text": "mondta"
+    },
+    {
+      "time": 229.877,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 229.944,
+      "duration": 0.718,
+      "text": "kabrió"
+    },
+    {
+      "time": 231.553,
+      "duration": 0.532,
+      "text": "Béka"
+    },
+    {
+      "time": 232.085,
+      "duration": 0.439,
+      "text": "bácsi"
+    },
+    {
+      "time": 232.523,
+      "duration": 0.625,
+      "text": "odahívta"
+    },
+    {
+      "time": 233.148,
+      "duration": 0.758,
+      "text": "Turbót"
+    },
+    {
+      "time": 234.797,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 234.957,
+      "duration": 0.598,
+      "text": "strandon"
+    },
+    {
+      "time": 235.555,
+      "duration": 0.452,
+      "text": "sokan"
+    },
+    {
+      "time": 236.007,
+      "duration": 0.585,
+      "text": "vannak"
+    },
+    {
+      "time": 237.483,
+      "duration": 0.439,
+      "text": "Lehet"
+    },
+    {
+      "time": 237.922,
+      "duration": 0.359,
+      "text": "nagyot"
+    },
+    {
+      "time": 238.281,
+      "duration": 0.731,
+      "text": "csobbanni"
+    },
+    {
+      "time": 239.252,
+      "duration": 0.226,
+      "text": "de"
+    },
+    {
+      "time": 239.478,
+      "duration": 0.306,
+      "text": "előbb"
+    },
+    {
+      "time": 239.784,
+      "duration": 0.16,
+      "text": "meg"
+    },
+    {
+      "time": 239.944,
+      "duration": 0.213,
+      "text": "kell"
+    },
+    {
+      "time": 240.156,
+      "duration": 0.492,
+      "text": "nézni"
+    },
+    {
+      "time": 240.848,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 241.034,
+      "duration": 0.186,
+      "text": "nem"
+    },
+    {
+      "time": 241.22,
+      "duration": 0.465,
+      "text": "zavarunk"
+    },
+    {
+      "time": 241.686,
+      "duration": 0.16,
+      "text": "vagy"
+    },
+    {
+      "time": 241.845,
+      "duration": 0.971,
+      "text": "veszélyeztetünk-e"
+    },
+    {
+      "time": 242.816,
+      "duration": 0.612,
+      "text": "valakit"
+    },
+    {
+      "time": 244.319,
+      "duration": 0.705,
+      "text": "Értem"
+    },
+    {
+      "time": 245.914,
+      "duration": 0.505,
+      "text": "Turbó"
+    },
+    {
+      "time": 246.42,
+      "duration": 0.519,
+      "text": "ezután"
+    },
+    {
+      "time": 246.938,
+      "duration": 0.399,
+      "text": "talált"
+    },
+    {
+      "time": 247.337,
+      "duration": 0.16,
+      "text": "egy"
+    },
+    {
+      "time": 247.497,
+      "duration": 0.386,
+      "text": "üres"
+    },
+    {
+      "time": 247.882,
+      "duration": 0.519,
+      "text": "részt"
+    },
+    {
+      "time": 249.292,
+      "duration": 0.372,
+      "text": "Itt"
+    },
+    {
+      "time": 249.664,
+      "duration": 0.612,
+      "text": "lehet"
+    },
+    {
+      "time": 251.167,
+      "duration": 0.519,
+      "text": "Béka"
+    },
+    {
+      "time": 251.686,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 252.098,
+      "duration": 1.037,
+      "text": "körülnézett"
+    },
+    {
+      "time": 254.026,
+      "duration": 0.346,
+      "text": "Itt"
+    },
+    {
+      "time": 254.372,
+      "duration": 0.598,
+      "text": "lehet"
+    },
+    {
+      "time": 255.861,
+      "duration": 0.519,
+      "text": "Turbó"
+    },
+    {
+      "time": 256.38,
+      "duration": 0.957,
+      "text": "nekifutott"
+    },
+    {
+      "time": 258.228,
+      "duration": 0.771,
+      "text": "BOMBA"
+    },
+    {
+      "time": 259.89,
+      "duration": 0.758,
+      "text": "Csobban"
+    },
+    {
+      "time": 261.539,
+      "duration": 0.678,
+      "text": "Ezúttal"
+    },
+    {
+      "time": 262.218,
+      "duration": 0.612,
+      "text": "mindenki"
+    },
+    {
+      "time": 262.829,
+      "duration": 0.745,
+      "text": "nevetett"
+    },
+    {
+      "time": 264.465,
+      "duration": 0.731,
+      "text": "Ezután"
+    },
+    {
+      "time": 265.196,
+      "duration": 0.838,
+      "text": "elkezdődött"
+    },
+    {
+      "time": 266.034,
+      "duration": 0.146,
+      "text": "az"
+    },
+    {
+      "time": 266.18,
+      "duration": 1.263,
+      "text": "úszásoktatás"
+    },
+    {
+      "time": 268.335,
+      "duration": 0.279,
+      "text": "Az"
+    },
+    {
+      "time": 268.614,
+      "duration": 0.452,
+      "text": "első"
+    },
+    {
+      "time": 269.066,
+      "duration": 0.598,
+      "text": "feladat"
+    },
+    {
+      "time": 269.664,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 270.023,
+      "duration": 0.332,
+      "text": "Béka"
+    },
+    {
+      "time": 270.356,
+      "duration": 0.532,
+      "text": "bácsi"
+    },
+    {
+      "time": 271.273,
+      "duration": 0.173,
+      "text": "hogy"
+    },
+    {
+      "time": 271.446,
+      "duration": 0.785,
+      "text": "megszokjátok"
+    },
+    {
+      "time": 272.231,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 272.297,
+      "duration": 0.532,
+      "text": "vizet"
+    },
+    {
+      "time": 273.72,
+      "duration": 0.638,
+      "text": "Mikor"
+    },
+    {
+      "time": 274.358,
+      "duration": 0.745,
+      "text": "úszunk"
+    },
+    {
+      "time": 275.994,
+      "duration": 0.691,
+      "text": "kérdezte"
+    },
+    {
+      "time": 276.686,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 278.255,
+      "duration": 0.638,
+      "text": "Most"
+    },
+    {
+      "time": 279.784,
+      "duration": 0.279,
+      "text": "De"
+    },
+    {
+      "time": 280.063,
+      "duration": 0.293,
+      "text": "még"
+    },
+    {
+      "time": 280.356,
+      "duration": 0.239,
+      "text": "csak"
+    },
+    {
+      "time": 280.595,
+      "duration": 0.705,
+      "text": "állunk"
+    },
+    {
+      "time": 282.191,
+      "duration": 0.266,
+      "text": "Az"
+    },
+    {
+      "time": 282.457,
+      "duration": 0.532,
+      "text": "úszás"
+    },
+    {
+      "time": 282.989,
+      "duration": 0.16,
+      "text": "nem"
+    },
+    {
+      "time": 283.148,
+      "duration": 0.359,
+      "text": "azzal"
+    },
+    {
+      "time": 283.507,
+      "duration": 0.718,
+      "text": "kezdődik"
+    },
+    {
+      "time": 284.505,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 284.691,
+      "duration": 0.412,
+      "text": "valaki"
+    },
+    {
+      "time": 285.103,
+      "duration": 0.306,
+      "text": "bedob"
+    },
+    {
+      "time": 285.409,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 285.462,
+      "duration": 0.293,
+      "text": "mély"
+    },
+    {
+      "time": 285.755,
+      "duration": 0.558,
+      "text": "vízbe"
+    },
+    {
+      "time": 287.204,
+      "duration": 0.824,
+      "text": "Megmutatta"
+    },
+    {
+      "time": 288.029,
+      "duration": 0.479,
+      "text": "nekik"
+    },
+    {
+      "time": 288.827,
+      "duration": 0.412,
+      "text": "hogyan"
+    },
+    {
+      "time": 289.239,
+      "duration": 0.545,
+      "text": "merítsék"
+    },
+    {
+      "time": 289.784,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 289.917,
+      "duration": 0.545,
+      "text": "arcukat"
+    },
+    {
+      "time": 290.462,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 290.515,
+      "duration": 0.572,
+      "text": "vízbe"
+    },
+    {
+      "time": 291.978,
+      "duration": 0.346,
+      "text": "Pötty"
+    },
+    {
+      "time": 292.324,
+      "duration": 0.652,
+      "text": "próbálta"
+    },
+    {
+      "time": 292.976,
+      "duration": 0.771,
+      "text": "először"
+    },
+    {
+      "time": 294.638,
+      "duration": 0.359,
+      "text": "Nagy"
+    },
+    {
+      "time": 294.997,
+      "duration": 0.572,
+      "text": "levegőt"
+    },
+    {
+      "time": 295.569,
+      "duration": 0.439,
+      "text": "vett"
+    },
+    {
+      "time": 296.898,
+      "duration": 0.944,
+      "text": "Lebukott"
+    },
+    {
+      "time": 298.733,
+      "duration": 1.064,
+      "text": "Bugy-bugy-bugy"
+    },
+    {
+      "time": 300.688,
+      "duration": 0.545,
+      "text": "Aztán"
+    },
+    {
+      "time": 301.233,
+      "duration": 0.731,
+      "text": "feljött"
+    },
+    {
+      "time": 303.028,
+      "duration": 0.984,
+      "text": "Sikerült"
+    },
+    {
+      "time": 304.906,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 305.438,
+      "duration": 0.971,
+      "text": "következett"
+    },
+    {
+      "time": 307.3,
+      "duration": 0.944,
+      "text": "Lebukott"
+    },
+    {
+      "time": 309.135,
+      "duration": 0.399,
+      "text": "Két"
+    },
+    {
+      "time": 309.534,
+      "duration": 0.785,
+      "text": "másodperc"
+    },
+    {
+      "time": 310.318,
+      "duration": 0.346,
+      "text": "múlva"
+    },
+    {
+      "time": 310.664,
+      "duration": 0.798,
+      "text": "felugrott"
+    },
+    {
+      "time": 312.353,
+      "duration": 0.492,
+      "text": "Víz"
+    },
+    {
+      "time": 312.845,
+      "duration": 0.253,
+      "text": "ment"
+    },
+    {
+      "time": 313.098,
+      "duration": 0.146,
+      "text": "az"
+    },
+    {
+      "time": 313.244,
+      "duration": 0.718,
+      "text": "orromba"
+    },
+    {
+      "time": 314.853,
+      "duration": 0.558,
+      "text": "Béka"
+    },
+    {
+      "time": 315.411,
+      "duration": 0.399,
+      "text": "bácsi"
+    },
+    {
+      "time": 315.81,
+      "duration": 0.758,
+      "text": "nevetett"
+    },
+    {
+      "time": 317.459,
+      "duration": 0.465,
+      "text": "Ezért"
+    },
+    {
+      "time": 317.925,
+      "duration": 0.412,
+      "text": "fújjuk"
+    },
+    {
+      "time": 318.337,
+      "duration": 0.12,
+      "text": "ki"
+    },
+    {
+      "time": 318.457,
+      "duration": 0.399,
+      "text": "lassan"
+    },
+    {
+      "time": 318.856,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 318.896,
+      "duration": 0.545,
+      "text": "levegőt"
+    },
+    {
+      "time": 319.441,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 319.494,
+      "duration": 0.293,
+      "text": "víz"
+    },
+    {
+      "time": 319.786,
+      "duration": 0.505,
+      "text": "alatt"
+    },
+    {
+      "time": 321.183,
+      "duration": 0.558,
+      "text": "Turbó"
+    },
+    {
+      "time": 321.741,
+      "duration": 0.346,
+      "text": "újra"
+    },
+    {
+      "time": 322.087,
+      "duration": 0.824,
+      "text": "próbálta"
+    },
+    {
+      "time": 323.802,
+      "duration": 0.678,
+      "text": "Ezúttal"
+    },
+    {
+      "time": 324.481,
+      "duration": 0.678,
+      "text": "buborékok"
+    },
+    {
+      "time": 325.159,
+      "duration": 0.465,
+      "text": "jelentek"
+    },
+    {
+      "time": 325.624,
+      "duration": 0.173,
+      "text": "meg"
+    },
+    {
+      "time": 325.797,
+      "duration": 0.785,
+      "text": "körülötte"
+    },
+    {
+      "time": 327.473,
+      "duration": 1.317,
+      "text": "Bugy-bugy-bugy-bugy"
+    },
+    {
+      "time": 329.68,
+      "duration": 0.266,
+      "text": "Ez"
+    },
+    {
+      "time": 329.946,
+      "duration": 0.519,
+      "text": "sokkal"
+    },
+    {
+      "time": 330.465,
+      "duration": 0.439,
+      "text": "jobb"
+    },
+    {
+      "time": 331.794,
+      "duration": 0.585,
+      "text": "Villám"
+    },
+    {
+      "time": 332.38,
+      "duration": 0.399,
+      "text": "közben"
+    },
+    {
+      "time": 332.779,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 332.832,
+      "duration": 0.479,
+      "text": "medence"
+    },
+    {
+      "time": 333.31,
+      "duration": 0.492,
+      "text": "szélén"
+    },
+    {
+      "time": 333.802,
+      "duration": 0.439,
+      "text": "állt"
+    },
+    {
+      "time": 335.132,
+      "duration": 0.346,
+      "text": "Én"
+    },
+    {
+      "time": 335.478,
+      "duration": 0.492,
+      "text": "inkább"
+    },
+    {
+      "time": 335.97,
+      "duration": 0.399,
+      "text": "rögtön"
+    },
+    {
+      "time": 336.369,
+      "duration": 0.718,
+      "text": "úsznék"
+    },
+    {
+      "time": 337.978,
+      "duration": 0.505,
+      "text": "Előbb"
+    },
+    {
+      "time": 338.483,
+      "duration": 0.386,
+      "text": "ezt"
+    },
+    {
+      "time": 338.869,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 339.228,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 339.6,
+      "duration": 0.558,
+      "text": "bácsi"
+    },
+    {
+      "time": 341.05,
+      "duration": 0.386,
+      "text": "De"
+    },
+    {
+      "time": 341.435,
+      "duration": 0.253,
+      "text": "ez"
+    },
+    {
+      "time": 341.688,
+      "duration": 0.612,
+      "text": "könnyű"
+    },
+    {
+      "time": 343.191,
+      "duration": 0.519,
+      "text": "Akkor"
+    },
+    {
+      "time": 343.709,
+      "duration": 0.505,
+      "text": "mutasd"
+    },
+    {
+      "time": 344.215,
+      "duration": 0.359,
+      "text": "meg"
+    },
+    {
+      "time": 345.465,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 346.143,
+      "duration": 0.758,
+      "text": "lebukott"
+    },
+    {
+      "time": 347.792,
+      "duration": 0.279,
+      "text": "Egy"
+    },
+    {
+      "time": 348.071,
+      "duration": 0.545,
+      "text": "pillanat"
+    },
+    {
+      "time": 348.616,
+      "duration": 0.372,
+      "text": "múlva"
+    },
+    {
+      "time": 348.989,
+      "duration": 0.253,
+      "text": "már"
+    },
+    {
+      "time": 349.241,
+      "duration": 0.293,
+      "text": "fent"
+    },
+    {
+      "time": 349.534,
+      "duration": 0.173,
+      "text": "is"
+    },
+    {
+      "time": 349.707,
+      "duration": 0.412,
+      "text": "volt"
+    },
+    {
+      "time": 351.01,
+      "duration": 0.678,
+      "text": "Pfú"
+    },
+    {
+      "time": 352.579,
+      "duration": 0.279,
+      "text": "Ez"
+    },
+    {
+      "time": 352.858,
+      "duration": 1.064,
+      "text": "borzalmas"
+    },
+    {
+      "time": 354.813,
+      "duration": 0.372,
+      "text": "Pötty"
+    },
+    {
+      "time": 355.185,
+      "duration": 0.918,
+      "text": "kuncogott"
+    },
+    {
+      "time": 356.994,
+      "duration": 0.306,
+      "text": "Azt"
+    },
+    {
+      "time": 357.3,
+      "duration": 0.532,
+      "text": "mondtad"
+    },
+    {
+      "time": 358.151,
+      "duration": 0.652,
+      "text": "könnyű"
+    },
+    {
+      "time": 359.693,
+      "duration": 0.718,
+      "text": "Villám"
+    },
+    {
+      "time": 360.411,
+      "duration": 0.332,
+      "text": "újra"
+    },
+    {
+      "time": 360.744,
+      "duration": 0.798,
+      "text": "próbálta"
+    },
+    {
+      "time": 362.433,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 362.592,
+      "duration": 0.625,
+      "text": "második"
+    },
+    {
+      "time": 363.217,
+      "duration": 0.226,
+      "text": "már"
+    },
+    {
+      "time": 363.443,
+      "duration": 0.239,
+      "text": "jobb"
+    },
+    {
+      "time": 363.683,
+      "duration": 0.465,
+      "text": "volt"
+    },
+    {
+      "time": 365.039,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 365.212,
+      "duration": 0.864,
+      "text": "harmadiknál"
+    },
+    {
+      "time": 366.076,
+      "duration": 0.598,
+      "text": "sikerült"
+    },
+    {
+      "time": 366.675,
+      "duration": 0.545,
+      "text": "nyugodtan"
+    },
+    {
+      "time": 367.22,
+      "duration": 0.665,
+      "text": "kifújnia"
+    },
+    {
+      "time": 367.885,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 367.951,
+      "duration": 0.718,
+      "text": "levegőt"
+    },
+    {
+      "time": 369.56,
+      "duration": 1.064,
+      "text": "Bugy-bugy-bugy"
+    },
+    {
+      "time": 371.515,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 372.18,
+      "duration": 0.718,
+      "text": "feljött"
+    },
+    {
+      "time": 373.789,
+      "duration": 0.612,
+      "text": "Jó"
+    },
+    {
+      "time": 375.292,
+      "duration": 0.279,
+      "text": "Ez"
+    },
+    {
+      "time": 375.571,
+      "duration": 0.439,
+      "text": "tényleg"
+    },
+    {
+      "time": 376.01,
+      "duration": 0.785,
+      "text": "működik"
+    },
+    {
+      "time": 377.685,
+      "duration": 0.572,
+      "text": "Utána"
+    },
+    {
+      "time": 378.257,
+      "duration": 0.532,
+      "text": "lebegni"
+    },
+    {
+      "time": 378.789,
+      "duration": 0.798,
+      "text": "tanultak"
+    },
+    {
+      "time": 380.478,
+      "duration": 0.266,
+      "text": "Ez"
+    },
+    {
+      "time": 380.744,
+      "duration": 0.213,
+      "text": "már"
+    },
+    {
+      "time": 380.957,
+      "duration": 0.532,
+      "text": "sokkal"
+    },
+    {
+      "time": 381.489,
+      "duration": 0.545,
+      "text": "furcsább"
+    },
+    {
+      "time": 382.034,
+      "duration": 0.452,
+      "text": "volt"
+    },
+    {
+      "time": 383.377,
+      "duration": 0.319,
+      "text": "Nem"
+    },
+    {
+      "time": 383.696,
+      "duration": 0.253,
+      "text": "kell"
+    },
+    {
+      "time": 383.949,
+      "duration": 0.412,
+      "text": "mindig"
+    },
+    {
+      "time": 384.361,
+      "duration": 0.452,
+      "text": "küzdeni"
+    },
+    {
+      "time": 384.813,
+      "duration": 0.066,
+      "text": "a"
+    },
+    {
+      "time": 384.88,
+      "duration": 0.598,
+      "text": "vízzel"
+    },
+    {
+      "time": 385.478,
+      "duration": 0.625,
+      "text": "magyarázta"
+    },
+    {
+      "time": 386.103,
+      "duration": 0.359,
+      "text": "Béka"
+    },
+    {
+      "time": 386.462,
+      "duration": 0.545,
+      "text": "bácsi"
+    },
+    {
+      "time": 387.898,
+      "duration": 0.213,
+      "text": "Ha"
+    },
+    {
+      "time": 388.111,
+      "duration": 0.598,
+      "text": "nyugodtan"
+    },
+    {
+      "time": 388.709,
+      "duration": 0.652,
+      "text": "fekszel"
+    },
+    {
+      "time": 389.654,
+      "duration": 0.12,
+      "text": "a"
+    },
+    {
+      "time": 389.773,
+      "duration": 0.359,
+      "text": "víz"
+    },
+    {
+      "time": 390.132,
+      "duration": 0.731,
+      "text": "megtart"
+    },
+    {
+      "time": 391.755,
+      "duration": 0.372,
+      "text": "Pötty"
+    },
+    {
+      "time": 392.127,
+      "duration": 0.372,
+      "text": "hanyatt"
+    },
+    {
+      "time": 392.499,
+      "duration": 0.652,
+      "text": "feküdt"
+    },
+    {
+      "time": 394.042,
+      "duration": 0.665,
+      "text": "Először"
+    },
+    {
+      "time": 394.707,
+      "duration": 0.785,
+      "text": "megijedt"
+    },
+    {
+      "time": 396.382,
+      "duration": 0.731,
+      "text": "Fogsz"
+    },
+    {
+      "time": 398.005,
+      "duration": 0.731,
+      "text": "Foglak"
+    },
+    {
+      "time": 398.736,
+      "duration": 0.386,
+      "text": "mondta"
+    },
+    {
+      "time": 399.122,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 399.494,
+      "duration": 0.585,
+      "text": "bácsi"
+    },
+    {
+      "time": 400.97,
+      "duration": 0.346,
+      "text": "Pötty"
+    },
+    {
+      "time": 401.316,
+      "duration": 0.558,
+      "text": "lassan"
+    },
+    {
+      "time": 401.874,
+      "duration": 0.811,
+      "text": "ellazult"
+    },
+    {
+      "time": 403.576,
+      "duration": 0.532,
+      "text": "Béka"
+    },
+    {
+      "time": 404.108,
+      "duration": 0.439,
+      "text": "bácsi"
+    },
+    {
+      "time": 404.547,
+      "duration": 0.532,
+      "text": "elvette"
+    },
+    {
+      "time": 405.079,
+      "duration": 0.066,
+      "text": "a"
+    },
+    {
+      "time": 405.146,
+      "duration": 0.665,
+      "text": "kezét"
+    },
+    {
+      "time": 406.701,
+      "duration": 0.306,
+      "text": "Pötty"
+    },
+    {
+      "time": 407.007,
+      "duration": 0.346,
+      "text": "pedig"
+    },
+    {
+      "time": 407.353,
+      "duration": 0.226,
+      "text": "ott"
+    },
+    {
+      "time": 407.579,
+      "duration": 0.399,
+      "text": "maradt"
+    },
+    {
+      "time": 407.978,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 408.044,
+      "duration": 0.293,
+      "text": "víz"
+    },
+    {
+      "time": 408.337,
+      "duration": 0.705,
+      "text": "tetején"
+    },
+    {
+      "time": 409.933,
+      "duration": 0.745,
+      "text": "Úszom"
+    },
+    {
+      "time": 411.568,
+      "duration": 0.346,
+      "text": "Most"
+    },
+    {
+      "time": 411.914,
+      "duration": 0.279,
+      "text": "még"
+    },
+    {
+      "time": 412.193,
+      "duration": 0.479,
+      "text": "inkább"
+    },
+    {
+      "time": 412.672,
+      "duration": 0.652,
+      "text": "lebegsz"
+    },
+    {
+      "time": 413.324,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 413.683,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 414.055,
+      "duration": 0.558,
+      "text": "bácsi"
+    },
+    {
+      "time": 415.505,
+      "duration": 0.346,
+      "text": "De"
+    },
+    {
+      "time": 415.85,
+      "duration": 0.199,
+      "text": "ez"
+    },
+    {
+      "time": 416.05,
+      "duration": 0.372,
+      "text": "nagyon"
+    },
+    {
+      "time": 416.422,
+      "duration": 0.718,
+      "text": "fontos"
+    },
+    {
+      "time": 418.031,
+      "duration": 0.545,
+      "text": "Turbó"
+    },
+    {
+      "time": 418.576,
+      "duration": 0.213,
+      "text": "is"
+    },
+    {
+      "time": 418.789,
+      "duration": 0.971,
+      "text": "megpróbálta"
+    },
+    {
+      "time": 420.651,
+      "duration": 0.585,
+      "text": "Aztán"
+    },
+    {
+      "time": 421.236,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 422.792,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 423.457,
+      "duration": 0.492,
+      "text": "folyton"
+    },
+    {
+      "time": 423.949,
+      "duration": 1.011,
+      "text": "kapálózott"
+    },
+    {
+      "time": 425.85,
+      "duration": 0.479,
+      "text": "Minél"
+    },
+    {
+      "time": 426.329,
+      "duration": 0.439,
+      "text": "jobban"
+    },
+    {
+      "time": 426.768,
+      "duration": 0.971,
+      "text": "kapálózott"
+    },
+    {
+      "time": 428.018,
+      "duration": 0.359,
+      "text": "annál"
+    },
+    {
+      "time": 428.377,
+      "duration": 0.692,
+      "text": "rosszabbul"
+    },
+    {
+      "time": 429.068,
+      "duration": 0.465,
+      "text": "ment"
+    },
+    {
+      "time": 430.425,
+      "duration": 0.426,
+      "text": "Nem"
+    },
+    {
+      "time": 430.85,
+      "duration": 0.758,
+      "text": "működik"
+    },
+    {
+      "time": 432.499,
+      "duration": 0.372,
+      "text": "Hagyd"
+    },
+    {
+      "time": 432.872,
+      "duration": 0.293,
+      "text": "abba"
+    },
+    {
+      "time": 433.164,
+      "duration": 0.173,
+      "text": "egy"
+    },
+    {
+      "time": 433.337,
+      "duration": 0.824,
+      "text": "pillanatra"
+    },
+    {
+      "time": 434.161,
+      "duration": 0.399,
+      "text": "mondta"
+    },
+    {
+      "time": 434.56,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 434.933,
+      "duration": 0.545,
+      "text": "bácsi"
+    },
+    {
+      "time": 436.369,
+      "duration": 0.598,
+      "text": "Mit"
+    },
+    {
+      "time": 437.872,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 438.058,
+      "duration": 0.785,
+      "text": "harcot"
+    },
+    {
+      "time": 439.733,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 440.385,
+      "duration": 0.692,
+      "text": "megpróbált"
+    },
+    {
+      "time": 441.076,
+      "duration": 0.691,
+      "text": "mozdulatlan"
+    },
+    {
+      "time": 441.768,
+      "duration": 0.598,
+      "text": "maradni"
+    },
+    {
+      "time": 443.257,
+      "duration": 0.412,
+      "text": "És"
+    },
+    {
+      "time": 443.669,
+      "duration": 0.492,
+      "text": "egyszer"
+    },
+    {
+      "time": 444.161,
+      "duration": 0.452,
+      "text": "csak"
+    },
+    {
+      "time": 445.505,
+      "duration": 0.492,
+      "text": "fenn"
+    },
+    {
+      "time": 445.997,
+      "duration": 0.652,
+      "text": "maradt"
+    },
+    {
+      "time": 447.539,
+      "duration": 0.718,
+      "text": "Villám"
+    },
+    {
+      "time": 448.257,
+      "duration": 0.731,
+      "text": "elkerekedett"
+    },
+    {
+      "time": 448.989,
+      "duration": 0.426,
+      "text": "szemmel"
+    },
+    {
+      "time": 449.414,
+      "duration": 0.372,
+      "text": "nézte"
+    },
+    {
+      "time": 449.786,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 449.919,
+      "duration": 0.519,
+      "text": "eget"
+    },
+    {
+      "time": 451.329,
+      "duration": 0.346,
+      "text": "Én"
+    },
+    {
+      "time": 451.675,
+      "duration": 0.199,
+      "text": "ezt"
+    },
+    {
+      "time": 451.874,
+      "duration": 0.798,
+      "text": "csinálom"
+    },
+    {
+      "time": 453.563,
+      "duration": 0.652,
+      "text": "Részben"
+    },
+    {
+      "time": 454.215,
+      "duration": 0.253,
+      "text": "te"
+    },
+    {
+      "time": 454.467,
+      "duration": 0.585,
+      "text": "felelte"
+    },
+    {
+      "time": 455.052,
+      "duration": 0.346,
+      "text": "Béka"
+    },
+    {
+      "time": 455.398,
+      "duration": 0.572,
+      "text": "bácsi"
+    },
+    {
+      "time": 456.861,
+      "duration": 0.652,
+      "text": "Részben"
+    },
+    {
+      "time": 457.513,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 457.592,
+      "duration": 0.519,
+      "text": "víz"
+    },
+    {
+      "time": 459.002,
+      "duration": 0.745,
+      "text": "Villám"
+    },
+    {
+      "time": 459.747,
+      "duration": 1.051,
+      "text": "elmosolyodott"
+    },
+    {
+      "time": 461.688,
+      "duration": 0.279,
+      "text": "Ez"
+    },
+    {
+      "time": 461.967,
+      "duration": 0.492,
+      "text": "tetszett"
+    },
+    {
+      "time": 462.459,
+      "duration": 0.452,
+      "text": "neki"
+    },
+    {
+      "time": 463.802,
+      "duration": 0.944,
+      "text": "Délutánra"
+    },
+    {
+      "time": 464.747,
+      "duration": 0.332,
+      "text": "már"
+    },
+    {
+      "time": 465.079,
+      "duration": 0.638,
+      "text": "mindhárman"
+    },
+    {
+      "time": 465.717,
+      "duration": 0.386,
+      "text": "tudtak"
+    },
+    {
+      "time": 466.103,
+      "duration": 0.399,
+      "text": "néhány"
+    },
+    {
+      "time": 466.502,
+      "duration": 0.452,
+      "text": "métert"
+    },
+    {
+      "time": 466.954,
+      "duration": 0.372,
+      "text": "úszni"
+    },
+    {
+      "time": 467.326,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 467.38,
+      "duration": 0.412,
+      "text": "sekély"
+    },
+    {
+      "time": 467.792,
+      "duration": 0.918,
+      "text": "medencében"
+    },
+    {
+      "time": 469.6,
+      "duration": 0.332,
+      "text": "Pötty"
+    },
+    {
+      "time": 469.933,
+      "duration": 0.678,
+      "text": "lassan"
+    },
+    {
+      "time": 470.917,
+      "duration": 0.16,
+      "text": "de"
+    },
+    {
+      "time": 471.076,
+      "duration": 0.505,
+      "text": "szépen"
+    },
+    {
+      "time": 471.582,
+      "duration": 0.572,
+      "text": "haladt"
+    },
+    {
+      "time": 473.044,
+      "duration": 0.598,
+      "text": "Turbó"
+    },
+    {
+      "time": 473.643,
+      "duration": 0.705,
+      "text": "összevissza"
+    },
+    {
+      "time": 474.348,
+      "duration": 0.785,
+      "text": "fröcskölt"
+    },
+    {
+      "time": 476.023,
+      "duration": 0.612,
+      "text": "Villám"
+    },
+    {
+      "time": 476.635,
+      "duration": 0.332,
+      "text": "pedig"
+    },
+    {
+      "time": 476.967,
+      "duration": 0.878,
+      "text": "természetesen"
+    },
+    {
+      "time": 477.845,
+      "duration": 0.425,
+      "text": "versenyt"
+    },
+    {
+      "time": 478.271,
+      "duration": 0.346,
+      "text": "akart"
+    },
+    {
+      "time": 478.616,
+      "duration": 0.705,
+      "text": "rendezni"
+    },
+    {
+      "time": 480.212,
+      "duration": 0.439,
+      "text": "Aki"
+    },
+    {
+      "time": 480.651,
+      "duration": 0.412,
+      "text": "előbb"
+    },
+    {
+      "time": 481.063,
+      "duration": 0.439,
+      "text": "odaér"
+    },
+    {
+      "time": 481.502,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 481.542,
+      "duration": 0.984,
+      "text": "lépcsőhöz"
+    },
+    {
+      "time": 483.417,
+      "duration": 0.346,
+      "text": "Nem"
+    },
+    {
+      "time": 483.763,
+      "duration": 0.864,
+      "text": "versenyzünk"
+    },
+    {
+      "time": 484.627,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 484.986,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 485.358,
+      "duration": 0.572,
+      "text": "bácsi"
+    },
+    {
+      "time": 486.821,
+      "duration": 0.638,
+      "text": "Villám"
+    },
+    {
+      "time": 487.459,
+      "duration": 0.971,
+      "text": "sóhajtott"
+    },
+    {
+      "time": 489.321,
+      "duration": 0.652,
+      "text": "Miért"
+    },
+    {
+      "time": 489.973,
+      "duration": 0.452,
+      "text": "nem"
+    },
+    {
+      "time": 491.316,
+      "duration": 0.426,
+      "text": "Mert"
+    },
+    {
+      "time": 491.741,
+      "duration": 0.253,
+      "text": "még"
+    },
+    {
+      "time": 491.994,
+      "duration": 0.798,
+      "text": "tanultok"
+    },
+    {
+      "time": 493.683,
+      "duration": 0.585,
+      "text": "Villám"
+    },
+    {
+      "time": 494.268,
+      "duration": 0.213,
+      "text": "már"
+    },
+    {
+      "time": 494.481,
+      "duration": 0.505,
+      "text": "nyitotta"
+    },
+    {
+      "time": 494.986,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 495.039,
+      "duration": 0.718,
+      "text": "száját"
+    },
+    {
+      "time": 496.023,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 496.209,
+      "duration": 0.984,
+      "text": "vitatkozzon"
+    },
+    {
+      "time": 498.084,
+      "duration": 0.625,
+      "text": "Aztán"
+    },
+    {
+      "time": 498.709,
+      "duration": 0.505,
+      "text": "inkább"
+    },
+    {
+      "time": 499.215,
+      "duration": 0.199,
+      "text": "azt"
+    },
+    {
+      "time": 499.414,
+      "duration": 0.731,
+      "text": "kérdezte"
+    },
+    {
+      "time": 501.036,
+      "duration": 0.545,
+      "text": "Mikor"
+    },
+    {
+      "time": 501.582,
+      "duration": 1.317,
+      "text": "versenyezhetünk"
+    },
+    {
+      "time": 503.789,
+      "duration": 0.226,
+      "text": "Ha"
+    },
+    {
+      "time": 504.015,
+      "duration": 0.293,
+      "text": "már"
+    },
+    {
+      "time": 504.308,
+      "duration": 0.266,
+      "text": "úgy"
+    },
+    {
+      "time": 504.574,
+      "duration": 0.426,
+      "text": "tudtok"
+    },
+    {
+      "time": 504.999,
+      "duration": 0.519,
+      "text": "úszni"
+    },
+    {
+      "time": 505.784,
+      "duration": 0.199,
+      "text": "hogy"
+    },
+    {
+      "time": 505.983,
+      "duration": 0.598,
+      "text": "fáradtan"
+    },
+    {
+      "time": 506.582,
+      "duration": 0.199,
+      "text": "sem"
+    },
+    {
+      "time": 506.781,
+      "duration": 0.306,
+      "text": "estek"
+    },
+    {
+      "time": 507.087,
+      "duration": 0.705,
+      "text": "pánikba"
+    },
+    {
+      "time": 508.683,
+      "duration": 0.293,
+      "text": "Ez"
+    },
+    {
+      "time": 508.975,
+      "duration": 0.904,
+      "text": "elfogadható"
+    },
+    {
+      "time": 509.88,
+      "duration": 0.465,
+      "text": "válasz"
+    },
+    {
+      "time": 510.345,
+      "duration": 0.452,
+      "text": "volt"
+    },
+    {
+      "time": 511.688,
+      "duration": 0.572,
+      "text": "Később"
+    },
+    {
+      "time": 512.26,
+      "duration": 0.399,
+      "text": "Béka"
+    },
+    {
+      "time": 512.659,
+      "duration": 0.585,
+      "text": "bácsinak"
+    },
+    {
+      "time": 513.244,
+      "duration": 0.16,
+      "text": "el"
+    },
+    {
+      "time": 513.404,
+      "duration": 0.359,
+      "text": "kellett"
+    },
+    {
+      "time": 513.763,
+      "duration": 0.426,
+      "text": "mennie"
+    },
+    {
+      "time": 514.188,
+      "duration": 0.465,
+      "text": "néhány"
+    },
+    {
+      "time": 514.654,
+      "duration": 0.585,
+      "text": "percre"
+    },
+    {
+      "time": 516.13,
+      "duration": 0.678,
+      "text": "Mielőtt"
+    },
+    {
+      "time": 516.808,
+      "duration": 0.745,
+      "text": "elindult"
+    },
+    {
+      "time": 517.805,
+      "duration": 0.785,
+      "text": "rámutatott"
+    },
+    {
+      "time": 518.59,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 518.643,
+      "duration": 0.532,
+      "text": "tóra"
+    },
+    {
+      "time": 520.066,
+      "duration": 0.771,
+      "text": "Maradjatok"
+    },
+    {
+      "time": 520.837,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 520.89,
+      "duration": 0.997,
+      "text": "medencében"
+    },
+    {
+      "time": 522.779,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 522.951,
+      "duration": 0.505,
+      "text": "tóban"
+    },
+    {
+      "time": 523.457,
+      "duration": 0.12,
+      "text": "ma"
+    },
+    {
+      "time": 523.576,
+      "duration": 0.239,
+      "text": "nem"
+    },
+    {
+      "time": 523.816,
+      "duration": 0.824,
+      "text": "úszhattok"
+    },
+    {
+      "time": 525.531,
+      "duration": 0.864,
+      "text": "Rendben"
+    },
+    {
+      "time": 526.396,
+      "duration": 0.412,
+      "text": "mondta"
+    },
+    {
+      "time": 526.808,
+      "duration": 0.439,
+      "text": "Pötty"
+    },
+    {
+      "time": 528.138,
+      "duration": 0.851,
+      "text": "Rendben"
+    },
+    {
+      "time": 528.989,
+      "duration": 0.386,
+      "text": "mondta"
+    },
+    {
+      "time": 529.374,
+      "duration": 0.665,
+      "text": "Turbó"
+    },
+    {
+      "time": 530.93,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 531.582,
+      "duration": 0.16,
+      "text": "is"
+    },
+    {
+      "time": 531.741,
+      "duration": 0.931,
+      "text": "bólintott"
+    },
+    {
+      "time": 533.563,
+      "duration": 0.851,
+      "text": "Rendben"
+    },
+    {
+      "time": 535.305,
+      "duration": 0.545,
+      "text": "Béka"
+    },
+    {
+      "time": 535.85,
+      "duration": 0.439,
+      "text": "bácsi"
+    },
+    {
+      "time": 536.289,
+      "duration": 0.692,
+      "text": "elment"
+    },
+    {
+      "time": 537.872,
+      "duration": 0.199,
+      "text": "A"
+    },
+    {
+      "time": 538.071,
+      "duration": 0.452,
+      "text": "három"
+    },
+    {
+      "time": 538.523,
+      "duration": 0.412,
+      "text": "autó"
+    },
+    {
+      "time": 538.935,
+      "duration": 0.465,
+      "text": "tovább"
+    },
+    {
+      "time": 539.401,
+      "duration": 0.758,
+      "text": "gyakorolt"
+    },
+    {
+      "time": 541.05,
+      "duration": 0.519,
+      "text": "Aztán"
+    },
+    {
+      "time": 541.568,
+      "duration": 0.412,
+      "text": "Turbó"
+    },
+    {
+      "time": 541.981,
+      "duration": 0.625,
+      "text": "meglátta"
+    },
+    {
+      "time": 542.606,
+      "duration": 0.093,
+      "text": "a"
+    },
+    {
+      "time": 542.699,
+      "duration": 0.266,
+      "text": "tó"
+    },
+    {
+      "time": 542.965,
+      "duration": 0.545,
+      "text": "közepén"
+    },
+    {
+      "time": 543.51,
+      "duration": 0.359,
+      "text": "úszó"
+    },
+    {
+      "time": 543.869,
+      "duration": 0.426,
+      "text": "sárga"
+    },
+    {
+      "time": 544.294,
+      "duration": 0.705,
+      "text": "bóját"
+    },
+    {
+      "time": 545.89,
+      "duration": 0.864,
+      "text": "Szerintetek"
+    },
+    {
+      "time": 546.755,
+      "duration": 0.386,
+      "text": "milyen"
+    },
+    {
+      "time": 547.14,
+      "duration": 0.386,
+      "text": "messze"
+    },
+    {
+      "time": 547.526,
+      "duration": 0.399,
+      "text": "van"
+    },
+    {
+      "time": 548.816,
+      "duration": 0.745,
+      "text": "Messze"
+    },
+    {
+      "time": 549.56,
+      "duration": 0.426,
+      "text": "mondta"
+    },
+    {
+      "time": 549.986,
+      "duration": 0.439,
+      "text": "Pötty"
+    },
+    {
+      "time": 551.316,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 551.967,
+      "duration": 0.598,
+      "text": "nézte"
+    },
+    {
+      "time": 553.457,
+      "duration": 0.678,
+      "text": "Szerintem"
+    },
+    {
+      "time": 554.135,
+      "duration": 0.479,
+      "text": "simán"
+    },
+    {
+      "time": 554.614,
+      "duration": 0.692,
+      "text": "kiúsznék"
+    },
+    {
+      "time": 555.305,
+      "duration": 0.638,
+      "text": "odáig"
+    },
+    {
+      "time": 556.834,
+      "duration": 0.505,
+      "text": "Béka"
+    },
+    {
+      "time": 557.34,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 557.752,
+      "duration": 0.199,
+      "text": "azt"
+    },
+    {
+      "time": 557.951,
+      "duration": 0.439,
+      "text": "mondta"
+    },
+    {
+      "time": 558.683,
+      "duration": 0.199,
+      "text": "hogy"
+    },
+    {
+      "time": 558.882,
+      "duration": 0.213,
+      "text": "nem"
+    },
+    {
+      "time": 559.095,
+      "duration": 0.479,
+      "text": "mehetünk"
+    },
+    {
+      "time": 559.574,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 559.627,
+      "duration": 0.545,
+      "text": "tóba"
+    },
+    {
+      "time": 560.172,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 560.531,
+      "duration": 0.426,
+      "text": "Pötty"
+    },
+    {
+      "time": 561.848,
+      "duration": 0.612,
+      "text": "Tudom"
+    },
+    {
+      "time": 563.35,
+      "duration": 0.598,
+      "text": "Villám"
+    },
+    {
+      "time": 563.949,
+      "duration": 0.412,
+      "text": "tovább"
+    },
+    {
+      "time": 564.361,
+      "duration": 0.399,
+      "text": "nézte"
+    },
+    {
+      "time": 564.76,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 564.84,
+      "duration": 0.731,
+      "text": "bóját"
+    },
+    {
+      "time": 566.462,
+      "duration": 0.306,
+      "text": "Csak"
+    },
+    {
+      "time": 566.768,
+      "duration": 0.705,
+      "text": "mondtam"
+    },
+    {
+      "time": 568.364,
+      "duration": 0.558,
+      "text": "Néhány"
+    },
+    {
+      "time": 568.922,
+      "duration": 0.346,
+      "text": "perc"
+    },
+    {
+      "time": 569.268,
+      "duration": 0.452,
+      "text": "múlva"
+    },
+    {
+      "time": 569.72,
+      "duration": 0.186,
+      "text": "egy"
+    },
+    {
+      "time": 569.906,
+      "duration": 0.346,
+      "text": "nagyobb"
+    },
+    {
+      "time": 570.252,
+      "duration": 0.612,
+      "text": "gyerekcsapat"
+    },
+    {
+      "time": 570.864,
+      "duration": 0.545,
+      "text": "érkezett"
+    },
+    {
+      "time": 571.409,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 571.449,
+      "duration": 0.957,
+      "text": "medencéhez"
+    },
+    {
+      "time": 573.297,
+      "duration": 0.279,
+      "text": "Ők"
+    },
+    {
+      "time": 573.576,
+      "duration": 0.239,
+      "text": "már"
+    },
+    {
+      "time": 573.816,
+      "duration": 0.266,
+      "text": "jól"
+    },
+    {
+      "time": 574.082,
+      "duration": 0.439,
+      "text": "tudtak"
+    },
+    {
+      "time": 574.521,
+      "duration": 0.572,
+      "text": "úszni"
+    },
+    {
+      "time": 575.983,
+      "duration": 0.838,
+      "text": "Beszaladtak"
+    },
+    {
+      "time": 576.821,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 576.888,
+      "duration": 0.572,
+      "text": "tóba"
+    },
+    {
+      "time": 577.739,
+      "duration": 0.226,
+      "text": "és"
+    },
+    {
+      "time": 577.965,
+      "duration": 0.505,
+      "text": "vidáman"
+    },
+    {
+      "time": 578.47,
+      "duration": 0.386,
+      "text": "úsztak"
+    },
+    {
+      "time": 578.856,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 578.909,
+      "duration": 0.492,
+      "text": "bóják"
+    },
+    {
+      "time": 579.401,
+      "duration": 0.598,
+      "text": "között"
+    },
+    {
+      "time": 580.89,
+      "duration": 0.519,
+      "text": "Turbó"
+    },
+    {
+      "time": 581.409,
+      "duration": 0.572,
+      "text": "figyelte"
+    },
+    {
+      "time": 581.981,
+      "duration": 0.598,
+      "text": "őket"
+    },
+    {
+      "time": 583.47,
+      "duration": 0.332,
+      "text": "Ők"
+    },
+    {
+      "time": 583.802,
+      "duration": 0.785,
+      "text": "mehetnek"
+    },
+    {
+      "time": 585.478,
+      "duration": 0.452,
+      "text": "Mert"
+    },
+    {
+      "time": 585.93,
+      "duration": 0.213,
+      "text": "ők"
+    },
+    {
+      "time": 586.143,
+      "duration": 0.439,
+      "text": "tudnak"
+    },
+    {
+      "time": 586.582,
+      "duration": 0.465,
+      "text": "úszni"
+    },
+    {
+      "time": 587.047,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 587.406,
+      "duration": 0.439,
+      "text": "Pötty"
+    },
+    {
+      "time": 588.736,
+      "duration": 0.718,
+      "text": "Villámnak"
+    },
+    {
+      "time": 589.454,
+      "duration": 0.186,
+      "text": "ez"
+    },
+    {
+      "time": 589.64,
+      "duration": 0.332,
+      "text": "egyre"
+    },
+    {
+      "time": 589.973,
+      "duration": 0.612,
+      "text": "kevésbé"
+    },
+    {
+      "time": 590.584,
+      "duration": 0.731,
+      "text": "tetszett"
+    },
+    {
+      "time": 592.372,
+      "duration": 0.332,
+      "text": "Én"
+    },
+    {
+      "time": 592.704,
+      "duration": 0.173,
+      "text": "is"
+    },
+    {
+      "time": 592.877,
+      "duration": 0.532,
+      "text": "tudok"
+    },
+    {
+      "time": 594.303,
+      "duration": 0.213,
+      "text": "Ma"
+    },
+    {
+      "time": 594.516,
+      "duration": 0.652,
+      "text": "tanultál"
+    },
+    {
+      "time": 595.168,
+      "duration": 0.173,
+      "text": "meg"
+    },
+    {
+      "time": 595.341,
+      "duration": 0.399,
+      "text": "három"
+    },
+    {
+      "time": 595.74,
+      "duration": 0.465,
+      "text": "métert"
+    },
+    {
+      "time": 596.205,
+      "duration": 0.479,
+      "text": "úszni"
+    },
+    {
+      "time": 596.684,
+      "duration": 0.346,
+      "text": "mondta"
+    },
+    {
+      "time": 597.029,
+      "duration": 0.426,
+      "text": "Pötty"
+    },
+    {
+      "time": 598.346,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 599.024,
+      "duration": 0.585,
+      "text": "morcosan"
+    },
+    {
+      "time": 599.609,
+      "duration": 0.452,
+      "text": "nézett"
+    },
+    {
+      "time": 600.061,
+      "duration": 0.319,
+      "text": "rá"
+    },
+    {
+      "time": 601.271,
+      "duration": 0.678,
+      "text": "Ötöt"
+    },
+    {
+      "time": 602.841,
+      "duration": 0.612,
+      "text": "Jó"
+    },
+    {
+      "time": 604.343,
+      "duration": 0.678,
+      "text": "Ötöt"
+    },
+    {
+      "time": 605.912,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 606.072,
+      "duration": 0.452,
+      "text": "sárga"
+    },
+    {
+      "time": 606.524,
+      "duration": 0.505,
+      "text": "bója"
+    },
+    {
+      "time": 607.029,
+      "duration": 0.665,
+      "text": "legalább"
+    },
+    {
+      "time": 607.694,
+      "duration": 0.585,
+      "text": "ötvenszer"
+    },
+    {
+      "time": 608.279,
+      "duration": 0.293,
+      "text": "olyan"
+    },
+    {
+      "time": 608.572,
+      "duration": 0.359,
+      "text": "messze"
+    },
+    {
+      "time": 608.931,
+      "duration": 0.452,
+      "text": "volt"
+    },
+    {
+      "time": 610.274,
+      "duration": 0.745,
+      "text": "Villám"
+    },
+    {
+      "time": 611.019,
+      "duration": 0.984,
+      "text": "elhallgatott"
+    },
+    {
+      "time": 612.894,
+      "duration": 0.399,
+      "text": "Ekkor"
+    },
+    {
+      "time": 613.293,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 613.359,
+      "duration": 0.519,
+      "text": "partról"
+    },
+    {
+      "time": 613.878,
+      "duration": 0.678,
+      "text": "kiáltás"
+    },
+    {
+      "time": 614.556,
+      "duration": 0.824,
+      "text": "hallatszott"
+    },
+    {
+      "time": 616.271,
+      "duration": 0.665,
+      "text": "Labda"
+    },
+    {
+      "time": 617.827,
+      "duration": 0.279,
+      "text": "Egy"
+    },
+    {
+      "time": 618.107,
+      "duration": 0.293,
+      "text": "kis"
+    },
+    {
+      "time": 618.399,
+      "duration": 0.319,
+      "text": "zöld"
+    },
+    {
+      "time": 618.718,
+      "duration": 0.399,
+      "text": "autó"
+    },
+    {
+      "time": 619.117,
+      "duration": 0.253,
+      "text": "állt"
+    },
+    {
+      "time": 619.37,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 619.423,
+      "duration": 0.306,
+      "text": "víz"
+    },
+    {
+      "time": 619.729,
+      "duration": 0.678,
+      "text": "szélén"
+    },
+    {
+      "time": 621.298,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 621.458,
+      "duration": 0.598,
+      "text": "labdája"
+    },
+    {
+      "time": 622.056,
+      "duration": 0.585,
+      "text": "begurult"
+    },
+    {
+      "time": 622.641,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 622.694,
+      "duration": 0.585,
+      "text": "tóba"
+    },
+    {
+      "time": 624.17,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 624.343,
+      "duration": 0.346,
+      "text": "szél"
+    },
+    {
+      "time": 624.689,
+      "duration": 0.545,
+      "text": "lassan"
+    },
+    {
+      "time": 625.234,
+      "duration": 0.319,
+      "text": "egyre"
+    },
+    {
+      "time": 625.553,
+      "duration": 0.412,
+      "text": "beljebb"
+    },
+    {
+      "time": 625.966,
+      "duration": 0.519,
+      "text": "vitte"
+    },
+    {
+      "time": 627.375,
+      "duration": 0.492,
+      "text": "Majd"
+    },
+    {
+      "time": 627.867,
+      "duration": 0.465,
+      "text": "én"
+    },
+    {
+      "time": 629.224,
+      "duration": 0.505,
+      "text": "mondta"
+    },
+    {
+      "time": 629.729,
+      "duration": 0.705,
+      "text": "Villám"
+    },
+    {
+      "time": 631.325,
+      "duration": 0.519,
+      "text": "Már"
+    },
+    {
+      "time": 631.843,
+      "duration": 0.505,
+      "text": "indult"
+    },
+    {
+      "time": 632.349,
+      "duration": 0.386,
+      "text": "is"
+    },
+    {
+      "time": 633.625,
+      "duration": 0.425,
+      "text": "Pötty"
+    },
+    {
+      "time": 634.051,
+      "duration": 0.306,
+      "text": "elé"
+    },
+    {
+      "time": 634.357,
+      "duration": 0.652,
+      "text": "gurult"
+    },
+    {
+      "time": 635.899,
+      "duration": 0.598,
+      "text": "Nem"
+    },
+    {
+      "time": 637.388,
+      "duration": 0.293,
+      "text": "Csak"
+    },
+    {
+      "time": 637.681,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 637.734,
+      "duration": 0.705,
+      "text": "labdáért"
+    },
+    {
+      "time": 638.439,
+      "duration": 0.572,
+      "text": "megyek"
+    },
+    {
+      "time": 639.902,
+      "duration": 0.519,
+      "text": "Béka"
+    },
+    {
+      "time": 640.42,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 640.833,
+      "duration": 0.199,
+      "text": "azt"
+    },
+    {
+      "time": 641.032,
+      "duration": 0.492,
+      "text": "mondta"
+    },
+    {
+      "time": 641.83,
+      "duration": 0.199,
+      "text": "hogy"
+    },
+    {
+      "time": 642.029,
+      "duration": 0.16,
+      "text": "ne"
+    },
+    {
+      "time": 642.189,
+      "duration": 0.465,
+      "text": "menjünk"
+    },
+    {
+      "time": 642.654,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 642.708,
+      "duration": 0.558,
+      "text": "tóba"
+    },
+    {
+      "time": 644.157,
+      "duration": 0.266,
+      "text": "De"
+    },
+    {
+      "time": 644.423,
+      "duration": 0.465,
+      "text": "látom"
+    },
+    {
+      "time": 644.888,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 644.928,
+      "duration": 0.758,
+      "text": "labdát"
+    },
+    {
+      "time": 646.577,
+      "duration": 0.519,
+      "text": "Attól"
+    },
+    {
+      "time": 647.096,
+      "duration": 0.266,
+      "text": "még"
+    },
+    {
+      "time": 647.362,
+      "duration": 0.266,
+      "text": "mély"
+    },
+    {
+      "time": 647.628,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 647.708,
+      "duration": 0.492,
+      "text": "víz"
+    },
+    {
+      "time": 649.091,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 649.769,
+      "duration": 0.532,
+      "text": "mérges"
+    },
+    {
+      "time": 650.301,
+      "duration": 0.426,
+      "text": "lett"
+    },
+    {
+      "time": 651.617,
+      "duration": 0.572,
+      "text": "Pötty"
+    },
+    {
+      "time": 652.495,
+      "duration": 0.186,
+      "text": "ne"
+    },
+    {
+      "time": 652.681,
+      "duration": 1.117,
+      "text": "parancsolgass"
+    },
+    {
+      "time": 654.689,
+      "duration": 0.199,
+      "text": "A"
+    },
+    {
+      "time": 654.888,
+      "duration": 0.332,
+      "text": "kis"
+    },
+    {
+      "time": 655.221,
+      "duration": 0.306,
+      "text": "zöld"
+    },
+    {
+      "time": 655.527,
+      "duration": 0.465,
+      "text": "autó"
+    },
+    {
+      "time": 655.992,
+      "duration": 0.678,
+      "text": "szomorúan"
+    },
+    {
+      "time": 656.67,
+      "duration": 0.346,
+      "text": "nézte"
+    },
+    {
+      "time": 657.016,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 657.069,
+      "duration": 0.678,
+      "text": "távolodó"
+    },
+    {
+      "time": 657.748,
+      "duration": 0.692,
+      "text": "labdát"
+    },
+    {
+      "time": 659.33,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 659.995,
+      "duration": 0.665,
+      "text": "kikerülte"
+    },
+    {
+      "time": 660.66,
+      "duration": 0.665,
+      "text": "Pöttyöt"
+    },
+    {
+      "time": 662.216,
+      "duration": 0.731,
+      "text": "Begurult"
+    },
+    {
+      "time": 662.947,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 663.013,
+      "duration": 0.585,
+      "text": "tóba"
+    },
+    {
+      "time": 664.49,
+      "duration": 0.665,
+      "text": "Először"
+    },
+    {
+      "time": 665.154,
+      "duration": 0.479,
+      "text": "minden"
+    },
+    {
+      "time": 665.633,
+      "duration": 0.492,
+      "text": "rendben"
+    },
+    {
+      "time": 666.125,
+      "duration": 0.439,
+      "text": "volt"
+    },
+    {
+      "time": 667.455,
+      "duration": 0.213,
+      "text": "A"
+    },
+    {
+      "time": 667.668,
+      "duration": 0.412,
+      "text": "víz"
+    },
+    {
+      "time": 668.08,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 668.146,
+      "duration": 0.585,
+      "text": "kerekei"
+    },
+    {
+      "time": 668.732,
+      "duration": 0.505,
+      "text": "feléig"
+    },
+    {
+      "time": 669.237,
+      "duration": 0.439,
+      "text": "ért"
+    },
+    {
+      "time": 670.567,
+      "duration": 0.572,
+      "text": "Aztán"
+    },
+    {
+      "time": 671.138,
+      "duration": 0.16,
+      "text": "az"
+    },
+    {
+      "time": 671.298,
+      "duration": 0.904,
+      "text": "ajtajáig"
+    },
+    {
+      "time": 673.093,
+      "duration": 0.731,
+      "text": "Villám"
+    },
+    {
+      "time": 673.825,
+      "duration": 0.372,
+      "text": "úszni"
+    },
+    {
+      "time": 674.197,
+      "duration": 0.692,
+      "text": "kezdett"
+    },
+    {
+      "time": 675.779,
+      "duration": 1.157,
+      "text": "Látjátok"
+    },
+    {
+      "time": 677.827,
+      "duration": 0.811,
+      "text": "Mondtam"
+    },
+    {
+      "time": 679.529,
+      "duration": 0.545,
+      "text": "Elérte"
+    },
+    {
+      "time": 680.075,
+      "duration": 0.093,
+      "text": "a"
+    },
+    {
+      "time": 680.168,
+      "duration": 0.731,
+      "text": "labdát"
+    },
+    {
+      "time": 681.79,
+      "duration": 0.838,
+      "text": "Megvan"
+    },
+    {
+      "time": 683.519,
+      "duration": 1.13,
+      "text": "Megfordult"
+    },
+    {
+      "time": 685.54,
+      "duration": 0.359,
+      "text": "És"
+    },
+    {
+      "time": 685.899,
+      "duration": 0.399,
+      "text": "akkor"
+    },
+    {
+      "time": 686.298,
+      "duration": 0.532,
+      "text": "történt"
+    },
+    {
+      "time": 686.83,
+      "duration": 0.532,
+      "text": "valami"
+    },
+    {
+      "time": 688.253,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 688.426,
+      "duration": 0.346,
+      "text": "part"
+    },
+    {
+      "time": 688.771,
+      "duration": 0.505,
+      "text": "sokkal"
+    },
+    {
+      "time": 689.277,
+      "duration": 0.718,
+      "text": "messzebbinek"
+    },
+    {
+      "time": 689.995,
+      "duration": 0.692,
+      "text": "látszott"
+    },
+    {
+      "time": 690.979,
+      "duration": 0.226,
+      "text": "mint"
+    },
+    {
+      "time": 691.205,
+      "duration": 0.173,
+      "text": "az"
+    },
+    {
+      "time": 691.378,
+      "duration": 0.519,
+      "text": "előbb"
+    },
+    {
+      "time": 692.787,
+      "duration": 0.758,
+      "text": "Villám"
+    },
+    {
+      "time": 693.545,
+      "duration": 0.372,
+      "text": "úszni"
+    },
+    {
+      "time": 693.918,
+      "duration": 0.426,
+      "text": "kezdett"
+    },
+    {
+      "time": 694.343,
+      "duration": 0.798,
+      "text": "visszafelé"
+    },
+    {
+      "time": 696.032,
+      "duration": 0.279,
+      "text": "Egy"
+    },
+    {
+      "time": 696.311,
+      "duration": 0.745,
+      "text": "méter"
+    },
+    {
+      "time": 697.947,
+      "duration": 0.426,
+      "text": "Két"
+    },
+    {
+      "time": 698.373,
+      "duration": 0.731,
+      "text": "méter"
+    },
+    {
+      "time": 699.995,
+      "duration": 0.785,
+      "text": "Három"
+    },
+    {
+      "time": 701.67,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 701.843,
+      "duration": 0.399,
+      "text": "lába"
+    },
+    {
+      "time": 702.242,
+      "duration": 0.253,
+      "text": "már"
+    },
+    {
+      "time": 702.495,
+      "duration": 0.213,
+      "text": "nem"
+    },
+    {
+      "time": 702.708,
+      "duration": 0.279,
+      "text": "ért"
+    },
+    {
+      "time": 702.987,
+      "duration": 0.266,
+      "text": "le"
+    },
+    {
+      "time": 704.144,
+      "duration": 1.144,
+      "text": "Elfáradt"
+    },
+    {
+      "time": 706.178,
+      "duration": 0.864,
+      "text": "Megpróbált"
+    },
+    {
+      "time": 707.043,
+      "duration": 0.665,
+      "text": "gyorsabban"
+    },
+    {
+      "time": 707.708,
+      "duration": 0.558,
+      "text": "úszni"
+    },
+    {
+      "time": 709.157,
+      "duration": 0.652,
+      "text": "Csapkodni"
+    },
+    {
+      "time": 709.809,
+      "duration": 0.439,
+      "text": "kezdte"
+    },
+    {
+      "time": 710.248,
+      "duration": 0.133,
+      "text": "a"
+    },
+    {
+      "time": 710.38,
+      "duration": 0.519,
+      "text": "vizet"
+    },
+    {
+      "time": 711.79,
+      "duration": 0.465,
+      "text": "Ettől"
+    },
+    {
+      "time": 712.255,
+      "duration": 0.253,
+      "text": "még"
+    },
+    {
+      "time": 712.508,
+      "duration": 0.372,
+      "text": "jobban"
+    },
+    {
+      "time": 712.88,
+      "duration": 0.904,
+      "text": "elfáradt"
+    },
+    {
+      "time": 714.676,
+      "duration": 0.585,
+      "text": "Pötty"
+    },
+    {
+      "time": 716.152,
+      "duration": 0.399,
+      "text": "Pötty"
+    },
+    {
+      "time": 716.551,
+      "duration": 0.519,
+      "text": "azonnal"
+    },
+    {
+      "time": 717.069,
+      "duration": 0.439,
+      "text": "indult"
+    },
+    {
+      "time": 717.508,
+      "duration": 0.519,
+      "text": "volna"
+    },
+    {
+      "time": 718.918,
+      "duration": 0.558,
+      "text": "Turbó"
+    },
+    {
+      "time": 719.476,
+      "duration": 0.346,
+      "text": "elé"
+    },
+    {
+      "time": 719.822,
+      "duration": 0.492,
+      "text": "állt"
+    },
+    {
+      "time": 721.205,
+      "duration": 0.558,
+      "text": "Ne"
+    },
+    {
+      "time": 722.654,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 723.333,
+      "duration": 0.505,
+      "text": "bajban"
+    },
+    {
+      "time": 723.838,
+      "duration": 0.372,
+      "text": "van"
+    },
+    {
+      "time": 725.101,
+      "duration": 0.319,
+      "text": "Ha"
+    },
+    {
+      "time": 725.42,
+      "duration": 1.077,
+      "text": "utánaúszol"
+    },
+    {
+      "time": 726.79,
+      "duration": 0.452,
+      "text": "ketten"
+    },
+    {
+      "time": 727.242,
+      "duration": 0.399,
+      "text": "lesztek"
+    },
+    {
+      "time": 727.641,
+      "duration": 0.612,
+      "text": "bajban"
+    },
+    {
+      "time": 729.144,
+      "duration": 0.332,
+      "text": "Pötty"
+    },
+    {
+      "time": 729.476,
+      "duration": 0.731,
+      "text": "megállt"
+    },
+    {
+      "time": 731.099,
+      "duration": 0.266,
+      "text": "Ez"
+    },
+    {
+      "time": 731.365,
+      "duration": 0.492,
+      "text": "nehéz"
+    },
+    {
+      "time": 731.857,
+      "duration": 0.479,
+      "text": "volt"
+    },
+    {
+      "time": 733.226,
+      "duration": 0.545,
+      "text": "Nagyon"
+    },
+    {
+      "time": 733.771,
+      "duration": 0.652,
+      "text": "nehéz"
+    },
+    {
+      "time": 735.314,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 735.474,
+      "duration": 0.505,
+      "text": "barátja"
+    },
+    {
+      "time": 735.979,
+      "duration": 0.824,
+      "text": "segítséget"
+    },
+    {
+      "time": 736.803,
+      "duration": 0.479,
+      "text": "kért"
+    },
+    {
+      "time": 737.575,
+      "duration": 0.16,
+      "text": "ő"
+    },
+    {
+      "time": 737.734,
+      "duration": 0.319,
+      "text": "pedig"
+    },
+    {
+      "time": 738.053,
+      "duration": 0.532,
+      "text": "tudta"
+    },
+    {
+      "time": 738.851,
+      "duration": 0.16,
+      "text": "hogy"
+    },
+    {
+      "time": 739.011,
+      "duration": 0.186,
+      "text": "nem"
+    },
+    {
+      "time": 739.197,
+      "duration": 0.186,
+      "text": "tud"
+    },
+    {
+      "time": 739.383,
+      "duration": 0.332,
+      "text": "elég"
+    },
+    {
+      "time": 739.716,
+      "duration": 0.226,
+      "text": "jól"
+    },
+    {
+      "time": 739.942,
+      "duration": 0.585,
+      "text": "úszni"
+    },
+    {
+      "time": 741.418,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 741.95,
+      "duration": 1.064,
+      "text": "körülnézett"
+    },
+    {
+      "time": 743.904,
+      "duration": 0.558,
+      "text": "Valami"
+    },
+    {
+      "time": 744.463,
+      "duration": 0.492,
+      "text": "hosszú"
+    },
+    {
+      "time": 744.955,
+      "duration": 0.505,
+      "text": "kell"
+    },
+    {
+      "time": 746.351,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 746.537,
+      "duration": 0.505,
+      "text": "medence"
+    },
+    {
+      "time": 747.043,
+      "duration": 0.439,
+      "text": "mellett"
+    },
+    {
+      "time": 747.482,
+      "duration": 0.186,
+      "text": "ott"
+    },
+    {
+      "time": 747.668,
+      "duration": 0.399,
+      "text": "feküdt"
+    },
+    {
+      "time": 748.067,
+      "duration": 0.133,
+      "text": "egy"
+    },
+    {
+      "time": 748.2,
+      "duration": 0.452,
+      "text": "hosszú"
+    },
+    {
+      "time": 748.652,
+      "duration": 0.545,
+      "text": "habszivacs"
+    },
+    {
+      "time": 749.197,
+      "duration": 0.798,
+      "text": "úszórúd"
+    },
+    {
+      "time": 750.886,
+      "duration": 0.519,
+      "text": "Turbó"
+    },
+    {
+      "time": 751.404,
+      "duration": 0.811,
+      "text": "felkapta"
+    },
+    {
+      "time": 753.107,
+      "duration": 0.372,
+      "text": "Pötty"
+    },
+    {
+      "time": 753.479,
+      "duration": 0.505,
+      "text": "közben"
+    },
+    {
+      "time": 753.984,
+      "duration": 0.625,
+      "text": "kiabálni"
+    },
+    {
+      "time": 754.609,
+      "duration": 0.718,
+      "text": "kezdett"
+    },
+    {
+      "time": 756.218,
+      "duration": 1.051,
+      "text": "SEGÍTSÉG"
+    },
+    {
+      "time": 758.16,
+      "duration": 0.665,
+      "text": "VALAKI"
+    },
+    {
+      "time": 758.825,
+      "duration": 0.944,
+      "text": "SEGÍTSEN"
+    },
+    {
+      "time": 760.66,
+      "duration": 0.545,
+      "text": "Turbó"
+    },
+    {
+      "time": 761.205,
+      "duration": 0.093,
+      "text": "a"
+    },
+    {
+      "time": 761.298,
+      "duration": 0.545,
+      "text": "partról"
+    },
+    {
+      "time": 761.843,
+      "duration": 0.425,
+      "text": "Villám"
+    },
+    {
+      "time": 762.269,
+      "duration": 0.306,
+      "text": "felé"
+    },
+    {
+      "time": 762.575,
+      "duration": 0.372,
+      "text": "tolta"
+    },
+    {
+      "time": 762.947,
+      "duration": 0.12,
+      "text": "az"
+    },
+    {
+      "time": 763.067,
+      "duration": 0.904,
+      "text": "úszórudat"
+    },
+    {
+      "time": 764.862,
+      "duration": 0.931,
+      "text": "Villám"
+    },
+    {
+      "time": 766.684,
+      "duration": 0.399,
+      "text": "Fogd"
+    },
+    {
+      "time": 767.083,
+      "duration": 0.412,
+      "text": "meg"
+    },
+    {
+      "time": 768.386,
+      "duration": 0.705,
+      "text": "Villám"
+    },
+    {
+      "time": 769.091,
+      "duration": 0.652,
+      "text": "elérte"
+    },
+    {
+      "time": 770.633,
+      "duration": 1.343,
+      "text": "Rákapaszkodott"
+    },
+    {
+      "time": 772.867,
+      "duration": 0.346,
+      "text": "Most"
+    },
+    {
+      "time": 773.213,
+      "duration": 0.239,
+      "text": "már"
+    },
+    {
+      "time": 773.452,
+      "duration": 0.199,
+      "text": "nem"
+    },
+    {
+      "time": 773.652,
+      "duration": 0.399,
+      "text": "kellett"
+    },
+    {
+      "time": 774.051,
+      "duration": 0.465,
+      "text": "minden"
+    },
+    {
+      "time": 774.516,
+      "duration": 0.545,
+      "text": "erejével"
+    },
+    {
+      "time": 775.061,
+      "duration": 0.226,
+      "text": "fenn"
+    },
+    {
+      "time": 775.287,
+      "duration": 0.572,
+      "text": "tartania"
+    },
+    {
+      "time": 775.859,
+      "duration": 0.612,
+      "text": "magát"
+    },
+    {
+      "time": 777.362,
+      "duration": 0.412,
+      "text": "Pötty"
+    },
+    {
+      "time": 777.774,
+      "duration": 0.186,
+      "text": "és"
+    },
+    {
+      "time": 777.96,
+      "duration": 0.465,
+      "text": "Turbó"
+    },
+    {
+      "time": 778.426,
+      "duration": 0.386,
+      "text": "húzni"
+    },
+    {
+      "time": 778.811,
+      "duration": 0.692,
+      "text": "kezdték"
+    },
+    {
+      "time": 780.394,
+      "duration": 0.851,
+      "text": "Lassan"
+    },
+    {
+      "time": 782.136,
+      "duration": 0.412,
+      "text": "Még"
+    },
+    {
+      "time": 782.548,
+      "duration": 0.16,
+      "text": "egy"
+    },
+    {
+      "time": 782.708,
+      "duration": 0.585,
+      "text": "kicsit"
+    },
+    {
+      "time": 784.184,
+      "duration": 0.479,
+      "text": "Még"
+    },
+    {
+      "time": 784.662,
+      "duration": 0.598,
+      "text": "egyet"
+    },
+    {
+      "time": 786.152,
+      "duration": 0.612,
+      "text": "Végül"
+    },
+    {
+      "time": 786.763,
+      "duration": 0.452,
+      "text": "Villám"
+    },
+    {
+      "time": 787.216,
+      "duration": 0.412,
+      "text": "kereke"
+    },
+    {
+      "time": 787.628,
+      "duration": 0.439,
+      "text": "elérte"
+    },
+    {
+      "time": 788.067,
+      "duration": 0.133,
+      "text": "az"
+    },
+    {
+      "time": 788.2,
+      "duration": 0.585,
+      "text": "aljat"
+    },
+    {
+      "time": 789.676,
+      "duration": 0.705,
+      "text": "Kigázolt"
+    },
+    {
+      "time": 790.38,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 790.434,
+      "duration": 0.638,
+      "text": "partra"
+    },
+    {
+      "time": 791.963,
+      "duration": 0.931,
+      "text": "Lihegett"
+    },
+    {
+      "time": 793.785,
+      "duration": 0.811,
+      "text": "Sokáig"
+    },
+    {
+      "time": 794.596,
+      "duration": 0.479,
+      "text": "egyikük"
+    },
+    {
+      "time": 795.075,
+      "duration": 0.239,
+      "text": "sem"
+    },
+    {
+      "time": 795.314,
+      "duration": 0.545,
+      "text": "szólt"
+    },
+    {
+      "time": 796.75,
+      "duration": 0.199,
+      "text": "A"
+    },
+    {
+      "time": 796.95,
+      "duration": 0.346,
+      "text": "kis"
+    },
+    {
+      "time": 797.295,
+      "duration": 0.346,
+      "text": "zöld"
+    },
+    {
+      "time": 797.641,
+      "duration": 0.452,
+      "text": "autó"
+    },
+    {
+      "time": 798.093,
+      "duration": 0.851,
+      "text": "odagurult"
+    },
+    {
+      "time": 799.835,
+      "duration": 0.598,
+      "text": "Villám"
+    },
+    {
+      "time": 800.434,
+      "duration": 0.213,
+      "text": "még"
+    },
+    {
+      "time": 800.646,
+      "duration": 0.386,
+      "text": "mindig"
+    },
+    {
+      "time": 801.032,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 801.072,
+      "duration": 0.492,
+      "text": "labdát"
+    },
+    {
+      "time": 801.564,
+      "duration": 0.731,
+      "text": "tartotta"
+    },
+    {
+      "time": 803.186,
+      "duration": 0.758,
+      "text": "Tessék"
+    },
+    {
+      "time": 803.944,
+      "duration": 0.612,
+      "text": "mondta"
+    },
+    {
+      "time": 805.447,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 805.62,
+      "duration": 0.731,
+      "text": "kisautó"
+    },
+    {
+      "time": 806.351,
+      "duration": 0.798,
+      "text": "átvette"
+    },
+    {
+      "time": 808.04,
+      "duration": 0.785,
+      "text": "Köszönöm"
+    },
+    {
+      "time": 809.716,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 810.38,
+      "duration": 0.692,
+      "text": "fáradtan"
+    },
+    {
+      "time": 811.072,
+      "duration": 1.037,
+      "text": "elmosolyodott"
+    },
+    {
+      "time": 813.0,
+      "duration": 0.944,
+      "text": "Szívesen"
+    },
+    {
+      "time": 814.835,
+      "duration": 0.505,
+      "text": "Ekkor"
+    },
+    {
+      "time": 815.341,
+      "duration": 0.678,
+      "text": "visszaért"
+    },
+    {
+      "time": 816.019,
+      "duration": 0.386,
+      "text": "Béka"
+    },
+    {
+      "time": 816.404,
+      "duration": 0.558,
+      "text": "bácsi"
+    },
+    {
+      "time": 817.854,
+      "duration": 0.798,
+      "text": "Meglátta"
+    },
+    {
+      "time": 818.652,
+      "duration": 0.106,
+      "text": "a"
+    },
+    {
+      "time": 818.758,
+      "duration": 0.399,
+      "text": "vizes"
+    },
+    {
+      "time": 819.157,
+      "duration": 0.891,
+      "text": "úszórudat"
+    },
+    {
+      "time": 820.939,
+      "duration": 0.745,
+      "text": "Meglátta"
+    },
+    {
+      "time": 821.684,
+      "duration": 0.864,
+      "text": "Villámot"
+    },
+    {
+      "time": 823.439,
+      "duration": 0.731,
+      "text": "Meglátta"
+    },
+    {
+      "time": 824.17,
+      "duration": 0.306,
+      "text": "Pötty"
+    },
+    {
+      "time": 824.476,
+      "duration": 0.16,
+      "text": "és"
+    },
+    {
+      "time": 824.636,
+      "duration": 0.479,
+      "text": "Turbó"
+    },
+    {
+      "time": 825.115,
+      "duration": 0.718,
+      "text": "arcát"
+    },
+    {
+      "time": 826.724,
+      "duration": 0.253,
+      "text": "Mi"
+    },
+    {
+      "time": 826.976,
+      "duration": 0.864,
+      "text": "történt"
+    },
+    {
+      "time": 828.732,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 829.396,
+      "duration": 0.904,
+      "text": "válaszolt"
+    },
+    {
+      "time": 831.192,
+      "duration": 0.731,
+      "text": "Bementem"
+    },
+    {
+      "time": 831.923,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 831.976,
+      "duration": 0.585,
+      "text": "tóba"
+    },
+    {
+      "time": 833.452,
+      "duration": 0.425,
+      "text": "Pedig"
+    },
+    {
+      "time": 833.878,
+      "duration": 0.226,
+      "text": "mit"
+    },
+    {
+      "time": 834.104,
+      "duration": 0.731,
+      "text": "kértem"
+    },
+    {
+      "time": 835.726,
+      "duration": 0.279,
+      "text": "Hogy"
+    },
+    {
+      "time": 836.005,
+      "duration": 0.16,
+      "text": "ne"
+    },
+    {
+      "time": 836.165,
+      "duration": 0.479,
+      "text": "menjünk"
+    },
+    {
+      "time": 836.644,
+      "duration": 0.306,
+      "text": "be"
+    },
+    {
+      "time": 837.841,
+      "duration": 0.572,
+      "text": "Miért"
+    },
+    {
+      "time": 838.412,
+      "duration": 0.505,
+      "text": "mentél"
+    },
+    {
+      "time": 838.918,
+      "duration": 0.705,
+      "text": "mégis"
+    },
+    {
+      "time": 840.513,
+      "duration": 0.625,
+      "text": "Villám"
+    },
+    {
+      "time": 841.138,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 841.218,
+      "duration": 0.439,
+      "text": "vízre"
+    },
+    {
+      "time": 841.657,
+      "duration": 0.692,
+      "text": "nézett"
+    },
+    {
+      "time": 843.24,
+      "duration": 0.426,
+      "text": "Mert"
+    },
+    {
+      "time": 843.665,
+      "duration": 0.239,
+      "text": "azt"
+    },
+    {
+      "time": 843.904,
+      "duration": 0.572,
+      "text": "hittem"
+    },
+    {
+      "time": 844.782,
+      "duration": 0.239,
+      "text": "már"
+    },
+    {
+      "time": 845.021,
+      "duration": 0.372,
+      "text": "tudok"
+    },
+    {
+      "time": 845.394,
+      "duration": 0.572,
+      "text": "úszni"
+    },
+    {
+      "time": 846.857,
+      "duration": 0.519,
+      "text": "Béka"
+    },
+    {
+      "time": 847.375,
+      "duration": 0.399,
+      "text": "bácsi"
+    },
+    {
+      "time": 847.774,
+      "duration": 0.386,
+      "text": "leült"
+    },
+    {
+      "time": 848.16,
+      "duration": 0.519,
+      "text": "mellé"
+    },
+    {
+      "time": 849.569,
+      "duration": 0.386,
+      "text": "És"
+    },
+    {
+      "time": 849.955,
+      "duration": 0.572,
+      "text": "tudsz"
+    },
+    {
+      "time": 851.418,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 852.069,
+      "duration": 1.011,
+      "text": "gondolkodott"
+    },
+    {
+      "time": 853.971,
+      "duration": 0.293,
+      "text": "Egy"
+    },
+    {
+      "time": 854.263,
+      "duration": 0.625,
+      "text": "kicsit"
+    },
+    {
+      "time": 855.779,
+      "duration": 0.266,
+      "text": "Ez"
+    },
+    {
+      "time": 856.045,
+      "duration": 0.452,
+      "text": "fontos"
+    },
+    {
+      "time": 856.498,
+      "duration": 0.824,
+      "text": "különbség"
+    },
+    {
+      "time": 858.213,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 858.865,
+      "duration": 0.904,
+      "text": "bólintott"
+    },
+    {
+      "time": 860.66,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 860.819,
+      "duration": 0.824,
+      "text": "medencében"
+    },
+    {
+      "time": 861.644,
+      "duration": 0.625,
+      "text": "könnyűnek"
+    },
+    {
+      "time": 862.269,
+      "duration": 0.505,
+      "text": "tűnt"
+    },
+    {
+      "time": 863.665,
+      "duration": 0.412,
+      "text": "Mert"
+    },
+    {
+      "time": 864.077,
+      "duration": 0.199,
+      "text": "ott"
+    },
+    {
+      "time": 864.277,
+      "duration": 0.372,
+      "text": "közel"
+    },
+    {
+      "time": 864.649,
+      "duration": 0.239,
+      "text": "volt"
+    },
+    {
+      "time": 864.888,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 864.942,
+      "duration": 0.558,
+      "text": "széle"
+    },
+    {
+      "time": 865.74,
+      "duration": 0.492,
+      "text": "leért"
+    },
+    {
+      "time": 866.232,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 866.285,
+      "duration": 0.558,
+      "text": "lábad"
+    },
+    {
+      "time": 867.136,
+      "duration": 0.239,
+      "text": "és"
+    },
+    {
+      "time": 867.375,
+      "duration": 0.16,
+      "text": "ott"
+    },
+    {
+      "time": 867.535,
+      "duration": 0.412,
+      "text": "voltam"
+    },
+    {
+      "time": 867.947,
+      "duration": 0.718,
+      "text": "melletted"
+    },
+    {
+      "time": 869.556,
+      "duration": 0.173,
+      "text": "A"
+    },
+    {
+      "time": 869.729,
+      "duration": 0.505,
+      "text": "tóban"
+    },
+    {
+      "time": 870.234,
+      "duration": 0.346,
+      "text": "pedig"
+    },
+    {
+      "time": 870.58,
+      "duration": 1.077,
+      "text": "elfáradtam"
+    },
+    {
+      "time": 872.548,
+      "duration": 0.665,
+      "text": "Igen"
+    },
+    {
+      "time": 874.104,
+      "duration": 0.346,
+      "text": "Pötty"
+    },
+    {
+      "time": 874.45,
+      "duration": 0.984,
+      "text": "megszólalt"
+    },
+    {
+      "time": 876.325,
+      "duration": 0.598,
+      "text": "Majdnem"
+    },
+    {
+      "time": 876.923,
+      "duration": 1.09,
+      "text": "utánamentem"
+    },
+    {
+      "time": 878.904,
+      "duration": 0.558,
+      "text": "Béka"
+    },
+    {
+      "time": 879.463,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 879.875,
+      "duration": 0.878,
+      "text": "ránézett"
+    },
+    {
+      "time": 881.644,
+      "duration": 0.598,
+      "text": "Miért"
+    },
+    {
+      "time": 882.242,
+      "duration": 0.279,
+      "text": "nem"
+    },
+    {
+      "time": 882.521,
+      "duration": 0.678,
+      "text": "mentél"
+    },
+    {
+      "time": 884.091,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 884.623,
+      "duration": 1.064,
+      "text": "megállított"
+    },
+    {
+      "time": 886.577,
+      "duration": 0.545,
+      "text": "Béka"
+    },
+    {
+      "time": 887.123,
+      "duration": 0.412,
+      "text": "bácsi"
+    },
+    {
+      "time": 887.535,
+      "duration": 0.585,
+      "text": "Turbóra"
+    },
+    {
+      "time": 888.12,
+      "duration": 0.705,
+      "text": "nézett"
+    },
+    {
+      "time": 889.716,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 890.248,
+      "duration": 0.505,
+      "text": "büszkén"
+    },
+    {
+      "time": 890.753,
+      "duration": 0.572,
+      "text": "kihúzta"
+    },
+    {
+      "time": 891.325,
+      "duration": 0.612,
+      "text": "magát"
+    },
+    {
+      "time": 892.827,
+      "duration": 0.997,
+      "text": "Rájöttem"
+    },
+    {
+      "time": 893.984,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 894.17,
+      "duration": 0.173,
+      "text": "ha"
+    },
+    {
+      "time": 894.343,
+      "duration": 0.239,
+      "text": "én"
+    },
+    {
+      "time": 894.583,
+      "duration": 0.253,
+      "text": "sem"
+    },
+    {
+      "time": 894.835,
+      "duration": 0.306,
+      "text": "tudok"
+    },
+    {
+      "time": 895.141,
+      "duration": 0.532,
+      "text": "rendesen"
+    },
+    {
+      "time": 895.673,
+      "duration": 0.532,
+      "text": "úszni"
+    },
+    {
+      "time": 896.458,
+      "duration": 0.359,
+      "text": "akkor"
+    },
+    {
+      "time": 896.817,
+      "duration": 0.386,
+      "text": "attól"
+    },
+    {
+      "time": 897.202,
+      "duration": 0.558,
+      "text": "Villámnak"
+    },
+    {
+      "time": 897.761,
+      "duration": 0.186,
+      "text": "nem"
+    },
+    {
+      "time": 897.947,
+      "duration": 0.239,
+      "text": "lesz"
+    },
+    {
+      "time": 898.186,
+      "duration": 0.306,
+      "text": "jobb"
+    },
+    {
+      "time": 898.718,
+      "duration": 0.16,
+      "text": "ha"
+    },
+    {
+      "time": 898.878,
+      "duration": 0.253,
+      "text": "én"
+    },
+    {
+      "time": 899.13,
+      "duration": 0.16,
+      "text": "is"
+    },
+    {
+      "time": 899.29,
+      "duration": 0.731,
+      "text": "fuldoklom"
+    },
+    {
+      "time": 901.084,
+      "duration": 0.279,
+      "text": "Ez"
+    },
+    {
+      "time": 901.363,
+      "duration": 0.173,
+      "text": "ma"
+    },
+    {
+      "time": 901.536,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 901.616,
+      "duration": 0.665,
+      "text": "legokosabb"
+    },
+    {
+      "time": 902.281,
+      "duration": 0.519,
+      "text": "döntés"
+    },
+    {
+      "time": 902.799,
+      "duration": 0.399,
+      "text": "volt"
+    },
+    {
+      "time": 903.198,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 903.557,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 903.93,
+      "duration": 0.532,
+      "text": "bácsi"
+    },
+    {
+      "time": 905.356,
+      "duration": 0.572,
+      "text": "Turbó"
+    },
+    {
+      "time": 905.928,
+      "duration": 1.117,
+      "text": "elmosolyodott"
+    },
+    {
+      "time": 907.936,
+      "duration": 0.346,
+      "text": "Ezt"
+    },
+    {
+      "time": 908.281,
+      "duration": 0.758,
+      "text": "felírhatjuk"
+    },
+    {
+      "time": 909.039,
+      "duration": 0.745,
+      "text": "valahova"
+    },
+    {
+      "time": 910.675,
+      "duration": 0.745,
+      "text": "Másnap"
+    },
+    {
+      "time": 911.42,
+      "duration": 0.692,
+      "text": "mindhárman"
+    },
+    {
+      "time": 912.111,
+      "duration": 0.918,
+      "text": "visszamentek"
+    },
+    {
+      "time": 913.92,
+      "duration": 0.771,
+      "text": "Villám"
+    },
+    {
+      "time": 914.691,
+      "duration": 0.386,
+      "text": "is"
+    },
+    {
+      "time": 915.967,
+      "duration": 0.652,
+      "text": "Sőt"
+    },
+    {
+      "time": 916.912,
+      "duration": 0.585,
+      "text": "Villám"
+    },
+    {
+      "time": 917.497,
+      "duration": 0.532,
+      "text": "érkezett"
+    },
+    {
+      "time": 918.029,
+      "duration": 0.824,
+      "text": "elsőnek"
+    },
+    {
+      "time": 919.744,
+      "duration": 0.306,
+      "text": "Mit"
+    },
+    {
+      "time": 920.05,
+      "duration": 0.745,
+      "text": "gyakorlunk"
+    },
+    {
+      "time": 920.795,
+      "duration": 0.319,
+      "text": "ma"
+    },
+    {
+      "time": 922.005,
+      "duration": 0.824,
+      "text": "kérdezte"
+    },
+    {
+      "time": 923.72,
+      "duration": 0.785,
+      "text": "Ugyanazt"
+    },
+    {
+      "time": 924.837,
+      "duration": 0.239,
+      "text": "mint"
+    },
+    {
+      "time": 925.077,
+      "duration": 0.519,
+      "text": "tegnap"
+    },
+    {
+      "time": 925.595,
+      "duration": 0.346,
+      "text": "mondta"
+    },
+    {
+      "time": 925.941,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 926.313,
+      "duration": 0.532,
+      "text": "bácsi"
+    },
+    {
+      "time": 927.736,
+      "duration": 0.705,
+      "text": "Villám"
+    },
+    {
+      "time": 928.441,
+      "duration": 1.024,
+      "text": "meglepődött"
+    },
+    {
+      "time": 930.356,
+      "duration": 0.399,
+      "text": "Nem"
+    },
+    {
+      "time": 930.755,
+      "duration": 0.372,
+      "text": "valami"
+    },
+    {
+      "time": 931.127,
+      "duration": 0.944,
+      "text": "nehezebbet"
+    },
+    {
+      "time": 932.962,
+      "duration": 0.678,
+      "text": "Először"
+    },
+    {
+      "time": 933.64,
+      "duration": 0.412,
+      "text": "legyen"
+    },
+    {
+      "time": 934.053,
+      "duration": 0.332,
+      "text": "nagyon"
+    },
+    {
+      "time": 934.385,
+      "duration": 0.425,
+      "text": "biztos"
+    },
+    {
+      "time": 934.811,
+      "duration": 0.293,
+      "text": "az"
+    },
+    {
+      "time": 935.396,
+      "duration": 0.266,
+      "text": "amit"
+    },
+    {
+      "time": 935.662,
+      "duration": 0.226,
+      "text": "már"
+    },
+    {
+      "time": 935.888,
+      "duration": 0.811,
+      "text": "tanultál"
+    },
+    {
+      "time": 937.59,
+      "duration": 0.652,
+      "text": "Villám"
+    },
+    {
+      "time": 938.241,
+      "duration": 0.904,
+      "text": "bólintott"
+    },
+    {
+      "time": 940.037,
+      "duration": 0.851,
+      "text": "Rendben"
+    },
+    {
+      "time": 941.779,
+      "duration": 0.931,
+      "text": "Lebegtek"
+    },
+    {
+      "time": 943.6,
+      "duration": 0.705,
+      "text": "Levegőt"
+    },
+    {
+      "time": 944.305,
+      "duration": 0.439,
+      "text": "fújtak"
+    },
+    {
+      "time": 944.744,
+      "duration": 0.066,
+      "text": "a"
+    },
+    {
+      "time": 944.811,
+      "duration": 0.293,
+      "text": "víz"
+    },
+    {
+      "time": 945.103,
+      "duration": 0.532,
+      "text": "alatt"
+    },
+    {
+      "time": 946.526,
+      "duration": 1.223,
+      "text": "Lábtempót"
+    },
+    {
+      "time": 947.749,
+      "duration": 0.904,
+      "text": "gyakoroltak"
+    },
+    {
+      "time": 949.545,
+      "duration": 0.638,
+      "text": "Aztán"
+    },
+    {
+      "time": 950.183,
+      "duration": 0.612,
+      "text": "úsztak"
+    },
+    {
+      "time": 951.686,
+      "duration": 0.293,
+      "text": "Egy"
+    },
+    {
+      "time": 951.978,
+      "duration": 0.558,
+      "text": "hosszt"
+    },
+    {
+      "time": 953.428,
+      "duration": 0.891,
+      "text": "Pihenés"
+    },
+    {
+      "time": 955.21,
+      "duration": 0.465,
+      "text": "Még"
+    },
+    {
+      "time": 955.675,
+      "duration": 0.598,
+      "text": "egyet"
+    },
+    {
+      "time": 957.164,
+      "duration": 0.891,
+      "text": "Pihenés"
+    },
+    {
+      "time": 958.946,
+      "duration": 0.492,
+      "text": "Napok"
+    },
+    {
+      "time": 959.438,
+      "duration": 0.465,
+      "text": "teltek"
+    },
+    {
+      "time": 959.904,
+      "duration": 0.372,
+      "text": "el"
+    },
+    {
+      "time": 961.167,
+      "duration": 0.572,
+      "text": "Aztán"
+    },
+    {
+      "time": 961.739,
+      "duration": 0.585,
+      "text": "hetek"
+    },
+    {
+      "time": 963.215,
+      "duration": 0.426,
+      "text": "Egyik"
+    },
+    {
+      "time": 963.64,
+      "duration": 0.798,
+      "text": "délután"
+    },
+    {
+      "time": 964.438,
+      "duration": 0.399,
+      "text": "Béka"
+    },
+    {
+      "time": 964.837,
+      "duration": 0.386,
+      "text": "bácsi"
+    },
+    {
+      "time": 965.223,
+      "duration": 0.332,
+      "text": "végül"
+    },
+    {
+      "time": 965.555,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 965.608,
+      "duration": 0.279,
+      "text": "tó"
+    },
+    {
+      "time": 965.888,
+      "duration": 0.346,
+      "text": "felé"
+    },
+    {
+      "time": 966.233,
+      "duration": 0.731,
+      "text": "mutatott"
+    },
+    {
+      "time": 967.856,
+      "duration": 0.226,
+      "text": "Ma"
+    },
+    {
+      "time": 968.082,
+      "duration": 0.625,
+      "text": "kimegyünk"
+    },
+    {
+      "time": 968.707,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 968.76,
+      "duration": 0.372,
+      "text": "nyílt"
+    },
+    {
+      "time": 969.132,
+      "duration": 0.558,
+      "text": "vízre"
+    },
+    {
+      "time": 970.582,
+      "duration": 0.678,
+      "text": "Villám"
+    },
+    {
+      "time": 971.26,
+      "duration": 0.984,
+      "text": "felcsillant"
+    },
+    {
+      "time": 973.135,
+      "duration": 0.16,
+      "text": "A"
+    },
+    {
+      "time": 973.295,
+      "duration": 0.532,
+      "text": "sárga"
+    },
+    {
+      "time": 973.827,
+      "duration": 0.878,
+      "text": "bójáig"
+    },
+    {
+      "time": 975.595,
+      "duration": 0.598,
+      "text": "Nem"
+    },
+    {
+      "time": 977.085,
+      "duration": 0.745,
+      "text": "Villám"
+    },
+    {
+      "time": 977.829,
+      "duration": 0.585,
+      "text": "elnevette"
+    },
+    {
+      "time": 978.414,
+      "duration": 0.625,
+      "text": "magát"
+    },
+    {
+      "time": 979.93,
+      "duration": 1.064,
+      "text": "Gondoltam"
+    },
+    {
+      "time": 981.885,
+      "duration": 0.758,
+      "text": "Mindhárman"
+    },
+    {
+      "time": 982.643,
+      "duration": 0.665,
+      "text": "felvették"
+    },
+    {
+      "time": 983.308,
+      "duration": 0.04,
+      "text": "a"
+    },
+    {
+      "time": 983.348,
+      "duration": 0.359,
+      "text": "nekik"
+    },
+    {
+      "time": 983.707,
+      "duration": 0.306,
+      "text": "való"
+    },
+    {
+      "time": 984.013,
+      "duration": 0.492,
+      "text": "úszást"
+    },
+    {
+      "time": 984.505,
+      "duration": 0.479,
+      "text": "segítő"
+    },
+    {
+      "time": 984.983,
+      "duration": 0.944,
+      "text": "felszerelést"
+    },
+    {
+      "time": 986.233,
+      "duration": 0.186,
+      "text": "és"
+    },
+    {
+      "time": 986.42,
+      "duration": 0.319,
+      "text": "Béka"
+    },
+    {
+      "time": 986.739,
+      "duration": 0.532,
+      "text": "bácsival"
+    },
+    {
+      "time": 987.271,
+      "duration": 0.319,
+      "text": "együtt"
+    },
+    {
+      "time": 987.59,
+      "duration": 0.465,
+      "text": "bementek"
+    },
+    {
+      "time": 988.055,
+      "duration": 0.066,
+      "text": "a"
+    },
+    {
+      "time": 988.122,
+      "duration": 0.545,
+      "text": "vízbe"
+    },
+    {
+      "time": 989.558,
+      "duration": 0.625,
+      "text": "Lassan"
+    },
+    {
+      "time": 990.183,
+      "duration": 0.785,
+      "text": "haladtak"
+    },
+    {
+      "time": 991.858,
+      "duration": 0.332,
+      "text": "Pötty"
+    },
+    {
+      "time": 992.191,
+      "duration": 0.412,
+      "text": "néha"
+    },
+    {
+      "time": 992.603,
+      "duration": 0.465,
+      "text": "megállt"
+    },
+    {
+      "time": 993.069,
+      "duration": 0.625,
+      "text": "lebegni"
+    },
+    {
+      "time": 994.585,
+      "duration": 0.492,
+      "text": "Turbó"
+    },
+    {
+      "time": 995.077,
+      "duration": 0.332,
+      "text": "most"
+    },
+    {
+      "time": 995.409,
+      "duration": 0.864,
+      "text": "kivételesen"
+    },
+    {
+      "time": 996.273,
+      "duration": 0.306,
+      "text": "alig"
+    },
+    {
+      "time": 996.579,
+      "duration": 0.771,
+      "text": "fröcskölt"
+    },
+    {
+      "time": 998.241,
+      "duration": 0.585,
+      "text": "Villám"
+    },
+    {
+      "time": 998.827,
+      "duration": 0.319,
+      "text": "pedig"
+    },
+    {
+      "time": 999.146,
+      "duration": 0.213,
+      "text": "nem"
+    },
+    {
+      "time": 999.358,
+      "duration": 0.785,
+      "text": "sietett"
+    },
+    {
+      "time": 1001.034,
+      "duration": 0.492,
+      "text": "Egyszer"
+    },
+    {
+      "time": 1001.526,
+      "duration": 0.266,
+      "text": "csak"
+    },
+    {
+      "time": 1001.792,
+      "duration": 0.545,
+      "text": "elérték"
+    },
+    {
+      "time": 1002.337,
+      "duration": 0.16,
+      "text": "az"
+    },
+    {
+      "time": 1002.497,
+      "duration": 0.452,
+      "text": "első"
+    },
+    {
+      "time": 1002.949,
+      "duration": 0.731,
+      "text": "bóját"
+    },
+    {
+      "time": 1004.571,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 1005.236,
+      "duration": 0.824,
+      "text": "visszanézett"
+    },
+    {
+      "time": 1006.061,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 1006.114,
+      "duration": 0.612,
+      "text": "partra"
+    },
+    {
+      "time": 1007.616,
+      "duration": 0.266,
+      "text": "Ez"
+    },
+    {
+      "time": 1007.882,
+      "duration": 0.465,
+      "text": "messzebb"
+    },
+    {
+      "time": 1008.348,
+      "duration": 0.359,
+      "text": "van"
+    },
+    {
+      "time": 1009.026,
+      "duration": 0.239,
+      "text": "mint"
+    },
+    {
+      "time": 1009.265,
+      "duration": 0.572,
+      "text": "amilyennek"
+    },
+    {
+      "time": 1009.837,
+      "duration": 0.811,
+      "text": "kinézett"
+    },
+    {
+      "time": 1011.539,
+      "duration": 0.186,
+      "text": "A"
+    },
+    {
+      "time": 1011.725,
+      "duration": 0.492,
+      "text": "vízen"
+    },
+    {
+      "time": 1012.217,
+      "duration": 0.253,
+      "text": "sok"
+    },
+    {
+      "time": 1012.47,
+      "duration": 0.386,
+      "text": "minden"
+    },
+    {
+      "time": 1012.856,
+      "duration": 0.479,
+      "text": "ilyen"
+    },
+    {
+      "time": 1013.335,
+      "duration": 0.359,
+      "text": "mondta"
+    },
+    {
+      "time": 1013.694,
+      "duration": 0.372,
+      "text": "Béka"
+    },
+    {
+      "time": 1014.066,
+      "duration": 0.545,
+      "text": "bácsi"
+    },
+    {
+      "time": 1015.502,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 1016.167,
+      "duration": 0.878,
+      "text": "megérintette"
+    },
+    {
+      "time": 1017.045,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 1017.124,
+      "duration": 0.745,
+      "text": "bóját"
+    },
+    {
+      "time": 1018.76,
+      "duration": 0.572,
+      "text": "Aztán"
+    },
+    {
+      "time": 1019.332,
+      "duration": 0.332,
+      "text": "Pötty"
+    },
+    {
+      "time": 1019.664,
+      "duration": 0.412,
+      "text": "is"
+    },
+    {
+      "time": 1020.967,
+      "duration": 0.572,
+      "text": "Aztán"
+    },
+    {
+      "time": 1021.539,
+      "duration": 0.718,
+      "text": "Turbó"
+    },
+    {
+      "time": 1023.148,
+      "duration": 0.705,
+      "text": "Verseny"
+    },
+    {
+      "time": 1023.853,
+      "duration": 0.851,
+      "text": "visszafelé"
+    },
+    {
+      "time": 1025.595,
+      "duration": 0.692,
+      "text": "kérdezte"
+    },
+    {
+      "time": 1026.287,
+      "duration": 0.692,
+      "text": "Turbó"
+    },
+    {
+      "time": 1027.869,
+      "duration": 0.665,
+      "text": "Villám"
+    },
+    {
+      "time": 1028.534,
+      "duration": 0.904,
+      "text": "ránézett"
+    },
+    {
+      "time": 1030.329,
+      "duration": 0.386,
+      "text": "Pötty"
+    },
+    {
+      "time": 1030.715,
+      "duration": 0.997,
+      "text": "ránézett"
+    },
+    {
+      "time": 1032.603,
+      "duration": 0.532,
+      "text": "Béka"
+    },
+    {
+      "time": 1033.135,
+      "duration": 0.439,
+      "text": "bácsi"
+    },
+    {
+      "time": 1033.574,
+      "duration": 0.173,
+      "text": "is"
+    },
+    {
+      "time": 1033.747,
+      "duration": 0.864,
+      "text": "ránézett"
+    },
+    {
+      "time": 1035.502,
+      "duration": 0.532,
+      "text": "Turbó"
+    },
+    {
+      "time": 1036.034,
+      "duration": 1.024,
+      "text": "gondolkodott"
+    },
+    {
+      "time": 1037.949,
+      "duration": 0.612,
+      "text": "Jó"
+    },
+    {
+      "time": 1039.452,
+      "duration": 0.572,
+      "text": "Akkor"
+    },
+    {
+      "time": 1040.023,
+      "duration": 0.213,
+      "text": "ezt"
+    },
+    {
+      "time": 1040.236,
+      "duration": 0.266,
+      "text": "majd"
+    },
+    {
+      "time": 1040.502,
+      "duration": 0.718,
+      "text": "később"
+    },
+    {
+      "time": 1042.111,
+      "duration": 0.838,
+      "text": "Mindannyian"
+    },
+    {
+      "time": 1042.949,
+      "duration": 0.731,
+      "text": "nevettek"
+    },
+    {
+      "time": 1044.571,
+      "duration": 0.386,
+      "text": "És"
+    },
+    {
+      "time": 1044.957,
+      "duration": 0.399,
+      "text": "együtt"
+    },
+    {
+      "time": 1045.356,
+      "duration": 0.572,
+      "text": "indultak"
+    },
+    {
+      "time": 1045.928,
+      "duration": 0.359,
+      "text": "vissza"
+    },
+    {
+      "time": 1046.287,
+      "duration": 0.067,
+      "text": "a"
+    },
+    {
+      "time": 1046.353,
+      "duration": 0.319,
+      "text": "part"
+    },
+    {
+      "time": 1046.672,
+      "duration": 0.439,
+      "text": "felé"
+    },
+    {
+      "time": 1048.002,
+      "duration": 0.386,
+      "text": "Nem"
+    },
+    {
+      "time": 1048.388,
+      "duration": 0.266,
+      "text": "volt"
+    },
+    {
+      "time": 1048.654,
+      "duration": 0.479,
+      "text": "köztük"
+    },
+    {
+      "time": 1049.132,
+      "duration": 0.585,
+      "text": "első"
+    },
+    {
+      "time": 1050.608,
+      "duration": 0.372,
+      "text": "Nem"
+    },
+    {
+      "time": 1050.981,
+      "duration": 0.253,
+      "text": "volt"
+    },
+    {
+      "time": 1051.233,
+      "duration": 0.798,
+      "text": "második"
+    },
+    {
+      "time": 1052.922,
+      "duration": 0.386,
+      "text": "Nem"
+    },
+    {
+      "time": 1053.308,
+      "duration": 0.266,
+      "text": "volt"
+    },
+    {
+      "time": 1053.574,
+      "duration": 0.758,
+      "text": "harmadik"
+    },
+    {
+      "time": 1055.223,
+      "duration": 0.465,
+      "text": "Aznap"
+    },
+    {
+      "time": 1055.688,
+      "duration": 0.426,
+      "text": "valami"
+    },
+    {
+      "time": 1056.114,
+      "duration": 0.479,
+      "text": "sokkal"
+    },
+    {
+      "time": 1056.592,
+      "duration": 0.705,
+      "text": "fontosabbat"
+    },
+    {
+      "time": 1057.297,
+      "duration": 0.652,
+      "text": "gyakoroltak"
+    },
+    {
+      "time": 1057.949,
+      "duration": 0.558,
+      "text": "annál"
+    },
+    {
+      "time": 1058.787,
+      "duration": 0.359,
+      "text": "hogyan"
+    },
+    {
+      "time": 1059.146,
+      "duration": 0.173,
+      "text": "kell"
+    },
+    {
+      "time": 1059.319,
+      "duration": 0.532,
+      "text": "gyorsnak"
+    },
+    {
+      "time": 1059.851,
+      "duration": 0.479,
+      "text": "lenni"
+    },
+    {
+      "time": 1061.22,
+      "duration": 0.479,
+      "text": "Azt"
+    },
+    {
+      "time": 1062.071,
+      "duration": 0.346,
+      "text": "hogyan"
+    },
+    {
+      "time": 1062.417,
+      "duration": 0.306,
+      "text": "lehet"
+    },
+    {
+      "time": 1062.723,
+      "duration": 0.239,
+      "text": "jól"
+    },
+    {
+      "time": 1062.962,
+      "duration": 0.412,
+      "text": "érezni"
+    },
+    {
+      "time": 1063.374,
+      "duration": 0.426,
+      "text": "magukat"
+    },
+    {
+      "time": 1063.8,
+      "duration": 0.053,
+      "text": "a"
+    },
+    {
+      "time": 1063.853,
+      "duration": 0.439,
+      "text": "vízben"
+    },
+    {
+      "time": 1064.292,
+      "duration": 0.332,
+      "text": "úgy"
+    },
+    {
+      "time": 1064.944,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 1065.13,
+      "duration": 0.439,
+      "text": "közben"
+    },
+    {
+      "time": 1065.569,
+      "duration": 0.652,
+      "text": "tudják"
+    },
+    {
+      "time": 1066.46,
+      "duration": 0.226,
+      "text": "mire"
+    },
+    {
+      "time": 1066.686,
+      "duration": 0.731,
+      "text": "képesek"
+    },
+    {
+      "time": 1067.656,
+      "duration": 0.545,
+      "text": "figyelnek"
+    },
+    {
+      "time": 1068.202,
+      "duration": 0.718,
+      "text": "egymásra"
+    },
+    {
+      "time": 1069.186,
+      "duration": 0.199,
+      "text": "és"
+    },
+    {
+      "time": 1069.385,
+      "duration": 0.066,
+      "text": "ha"
+    },
+    {
+      "time": 1069.452,
+      "duration": 0.412,
+      "text": "valaki"
+    },
+    {
+      "time": 1069.864,
+      "duration": 0.199,
+      "text": "azt"
+    },
+    {
+      "time": 1070.063,
+      "duration": 0.479,
+      "text": "mondja"
+    },
+    {
+      "time": 1071.433,
+      "duration": 0.585,
+      "text": "Állj"
+    },
+    {
+      "time": 1072.909,
+      "duration": 0.505,
+      "text": "akkor"
+    },
+    {
+      "time": 1073.414,
+      "duration": 0.811,
+      "text": "megállnak"
+    },
+    {
+      "time": 1075.116,
+      "duration": 0.399,
+      "text": "Mert"
+    },
+    {
+      "time": 1075.515,
+      "duration": 0.08,
+      "text": "a"
+    },
+    {
+      "time": 1075.595,
+      "duration": 0.386,
+      "text": "víz"
+    },
+    {
+      "time": 1075.981,
+      "duration": 0.785,
+      "text": "csodálatos"
+    },
+    {
+      "time": 1076.765,
+      "duration": 0.359,
+      "text": "hely"
+    },
+    {
+      "time": 1078.015,
+      "duration": 0.426,
+      "text": "Lehet"
+    },
+    {
+      "time": 1078.441,
+      "duration": 0.386,
+      "text": "benne"
+    },
+    {
+      "time": 1078.827,
+      "duration": 0.572,
+      "text": "úszni"
+    },
+    {
+      "time": 1079.691,
+      "duration": 0.705,
+      "text": "lebegni"
+    },
+    {
+      "time": 1080.688,
+      "duration": 0.678,
+      "text": "játszani"
+    },
+    {
+      "time": 1081.366,
+      "duration": 0.173,
+      "text": "és"
+    },
+    {
+      "time": 1081.539,
+      "duration": 0.638,
+      "text": "hatalmasat"
+    },
+    {
+      "time": 1082.178,
+      "duration": 0.692,
+      "text": "csobbanni"
+    },
+    {
+      "time": 1083.76,
+      "duration": 0.293,
+      "text": "De"
+    },
+    {
+      "time": 1084.053,
+      "duration": 0.106,
+      "text": "a"
+    },
+    {
+      "time": 1084.159,
+      "duration": 0.359,
+      "text": "víz"
+    },
+    {
+      "time": 1084.518,
+      "duration": 0.412,
+      "text": "attól"
+    },
+    {
+      "time": 1084.93,
+      "duration": 0.213,
+      "text": "még"
+    },
+    {
+      "time": 1085.143,
+      "duration": 0.199,
+      "text": "nem"
+    },
+    {
+      "time": 1085.342,
+      "duration": 0.146,
+      "text": "lesz"
+    },
+    {
+      "time": 1085.489,
+      "duration": 0.745,
+      "text": "sekélyebb"
+    },
+    {
+      "time": 1086.513,
+      "duration": 0.186,
+      "text": "hogy"
+    },
+    {
+      "time": 1086.699,
+      "duration": 0.386,
+      "text": "valaki"
+    },
+    {
+      "time": 1087.085,
+      "duration": 0.359,
+      "text": "nagyon"
+    },
+    {
+      "time": 1087.444,
+      "duration": 0.638,
+      "text": "bátor"
+    }
+  ],
+  "paragraphs": [
+    {
+      "index": 0,
+      "time": 3.428,
+      "text": "Forró nyári nap volt Autóvárosban.",
+      "matched": 5,
+      "wordIndex": 5
+    },
+    {
+      "index": 1,
+      "time": 6.965,
+      "text": "Olyan forró, hogy Villám, a piros versenyautó már reggel panaszkodott.",
+      "matched": 7,
+      "wordIndex": 10
+    },
+    {
+      "index": 2,
+      "time": 13.361,
+      "text": "— Megsülnek a kerekeim!",
+      "matched": 3,
+      "wordIndex": 20
+    },
+    {
+      "index": 3,
+      "time": 15.901,
+      "text": "Turbó, a sárga versenyautó, a garázs árnyékában állt.",
+      "matched": 7,
+      "wordIndex": 23
+    },
+    {
+      "index": 4,
+      "time": 21.473,
+      "text": "— Én ma sehova nem megyek. Itt maradok estig.",
+      "matched": 7,
+      "wordIndex": 31
+    },
+    {
+      "index": 5,
+      "time": 26.46,
+      "text": "Pötty, a kis kék versenyautó azonban izgatottan érkezett.",
+      "matched": 7,
+      "wordIndex": 39
+    },
+    {
+      "index": 6,
+      "time": 31.832,
+      "text": "— Fiúk! Megnyitott a Tóparti Strand!",
+      "matched": 5,
+      "wordIndex": 47
+    },
+    {
+      "index": 7,
+      "time": 36.499,
+      "text": "Turbó azonnal kigördült az árnyékból.",
+      "matched": 5,
+      "wordIndex": 52
+    },
+    {
+      "index": 8,
+      "time": 40.289,
+      "text": "— Van medence?",
+      "matched": 2,
+      "wordIndex": 57
+    },
+    {
+      "index": 9,
+      "time": 42.404,
+      "text": "— Van.",
+      "matched": 1,
+      "wordIndex": 59
+    },
+    {
+      "index": 10,
+      "time": 43.92,
+      "text": "— Csúszda?",
+      "matched": 1,
+      "wordIndex": 60
+    },
+    {
+      "index": 11,
+      "time": 45.555,
+      "text": "— Van.",
+      "matched": 1,
+      "wordIndex": 61
+    },
+    {
+      "index": 12,
+      "time": 47.071,
+      "text": "— Ugródeszka?",
+      "matched": 1,
+      "wordIndex": 62
+    },
+    {
+      "index": 13,
+      "time": 49.039,
+      "text": "— Az is.",
+      "matched": 2,
+      "wordIndex": 63
+    },
+    {
+      "index": 14,
+      "time": 50.662,
+      "text": "Villám beindította a motorját.",
+      "matched": 4,
+      "wordIndex": 65
+    },
+    {
+      "index": 15,
+      "time": 53.96,
+      "text": "— Akkor mire várunk?",
+      "matched": 3,
+      "wordIndex": 69
+    },
+    {
+      "index": 16,
+      "time": 56.42,
+      "text": "A Tóparti Strand Autóváros legkülönösebb strandja volt.",
+      "matched": 7,
+      "wordIndex": 72
+    },
+    {
+      "index": 17,
+      "time": 61.087,
+      "text": "A nagy tó egyik részét bóják vették körül. Ott fürödhettek a város lakói.",
+      "matched": 7,
+      "wordIndex": 79
+    },
+    {
+      "index": 18,
+      "time": 68.015,
+      "text": "A parton volt egy sekély tanmedence is.",
+      "matched": 7,
+      "wordIndex": 92
+    },
+    {
+      "index": 19,
+      "time": 71.619,
+      "text": "Mellette zuhanyok, napernyők és egy hatalmas, kanyargós csúszda állt.",
+      "matched": 7,
+      "wordIndex": 99
+    },
+    {
+      "index": 20,
+      "time": 77.736,
+      "text": "A bejáratnál egy öreg kétéltű autó fogadta őket.",
+      "matched": 7,
+      "wordIndex": 108
+    },
+    {
+      "index": 21,
+      "time": 82.364,
+      "text": "Őt Béka bácsinak hívták.",
+      "matched": 4,
+      "wordIndex": 116
+    },
+    {
+      "index": 22,
+      "time": 85.316,
+      "text": "Béka bácsi tudott úszni és gurulni is.",
+      "matched": 7,
+      "wordIndex": 120
+    },
+    {
+      "index": 23,
+      "time": 89.039,
+      "text": "— Tudtok úszni? – kérdezte.",
+      "matched": 3,
+      "wordIndex": 127
+    },
+    {
+      "index": 24,
+      "time": 92.949,
+      "text": "— Természetesen – mondta Villám.",
+      "matched": 3,
+      "wordIndex": 130
+    },
+    {
+      "index": 25,
+      "time": 96.087,
+      "text": "— Én nagyon jól – mondta Turbó.",
+      "matched": 5,
+      "wordIndex": 133
+    },
+    {
+      "index": 26,
+      "time": 99.119,
+      "text": "Pötty hallgatott.",
+      "matched": 2,
+      "wordIndex": 138
+    },
+    {
+      "index": 27,
+      "time": 101.234,
+      "text": "Béka bácsi ránézett Villámra.",
+      "matched": 4,
+      "wordIndex": 140
+    },
+    {
+      "index": 28,
+      "time": 104.398,
+      "text": "— Mikor úsztál utoljára?",
+      "matched": 3,
+      "wordIndex": 144
+    },
+    {
+      "index": 29,
+      "time": 107.191,
+      "text": "Villám gondolkodott.",
+      "matched": 2,
+      "wordIndex": 147
+    },
+    {
+      "index": 30,
+      "time": 109.744,
+      "text": "— Még soha.",
+      "matched": 2,
+      "wordIndex": 149
+    },
+    {
+      "index": 31,
+      "time": 111.606,
+      "text": "— Turbó?",
+      "matched": 1,
+      "wordIndex": 151
+    },
+    {
+      "index": 32,
+      "time": 113.321,
+      "text": "— Én sem.",
+      "matched": 2,
+      "wordIndex": 152
+    },
+    {
+      "index": 33,
+      "time": 115.09,
+      "text": "Béka bácsi felvonta a szemöldökét.",
+      "matched": 5,
+      "wordIndex": 154
+    },
+    {
+      "index": 34,
+      "time": 118.574,
+      "text": "— Akkor honnan tudjátok, hogy tudtok?",
+      "matched": 5,
+      "wordIndex": 159
+    },
+    {
+      "index": 35,
+      "time": 122.311,
+      "text": "Villám magabiztosan felelt:",
+      "matched": 3,
+      "wordIndex": 164
+    },
+    {
+      "index": 36,
+      "time": 125.436,
+      "text": "— Négy kerekem van.",
+      "matched": 3,
+      "wordIndex": 167
+    },
+    {
+      "index": 37,
+      "time": 127.71,
+      "text": "— Annak mi köze az úszáshoz?",
+      "matched": 5,
+      "wordIndex": 170
+    },
+    {
+      "index": 38,
+      "time": 130.702,
+      "text": "Villám gondolkodott.",
+      "matched": 2,
+      "wordIndex": 175
+    },
+    {
+      "index": 39,
+      "time": 133.268,
+      "text": "— Semmi.",
+      "matched": 1,
+      "wordIndex": 177
+    },
+    {
+      "index": 40,
+      "time": 134.89,
+      "text": "— Pontosan.",
+      "matched": 1,
+      "wordIndex": 178
+    },
+    {
+      "index": 41,
+      "time": 136.699,
+      "text": "Pötty megszólalt:",
+      "matched": 2,
+      "wordIndex": 179
+    },
+    {
+      "index": 42,
+      "time": 138.92,
+      "text": "— Én nem tudok úszni.",
+      "matched": 4,
+      "wordIndex": 181
+    },
+    {
+      "index": 43,
+      "time": 141.26,
+      "text": "Béka bácsi elmosolyodott.",
+      "matched": 3,
+      "wordIndex": 185
+    },
+    {
+      "index": 44,
+      "time": 144.265,
+      "text": "— Remek.",
+      "matched": 1,
+      "wordIndex": 188
+    },
+    {
+      "index": 45,
+      "time": 145.874,
+      "text": "Villám és Turbó egyszerre néztek rá.",
+      "matched": 6,
+      "wordIndex": 189
+    },
+    {
+      "index": 46,
+      "time": 149.452,
+      "text": "— Remek?!",
+      "matched": 1,
+      "wordIndex": 195
+    },
+    {
+      "index": 47,
+      "time": 151.486,
+      "text": "— Persze. Pötty már tudja az első dolgot, amit meg kell tanulnia.",
+      "matched": 7,
+      "wordIndex": 196
+    },
+    {
+      "index": 48,
+      "time": 157.776,
+      "text": "— Mit? – kérdezte Turbó.",
+      "matched": 3,
+      "wordIndex": 207
+    },
+    {
+      "index": 49,
+      "time": 161.539,
+      "text": "— Hogy mit nem tud.",
+      "matched": 4,
+      "wordIndex": 210
+    },
+    {
+      "index": 50,
+      "time": 163.614,
+      "text": "Először a tanmedencéhez mentek.",
+      "matched": 4,
+      "wordIndex": 214
+    },
+    {
+      "index": 51,
+      "time": 166.858,
+      "text": "A víz olyan sekély volt, hogy mindhárman leértek az aljára.",
+      "matched": 7,
+      "wordIndex": 218
+    },
+    {
+      "index": 52,
+      "time": 171.912,
+      "text": "Villám óvatosan belegurult.",
+      "matched": 3,
+      "wordIndex": 228
+    },
+    {
+      "index": 53,
+      "time": 175.023,
+      "text": "— Hideg!",
+      "matched": 1,
+      "wordIndex": 231
+    },
+    {
+      "index": 54,
+      "time": 176.526,
+      "text": "Pötty utána.",
+      "matched": 2,
+      "wordIndex": 232
+    },
+    {
+      "index": 55,
+      "time": 178.507,
+      "text": "— Szerintem jó!",
+      "matched": 2,
+      "wordIndex": 234
+    },
+    {
+      "index": 56,
+      "time": 180.542,
+      "text": "Turbó nekifutott.",
+      "matched": 2,
+      "wordIndex": 236
+    },
+    {
+      "index": 57,
+      "time": 182.909,
+      "text": "— BOMBA!",
+      "matched": 1,
+      "wordIndex": 238
+    },
+    {
+      "index": 58,
+      "time": 184.545,
+      "text": "— Turbó, ne…! – kezdte Béka bácsi.",
+      "matched": 5,
+      "wordIndex": 239
+    },
+    {
+      "index": 59,
+      "time": 189.744,
+      "text": "Csobban!",
+      "matched": 1,
+      "wordIndex": 244
+    },
+    {
+      "index": 60,
+      "time": 191.38,
+      "text": "Hatalmas víz repült mindenfelé.",
+      "matched": 4,
+      "wordIndex": 245
+    },
+    {
+      "index": 61,
+      "time": 194.664,
+      "text": "Villám csuromvizes lett.",
+      "matched": 3,
+      "wordIndex": 249
+    },
+    {
+      "index": 62,
+      "time": 197.537,
+      "text": "Pötty csuromvizes lett.",
+      "matched": 3,
+      "wordIndex": 252
+    },
+    {
+      "index": 63,
+      "time": 200.023,
+      "text": "Béka bácsi csuromvizes lett.",
+      "matched": 4,
+      "wordIndex": 255
+    },
+    {
+      "index": 64,
+      "time": 203.122,
+      "text": "A mellettük üldögélő öreg kabrió újságja is csuromvizes lett.",
+      "matched": 7,
+      "wordIndex": 259
+    },
+    {
+      "index": 65,
+      "time": 208.255,
+      "text": "Turbó kidugta a fejét.",
+      "matched": 4,
+      "wordIndex": 268
+    },
+    {
+      "index": 66,
+      "time": 210.914,
+      "text": "— Ez fantasztikus!",
+      "matched": 2,
+      "wordIndex": 272
+    },
+    {
+      "index": 67,
+      "time": 213.162,
+      "text": "Az öreg kabrió lassan leengedte az átázott újságját.",
+      "matched": 7,
+      "wordIndex": 274
+    },
+    {
+      "index": 68,
+      "time": 217.909,
+      "text": "— Neked biztosan.",
+      "matched": 2,
+      "wordIndex": 282
+    },
+    {
+      "index": 69,
+      "time": 220.117,
+      "text": "Turbó körülnézett.",
+      "matched": 2,
+      "wordIndex": 284
+    },
+    {
+      "index": 70,
+      "time": 222.603,
+      "text": "— Jaj.",
+      "matched": 1,
+      "wordIndex": 286
+    },
+    {
+      "index": 71,
+      "time": 224.132,
+      "text": "Kimászott a vízből.",
+      "matched": 3,
+      "wordIndex": 287
+    },
+    {
+      "index": 72,
+      "time": 226.632,
+      "text": "— Elnézést.",
+      "matched": 1,
+      "wordIndex": 290
+    },
+    {
+      "index": 73,
+      "time": 228.654,
+      "text": "— Köszönöm – mondta a kabrió.",
+      "matched": 4,
+      "wordIndex": 291
+    },
+    {
+      "index": 74,
+      "time": 231.553,
+      "text": "Béka bácsi odahívta Turbót.",
+      "matched": 4,
+      "wordIndex": 295
+    },
+    {
+      "index": 75,
+      "time": 234.797,
+      "text": "— A strandon sokan vannak. Lehet nagyot csobbanni, de előbb meg kell nézni, hogy nem zavarunk vagy veszélyeztetünk-e valakit.",
+      "matched": 7,
+      "wordIndex": 299
+    },
+    {
+      "index": 76,
+      "time": 244.319,
+      "text": "— Értem.",
+      "matched": 1,
+      "wordIndex": 317
+    },
+    {
+      "index": 77,
+      "time": 245.914,
+      "text": "Turbó ezután talált egy üres részt.",
+      "matched": 6,
+      "wordIndex": 318
+    },
+    {
+      "index": 78,
+      "time": 249.292,
+      "text": "— Itt lehet?",
+      "matched": 2,
+      "wordIndex": 324
+    },
+    {
+      "index": 79,
+      "time": 251.167,
+      "text": "Béka bácsi körülnézett.",
+      "matched": 3,
+      "wordIndex": 326
+    },
+    {
+      "index": 80,
+      "time": 254.026,
+      "text": "— Itt lehet.",
+      "matched": 2,
+      "wordIndex": 329
+    },
+    {
+      "index": 81,
+      "time": 255.861,
+      "text": "Turbó nekifutott.",
+      "matched": 2,
+      "wordIndex": 331
+    },
+    {
+      "index": 82,
+      "time": 258.228,
+      "text": "— BOMBA!",
+      "matched": 1,
+      "wordIndex": 333
+    },
+    {
+      "index": 83,
+      "time": 259.89,
+      "text": "Csobban!",
+      "matched": 1,
+      "wordIndex": 334
+    },
+    {
+      "index": 84,
+      "time": 261.539,
+      "text": "Ezúttal mindenki nevetett.",
+      "matched": 3,
+      "wordIndex": 335
+    },
+    {
+      "index": 85,
+      "time": 264.465,
+      "text": "Ezután elkezdődött az úszásoktatás.",
+      "matched": 4,
+      "wordIndex": 338
+    },
+    {
+      "index": 86,
+      "time": 268.335,
+      "text": "— Az első feladat – mondta Béka bácsi –, hogy megszokjátok a vizet.",
+      "matched": 7,
+      "wordIndex": 342
+    },
+    {
+      "index": 87,
+      "time": 273.72,
+      "text": "— Mikor úszunk? – kérdezte Villám.",
+      "matched": 4,
+      "wordIndex": 352
+    },
+    {
+      "index": 88,
+      "time": 278.255,
+      "text": "— Most.",
+      "matched": 1,
+      "wordIndex": 356
+    },
+    {
+      "index": 89,
+      "time": 279.784,
+      "text": "— De még csak állunk.",
+      "matched": 4,
+      "wordIndex": 357
+    },
+    {
+      "index": 90,
+      "time": 282.191,
+      "text": "— Az úszás nem azzal kezdődik, hogy valaki bedob a mély vízbe.",
+      "matched": 7,
+      "wordIndex": 361
+    },
+    {
+      "index": 91,
+      "time": 287.204,
+      "text": "Megmutatta nekik, hogyan merítsék az arcukat a vízbe.",
+      "matched": 7,
+      "wordIndex": 372
+    },
+    {
+      "index": 92,
+      "time": 291.978,
+      "text": "Pötty próbálta először.",
+      "matched": 3,
+      "wordIndex": 380
+    },
+    {
+      "index": 93,
+      "time": 294.638,
+      "text": "Nagy levegőt vett.",
+      "matched": 3,
+      "wordIndex": 383
+    },
+    {
+      "index": 94,
+      "time": 296.898,
+      "text": "Lebukott.",
+      "matched": 1,
+      "wordIndex": 386
+    },
+    {
+      "index": 95,
+      "time": 298.733,
+      "text": "Bugy-bugy-bugy.",
+      "matched": 1,
+      "wordIndex": 387
+    },
+    {
+      "index": 96,
+      "time": 300.688,
+      "text": "Aztán feljött.",
+      "matched": 2,
+      "wordIndex": 388
+    },
+    {
+      "index": 97,
+      "time": 303.028,
+      "text": "— Sikerült!",
+      "matched": 1,
+      "wordIndex": 390
+    },
+    {
+      "index": 98,
+      "time": 304.906,
+      "text": "Turbó következett.",
+      "matched": 2,
+      "wordIndex": 391
+    },
+    {
+      "index": 99,
+      "time": 307.3,
+      "text": "Lebukott.",
+      "matched": 1,
+      "wordIndex": 393
+    },
+    {
+      "index": 100,
+      "time": 309.135,
+      "text": "Két másodperc múlva felugrott.",
+      "matched": 4,
+      "wordIndex": 394
+    },
+    {
+      "index": 101,
+      "time": 312.353,
+      "text": "— Víz ment az orromba!",
+      "matched": 4,
+      "wordIndex": 398
+    },
+    {
+      "index": 102,
+      "time": 314.853,
+      "text": "Béka bácsi nevetett.",
+      "matched": 3,
+      "wordIndex": 402
+    },
+    {
+      "index": 103,
+      "time": 317.459,
+      "text": "— Ezért fújjuk ki lassan a levegőt a víz alatt.",
+      "matched": 7,
+      "wordIndex": 405
+    },
+    {
+      "index": 104,
+      "time": 321.183,
+      "text": "Turbó újra próbálta.",
+      "matched": 3,
+      "wordIndex": 414
+    },
+    {
+      "index": 105,
+      "time": 323.802,
+      "text": "Ezúttal buborékok jelentek meg körülötte.",
+      "matched": 5,
+      "wordIndex": 417
+    },
+    {
+      "index": 106,
+      "time": 327.473,
+      "text": "Bugy-bugy-bugy-bugy.",
+      "matched": 1,
+      "wordIndex": 422
+    },
+    {
+      "index": 107,
+      "time": 329.68,
+      "text": "— Ez sokkal jobb!",
+      "matched": 3,
+      "wordIndex": 423
+    },
+    {
+      "index": 108,
+      "time": 331.794,
+      "text": "Villám közben a medence szélén állt.",
+      "matched": 6,
+      "wordIndex": 426
+    },
+    {
+      "index": 109,
+      "time": 335.132,
+      "text": "— Én inkább rögtön úsznék.",
+      "matched": 4,
+      "wordIndex": 432
+    },
+    {
+      "index": 110,
+      "time": 337.978,
+      "text": "— Előbb ezt – mondta Béka bácsi.",
+      "matched": 5,
+      "wordIndex": 436
+    },
+    {
+      "index": 111,
+      "time": 341.05,
+      "text": "— De ez könnyű.",
+      "matched": 3,
+      "wordIndex": 441
+    },
+    {
+      "index": 112,
+      "time": 343.191,
+      "text": "— Akkor mutasd meg.",
+      "matched": 3,
+      "wordIndex": 444
+    },
+    {
+      "index": 113,
+      "time": 345.465,
+      "text": "Villám lebukott.",
+      "matched": 2,
+      "wordIndex": 447
+    },
+    {
+      "index": 114,
+      "time": 347.792,
+      "text": "Egy pillanat múlva már fent is volt.",
+      "matched": 7,
+      "wordIndex": 449
+    },
+    {
+      "index": 115,
+      "time": 351.01,
+      "text": "— Pfú! Ez borzalmas!",
+      "matched": 3,
+      "wordIndex": 456
+    },
+    {
+      "index": 116,
+      "time": 354.813,
+      "text": "Pötty kuncogott.",
+      "matched": 2,
+      "wordIndex": 459
+    },
+    {
+      "index": 117,
+      "time": 356.994,
+      "text": "— Azt mondtad, könnyű.",
+      "matched": 3,
+      "wordIndex": 461
+    },
+    {
+      "index": 118,
+      "time": 359.693,
+      "text": "Villám újra próbálta.",
+      "matched": 3,
+      "wordIndex": 464
+    },
+    {
+      "index": 119,
+      "time": 362.433,
+      "text": "A második már jobb volt.",
+      "matched": 5,
+      "wordIndex": 467
+    },
+    {
+      "index": 120,
+      "time": 365.039,
+      "text": "A harmadiknál sikerült nyugodtan kifújnia a levegőt.",
+      "matched": 7,
+      "wordIndex": 472
+    },
+    {
+      "index": 121,
+      "time": 369.56,
+      "text": "Bugy-bugy-bugy.",
+      "matched": 1,
+      "wordIndex": 479
+    },
+    {
+      "index": 122,
+      "time": 371.515,
+      "text": "Villám feljött.",
+      "matched": 2,
+      "wordIndex": 480
+    },
+    {
+      "index": 123,
+      "time": 373.789,
+      "text": "— Jó. Ez tényleg működik.",
+      "matched": 4,
+      "wordIndex": 482
+    },
+    {
+      "index": 124,
+      "time": 377.685,
+      "text": "Utána lebegni tanultak.",
+      "matched": 3,
+      "wordIndex": 486
+    },
+    {
+      "index": 125,
+      "time": 380.478,
+      "text": "Ez már sokkal furcsább volt.",
+      "matched": 5,
+      "wordIndex": 489
+    },
+    {
+      "index": 126,
+      "time": 383.377,
+      "text": "— Nem kell mindig küzdeni a vízzel – magyarázta Béka bácsi. – Ha nyugodtan fekszel, a víz megtart.",
+      "matched": 7,
+      "wordIndex": 494
+    },
+    {
+      "index": 127,
+      "time": 391.755,
+      "text": "Pötty hanyatt feküdt.",
+      "matched": 3,
+      "wordIndex": 509
+    },
+    {
+      "index": 128,
+      "time": 394.042,
+      "text": "Először megijedt.",
+      "matched": 2,
+      "wordIndex": 512
+    },
+    {
+      "index": 129,
+      "time": 396.382,
+      "text": "— Fogsz?",
+      "matched": 1,
+      "wordIndex": 514
+    },
+    {
+      "index": 130,
+      "time": 398.005,
+      "text": "— Foglak – mondta Béka bácsi.",
+      "matched": 4,
+      "wordIndex": 515
+    },
+    {
+      "index": 131,
+      "time": 400.97,
+      "text": "Pötty lassan ellazult.",
+      "matched": 3,
+      "wordIndex": 519
+    },
+    {
+      "index": 132,
+      "time": 403.576,
+      "text": "Béka bácsi elvette a kezét.",
+      "matched": 5,
+      "wordIndex": 522
+    },
+    {
+      "index": 133,
+      "time": 406.701,
+      "text": "Pötty pedig ott maradt a víz tetején.",
+      "matched": 7,
+      "wordIndex": 527
+    },
+    {
+      "index": 134,
+      "time": 409.933,
+      "text": "— Úszom!",
+      "matched": 1,
+      "wordIndex": 534
+    },
+    {
+      "index": 135,
+      "time": 411.568,
+      "text": "— Most még inkább lebegsz – mondta Béka bácsi. – De ez nagyon fontos.",
+      "matched": 7,
+      "wordIndex": 535
+    },
+    {
+      "index": 136,
+      "time": 418.031,
+      "text": "Turbó is megpróbálta.",
+      "matched": 3,
+      "wordIndex": 546
+    },
+    {
+      "index": 137,
+      "time": 420.651,
+      "text": "Aztán Villám.",
+      "matched": 2,
+      "wordIndex": 549
+    },
+    {
+      "index": 138,
+      "time": 422.792,
+      "text": "Villám folyton kapálózott.",
+      "matched": 3,
+      "wordIndex": 551
+    },
+    {
+      "index": 139,
+      "time": 425.85,
+      "text": "Minél jobban kapálózott, annál rosszabbul ment.",
+      "matched": 6,
+      "wordIndex": 554
+    },
+    {
+      "index": 140,
+      "time": 430.425,
+      "text": "— Nem működik!",
+      "matched": 2,
+      "wordIndex": 560
+    },
+    {
+      "index": 141,
+      "time": 432.499,
+      "text": "— Hagyd abba egy pillanatra – mondta Béka bácsi.",
+      "matched": 7,
+      "wordIndex": 562
+    },
+    {
+      "index": 142,
+      "time": 436.369,
+      "text": "— Mit?",
+      "matched": 1,
+      "wordIndex": 569
+    },
+    {
+      "index": 143,
+      "time": 437.872,
+      "text": "— A harcot.",
+      "matched": 2,
+      "wordIndex": 570
+    },
+    {
+      "index": 144,
+      "time": 439.733,
+      "text": "Villám megpróbált mozdulatlan maradni.",
+      "matched": 4,
+      "wordIndex": 572
+    },
+    {
+      "index": 145,
+      "time": 443.257,
+      "text": "És egyszer csak…",
+      "matched": 3,
+      "wordIndex": 576
+    },
+    {
+      "index": 146,
+      "time": 445.505,
+      "text": "fenn maradt.",
+      "matched": 2,
+      "wordIndex": 579
+    },
+    {
+      "index": 147,
+      "time": 447.539,
+      "text": "Villám elkerekedett szemmel nézte az eget.",
+      "matched": 6,
+      "wordIndex": 581
+    },
+    {
+      "index": 148,
+      "time": 451.329,
+      "text": "— Én ezt csinálom?",
+      "matched": 3,
+      "wordIndex": 587
+    },
+    {
+      "index": 149,
+      "time": 453.563,
+      "text": "— Részben te – felelte Béka bácsi. – Részben a víz.",
+      "matched": 7,
+      "wordIndex": 590
+    },
+    {
+      "index": 150,
+      "time": 459.002,
+      "text": "Villám elmosolyodott.",
+      "matched": 2,
+      "wordIndex": 598
+    },
+    {
+      "index": 151,
+      "time": 461.688,
+      "text": "Ez tetszett neki.",
+      "matched": 3,
+      "wordIndex": 600
+    },
+    {
+      "index": 152,
+      "time": 463.802,
+      "text": "Délutánra már mindhárman tudtak néhány métert úszni a sekély medencében.",
+      "matched": 7,
+      "wordIndex": 603
+    },
+    {
+      "index": 153,
+      "time": 469.6,
+      "text": "Pötty lassan, de szépen haladt.",
+      "matched": 5,
+      "wordIndex": 613
+    },
+    {
+      "index": 154,
+      "time": 473.044,
+      "text": "Turbó összevissza fröcskölt.",
+      "matched": 3,
+      "wordIndex": 618
+    },
+    {
+      "index": 155,
+      "time": 476.023,
+      "text": "Villám pedig természetesen versenyt akart rendezni.",
+      "matched": 6,
+      "wordIndex": 621
+    },
+    {
+      "index": 156,
+      "time": 480.212,
+      "text": "— Aki előbb odaér a lépcsőhöz!",
+      "matched": 5,
+      "wordIndex": 627
+    },
+    {
+      "index": 157,
+      "time": 483.417,
+      "text": "— Nem versenyzünk – mondta Béka bácsi.",
+      "matched": 5,
+      "wordIndex": 632
+    },
+    {
+      "index": 158,
+      "time": 486.821,
+      "text": "Villám sóhajtott.",
+      "matched": 2,
+      "wordIndex": 637
+    },
+    {
+      "index": 159,
+      "time": 489.321,
+      "text": "— Miért nem?",
+      "matched": 2,
+      "wordIndex": 639
+    },
+    {
+      "index": 160,
+      "time": 491.316,
+      "text": "— Mert még tanultok.",
+      "matched": 3,
+      "wordIndex": 641
+    },
+    {
+      "index": 161,
+      "time": 493.683,
+      "text": "Villám már nyitotta a száját, hogy vitatkozzon.",
+      "matched": 7,
+      "wordIndex": 644
+    },
+    {
+      "index": 162,
+      "time": 498.084,
+      "text": "Aztán inkább azt kérdezte:",
+      "matched": 4,
+      "wordIndex": 651
+    },
+    {
+      "index": 163,
+      "time": 501.036,
+      "text": "— Mikor versenyezhetünk?",
+      "matched": 2,
+      "wordIndex": 655
+    },
+    {
+      "index": 164,
+      "time": 503.789,
+      "text": "— Ha már úgy tudtok úszni, hogy fáradtan sem estek pánikba.",
+      "matched": 7,
+      "wordIndex": 657
+    },
+    {
+      "index": 165,
+      "time": 508.683,
+      "text": "Ez elfogadható válasz volt.",
+      "matched": 4,
+      "wordIndex": 667
+    },
+    {
+      "index": 166,
+      "time": 511.688,
+      "text": "Később Béka bácsinak el kellett mennie néhány percre.",
+      "matched": 7,
+      "wordIndex": 671
+    },
+    {
+      "index": 167,
+      "time": 516.13,
+      "text": "Mielőtt elindult, rámutatott a tóra.",
+      "matched": 5,
+      "wordIndex": 679
+    },
+    {
+      "index": 168,
+      "time": 520.066,
+      "text": "— Maradjatok a medencében. A tóban ma nem úszhattok.",
+      "matched": 7,
+      "wordIndex": 684
+    },
+    {
+      "index": 169,
+      "time": 525.531,
+      "text": "— Rendben – mondta Pötty.",
+      "matched": 3,
+      "wordIndex": 692
+    },
+    {
+      "index": 170,
+      "time": 528.138,
+      "text": "— Rendben – mondta Turbó.",
+      "matched": 3,
+      "wordIndex": 695
+    },
+    {
+      "index": 171,
+      "time": 530.93,
+      "text": "Villám is bólintott.",
+      "matched": 3,
+      "wordIndex": 698
+    },
+    {
+      "index": 172,
+      "time": 533.563,
+      "text": "— Rendben.",
+      "matched": 1,
+      "wordIndex": 701
+    },
+    {
+      "index": 173,
+      "time": 535.305,
+      "text": "Béka bácsi elment.",
+      "matched": 3,
+      "wordIndex": 702
+    },
+    {
+      "index": 174,
+      "time": 537.872,
+      "text": "A három autó tovább gyakorolt.",
+      "matched": 5,
+      "wordIndex": 705
+    },
+    {
+      "index": 175,
+      "time": 541.05,
+      "text": "Aztán Turbó meglátta a tó közepén úszó sárga bóját.",
+      "matched": 7,
+      "wordIndex": 710
+    },
+    {
+      "index": 176,
+      "time": 545.89,
+      "text": "— Szerintetek milyen messze van?",
+      "matched": 4,
+      "wordIndex": 719
+    },
+    {
+      "index": 177,
+      "time": 548.816,
+      "text": "— Messze – mondta Pötty.",
+      "matched": 3,
+      "wordIndex": 723
+    },
+    {
+      "index": 178,
+      "time": 551.316,
+      "text": "Villám nézte.",
+      "matched": 2,
+      "wordIndex": 726
+    },
+    {
+      "index": 179,
+      "time": 553.457,
+      "text": "— Szerintem simán kiúsznék odáig.",
+      "matched": 4,
+      "wordIndex": 728
+    },
+    {
+      "index": 180,
+      "time": 556.834,
+      "text": "— Béka bácsi azt mondta, hogy nem mehetünk a tóba – mondta Pötty.",
+      "matched": 7,
+      "wordIndex": 732
+    },
+    {
+      "index": 181,
+      "time": 561.848,
+      "text": "— Tudom.",
+      "matched": 1,
+      "wordIndex": 743
+    },
+    {
+      "index": 182,
+      "time": 563.35,
+      "text": "Villám tovább nézte a bóját.",
+      "matched": 5,
+      "wordIndex": 744
+    },
+    {
+      "index": 183,
+      "time": 566.462,
+      "text": "— Csak mondtam.",
+      "matched": 2,
+      "wordIndex": 749
+    },
+    {
+      "index": 184,
+      "time": 568.364,
+      "text": "Néhány perc múlva egy nagyobb gyerekcsapat érkezett a medencéhez.",
+      "matched": 7,
+      "wordIndex": 751
+    },
+    {
+      "index": 185,
+      "time": 573.297,
+      "text": "Ők már jól tudtak úszni.",
+      "matched": 5,
+      "wordIndex": 760
+    },
+    {
+      "index": 186,
+      "time": 575.983,
+      "text": "Beszaladtak a tóba, és vidáman úsztak a bóják között.",
+      "matched": 7,
+      "wordIndex": 765
+    },
+    {
+      "index": 187,
+      "time": 580.89,
+      "text": "Turbó figyelte őket.",
+      "matched": 3,
+      "wordIndex": 774
+    },
+    {
+      "index": 188,
+      "time": 583.47,
+      "text": "— Ők mehetnek.",
+      "matched": 2,
+      "wordIndex": 777
+    },
+    {
+      "index": 189,
+      "time": 585.478,
+      "text": "— Mert ők tudnak úszni – mondta Pötty.",
+      "matched": 6,
+      "wordIndex": 779
+    },
+    {
+      "index": 190,
+      "time": 588.736,
+      "text": "Villámnak ez egyre kevésbé tetszett.",
+      "matched": 5,
+      "wordIndex": 785
+    },
+    {
+      "index": 191,
+      "time": 592.372,
+      "text": "— Én is tudok.",
+      "matched": 3,
+      "wordIndex": 790
+    },
+    {
+      "index": 192,
+      "time": 594.303,
+      "text": "— Ma tanultál meg három métert úszni – mondta Pötty.",
+      "matched": 7,
+      "wordIndex": 793
+    },
+    {
+      "index": 193,
+      "time": 598.346,
+      "text": "Villám morcosan nézett rá.",
+      "matched": 4,
+      "wordIndex": 801
+    },
+    {
+      "index": 194,
+      "time": 601.271,
+      "text": "— Ötöt.",
+      "matched": 1,
+      "wordIndex": 805
+    },
+    {
+      "index": 195,
+      "time": 602.841,
+      "text": "— Jó. Ötöt.",
+      "matched": 2,
+      "wordIndex": 806
+    },
+    {
+      "index": 196,
+      "time": 605.912,
+      "text": "A sárga bója legalább ötvenszer olyan messze volt.",
+      "matched": 7,
+      "wordIndex": 808
+    },
+    {
+      "index": 197,
+      "time": 610.274,
+      "text": "Villám elhallgatott.",
+      "matched": 2,
+      "wordIndex": 816
+    },
+    {
+      "index": 198,
+      "time": 612.894,
+      "text": "Ekkor a partról kiáltás hallatszott.",
+      "matched": 5,
+      "wordIndex": 818
+    },
+    {
+      "index": 199,
+      "time": 616.271,
+      "text": "— Labda!",
+      "matched": 1,
+      "wordIndex": 823
+    },
+    {
+      "index": 200,
+      "time": 617.827,
+      "text": "Egy kis zöld autó állt a víz szélén.",
+      "matched": 7,
+      "wordIndex": 824
+    },
+    {
+      "index": 201,
+      "time": 621.298,
+      "text": "A labdája begurult a tóba.",
+      "matched": 5,
+      "wordIndex": 832
+    },
+    {
+      "index": 202,
+      "time": 624.17,
+      "text": "A szél lassan egyre beljebb vitte.",
+      "matched": 6,
+      "wordIndex": 837
+    },
+    {
+      "index": 203,
+      "time": 627.375,
+      "text": "— Majd én! – mondta Villám.",
+      "matched": 4,
+      "wordIndex": 843
+    },
+    {
+      "index": 204,
+      "time": 631.325,
+      "text": "Már indult is.",
+      "matched": 3,
+      "wordIndex": 847
+    },
+    {
+      "index": 205,
+      "time": 633.625,
+      "text": "Pötty elé gurult.",
+      "matched": 3,
+      "wordIndex": 850
+    },
+    {
+      "index": 206,
+      "time": 635.899,
+      "text": "— Nem.",
+      "matched": 1,
+      "wordIndex": 853
+    },
+    {
+      "index": 207,
+      "time": 637.388,
+      "text": "— Csak a labdáért megyek.",
+      "matched": 4,
+      "wordIndex": 854
+    },
+    {
+      "index": 208,
+      "time": 639.902,
+      "text": "— Béka bácsi azt mondta, hogy ne menjünk a tóba.",
+      "matched": 7,
+      "wordIndex": 858
+    },
+    {
+      "index": 209,
+      "time": 644.157,
+      "text": "— De látom a labdát!",
+      "matched": 4,
+      "wordIndex": 867
+    },
+    {
+      "index": 210,
+      "time": 646.577,
+      "text": "— Attól még mély a víz.",
+      "matched": 5,
+      "wordIndex": 871
+    },
+    {
+      "index": 211,
+      "time": 649.091,
+      "text": "Villám mérges lett.",
+      "matched": 3,
+      "wordIndex": 876
+    },
+    {
+      "index": 212,
+      "time": 651.617,
+      "text": "— Pötty, ne parancsolgass!",
+      "matched": 3,
+      "wordIndex": 879
+    },
+    {
+      "index": 213,
+      "time": 654.689,
+      "text": "A kis zöld autó szomorúan nézte a távolodó labdát.",
+      "matched": 7,
+      "wordIndex": 882
+    },
+    {
+      "index": 214,
+      "time": 659.33,
+      "text": "Villám kikerülte Pöttyöt.",
+      "matched": 3,
+      "wordIndex": 891
+    },
+    {
+      "index": 215,
+      "time": 662.216,
+      "text": "Begurult a tóba.",
+      "matched": 3,
+      "wordIndex": 894
+    },
+    {
+      "index": 216,
+      "time": 664.49,
+      "text": "Először minden rendben volt.",
+      "matched": 4,
+      "wordIndex": 897
+    },
+    {
+      "index": 217,
+      "time": 667.455,
+      "text": "A víz a kerekei feléig ért.",
+      "matched": 6,
+      "wordIndex": 901
+    },
+    {
+      "index": 218,
+      "time": 670.567,
+      "text": "Aztán az ajtajáig.",
+      "matched": 3,
+      "wordIndex": 907
+    },
+    {
+      "index": 219,
+      "time": 673.093,
+      "text": "Villám úszni kezdett.",
+      "matched": 3,
+      "wordIndex": 910
+    },
+    {
+      "index": 220,
+      "time": 675.779,
+      "text": "— Látjátok? Mondtam!",
+      "matched": 2,
+      "wordIndex": 913
+    },
+    {
+      "index": 221,
+      "time": 679.529,
+      "text": "Elérte a labdát.",
+      "matched": 3,
+      "wordIndex": 915
+    },
+    {
+      "index": 222,
+      "time": 681.79,
+      "text": "— Megvan!",
+      "matched": 1,
+      "wordIndex": 918
+    },
+    {
+      "index": 223,
+      "time": 683.519,
+      "text": "Megfordult.",
+      "matched": 1,
+      "wordIndex": 919
+    },
+    {
+      "index": 224,
+      "time": 685.54,
+      "text": "És akkor történt valami.",
+      "matched": 4,
+      "wordIndex": 920
+    },
+    {
+      "index": 225,
+      "time": 688.253,
+      "text": "A part sokkal messzebbinek látszott, mint az előbb.",
+      "matched": 7,
+      "wordIndex": 924
+    },
+    {
+      "index": 226,
+      "time": 692.787,
+      "text": "Villám úszni kezdett visszafelé.",
+      "matched": 4,
+      "wordIndex": 932
+    },
+    {
+      "index": 227,
+      "time": 696.032,
+      "text": "Egy méter.",
+      "matched": 2,
+      "wordIndex": 936
+    },
+    {
+      "index": 228,
+      "time": 697.947,
+      "text": "Két méter.",
+      "matched": 2,
+      "wordIndex": 938
+    },
+    {
+      "index": 229,
+      "time": 699.995,
+      "text": "Három.",
+      "matched": 1,
+      "wordIndex": 940
+    },
+    {
+      "index": 230,
+      "time": 701.67,
+      "text": "A lába már nem ért le.",
+      "matched": 6,
+      "wordIndex": 941
+    },
+    {
+      "index": 231,
+      "time": 704.144,
+      "text": "Elfáradt.",
+      "matched": 1,
+      "wordIndex": 947
+    },
+    {
+      "index": 232,
+      "time": 706.178,
+      "text": "Megpróbált gyorsabban úszni.",
+      "matched": 3,
+      "wordIndex": 948
+    },
+    {
+      "index": 233,
+      "time": 709.157,
+      "text": "Csapkodni kezdte a vizet.",
+      "matched": 4,
+      "wordIndex": 951
+    },
+    {
+      "index": 234,
+      "time": 711.79,
+      "text": "Ettől még jobban elfáradt.",
+      "matched": 4,
+      "wordIndex": 955
+    },
+    {
+      "index": 235,
+      "time": 714.676,
+      "text": "— Pötty!",
+      "matched": 1,
+      "wordIndex": 959
+    },
+    {
+      "index": 236,
+      "time": 716.152,
+      "text": "Pötty azonnal indult volna.",
+      "matched": 4,
+      "wordIndex": 960
+    },
+    {
+      "index": 237,
+      "time": 718.918,
+      "text": "Turbó elé állt.",
+      "matched": 3,
+      "wordIndex": 964
+    },
+    {
+      "index": 238,
+      "time": 721.205,
+      "text": "— Ne!",
+      "matched": 1,
+      "wordIndex": 967
+    },
+    {
+      "index": 239,
+      "time": 722.654,
+      "text": "— Villám bajban van!",
+      "matched": 3,
+      "wordIndex": 968
+    },
+    {
+      "index": 240,
+      "time": 725.101,
+      "text": "— Ha utánaúszol, ketten lesztek bajban.",
+      "matched": 5,
+      "wordIndex": 971
+    },
+    {
+      "index": 241,
+      "time": 729.144,
+      "text": "Pötty megállt.",
+      "matched": 2,
+      "wordIndex": 976
+    },
+    {
+      "index": 242,
+      "time": 731.099,
+      "text": "Ez nehéz volt.",
+      "matched": 3,
+      "wordIndex": 978
+    },
+    {
+      "index": 243,
+      "time": 733.226,
+      "text": "Nagyon nehéz.",
+      "matched": 2,
+      "wordIndex": 981
+    },
+    {
+      "index": 244,
+      "time": 735.314,
+      "text": "A barátja segítséget kért, ő pedig tudta, hogy nem tud elég jól úszni.",
+      "matched": 7,
+      "wordIndex": 983
+    },
+    {
+      "index": 245,
+      "time": 741.418,
+      "text": "Turbó körülnézett.",
+      "matched": 2,
+      "wordIndex": 996
+    },
+    {
+      "index": 246,
+      "time": 743.904,
+      "text": "— Valami hosszú kell!",
+      "matched": 3,
+      "wordIndex": 998
+    },
+    {
+      "index": 247,
+      "time": 746.351,
+      "text": "A medence mellett ott feküdt egy hosszú habszivacs úszórúd.",
+      "matched": 7,
+      "wordIndex": 1001
+    },
+    {
+      "index": 248,
+      "time": 750.886,
+      "text": "Turbó felkapta.",
+      "matched": 2,
+      "wordIndex": 1010
+    },
+    {
+      "index": 249,
+      "time": 753.107,
+      "text": "Pötty közben kiabálni kezdett:",
+      "matched": 4,
+      "wordIndex": 1012
+    },
+    {
+      "index": 250,
+      "time": 756.218,
+      "text": "— SEGÍTSÉG! VALAKI SEGÍTSEN!",
+      "matched": 3,
+      "wordIndex": 1016
+    },
+    {
+      "index": 251,
+      "time": 760.66,
+      "text": "Turbó a partról Villám felé tolta az úszórudat.",
+      "matched": 7,
+      "wordIndex": 1019
+    },
+    {
+      "index": 252,
+      "time": 764.862,
+      "text": "— Villám! Fogd meg!",
+      "matched": 3,
+      "wordIndex": 1027
+    },
+    {
+      "index": 253,
+      "time": 768.386,
+      "text": "Villám elérte.",
+      "matched": 2,
+      "wordIndex": 1030
+    },
+    {
+      "index": 254,
+      "time": 770.633,
+      "text": "Rákapaszkodott.",
+      "matched": 1,
+      "wordIndex": 1032
+    },
+    {
+      "index": 255,
+      "time": 772.867,
+      "text": "Most már nem kellett minden erejével fenn tartania magát.",
+      "matched": 7,
+      "wordIndex": 1033
+    },
+    {
+      "index": 256,
+      "time": 777.362,
+      "text": "Pötty és Turbó húzni kezdték.",
+      "matched": 5,
+      "wordIndex": 1042
+    },
+    {
+      "index": 257,
+      "time": 780.394,
+      "text": "Lassan.",
+      "matched": 1,
+      "wordIndex": 1047
+    },
+    {
+      "index": 258,
+      "time": 782.136,
+      "text": "Még egy kicsit.",
+      "matched": 3,
+      "wordIndex": 1048
+    },
+    {
+      "index": 259,
+      "time": 784.184,
+      "text": "Még egyet.",
+      "matched": 2,
+      "wordIndex": 1051
+    },
+    {
+      "index": 260,
+      "time": 786.152,
+      "text": "Végül Villám kereke elérte az aljat.",
+      "matched": 6,
+      "wordIndex": 1053
+    },
+    {
+      "index": 261,
+      "time": 789.676,
+      "text": "Kigázolt a partra.",
+      "matched": 3,
+      "wordIndex": 1059
+    },
+    {
+      "index": 262,
+      "time": 791.963,
+      "text": "Lihegett.",
+      "matched": 1,
+      "wordIndex": 1062
+    },
+    {
+      "index": 263,
+      "time": 793.785,
+      "text": "Sokáig egyikük sem szólt.",
+      "matched": 4,
+      "wordIndex": 1063
+    },
+    {
+      "index": 264,
+      "time": 796.75,
+      "text": "A kis zöld autó odagurult.",
+      "matched": 5,
+      "wordIndex": 1067
+    },
+    {
+      "index": 265,
+      "time": 799.835,
+      "text": "Villám még mindig a labdát tartotta.",
+      "matched": 6,
+      "wordIndex": 1072
+    },
+    {
+      "index": 266,
+      "time": 803.186,
+      "text": "— Tessék – mondta.",
+      "matched": 2,
+      "wordIndex": 1078
+    },
+    {
+      "index": 267,
+      "time": 805.447,
+      "text": "A kisautó átvette.",
+      "matched": 3,
+      "wordIndex": 1080
+    },
+    {
+      "index": 268,
+      "time": 808.04,
+      "text": "— Köszönöm.",
+      "matched": 1,
+      "wordIndex": 1083
+    },
+    {
+      "index": 269,
+      "time": 809.716,
+      "text": "Villám fáradtan elmosolyodott.",
+      "matched": 3,
+      "wordIndex": 1084
+    },
+    {
+      "index": 270,
+      "time": 813.0,
+      "text": "— Szívesen.",
+      "matched": 1,
+      "wordIndex": 1087
+    },
+    {
+      "index": 271,
+      "time": 814.835,
+      "text": "Ekkor visszaért Béka bácsi.",
+      "matched": 4,
+      "wordIndex": 1088
+    },
+    {
+      "index": 272,
+      "time": 817.854,
+      "text": "Meglátta a vizes úszórudat.",
+      "matched": 4,
+      "wordIndex": 1092
+    },
+    {
+      "index": 273,
+      "time": 820.939,
+      "text": "Meglátta Villámot.",
+      "matched": 2,
+      "wordIndex": 1096
+    },
+    {
+      "index": 274,
+      "time": 823.439,
+      "text": "Meglátta Pötty és Turbó arcát.",
+      "matched": 5,
+      "wordIndex": 1098
+    },
+    {
+      "index": 275,
+      "time": 826.724,
+      "text": "— Mi történt?",
+      "matched": 2,
+      "wordIndex": 1103
+    },
+    {
+      "index": 276,
+      "time": 828.732,
+      "text": "Villám válaszolt.",
+      "matched": 2,
+      "wordIndex": 1105
+    },
+    {
+      "index": 277,
+      "time": 831.192,
+      "text": "— Bementem a tóba.",
+      "matched": 3,
+      "wordIndex": 1107
+    },
+    {
+      "index": 278,
+      "time": 833.452,
+      "text": "— Pedig mit kértem?",
+      "matched": 3,
+      "wordIndex": 1110
+    },
+    {
+      "index": 279,
+      "time": 835.726,
+      "text": "— Hogy ne menjünk be.",
+      "matched": 4,
+      "wordIndex": 1113
+    },
+    {
+      "index": 280,
+      "time": 837.841,
+      "text": "— Miért mentél mégis?",
+      "matched": 3,
+      "wordIndex": 1117
+    },
+    {
+      "index": 281,
+      "time": 840.513,
+      "text": "Villám a vízre nézett.",
+      "matched": 4,
+      "wordIndex": 1120
+    },
+    {
+      "index": 282,
+      "time": 843.24,
+      "text": "— Mert azt hittem, már tudok úszni.",
+      "matched": 6,
+      "wordIndex": 1124
+    },
+    {
+      "index": 283,
+      "time": 846.857,
+      "text": "Béka bácsi leült mellé.",
+      "matched": 4,
+      "wordIndex": 1130
+    },
+    {
+      "index": 284,
+      "time": 849.569,
+      "text": "— És tudsz?",
+      "matched": 2,
+      "wordIndex": 1134
+    },
+    {
+      "index": 285,
+      "time": 851.418,
+      "text": "Villám gondolkodott.",
+      "matched": 2,
+      "wordIndex": 1136
+    },
+    {
+      "index": 286,
+      "time": 853.971,
+      "text": "— Egy kicsit.",
+      "matched": 2,
+      "wordIndex": 1138
+    },
+    {
+      "index": 287,
+      "time": 855.779,
+      "text": "— Ez fontos különbség.",
+      "matched": 3,
+      "wordIndex": 1140
+    },
+    {
+      "index": 288,
+      "time": 858.213,
+      "text": "Villám bólintott.",
+      "matched": 2,
+      "wordIndex": 1143
+    },
+    {
+      "index": 289,
+      "time": 860.66,
+      "text": "— A medencében könnyűnek tűnt.",
+      "matched": 4,
+      "wordIndex": 1145
+    },
+    {
+      "index": 290,
+      "time": 863.665,
+      "text": "— Mert ott közel volt a széle, leért a lábad, és ott voltam melletted.",
+      "matched": 7,
+      "wordIndex": 1149
+    },
+    {
+      "index": 291,
+      "time": 869.556,
+      "text": "— A tóban pedig elfáradtam.",
+      "matched": 4,
+      "wordIndex": 1162
+    },
+    {
+      "index": 292,
+      "time": 872.548,
+      "text": "— Igen.",
+      "matched": 1,
+      "wordIndex": 1166
+    },
+    {
+      "index": 293,
+      "time": 874.104,
+      "text": "Pötty megszólalt:",
+      "matched": 2,
+      "wordIndex": 1167
+    },
+    {
+      "index": 294,
+      "time": 876.325,
+      "text": "— Majdnem utánamentem.",
+      "matched": 2,
+      "wordIndex": 1169
+    },
+    {
+      "index": 295,
+      "time": 878.904,
+      "text": "Béka bácsi ránézett.",
+      "matched": 3,
+      "wordIndex": 1171
+    },
+    {
+      "index": 296,
+      "time": 881.644,
+      "text": "— Miért nem mentél?",
+      "matched": 3,
+      "wordIndex": 1174
+    },
+    {
+      "index": 297,
+      "time": 884.091,
+      "text": "— Turbó megállított.",
+      "matched": 2,
+      "wordIndex": 1177
+    },
+    {
+      "index": 298,
+      "time": 886.577,
+      "text": "Béka bácsi Turbóra nézett.",
+      "matched": 4,
+      "wordIndex": 1179
+    },
+    {
+      "index": 299,
+      "time": 889.716,
+      "text": "Turbó büszkén kihúzta magát.",
+      "matched": 4,
+      "wordIndex": 1183
+    },
+    {
+      "index": 300,
+      "time": 892.827,
+      "text": "— Rájöttem, hogy ha én sem tudok rendesen úszni, akkor attól Villámnak nem lesz jobb, ha én is fuldoklom.",
+      "matched": 7,
+      "wordIndex": 1187
+    },
+    {
+      "index": 301,
+      "time": 901.084,
+      "text": "— Ez ma a legokosabb döntés volt – mondta Béka bácsi.",
+      "matched": 7,
+      "wordIndex": 1205
+    },
+    {
+      "index": 302,
+      "time": 905.356,
+      "text": "Turbó elmosolyodott.",
+      "matched": 2,
+      "wordIndex": 1214
+    },
+    {
+      "index": 303,
+      "time": 907.936,
+      "text": "— Ezt felírhatjuk valahova?",
+      "matched": 3,
+      "wordIndex": 1216
+    },
+    {
+      "index": 304,
+      "time": 910.675,
+      "text": "Másnap mindhárman visszamentek.",
+      "matched": 3,
+      "wordIndex": 1219
+    },
+    {
+      "index": 305,
+      "time": 913.92,
+      "text": "Villám is.",
+      "matched": 2,
+      "wordIndex": 1222
+    },
+    {
+      "index": 306,
+      "time": 915.967,
+      "text": "Sőt, Villám érkezett elsőnek.",
+      "matched": 4,
+      "wordIndex": 1224
+    },
+    {
+      "index": 307,
+      "time": 919.744,
+      "text": "— Mit gyakorlunk ma? – kérdezte.",
+      "matched": 4,
+      "wordIndex": 1228
+    },
+    {
+      "index": 308,
+      "time": 923.72,
+      "text": "— Ugyanazt, mint tegnap – mondta Béka bácsi.",
+      "matched": 6,
+      "wordIndex": 1232
+    },
+    {
+      "index": 309,
+      "time": 927.736,
+      "text": "Villám meglepődött.",
+      "matched": 2,
+      "wordIndex": 1238
+    },
+    {
+      "index": 310,
+      "time": 930.356,
+      "text": "— Nem valami nehezebbet?",
+      "matched": 3,
+      "wordIndex": 1240
+    },
+    {
+      "index": 311,
+      "time": 932.962,
+      "text": "— Először legyen nagyon biztos az, amit már tanultál.",
+      "matched": 7,
+      "wordIndex": 1243
+    },
+    {
+      "index": 312,
+      "time": 937.59,
+      "text": "Villám bólintott.",
+      "matched": 2,
+      "wordIndex": 1251
+    },
+    {
+      "index": 313,
+      "time": 940.037,
+      "text": "— Rendben.",
+      "matched": 1,
+      "wordIndex": 1253
+    },
+    {
+      "index": 314,
+      "time": 941.779,
+      "text": "Lebegtek.",
+      "matched": 1,
+      "wordIndex": 1254
+    },
+    {
+      "index": 315,
+      "time": 943.6,
+      "text": "Levegőt fújtak a víz alatt.",
+      "matched": 5,
+      "wordIndex": 1255
+    },
+    {
+      "index": 316,
+      "time": 946.526,
+      "text": "Lábtempót gyakoroltak.",
+      "matched": 2,
+      "wordIndex": 1260
+    },
+    {
+      "index": 317,
+      "time": 949.545,
+      "text": "Aztán úsztak.",
+      "matched": 2,
+      "wordIndex": 1262
+    },
+    {
+      "index": 318,
+      "time": 951.686,
+      "text": "Egy hosszt.",
+      "matched": 2,
+      "wordIndex": 1264
+    },
+    {
+      "index": 319,
+      "time": 953.428,
+      "text": "Pihenés.",
+      "matched": 1,
+      "wordIndex": 1266
+    },
+    {
+      "index": 320,
+      "time": 955.21,
+      "text": "Még egyet.",
+      "matched": 2,
+      "wordIndex": 1267
+    },
+    {
+      "index": 321,
+      "time": 957.164,
+      "text": "Pihenés.",
+      "matched": 1,
+      "wordIndex": 1269
+    },
+    {
+      "index": 322,
+      "time": 958.946,
+      "text": "Napok teltek el.",
+      "matched": 3,
+      "wordIndex": 1270
+    },
+    {
+      "index": 323,
+      "time": 961.167,
+      "text": "Aztán hetek.",
+      "matched": 2,
+      "wordIndex": 1273
+    },
+    {
+      "index": 324,
+      "time": 963.215,
+      "text": "Egyik délután Béka bácsi végül a tó felé mutatott.",
+      "matched": 7,
+      "wordIndex": 1275
+    },
+    {
+      "index": 325,
+      "time": 967.856,
+      "text": "— Ma kimegyünk a nyílt vízre.",
+      "matched": 5,
+      "wordIndex": 1284
+    },
+    {
+      "index": 326,
+      "time": 970.582,
+      "text": "Villám felcsillant.",
+      "matched": 2,
+      "wordIndex": 1289
+    },
+    {
+      "index": 327,
+      "time": 973.135,
+      "text": "— A sárga bójáig?",
+      "matched": 3,
+      "wordIndex": 1291
+    },
+    {
+      "index": 328,
+      "time": 975.595,
+      "text": "— Nem.",
+      "matched": 1,
+      "wordIndex": 1294
+    },
+    {
+      "index": 329,
+      "time": 977.085,
+      "text": "Villám elnevette magát.",
+      "matched": 3,
+      "wordIndex": 1295
+    },
+    {
+      "index": 330,
+      "time": 979.93,
+      "text": "— Gondoltam.",
+      "matched": 1,
+      "wordIndex": 1298
+    },
+    {
+      "index": 331,
+      "time": 981.885,
+      "text": "Mindhárman felvették a nekik való úszást segítő felszerelést, és Béka bácsival együtt bementek a vízbe.",
+      "matched": 7,
+      "wordIndex": 1299
+    },
+    {
+      "index": 332,
+      "time": 989.558,
+      "text": "Lassan haladtak.",
+      "matched": 2,
+      "wordIndex": 1314
+    },
+    {
+      "index": 333,
+      "time": 991.858,
+      "text": "Pötty néha megállt lebegni.",
+      "matched": 4,
+      "wordIndex": 1316
+    },
+    {
+      "index": 334,
+      "time": 994.585,
+      "text": "Turbó most kivételesen alig fröcskölt.",
+      "matched": 5,
+      "wordIndex": 1320
+    },
+    {
+      "index": 335,
+      "time": 998.241,
+      "text": "Villám pedig nem sietett.",
+      "matched": 4,
+      "wordIndex": 1325
+    },
+    {
+      "index": 336,
+      "time": 1001.034,
+      "text": "Egyszer csak elérték az első bóját.",
+      "matched": 6,
+      "wordIndex": 1329
+    },
+    {
+      "index": 337,
+      "time": 1004.571,
+      "text": "Villám visszanézett a partra.",
+      "matched": 4,
+      "wordIndex": 1335
+    },
+    {
+      "index": 338,
+      "time": 1007.616,
+      "text": "— Ez messzebb van, mint amilyennek kinézett.",
+      "matched": 6,
+      "wordIndex": 1339
+    },
+    {
+      "index": 339,
+      "time": 1011.539,
+      "text": "— A vízen sok minden ilyen – mondta Béka bácsi.",
+      "matched": 7,
+      "wordIndex": 1345
+    },
+    {
+      "index": 340,
+      "time": 1015.502,
+      "text": "Villám megérintette a bóját.",
+      "matched": 4,
+      "wordIndex": 1353
+    },
+    {
+      "index": 341,
+      "time": 1018.76,
+      "text": "Aztán Pötty is.",
+      "matched": 3,
+      "wordIndex": 1357
+    },
+    {
+      "index": 342,
+      "time": 1020.967,
+      "text": "Aztán Turbó.",
+      "matched": 2,
+      "wordIndex": 1360
+    },
+    {
+      "index": 343,
+      "time": 1023.148,
+      "text": "— Verseny visszafelé? – kérdezte Turbó.",
+      "matched": 4,
+      "wordIndex": 1362
+    },
+    {
+      "index": 344,
+      "time": 1027.869,
+      "text": "Villám ránézett.",
+      "matched": 2,
+      "wordIndex": 1366
+    },
+    {
+      "index": 345,
+      "time": 1030.329,
+      "text": "Pötty ránézett.",
+      "matched": 2,
+      "wordIndex": 1368
+    },
+    {
+      "index": 346,
+      "time": 1032.603,
+      "text": "Béka bácsi is ránézett.",
+      "matched": 4,
+      "wordIndex": 1370
+    },
+    {
+      "index": 347,
+      "time": 1035.502,
+      "text": "Turbó gondolkodott.",
+      "matched": 2,
+      "wordIndex": 1374
+    },
+    {
+      "index": 348,
+      "time": 1037.949,
+      "text": "— Jó. Akkor ezt majd később.",
+      "matched": 5,
+      "wordIndex": 1376
+    },
+    {
+      "index": 349,
+      "time": 1042.111,
+      "text": "Mindannyian nevettek.",
+      "matched": 2,
+      "wordIndex": 1381
+    },
+    {
+      "index": 350,
+      "time": 1044.571,
+      "text": "És együtt indultak vissza a part felé.",
+      "matched": 7,
+      "wordIndex": 1383
+    },
+    {
+      "index": 351,
+      "time": 1048.002,
+      "text": "Nem volt köztük első.",
+      "matched": 4,
+      "wordIndex": 1390
+    },
+    {
+      "index": 352,
+      "time": 1050.608,
+      "text": "Nem volt második.",
+      "matched": 3,
+      "wordIndex": 1394
+    },
+    {
+      "index": 353,
+      "time": 1052.922,
+      "text": "Nem volt harmadik.",
+      "matched": 3,
+      "wordIndex": 1397
+    },
+    {
+      "index": 354,
+      "time": 1055.223,
+      "text": "Aznap valami sokkal fontosabbat gyakoroltak annál, hogyan kell gyorsnak lenni.",
+      "matched": 7,
+      "wordIndex": 1400
+    },
+    {
+      "index": 355,
+      "time": 1061.22,
+      "text": "Azt, hogyan lehet jól érezni magukat a vízben úgy, hogy közben tudják, mire képesek, figyelnek egymásra, és ha valaki azt mondja:",
+      "matched": 7,
+      "wordIndex": 1410
+    },
+    {
+      "index": 356,
+      "time": 1071.433,
+      "text": "— Állj!",
+      "matched": 1,
+      "wordIndex": 1431
+    },
+    {
+      "index": 357,
+      "time": 1072.909,
+      "text": "akkor megállnak.",
+      "matched": 2,
+      "wordIndex": 1432
+    },
+    {
+      "index": 358,
+      "time": 1075.116,
+      "text": "Mert a víz csodálatos hely.",
+      "matched": 5,
+      "wordIndex": 1434
+    },
+    {
+      "index": 359,
+      "time": 1078.015,
+      "text": "Lehet benne úszni, lebegni, játszani és hatalmasat csobbanni.",
+      "matched": 7,
+      "wordIndex": 1439
+    },
+    {
+      "index": 360,
+      "time": 1083.76,
+      "text": "De a víz attól még nem lesz sekélyebb, hogy valaki nagyon bátor.",
+      "matched": 7,
+      "wordIndex": 1447
+    }
+  ]
+}

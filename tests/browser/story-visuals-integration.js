@@ -6,6 +6,11 @@ async page => {
   await page.goto('http://127.0.0.1:5187/');
   await page.evaluate(async()=>{localStorage.clear();for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();for(const key of await caches.keys())await caches.delete(key);});
   await page.reload();
+  const clock = await page.evaluate(async () => {
+    const timing = await import('/story-playback-timing.js');
+    window.storyIntegrationTiming = timing;
+    return { crane: timing.storyPlaybackTime('story-01', 139) };
+  });
   await page.locator('[data-open="play-menu"]').click();await page.locator('[data-open="audiobooks"]').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
@@ -16,7 +21,7 @@ async page => {
   ok(true,'The existing player drives the animation using actual MP3 time');
   await page.locator('#story-toggle').click();await page.waitForTimeout(80);const frozen=await page.locator('#story-visual').innerHTML();await page.waitForTimeout(200);
   ok(await page.locator('#story-visual').innerHTML()===frozen,'Pausing the audiobook freezes the stage');
-  await page.locator('#story-seek').evaluate(input=>{input.value=139;input.dispatchEvent(new Event('input',{bubbles:true}));});
+  await page.locator('#story-seek').evaluate((input,time)=>{input.value=time;input.dispatchEvent(new Event('input',{bubbles:true}));},clock.crane);
   await page.waitForFunction(()=>document.querySelector('#story-visual').dataset.scene==='crane');
   ok(true,'The existing seek control updates the narrated rescue scene');
   await page.locator('[data-story="story-02"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
@@ -28,7 +33,7 @@ async page => {
     await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
     const time=await page.locator('#story-seek').evaluate(input=>Math.floor(Number(input.max)*.6));
     await page.locator('#story-seek').evaluate((input,time)=>{input.value=time;input.dispatchEvent(new Event('input',{bubbles:true}));},time);
-    await page.waitForFunction(time=>Math.abs(Number(document.querySelector('#story-visual').dataset.time)-time)<.1,time);
+    await page.waitForFunction(({id,time})=>Math.abs(Number(document.querySelector('#story-visual').dataset.time)-storyIntegrationTiming.storyAnimationTime(id,time))<.1,{id,time});
     ok(await page.locator('#story-visual svg').count()===1,`${id}: switching and seeking through the existing audiobook player`);
   }
   await page.locator('[data-story="story-01"]').click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);

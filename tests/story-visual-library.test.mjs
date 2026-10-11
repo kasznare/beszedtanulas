@@ -5,18 +5,18 @@ import { AUDIOBOOKS } from '../audiobook-data.js';
 import { STORY_VISUAL_LIBRARY, storySceneAt, storyCaptionAt } from '../story-visual-library.js';
 import { createBaseArt } from '../story-art/base.js';
 
-test('every original recording has a complete ordered scene and caption timeline', () => {
+test('every recording has ordered playback captions and an original animation timeline', () => {
   assert.deepEqual(STORY_VISUAL_LIBRARY.map(story => story.id), AUDIOBOOKS.map(story => story.id));
   for (const story of STORY_VISUAL_LIBRARY) {
     assert.ok(story.scenes.length >= 12, story.id);
     assert.equal(story.scenes[0].time, 0, story.id);
     assert.equal(new Set(story.scenes.map(scene => scene.id)).size, story.scenes.length, story.id);
-    for (const cues of [story.scenes, story.captions]) {
-      assert.ok(cues.every((cue, index) => Number.isFinite(cue.time) && cue.time >= 0 && cue.time < story.duration && (!index || cue.time > cues[index - 1].time)), story.id);
+    for (const [cues, duration] of [[story.scenes, story.visualDuration], [story.captions, story.duration]]) {
+      assert.ok(cues.every((cue, index) => Number.isFinite(cue.time) && cue.time >= 0 && cue.time < duration && (!index || cue.time > cues[index - 1].time)), story.id);
     }
     assert.deepEqual(story.captions.map(caption => caption.text), story.text.split('\n'));
     assert.equal(storyCaptionAt(story.id, story.duration), story.text.split('\n').at(-1));
-    assert.equal(storySceneAt(story.id, story.duration), story.scenes.at(-1));
+    assert.equal(storySceneAt(story.id, story.visualDuration), story.scenes.at(-1));
     for (let index = 1; index < story.scenes.length; index++) {
       const cue = story.scenes[index];
       assert.equal(storySceneAt(story.id, cue.time), cue);
@@ -41,7 +41,7 @@ test('every new scene renders with the shared models and locally resolved SVG pa
 test('shared art and story modules are included in the offline and publication manifest', async () => {
   const worker = await readFile(new URL('../sw.js', import.meta.url), 'utf8');
   const assets = JSON.parse(worker.match(/const ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset => asset.file);
-  for (const file of ['story-visual-player.js', 'story-visual-library.js', 'story-caption-timing.js',
+  for (const file of ['story-visual-player.js', 'story-visual-library.js', 'story-caption-timing.js', 'story-playback-maps.js', 'story-playback-timing.js',
     'story-art/base.js', 'story-art/vehicles.js', 'story-art/animate.js', 'story-art/workshop.js', 'story-art/routes.js', 'story-art/seasons.js',
     'story-scenes/workshop.js', 'story-scenes/routes.js', 'story-scenes/seasons.js']) assert.ok(assets.includes(file), file);
 });

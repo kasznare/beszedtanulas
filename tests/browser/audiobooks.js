@@ -83,8 +83,9 @@ async page => {
   await page.locator('#story-transcript summary').click();ok((await page.locator('#story-text').innerText()).length>4000,'The original story text can also be read');await page.locator('#story-transcript summary').click();
   await context.setOffline(true); await page.reload(); await open();
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+  const mappedOfflineTime = await page.evaluate(async()=> (await import('/story-playback-timing.js')).storyAnimationTime('story-02',120.1));
   await seek(120); await page.locator('#story-toggle').click();
-  await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing'&&Number(document.querySelector('#story-visual').dataset.time)>120.1);
+  await page.waitForFunction(expected=>document.querySelector('#audiobooks').dataset.phase==='playing'&&Number(document.querySelector('#story-visual').dataset.time)>expected,mappedOfflineTime);
   ok(await page.locator('#story-visual').getAttribute('data-story')==='story-02','The new shared SVG library reloads and follows the downloaded second story offline');
   await page.locator('#story-toggle').click(); await context.setOffline(false);
   for(const [width,height] of [[375,667],[932,350],[834,1194],[1194,834]]){

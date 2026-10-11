@@ -6,6 +6,7 @@ rawaudio
 output/playwright/
 output/audio-preview/
 output/audiobooks/
+output/elevenlabs-audiobooks/
 content/stories/import-*.json
 content/stories/catalog.txt
 __pycache__/

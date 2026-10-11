@@ -8,11 +8,27 @@ const read = file => readFile(new URL(file, root));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const catalog = JSON.parse(await read('content/stories/catalog.json'));
 const receipts = JSON.parse(await read('audio/audiobooks/generated.json'));
-const voice = JSON.parse(await read('audio/voice/manifest.json'));
-assert.equal(receipts.voice, voice.voice);
-assert.equal(receipts.rate, voice.rate);
+const provider = receipts.provider || 'edge-tts';
+assert.ok(['edge-tts', 'elevenlabs'].includes(provider), `Unknown audiobook provider: ${provider}`);
+if (provider === 'elevenlabs') {
+  assert.equal(receipts.version, 2);
+  for (const key of ['voice', 'voiceName', 'model', 'language', 'outputFormat']) {
+    assert.ok(typeof receipts[key] === 'string' && receipts[key].length > 0, `Missing ElevenLabs ${key}`);
+  }
+  assert.equal(receipts.language, 'hu');
+  assert.ok(Number.isInteger(receipts.seed) && receipts.seed >= 0);
+  assert.ok(receipts.settings && typeof receipts.settings === 'object');
+  for (const key of ['stability', 'similarity_boost']) {
+    assert.ok(Number.isFinite(receipts.settings[key]) && receipts.settings[key] >= 0 && receipts.settings[key] <= 1, `Invalid ElevenLabs ${key}`);
+  }
+} else {
+  const voice = JSON.parse(await read('audio/voice/manifest.json'));
+  assert.equal(receipts.voice, voice.voice);
+  assert.equal(receipts.rate, voice.rate);
+}
 assert.equal(AUDIOBOOKS.length, catalog.stories.length);
 assert.equal(new Set(AUDIOBOOKS.map(story => story.id)).size, AUDIOBOOKS.length);
+assert.deepEqual(Object.keys(receipts.stories).sort(), catalog.stories.map(story => story.id).sort());
 for (const story of AUDIOBOOKS) {
   const entry = catalog.stories.find(entry => entry.id === story.id);
   assert.ok(entry, `Unknown story: ${story.id}`);
@@ -22,13 +38,22 @@ for (const story of AUDIOBOOKS) {
   assert.equal(story.text, text, `Changed spoken story: ${story.id}`);
   assert.equal(story.title, entry.title);
   const receipt = receipts.stories[story.id];
-  assert.equal(receipt.fingerprint, hash(JSON.stringify([voice.voice, voice.rate, `${story.title}.\n\n${text}`])), `Stale recording: ${story.id}`);
+  const spoken = `${story.title}.\n\n${text}`;
+  const generation = provider === 'elevenlabs'
+    ? [receipts.voice, receipts.model, receipts.language, receipts.settings, receipts.outputFormat, receipts.seed, spoken]
+    : [receipts.voice, receipts.rate, spoken];
+  assert.equal(receipt.fingerprint, hash(JSON.stringify(generation)), `Stale recording: ${story.id}`);
+  if (provider === 'elevenlabs') {
+    assert.equal(receipt.characterCount, Array.from(spoken).length, `Changed character count: ${story.id}`);
+    assert.ok(Number.isFinite(receipt.credits) && receipt.credits >= 0, `Invalid credit receipt: ${story.id}`);
+  }
+  assert.ok(Number.isInteger(receipt.parts) && receipt.parts > 0, `Missing audio parts: ${story.id}`);
   const audio = await read(story.file);
   assert.equal(hash(audio), story.sha256);
   assert.equal(receipt.sha256, story.sha256);
   assert.equal(receipt.sourceSha256, entry.sha256);
   assert.equal(story.bytes, audio.length);
   assert.equal(story.duration, receipt.duration);
-  assert.ok(story.duration > 60 && receipt.spokenWords >= text.split(/\s+/).length * .75);
+  assert.ok(Number.isFinite(story.duration) && story.duration > 60 && receipt.spokenWords >= text.split(/\s+/).length * .75);
 }
 console.log(`Audiobooks ready: ${AUDIOBOOKS.length} verified MP3s, ${Math.round(AUDIOBOOKS.reduce((sum, story) => sum + story.duration, 0) / 60)} minutes.`);
