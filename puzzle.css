@@ -1,11 +1,9 @@
 .puzzle-panel { max-width:920px; margin:0 auto; color:#344f45; }
-/* Keep spoken puzzle guidance visible without the shared pulsing animation. */
-#puzzle .is-narrated { outline:2px solid #78957f !important; outline-offset:3px; animation:none !important; }
 .puzzle-heading { text-align:center; margin:0 0 12px; }
 .puzzle-heading h2 { margin:0 0 4px; font-size:1.6rem; }
 .puzzle-heading p { margin:0; font-size:.95rem; }
 .puzzle-panel button { min-height:44px; min-width:44px; padding:10px 14px; border:2px solid #b3c6b6; border-radius:14px; background:#fffdf5; font:inherit; font-weight:750; cursor:pointer; }
-.puzzle-panel button:focus-visible { outline:4px solid #995e19; outline-offset:3px; }
+.puzzle-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .puzzle-pictures { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; max-width:540px; margin:0 auto 14px; }
 .puzzle-pictures button { padding:4px; min-width:0; overflow:hidden; }
 .puzzle-pictures img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:9px; pointer-events:none; }
@@ -25,21 +23,21 @@
 .puzzle-board.has-hint .puzzle-slot:not(.is-placed):not(:disabled) { background-color:transparent; }
 .puzzle-board .puzzle-slot.is-placed { opacity:1; cursor:grab; }
 .puzzle-board .puzzle-slot:focus-visible { outline-offset:-4px; }
-.puzzle-board .puzzle-slot.is-drop-target { box-shadow:inset 0 0 0 4px #b78028; background-color:#fff7; }
+.puzzle-board .puzzle-slot.is-drop-target { box-shadow:inset 0 0 0 4px #48724d; background-color:#fff7; }
 .puzzle-board.is-complete { border-color:#59865b; }
 .puzzle-board.is-complete .puzzle-slot { box-shadow:none; cursor:default; }
 .puzzle-board .puzzle-piece { position:relative; touch-action:none; user-select:none; -webkit-user-select:none; }
-.puzzle-tray.is-drop-target { border-color:#b78028; background:#fff3c5; }
+.puzzle-tray.is-drop-target { border-color:#48724d; background:#fff3c5; }
 .puzzle-tray-wrap h3 { margin:0 0 10px; text-align:center; font-size:1rem; }
 .puzzle-tray { display:grid; grid-template-columns:repeat(var(--puzzle-cols),minmax(0,1fr)); gap:9px; padding:10px; border:2px dashed #c8b995; border-radius:16px; background:#f3ebd8; min-height:70px; }
 .puzzle-tray .puzzle-piece { position:relative; width:100%; min-width:0; padding:0; aspect-ratio:var(--piece-ratio); border:0; border-radius:6px; background-color:#fffdf5; background-repeat:no-repeat; box-shadow:0 3px 0 #b5a586; touch-action:none; user-select:none; -webkit-user-select:none; cursor:grab; }
-.puzzle-piece.is-selected { outline:4px solid #a96d19; outline-offset:2px; }
+.puzzle-piece.is-selected { outline:4px solid #48724d; outline-offset:2px; }
 .puzzle-piece.is-selected::after { content:'✓'; position:absolute; top:4px; right:4px; display:grid; place-items:center; width:23px; height:23px; border-radius:50%; background:#fff3c5; color:#785013; font-size:16px; }
 .puzzle-panel .puzzle-piece.is-dragging { opacity:.35; }
 .puzzle-finished { grid-column:1/-1; text-align:center; font-size:3rem; }
 .puzzle-status { min-height:2.8em; margin:14px 0 6px; text-align:center; font-size:.95rem; }
 .puzzle-actions { padding-bottom:16px; }
-.puzzle-drag-preview { position:fixed; z-index:10000; pointer-events:none; border-radius:6px; background-repeat:no-repeat; box-shadow:0 8px 22px #263e4366; outline:3px solid #b78028; }
+.puzzle-drag-preview { position:fixed; z-index:10000; pointer-events:none; border-radius:6px; background-repeat:no-repeat; box-shadow:0 8px 22px #263e4366; outline:3px solid #48724d; }
 @media(min-width:700px) { .puzzle-workspace { grid-template-columns:1.15fr 1fr; gap:22px; }.puzzle-pictures { max-width:420px; } }
 @media(max-width:380px) { .puzzle-tray { gap:6px; padding:7px; }.puzzle-heading p { font-size:.85rem; }.puzzle-sizes button { padding:8px 10px; } }
 @media(max-height:500px) and (orientation:landscape) { .puzzle-heading { margin:0 0 8px; }.puzzle-heading h2 { font-size:1.2rem; }.puzzle-pictures { max-width:340px; margin-bottom:8px; }.puzzle-pictures img { max-height:40px; }.puzzle-toolbar { margin-bottom:10px; }.puzzle-workspace { grid-template-columns:1.3fr 1fr; }.puzzle-tray { grid-template-columns:repeat(var(--puzzle-cols),minmax(0,1fr)); } }

@@ -5,7 +5,7 @@
 .memory-heading p { margin:4px 0; }
 .memory-options,.memory-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:9px; }
 .memory-panel button { min-height:48px; padding:10px 16px; border:2px solid #afc7bc; border-radius:16px; color:inherit; background:#fffdf4; font:inherit; font-weight:750; cursor:pointer; touch-action:manipulation; }
-.memory-panel button:focus-visible { outline:4px solid #ad6b1d; outline-offset:3px; }
+.memory-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .memory-options [aria-pressed="true"] { background:#d7eddc; border-color:#397457; }
 .memory-progress { text-align:center; margin:14px 0; font-weight:750; }
 .memory-progress span { display:block; min-height:1.2em; letter-spacing:.12em; }

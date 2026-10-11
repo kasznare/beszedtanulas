@@ -1,18 +1,10 @@
-/* One visual vocabulary for the thing currently being spoken about. */
+/* Spoken guidance uses a calm, static cue in every game. */
 .is-narrated {
-  outline: 3px solid #c47718 !important;
-  outline-offset: 4px;
+  outline: 2px solid #78957f !important;
+  outline-offset: 3px;
   border-radius: 12px;
-  animation: narration-pulse .9s ease-in-out infinite !important;
-  transform-origin: center;
+  animation: none !important;
 }
-@keyframes narration-pulse { 0%,100% { scale:1; } 50% { scale:1.045; } }
-.is-narrated[data-narration-motion="input"] { animation:narration-input .85s ease-in-out infinite !important; }
-.is-narrated[data-narration-motion="output"] { animation:narration-output .85s ease-in-out infinite !important; }
-.is-narrated[data-narration-motion="machine"] { animation:narration-machine .65s ease-in-out infinite !important; }
-@keyframes narration-input { 0%,100% { translate:0 0; scale:1; } 50% { translate:5px 0; scale:1.08; } }
-@keyframes narration-output { 0%,100% { translate:0 0; scale:1; } 50% { translate:5px -3px; scale:1.08; } }
-@keyframes narration-machine { 0%,100% { rotate:-8deg; } 50% { rotate:8deg; } }
 .logic-machine-gear { display:inline-block; }
 .logic-machine-arrow { display:inline-block; }
 .phrase-picture { display:inline-block; padding:5px; }
@@ -22,5 +14,5 @@
 @keyframes narration-mouth { 0%,100% { transform:scaleY(.4); } 50% { transform:scaleY(1); } }
 @media(prefers-reduced-motion:reduce) {
  .is-narrated,.is-narrated[data-narration-motion],.is-narrated * { animation:none !important; transition:none !important; translate:none !important; rotate:none !important; scale:none !important; }
- .teddy-illustration.is-narrated { outline:3px solid #c47718 !important; }
+ .teddy-illustration.is-narrated { outline:2px solid #78957f !important; }
 }

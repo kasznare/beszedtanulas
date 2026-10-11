@@ -29,7 +29,7 @@
 .meadow-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
 .meadow-steps span { width: 12px; height: 12px; border-radius: 50%; background: #dfdfcf; }
 .meadow-steps .done { background: #5a9565; }
-.meadow-steps .current { background: #d9a440; box-shadow: 0 0 0 4px #f5e8c4; }
+.meadow-steps .current { background: #48724d; box-shadow: 0 0 0 4px #e5eddf; }
 .meadow-task-title { text-align: center; font-size: clamp(1.2rem,2.5vw,1.8rem); margin: 18px 0; }
 .meadow-stage { display: grid; grid-template-columns: .75fr 1.5fr; gap: 24px; align-items: center; }
 .meadow-companion { background: linear-gradient(#e3eedc,#f1eddb); border-radius: 38% 38% 28px 28px; padding: 8px 10px; text-align: center; }
