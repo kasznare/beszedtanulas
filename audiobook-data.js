@@ -133,7 +133,7 @@ export const AUDIOBOOKS = [
     "kind": "Mese",
     "description": "A bátor kiskakas kitartóan visszakéri, ami az övé.",
     "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#4",
-    "illustrated": false
+    "illustrated": true
   },
   {
     "id": "story-14",
@@ -148,7 +148,7 @@ export const AUDIOBOOKS = [
     "kind": "Mese",
     "description": "Fészekrakó lecke arról, miért érdemes figyelmesen végighallgatni másokat.",
     "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#8",
-    "illustrated": false
+    "illustrated": true
   },
   {
     "id": "story-15",
@@ -163,7 +163,7 @@ export const AUDIOBOOKS = [
     "kind": "Mese",
     "description": "A legkisebb királylány megmutatja, mennyit ér egy egyszerű, fontos dolog.",
     "sourceUrl": "https://mek.oszk.hu/00200/00232/html/01.htm#16",
-    "illustrated": false
+    "illustrated": true
   },
   {
     "id": "story-16",
@@ -178,7 +178,7 @@ export const AUDIOBOOKS = [
     "kind": "Vers",
     "description": "Őszi madárvers a kis cinegéről, aki cipőcskét keres.",
     "sourceUrl": "https://mek.oszk.hu/00900/00968/00968.htm#66",
-    "illustrated": false
+    "illustrated": true
   },
   {
     "id": "story-17",
@@ -193,6 +193,6 @@ export const AUDIOBOOKS = [
     "kind": "Vers",
     "description": "Vidám vers a szobában lakó tyúkról és Morzsa kutyáról.",
     "sourceUrl": "https://mek.oszk.hu/01000/01006/html/vs184801.htm#21",
-    "illustrated": false
+    "illustrated": true
   }
 ];

@@ -34,9 +34,9 @@ def main():
     existing = json.loads(current.split('export const AUDIOBOOKS = ', 1)[1].strip().removesuffix(';'))
     previous = {story['id']: story for story in existing}
     maps = json.loads((STAGED / 'warp.json').read_text())['stories']
-    illustrated_ids = {entry['id'] for entry in catalog if entry.get('illustrated') is not False}
+    illustrated_ids = {entry['id'] for entry in catalog if entry.get('illustrated') is not False and entry.get('visualClock') != 'recording'}
     if set(maps) != illustrated_ids:
-        raise ValueError('Every illustrated story must have a verified SVG clock map')
+        raise ValueError('Every retimed illustrated story must have a verified SVG clock map')
     new_stories, receipts, captions = [], {}, {}
     metadata = None
     for entry in catalog:
@@ -52,15 +52,16 @@ def main():
         if sha(audio.read_bytes()) != story['sha256'] or audio.stat().st_size != story['bytes']:
             raise ValueError(f"Unverified MP3: {entry['id']}")
         illustrated = entry.get('illustrated') is not False
+        mapped = illustrated and entry.get('visualClock') != 'recording'
         if (timing['duration'] != story['duration']
-                or (illustrated and maps[entry['id']]['duration'] != story['duration'])
+                or (mapped and maps[entry['id']]['duration'] != story['duration'])
                 or not math.isfinite(story['duration']) or story['duration'] <= 0):
             raise ValueError(f"Wrong playback duration: {entry['id']}")
-        if not illustrated and ('warp' in timing or timing.get('illustrated') is not False):
-            raise ValueError(f"Unexpected animation clock for audio-only story: {entry['id']}")
+        if not mapped and ('warp' in timing or timing.get('illustrated') is not illustrated):
+            raise ValueError(f"Unexpected animation clock for recording-time story: {entry['id']}")
         if [cue['text'] for cue in timing['paragraphs']] != [line for line in text.split('\n') if line.strip()]:
             raise ValueError(f"Wrong caption text: {entry['id']}")
-        if timing['alignment']['sourceWordCoverage'] < .97 or (illustrated and timing['alignment']['originalWordCoverage'] < .97):
+        if timing['alignment']['sourceWordCoverage'] < .97 or (mapped and timing['alignment']['originalWordCoverage'] < .97):
             raise ValueError(f"Incomplete alignment: {entry['id']}")
         generation = [story['voiceId'], story['modelId'], story['languageCode'], story['voiceSettings'],
                       story['outputFormat'], story['seed'], spoken]

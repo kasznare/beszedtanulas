@@ -6,7 +6,7 @@ async page => {
   await page.goto('http://127.0.0.1:5187/output/story-library/');
   await page.waitForFunction(() => window.storyLibraryPreview?.ready);
   const stories = await page.evaluate(() => storyLibraryPreview.stories.map(({ id, duration, visualDuration, scenes }) => ({ id, duration, visualDuration, scenes: scenes.map(({ id, time }) => ({ id, time })) })));
-  ok(stories.length === 12, 'Twelve stories');
+  ok(stories.length === 17, 'Seventeen stories');
   for (const story of stories) {
     await page.evaluate(id => storyLibraryPreview.select(id), story.id);
     await page.waitForFunction(() => storyLibraryPreview.ready);

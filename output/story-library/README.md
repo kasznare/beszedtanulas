@@ -1,4 +1,4 @@
-# Tizenkét teljes, animált SVG-mese
+# Tizenhét teljes, animált SVG-mű
 
 Indítás a munkafa gyökeréből:
 
@@ -9,10 +9,12 @@ python3 tests/browser/audiobooks-fixture.py 5187
 Megtekintés: http://127.0.0.1:5187/output/story-library/
 Egy mese közvetlenül: `?story=story-07`.
 
-Az előnézet és a Mesetár ugyanazt a közös SVG-rajztárat, jelenetadatokat és lejátszót használja. A 12 teljes eredeti Noémi-felvétel szól; új hanggenerálás nincs. A jelenetválasztó, a csúszka és a nyilak bármelyik részhez ugranak. A Mozgás kapcsoló álló illusztrációkra vált, a Nagy kép gomb teljes képernyőre nyitja a mesét, ahol a böngésző ezt támogatja.
+Az előnézet és a Mesetár ugyanazt a közös SVG-rajztárat, jelenetadatokat és lejátszót használja. A 17 teljes, már elkészült Jessa-felvétel szól; új hanggenerálás nincs. A jelenetválasztó, a csúszka és a nyilak bármelyik részhez ugranak. A Mozgás kapcsoló álló illusztrációkra vált, a Nagy kép gomb teljes képernyőre nyitja a mesét, ahol a böngésző ezt támogatja.
 
 Rajztár: `story-art/`. Jelenetek: `story-scenes/`, első mese: `story-visual-data.js` és `story-visuals.js`. Közös vezérlő: `story-visual-player.js`; jegyzék: `story-visual-library.js`. A bekezdések idősora `story-caption-timing.js`; a teljes eredeti szöveg továbbra is `audiobook-data.js`.
 
 Időadatok újraépítése a meglevő helyi szóhatár-cache-ből, hangkészítés nélkül: `python3 scripts/extract-story-timing.py`, majd `node scripts/build-story-captions.mjs`. A generált részletes szóadatok helyi segédanyagok (`output/story-timing/`), nem részei a futtatási csomagnak.
 
 Az előnézet helyi bemutató. A Mesetár beépített változatát a normál webhely buildje tartalmazza.
+
+Az öt magyar klasszikus (`story-13`–`story-17`) 151 jelenete közvetlenül a Jessa-felvétel idejében van. A korábbi tizenkét mese 398 jelenetének időleképezése változatlan. A `tests/browser/classic-art.js` minden új jelenetről asztali és telefonos ellenőrzőképet készít az ignorált `output/playwright/` könyvtárba.

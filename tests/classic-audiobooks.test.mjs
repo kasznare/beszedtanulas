@@ -5,7 +5,7 @@ import { AUDIOBOOKS } from '../audiobook-data.js';
 import { storyVisualFor } from '../story-visual-library.js';
 import { STORY_PLAYBACK_MAPS } from '../story-playback-maps.js';
 
-test('five complete public-domain classics have sources, authors and fixed recordings without scene requirements', async () => {
+test('five complete public-domain classics have sources, authors and fixed recordings and complete illustrations', async () => {
   const catalog = JSON.parse(await readFile(new URL('../content/stories/catalog.json', import.meta.url)));
   const classics = catalog.stories.filter(story => story.collection === 'Magyar klasszikusok');
   assert.equal(classics.length, 5);
@@ -17,8 +17,11 @@ test('five complete public-domain classics have sources, authors and fixed recor
     assert.equal(story.kind, entry.kind);
     assert.equal(story.sourceUrl, entry.sourceUrl);
     assert.equal(new URL(story.sourceUrl).hostname, 'mek.oszk.hu');
-    assert.equal(story.illustrated, false);
-    assert.equal(storyVisualFor(entry.id), undefined);
+    assert.equal(story.illustrated, true);
+    assert.equal(entry.illustrated, true);
+    assert.equal(entry.visualClock, 'recording');
+    assert.ok(storyVisualFor(entry.id).scenes.length >= 12);
+    assert.equal(storyVisualFor(entry.id).visualDuration, story.duration);
     assert.equal(STORY_PLAYBACK_MAPS[entry.id], undefined);
     assert.equal(entry.rights.status, 'public-domain');
     assert.ok(entry.rights.authorDiedYear + 71 <= 2026);

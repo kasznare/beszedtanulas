@@ -231,7 +231,7 @@ def transform(staged, original, verified_tail=None):
     return timing, warp
 
 
-def transform_audio_only(staged, verified_tail=None):
+def transform_audio_only(staged, verified_tail=None, illustrated=False):
     """New recordings have no earlier animation clock to preserve."""
     words, source_to_spoken, alignment_info = select_alignment(staged, verified_tail)
     original = {'paragraphs': [{'index': index, 'text': text}
@@ -239,7 +239,7 @@ def transform_audio_only(staged, verified_tail=None):
     paragraphs = paragraph_cues(staged, source_to_spoken, words, original)
     return {'id': staged['id'], 'title': staged['title'], 'duration': staged['duration'],
             'words': [{**word, 'time': round(word['time'], 3), 'duration': round(word['duration'], 3)} for word in words],
-            'paragraphs': paragraphs, 'alignment': alignment_info, 'illustrated': False}
+            'paragraphs': paragraphs, 'alignment': alignment_info, 'illustrated': illustrated}
 
 
 def write_json(path, data):
@@ -274,8 +274,8 @@ def main():
             continue
         staged = json.loads(source.read_text())
         verified_tail = verify_tail(staged, args.source)
-        if entry.get('illustrated') is False:
-            transformed[entry['id']] = transform_audio_only(staged, verified_tail)
+        if entry.get('illustrated') is False or entry.get('visualClock') == 'recording':
+            transformed[entry['id']] = transform_audio_only(staged, verified_tail, entry.get('illustrated') is not False)
         else:
             original = json.loads((args.original / source.name).read_text())
             timing, warp = transform(staged, original, verified_tail)

@@ -5,7 +5,7 @@ import { storyAnimationTime, storyPlaybackTime } from '../../story-playback-timi
 const $ = selector => document.querySelector(selector), audio = $('#audio');
 const format = time => `${Math.floor(time / 60)}:${String(Math.floor(time % 60)).padStart(2, '0')}`;
 const requested = new URLSearchParams(location.search).get('story');
-let story = storyVisualFor(requested) || storyVisualFor('story-02'), ready = false, switching = false;
+let story = storyVisualFor(requested) || storyVisualFor('story-13'), ready = false, switching = false;
 const visual = createIllustratedStory($('#visual'), { storyId: story.id, readTime: () => audio.currentTime,
   onScene: scene => { $('#scene').value = String(storyPlaybackTime(story.id, scene.time)); } });
 
@@ -32,7 +32,7 @@ function select(id) {
   switching = true; audio.pause(); ready = false; $('#play').disabled = true; story = next;
   audio.src = '../../' + story.file.replace(/^\.\//, '') + '?v=' + story.sha256; audio.load();
   $('#title').textContent = story.title; document.title = `${story.title} · Képes mesetár`;
-  $('#description').textContent = `Teljes képes mese · ${format(story.duration)} · ${story.scenes.length} jelenet`;
+  $('#description').textContent = `Teljes képes mű · ${format(story.duration)} · ${story.scenes.length} jelenet`;
   $('#duration').textContent = format(story.duration); $('#seek').max = story.duration;
   $('#scene').replaceChildren(...story.scenes.map((scene, index) => {
     const option = document.createElement('option'); option.value = storyPlaybackTime(story.id, scene.time); option.textContent = `${index + 1}. ${scene.title}`; return option;

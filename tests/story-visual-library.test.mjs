@@ -14,7 +14,7 @@ test('every recording has ordered playback captions and an original animation ti
     for (const [cues, duration] of [[story.scenes, story.visualDuration], [story.captions, story.duration]]) {
       assert.ok(cues.every((cue, index) => Number.isFinite(cue.time) && cue.time >= 0 && cue.time < duration && (!index || cue.time > cues[index - 1].time)), story.id);
     }
-    assert.deepEqual(story.captions.map(caption => caption.text), story.text.split('\n'));
+    assert.deepEqual(story.captions.map(caption => caption.text), story.text.split('\n').filter(line => line.trim()));
     assert.equal(storyCaptionAt(story.id, story.duration), story.text.split('\n').at(-1));
     assert.equal(storySceneAt(story.id, story.visualDuration), story.scenes.at(-1));
     for (let index = 1; index < story.scenes.length; index++) {
@@ -43,5 +43,6 @@ test('shared art and story modules are included in the offline and publication m
   const assets = JSON.parse(worker.match(/const ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset => asset.file);
   for (const file of ['story-visual-player.js', 'story-visual-library.js', 'story-caption-timing.js', 'story-playback-maps.js', 'story-playback-timing.js',
     'story-art/base.js', 'story-art/vehicles.js', 'story-art/animate.js', 'story-art/workshop.js', 'story-art/routes.js', 'story-art/seasons.js',
-    'story-scenes/workshop.js', 'story-scenes/routes.js', 'story-scenes/seasons.js']) assert.ok(assets.includes(file), file);
+    'story-art/classic-birds.js', 'story-art/classic-people.js', 'story-art/classic-settings.js', 'story-art/classic-motion.js',
+    'story-scenes/classic-tales.js', 'story-scenes/classic-poems.js', 'story-scenes/workshop.js', 'story-scenes/routes.js', 'story-scenes/seasons.js']) assert.ok(assets.includes(file), file);
 });

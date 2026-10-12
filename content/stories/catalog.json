@@ -120,7 +120,8 @@
       "file": "13-kiskakas-gyemant-felkrajcar.txt",
       "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#4",
       "description": "A bátor kiskakas kitartóan visszakéri, ami az övé.",
-      "illustrated": false,
+      "illustrated": true,
+      "visualClock": "recording",
       "collection": "Magyar klasszikusok",
       "ageRange": [
         5,
@@ -146,7 +147,8 @@
       "file": "14-vadgalamb-szarka.txt",
       "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#8",
       "description": "Fészekrakó lecke arról, miért érdemes figyelmesen végighallgatni másokat.",
-      "illustrated": false,
+      "illustrated": true,
+      "visualClock": "recording",
       "collection": "Magyar klasszikusok",
       "ageRange": [
         5,
@@ -175,7 +177,8 @@
       "file": "15-a-so.txt",
       "sourceUrl": "https://mek.oszk.hu/00200/00232/html/01.htm#16",
       "description": "A legkisebb királylány megmutatja, mennyit ér egy egyszerű, fontos dolog.",
-      "illustrated": false,
+      "illustrated": true,
+      "visualClock": "recording",
       "collection": "Magyar klasszikusok",
       "ageRange": [
         5,
@@ -207,7 +210,8 @@
       "file": "16-cinege-cipoje.txt",
       "sourceUrl": "https://mek.oszk.hu/00900/00968/00968.htm#66",
       "description": "Őszi madárvers a kis cinegéről, aki cipőcskét keres.",
-      "illustrated": false,
+      "illustrated": true,
+      "visualClock": "recording",
       "collection": "Magyar klasszikusok",
       "ageRange": [
         5,
@@ -233,7 +237,8 @@
       "file": "17-anyam-tyukja.txt",
       "sourceUrl": "https://mek.oszk.hu/01000/01006/html/vs184801.htm#21",
       "description": "Vidám vers a szobában lakó tyúkról és Morzsa kutyáról.",
-      "illustrated": false,
+      "illustrated": true,
+      "visualClock": "recording",
       "collection": "Magyar klasszikusok",
       "ageRange": [
         5,

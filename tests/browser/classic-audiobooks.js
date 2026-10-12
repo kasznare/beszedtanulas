@@ -5,6 +5,7 @@ async page => {
   const ok = (condition, message) => { if (!condition) throw Error(message); checks.push(message); };
   await context.setOffline(false);
   await page.route('https://cdn.jsdelivr.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '' }));
+  await page.goto('http://127.0.0.1:5187/');
   await page.evaluate(async () => {
     localStorage.clear();
     for (const registration of await navigator.serviceWorker.getRegistrations()) await registration.unregister();
@@ -27,14 +28,14 @@ async page => {
   };
   await open();
   ok(await page.locator('.story-card').count() === 17, 'The public library includes all seventeen recordings');
-  const classics = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.filter(story => story.illustrated === false));
+  const classics = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.filter(story => Number(story.id.slice(6)) >= 13));
   ok(classics.length === 5, 'Exactly five new classics are present');
   for (const story of classics) {
     await page.locator(`[data-story="${story.id}"]`).click();
     await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
     ok(await page.locator('#story-title').innerText() === story.title, `${story.id}: complete title`);
     ok((await page.locator('#story-byline').innerText()).includes(story.author), `${story.id}: author visible`);
-    ok(await page.locator('#story-visual-wrap').isHidden() && await page.locator('#story-visual').innerHTML() === '', `${story.id}: audio-only view`);
+    ok(await page.locator('#story-visual-wrap').isVisible() && (await page.locator('#story-visual').innerHTML()).includes('<svg'), `${story.id}: complete illustrated view`);
     await page.locator('#story-transcript summary').click();
     ok(await page.locator('#story-text').textContent() === story.text, `${story.id}: complete source text and stanza breaks`);
     ok(await page.locator('#story-source a').getAttribute('href') === story.sourceUrl, `${story.id}: primary source link`);
@@ -54,6 +55,8 @@ async page => {
     await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
     const bookmark = Number(await page.locator('#story-seek').inputValue());
     ok(bookmark >= Math.floor(story.duration / 2), `${story.id}: own bookmark restored`);
+    const expectedScene = await page.evaluate(async ({id,time}) => (await import('/story-visual-library.js')).storySceneAt(id,time).id, {id:story.id,time:bookmark});
+    ok(await page.locator('#story-visual').getAttribute('data-scene') === expectedScene, `${story.id}: bookmark restores the matching picture`);
     await page.locator('#story-toggle').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
     ok(await page.evaluate(() => classicStoryQA.audios.some(audio => audio.src.startsWith('blob:') && !audio.paused)), `${story.id}: offline blob playback`);

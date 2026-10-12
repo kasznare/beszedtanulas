@@ -36,9 +36,9 @@ class AlignmentTest(unittest.TestCase):
                 spoken = entry["title"] + ".\n\n" + body
                 staged = {"id": entry["id"], "title": entry["title"], "text": body, "spokenText": spoken,
                           "duration": len(spoken) * .01 + .1, "alignment": alignment(spoken)}
-                if entry.get('illustrated') is False:
-                    cues = timing.transform_audio_only(staged)
-                    self.assertFalse(cues['illustrated'])
+                if entry.get('illustrated') is False or entry.get('visualClock') == 'recording':
+                    cues = timing.transform_audio_only(staged, illustrated=entry.get('illustrated') is not False)
+                    self.assertEqual(cues['illustrated'], entry.get('illustrated') is not False)
                     self.assertNotIn('warp', cues)
                     self.assertEqual([cue['text'] for cue in cues['paragraphs']], [line for line in body.split('\n') if line.strip()])
                     self.assertTrue(cues['alignment']['exactInput'])
