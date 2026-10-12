@@ -43,7 +43,7 @@ async page => {
     URL.revokeObjectURL=url=>{rQA.revoked.push(url);revoke(url);};
   });
   await page.reload();
-  const root=page.locator('#r-practice'),idle=()=>page.locator('#r-practice[data-phase="idle"]').waitFor({timeout:40000});
+  const root=page.locator('#r-practice'),idle=()=>page.locator('#r-practice[data-phase="idle"][data-success-pending="false"]').waitFor({timeout:40000});
   const status=()=>page.locator('#rp-status').innerText();
   const hub=async()=>{if(await root.getAttribute('data-game')!=='hub')await page.locator('#r-practice [data-action="hub"]').first().click();};
   const enter=async id=>{await hub();await page.locator(`[data-game="${id}"]`).click();await idle();};

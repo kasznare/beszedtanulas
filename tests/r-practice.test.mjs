@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { R_WORDS,R_DISTRACTORS,R_RHYMES,R_GAMES,buildRHunterRound,matchRPracticeSpeech,normalizeRPreferences,loadRPreferences,saveRPreferences,normalizeRProgress,validateRProgress,recordRProgress } from '../r-practice-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
 import { createProgressBackup,parseProgressBackup,snapshotProgress,replaceProgress } from '../progress-data.js';
+import { buildRPracticeDeck,rSoundPositions,rhymeGap,buildRhymeChoices,pickRGame } from '../r-practice-data.js';
 import { switchProgressProfile } from '../progress-profiles.js';
 import { openRStream,createRRecorder } from '../r-practice-media.js';
 
@@ -23,6 +24,34 @@ test('both hunter modes build solvable distinct rounds for each position and cho
     const rounds=buildRHunterRound({hunterKind,choices,position,roundLength:5},()=>.42);
     assert.equal(rounds.length,5);assert.equal(new Set(rounds.map(round=>round.target.id)).size,5);
     for(const round of rounds){assert.equal(round.choices.length,choices);assert.equal(round.choices.filter(word=>word.id===round.target.id).length,1);assert.equal(new Set(round.choices.map(word=>word.id)).size,choices);if(hunterKind==='sound')assert.equal(round.choices.filter(word=>word.text.includes('r')).length,1);}
+  }
+});
+test('a new round prefers unseen words while keeping the selected R group and all thirty echo choices',()=>{
+  for(const position of ['all','initial','medial','final']){
+    const first=buildRPracticeDeck({position,roundLength:5},[],()=>.42);
+    const next=buildRPracticeDeck({position,roundLength:5},first.map(word=>word.id),()=>.42);
+    assert.equal(next.length,5);assert.ok(next.every(word=>!first.some(old=>old.id===word.id)));
+    if(position!=='all')assert.ok(next.every(word=>word.position===position));
+  }
+  assert.equal(buildRPracticeDeck({},[],()=>.42,30).length,30);
+});
+test('location hunting accepts every audible R position rather than rejecting roller’s final R',()=>{
+  assert.deepEqual(rSoundPositions('róka'),['initial']);assert.deepEqual(rSoundPositions('körte'),['medial']);
+  assert.deepEqual(rSoundPositions('pohár'),['final']);assert.deepEqual(rSoundPositions('roller'),['initial','final']);
+  assert.deepEqual(rSoundPositions('görögdinnye'),['medial']);assert.deepEqual(rSoundPositions('alma'),[]);
+  assert.equal(normalizeRPreferences({hunterKind:'position',rhymeMode:'missing'}).hunterKind,'position');
+});
+test('all sixteen rhyme puzzles hide a real token and have exactly one correct pictured option',()=>{
+  for(const rhyme of R_RHYMES)rhyme.lines.forEach(([text],line)=>{
+    const gap=rhymeGap(rhyme.id,line),choices=buildRhymeChoices(rhyme.id,line,()=>.42);
+    assert.ok(text.includes(gap.missing));assert.equal(choices.length,3);assert.equal(new Set(choices.map(word=>word.id)).size,3);
+    assert.equal(choices.filter(word=>word.id===gap.word.id).length,1);assert.ok(R_CLIPS[gap.voice]);
+  });
+});
+test('surprise prefers less-played adventures and never immediately repeats the previous game',()=>{
+  let stats=normalizeRProgress();for(let i=0;i<3;i++)stats=recordRProgress(stats,'post','round');
+  for(const previous of R_GAMES.map(game=>game.id)){
+    const game=pickRGame(stats,previous,()=>.42);assert.notEqual(game,previous);assert.notEqual(game,'post');
   }
 });
 test('transcript matching requires complete ordered tokens in one alternative',()=>{

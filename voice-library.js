@@ -924,17 +924,37 @@ export const VOICE_CLIPS = {
     "text": "Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!",
     "file": "audio/voice/r_hunter_sound.mp3"
   },
+  "r_hunter_position": {
+    "text": "Hallgasd meg a szót! Mutasd meg, hol hallod az R hangot: az elején, a közepén vagy a végén!",
+    "file": "audio/voice/r_hunter_position.mp3"
+  },
+  "r_position_initial": {
+    "text": "A szó elején hallod az R hangot.",
+    "file": "audio/voice/r_position_initial.mp3"
+  },
+  "r_position_medial": {
+    "text": "A szó közepén hallod az R hangot.",
+    "file": "audio/voice/r_position_medial.mp3"
+  },
+  "r_position_final": {
+    "text": "A szó végén hallod az R hangot.",
+    "file": "audio/voice/r_position_final.mp3"
+  },
   "r_post": {
-    "text": "Robot csomagot vár. Hallgasd meg a szót, és mondd utánam!",
+    "text": "Robot csomagot visz a barátainknak. Hallgasd meg a szót, mondd utánam, és válassz egy barátot!",
     "file": "audio/voice/r_post.mp3"
   },
   "r_workshop": {
-    "text": "Díszítsük fel a perecműhelyt! Hallgasd meg a szót, és mondd utánam!",
+    "text": "Díszítsük fel a perecműhelyt! Mondd utánam a szót, válassz díszt, és tedd a műhelybe!",
     "file": "audio/voice/r_workshop.mp3"
   },
   "r_rhyme": {
     "text": "Hallgassunk mondókát! Koppints egy sorra, és mondd utánam!",
     "file": "audio/voice/r_rhyme.mp3"
+  },
+  "r_rhyme_gap": {
+    "text": "Elbújt egy szó a mondókából. Hallgasd meg a sort, és keresd meg a hiányzó szó képét!",
+    "file": "audio/voice/r_rhyme_gap.mp3"
   },
   "r_echo": {
     "text": "Hallgasd meg a mintát! A mikrofon gombbal felveheted a saját hangodat.",
@@ -1088,25 +1108,77 @@ export const VOICE_CLIPS = {
     "text": "kosár",
     "file": "audio/voice/r_word_kosar.mp3"
   },
-  "r_word_alma": {
-    "text": "alma",
-    "file": "audio/voice/r_word_alma.mp3"
+  "r_word_viz": {
+    "text": "víz",
+    "file": "audio/voice/r_word_viz.mp3"
   },
-  "r_word_cica": {
-    "text": "cica",
-    "file": "audio/voice/r_word_cica.mp3"
-  },
-  "r_word_kutya": {
-    "text": "kutya",
-    "file": "audio/voice/r_word_kutya.mp3"
+  "r_word_auto": {
+    "text": "autó",
+    "file": "audio/voice/r_word_auto.mp3"
   },
   "r_word_labda": {
     "text": "labda",
     "file": "audio/voice/r_word_labda.mp3"
   },
+  "r_word_cica": {
+    "text": "cica",
+    "file": "audio/voice/r_word_cica.mp3"
+  },
+  "r_word_alma": {
+    "text": "alma",
+    "file": "audio/voice/r_word_alma.mp3"
+  },
+  "r_word_kifli": {
+    "text": "kifli",
+    "file": "audio/voice/r_word_kifli.mp3"
+  },
+  "r_word_tej": {
+    "text": "tej",
+    "file": "audio/voice/r_word_tej.mp3"
+  },
+  "r_word_maci": {
+    "text": "maci",
+    "file": "audio/voice/r_word_maci.mp3"
+  },
+  "r_word_kutya": {
+    "text": "kutya",
+    "file": "audio/voice/r_word_kutya.mp3"
+  },
   "r_word_baba": {
     "text": "baba",
     "file": "audio/voice/r_word_baba.mp3"
+  },
+  "r_word_nap": {
+    "text": "nap",
+    "file": "audio/voice/r_word_nap.mp3"
+  },
+  "r_word_hold": {
+    "text": "hold",
+    "file": "audio/voice/r_word_hold.mp3"
+  },
+  "r_word_fa": {
+    "text": "fa",
+    "file": "audio/voice/r_word_fa.mp3"
+  },
+  "r_word_kanal": {
+    "text": "kanál",
+    "file": "audio/voice/r_word_kanal.mp3"
+  },
+  "r_word_cipo": {
+    "text": "cipő",
+    "file": "audio/voice/r_word_cipo.mp3"
+  },
+  "r_word_sapka": {
+    "text": "sapka",
+    "file": "audio/voice/r_word_sapka.mp3"
+  },
+  "r_word_vonat": {
+    "text": "vonat",
+    "file": "audio/voice/r_word_vonat.mp3"
+  },
+  "r_word_busz": {
+    "text": "busz",
+    "file": "audio/voice/r_word_busz.mp3"
   },
   "r_word_banan": {
     "text": "banán",
@@ -1231,6 +1303,18 @@ export const VOICE_CLIPS = {
   "r_phrase_kosar": {
     "text": "üres kosár",
     "file": "audio/voice/r_phrase_kosar.mp3"
+  },
+  "r_puzzle_word_gyerek": {
+    "text": "gyerek",
+    "file": "audio/voice/r_puzzle_word_gyerek.mp3"
+  },
+  "r_puzzle_word_gyere": {
+    "text": "gyere",
+    "file": "audio/voice/r_puzzle_word_gyere.mp3"
+  },
+  "r_puzzle_word_viragkert": {
+    "text": "virágkert",
+    "file": "audio/voice/r_puzzle_word_viragkert.mp3"
   },
   "r_rhyme_roka_0": {
     "text": "Róka fut a réten át.",

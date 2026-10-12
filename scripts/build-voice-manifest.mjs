@@ -86,10 +86,10 @@ for (let n = 1; n <= 10; n++) {
 // Native Hungarian context prevents English readings of isolated c/s/vowels.
 // The app hears only the target; the prefix is retained solely in the paid cache.
 for (const clip of clips) {
-  const word = /^(word_|r_word_)/.test(clip.id);
+  const word = /^(word_|r_word_|r_puzzle_word_)/.test(clip.id);
   const number = /^(number_|logic_n_|workshop_n_)/.test(clip.id);
   if (!word && !number) continue;
-  const prefix = number ? 'A szám: ' : clip.text === 'szia' ? 'Mondjuk együtt: ' : clip.text === 'perec' ? 'Egy finom ' : 'Ez egy ';
+  const prefix = number ? 'A szám: ' : ['szia','gyere'].includes(clip.text) ? 'Mondjuk együtt: ' : clip.text === 'perec' ? 'Egy finom ' : 'Ez egy ';
   Object.assign(clip, {
     spokenText: `${prefix}${clip.text}.`,
     extract: { from: prefix.length, to: prefix.length + clip.text.length, before: 0.025, after: 0.15 },
@@ -101,9 +101,10 @@ for (const [id, prefix] of [['r_word_rizs', 'forró '], ['r_word_dinnye', 'éret
   clip.spokenText = `${prefix}${clip.text}.`;
   clip.extract = { from: prefix.length, to: prefix.length + clip.text.length, before: 0.025, after: 0.15 };
 }
-const shoe = clips.find(clip => clip.id === 'word_cipo');
-shoe.spokenText = 'cipő.';
-delete shoe.extract;
+for (const id of ['word_cipo','r_word_cipo']) {
+  const shoe=clips.find(clip=>clip.id===id);
+  if(shoe){shoe.spokenText='cipő.';delete shoe.extract;}
+}
 const contextual = (id, prefix, target) => {
   const clip = clips.find(clip => clip.id === id);
   target ??= clip.text;

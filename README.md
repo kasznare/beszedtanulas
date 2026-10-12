@@ -60,11 +60,13 @@ Megvalósítás: `animal-book-data.js`, `animal-book-game.js`, `animal-book.css`
 
 Öt önálló játék közös, nagy gombos felülettel:
 
-- **Hangvadász:** hallott szó képének keresése, vagy R-t tartalmazó szó kiválasztása két/három meghallgatható kép közül. Téves választás után újrapróbálható; három/öt képből álló körök.
-- **Robotpostás:** szavak vagy rövid kifejezések utánmondása, majd a csomag elküldése. A felismert szó, a hang észlelése és a közös kimondás külön visszajelzés.
-- **Perecműhely:** szóeleji, szóközi és szóvégi szócsoportra váltható gyakorlás. Minden továbbjelzett feladat új díszt ad a műhelyhez.
-- **Mondókaliget:** négy eredeti, négysoros mondóka. Teljes felolvasás, sorválasztás, soronkénti közös vagy mikrofonos gyakorlás; a hanghoz igazodó képes jelzés. Egy sor ismétlése nem számít új befejezett körnek.
-- **Saját visszhang:** natív böngészős hangfelvétel, legfeljebb nyolc másodpercig, majd saját hang és mintahang felváltva hallgatható. Elutasított engedély vagy hiányzó felvevő esetén a közös gyakorlás elérhető marad.
+- **Hangvadász:** három választható feladat: hallott szó képének keresése, R-t tartalmazó szó kiválasztása két/három meghallgatható kép közül, vagy az R helyének megtalálása három kis vagonon. A több helyen R-es szavaknál minden helyes helyet elfogadja, például a roller elejét és végét is. Téves választás után újrapróbálható; három/öt feladatból álló körök.
+- **Robotpostás:** szavak vagy rövid kifejezések utánmondása, majd csomagküldés Rókának, Macinak vagy Nyuszinak. A választott címzett postaládájában megmarad a csomag képe. A felismert szó, a hang észlelése és a közös kimondás külön visszajelzés.
+- **Perecműhely:** szóeleji, szóközi és szóvégi szócsoportra váltható gyakorlás, választható virágos, csillagos vagy leveles dísszel. Minden továbbjelzett feladat a választott díszt adja a műhelyhez; az elkészült műhely a kör végén is látható.
+- **Mondókaliget:** négy eredeti, négysoros mondóka. A teljes felolvasás és soronkénti közös vagy mikrofonos gyakorlás mellett az **Elbújt szó** játék mind a 16 sorhoz három képes választást ad. A megtalált szó visszakerül a mondatba, majd külön mintahang és a teljes sor is megszólal. Egy sor ismétlése nem számít új befejezett körnek.
+- **Saját visszhang:** natív böngészős hangfelvétel, legfeljebb nyolc másodpercig. A **Minta → saját hangom** gomb egymás után lejátssza Jessa mintáját és a felvételt; külön is meghallgathatók. Elutasított engedély vagy hiányzó felvevő esetén a közös gyakorlás elérhető marad.
+
+Az új körök először az előző körben nem szereplő szavakból választanak, a kiválasztott szóhely szerinti csoporton belül. A **Lepj meg!** gomb a kevesebbet játszott kalandok közül választ, és elkerüli az előző játékot. A Hangvadász és a Mondókaliget játékmódját a gyerek is átválthatja; a választás az eszközön megmarad.
 
 A felnőtt beállításai külön eszközbeállításban (`beszedtanulas.rPractice.v1`) őrzik a szócsoportra, szóra/kifejezésre, körhosszra, képszámra és gyakorlási módra vonatkozó választást. A csoportok a hang helyét jelzik, nem kötelező nehézségi sorrendet. A mintahangok gépi magyar felvételek. A szólistát a gyerekhez, szükség esetén logopédus útmutatásához lehet igazítani.
 
@@ -74,7 +76,7 @@ A visszhang felvétele csak a nyitott oldal memóriájában marad: nincs feltöl
 
 A közös körök, képes találatok/mikrofonos próbák, felismert szavak/sorok és felnőtt által jelzett gyakorlások profilonként kerülnek az eredménymentés `rPractice` részébe. Fájlmentés, visszaállítás és nullázás/visszavonás támogatott; a régi mentésekben hiányzó rész nulláról indul. Az alap beszédjáték szóeredményei és jutalomszámlálója ettől függetlenek. Saját felvétel és felismert szöveg nem kerül az eredménymentésbe.
 
-Megvalósítás: `r-practice-data.js`, `r-practice-game.js`, `r-practice-media.js`, `r-practice-voice.js`, `r-practice.css`; célzott ellenőrzések: `tests/r-practice.test.mjs`, `tests/browser/r-practice.js`. A saját mondókák, szavak és útmutatók 96 új, lenyomattal és szóidőkkel hitelesített statikus hangot kaptak.
+Megvalósítás: `r-practice-data.js`, `r-practice-game.js`, `r-practice-media.js`, `r-practice-voice.js`, `r-practice.css`; célzott ellenőrzések: `tests/r-practice.test.mjs`, `tests/browser/r-practice.js`, `tests/browser/r-variety.js`. A saját mondókák, szavak és útmutatók 117, lenyomattal és szóidőkkel hitelesített statikus hangot használnak; a közös szavak a meglévő Jessa-felvételeket használják újra.
 
 A körvégi sikerablak és a játékok saját lezáró kártyája körülbelül egy másodperc múlva jelenik meg, így a kész jelenet még látható marad. Rejtett ablaknál a várakozás szünetel; új kör vagy kilépés megszünteti a függő visszajelzést. A már megszerzett jutalom azonnal mentődik.
 
@@ -114,7 +116,7 @@ Ezek a helyi műveletek és a profilváltás szüneteltetik a felhőszinkront. �
 
 ## Offline játék és ikon a főképernyőn
 
-Az oldal az első megnyitáskor letölti a felületet és mind a 495 hangfájlt, köztük a tizenkét állathangot, a puzzle öt magyar segítségét, az öntős játék tizenhárom hangját, az R-kaland 96 mintahangját, az öt csoport új útmutatóját és a sakk 26 magyar hangját. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
+Az oldal az első megnyitáskor letölti a felületet, a 493 Jessa-mintahangot, a 24 családi szófelvételt és a tizenkét állathangot. Ebbe beletartoznak a puzzle magyar segítségei, az öntős játék hangjai, az R-kaland 117 mintahangja, az öt csoport útmutatói és a sakk magyar hangjai is. A szülői beállítások **Játék internet nélkül** részében várd meg a „Letöltve” visszajelzést. Ezután a képes játékok, a számolás és a hangok hálózat nélkül is használhatók. A szófelismerés a böngészőtől függően internetet kérhet.
 
 iPhone/iPad Safariban a Megosztás menü **Főképernyőhöz adás** pontjával hozható létre játékikon. Az új ikonnal először internet mellett indítsd el a játékot, és abban az ablakban is várd meg a letöltés végét. [Apple útmutató](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios).
 

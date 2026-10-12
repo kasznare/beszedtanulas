@@ -1,11 +1,12 @@
 import { normalizeText } from './speech-matching.js';
+import { words as pictureWords } from './game-data.js';
 
 export const R_GAMES = [
-  { id: 'hunter', name: 'Hangvadász', icon: '🔎', detail: 'Hallgasd meg · keresd meg a képet' },
-  { id: 'post', name: 'Robotpostás', icon: '🤖', detail: 'Mondd utánam · indítsd a csomagot' },
-  { id: 'workshop', name: 'Perecműhely', icon: '🥨', detail: 'Gyakorolj szavakat · díszítsd a műhelyt' },
-  { id: 'rhyme', name: 'Mondókaliget', icon: '🎵', detail: 'Hallgasd meg · mondd soronként' },
-  { id: 'echo', name: 'Saját visszhang', icon: '🎙️', detail: 'Vedd fel · hallgasd vissza együtt' },
+  { id: 'hunter', name: 'Hangvadász', icon: '🔎', detail: 'Képkereső · R-hang · az R helye' },
+  { id: 'post', name: 'Robotpostás', icon: '🤖', detail: 'Mondd utánam · válassz barátot · küldd el' },
+  { id: 'workshop', name: 'Perecműhely', icon: '🥨', detail: 'Gyakorolj · válassz díszt · alkoss' },
+  { id: 'rhyme', name: 'Mondókaliget', icon: '🎵', detail: 'Mondjuk együtt · keresd az elbújt szót' },
+  { id: 'echo', name: 'Saját visszhang', icon: '🎙️', detail: 'Vedd fel · hasonlítsd össze a mintával' },
 ];
 
 // These groups describe the target's location, not a clinical difficulty order.
@@ -28,9 +29,10 @@ export const R_WORDS = [
 ].map(([id, text, icon, position, phrase]) => ({ id, text, icon, position, phrase }));
 
 export const R_DISTRACTORS = [
-  ['alma','alma','🍎'], ['cica','cica','🐈'], ['kutya','kutya','🐕'],
-  ['labda','labda','⚽'], ['baba','baba','👶'], ['banan','banán','🍌'],
-].map(([id, text, icon]) => ({id, text, icon}));
+  ...pictureWords.filter(word => !/r/i.test(word.label) && !['anya','apa','szia'].includes(word.id))
+    .map(({id,label,emoji}) => ({id,text:label,icon:emoji})),
+  {id:'banan',text:'banán',icon:'🍌'},
+];
 
 export const R_RHYMES = [
   {id:'roka', title:'Róka és robot', icon:'🦊', lines:[
@@ -52,6 +54,38 @@ export const R_RHYMES = [
 ];
 
 export const R_POSITIONS = { all:'Minden szó', initial:'Szó elején', medial:'Szó közepén', final:'Szó végén' };
+export const R_HUNTER_MODES = {picture:'Képkereső',sound:'R-hang',position:'Az R helye'};
+export const R_RECIPIENTS = [{id:'fox',name:'Róka',icon:'🦊'},{id:'bear',name:'Maci',icon:'🧸'},{id:'rabbit',name:'Nyuszi',icon:'🐰'}];
+export const R_STAMPS = [{id:'flower',name:'Virágos',icon:'🌼'},{id:'star',name:'Csillagos',icon:'⭐'},{id:'leaf',name:'Leveles',icon:'🍃'}];
+export const R_RHYME_EXTRA_WORDS = [{id:'gyerek',text:'gyerek',icon:'🧒'},{id:'gyere',text:'gyere',icon:'👋'},{id:'viragkert',text:'virágkert',icon:'🌷'}];
+const gaps = {
+  roka:[['Róka','roka'],['répát','repa'],['perec','perec'],['gyerek','gyerek']],
+  kert:[['rózsa','rozsa'],['Robot','robot'],['Róka','roka'],['virágkert','viragkert']],
+  sator:[['gyere','gyere'],['sátrat','sator'],['Körte','korte'],['Róka','roka']],
+  robot:[['robot','robot'],['ceruzát','ceruza'],['várat','var'],['madarat','madar']],
+};
+export function rhymeGap(rhymeId, line) {
+  const [missing,id] = gaps[rhymeId]?.[line] || [];
+  const word = [...R_WORDS,...R_RHYME_EXTRA_WORDS].find(word=>word.id===id);
+  return word ? {missing,word,voice: R_WORDS.includes(word) ? `r_word_${id}` : `r_puzzle_word_${id}`} : null;
+}
+export function buildRhymeChoices(rhymeId, line, random=Math.random) {
+  const gap=rhymeGap(rhymeId,line);
+  if(!gap)return [];
+  const others=shuffleR(R_WORDS.filter(word=>word.id!==gap.word.id),random).slice(0,2);
+  return shuffleR([gap.word,...others],random);
+}
+export function rSoundPositions(text) {
+  const letters=[...String(text).toLocaleLowerCase('hu')];
+  return [...new Set(letters.flatMap((letter,i)=>letter==='r'?[i===0?'initial':i===letters.length-1?'final':'medial']:[]))];
+}
+export function pickRGame(progress, previous, random=Math.random) {
+  const stats=normalizeRProgress(progress);
+  const games=R_GAMES.filter(({id})=>id!==previous);
+  const minimum=Math.min(...games.map(({id})=>stats.games[id].rounds));
+  const pool=games.filter(({id})=>stats.games[id].rounds===minimum);
+  return pool[Math.min(pool.length-1,Math.max(0,Math.floor(random()*pool.length)))].id;
+}
 export const R_PREFERENCES_KEY = 'beszedtanulas.rPractice.v1';
 export function normalizeRPreferences(raw = {}) {
   return {
@@ -60,7 +94,8 @@ export function normalizeRPreferences(raw = {}) {
     target: raw?.target === 'phrase' ? 'phrase' : 'word',
     choices: raw?.choices === 3 ? 3 : 2,
     roundLength: raw?.roundLength === 5 ? 5 : 3,
-    hunterKind: raw?.hunterKind === 'sound' ? 'sound' : 'picture',
+    hunterKind: Object.hasOwn(R_HUNTER_MODES,raw?.hunterKind) ? raw.hunterKind : 'picture',
+    rhymeMode: raw?.rhymeMode === 'missing' ? 'missing' : 'say',
   };
 }
 export function loadRPreferences(storage) {
@@ -78,9 +113,15 @@ export function shuffleR(items, random = Math.random) {
   for (let i=result.length-1;i>0;i--) { const j=Math.min(i,Math.max(0,Math.floor(random()*(i+1)))); [result[i],result[j]]=[result[j],result[i]]; }
   return result;
 }
-export function buildRHunterRound(preferences, random = Math.random) {
+export function buildRPracticeDeck(preferences, previousIds=[], random=Math.random, count=normalizeRPreferences(preferences).roundLength) {
+  const pool=rWordPool(normalizeRPreferences(preferences).position), previous=new Set(previousIds);
+  const fresh=shuffleR(pool.filter(word=>!previous.has(word.id)),random);
+  const familiar=shuffleR(pool.filter(word=>previous.has(word.id)),random);
+  return [...fresh,...familiar].slice(0,count);
+}
+export function buildRHunterRound(preferences, random = Math.random, previousIds=[]) {
   const options = normalizeRPreferences(preferences), pool = rWordPool(options.position);
-  return shuffleR(pool, random).slice(0, options.roundLength).map(target => {
+  return buildRPracticeDeck(options,previousIds,random).map(target => {
     const others = options.hunterKind === 'sound' ? R_DISTRACTORS : pool.filter(word=>word.id!==target.id);
     return { target, choices:shuffleR([target, ...shuffleR(others,random).slice(0,options.choices-1)],random) };
   });

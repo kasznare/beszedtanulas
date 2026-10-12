@@ -1,4 +1,4 @@
-import { R_GAMES, R_WORDS, R_RHYMES, R_POSITIONS, loadRPreferences, saveRPreferences, normalizeRPreferences, normalizeRProgress, recordRProgress, rWordPool, shuffleR, buildRHunterRound } from './r-practice-data.js';
+import { R_GAMES, R_WORDS, R_RHYMES, R_POSITIONS, R_HUNTER_MODES, R_RECIPIENTS, R_STAMPS, rhymeGap, buildRhymeChoices, rSoundPositions, pickRGame, buildRPracticeDeck, loadRPreferences, saveRPreferences, normalizeRPreferences, normalizeRProgress, recordRProgress, buildRHunterRound } from './r-practice-data.js';
 import { createRRecorder } from './r-practice-media.js';
 import { createSuccessDelay } from './success-delay.js';
 
@@ -15,13 +15,16 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   const successDelay=createSuccessDelay();
   let readyToAdvance=false, transcript='';
   let rhymeIndex=0, rhymeDone=new Set(), rhymeRoundReported=false;
+  const previousDecks=new Map();
+  let lastGame='', recipient='fox', stamp='flower', deliveries=[], decorations=[], actionWord=null, transitionTimer=null;
+  let rhymeChoices=[], rhymeSolved=false, rhymeWrong='';
   const recorder=createRRecorder();
   let recording=null, recordingDuration=0, recordingSeconds=0, replayAudio=null, replayUrl=null, replayTimer=null, echoRoundReported=false;
   const allowed=()=>active&&!document.hidden;
   const $=selector=>root.querySelector(selector);
   function stopReplay() {clearTimeout(replayTimer);replayTimer=null;if(replayAudio){replayAudio.onplaying=replayAudio.onended=replayAudio.onerror=null;replayAudio.pause();replayAudio.removeAttribute('src');replayAudio=null;}if(replayUrl){URL.revokeObjectURL(replayUrl);replayUrl=null;}}
   function clearRecording(){stopReplay();recording=null;recordingDuration=0;recordingSeconds=0;}
-  function cancel({keepSuccess=false}={}) { generation++; controller?.abort(); controller=null; recorder.cancel();stopReplay();stopPlayback(); phase='idle'; if(!keepSuccess){successDelay.cancel();successPending=false;} }
+  function cancel({keepSuccess=false}={}) { generation++; clearTimeout(transitionTimer);transitionTimer=null;actionWord=null;controller?.abort(); controller=null; recorder.cancel();stopReplay();stopPlayback(); phase='idle'; if(!keepSuccess){successDelay.cancel();successPending=false;} }
   function report(event) { updateProgress(recordRProgress(getProgress(),game,event)); }
   function progressDots(count=deck.length, index=step) {
     return `<div class="rp-dots" aria-label="${Math.min(index+1,count)}. feladat, összesen ${count}">${Array.from({length:count},(_,i)=>`<span class="${i<index||completed?'is-done':i===index?'is-current':''}" aria-hidden="true">${i<index||completed?'✿':'•'}</span>`).join('')}</div>`;
@@ -33,7 +36,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
       <label>Mit mondunk?<select data-pref="target"><option value="word" ${prefs.target==='word'?'selected':''}>Egy szó</option><option value="phrase" ${prefs.target==='phrase'?'selected':''}>Rövid kifejezés</option></select></label>
       <label>Egy kör<select data-pref="roundLength"><option value="3" ${prefs.roundLength===3?'selected':''}>3 feladat</option><option value="5" ${prefs.roundLength===5?'selected':''}>5 feladat</option></select></label>
       <label>Hangvadász képei<select data-pref="choices"><option value="2" ${prefs.choices===2?'selected':''}>2 kép</option><option value="3" ${prefs.choices===3?'selected':''}>3 kép</option></select></label>
-      <label>Hangvadász feladata<select data-pref="hunterKind"><option value="picture" ${prefs.hunterKind==='picture'?'selected':''}>Hallott szó képének keresése</option><option value="sound" ${prefs.hunterKind==='sound'?'selected':''}>R-t tartalmazó szó keresése</option></select></label>
+      <label>Hangvadász feladata<select data-pref="hunterKind">${Object.entries(R_HUNTER_MODES).map(([id,label])=>`<option value="${id}" ${prefs.hunterKind===id?'selected':''}>${label}</option>`).join('')}</select></label>
     </div><p>A szófelismerés a felismert szöveget jelzi; az R kiejtését nem minősíti. A bátorító mód hangot észlel. A szavak hely szerinti csoportok, nem kötelező nehézségi sorrend. Válasszatok a gyereknek megfelelő szavakat.</p><p>Szófelismeréskor a böngésző szolgáltatása internetet használhat és feldolgozhatja a hangot. A közös mód és a mintahangok offline is működnek. A Saját visszhang felvétele csak ebben az ablakban marad.</p></details>`;
   }
   function render(focus='') {
@@ -41,7 +44,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
     const info=R_GAMES.find(value=>value.id===game), stats=normalizeRProgress(getProgress());
     root.innerHTML=`<div class="rp-shell"><header class="rp-heading"><div><span class="rp-eyebrow">HALLGASD · MONDD · JÁTSSZ</span><h2 tabindex="-1">${info?info.name:'Róka R-kalandja'}</h2><p>${info?info.detail:'Öt kis kaland rókával és robottal.'}</p></div><span class="rp-letter" aria-hidden="true">R<span>r</span></span></header>
       ${game!=='hub'?'<button class="rp-back" data-action="hub">← Az öt játékhoz</button>':''}
-      ${game==='hub'?`<div class="rp-hub-scene" aria-hidden="true"><span class="rp-sun">☀</span><img class="rp-fox" src="./assets/furfang-fox.png" alt=""><span class="rp-robot">🤖</span><span class="rp-flowers">🌼 🌷 🌿</span><span class="rp-hub-bubble">Róka és robot vár rád!</span></div><div class="rp-game-grid">${R_GAMES.map(value=>`<button class="rp-game-card" data-game="${value.id}"><span aria-hidden="true">${value.icon}</span><strong>${value.name}</strong><small>${value.detail}</small>${stats.games[value.id].rounds?`<span class="rp-saved">${stats.games[value.id].rounds} közös kör</span>`:''}</button>`).join('')}</div>`:renderGame()}
+      ${game==='hub'?`<div class="rp-hub-scene" aria-hidden="true"><span class="rp-sun">☀</span><img class="rp-fox" src="./assets/furfang-fox.png" alt=""><span class="rp-robot">🤖</span><span class="rp-flowers">🌼 🌷 🌿</span><span class="rp-hub-bubble">Róka és robot vár rád!</span></div><div class="rp-surprise"><button class="rp-primary" data-action="surprise">🎲 Lepj meg!</button><span>Válasszunk egy másik kis kalandot!</span></div><div class="rp-game-grid">${R_GAMES.map(value=>`<button class="rp-game-card" data-game="${value.id}"><span aria-hidden="true">${value.icon}</span><strong>${value.name}</strong><small>${value.detail}</small>${stats.games[value.id].rounds?`<span class="rp-saved">${stats.games[value.id].rounds} közös kör</span>`:''}</button>`).join('')}</div>`:renderGame()}
       <p id="rp-status" class="rp-status" role="status" aria-live="polite">${html(message||defaultMessage())}</p>${settings()}</div>`;
     if(focus)$(focus)?.focus({preventScroll:true});
   }
@@ -65,38 +68,54 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
       <div class="rp-actions"><button class="rp-primary" data-action="advance" ${busy||(!together&&!readyToAdvance)?'disabled':''}>${together?'Együtt kimondtuk · ':''}${advanceLabel} →</button>${!together?`<button data-action="confirm" ${busy?'disabled':''}>Együtt mondtuk · tovább</button>`:''}<button data-action="restart">↻ Új kör</button></div>
       <p class="rp-mode-note">${together?'Közös mód: mondjátok ki együtt, majd indítsátok a következő lépést.':prefs.speechMode==='encouraging'?'A hangészlelés a próbálkozást jelzi.':'A felismert szót mutatjuk; az R kiejtését nem pontozzuk.'}</p>`;
   }
+  function renderRecipients() {
+    return `<div class="rp-recipient-picker" data-completed="${completed}" role="group" aria-label="Kinek vigye Robot a csomagot?">${R_RECIPIENTS.map(friend=>{
+      const parcels=deliveries.filter(item=>item.recipient===friend.id);
+      return `<button data-recipient="${friend.id}" aria-pressed="${recipient===friend.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${friend.icon}</span><strong>${friend.name}</strong><span class="rp-mailbox" aria-label="${parcels.length} csomag${parcels.length?': '+parcels.map(item=>item.word.text).join(', '):''}">${parcels.map(item=>`<small aria-hidden="true">${item.word.icon}</small>`).join('')||'📪'}</span></button>`;
+    }).join('')}</div>`;
+  }
   function renderPost() {
-    if(completed&&!successPending)return finishCard('Minden csomag megérkezett!','🤖 📦 🌼');
-    const word=currentWord();
-    return `${progressDots()}<div class="rp-post-scene"><span class="rp-post-cloud" aria-hidden="true">☁</span><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3></div><div class="rp-post-robot ${phase==='listening'?'is-listening':''}" aria-hidden="true">🤖<span class="rp-robot-bubble">${readyToAdvance?'Köszönöm!':'Ezt kérem!'}</span></div><div class="rp-parcels" aria-label="${step} elküldött csomag">${deck.slice(0,step).map((item,i)=>`<span class="rp-parcel ${i===step-1?'is-arriving':''}" aria-hidden="true">📦<small>${item.icon}</small></span>`).join('')}</div></div>${speechControls('Csomag indítása')}`;
+    if(completed&&!successPending)return `${renderRecipients()}${finishCard('Minden csomag megérkezett!','🤖 📦 🌼')}`;
+    const word=actionWord||currentWord(), text=prefs.target==='phrase'?word.phrase:word.text;
+    return `${progressDots()}<div class="rp-post-scene"><span class="rp-post-cloud" aria-hidden="true">☁</span><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(text)}</h3></div><div class="rp-post-robot ${phase==='listening'?'is-listening':''}" aria-hidden="true">🤖<span class="rp-robot-bubble">${phase==='delivery'?'Indulok!':readyToAdvance?'Köszönöm!':'Ezt kérem!'}</span></div><div class="rp-parcels" aria-label="${step} elküldött csomag">${deliveries.map((item,i)=>`<span class="rp-parcel ${i===step-1?'is-arriving':''}" aria-hidden="true">📦<small>${item.word.icon}</small></span>`).join('')}</div></div>${renderRecipients()}${speechControls('Csomag indítása')}`;
   }
   function bakery() {
-    return `<div class="rp-bakery" aria-label="${step} elkészült műhelydísz"><div class="rp-awning" aria-hidden="true"></div><div class="rp-bakery-sign">Perecműhely</div><span class="rp-bakery-fox" aria-hidden="true">🦊</span><span class="rp-bakery-pretzel" aria-hidden="true">🥨</span><div class="rp-bakery-rack">${deck.map((word,i)=>`<span class="rp-decoration ${i<step?'is-decorated':''} ${i===step-1?'is-arriving':''}" aria-hidden="true">${i<step?word.icon:'✿'}</span>`).join('')}</div><span class="rp-bakery-counter" aria-hidden="true"></span></div>`;
+    return `<div class="rp-bakery" aria-label="${decorations.length} elkészült műhelydísz"><div class="rp-awning" aria-hidden="true"></div><div class="rp-bakery-sign">Perecműhely</div><span class="rp-bakery-fox" aria-hidden="true">🦊</span><span class="rp-bakery-pretzel" aria-hidden="true">🥨</span><div class="rp-bakery-rack">${deck.map((word,i)=>`<span class="rp-decoration ${decorations[i]?'is-decorated rp-stamp-'+decorations[i].stamp:''} ${i===step-1?'is-arriving':''}" aria-hidden="true">${decorations[i]?word.icon:'✿'}</span>`).join('')}</div><span class="rp-bakery-counter" aria-hidden="true"></span></div>`;
   }
   function renderWorkshop() {
     const picker=`<div class="rp-position-picker" role="group" aria-label="Az R helye a szóban">${Object.entries(R_POSITIONS).map(([id,label])=>`<button data-position="${id}" aria-pressed="${prefs.position===id}"><b aria-hidden="true">${{all:'R',initial:'R…',medial:'…R…',final:'…R'}[id]}</b><small>${label}</small></button>`).join('')}</div>`;
     if(completed&&!successPending)return `${picker}${bakery()}${finishCard('Feldíszítettük a műhelyt!','🥨 🌷')}`;
     const word=currentWord();
-    return `${picker}${progressDots()}<div class="rp-workshop-layout">${bakery()}<div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3><p>${R_POSITIONS[word.position]}</p></div></div>${speechControls('Új dísz a műhelybe')}`;
+    return `${picker}${progressDots()}<div class="rp-workshop-layout">${bakery()}<div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3><p>${R_POSITIONS[word.position]}</p></div></div><div class="rp-stamp-picker" role="group" aria-label="Milyen díszt készítsünk?">${R_STAMPS.map(style=>`<button data-stamp="${style.id}" aria-pressed="${stamp===style.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${style.icon}</span>${style.name}</button>`).join('')}</div>${speechControls('Új dísz a műhelybe')}`;
   }
   function renderRhyme() {
     const rhyme=currentRhyme();
-    return `<div class="rp-rhyme-picker" role="group" aria-label="Válassz mondókát">${R_RHYMES.map((item,i)=>`<button data-rhyme="${i}" aria-pressed="${i===rhymeIndex}"><span aria-hidden="true">${item.icon}</span>${item.title}</button>`).join('')}</div><div class="rp-rhyme-stage" aria-hidden="true"><span class="rp-rhyme-sun">☀</span><span class="rp-line-art">${rhyme.lines[step][1]}</span><span class="rp-rhyme-grass">🌿 🌼 🌿</span></div><div class="rp-rhyme-heading"><h3>${rhyme.title}</h3><button data-action="rhyme-all" ${phase!=='idle'||successPending?'disabled':''}>🔊 Teljes mondóka</button></div>
+    const modes=`<div class="rp-mode-picker" role="group" aria-label="Hogyan játsszunk a mondókával?"><button data-rhyme-mode="say" aria-pressed="${prefs.rhymeMode==='say'}">🎵 Mondjuk együtt</button><button data-rhyme-mode="missing" aria-pressed="${prefs.rhymeMode==='missing'}">🧩 Elbújt szó</button></div>`;
+    if(prefs.rhymeMode==='missing')return `${modes}${renderRhymePuzzle()}`;
+    return `${modes}<div class="rp-rhyme-picker" role="group" aria-label="Válassz mondókát">${R_RHYMES.map((item,i)=>`<button data-rhyme="${i}" aria-pressed="${i===rhymeIndex}"><span aria-hidden="true">${item.icon}</span>${item.title}</button>`).join('')}</div><div class="rp-rhyme-stage" aria-hidden="true"><span class="rp-rhyme-sun">☀</span><span class="rp-line-art">${rhyme.lines[step][1]}</span><span class="rp-rhyme-grass">🌿 🌼 🌿</span></div><div class="rp-rhyme-heading"><h3>${rhyme.title}</h3><button data-action="rhyme-all" ${phase!=='idle'||successPending?'disabled':''}>🔊 Teljes mondóka</button></div>
       <div class="rp-rhyme-lines" role="group" aria-label="A mondóka sorai">${rhyme.lines.map(([text],i)=>`<button class="rp-rhyme-line ${i===step?'is-current':''} ${rhymeDone.has(i)?'is-practiced':''}" data-line="${i}" ${successPending?'disabled':''} aria-pressed="${i===step}" aria-label="${i+1}. sor: ${html(text)}"><span aria-hidden="true">${rhymeDone.has(i)?'✿':'🔊'}</span><span>${marked(text)}</span></button>`).join('')}</div>
       ${completed&&!successPending?`<div class="rp-rhyme-complete" role="status">🌼 Mind a négy sort együtt gyakoroltuk!</div><div class="rp-actions"><button data-action="restart">↻ Mondjuk újra!</button></div>`:speechControls('Sort gyakoroltuk · következő')}`;
+  }
+  function renderRhymePuzzle() {
+    const rhyme=currentRhyme(),gap=rhymeGap(rhyme.id,step),text=rhyme.lines[step][0],at=text.indexOf(gap.missing);
+    const picker=`<div class="rp-rhyme-picker" role="group" aria-label="Válassz mondókát">${R_RHYMES.map((item,i)=>`<button data-rhyme="${i}" aria-pressed="${i===rhymeIndex}"><span aria-hidden="true">${item.icon}</span>${item.title}</button>`).join('')}</div>`;
+    if(completed&&!successPending)return `${picker}<div class="rp-rhyme-complete">🌼 Mind a négy elbújt szó megvan!</div>${finishCard('Kiegészítettük a mondókát!','🧩 🎵')}`;
+    return `${picker}${progressDots(4,step)}<div class="rp-gap-card"><span class="rp-gap-icon" aria-hidden="true">🧩</span><h3>${rhyme.title}</h3><p class="rp-gap-line">${html(text.slice(0,at))}<span class="rp-gap-blank ${rhymeSolved?'is-filled':''}">${rhymeSolved?marked(gap.missing):'…'}</span>${html(text.slice(at+gap.missing.length))}</p><button class="rp-primary" data-action="model" ${phase!=='idle'||completed?'disabled':''}>🔊 Hallgassuk meg a sort!</button></div><div class="rp-gap-choices">${rhymeChoices.map(word=>`<button data-gap-choice="${word.id}" class="${rhymeSolved&&word.id===gap.word.id?'is-found':''} ${rhymeWrong===word.id?'is-try':''}" ${phase!=='idle'||rhymeSolved||completed?'disabled':''}><span aria-hidden="true">${word.icon}</span><strong>${html(word.text)}</strong></button>`).join('')}</div><div class="rp-actions"><button class="rp-primary" data-action="rhyme-next" ${!rhymeSolved||phase!=='idle'||completed?'disabled':''}>${step===3?'Kör befejezése':'Következő sor'} →</button><button data-action="restart">↻ Új kör</button></div>`;
   }
   function renderEcho() {
     const word=currentWord(), busy=phase!=='idle', supported=recorder.isSupported();
     return `<label class="rp-echo-picker">Válassz mintát<select data-echo-word>${deck.map((item,i)=>`<option value="${i}" ${i===step?'selected':''}>${html(item.text)}</option>`).join('')}</select></label><div class="rp-echo-stage"><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3></div><span class="rp-echo-rings ${phase==='recording'||phase==='replay'?'is-active':''}" aria-hidden="true">${phase==='recording'?'🎙️':phase==='replay'?'🔊':'🎧'}</span></div>
       <div class="rp-record-timer" aria-live="off">${phase==='recording'?`Felvétel: ${recordingSeconds} / 8 másodperc`:recording?`Saját felvétel: ${(recordingDuration/1000).toFixed(1).replace('.',',')} másodperc`:'Egy rövid szó vagy kifejezés fér a felvételbe.'}</div>
       <div class="rp-actions"><button class="rp-primary" data-action="model" ${busy?'disabled':''}>🔊 Mintahang</button>${phase==='recording'?'<button class="rp-primary" data-action="record-finish">■ Felvétel befejezése</button>':`<button data-action="record" ${busy||!supported?'disabled':''}>🎙️ ${recording?'Újra felveszem':'Felveszem a hangom'}</button>`}${busy?'<button data-action="stop">■ Megállítás</button>':''}</div>
-      <div class="rp-actions"><button class="rp-primary" data-action="replay" ${busy||!recording?'disabled':''}>▶ Saját hangom</button><button data-action="record-delete" ${busy||!recording?'disabled':''}>Felvétel elengedése</button><button data-action="echo-next" ${busy?'disabled':''}>Másik szó →</button></div><div class="rp-actions"><button data-action="echo-confirm" ${busy||echoRoundReported?'disabled':''}>Együtt gyakoroltuk 🌼</button></div>
+      <div class="rp-actions"><button class="rp-primary" data-action="compare" ${busy||!recording?'disabled':''}>🔊 Minta → saját hangom</button><button data-action="replay" ${busy||!recording?'disabled':''}>▶ Saját hangom</button><button data-action="record-delete" ${busy||!recording?'disabled':''}>Felvétel elengedése</button><button data-action="echo-next" ${busy?'disabled':''}>Másik szó →</button></div><div class="rp-actions"><button data-action="echo-confirm" ${busy||echoRoundReported?'disabled':''}>Együtt gyakoroltuk 🌼</button></div>
       <p class="rp-mode-note">${supported?'Legfeljebb 8 másodperc. A saját felvételt nem töltjük fel és nem mentjük fájlba; új szó, kilépés vagy elrejtett lap esetén elengedjük.':'Ebben a böngészőben nem érhető el a hangfelvétel. A mintahangot meghallgathatjátok, és együtt gyakorolhattok.'}</p>`;
   }
   function renderHunter() {
-    if(completed&&!successPending)return finishCard('Minden kép megvan!','🔎 🌼');
+    if(completed&&!successPending)return finishCard(prefs.hunterKind==='position'?'Minden szó R-helyét megtaláltad!':'Minden kép megvan!','🔎 🌼');
     const current=deck[Math.min(step,deck.length-1)], sound=prefs.hunterKind==='sound';
-    return `${progressDots()}<div class="rp-game-instruction"><span aria-hidden="true">🔎</span><h3>${sound?'Melyik szóban hallod az R-t?':'Melyik képet hallottad?'}</h3><button class="rp-primary" data-action="model" ${completed||phase!=='idle'?'disabled':''}>🔊 ${sound?'Hallgassuk meg a képek nevét!':'Hallgasd meg!'}</button></div>
+    const modes=`<div class="rp-mode-picker rp-hunter-modes" role="group" aria-label="Hangvadász játékai">${Object.entries(R_HUNTER_MODES).map(([id,label])=>`<button data-hunter-kind="${id}" aria-pressed="${prefs.hunterKind===id}">${label}</button>`).join('')}</div>`;
+    if(prefs.hunterKind==='position')return `${modes}${progressDots()}<div class="rp-position-target rp-target" data-word="${current.target.id}"><span class="rp-target-picture" aria-hidden="true">${current.target.icon}</span><h3>${solved?marked(current.target.text):'Hallgasd meg a szót!'}</h3><button class="rp-primary" data-action="model" ${phase!=='idle'||completed?'disabled':''}>🔊 Hallgasd meg!</button></div><div class="rp-position-train" role="group" aria-label="Hol hallod az R hangot?">${['initial','medial','final'].map((id,i)=>`<button data-r-location="${id}" class="${solved&&rSoundPositions(current.target.text).includes(id)?'is-found':''} ${wrongId===id?'is-try':''}" ${solved||phase!=='idle'||completed?'disabled':''}><span class="rp-wagon" aria-hidden="true">${[0,1,2].map(n=>`<b>${n===i?'R':'•'}</b>`).join('')}</span><strong>${R_POSITIONS[id]}</strong></button>`).join('')}</div><div class="rp-actions"><button class="rp-primary" data-action="hunter-next" ${!solved||phase!=='idle'||completed?'disabled':''}>${step===deck.length-1?'Kör befejezése':'Következő szó'} →</button><button data-action="restart">↻ Új szavak</button></div>`;
+    return `${modes}${progressDots()}<div class="rp-game-instruction"><span aria-hidden="true">🔎</span><h3>${sound?'Melyik szóban hallod az R-t?':'Melyik képet hallottad?'}</h3><button class="rp-primary" data-action="model" ${completed||phase!=='idle'?'disabled':''}>🔊 ${sound?'Hallgassuk meg a képek nevét!':'Hallgasd meg!'}</button></div>
       <div class="rp-choice-grid" style="--rp-choices:${prefs.choices}">${current.choices.map(word=>`<div class="rp-option ${solved&&word.id===current.target.id?'is-found':''} ${wrongId===word.id?'is-try':''}" data-id="${word.id}">${sound?`<button class="rp-choice-sound" data-sound="${word.id}" aria-label="${html(word.text)} meghallgatása" ${completed||phase!=='idle'?'disabled':''}>🔊</button>`:''}<button class="rp-picture-choice" data-choice="${word.id}" aria-label="${html(word.text)} kiválasztása" ${solved||phase!=='idle'?'disabled':''}><span aria-hidden="true">${word.icon}</span><small>${html(word.text)}</small>${solved&&word.id===current.target.id?'<b aria-hidden="true">✓</b>':''}</button></div>`).join('')}</div>
       <div class="rp-actions"><button data-action="hunter-next" class="rp-primary" ${completed||!solved||phase!=='idle'?'disabled':''}>${step===deck.length-1?'Kör befejezése':'Következő kép'} →</button><button data-action="restart">↻ Új képek</button></div>`;
   }
@@ -113,8 +132,11 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   function beginGame(id) {
     if(!allowed()||!R_GAMES.some(value=>value.id===id))return;
     cancel();clearRecording();game=id;step=0;solved=false;wrongId='';completed=false;message='';readyToAdvance=false;transcript='';echoRoundReported=false;
-    if(id==='rhyme'){rhymeDone=new Set();rhymeRoundReported=false;}
-    deck=id==='hunter'?buildRHunterRound(prefs):shuffleR(rWordPool(prefs.position)).slice(0,id==='echo'?R_WORDS.length:prefs.roundLength);
+    lastGame=id;deliveries=[];decorations=[];
+    if(id==='rhyme'){rhymeDone=new Set();rhymeRoundReported=false;rhymeSolved=false;rhymeWrong='';rhymeChoices=buildRhymeChoices(currentRhyme().id,0);}
+    const previous=previousDecks.get(id)||[];
+    deck=id==='hunter'?buildRHunterRound(prefs,Math.random,previous):buildRPracticeDeck(prefs,previous,Math.random,id==='echo'?R_WORDS.length:prefs.roundLength);
+    if(id!=='rhyme')previousDecks.set(id,deck.map(word=>word.target?.id||word.id));
     render('h2');
     if(['hunter','post','workshop','rhyme','echo'].includes(id))void playCurrent({intro:true});
   }
@@ -132,10 +154,11 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
     if(game==='hub')return playClips(['r_hub'],{target:'.rp-hub-scene'});
     if(game==='hunter') {
       const current=deck[step];
+      if(prefs.hunterKind==='position')return playClips([...(intro?['r_hunter_position']:[]),`r_word_${current.target.id}`],id=>({target:id==='r_hunter_position'?'.rp-position-train':'.rp-position-target'}));
       return prefs.hunterKind==='sound'?playClips([...(intro?['r_hunter_sound']:[]),...current.choices.map(word=>`r_word_${word.id}`)],id=>({target:id==='r_hunter_sound'?'.rp-game-instruction':`.rp-option[data-id="${id.replace('r_word_','')}"]`})):playClips([...(intro?['r_hunter']:[]),`r_word_${current.target.id}`],{target:'.rp-game-instruction'});
     }
     if(['post','workshop','echo'].includes(game))return playClips([...(intro?[`r_${game}`]:[]),targetClip()],{target:'.rp-target'});
-    if(game==='rhyme')return playClips([...(intro?['r_rhyme']:[]),targetClip()],{target:`.rp-rhyme-line[data-line="${step}"]`});
+    if(game==='rhyme')return playClips([...(intro?[prefs.rhymeMode==='missing'?'r_rhyme_gap':'r_rhyme']:[]),targetClip()],{target:prefs.rhymeMode==='missing'?'.rp-gap-line':`.rp-rhyme-line[data-line="${step}"]`});
   }
   function selectRhymeLine(index) {
     if(!allowed()||successPending||game!=='rhyme'||!Number.isInteger(index)||!currentRhyme().lines[index])return;
@@ -187,10 +210,17 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
     else{message=({unsupported:'Itt nem érhető el a hangfelvétel. Gyakorolhatunk együtt is!', 'not-allowed':'A mikrofon engedélye hiányzik. Kérj segítséget egy felnőttől, vagy gyakoroljatok együtt!', 'too-short':'Nagyon rövid lett a felvétel. Próbáljuk újra!', 'too-large':'Ez a felvétel túl nagy lett. Próbáljunk egy rövidebb szót!', 'start-timeout':'A felvétel nem indult el. Próbáljuk újra vagy együtt!'})[result.error]||'A felvétel most nem sikerült. Próbáljuk újra vagy együtt!';}
     render();
   }
-  async function replayRecording() {
+  async function replayRecording(compare=false) {
     if(!allowed()||game!=='echo'||!recording||phase!=='idle')return;
-    cancel();const token=generation;replayUrl=URL.createObjectURL(recording);const audio=new Audio(replayUrl);replayAudio=audio;
-    const finish=error=>{if(!allowed()||token!==generation)return;stopReplay();phase='idle';message=error?'A saját hang most nem indult el. Próbáld újra, vagy készíts új felvételt!':'Visszahallgattuk a saját hangodat. A mintával is összehasonlíthatjátok.';render();};
+    cancel();const token=generation;
+    if(compare){
+      phase='model';message='Először Jessa mintája szól.';render();
+      const played=await speak(targetClip(),{target:'.rp-target'});
+      if(!allowed()||token!==generation)return;
+      if(played===false){phase='idle';message='A mintahang nem indult el. Próbáljuk újra!';render();return;}
+    }
+    replayUrl=URL.createObjectURL(recording);const audio=new Audio(replayUrl);replayAudio=audio;
+    const finish=error=>{if(!allowed()||token!==generation)return;stopReplay();phase='idle';message=error?'A saját hang most nem indult el. Próbáld újra, vagy készíts új felvételt!':compare?'Egymás után hallottuk a mintát és a saját hangodat. Hallgassuk meg újra is!':'Visszahallgattuk a saját hangodat. A mintával is összehasonlíthatjátok.';render();};
     audio.onended=()=>finish(false);audio.onerror=()=>finish(true);
     audio.onplaying=()=>{if(!allowed()||token!==generation)return;phase='replay';message='Most a saját hangod szól.';render();};
     phase='preparing-replay';message='Saját hang előkészítése…';render();
@@ -210,9 +240,36 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
       else{step=currentRhyme().lines.findIndex((_,i)=>!rhymeDone.has(i));message='';render();void playCurrent();}
       return;
     }
+    const word=currentWord();
+    if(game==='post')deliveries.push({word,recipient});
+    else decorations.push({word,stamp});
     step++;readyToAdvance=false;transcript='';message='';
-    if(step===deck.length){completed=true;report('round');finishRound({target:'.rp-finish'});}
-    else{render();void playClips([game==='post'?'r_delivered':'r_decorated',targetClip()],id=>({target:id.startsWith('r_word_')||id.startsWith('r_phrase_')?'.rp-target':game==='post'?'.rp-parcels':'.rp-bakery-rack'}));}
+    if(step===deck.length){completed=true;report('round');finishRound({target:'.rp-finish'});return;}
+    if(game==='post'){
+      actionWord=word;phase='delivery';message='Robot viszi a csomagot!';render();
+      const token=generation;
+      transitionTimer=setTimeout(()=>{
+        transitionTimer=null;if(!allowed()||token!==generation)return;
+        actionWord=null;phase='idle';render();void playClips(['r_delivered',targetClip()],id=>({target:id==='r_delivered'?'.rp-recipient-picker':'.rp-target'}));
+      },850);
+    }else{render();void playClips(['r_decorated',targetClip()],id=>({target:id==='r_decorated'?'.rp-bakery-rack':'.rp-target'}));}
+  }
+  function chooseRLocation(id) {
+    if(!allowed()||game!=='hunter'||prefs.hunterKind!=='position'||completed||solved||phase!=='idle')return;
+    if(!rSoundPositions(deck[step].target.text).includes(id)){wrongId=id;render();void playClips(['r_retry',`r_word_${deck[step].target.id}`],{target:'.rp-position-target'});return;}
+    solved=true;wrongId='';report('practice');render();void playClips([`r_position_${id}`,'guide_good'],{target:`[data-r-location="${id}"]`});
+  }
+  function chooseRhymeWord(id) {
+    if(!allowed()||game!=='rhyme'||prefs.rhymeMode!=='missing'||completed||rhymeSolved||phase!=='idle')return;
+    const gap=rhymeGap(currentRhyme().id,step);
+    if(id!==gap.word.id){rhymeWrong=id;message='Hallgassuk meg a sort még egyszer!';render();void playClips(['r_retry',targetClip()],{target:'.rp-gap-line'});return;}
+    rhymeSolved=true;rhymeWrong='';rhymeDone.add(step);report('practice');render();void playClips(['guide_good',gap.voice,targetClip()],id=>({target:id===gap.voice?`[data-gap-choice="${gap.word.id}"]`:'.rp-gap-line'}));
+  }
+  function nextRhymePuzzle() {
+    if(!allowed()||game!=='rhyme'||prefs.rhymeMode!=='missing'||!rhymeSolved||completed||phase!=='idle')return;
+    cancel();
+    if(step===3){completed=true;if(!rhymeRoundReported){report('round');rhymeRoundReported=true;}finishRound({target:'.rp-rhyme-complete'});return;}
+    step++;rhymeSolved=false;rhymeWrong='';rhymeChoices=buildRhymeChoices(currentRhyme().id,step);render();void playCurrent();
   }
   function chooseHunter(id) {
     if(!allowed()||game!=='hunter'||completed||solved||phase!=='idle')return;
@@ -229,6 +286,12 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   root.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button||button.disabled||!allowed())return;
     if(button.dataset.game)return beginGame(button.dataset.game);
+    if(button.dataset.hunterKind){prefs=normalizeRPreferences({...prefs,hunterKind:button.dataset.hunterKind});saveRPreferences(storage,prefs);return beginGame('hunter');}
+    if(button.dataset.rhymeMode){prefs=normalizeRPreferences({...prefs,rhymeMode:button.dataset.rhymeMode});saveRPreferences(storage,prefs);return beginGame('rhyme');}
+    if(button.dataset.rLocation)return chooseRLocation(button.dataset.rLocation);
+    if(button.dataset.gapChoice)return chooseRhymeWord(button.dataset.gapChoice);
+    if(button.dataset.recipient&&game==='post'&&phase==='idle'&&R_RECIPIENTS.some(friend=>friend.id===button.dataset.recipient)){recipient=button.dataset.recipient;render(`[data-recipient="${recipient}"]`);return;}
+    if(button.dataset.stamp&&game==='workshop'&&phase==='idle'&&R_STAMPS.some(style=>style.id===button.dataset.stamp)){stamp=button.dataset.stamp;render(`[data-stamp="${stamp}"]`);return;}
     if(button.dataset.choice)return chooseHunter(button.dataset.choice);
     if(button.dataset.position){prefs=normalizeRPreferences({...prefs,position:button.dataset.position});saveRPreferences(storage,prefs);return beginGame('workshop');}
     if(button.hasAttribute('data-rhyme')){rhymeIndex=Number(button.dataset.rhyme);return beginGame('rhyme');}
@@ -236,6 +299,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
     if(button.dataset.sound)return void playClips([`r_word_${button.dataset.sound}`],{target:`.rp-option[data-id="${button.dataset.sound}"]`});
     const action=button.dataset.action;
     if(action==='hub'){cancel();clearRecording();game='hub';message='';render('h2');}
+    else if(action==='surprise')beginGame(pickRGame(getProgress(),lastGame));
     else if(action==='restart')beginGame(game);
     else if(action==='model')void playCurrent();
     else if(action==='hunter-next')nextHunter();
@@ -244,9 +308,11 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
     else if(action==='confirm')advancePractice(true);
     else if(action==='stop'){cancel();message='Megállítottuk. Hallgassuk meg újra, vagy folytassuk együtt!';render();}
     else if(action==='rhyme-all')void playWholeRhyme();
+    else if(action==='rhyme-next')nextRhymePuzzle();
     else if(action==='record')void recordEcho();
     else if(action==='record-finish')recorder.finish();
     else if(action==='replay')void replayRecording();
+    else if(action==='compare')void replayRecording(true);
     else if(action==='record-delete'){clearRecording();message='A saját felvételt elengedtük.';render();}
     else if(action==='echo-next')changeEchoWord((step+1)%deck.length);
     else if(action==='echo-confirm'&&!echoRoundReported){report('confirmed');report('round');echoRoundReported=true;message='Köszönöm a közös gyakorlást!';render();}

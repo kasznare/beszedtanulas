@@ -78,7 +78,7 @@ async parent => {
       return {count:manifest.clips.length,provider:manifest.provider,voice:manifest.voice_id,failures};
     });
     ok(inventory.provider==='ElevenLabs'&&inventory.voice==='yj30vwTGJxSHezdAGsv9', 'Complete offline inventory selects Jessa');
-    ok(inventory.count===472&&!inventory.failures.length, `All 472 offline MP3s match their receipts and decode fully: ${inventory.failures.join('; ')}`);
+    ok(inventory.count>=472&&!inventory.failures.length, `All ${inventory.count} offline MP3s match their receipts and decode fully: ${inventory.failures.join('; ')}`);
     ok(await page.evaluate(()=>!jessaQA.browserSpeech.length&&!jessaQA.apiRequests.length), 'All module playback uses fixed audio without synthesis or paid API requests');
     ok(errors.length===0, `No browser script errors: ${errors.join('; ')}`);
     return {count:checks.length,checks};

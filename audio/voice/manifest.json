@@ -1931,14 +1931,38 @@
       "spokenTarget": "Hallgasd meg a /ˈkeːpɛk/ nevét! Keresd meg azt, amelyikben hallod az R hangot!"
     },
     {
+      "id": "r_hunter_position",
+      "text": "Hallgasd meg a szót! Mutasd meg, hol hallod az R hangot: az elején, a közepén vagy a végén!",
+      "group": "r-practice",
+      "file": "audio/voice/r_hunter_position.mp3"
+    },
+    {
+      "id": "r_position_initial",
+      "text": "A szó elején hallod az R hangot.",
+      "group": "r-practice",
+      "file": "audio/voice/r_position_initial.mp3"
+    },
+    {
+      "id": "r_position_medial",
+      "text": "A szó közepén hallod az R hangot.",
+      "group": "r-practice",
+      "file": "audio/voice/r_position_medial.mp3"
+    },
+    {
+      "id": "r_position_final",
+      "text": "A szó végén hallod az R hangot.",
+      "group": "r-practice",
+      "file": "audio/voice/r_position_final.mp3"
+    },
+    {
       "id": "r_post",
-      "text": "Robot csomagot vár. Hallgasd meg a szót, és mondd utánam!",
+      "text": "Robot csomagot visz a barátainknak. Hallgasd meg a szót, mondd utánam, és válassz egy barátot!",
       "group": "r-practice",
       "file": "audio/voice/r_post.mp3"
     },
     {
       "id": "r_workshop",
-      "text": "Díszítsük fel a perecműhelyt! Hallgasd meg a szót, és mondd utánam!",
+      "text": "Díszítsük fel a perecműhelyt! Mondd utánam a szót, válassz díszt, és tedd a műhelybe!",
       "group": "r-practice",
       "file": "audio/voice/r_workshop.mp3"
     },
@@ -1947,6 +1971,21 @@
       "text": "Hallgassunk mondókát! Koppints egy sorra, és mondd utánam!",
       "group": "r-practice",
       "file": "audio/voice/r_rhyme.mp3"
+    },
+    {
+      "id": "r_rhyme_gap",
+      "text": "Elbújt egy szó a mondókából. Hallgasd meg a sort, és keresd meg a hiányzó szó képét!",
+      "group": "r-practice",
+      "file": "audio/voice/r_rhyme_gap.mp3",
+      "spokenText": "Mondjuk együtt: Elbújt egy szó a mondókából. Hallgasd meg a sort, és keresd meg a hiányzó szó /ˈkeːpeːt/!",
+      "extract": {
+        "from": 16,
+        "to": 105,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Elbújt egy szó a mondókából. Hallgasd meg a sort, és keresd meg a hiányzó szó képét!"
+      },
+      "spokenTarget": "Elbújt egy szó a mondókából. Hallgasd meg a sort, és keresd meg a hiányzó szó /ˈkeːpeːt/!"
     },
     {
       "id": "r_echo",
@@ -2407,6 +2446,60 @@
       }
     },
     {
+      "id": "r_word_viz",
+      "text": "víz",
+      "spokenText": "Mondjuk együtt: /viːz/.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_viz.mp3",
+      "extract": {
+        "from": 16,
+        "to": 22,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "víz"
+      },
+      "spokenTarget": "/viːz/"
+    },
+    {
+      "id": "r_word_auto",
+      "text": "autó",
+      "spokenText": "Ez egy autó.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_auto.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_labda",
+      "text": "labda",
+      "spokenText": "Ez egy labda.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_labda.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_cica",
+      "text": "cica",
+      "spokenText": "Ez egy cica.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_cica.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
       "id": "r_word_alma",
       "text": "alma",
       "spokenText": "Ez egy alma.",
@@ -2420,11 +2513,37 @@
       }
     },
     {
-      "id": "r_word_cica",
-      "text": "cica",
-      "spokenText": "Ez egy cica.",
+      "id": "r_word_kifli",
+      "text": "kifli",
+      "spokenText": "Ez egy kifli.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_cica.mp3",
+      "file": "audio/voice/r_word_kifli.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_tej",
+      "text": "tej",
+      "spokenText": "Ez egy tej.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_tej.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_maci",
+      "text": "maci",
+      "spokenText": "Ez egy maci.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_maci.mp3",
       "extract": {
         "from": 7,
         "to": 11,
@@ -2446,11 +2565,63 @@
       }
     },
     {
-      "id": "r_word_labda",
-      "text": "labda",
-      "spokenText": "Ez egy labda.",
+      "id": "r_word_baba",
+      "text": "baba",
+      "spokenText": "Ez egy baba.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_labda.mp3",
+      "file": "audio/voice/r_word_baba.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_nap",
+      "text": "nap",
+      "spokenText": "Ez egy nap.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_nap.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_hold",
+      "text": "hold",
+      "spokenText": "Ez egy hold.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_hold.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_fa",
+      "text": "fa",
+      "spokenText": "Ez egy fa.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_fa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_kanal",
+      "text": "kanál",
+      "spokenText": "Ez egy kanál.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_kanal.mp3",
       "extract": {
         "from": 7,
         "to": 12,
@@ -2459,11 +2630,44 @@
       }
     },
     {
-      "id": "r_word_baba",
-      "text": "baba",
-      "spokenText": "Ez egy baba.",
+      "id": "r_word_cipo",
+      "text": "cipő",
+      "spokenText": "cipő.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_baba.mp3",
+      "file": "audio/voice/r_word_cipo.mp3"
+    },
+    {
+      "id": "r_word_sapka",
+      "text": "sapka",
+      "spokenText": "Ez egy sapka.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_sapka.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_vonat",
+      "text": "vonat",
+      "spokenText": "Ez egy vonat.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_vonat.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_word_busz",
+      "text": "busz",
+      "spokenText": "Ez egy busz.",
+      "group": "r-practice",
+      "file": "audio/voice/r_word_busz.mp3",
       "extract": {
         "from": 7,
         "to": 11,
@@ -2701,6 +2905,45 @@
       "spokenText": "üres kosár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_kosar.mp3"
+    },
+    {
+      "id": "r_puzzle_word_gyerek",
+      "text": "gyerek",
+      "spokenText": "Ez egy gyerek.",
+      "group": "r-practice",
+      "file": "audio/voice/r_puzzle_word_gyerek.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_puzzle_word_gyere",
+      "text": "gyere",
+      "spokenText": "Mondjuk együtt: gyere.",
+      "group": "r-practice",
+      "file": "audio/voice/r_puzzle_word_gyere.mp3",
+      "extract": {
+        "from": 16,
+        "to": 21,
+        "before": 0.025,
+        "after": 0.15
+      }
+    },
+    {
+      "id": "r_puzzle_word_viragkert",
+      "text": "virágkert",
+      "spokenText": "Ez egy virágkert.",
+      "group": "r-practice",
+      "file": "audio/voice/r_puzzle_word_viragkert.mp3",
+      "extract": {
+        "from": 7,
+        "to": 16,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_rhyme_roka_0",
