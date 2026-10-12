@@ -3,6 +3,11 @@
   "reviewedOn": "2026-10-12",
   "sourceSha256": "d73db1f27a892c3030d669ad2a1b63cf193f7d50565efdc29b92c34f1972a9c1",
   "reviewOnly": true,
+  "retiredFromSelection": true,
+  "replacementIds": [
+    "szekely-csillagszemu-juhasz",
+    "szekely-seprukoto-jakab"
+  ],
   "privateCache": "~/.config/beszedtanulas/kriza-source-review/",
   "stories": [
     {

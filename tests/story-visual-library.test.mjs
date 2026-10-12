@@ -14,7 +14,7 @@ test('every recording has ordered playback captions and an original animation ti
     for (const [cues, duration] of [[story.scenes, story.visualDuration], [story.captions, story.duration]]) {
       assert.ok(cues.every((cue, index) => Number.isFinite(cue.time) && cue.time >= 0 && cue.time < duration && (!index || cue.time > cues[index - 1].time)), story.id);
     }
-    assert.deepEqual(story.captions.map(caption => caption.text), story.text.split('\n').filter(line => line.trim()));
+    assert.deepEqual(story.captions.map(caption => caption.text), story.captionLines ?? story.text.split('\n').filter(line => line.trim()));
     assert.equal(storyCaptionAt(story.id, story.duration), story.text.split('\n').at(-1));
     assert.equal(storySceneAt(story.id, story.visualDuration), story.scenes.at(-1));
     for (let index = 1; index < story.scenes.length; index++) {

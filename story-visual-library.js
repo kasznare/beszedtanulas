@@ -8,15 +8,16 @@ import { STORIES as seasons } from './story-scenes/seasons.js';
 import { STORIES as classicTales } from './story-scenes/classic-tales.js';
 import { STORIES as classicPoems } from './story-scenes/classic-poems.js';
 import { STORIES as requestedClassics } from './story-scenes/requested-classics.js';
+import { STORIES as szekelyTales } from './story-scenes/szekely.js';
 
-const definitions = new Map([...workshop, ...routes, ...seasons, ...classicTales, ...classicPoems, ...requestedClassics].map(story => [story.id, story]));
+const definitions = new Map([...workshop, ...routes, ...seasons, ...classicTales, ...classicPoems, ...requestedClassics, ...szekelyTales].map(story => [story.id, story]));
 definitions.set('story-01', { id: 'story-01', legacy: true, duration: STORY_VISUAL_DURATION, scenes: STORY_VISUAL_SCENES });
 export const STORY_VISUAL_LIBRARY = AUDIOBOOKS.filter(story => story.illustrated !== false).map(story => {
   const definition = definitions.get(story.id);
   if (!definition) throw Error(`Missing story visuals: ${story.id}`);
   return { ...story, ...definition, duration: story.duration,
     visualDuration: definition.duration ?? STORY_PLAYBACK_MAPS[story.id]?.originalDuration ?? story.duration,
-    captions: story.text.split('\n').filter(text => text.trim()).map((text, index) => ({ text, time: STORY_CAPTION_TIMES[story.id][index] })) };
+    captions: (story.captionLines ?? story.text.split('\n').filter(text => text.trim())).map((text, index) => ({ text, time: STORY_CAPTION_TIMES[story.id][index] })) };
 });
 const library = new Map(STORY_VISUAL_LIBRARY.map(story => [story.id, story]));
 export const storyVisualFor = id => library.get(id);

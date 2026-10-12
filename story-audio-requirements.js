@@ -52,5 +52,7 @@ export const STORY_AUDIO_REQUIREMENTS = {
   "rado-ii-19": 2452,
   "classic-palko": 12691,
   "classic-fulemile": 3894,
-  "classic-arany-lacinak": 1430
+  "classic-arany-lacinak": 1430,
+  "szekely-csillagszemu-juhasz": 6961,
+  "szekely-seprukoto-jakab": 11428
 };

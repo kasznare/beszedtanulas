@@ -732,6 +732,43 @@
       "partReceipts": [
         "3909b63d64f2d91d9115259017ae9ffc82860ee81f4f857fddbe7d2f9dd65292"
       ]
+    },
+    "szekely-csillagszemu-juhasz": {
+      "fingerprint": "d4a10548de0e9ca4774f866b3027efe90e65b8a940fce77957148a74fa5b0f93",
+      "sourceSha256": "978db42e2f481d56a6a100cb0aa2a4356f6f2cd75371ac5415b79839ce64571d",
+      "sha256": "b31f8cbb355a393e71e05fad338d21077b5b53bd7da82206770e986d465aae19",
+      "duration": 508.034,
+      "spokenWords": 1072,
+      "characterCount": 6961,
+      "displayTextSha256": "c35f38ebd49838116394ab1239a115085600757ed673973bae7ac8f28e33c2a9",
+      "spokenTextSha256": "f9cf127cddff965b7d4521e70cdb36d0d858e25af5d57e8073d4e65a6a732665",
+      "pronunciationSha256": "cb3dff6a867bff6e72834c37853736355f447cfb4c954d603d876ae46130abc4",
+      "schemaVersion": 3,
+      "credits": 766.0,
+      "parts": 2,
+      "partReceipts": [
+        "5cdd69b1f0938f9f273be802b64bc4bd193b60eadd9867c21315fa63c1d2db7e",
+        "ef5b7dcfd88da0e9b4a0d65a34c6964a69d5cee42bd5415180f2f31dcea5c573"
+      ]
+    },
+    "szekely-seprukoto-jakab": {
+      "fingerprint": "9ece1306a61d9c427f976dd894f8cad9a3fff7e6321b8683c3c7c8c26ab63c00",
+      "sourceSha256": "515db6063b5ce00b48b535d25879a6485881805809589afd357fc2c104d14f94",
+      "sha256": "05bdd2d8472f78390904a80a307eef21190323543fd27db1a97b869894520d54",
+      "duration": 842.46,
+      "spokenWords": 1882,
+      "characterCount": 11428,
+      "displayTextSha256": "e1a4ecd3ef9a98e58b7e888d7d147a3d7a81fb64a2f81e162cc15331c0382623",
+      "spokenTextSha256": "05dfb825d18084432765c9a3fe3a3bd26e8af7bab8b0725961f5b6cd73416832",
+      "pronunciationSha256": "cb3dff6a867bff6e72834c37853736355f447cfb4c954d603d876ae46130abc4",
+      "schemaVersion": 3,
+      "credits": 1256.0,
+      "parts": 3,
+      "partReceipts": [
+        "eb23be397d567e76d4781b167bb5dd2030ea5cbd27eb40ced52fd3c65866551c",
+        "d24668ea91aeb10b0acca8112d198306e704b56a8e161736d6f78787c8099b9d",
+        "6f222b7ec4317cfebee7b059faefbd29a51abe611c625d2aeb37d387d690c09f"
+      ]
     }
   }
 }

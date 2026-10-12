@@ -93,9 +93,58 @@
       "fingerprint": "d62ca7564f99def102cb4e6875880cd81701da1390310b5ae2ae7c2229af060f",
       "audioStatus": "ready",
       "conservativeCredits": 1430
+    },
+    {
+      "id": "szekely-csillagszemu-juhasz",
+      "title": "A csillagszemű juhász",
+      "author": "Benedek Elek",
+      "displayCharacters": 6953,
+      "providerCharacters": 6961,
+      "parts": 2,
+      "partCharacters": [
+        3945,
+        3016
+      ],
+      "partDisplaySha256": [
+        "413c5f0505980664d37c0e81931ff7ea067fa87d25f952596c3ddbc6e75026f1",
+        "e7a02fe15a3b94d710fe20a6973afa7797ceff2eb3d67a481508cfc6b0961c76"
+      ],
+      "partInputSha256": [
+        "71492dc712e4d68df86da9ba5c68dfd9dcd9420b383866cb9ca1a2a21a9daf2f",
+        "e7a02fe15a3b94d710fe20a6973afa7797ceff2eb3d67a481508cfc6b0961c76"
+      ],
+      "fingerprint": "d4a10548de0e9ca4774f866b3027efe90e65b8a940fce77957148a74fa5b0f93",
+      "audioStatus": "ready",
+      "conservativeCredits": 6961
+    },
+    {
+      "id": "szekely-seprukoto-jakab",
+      "title": "Seprűkötő Jakab",
+      "author": "Székely népmese",
+      "displayCharacters": 11388,
+      "providerCharacters": 11428,
+      "parts": 3,
+      "partCharacters": [
+        3566,
+        3995,
+        3867
+      ],
+      "partDisplaySha256": [
+        "6c8f399ce20b6269465a09abe6e6dbdfe41338456e898cbeac0b02c82ea52571",
+        "dccae1adb675f5bb7d0dd4e0f890acf4b657a5245ce82a8a864887238f554996",
+        "45a190b7d44d6f0ffc71de18e03aacc043ce04441a5a0cca72c9d594435b0f2d"
+      ],
+      "partInputSha256": [
+        "e86a2e089646f2dd42632536881bc7750e92ad5b008123c76c9f1cf52d17c6e8",
+        "44e8b37a53b453770f41c034cb2d6c4b3284c363d9652aec0843de4a416e9d5e",
+        "29a4a70866281d49baae953304aaf65c29fa8267af3406c25ed390d89a4d344d"
+      ],
+      "fingerprint": "9ece1306a61d9c427f976dd894f8cad9a3fff7e6321b8683c3c7c8c26ab63c00",
+      "audioStatus": "ready",
+      "conservativeCredits": 11428
     }
   ],
-  "providerCharacters": 18015,
+  "providerCharacters": 36404,
   "pendingCharacters": 0,
   "costBasis": "1 credit per provider character, no promotional discount assumed",
   "minimumPendingCredits": 0,

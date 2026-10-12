@@ -52,14 +52,32 @@ test('every imported source line and stanza remains in the text and the final re
   }
 });
 
-test('Kriza source-review cards expose status and all numbered parts without publishing adapted prose', () => {
-  assert.equal(KRIZA_REQUESTED.length,3);
-  assert.equal(KRIZA_REQUESTED.find(story=>story.id==='kriza-harom-hazug').partsInWork,3);
-  for(const story of KRIZA_REQUESTED){
-    assert.equal(story.audioStatus,'rights-pending');assert.equal(story.rights.status,'edition-review-required');
-    assert.ok(story.providerCharacters>0);assert.ok(story.text.length<250);
-    assert.equal(AUDIOBOOKS.some(recording=>recording.id===story.id),false);
+test('requested young male protagonists replace retired source-review cards, with complete licensed sources', async () => {
+  assert.deepEqual(KRIZA_REQUESTED.map(story=>story.title),['A csillagszemű juhász','Seprűkötő Jakab']);
+  const catalog=JSON.parse(await readFile(new URL('../content/stories/catalog.json',import.meta.url),'utf8'));
+  assert.equal(catalog.stories.some(story=>story.id.startsWith('kriza-')),false);
+  const archived=JSON.parse(await readFile(new URL('../content/stories/kriza-source-review.json',import.meta.url),'utf8'));
+  assert.equal(archived.stories.find(story=>story.id==='kriza-harom-hazug').partsInWork,3);
+  for(const source of KRIZA_REQUESTED){
+    const text=await readFile(new URL(`../content/stories/${source.file}`,import.meta.url),'utf8');
+    assert.equal(source.text,text.trim());assert.equal(source.ageRange,undefined);
+    const recording=AUDIOBOOKS.find(story=>story.id===source.id);
+    assert.equal(recording.text,source.text);
+    assert.deepEqual(recording.captionLines.join(' ').split(/\s+/),source.text.split(/\s+/));
+    assert.equal(recording.captionLines.length,STORY_CAPTION_TIMES[source.id].length);
+    assert.ok(recording.captionLines.length>source.lines);
+    const words=REQUESTED_CLASSICS_WORD_TIMING[source.id];
+    assert.deepEqual(words.map(word=>word[2]),`${source.title}\n\n${source.text}`.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu));
+    assert.ok(words.every((word,index)=>word[0]>=0&&word[1]>=word[0]&&word[1]<=recording.duration&&(!index||word[0]>=words[index-1][0])));
+    const visual=storyVisualFor(source.id);
+    for(const [index,scene] of visual.scenes.entries())assert.equal(scene.time,index?STORY_CAPTION_TIMES[source.id][recording.captionParagraphStarts[scene.line]]:0);
+    assert.equal(source.text.includes('*'),false);
   }
+  assert.equal(KRIZA_REQUESTED[0].rights.status,'public-domain');
+  assert.equal(KRIZA_REQUESTED[1].rights.license,'CC BY-SA 4.0');
+  assert.ok(KRIZA_REQUESTED[1].rights.attribution.includes('2021'));
+  assert.ok(KRIZA_REQUESTED[1].text.includes('Aki menyországba\nAkar mostan menni,'));
+  assert.ok(KRIZA_REQUESTED[1].text.includes('Aki menyországot\nMeg akarja látni,'));
 });
 
 
@@ -67,7 +85,7 @@ test('new full MP3s remain optional while the local search and collection metada
   const worker=await readFile(new URL('../sw.js',import.meta.url),'utf8');
   const required=JSON.parse(worker.match(/const ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset=>asset.file);
   const optional=JSON.parse(worker.match(/const OPTIONAL_ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset=>asset.file);
-  for(const story of AUDIOBOOKS.filter(story=>story.id.startsWith('classic-'))){assert.ok(optional.includes(story.file));assert.equal(required.includes(story.file),false);}
+  for(const story of AUDIOBOOKS.filter(story=>/^(classic|szekely)-/.test(story.id))){assert.ok(optional.includes(story.file));assert.equal(required.includes(story.file),false);}
   for(const file of ['audiobook-library.js','requested-classics.js','kriza-requested.js'])assert.ok(required.includes(file));
 });
 

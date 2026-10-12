@@ -49,6 +49,10 @@ export function setupAudiobooks({ stopPlayback }) {
         const license = document.createElement('a'); license.href = story.rights.licenseUrl;
         license.textContent = story.rights.license; license.target = '_blank'; license.rel = 'noopener noreferrer';
         $('#story-source').append(credit, license);
+        if (story.rights.changes) {
+          const changes = document.createElement('span'); changes.textContent = ` · ${story.rights.changes}`;
+          $('#story-source').append(changes);
+        }
       }
     }
     $('#story-cover').textContent = story.emoji;

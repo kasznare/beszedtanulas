@@ -14,6 +14,29 @@ generator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(generator)
 
 class GenerationSafety(unittest.TestCase):
+    def test_smaller_requests_preserve_paragraphs_without_changing_the_paid_input(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(generator, 'SOURCE', Path(directory)):
+            text=('Ez egy teljes bekezdés. ' * 30).strip() + '\n\n'
+            raw=(text * 9).encode()
+            Path(directory, 'story.txt').write_bytes(raw)
+            entry={'id':'szekely-test','title':'Minta','file':'story.txt','sha256':generator.sha(raw),
+                   'rights':{},'requestPartCharacters':4000}
+            plan=generator.plan(entry)
+            self.assertGreater(len(plan['parts']),1)
+            self.assertTrue(all(len(part['spokenText'])<=4000 for part in plan['parts']))
+            self.assertEqual(''.join(part['displayText'] for part in plan['parts']),plan['displayText'])
+            self.assertEqual(''.join(part['spokenText'] for part in plan['parts']),plan['spokenText'])
+
+    def test_sentence_cues_cover_every_word_and_anchor_to_its_recorded_start(self):
+        plan={'title':'Minta','text':'A fiú jön. „Itt vagy?” Itt!\n\nEgy verssor\nMásik verssor.'}
+        display=plan['title']+'\n\n'+plan['text']
+        words=[{'displayOffset':m.start(),'time':i*1.25} for i,m in enumerate(generator.TOKEN.finditer(display))]
+        cues,starts=generator.sentence_captions(plan,words)
+        self.assertEqual([c['text'] for c in cues],['A fiú jön.','„Itt vagy?”','Itt!','Egy verssor','Másik verssor.'])
+        self.assertEqual(starts,[0,3,4])
+        self.assertEqual(cues[0]['time'],1.25)
+        self.assertEqual(' '.join(c['text'] for c in cues).split(),plan['text'].split())
+
     def test_each_new_part_rechecks_balance_and_subtracts_parallel_requests_before_journaling(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(generator, 'CACHE', Path(directory)), \
                 patch.object(generator, 'concurrent_reserve', return_value=24), \

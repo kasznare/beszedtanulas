@@ -62,15 +62,12 @@ def main():
             row['partsInWork'] = 3
         rows.append(row)
         print(f'{title}: {row["reviewCharacters"]} displayed / {len(spoken)} provider characters, {len(paragraphs)} blocks; edition review required')
-    ids = {r['id'] for r in rows}
-    path = ROOT / 'content/stories/catalog.json'
-    catalog = json.loads(path.read_text())
-    catalog['stories'] = [e for e in catalog['stories'] if e['id'] not in ids] + rows
-    path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n')
-    reader = [{**row, 'text': 'A teljes mű jogszerűen publikálható, eredeti lejegyzésének ellenőrzése folyamatban. A megadott MEK-kiadás modern átdolgozást tartalmaz.'} for row in rows]
-    (ROOT / 'kriza-requested.js').write_text('// Metadata only; adapted texts stay in a private source-review cache.\nexport const KRIZA_REQUESTED = ' + json.dumps(reader, ensure_ascii=False, indent=2) + ';\n')
+    # These three requests were retired by the user. Preserve the evidence,
+    # never recreate their cards or overwrite the new two-tale selection.
     (ROOT / 'content/stories/kriza-source-review.json').write_text(json.dumps({'version': 1, 'reviewedOn': '2026-10-12',
-        'sourceSha256': sha(raw), 'reviewOnly': True, 'privateCache': '~/.config/beszedtanulas/kriza-source-review/', 'stories': rows,
+        'sourceSha256': sha(raw), 'reviewOnly': True, 'retiredFromSelection': True,
+        'replacementIds': ['szekely-csillagszemu-juhasz', 'szekely-seprukoto-jakab'],
+        'privateCache': '~/.config/beszedtanulas/kriza-source-review/', 'stories': rows,
         'checkedOldSources': ['https://mek.oszk.hu/11500/11577/11577.htm', 'https://mek.oszk.hu/07000/07022/07022.htm', 'https://mek.oszk.hu/21100/21111/21111.htm'],
         'oldSourceResult': 'A három kért teljes változat nem szerepel ezekben a régi kötetekben; eltérő meséket nem helyettesítettünk a kért címekkel.'}, ensure_ascii=False, indent=2) + '\n')
 

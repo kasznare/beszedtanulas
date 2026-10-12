@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "stories": [
+    {
+      "id": "szekely-csillagszemu-juhasz",
+      "sourceUrl": "https://mek.oszk.hu/04800/04865/04865.htm#100",
+      "sourceSha256": "e2989490fa690681a381d2d86d6186f7d6801b1434c8ac34b2fe5d3ead63b47e",
+      "textSha256": "978db42e2f481d56a6a100cb0aa2a4356f6f2cd75371ac5415b79839ce64571d",
+      "boundary": {
+        "startAnchor": "100",
+        "nextAnchor": "101"
+      },
+      "paragraphs": 57,
+      "nonemptyLines": 57,
+      "removedNoteMarkers": 2
+    },
+    {
+      "id": "szekely-seprukoto-jakab",
+      "sourceUrl": "https://mek.oszk.hu/21100/21111/21111.htm#8",
+      "sourceSha256": "49669a19bba2da648bec3aaf18428614765692dbc9194ea2f76605b0266bbb29",
+      "textSha256": "515db6063b5ce00b48b535d25879a6485881805809589afd357fc2c104d14f94",
+      "boundary": {
+        "startAnchor": "8",
+        "nextAnchor": "9"
+      },
+      "paragraphs": 51,
+      "nonemptyLines": 57,
+      "removedNoteMarkers": 0
+    }
+  ]
+}

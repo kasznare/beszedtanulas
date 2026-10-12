@@ -490,103 +490,6 @@
       "sourceDate": "Szalonta, 1847. június 1-10"
     },
     {
-      "id": "kriza-fortelyos",
-      "title": "A fortélyos leány",
-      "author": "Kriza János gyűjtése",
-      "kind": "Mese",
-      "emoji": "🧩",
-      "collection": "Székely furfangos mesék",
-      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
-      "tags": [
-        "székely",
-        "furfangos",
-        "tréfás"
-      ],
-      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#10",
-      "audioStatus": "rights-pending",
-      "illustrated": false,
-      "providerCharacters": 9656,
-      "rights": {
-        "status": "edition-review-required",
-        "collectorDiedYear": 1875,
-        "editionYear": 1961,
-        "editor": "Kovács Ágnes",
-        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
-        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
-        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
-        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
-      },
-      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
-      "reviewCharacters": 9625,
-      "reviewParagraphs": 75,
-      "reviewTextSha256": "636d208d4b64e44b253bf07d987ff1214543e3e7d0c3fe1fd90838bcc483392d"
-    },
-    {
-      "id": "kriza-asszony-ordog",
-      "title": "Az egyszeri asszony meg az ördög",
-      "author": "Kriza János gyűjtése",
-      "kind": "Mese",
-      "emoji": "🧩",
-      "collection": "Székely furfangos mesék",
-      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
-      "tags": [
-        "székely",
-        "furfangos",
-        "tréfás"
-      ],
-      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#17",
-      "audioStatus": "rights-pending",
-      "illustrated": false,
-      "providerCharacters": 4171,
-      "rights": {
-        "status": "edition-review-required",
-        "collectorDiedYear": 1875,
-        "editionYear": 1961,
-        "editor": "Kovács Ágnes",
-        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
-        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
-        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
-        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
-      },
-      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
-      "reviewCharacters": 4137,
-      "reviewParagraphs": 49,
-      "reviewTextSha256": "a0bda10bfb2029bb5cccc7b407d14c4b31cb43cd59ff46117efd0b36c1ebafb9"
-    },
-    {
-      "id": "kriza-harom-hazug",
-      "title": "Három hazug mese",
-      "author": "Kriza János gyűjtése",
-      "kind": "Mese",
-      "emoji": "🧩",
-      "collection": "Székely furfangos mesék",
-      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
-      "tags": [
-        "székely",
-        "furfangos",
-        "tréfás"
-      ],
-      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#22",
-      "audioStatus": "rights-pending",
-      "illustrated": false,
-      "providerCharacters": 11206,
-      "rights": {
-        "status": "edition-review-required",
-        "collectorDiedYear": 1875,
-        "editionYear": 1961,
-        "editor": "Kovács Ágnes",
-        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
-        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
-        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
-        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
-      },
-      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
-      "reviewCharacters": 11138,
-      "reviewParagraphs": 56,
-      "reviewTextSha256": "78e91adecfbcf8c7f5e342f50b5d77c9cddf99e546da569759d865b4b74141f7",
-      "partsInWork": 3
-    },
-    {
       "id": "rado-i-01",
       "title": "A vadgalamb és a szarka.",
       "author": "Radó Vilmos (egybeállító)",
@@ -2317,6 +2220,76 @@
         "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
       },
       "sameTitleAs": []
+    },
+    {
+      "id": "szekely-csillagszemu-juhasz",
+      "title": "A csillagszemű juhász",
+      "author": "Benedek Elek",
+      "kind": "Mese",
+      "emoji": "🌟",
+      "collection": "Székely furfangos mesék",
+      "tags": [
+        "székely",
+        "furfangos",
+        "legény",
+        "férfi főhős"
+      ],
+      "description": "A furfangos juhász próbái a király udvarában.",
+      "file": "szekely/szekely-csillagszemu-juhasz.txt",
+      "sourceUrl": "https://mek.oszk.hu/04800/04865/04865.htm#100",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1929,
+        "basis": "Benedek Elek eredeti magyar szövege; a szerző halálát követő hetven év eltelt."
+      },
+      "audioStatus": "ready",
+      "illustrated": true,
+      "visualClock": "recording",
+      "requestPartCharacters": 4000,
+      "characters": 6930,
+      "words": 1123,
+      "paragraphs": 57,
+      "lines": 57,
+      "sha256": "978db42e2f481d56a6a100cb0aa2a4356f6f2cd75371ac5415b79839ce64571d",
+      "opening": "Hol volt, hol nem volt, hetedhét országon túl, az Óperenciás-tengeren innét, volt egyszer egy király. Szörnyű hatalmas volt ez a király, féltek a népek tőle, ha messziről látták, reszkettek tőle, mint a nyárfalevél. Ha ez a király egyet tüsszentett, kengyelfutók s lovas legények vitték hírét az egész országban, s aki nem mondta: \"Adj' isten egészségére!\", halál fia volt. Nem is akadt az egész országban, csak egy ember, ki nem mondta, hogy adj' isten egészségére. Ez a csillagszemű juhász volt.",
+      "ending": "Aki nem hiszi, járjon a végire, s ezt a mesét adj' isten egészségére!",
+      "sourceNote": "Teljes történet a címhorgonytól a következő műig. Eredeti írásmód és központozás; csak HTML-formázás és környező szóközök rendezve. A versbetétek sorai megmaradnak; a jegyzetjel és a kötet végi szómagyarázat nem felolvasási szöveg."
+    },
+    {
+      "id": "szekely-seprukoto-jakab",
+      "title": "Seprűkötő Jakab",
+      "author": "Székely népmese",
+      "kind": "Mese",
+      "emoji": "🧹",
+      "collection": "Székely furfangos mesék",
+      "tags": [
+        "székely",
+        "furfangos",
+        "legény",
+        "férfi főhős"
+      ],
+      "description": "Jakab tréfás vállalásai a király udvarában.",
+      "file": "szekely/szekely-seprukoto-jakab.txt",
+      "sourceUrl": "https://mek.oszk.hu/21100/21111/21111.htm#8",
+      "rights": {
+        "status": "licensed",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/deed.hu",
+        "attribution": "Székely népmesék (ÁGISZ, Brassó, 1937), R. Berde Mária előszavával. Elektronikus kiadás: Magyar Elektronikus Könyvtárért Egyesület / OSZK, 2021 (MEK-21111).",
+        "changes": "A teljes történet eredeti írásmóddal; HTML-formázás rendezve. Jessa gépi felolvasás és saját illusztráció/animáció. A történet szövege, felvétele és új jelenetei CC BY-SA 4.0 alatt továbbadhatók."
+      },
+      "audioStatus": "ready",
+      "illustrated": true,
+      "visualClock": "recording",
+      "requestPartCharacters": 4000,
+      "characters": 11371,
+      "words": 1937,
+      "paragraphs": 51,
+      "lines": 57,
+      "sha256": "515db6063b5ce00b48b535d25879a6485881805809589afd357fc2c104d14f94",
+      "opening": "Volt egyszer valahol a világon egy szegény ember. Volt ennek a szegény embernek egy fia. Úgy hítták, hogy Jakab. De mióta úgy felcseperedett, hogy egyedül is ki mert menni az erdőre nyírfaágért, ő is folytatta az apja mesterségét: seprűt kötögetett. El is nevezték ezért seprűkötő Jakabnak. Bánta is ő, akárminek hívják és csúfolják, csak jól megvegyék a seprűit. De biz azt nem veszik. Szegény világ volt, mint most. A kutyának se kellett seprű.",
+      "ending": "Holnap legyenek a kietek vendégei.",
+      "sourceNote": "Teljes történet a címhorgonytól a következő műig. Eredeti írásmód és központozás; csak HTML-formázás és környező szóközök rendezve. A versbetétek sorai megmaradnak; a jegyzetjel és a kötet végi szómagyarázat nem felolvasási szöveg."
     }
   ]
 }

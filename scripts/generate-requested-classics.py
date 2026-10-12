@@ -46,13 +46,15 @@ def plan(entry):
     assert sha(raw) == entry['sha256']
     text = raw.decode().rstrip('\n')
     displayed = entry['title'] + '\n\n' + text
+    part_limit = entry.get('requestPartCharacters', 10000)
+    assert 1000 <= part_limit <= 10000
     # Split only on complete source paragraphs; retain every separator exactly.
     chunks, current = [], ''
     for line in displayed.splitlines(keepends=True):
-        if len(phonetic(current + line)) > 10000 and current:
+        if len(phonetic(current + line)) > part_limit and current:
             chunks.append(current)
             current = ''
-        if len(phonetic(line)) > 10000:
+        if len(phonetic(line)) > part_limit:
             raise ValueError('Source paragraph exceeds request limit; inspect before splitting')
         current += line
     if current:
@@ -62,6 +64,7 @@ def plan(entry):
     assert all(len(list(TOKEN.finditer(p['displayText']))) == len(list(SPOKEN_TOKEN.finditer(p['spokenText']))) for p in parts)
     spoken = ''.join(p['spokenText'] for p in parts)
     return {'id': entry['id'], 'title': entry['title'], 'text': text,
+            'rights': entry['rights'],
             'sourceSha256': entry['sha256'], 'displayText': displayed, 'spokenText': spoken,
             'characters': len(spoken), 'displayCharacters': len(displayed), 'parts': parts,
             'fingerprint': sha(compact([CONFIG, spoken]).encode()),
@@ -144,6 +147,15 @@ def assemble(p, key=None):
         listing.write_text(''.join(f"file '{a.as_posix()}'\n" for a, _ in paid))
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', str(listing),
                         '-c', 'copy', '-bsf:a', 'setts=ts=N*1152/44100/TB', str(target)], check=True)
+    if p.get('rights', {}).get('license') == 'CC BY-SA 4.0':
+        tagged = CACHE / (p['id'] + '.tagged.mp3')
+        rights = p['rights']
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(target), '-c', 'copy',
+                        '-metadata', 'title=' + p['title'], '-metadata', 'artist=Jessa / ElevenLabs',
+                        '-metadata', 'copyright=CC BY-SA 4.0; ' + rights['licenseUrl'],
+                        '-metadata', 'comment=' + rights['attribution'] + ' ' + rights['changes'] + ' https://mek.oszk.hu/21100/21111/21111.htm#8',
+                        str(tagged)], check=True)
+        tagged.replace(target)
     subprocess.run(['ffmpeg', '-v', 'error', '-i', str(target), '-f', 'null', '-'], check=True)
     length = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration',
                                           '-of', 'default=noprint_wrappers=1:nokey=1', str(target)], text=True))
@@ -172,9 +184,31 @@ def assemble(p, key=None):
               'credits': sum(float(m['headers']['character-cost']) for _, m in paid),
               'parts': len(paid), 'partReceipts': [m['fingerprint'] for _, m in paid],
               'words': words, 'paragraphs': paragraphs}
+    if p['id'].startswith('szekely-'):
+        result['sentenceCaptions'], result['captionParagraphStarts'] = sentence_captions(p, words)
     save(CACHE / (p['id'] + '.json'), result)
     print(f"READY {p['id']}: {length / 60:.2f} minutes; saved receipts {result['credits']:g} credits", flush=True)
     return result
+
+
+def sentence_captions(p, words):
+    cues, starts = [], []
+    position = len(p['title'] + '\n\n')
+    for line in p['text'].splitlines(keepends=True):
+        if line.strip():
+            starts.append(len(cues))
+            for match in re.finditer(r'.+?(?:[.!?]+["”»]?(?=\s|$)|$)', line.rstrip('\n')):
+                text = match.group().strip()
+                if not text:
+                    continue
+                offset = position + match.start() + len(match.group()) - len(match.group().lstrip())
+                word = next(word for word in words if word['displayOffset'] >= offset)
+                assert word['displayOffset'] < position + match.end()
+                cues.append({'text': text, 'time': word['time']})
+        position += len(line)
+    assert ' '.join(c['text'] for c in cues).split() == p['text'].split()
+    assert all(cues[i]['time'] > cues[i - 1]['time'] for i in range(1, len(cues)))
+    return cues, starts
 
 
 def read_module(file, symbol):
@@ -200,9 +234,15 @@ def install(plans, catalog):
                      'duration': meta['duration'], 'bytes': meta['bytes'], 'sha256': meta['sha256'],
                      'emoji': entry['emoji'], 'author': entry['author'], 'kind': entry['kind'], 'illustrated': True,
                      'sourceUrl': entry['sourceUrl'], 'rights': entry['rights'], 'searchAliases': entry.get('searchAliases', [])}
+        for field in ['collection', 'description', 'tags']:
+            if field in entry:
+                published[field] = entry[field]
+        if 'sentenceCaptions' in meta:
+            published['captionLines'] = [cue['text'] for cue in meta['sentenceCaptions']]
+            published['captionParagraphStarts'] = meta['captionParagraphStarts']
         recordings = [r for r in recordings if r['id'] != p['id']] + [published]
-        receipts['stories'][p['id']] = {k: v for k, v in meta.items() if k not in ['id', 'words', 'paragraphs', 'bytes']}
-        captions[p['id']] = [cue['time'] for cue in meta['paragraphs']]
+        receipts['stories'][p['id']] = {k: v for k, v in meta.items() if k not in ['id', 'words', 'paragraphs', 'bytes', 'sentenceCaptions', 'captionParagraphStarts']}
+        captions[p['id']] = [cue['time'] for cue in meta.get('sentenceCaptions', meta['paragraphs'])]
         words[p['id']] = [[w['time'], w['end'], w['text']] for w in meta['words']]
         entry['audioStatus'] = 'ready'
     order = {e['id']: i for i, e in enumerate(catalog['stories'])}
@@ -214,6 +254,8 @@ def install(plans, catalog):
     save(ROOT / 'audio/audiobooks/generated.json', receipts)
     reader = [{**e, 'text': (SOURCE / e['file']).read_text().rstrip('\n')} for e in catalog['stories'] if e['id'].startswith('classic-')]
     module('requested-classics.js', 'REQUESTED_CLASSICS', reader)
+    reader = [{**e, 'text': (SOURCE / e['file']).read_text().rstrip('\n')} for e in catalog['stories'] if e['id'].startswith('szekely-')]
+    module('kriza-requested.js', 'KRIZA_REQUESTED', reader)
 
 
 def inventory(plans, catalog):
@@ -261,7 +303,7 @@ def main():
     args = parser.parse_args()
     CACHE.mkdir(parents=True, exist_ok=True)
     catalog = json.loads((SOURCE / 'catalog.json').read_text())
-    plans = [plan(e) for e in catalog['stories'] if e['id'].startswith('classic-')]
+    plans = [plan(e) for e in catalog['stories'] if e['id'].startswith(('classic-', 'szekely-'))]
     for p in plans:
         save(CACHE / (p['id'] + '.plan.json'), {**p, 'config': CONFIG})
     inventory(plans, catalog)
@@ -317,7 +359,7 @@ def main():
             save(run_path, run)
             print(compact(run), flush=True)
     if args.install:
-        install(plans, catalog)
+        install(selected if args.ids else plans, catalog)
         inventory(plans, catalog)
 
 

@@ -29,9 +29,12 @@ async page => {
   for(const [query,id] of [['GYONGYVIRAG   Palko','classic-palko'],['arany JANOS fulemule','classic-fulemile'],['fülemile','classic-fulemile'],['PeToFi   sAnDoR  lacinak','classic-arany-lacinak']]){
     await search(query);ok(await visible().count()===1&&await visible().first().getAttribute('data-story')===id,`Real ${query} search`);
   }
-  await search('szekely furfangos');ok(await visible().count()===3,'Only the explicitly catalogued Székely selection matches');
-  await visible().first().click();ok(await page.locator('#story-toggle').isDisabled(),'Unverified edition has no fake playback');
-  ok((await page.locator('#story-status').textContent()).includes('forrásellenőrzés'),'Edition status is visible');
+  await search('szekely furfangos');ok(await visible().count()===2,'The requested two young male protagonists replace the old three placeholders');
+  await visible().first().click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
+  ok(!(await page.locator('#story-toggle').isDisabled()),'The new complete tale is playable');
+  await search('  SEPRUKOTO   JAKAB ');ok(await visible().count()===1,'Accentless new title is searchable');
+  await visible().first().click();ok((await page.locator('#story-source').textContent()).includes('CC BY-SA 4.0'),'Seprűkötő Jakab has a visible license');
+  ok((await page.locator('#story-source').textContent()).includes('MEK-21111')&&(await page.locator('#story-source').textContent()).includes('gépi felolvasás'),'Attribution and recording changes are visible');
   await search('nincs-ilyen-cim');ok(await visible().count()===0&&await page.locator('#story-search-empty').isVisible(),'Understandable empty results');
   ok(await page.locator('.rado-card:visible').count()===0,'No unrelated collection cards remain in empty results');
   await page.getByRole('button',{name:'Keresés törlése',exact:true}).click();ok(await visible().count()===total,'Clear restores every entry');
@@ -49,7 +52,7 @@ async page => {
   await search('fulemule');await visible().first().click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok(await page.locator('#audiobooks').getAttribute('data-phase')==='ready','Choosing another result follows the normal stopped state');
   ok(await page.evaluate(()=>storySearchQA.audios.every(audio=>audio.paused)),'Previous recording stopped after choosing another result');
-  const classics=await page.evaluate(async()=>(await import('/audiobook-data.js')).AUDIOBOOKS.filter(story=>story.id.startsWith('classic-')));
+  const classics=await page.evaluate(async()=>(await import('/audiobook-data.js')).AUDIOBOOKS.filter(story=>/^(classic|szekely)-/.test(story.id)));
   await search('');
   for(const story of classics){
     await page.locator(`.story-card[data-story="${story.id}"]`).click();
