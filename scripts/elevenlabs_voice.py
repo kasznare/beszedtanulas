@@ -9,6 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = json.loads((ROOT / 'voice-config.json').read_text())
 TOKEN = re.compile(r"\w+(?:[-’']\w+)*", re.UNICODE)
+# An IPA word can include syllable dots, stress markers and combining tie bars.
+# Its entire /.../ span corresponds to one word in the displayed source text.
+SPOKEN_TOKEN = re.compile(r"/[^/\n]+/|\w+(?:[-’']\w+)*", re.UNICODE)
 
 
 def compact(value):

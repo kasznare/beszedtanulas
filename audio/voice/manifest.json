@@ -16,7 +16,16 @@
       "id": "guide_welcome",
       "text": "Szia! Kezdődhet a játék. Válassz egy képet!",
       "group": "guide",
-      "file": "audio/voice/guide_welcome.mp3"
+      "file": "audio/voice/guide_welcome.mp3",
+      "spokenText": "Mondjuk együtt: Szia! Kezdődhet a játék. Válassz egy /ˈkeːpɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 63,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Szia! Kezdődhet a játék. Válassz egy képet!"
+      },
+      "spokenTarget": "Szia! Kezdődhet a játék. Válassz egy /ˈkeːpɛt/!"
     },
     {
       "id": "guide_play_menu",
@@ -34,7 +43,16 @@
       "id": "guide_menu_pictures",
       "text": "Képek és hangok. Nézegessünk képeket, keressünk hang után, vagy lapozzuk az állatkönyvet!",
       "group": "guide",
-      "file": "audio/voice/guide_menu_pictures.mp3"
+      "file": "audio/voice/guide_menu_pictures.mp3",
+      "spokenText": "Mondjuk együtt: /ˈkeːpɛk/ és hangok. Nézegessünk /ˈkeːpɛkɛt/, keressünk hang után, vagy lapozzuk az állatkönyvet!",
+      "extract": {
+        "from": 16,
+        "to": 113,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Képek és hangok. Nézegessünk képeket, keressünk hang után, vagy lapozzuk az állatkönyvet!"
+      },
+      "spokenTarget": "/ˈkeːpɛk/ és hangok. Nézegessünk /ˈkeːpɛkɛt/, keressünk hang után, vagy lapozzuk az állatkönyvet!"
     },
     {
       "id": "guide_menu_speech",
@@ -52,13 +70,31 @@
       "id": "guide_menu_stories",
       "text": "Hallgassunk mesét, vagy játsszunk a macival! Válassz egy képet!",
       "group": "guide",
-      "file": "audio/voice/guide_menu_stories.mp3"
+      "file": "audio/voice/guide_menu_stories.mp3",
+      "spokenText": "Mondjuk együtt: Hallgassunk mesét, vagy játsszunk a macival! Válassz egy /ˈkeːpɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 83,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgassunk mesét, vagy játsszunk a macival! Válassz egy képet!"
+      },
+      "spokenTarget": "Hallgassunk mesét, vagy játsszunk a macival! Válassz egy /ˈkeːpɛt/!"
     },
     {
       "id": "guide_menu_activity",
       "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!",
       "group": "guide",
-      "file": "audio/voice/guide_menu_activity.mp3"
+      "file": "audio/voice/guide_menu_activity.mp3",
+      "spokenText": "Mondjuk együtt: Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, vagy tölts a barátainknak! Válassz egy játékot!",
+      "extract": {
+        "from": 16,
+        "to": 116,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!"
+      },
+      "spokenTarget": "Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, vagy tölts a barátainknak! Válassz egy játékot!"
     },
     {
       "id": "guide_dress",
@@ -94,19 +130,46 @@
       "id": "guide_topics",
       "text": "Itt vannak a képek. Válassz egyet!",
       "group": "guide",
-      "file": "audio/voice/guide_topics.mp3"
+      "file": "audio/voice/guide_topics.mp3",
+      "spokenText": "Mondjuk együtt: Itt vannak a /ˈkeːpɛk/. Válassz egyet!",
+      "extract": {
+        "from": 16,
+        "to": 54,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Itt vannak a képek. Válassz egyet!"
+      },
+      "spokenTarget": "Itt vannak a /ˈkeːpɛk/. Válassz egyet!"
     },
     {
       "id": "guide_picture_menu",
       "text": "Itt képeket nézegethetünk, és szavakat hallgathatunk. Válassz egy játékot!",
       "group": "guide",
-      "file": "audio/voice/guide_picture_menu.mp3"
+      "file": "audio/voice/guide_picture_menu.mp3",
+      "spokenText": "Mondjuk együtt: Itt /ˈkeːpɛkɛt/ nézegethetünk, és szavakat hallgathatunk. Válassz egy játékot!",
+      "extract": {
+        "from": 16,
+        "to": 94,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Itt képeket nézegethetünk, és szavakat hallgathatunk. Válassz egy játékot!"
+      },
+      "spokenTarget": "Itt /ˈkeːpɛkɛt/ nézegethetünk, és szavakat hallgathatunk. Válassz egy játékot!"
     },
     {
       "id": "guide_listening_game",
       "text": "Hallgasd meg a szót, és keresd meg a képét!",
       "group": "guide",
-      "file": "audio/voice/guide_listening_game.mp3"
+      "file": "audio/voice/guide_listening_game.mp3",
+      "spokenText": "Mondjuk együtt: Hallgasd meg a szót, és keresd meg a /ˈkeːpeːt/!",
+      "extract": {
+        "from": 16,
+        "to": 64,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgasd meg a szót, és keresd meg a képét!"
+      },
+      "spokenTarget": "Hallgasd meg a szót, és keresd meg a /ˈkeːpeːt/!"
     },
     {
       "id": "guide_cards",
@@ -118,7 +181,16 @@
       "id": "guide_practice",
       "text": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!",
       "group": "guide",
-      "file": "audio/voice/guide_practice.mp3"
+      "file": "audio/voice/guide_practice.mp3",
+      "spokenText": "Mondjuk együtt: Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy /ˈkeːpɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 84,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!"
+      },
+      "spokenTarget": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy /ˈkeːpɛt/!"
     },
     {
       "id": "guide_imitate",
@@ -148,7 +220,16 @@
       "id": "guide_quiz",
       "text": "Hallgasd meg, melyik képet keressük. Koppints rá!",
       "group": "guide",
-      "file": "audio/voice/guide_quiz.mp3"
+      "file": "audio/voice/guide_quiz.mp3",
+      "spokenText": "Mondjuk együtt: Hallgasd meg, melyik /ˈkeːpɛt/ keressük. Koppints rá!",
+      "extract": {
+        "from": 16,
+        "to": 69,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgasd meg, melyik képet keressük. Koppints rá!"
+      },
+      "spokenTarget": "Hallgasd meg, melyik /ˈkeːpɛt/ keressük. Koppints rá!"
     },
     {
       "id": "guide_flip",
@@ -250,7 +331,16 @@
       "id": "logic_play_menu",
       "text": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak.",
       "group": "logic",
-      "file": "audio/voice/logic_play_menu.mp3"
+      "file": "audio/voice/logic_play_menu.mp3",
+      "spokenText": "Mondjuk együtt: Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós /ˈkeːpeːt/! Az a Furfangliget, ahol fejtörők várnak.",
+      "extract": {
+        "from": 16,
+        "to": 134,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak."
+      },
+      "spokenTarget": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós /ˈkeːpeːt/! Az a Furfangliget, ahol fejtörők várnak."
     },
     {
       "id": "logic_menu",
@@ -262,7 +352,16 @@
       "id": "logic_shop_1",
       "text": "Két kosár várja a rendelést. A képek mutatják, mennyi kell bele. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!",
       "group": "logic",
-      "file": "audio/voice/logic_shop_1.mp3"
+      "file": "audio/voice/logic_shop_1.mp3",
+      "spokenText": "Mondjuk együtt: Két kosár várja a rendelést. A /ˈkeːpɛk/ mutatják, mennyi kell bele. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!",
+      "extract": {
+        "from": 16,
+        "to": 181,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Két kosár várja a rendelést. A képek mutatják, mennyi kell bele. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!"
+      },
+      "spokenTarget": "Két kosár várja a rendelést. A /ˈkeːpɛk/ mutatják, mennyi kell bele. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!"
     },
     {
       "id": "logic_shop_2",
@@ -349,7 +448,16 @@
       "id": "logic_shop_more",
       "text": "Az egyik kosárba még kell termés. Nézd meg a kiemelt kosarat!",
       "group": "logic",
-      "file": "audio/voice/logic_shop_more.mp3"
+      "file": "audio/voice/logic_shop_more.mp3",
+      "spokenText": "Mondjuk együtt: Az egyik kosárba /ˈmeːɡ/ kell termés. Nézd meg a kiemelt kosarat!",
+      "extract": {
+        "from": 16,
+        "to": 81,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Az egyik kosárba még kell termés. Nézd meg a kiemelt kosarat!"
+      },
+      "spokenTarget": "Az egyik kosárba /ˈmeːɡ/ kell termés. Nézd meg a kiemelt kosarat!"
     },
     {
       "id": "logic_shop_less",
@@ -421,7 +529,16 @@
       "id": "logic_machine_retry",
       "text": "Ez a gép még másképp dolgozik, mint a példák. Változtass a műveleteken, és próbáld újra!",
       "group": "logic",
-      "file": "audio/voice/logic_machine_retry.mp3"
+      "file": "audio/voice/logic_machine_retry.mp3",
+      "spokenText": "Mondjuk együtt: Ez a gép /ˈmeːɡ/ másképp dolgozik, mint a példák. Változtass a műveleteken, és próbáld újra!",
+      "extract": {
+        "from": 16,
+        "to": 108,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ez a gép még másképp dolgozik, mint a példák. Változtass a műveleteken, és próbáld újra!"
+      },
+      "spokenTarget": "Ez a gép /ˈmeːɡ/ másképp dolgozik, mint a példák. Változtass a műveleteken, és próbáld újra!"
     },
     {
       "id": "logic_machine_fit",
@@ -499,7 +616,16 @@
       "id": "logic_route_hint2",
       "text": "A kiemelt mezőre lépve még célba érhetsz. Koppints rá, ha arra szeretnél menni!",
       "group": "logic",
-      "file": "audio/voice/logic_route_hint2.mp3"
+      "file": "audio/voice/logic_route_hint2.mp3",
+      "spokenText": "Mondjuk együtt: A kiemelt mezőre lépve /ˈmeːɡ/ célba érhetsz. Koppints rá, ha arra szeretnél menni!",
+      "extract": {
+        "from": 16,
+        "to": 99,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A kiemelt mezőre lépve még célba érhetsz. Koppints rá, ha arra szeretnél menni!"
+      },
+      "spokenTarget": "A kiemelt mezőre lépve /ˈmeːɡ/ célba érhetsz. Koppints rá, ha arra szeretnél menni!"
     },
     {
       "id": "logic_route_hint3",
@@ -529,13 +655,31 @@
       "id": "logic_route_missing",
       "text": "Még maradt csomag az ösvényen. Változtass az útiterven, és próbáld újra!",
       "group": "logic",
-      "file": "audio/voice/logic_route_missing.mp3"
+      "file": "audio/voice/logic_route_missing.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ maradt csomag az ösvényen. Változtass az útiterven, és próbáld újra!",
+      "extract": {
+        "from": 16,
+        "to": 92,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Még maradt csomag az ösvényen. Változtass az útiterven, és próbáld újra!"
+      },
+      "spokenTarget": "/ˈmeːɡ/ maradt csomag az ösvényen. Változtass az útiterven, és próbáld újra!"
     },
     {
       "id": "logic_route_home",
       "text": "A csomag megvan, de még el kell jutni a házhoz. Folytasd az útitervet!",
       "group": "logic",
-      "file": "audio/voice/logic_route_home.mp3"
+      "file": "audio/voice/logic_route_home.mp3",
+      "spokenText": "Mondjuk együtt: A csomag megvan, de /ˈmeːɡ/ el kell jutni a házhoz. Folytasd az útitervet!",
+      "extract": {
+        "from": 16,
+        "to": 90,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A csomag megvan, de még el kell jutni a házhoz. Folytasd az útitervet!"
+      },
+      "spokenTarget": "A csomag megvan, de /ˈmeːɡ/ el kell jutni a házhoz. Folytasd az útitervet!"
     },
     {
       "id": "logic_route_done",
@@ -868,13 +1012,31 @@
       "id": "memory_start",
       "text": "Keress egyforma képeket! Fordíts fel két kártyát!",
       "group": "memory",
-      "file": "audio/voice/memory_start.mp3"
+      "file": "audio/voice/memory_start.mp3",
+      "spokenText": "Mondjuk együtt: Keress egyforma /ˈkeːpɛkɛt/! Fordíts fel két kártyát!",
+      "extract": {
+        "from": 16,
+        "to": 69,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Keress egyforma képeket! Fordíts fel két kártyát!"
+      },
+      "spokenTarget": "Keress egyforma /ˈkeːpɛkɛt/! Fordíts fel két kártyát!"
     },
     {
       "id": "memory_hint",
       "text": "Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!",
       "group": "memory",
-      "file": "audio/voice/memory_hint.mp3"
+      "file": "audio/voice/memory_hint.mp3",
+      "spokenText": "Mondjuk együtt: Nézzük meg együtt a /ˈkeːpɛkɛt/! Jegyezd meg, melyik hol van!",
+      "extract": {
+        "from": 16,
+        "to": 77,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!"
+      },
+      "spokenTarget": "Nézzük meg együtt a /ˈkeːpɛkɛt/! Jegyezd meg, melyik hol van!"
     },
     {
       "id": "memory_match",
@@ -892,13 +1054,31 @@
       "id": "puzzle_start",
       "text": "Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.",
       "group": "puzzle",
-      "file": "audio/voice/puzzle_start.mp3"
+      "file": "audio/voice/puzzle_start.mp3",
+      "spokenText": "Mondjuk együtt: /ˈrɒkjuk/ össze a /ˈkeːpɛt/! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.",
+      "extract": {
+        "from": 16,
+        "to": 105,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod."
+      },
+      "spokenTarget": "/ˈrɒkjuk/ össze a /ˈkeːpɛt/! Válassz egy darabot, és koppints a helyére! Oda is húzhatod."
     },
     {
       "id": "puzzle_hint",
       "text": "Nézzük meg a teljes képet! Keresd meg rajta a darabod helyét!",
       "group": "puzzle",
-      "file": "audio/voice/puzzle_hint.mp3"
+      "file": "audio/voice/puzzle_hint.mp3",
+      "spokenText": "Mondjuk együtt: Nézzük meg a teljes /ˈkeːpɛt/! Keresd meg rajta a darabod helyét!",
+      "extract": {
+        "from": 16,
+        "to": 81,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Nézzük meg a teljes képet! Keresd meg rajta a darabod helyét!"
+      },
+      "spokenTarget": "Nézzük meg a teljes /ˈkeːpɛt/! Keresd meg rajta a darabod helyét!"
     },
     {
       "id": "puzzle_retry",
@@ -1228,7 +1408,16 @@
       "id": "workshop_sort_retry",
       "text": "Néhány tárgynak még keresünk helyet. Figyeld a jeleket, és rendezd át őket! A lépéseket vissza is vonhatod.",
       "group": "workshop",
-      "file": "audio/voice/workshop_sort_retry.mp3"
+      "file": "audio/voice/workshop_sort_retry.mp3",
+      "spokenText": "Mondjuk együtt: Néhány tárgynak /ˈmeːɡ/ keresünk helyet. Figyeld a jeleket, és rendezd át őket! A lépéseket vissza is vonhatod.",
+      "extract": {
+        "from": 16,
+        "to": 127,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Néhány tárgynak még keresünk helyet. Figyeld a jeleket, és rendezd át őket! A lépéseket vissza is vonhatod."
+      },
+      "spokenTarget": "Néhány tárgynak /ˈmeːɡ/ keresünk helyet. Figyeld a jeleket, és rendezd át őket! A lépéseket vissza is vonhatod."
     },
     {
       "id": "workshop_sort_done",
@@ -1276,7 +1465,16 @@
       "id": "workshop_pattern_retry",
       "text": "Néhány elem még hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!",
       "group": "workshop",
-      "file": "audio/voice/workshop_pattern_retry.mp3"
+      "file": "audio/voice/workshop_pattern_retry.mp3",
+      "spokenText": "Mondjuk együtt: Néhány elem /ˈmeːɡ/ hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!",
+      "extract": {
+        "from": 16,
+        "to": 133,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Néhány elem még hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!"
+      },
+      "spokenTarget": "Néhány elem /ˈmeːɡ/ hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!"
     },
     {
       "id": "workshop_pattern_done",
@@ -1342,7 +1540,16 @@
       "id": "workshop_balance_retry",
       "text": "A rudakat még átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod.",
       "group": "workshop",
-      "file": "audio/voice/workshop_balance_retry.mp3"
+      "file": "audio/voice/workshop_balance_retry.mp3",
+      "spokenText": "Mondjuk együtt: A rudakat /ˈmeːɡ/ átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod.",
+      "extract": {
+        "from": 16,
+        "to": 129,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A rudakat még átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod."
+      },
+      "spokenTarget": "A rudakat /ˈmeːɡ/ átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod."
     },
     {
       "id": "workshop_balance_done",
@@ -1568,7 +1775,16 @@
       "id": "pour_start",
       "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.",
       "group": "pour",
-      "file": "audio/voice/pour_start.mp3"
+      "file": "audio/voice/pour_start.mp3",
+      "spokenText": "Mondjuk együtt: Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a /viːz/.",
+      "extract": {
+        "from": 16,
+        "to": 167,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz."
+      },
+      "spokenTarget": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a /viːz/."
     },
     {
       "id": "pour_tilt",
@@ -1586,13 +1802,31 @@
       "id": "pour_manual",
       "text": "Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a víz.",
       "group": "pour",
-      "file": "audio/voice/pour_manual.mp3"
+      "file": "audio/voice/pour_manual.mp3",
+      "spokenText": "Mondjuk együtt: Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a /viːz/.",
+      "extract": {
+        "from": 16,
+        "to": 84,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a víz."
+      },
+      "spokenTarget": "Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a /viːz/."
     },
     {
       "id": "pour_two",
       "text": "A macinak kevesebb, a nyuszinak több víz kell. Figyeld a jelzéseket!",
       "group": "pour",
-      "file": "audio/voice/pour_two.mp3"
+      "file": "audio/voice/pour_two.mp3",
+      "spokenText": "Mondjuk együtt: A macinak kevesebb, a nyuszinak több /viːz/ kell. Figyeld a jelzéseket!",
+      "extract": {
+        "from": 16,
+        "to": 87,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A macinak kevesebb, a nyuszinak több víz kell. Figyeld a jelzéseket!"
+      },
+      "spokenTarget": "A macinak kevesebb, a nyuszinak több /viːz/ kell. Figyeld a jelzéseket!"
     },
     {
       "id": "pour_bear_done",
@@ -1610,7 +1844,16 @@
       "id": "pour_more",
       "text": "Még egy kicsi víz kell. Töltsünk a jelzésig!",
       "group": "pour",
-      "file": "audio/voice/pour_more.mp3"
+      "file": "audio/voice/pour_more.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ egy kicsi /viːz/ kell. Töltsünk a jelzésig!",
+      "extract": {
+        "from": 16,
+        "to": 67,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Még egy kicsi víz kell. Töltsünk a jelzésig!"
+      },
+      "spokenTarget": "/ˈmeːɡ/ egy kicsi /viːz/ kell. Töltsünk a jelzésig!"
     },
     {
       "id": "pour_over",
@@ -1622,13 +1865,31 @@
       "id": "pour_spill",
       "text": "Hopp, kicsordult a víz! Állítsd meg az öntést, és ürítsd ki a poharat!",
       "group": "pour",
-      "file": "audio/voice/pour_spill.mp3"
+      "file": "audio/voice/pour_spill.mp3",
+      "spokenText": "Mondjuk együtt: Hopp, kicsordult a /viːz/! Állítsd meg az öntést, és ürítsd ki a poharat!",
+      "extract": {
+        "from": 16,
+        "to": 89,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hopp, kicsordult a víz! Állítsd meg az öntést, és ürítsd ki a poharat!"
+      },
+      "spokenTarget": "Hopp, kicsordult a /viːz/! Állítsd meg az öntést, és ürítsd ki a poharat!"
     },
     {
       "id": "pour_empty",
       "text": "Elfogyott a víz a kancsóból. A feltöltöm gombbal hozhatunk még vizet!",
       "group": "pour",
-      "file": "audio/voice/pour_empty.mp3"
+      "file": "audio/voice/pour_empty.mp3",
+      "spokenText": "Mondjuk együtt: Elfogyott a /viːz/ a kancsóból. A feltöltöm gombbal hozhatunk /ˈmeːɡ/ /ˈvizɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 95,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Elfogyott a víz a kancsóból. A feltöltöm gombbal hozhatunk még vizet!"
+      },
+      "spokenTarget": "Elfogyott a /viːz/ a kancsóból. A feltöltöm gombbal hozhatunk /ˈmeːɡ/ /ˈvizɛt/!"
     },
     {
       "id": "pour_refill",
@@ -1658,7 +1919,16 @@
       "id": "r_hunter_sound",
       "text": "Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!",
       "group": "r-practice",
-      "file": "audio/voice/r_hunter_sound.mp3"
+      "file": "audio/voice/r_hunter_sound.mp3",
+      "spokenText": "Mondjuk együtt: Hallgasd meg a /ˈkeːpɛk/ nevét! Keresd meg azt, amelyikben hallod az R hangot!",
+      "extract": {
+        "from": 16,
+        "to": 94,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!"
+      },
+      "spokenTarget": "Hallgasd meg a /ˈkeːpɛk/ nevét! Keresd meg azt, amelyikben hallod az R hangot!"
     },
     {
       "id": "r_post",
@@ -1694,13 +1964,31 @@
       "id": "r_retry",
       "text": "Hallgassuk meg még egyszer! Próbálhatjuk együtt is.",
       "group": "r-practice",
-      "file": "audio/voice/r_retry.mp3"
+      "file": "audio/voice/r_retry.mp3",
+      "spokenText": "Mondjuk együtt: Hallgassuk meg /ˈmeːɡ/ egyszer! Próbálhatjuk együtt is.",
+      "extract": {
+        "from": 16,
+        "to": 71,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgassuk meg még egyszer! Próbálhatjuk együtt is."
+      },
+      "spokenTarget": "Hallgassuk meg /ˈmeːɡ/ egyszer! Próbálhatjuk együtt is."
     },
     {
       "id": "r_found",
       "text": "Megtaláltad a képet!",
       "group": "r-practice",
-      "file": "audio/voice/r_found.mp3"
+      "file": "audio/voice/r_found.mp3",
+      "spokenText": "Mondjuk együtt: Megtaláltad a /ˈkeːpɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 40,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Megtaláltad a képet!"
+      },
+      "spokenTarget": "Megtaláltad a /ˈkeːpɛt/!"
     },
     {
       "id": "r_try_thanks",
@@ -2574,7 +2862,16 @@
       "id": "mese_more",
       "text": "Még kell alma a kosárba. Tegyél bele még!",
       "group": "meseliget",
-      "file": "audio/voice/mese_more.mp3"
+      "file": "audio/voice/mese_more.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ kell alma a kosárba. Tegyél bele /ˈmeːɡ/!",
+      "extract": {
+        "from": 16,
+        "to": 65,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Még kell alma a kosárba. Tegyél bele még!"
+      },
+      "spokenTarget": "/ˈmeːɡ/ kell alma a kosárba. Tegyél bele /ˈmeːɡ/!"
     },
     {
       "id": "mese_less",
@@ -2592,25 +2889,61 @@
       "id": "mese_plate_help",
       "text": "Nézd, kinek nincs még tányérja! Koppints elé, és adj neki egyet!",
       "group": "meseliget",
-      "file": "audio/voice/mese_plate_help.mp3"
+      "file": "audio/voice/mese_plate_help.mp3",
+      "spokenText": "Mondjuk együtt: Nézd, kinek nincs /ˈmeːɡ/ tányérja! Koppints elé, és adj neki egyet!",
+      "extract": {
+        "from": 16,
+        "to": 84,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Nézd, kinek nincs még tányérja! Koppints elé, és adj neki egyet!"
+      },
+      "spokenTarget": "Nézd, kinek nincs /ˈmeːɡ/ tányérja! Koppints elé, és adj neki egyet!"
     },
     {
       "id": "mese_plate_more",
       "text": "Valakinek még nincs tányérja. Nézzük meg együtt!",
       "group": "meseliget",
-      "file": "audio/voice/mese_plate_more.mp3"
+      "file": "audio/voice/mese_plate_more.mp3",
+      "spokenText": "Mondjuk együtt: Valakinek /ˈmeːɡ/ nincs tányérja. Nézzük meg együtt!",
+      "extract": {
+        "from": 16,
+        "to": 68,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Valakinek még nincs tányérja. Nézzük meg együtt!"
+      },
+      "spokenTarget": "Valakinek /ˈmeːɡ/ nincs tányérja. Nézzük meg együtt!"
     },
     {
       "id": "mese_finish",
       "text": "Elkészült a piknik! Köszönöm a segítséget! Ezt a képet eltesszük emlékbe.",
       "group": "meseliget",
-      "file": "audio/voice/mese_finish.mp3"
+      "file": "audio/voice/mese_finish.mp3",
+      "spokenText": "Mondjuk együtt: Elkészült a piknik! Köszönöm a segítséget! Ezt a /ˈkeːpɛt/ eltesszük emlékbe.",
+      "extract": {
+        "from": 16,
+        "to": 93,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Elkészült a piknik! Köszönöm a segítséget! Ezt a képet eltesszük emlékbe."
+      },
+      "spokenTarget": "Elkészült a piknik! Köszönöm a segítséget! Ezt a /ˈkeːpɛt/ eltesszük emlékbe."
     },
     {
       "id": "mese_free_finish",
       "text": "Ügyesen segítettél! Pihenjünk meg, vagy játsszunk még!",
       "group": "meseliget",
-      "file": "audio/voice/mese_free_finish.mp3"
+      "file": "audio/voice/mese_free_finish.mp3",
+      "spokenText": "Mondjuk együtt: Ügyesen segítettél! Pihenjünk meg, vagy játsszunk /ˈmeːɡ/!",
+      "extract": {
+        "from": 16,
+        "to": 74,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ügyesen segítettél! Pihenjünk meg, vagy játsszunk még!"
+      },
+      "spokenTarget": "Ügyesen segítettél! Pihenjünk meg, vagy játsszunk /ˈmeːɡ/!"
     },
     {
       "id": "mese_album",
@@ -2628,7 +2961,16 @@
       "id": "mese_play_menu",
       "text": "Etessük meg a macit, öltöztessük fel, keressünk képeket, vagy kiránduljunk Meseligetben!",
       "group": "meseliget",
-      "file": "audio/voice/mese_play_menu.mp3"
+      "file": "audio/voice/mese_play_menu.mp3",
+      "spokenText": "Mondjuk együtt: Etessük meg a macit, öltöztessük fel, keressünk /ˈkeːpɛkɛt/, vagy kiránduljunk Meseligetben!",
+      "extract": {
+        "from": 16,
+        "to": 108,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Etessük meg a macit, öltöztessük fel, keressünk képeket, vagy kiránduljunk Meseligetben!"
+      },
+      "spokenTarget": "Etessük meg a macit, öltöztessük fel, keressünk /ˈkeːpɛkɛt/, vagy kiránduljunk Meseligetben!"
     },
     {
       "id": "mese_collect_1",
@@ -2778,7 +3120,16 @@
       "id": "teddy_viz",
       "text": "Kérek vizet.",
       "group": "teddy",
-      "file": "audio/voice/teddy_viz.mp3"
+      "file": "audio/voice/teddy_viz.mp3",
+      "spokenText": "Mondjuk együtt: Kérek /ˈvizɛt/.",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérek vizet."
+      },
+      "spokenTarget": "Kérek /ˈvizɛt/."
     },
     {
       "id": "dress_request_sapka",
@@ -2831,15 +3182,17 @@
     {
       "id": "word_viz",
       "text": "víz",
-      "spokenText": "Ez egy víz.",
+      "spokenText": "Mondjuk együtt: /viːz/.",
       "group": "word",
       "file": "audio/voice/word_viz.mp3",
       "extract": {
-        "from": 7,
-        "to": 10,
+        "from": 16,
+        "to": 22,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "víz"
+      },
+      "spokenTarget": "/viːz/"
     },
     {
       "id": "word_anya",
@@ -3137,16 +3490,32 @@
     {
       "id": "phrase_kerek_vizet",
       "text": "kérek vizet",
-      "spokenText": "kérek vizet.",
+      "spokenText": "Mondjuk együtt: kérek /ˈvizɛt/.",
       "group": "phrase",
-      "file": "audio/voice/phrase_kerek_vizet.mp3"
+      "file": "audio/voice/phrase_kerek_vizet.mp3",
+      "extract": {
+        "from": 16,
+        "to": 30,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kérek vizet"
+      },
+      "spokenTarget": "kérek /ˈvizɛt/"
     },
     {
       "id": "phrase_meg_alma",
       "text": "még alma",
-      "spokenText": "még alma.",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ alma.",
       "group": "phrase",
-      "file": "audio/voice/phrase_meg_alma.mp3"
+      "file": "audio/voice/phrase_meg_alma.mp3",
+      "extract": {
+        "from": 16,
+        "to": 28,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "még alma"
+      },
+      "spokenTarget": "/ˈmeːɡ/ alma"
     },
     {
       "id": "phrase_anya_gyere",

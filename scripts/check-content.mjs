@@ -28,6 +28,9 @@ for (const category of wordCategories) {
 const manifest = JSON.parse(await readFile(new URL('../audio/voice/manifest.json', import.meta.url), 'utf8'));
 const generated = JSON.parse(await readFile(new URL('../audio/voice/generated.json', import.meta.url), 'utf8'));
 const voiceConfig = JSON.parse(await readFile(new URL('../voice-config.json', import.meta.url), 'utf8'));
+const pronunciation = JSON.parse(await readFile(new URL('../voice-pronunciation.json', import.meta.url), 'utf8'));
+assert.equal(pronunciation.model_id, voiceConfig.model_id, 'Pronunciation/model mismatch');
+assert.equal(pronunciation.language_code, voiceConfig.language_code, 'Pronunciation/language mismatch');
 assert.equal(manifest.version, 2, 'Unknown voice manifest version');
 assert.equal(generated.version, 2, 'Unknown voice generation receipt version');
 assert.deepEqual(generated.config, voiceConfig, 'Stale voice generation settings');
@@ -66,6 +69,10 @@ for (const clip of manifest.clips) {
   assert.deepEqual(VOICE_TIMING[clip.id], receipt.words, `Stale speech timing: ${clip.id}`);
   assert.ok(receipt.words?.length, `Missing word timing: ${clip.id}`);
   const sourceWords = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu);
+  for (const [word, ipa] of Object.entries(pronunciation.words)) {
+    const count = sourceWords.filter(value => value.toLocaleLowerCase('hu-HU') === word).length;
+    if (count) assert.equal((clip.spokenTarget || '').split(`/${ipa}/`).length - 1, count, `Missing pronunciation correction for ${word}: ${clip.id}`);
+  }
   assert.deepEqual(receipt.words.map(word => word[2]), sourceWords, `Incomplete spoken text: ${clip.id}`);
   assert.ok(Number.isFinite(receipt.duration) && receipt.duration > .2, `Invalid audio duration: ${clip.id}`);
   assert.ok(receipt.words.at(-1)[1] <= receipt.duration + .001, `Missing final word: ${clip.id}`);

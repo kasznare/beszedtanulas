@@ -182,6 +182,7 @@ Források:
 - **game-data.js:** szavak, témák, kifejezések és elfogadott gyereknyelvi változatok.
 - **scripts/build-voice-manifest.mjs:** segítségszövegek és hangjegyzék-generálás.
 - **voice-library.js**, **audio/voice/manifest.json:** generált hangjegyzékek.
+- **voice-pronunciation.json:** az Eleven v4 `/IPA/` kiejtési szabályai a hosszú é/í és a k–j kapcsolat egyértelmű megtartásához. A szabály minden előfordulásra érvényes, a megjelenített szavakat nem módosítja. A fonetikus jelölés teljes szóként kap időzítést, az `npm run check` pedig hiányzó alkalmazását is jelzi. A gépi szövegfelismerés önmagában nem igazolja a magánhangzó hosszúságát vagy a mássalhangzó pontos képzését; a javított minták külön meghallgathatók.
 
 Hiányzó saját felvételnél a játék a kész Jessa-hangra vált. Ha a gyári MP3 sem indul, látható üzenet kéri az ismétlést; a játék nem vált másik böngészőhangra. A dinamikus szám- és mennyiségmondatokat is a teljes helyi hangjegyzék fedi le. A 24 családi szófelvétel, az R-kaland saját felvevője, az állathangok és a zörejek változatlanok.
 

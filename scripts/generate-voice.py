@@ -18,7 +18,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from elevenlabs_voice import ROOT, CONFIG, TOKEN, compact, fingerprint, save, sha, validate
+from elevenlabs_voice import ROOT, CONFIG, TOKEN, SPOKEN_TOKEN, compact, fingerprint, save, sha, validate
 
 CACHE = Path.home() / '.config/beszedtanulas/jessa-voice-cache'
 SECRET = Path.home() / '.config/beszedtanulas/elevenlabs.env'
@@ -96,7 +96,7 @@ def installed_recording(clip, audio, meta):
     spoken_target = clip.get('spokenTarget', clip['text'])
     if text[begin:end] != spoken_target or extract.get('text', clip['text']) != clip['text']:
         raise RuntimeError(f"{clip['id']}: extracted speech differs from displayed text")
-    spoken_words = list(TOKEN.finditer(spoken_target))
+    spoken_words = list(SPOKEN_TOKEN.finditer(spoken_target))
     display_words = list(TOKEN.finditer(clip['text']))
     if len(spoken_words) != len(display_words):
         raise RuntimeError(f"{clip['id']}: pronunciation alias changes word count")

@@ -74,5 +74,14 @@ class PaidCacheTests(unittest.TestCase):
             self.assertEqual(request.call_count, 1)
 
 
+class PronunciationTimingTests(unittest.TestCase):
+    def test_ipa_syllables_and_affricates_remain_one_displayed_word(self):
+        text = '/ˈrɒk.juk/ össze a /ˈkeː.pɛt/ és /ˈki.t͡ʃi/.'
+        matches = list(gen.SPOKEN_TOKEN.finditer(text))
+        self.assertEqual([m.group() for m in matches], ['/ˈrɒk.juk/', 'össze', 'a', '/ˈkeː.pɛt/', 'és', '/ˈki.t͡ʃi/'])
+        for match in matches:
+            self.assertEqual(text[match.start():match.end()], match.group())
+
+
 if __name__ == '__main__':
     unittest.main()
