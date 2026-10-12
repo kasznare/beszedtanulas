@@ -15,7 +15,7 @@ export function setupAudiobooks({ stopPlayback }) {
   const root = document.querySelector('#audiobooks');
   let storage;
   try { storage = localStorage; } catch { storage = null; }
-  let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false, visual;
+  let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false, visual, collectionSearch;
   const publicStories = mergeStoryLibrary(AUDIOBOOKS, REQUESTED_CLASSICS, KRIZA_REQUESTED, RADO_STORIES);
   let stories = [...publicStories], player, importMessage = '', importing = false, search = '';
   const $ = selector => root.querySelector(selector);
@@ -53,8 +53,8 @@ export function setupAudiobooks({ stopPlayback }) {
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
     $('#story-toggle').disabled = pending || ['idle', 'loading'].includes(state.phase);
-    $('#story-toggle').setAttribute('aria-label', playing ? 'Mese szüneteltetése' : state.position && state.phase !== 'ended' ? 'Mese folytatása' : 'Mese lejátszása');
-    $('#story-toggle').innerHTML = `<span aria-hidden="true">${playing ? 'Ⅱ' : '▶'}</span><strong>${playing ? 'Szünet' : state.phase === 'error' ? 'Újrapróbálom' : state.position && state.phase !== 'ended' ? 'Folytatom' : 'Meghallgatom'}</strong>`;
+    $('#story-toggle').setAttribute('aria-label', pending ? 'A felolvasás még nem érhető el' : playing ? 'Mese szüneteltetése' : state.position && state.phase !== 'ended' ? 'Mese folytatása' : 'Mese lejátszása');
+    $('#story-toggle').innerHTML = pending ? `<span aria-hidden="true">📖</span><strong>${story.audioStatus === 'rights-pending' ? 'Forrásra vár' : 'Hangra vár'}</strong>` : `<span aria-hidden="true">${playing ? 'Ⅱ' : '▶'}</span><strong>${playing ? 'Szünet' : state.phase === 'error' ? 'Újrapróbálom' : state.position && state.phase !== 'ended' ? 'Folytatom' : 'Meghallgatom'}</strong>`;
     $('#story-restart').disabled = pending || ['idle', 'loading'].includes(state.phase);
     const seek = $('#story-seek');
     seek.max = state.duration; seek.disabled = !state.metadata;
@@ -97,6 +97,7 @@ export function setupAudiobooks({ stopPlayback }) {
     $('#story-search-clear').hidden = !search;
     $('#story-search-count').textContent = `${count} találat • ${stories.length} mű a Mesetárban`;
     $('#story-search-empty').hidden = count !== 0;
+    collectionSearch?.setQuery(search);
   }
   function render() {
     visual?.destroy();
@@ -117,14 +118,15 @@ export function setupAudiobooks({ stopPlayback }) {
     caption.innerHTML = '<summary>Felirat</summary><p id="rado-caption-text"></p>';
     root.querySelector('.story-download-row').before(caption);
     const collection = document.createElement('section'); collection.className = 'rado-library'; collection.setAttribute('aria-labelledby', 'rado-title');
-    root.querySelector('.story-list-title').before(collection);
-    setupRadoLibrary(collection, { readyStories: stories.filter(story => !story.audioStatus || story.audioStatus === 'ready'), onRead: () => player.pause(), onPlay: async id => {
+    root.querySelector('.story-local-import').before(collection);
+    collectionSearch = setupRadoLibrary(collection, { readyStories: stories.filter(story => !story.audioStatus || story.audioStatus === 'ready'), onRead: () => player.pause(), onPlay: async id => {
       await player.select(id);
       if (active && player.getState().storyId === id) {
         $('#story-toggle').focus({ preventScroll: true }); $('#story-title').scrollIntoView({ block: 'start', behavior: 'auto' });
         await player.play();
       }
     } });
+    collectionSearch.setQuery(search);
     visual = createIllustratedStory($('#story-visual'), { storyId: player.getPreferences().selected, readTime: player.getPosition, onScene: scene => { $('#story-scene-title').textContent = scene.title; } });
     $('#story-motion').checked = visual.motion;
     $('#story-motion').addEventListener('change', event => visual.setMotion(event.target.checked));

@@ -6,6 +6,21 @@ import { ANIMAL_BOOK_PAGES } from '../animal-book-data.js';
 import { AUDIOBOOKS } from '../audiobook-data.js';
 
 const root = new URL('../', import.meta.url);
+// Publish only character requirements from the generated collection plans.
+// Discover plans by schema; the search needs no collection-specific title list.
+const requirements = {};
+const publicIds = new Set(JSON.parse(await readFile(new URL('content/stories/catalog.json', root), 'utf8')).stories.map(story => story.id));
+for (const file of (await readdir(new URL('content/stories/', root))).filter(file => file.endsWith('-plan.json')).sort()) {
+  const plan = JSON.parse(await readFile(new URL(`content/stories/${file}`, root), 'utf8'));
+  for (const story of plan.stories || []) {
+    if (publicIds.has(story.id) && Number.isSafeInteger(story.providerCharacters) && story.providerCharacters > 0) requirements[story.id] = story.providerCharacters;
+  }
+}
+const requirementFile = new URL('story-audio-requirements.js', root);
+const requirementModule = '// Generated from collection character inventories; full-price estimates, not paid receipts.\nexport const STORY_AUDIO_REQUIREMENTS = ' + JSON.stringify(requirements, null, 2) + ';\n';
+if (process.argv.includes('--check')) {
+  if (await readFile(requirementFile, 'utf8').catch(() => '') !== requirementModule) throw Error('Stale audiobook character inventory. Run npm run build-offline.');
+} else await writeFile(requirementFile, requirementModule);
 const frontendFiles = (await readdir(root, { withFileTypes: true }))
   .filter(entry => entry.isFile() && /\.(js|css)$/.test(entry.name) && !['sw.js', 'service-worker-runtime.js'].includes(entry.name))
   .map(entry => entry.name);

@@ -27,6 +27,7 @@ test('collection merge covers unknown future IDs and retains metadata without du
   const [ready,pending]=mergeStoryLibrary([{id:'new-42',title:'Minta',file:'fixed.mp3',duration:90}], [{id:'new-42',title:'Minta',author:'Új Szerző',searchAliases:['Másik cím']},{id:'new-99',title:'Későbbi mű',author:'Más Szerző'}]);
   assert.equal(ready.file,'fixed.mp3');assert.equal(ready.author,'Új Szerző');assert.equal(ready.audioStatus,'ready');
   assert.equal(pending.file,undefined);assert.equal(pending.audioStatus,'pending');
+  assert.equal(pending.emoji,'📖');assert.equal(pending.kind,'Mese');
   assert.ok(matchesStorySearch(ready,'masik cim'));assert.ok(matchesStorySearch(pending,'mas szerzo'));
   assert.equal(mergeStoryLibrary(AUDIOBOOKS,REQUESTED_CLASSICS).length,AUDIOBOOKS.length);
 });
@@ -68,4 +69,12 @@ test('new full MP3s remain optional while the local search and collection metada
   const optional=JSON.parse(worker.match(/const OPTIONAL_ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset=>asset.file);
   for(const story of AUDIOBOOKS.filter(story=>story.id.startsWith('classic-'))){assert.ok(optional.includes(story.file));assert.equal(required.includes(story.file),false);}
   for(const file of ['audiobook-library.js','requested-classics.js','kriza-requested.js'])assert.ok(required.includes(file));
+});
+
+
+test('every pending collection entry has a generated full-price character estimate',()=>{
+  const library=mergeStoryLibrary(AUDIOBOOKS,REQUESTED_CLASSICS,KRIZA_REQUESTED,RADO_STORIES);
+  const pending=library.filter(story=>story.audioStatus==='pending');
+  assert.equal(pending.length,24);
+  for(const story of pending){assert.ok(Number.isSafeInteger(story.providerCharacters)&&story.providerCharacters>0);assert.ok(story.emoji);}
 });

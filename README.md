@@ -11,7 +11,7 @@ A „Keresés cím vagy szerző alapján” mező az összes betöltött mű cí
 
 | Kért mű | Teljes szöveg / szerkezet | Hangállapot | Tényleges új kredit |
 | --- | --- | --- | ---: |
-| Benedek Elek: Gyöngyvirág Palkó | 74 bekezdés, MEK 00232 HTML 02 #32 | Jessa, 15:04, külön MP3, 27 SVG-jelenet | 1 396 |
+| Benedek Elek: Gyöngyvirág Palkó | 74 bekezdés, MEK 00232 HTML 02 #32 | Jessa, 15:04, külön MP3, 29 SVG-jelenet | 1 396 |
 | Arany János: A fülemile | 160 nem üres sor, 10 blokk, a * elválasztóval | Jessa, 5:17, külön MP3, 21 SVG-jelenet | 428 |
 | Petőfi Sándor: Arany Lacinak | 72 verssor, 2 versszak | Jessa, 1:53, külön MP3, 22 SVG-jelenet | 157 |
 | Kriza gyűjtése: A fortélyos leány | teljes 1961-es forrás magán ellenőrzési cache-ben | Eredeti közkincs változatra / jogengedélyre vár | 0 |
@@ -22,7 +22,7 @@ A három kész mű teljes áras felső becslése **18 015 szolgáltatói karakte
 
 Import és ellenőrzés: `python3 scripts/import-requested-classics.py --check`. Hangterv: `python3 scripts/generate-requested-classics.py` (csak leltár). Fizetett generálás csak kifejezett `--generate` kapcsolóval történik; minden új rész előtt friss kvótaolvasás és a Radó-kérések foglalásának levonása szükséges. Sikeres vagy bizonytalan kérést nem küldünk újra; fizetett válaszok, rész-MP3-ak, bizonylatok és függő naplók a repón kívüli `~/.config/beszedtanulas/requested-classics-audiobook-cache/` könyvtárban maradnak. Hiányos művet nem telepít a `--install`. Reset, vásárlás és előfizetés-változtatás nincs a folyamatban. Az IPA-kiejtési bemenet szóhelyei egy az egyben a megjelenített eredeti írásmód szóhelyeihez tartoznak; az ASR önmagában nem magánhangzóhossz-bizonyíték.
 
-A három hosszú MP3 kizárólag az opcionális offline listán szerepel, a játékcsomag telepítése nem tölti le őket. A 22 korábbi felvétel, a régi SVG-időleképezések, a rövid és családi hangok, valamint az állathangok változatlanok. A kereső gyűjteményadatokból épít, címek kézi listázása nélkül.
+A három hosszú MP3 kizárólag az opcionális offline listán szerepel, a játékcsomag telepítése nem tölti le őket. A 22 korábbi felvétel, a régi SVG-időleképezések, a rövid és családi hangok, valamint az állathangok változatlanok. A kereső gyűjteményadatokból épít, címek kézi listázása nélkül. Az 50 Radó-tétel is a közös keresőben szerepel; a külön gyűjteményi olvasó ugyanazt a keresést követi. A hiányzó hangok teljes áras becslése az összes nyilvános gyűjtemény generált karaktertervéből épülő `story-audio-requirements.js` adataiból származik, a privát böngészős importok nélkül.
 
 ## Indítás
 

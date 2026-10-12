@@ -42,8 +42,9 @@ export function setupRadoLibrary(host, { readyStories, onRead, onPlay }) {
   }
   for (const button of host.querySelectorAll('[data-rado-story]')) button.addEventListener('click', () => show(button.dataset.radoStory));
   host.querySelector('#rado-play').addEventListener('click', () => onPlay(selected.id));
-  host.querySelector('#rado-search').addEventListener('input', event => {
-    const query = event.target.value.trim().toLocaleLowerCase('hu-HU');
+  function setQuery(value) {
+    const query = value.trim();
+    host.querySelector('#rado-search').value = value;
     let visible = 0;
     for (const button of host.querySelectorAll('[data-rado-story]')) {
       button.hidden = !matchesStorySearch(RADO_STORIES.find(story => story.id === button.dataset.radoStory), query);
@@ -54,5 +55,8 @@ export function setupRadoLibrary(host, { readyStories, onRead, onPlay }) {
       if (query && !volume.hidden) volume.open = true;
     }
     host.querySelector('#rado-search-status').textContent = query ? `${visible} mese található.` : '';
-  });
+  }
+  host.querySelector('#rado-search').addEventListener('input', event => setQuery(event.target.value));
+  host.querySelector('#rado-search').addEventListener('keydown', event => { if (event.key === 'Escape') { event.preventDefault(); setQuery(''); } });
+  return { setQuery };
 }

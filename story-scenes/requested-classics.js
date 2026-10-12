@@ -155,7 +155,7 @@ function renderPalko(c) {
   animateClassic(host,t,motion);const q=smooth(progress(t,s.time,s.end));
   const flying=['carriage','journey','chase','flame','escape','missing'].includes(s.id);
   const carriageX=s.id==='journey'?mix(850,1000,q):960;
-  pose('palko',flying?carriageX-30:s.id==='choose'?mix(390,610,q):480,flying?386:638,flying?.33:.66);pose('king',890,638,1.4);
+  pose('palko',flying?carriageX-30:s.id==='choose'?mix(390,610,q):480,flying?386:638,flying?.33:.66);pose('king',890,638,['family','wedding','ending'].includes(s.id)?.65:1.4);
   pose('mother',750,636,1.05);for(let i=0;i<3;i++)pose('gardener'+i,270+i*275,624,1);
   pose('grandmother',670,645,1.08);pose('lily',680,645,s.id==='diamond'?1.6:.8);
   pose('dwarf',270,s.id==='ride-beard'?mix(640,400,q):640,.45);
@@ -164,6 +164,7 @@ function renderPalko(c) {
   for(let i=0;i<2;i++)pose('butterfly'+i,carriageX-150-i*140,s.id==='journey'?mix(400,260,q):400+i*40,.7);
   pose('staff',625,599,1,s.id==='staff'?mix(-32,35,q):0);pose('sword',515,560,.75,s.id==='sword'?mix(-40,35,q):0);
   pose('bread',500,577,.65);pose('taltos',330,460,1.5);pose('fire',450,325,1.1,90);if(['chase','flame'].includes(s.id))attrs(actors.lily,{opacity:0});
+  for(const wing of host.querySelectorAll('.rq-wings'))attrs(wing,{transform:`scale(${motion?.83+Math.sin(t*8)*.17:1} 1)`});
   personAction(actors.palko,t,{motion,gesture:['choose','chase','family'].includes(s.id)?1:0});
   personAction(actors.grandmother,t,{motion,gesture:s.id==='staff'?1:0});
   if(s.id==='voice')attrs(actors.lily,{opacity:.7+(motion?Math.sin(t*2)*.25:0)});

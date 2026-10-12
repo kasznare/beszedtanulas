@@ -1,9 +1,13 @@
+import { STORY_AUDIO_REQUIREMENTS } from './story-audio-requirements.js';
 // Merge collection metadata with verified recordings, without a title list.
 export function mergeStoryLibrary(recordings, ...collections) {
   const library = new Map(recordings.map(story => [story.id, { ...story }]));
   for (const collection of collections) for (const entry of collection) {
     const recording = library.get(entry.id);
     library.set(entry.id, { ...entry, ...recording,
+      emoji: recording?.emoji || entry.emoji || '📖',
+      kind: recording?.kind || entry.kind || 'Mese',
+      providerCharacters: entry.providerCharacters ?? STORY_AUDIO_REQUIREMENTS[entry.id],
       searchAliases: entry.searchAliases || recording?.searchAliases || [],
       audioStatus: recording ? 'ready' : entry.audioStatus || 'pending',
       file: recording?.file, duration: recording?.duration || 0 });

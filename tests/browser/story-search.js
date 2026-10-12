@@ -16,6 +16,16 @@ async page => {
   const visible=()=>page.locator('.story-card:visible');
   await open();
   const total=await page.locator('.story-card').count();ok(total>=28,'All current collection entries are listed');
+  const rado=await page.evaluate(async()=>(await import('/rado-stories.js')).RADO_STORIES);
+  await search('  RADO   VILMOS  ');ok(await visible().count()===rado.length&&rado.length===50,'All actual Radó entries found by accentless author');
+  ok(await page.locator('#rado-search').inputValue()==='  RADO   VILMOS  ','Global query also filters the collection reader');
+  const waiting=rado.find(story=>story.audioStatus==='pending');
+  await search(waiting.title);await page.locator(`.story-card[data-story="${waiting.id}"]`).click();
+  ok(await page.locator('#story-toggle').isDisabled()&&(await page.locator('#story-toggle').innerText()).includes('Hangra vár'),'Pending recording is explicitly labelled');
+  const required=await page.evaluate(async id=>(await import('/story-audio-requirements.js')).STORY_AUDIO_REQUIREMENTS[id],waiting.id);
+  ok((await page.locator('#story-offline').textContent()).includes(String(required)),'Pending credit estimate comes from the generated plan');
+  await page.locator('#story-transcript summary').click();ok(await page.locator('#story-text').textContent()===waiting.text,'Pending Radó work retains its full source text');
+  await search('');
   for(const [query,id] of [['GYONGYVIRAG   Palko','classic-palko'],['arany JANOS fulemule','classic-fulemile'],['fülemile','classic-fulemile'],['PeToFi   sAnDoR  lacinak','classic-arany-lacinak']]){
     await search(query);ok(await visible().count()===1&&await visible().first().getAttribute('data-story')===id,`Real ${query} search`);
   }
@@ -23,6 +33,7 @@ async page => {
   await visible().first().click();ok(await page.locator('#story-toggle').isDisabled(),'Unverified edition has no fake playback');
   ok((await page.locator('#story-status').textContent()).includes('forrásellenőrzés'),'Edition status is visible');
   await search('nincs-ilyen-cim');ok(await visible().count()===0&&await page.locator('#story-search-empty').isVisible(),'Understandable empty results');
+  ok(await page.locator('.rado-card:visible').count()===0,'No unrelated collection cards remain in empty results');
   await page.getByRole('button',{name:'Keresés törlése',exact:true}).click();ok(await visible().count()===total,'Clear restores every entry');
   ok(await page.locator('#story-search').evaluate(element=>element===document.activeElement),'Clear returns keyboard focus to search');
   await search('palko');await page.locator('#story-search').press('Escape');ok(await page.locator('#story-search').inputValue()===''&&await visible().count()===total,'Escape clears the query');
@@ -72,6 +83,7 @@ async page => {
     await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
     ok(await page.evaluate(()=>storySearchQA.audios.some(audio=>audio.src.startsWith('blob:')&&!audio.paused)),`${story.id}: actual offline blob playback`);await page.locator('#story-toggle').click();
   }
+  await search('rado vilmos');ok(await visible().count()===50,'All fifty Radó works searchable offline');
   await search('fulemule');ok(await visible().count()===1,'Offline title alias works');
   for(const [width,height] of [[320,640],[375,667],[834,1194]]){
     await page.setViewportSize({width,height});ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`No overflow at ${width}px`);
