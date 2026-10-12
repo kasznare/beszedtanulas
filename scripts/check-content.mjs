@@ -27,7 +27,11 @@ for (const category of wordCategories) {
 }
 const manifest = JSON.parse(await readFile(new URL('../audio/voice/manifest.json', import.meta.url), 'utf8'));
 const generated = JSON.parse(await readFile(new URL('../audio/voice/generated.json', import.meta.url), 'utf8'));
-assert.equal(generated.version, 1, 'Unknown voice generation receipt version');
+const voiceConfig = JSON.parse(await readFile(new URL('../voice-config.json', import.meta.url), 'utf8'));
+assert.equal(manifest.version, 2, 'Unknown voice manifest version');
+assert.equal(generated.version, 2, 'Unknown voice generation receipt version');
+assert.deepEqual(generated.config, voiceConfig, 'Stale voice generation settings');
+for (const [key, value] of Object.entries(voiceConfig)) assert.deepEqual(manifest[key], value, `Stale voice setting: ${key}`);
 const sha256 = value => createHash('sha256').update(value).digest('hex');
 uniqueIds(manifest.clips, 'voice');
 assert.deepEqual(VOICE_CLIPS, Object.fromEntries(manifest.clips.map(({id,text,file}) => [id,{text,file}])));
@@ -56,10 +60,15 @@ for (const file of audioFiles) {
 }
 for (const clip of manifest.clips) {
   const receipt = generated.clips[clip.id];
-  assert.equal(receipt?.fingerprint, sha256(JSON.stringify([manifest.voice, manifest.rate, clip.text])), `Stale spoken text: ${clip.id}. Run npm run generate-voice.`);
+  const fingerprintInput = [voiceConfig, clip.spokenText || clip.text, ...(clip.extract ? [clip.extract] : [])];
+  assert.equal(receipt?.fingerprint, sha256(JSON.stringify(fingerprintInput)), `Stale spoken text: ${clip.id}. Run npm run generate-voice.`);
   assert.equal(receipt?.sha256, sha256(await readFile(new URL(`../${clip.file}`, import.meta.url))), `Unverified voice file: ${clip.id}. Run npm run generate-voice.`);
   assert.deepEqual(VOICE_TIMING[clip.id], receipt.words, `Stale speech timing: ${clip.id}`);
   assert.ok(receipt.words?.length, `Missing word timing: ${clip.id}`);
+  const sourceWords = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu);
+  assert.deepEqual(receipt.words.map(word => word[2]), sourceWords, `Incomplete spoken text: ${clip.id}`);
+  assert.ok(Number.isFinite(receipt.duration) && receipt.duration > .2, `Invalid audio duration: ${clip.id}`);
+  assert.ok(receipt.words.at(-1)[1] <= receipt.duration + .001, `Missing final word: ${clip.id}`);
   for (const [i, word] of receipt.words.entries()) {
     assert.ok(word.length === 3 && Number.isFinite(word[0]) && word[0] >= 0 && Number.isFinite(word[1]) && word[1] >= word[0] && typeof word[2] === 'string', `Invalid timing: ${clip.id}`);
     if (i) assert.ok(word[0] >= receipt.words[i-1][0], `Unordered timing: ${clip.id}`);

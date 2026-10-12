@@ -18,6 +18,7 @@ const files = [
   'index.html', 'refresh.html', ...frontendFiles, ...storyFiles,
   'assets/furfang-fox.png',
   'animal-book-audio.json',
+  'voice-config.json', 'audio/voice/manifest.json', 'audio/voice/generated.json',
   ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),
   'app.webmanifest', 'icons/icon.svg', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
   ...words.map(word => `audio/${word.id}.mp3`),

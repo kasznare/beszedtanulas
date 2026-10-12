@@ -9,13 +9,19 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const catalog = JSON.parse(await read('content/stories/catalog.json'));
 const receipts = JSON.parse(await read('audio/audiobooks/generated.json'));
 const provider = receipts.provider || 'edge-tts';
-assert.ok(['edge-tts', 'elevenlabs'].includes(provider), `Unknown audiobook provider: ${provider}`);
+const voiceConfig = JSON.parse(await read('voice-config.json'));
+assert.equal(provider, 'elevenlabs', 'Factory audiobooks must use Jessa');
 if (provider === 'elevenlabs') {
   assert.equal(receipts.version, 2);
   for (const key of ['voice', 'voiceName', 'model', 'language', 'outputFormat']) {
     assert.ok(typeof receipts[key] === 'string' && receipts[key].length > 0, `Missing ElevenLabs ${key}`);
   }
   assert.equal(receipts.language, 'hu');
+  assert.equal(receipts.voice, voiceConfig.voice_id);
+  assert.equal(receipts.model, voiceConfig.model_id);
+  assert.equal(receipts.outputFormat, voiceConfig.output_format);
+  assert.equal(receipts.seed, voiceConfig.seed);
+  assert.deepEqual(receipts.settings, voiceConfig.voice_settings);
   assert.ok(Number.isInteger(receipts.seed) && receipts.seed >= 0);
   assert.ok(receipts.settings && typeof receipts.settings === 'object');
   for (const key of ['stability', 'similarity_boost']) {

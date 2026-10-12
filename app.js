@@ -92,7 +92,6 @@ const screenInfo = {
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
 };
-const voiceByText = new Map(Object.entries(VOICE_CLIPS).map(([id, clip]) => [normalizeVoiceText(clip.text), {...clip, id}]));
 let currentImitate = 0;
 let autoSessionToken = 0;
 let autoSessionRunning = false;
@@ -546,7 +545,7 @@ function setupNumbers() {
     button.addEventListener("click", () => {
       currentNumber = number;
       renderNumbers();
-      speakHungarian(numberNames[number]);
+      speakVoice(`number_${number}`);
     });
     picker.appendChild(button);
   }
@@ -562,7 +561,7 @@ function setupNumbers() {
         renderNumberQuiz();
         speakNumberQuestion();
       } else {
-        speakHungarian(numberQuantityLabel());
+        speakVoice(`quantity_${countingObject.id}_${currentNumber}`);
       }
     });
     document.querySelector("#number-object-picker").appendChild(button);
@@ -574,7 +573,7 @@ function setupNumbers() {
   document.querySelector("#number-next").addEventListener("click", () => {
     currentNumber = currentNumber % numberLimit + 1;
     renderNumbers();
-    speakHungarian(numberNames[currentNumber]);
+    speakVoice(`number_${currentNumber}`);
   });
   document.querySelectorAll(".number-mode").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1009,12 +1008,12 @@ function stopPlayback() {
   narration.stop();
   cancelPlayback?.();
   cancelPlayback = null;
-  window.speechSynthesis?.cancel();
   cardsGrid.querySelectorAll(".is-speaking").forEach((card) => card.classList.remove("is-speaking"));
 }
 
 function beginPlayback() {
   stopPlayback();
+  document.querySelector('#voice-status').hidden = true;
   return playbackToken;
 }
 
@@ -1119,38 +1118,6 @@ function decodeAudioData(context, audioData) {
       (buffer) => resolve(buffer),
       () => resolve(null),
     );
-  });
-}
-
-function speakWithBrowser(text, token = beginPlayback(), visual) {
-  if (!("speechSynthesis" in window) || token !== playbackToken) return Promise.resolve();
-  return new Promise((resolve) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    let finished = false;
-    let timer;
-    const done = () => {
-      if (finished) return;
-      finished = true;
-      clearTimeout(timer);
-      visual?.stop();
-      if (cancelPlayback === done) cancelPlayback = null;
-      resolve();
-    };
-    cancelPlayback = done;
-    utterance.lang = "hu-HU";
-    const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.toLowerCase().startsWith("hu"));
-    utterance.voice = voices.find(voice => /premium|enhanced|neural/i.test(voice.name)) || voices[0] || null;
-    utterance.rate = 0.96;
-    utterance.pitch = 1;
-    utterance.onstart = () => { if (token === playbackToken) visual?.start(); };
-    utterance.onboundary = event => { if (token === playbackToken) visual?.boundary(event.charIndex); };
-    utterance.onend = done;
-    utterance.onerror = done;
-    timer = setTimeout(() => {
-      if (token === playbackToken) window.speechSynthesis.cancel();
-      done();
-    }, Math.min(Math.max(text.length * 150, 12000), 60000));
-    window.speechSynthesis.speak(utterance);
   });
 }
 
@@ -1995,24 +1962,18 @@ function registerPlay() {
   refreshStats();
 }
 
-function normalizeVoiceText(text) {
-  return text.toLowerCase().replace(/[.!?…⭐]/g, "").replace(/\s+/g, " ").trim();
-}
-
-async function speakHungarian(text, token = beginPlayback()) {
-  const clip = voiceByText.get(normalizeVoiceText(text));
-  if (clip) {
-    return speakVoice(clip.id, token);
-  }
-  await speakWithBrowser(text, token);
-}
-
 async function speakVoice(id, token = beginPlayback(), cue = narrationCue(id, currentScreen)) {
   const clip = VOICE_CLIPS[id];
   if (!clip || token !== playbackToken) return;
   const visual = narration.prepare(id, clip.text, cue);
   const played = await tryPlayFile(`./${clip.file}`, token, visual);
-  if (!played && token === playbackToken) await speakWithBrowser(clip.text, token, visual);
+  if (!played && token === playbackToken) {
+    visual.stop('unavailable');
+    const status = document.querySelector('#voice-status');
+    status.textContent = 'A hang most nem indul. Koppints újra a hangszóróra!';
+    status.hidden = false;
+  }
+  return played;
 }
 
 async function speakVoiceSequence(ids) {
@@ -2020,7 +1981,7 @@ async function speakVoiceSequence(ids) {
   for (const entry of ids) {
     if (token !== playbackToken) return;
     const {id, cue} = typeof entry === 'string' ? {id:entry} : entry;
-    await speakVoice(id, token, cue);
+    if (await speakVoice(id, token, cue) === false) return;
   }
 }
 

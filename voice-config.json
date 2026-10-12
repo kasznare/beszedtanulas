@@ -1,0 +1,10 @@
+{
+  "provider": "ElevenLabs",
+  "voice_id": "yj30vwTGJxSHezdAGsv9",
+  "voice_name": "Jessa - Easygoing and Effortless",
+  "model_id": "eleven_v4",
+  "language_code": "hu",
+  "voice_settings": {"stability": 0.5, "similarity_boost": 0.75},
+  "output_format": "mp3_44100_128",
+  "seed": 42
+}

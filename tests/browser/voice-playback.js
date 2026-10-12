@@ -2,6 +2,7 @@
 // This clears only that session’s local test data; never use a personal browser.
 async page => {
   const checks = [], ok = (value, message) => { if (!value) throw Error(message); checks.push(message); };
+  const expectedDuration = await page.evaluate(async () => (await (await fetch('./audio/voice/generated.json')).json()).clips.logic_machine_2.duration);
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   await page.route('https://cdn.jsdelivr.net/**', r => r.fulfill({contentType:'text/javascript',body:''}));
   await page.evaluate(async () => { localStorage.clear(); for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister(); for (const k of await caches.keys()) await caches.delete(k); });
@@ -21,6 +22,7 @@ async page => {
   });
   const url=page.url(); await page.goto('about:blank'); await page.goto(url);
   await page.waitForFunction(() => document.querySelector('#offline-status').textContent.startsWith('Letöltve.'));
+  await page.evaluate(value => voiceQA.expectedDuration = value, expectedDuration);
   await page.locator('#parent-button').click();
   const n=(await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number);
   await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();
@@ -29,16 +31,16 @@ async page => {
   await page.locator('#home [data-open="number-menu"]').click();
   await page.locator('#number-menu [data-open="furfangliget"]').click();
   await page.locator('[data-game="machine"]').click();
-  await page.waitForFunction(() => voiceQA.played.some(a => a.duration > 13));
-  await page.waitForFunction(() => voiceQA.played.some(a => a.duration > 13 && a.ended), undefined, {timeout:20000});
-  const played = await page.evaluate(() => voiceQA.played.find(a=>a.duration>13 && a.ended));
-  ok(played.ended-played.started > played.duration*1000-500,'Long machine guide plays completely past 12 seconds');
+  await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1));
+  await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1 && a.ended), undefined, {timeout:20000});
+  const played = await page.evaluate(() => voiceQA.played.find(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1 && a.ended));
+  ok(played.ended-played.started > played.duration*1000-500,'Machine guide plays its complete measured Jessa duration');
   ok(await page.locator('.logic-heading p').innerText()==='Figyeld meg, rakd össze, majd számolj!','Machine instruction uses simpler wording');
   await page.locator('#logic-repeat').click();
-  await page.waitForFunction(() => voiceQA.played.at(-1)?.duration>13 && !voiceQA.played.at(-1).ended);
+  await page.waitForFunction(() => Math.abs(voiceQA.played.at(-1)?.duration-voiceQA.expectedDuration)<.1 && !voiceQA.played.at(-1).ended);
   await page.locator('#home-button').click();
-  await page.waitForFunction(() => voiceQA.played.filter(a=>a.duration>13).at(-1)?.ended);
-  const interrupted = await page.evaluate(() => voiceQA.played.filter(a=>a.duration>13).at(-1));
+  await page.waitForFunction(() => voiceQA.played.filter(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1).at(-1)?.ended);
+  const interrupted = await page.evaluate(() => voiceQA.played.filter(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1).at(-1));
   ok(interrupted.ended-interrupted.started<2000,'Leaving the game promptly cancels long audio');
   await page.locator('#home [data-open="number-menu"]').click();
   await page.locator('#number-menu [data-mode="quiz"]').click();
@@ -72,7 +74,7 @@ async page => {
     const response=await fetch('./audio/voice/manifest.json');
     if(!response.ok)throw Error('Voice manifest is unavailable offline');
     const manifest=await response.json();
-    if(manifest.version!==1||!Array.isArray(manifest.clips)||!manifest.clips.length)throw Error('Invalid voice inventory');
+    if(manifest.version!==2||!Array.isArray(manifest.clips)||!manifest.clips.length)throw Error('Invalid voice inventory');
     const expected=new Map(manifest.clips.map(clip=>[clip.id,clip]));
     const mismatched=manifest.clips.filter(clip=>VOICE_CLIPS[clip.id]?.file!==clip.file||VOICE_CLIPS[clip.id]?.text!==clip.text).map(clip=>clip.id);
     const extra=Object.keys(VOICE_CLIPS).filter(id=>!expected.has(id));

@@ -40,6 +40,7 @@
       <a id="home-refresh" class="home-refresh" href="./refresh.html" aria-label="Frissítés" title="Frissítés"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg><span>Frissítés</span></a>
 <button id="help-button" class="help-button icon-btn" aria-label="Hallgasd meg a segítséget"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="parent-button" class="parent-button icon-btn" aria-label="Szülői beállítások"><svg class="icon" aria-hidden="true"><use href="#i-gear"></use></svg></button>
     </header>
+    <p id="voice-status" class="listen-status" role="status" hidden></p>
     <section id="home" class="panel home-panel is-active" aria-label="Válassz játékot">
       <div id="parent-preview" class="parent-preview" hidden>
         <strong>Szülői próba</strong>
@@ -300,7 +301,7 @@
           <select id="memory-pairs"><option value="2">2 pár · első felfedezés</option><option value="3">3 pár · figyelő</option><option value="4">4 pár · emlékező</option><option value="6">6 pár · kihívás</option></select>
           <p class="parent-note">A Képpárok a választott témakör képeit használja. Kevés kép esetén annyi párt mutat, ahány külön kép van a témában. A játékban is választható a párok száma.</p>
           <label for="word-voice">Szavak hangja</label>
-          <select id="word-voice"><option value="natural">Új magyar mesélőhang</option><option value="family">Meglévő saját felvételek</option></select>
+          <select id="word-voice"><option value="natural">Jessa magyar mesélőhangja</option><option value="family">Meglévő saját felvételek</option></select>
           <label class="check-label"><input type="checkbox" id="spoken-guidance" checked /> Hangos segítség a játékokban</label>
           <button id="voice-preview" class="parent-action">Hang kipróbálása</button>
           <p class="parent-note">Az új mesélőhang géppel készült magyar hang. A saját szófelvételek megmaradnak, bármikor visszaválaszthatók.</p>

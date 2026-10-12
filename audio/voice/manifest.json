@@ -1,7 +1,16 @@
 {
-  "version": 1,
-  "voice": "hu-HU-NoemiNeural",
-  "rate": "-6%",
+  "version": 2,
+  "provider": "ElevenLabs",
+  "voice_id": "yj30vwTGJxSHezdAGsv9",
+  "voice_name": "Jessa - Easygoing and Effortless",
+  "model_id": "eleven_v4",
+  "language_code": "hu",
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75
+  },
+  "output_format": "mp3_44100_128",
+  "seed": 42,
   "clips": [
     {
       "id": "guide_welcome",
@@ -300,18 +309,21 @@
     {
       "id": "logic_plus",
       "text": "Meg",
+      "spokenText": "Meg.",
       "group": "logic",
       "file": "audio/voice/logic_plus.mp3"
     },
     {
       "id": "logic_minus",
       "text": "Mínusz",
+      "spokenText": "Mínusz.",
       "group": "logic",
       "file": "audio/voice/logic_minus.mp3"
     },
     {
       "id": "logic_equals",
       "text": "Egyenlő",
+      "spokenText": "Egyenlő.",
       "group": "logic",
       "file": "audio/voice/logic_equals.mp3"
     },
@@ -582,128 +594,275 @@
     {
       "id": "logic_n_0",
       "text": "nulla",
+      "spokenText": "A szám: nulla.",
       "group": "logic",
-      "file": "audio/voice/logic_n_0.mp3"
+      "file": "audio/voice/logic_n_0.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_1",
       "text": "egy",
+      "spokenText": "A szám: egy.",
       "group": "logic",
-      "file": "audio/voice/logic_n_1.mp3"
+      "file": "audio/voice/logic_n_1.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_2",
       "text": "kettő",
+      "spokenText": "A szám: kettő.",
       "group": "logic",
-      "file": "audio/voice/logic_n_2.mp3"
+      "file": "audio/voice/logic_n_2.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_3",
       "text": "három",
+      "spokenText": "A szám: három.",
       "group": "logic",
-      "file": "audio/voice/logic_n_3.mp3"
+      "file": "audio/voice/logic_n_3.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_4",
       "text": "négy",
+      "spokenText": "A szám: négy.",
       "group": "logic",
-      "file": "audio/voice/logic_n_4.mp3"
+      "file": "audio/voice/logic_n_4.mp3",
+      "extract": {
+        "from": 8,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_5",
       "text": "öt",
+      "spokenText": "A szám: öt.",
       "group": "logic",
-      "file": "audio/voice/logic_n_5.mp3"
+      "file": "audio/voice/logic_n_5.mp3",
+      "extract": {
+        "from": 8,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_6",
       "text": "hat",
+      "spokenText": "A szám: hat.",
       "group": "logic",
-      "file": "audio/voice/logic_n_6.mp3"
+      "file": "audio/voice/logic_n_6.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_7",
       "text": "hét",
+      "spokenText": "A szám: hét.",
       "group": "logic",
-      "file": "audio/voice/logic_n_7.mp3"
+      "file": "audio/voice/logic_n_7.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_8",
       "text": "nyolc",
+      "spokenText": "A szám: nyolc.",
       "group": "logic",
-      "file": "audio/voice/logic_n_8.mp3"
+      "file": "audio/voice/logic_n_8.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_9",
       "text": "kilenc",
+      "spokenText": "A szám: kilenc.",
       "group": "logic",
-      "file": "audio/voice/logic_n_9.mp3"
+      "file": "audio/voice/logic_n_9.mp3",
+      "extract": {
+        "from": 8,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_10",
       "text": "tíz",
+      "spokenText": "A szám: tíz.",
       "group": "logic",
-      "file": "audio/voice/logic_n_10.mp3"
+      "file": "audio/voice/logic_n_10.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_11",
       "text": "tizenegy",
+      "spokenText": "A szám: tizenegy.",
       "group": "logic",
-      "file": "audio/voice/logic_n_11.mp3"
+      "file": "audio/voice/logic_n_11.mp3",
+      "extract": {
+        "from": 8,
+        "to": 16,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_12",
       "text": "tizenkettő",
+      "spokenText": "A szám: tizenkettő.",
       "group": "logic",
-      "file": "audio/voice/logic_n_12.mp3"
+      "file": "audio/voice/logic_n_12.mp3",
+      "extract": {
+        "from": 8,
+        "to": 18,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_13",
       "text": "tizenhárom",
+      "spokenText": "A szám: tizenhárom.",
       "group": "logic",
-      "file": "audio/voice/logic_n_13.mp3"
+      "file": "audio/voice/logic_n_13.mp3",
+      "extract": {
+        "from": 8,
+        "to": 18,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_14",
       "text": "tizennégy",
+      "spokenText": "A szám: tizennégy.",
       "group": "logic",
-      "file": "audio/voice/logic_n_14.mp3"
+      "file": "audio/voice/logic_n_14.mp3",
+      "extract": {
+        "from": 8,
+        "to": 17,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_15",
       "text": "tizenöt",
+      "spokenText": "A szám: tizenöt.",
       "group": "logic",
-      "file": "audio/voice/logic_n_15.mp3"
+      "file": "audio/voice/logic_n_15.mp3",
+      "extract": {
+        "from": 8,
+        "to": 15,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_16",
       "text": "tizenhat",
+      "spokenText": "A szám: tizenhat.",
       "group": "logic",
-      "file": "audio/voice/logic_n_16.mp3"
+      "file": "audio/voice/logic_n_16.mp3",
+      "extract": {
+        "from": 8,
+        "to": 16,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_17",
       "text": "tizenhét",
+      "spokenText": "A szám: tizenhét.",
       "group": "logic",
-      "file": "audio/voice/logic_n_17.mp3"
+      "file": "audio/voice/logic_n_17.mp3",
+      "extract": {
+        "from": 8,
+        "to": 16,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_18",
       "text": "tizennyolc",
+      "spokenText": "A szám: tizennyolc.",
       "group": "logic",
-      "file": "audio/voice/logic_n_18.mp3"
+      "file": "audio/voice/logic_n_18.mp3",
+      "extract": {
+        "from": 8,
+        "to": 18,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_19",
       "text": "tizenkilenc",
+      "spokenText": "A szám: tizenkilenc.",
       "group": "logic",
-      "file": "audio/voice/logic_n_19.mp3"
+      "file": "audio/voice/logic_n_19.mp3",
+      "extract": {
+        "from": 8,
+        "to": 19,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "logic_n_20",
       "text": "húsz",
+      "spokenText": "A szám: húsz.",
       "group": "logic",
-      "file": "audio/voice/logic_n_20.mp3"
+      "file": "audio/voice/logic_n_20.mp3",
+      "extract": {
+        "from": 8,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "memory_start",
@@ -1200,98 +1359,210 @@
     {
       "id": "workshop_n_0",
       "text": "nulla",
+      "spokenText": "A szám: nulla.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_0.mp3"
+      "file": "audio/voice/workshop_n_0.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_1",
       "text": "egy",
+      "spokenText": "A szám: egy.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_1.mp3"
+      "file": "audio/voice/workshop_n_1.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_2",
       "text": "kettő",
+      "spokenText": "A szám: kettő.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_2.mp3"
+      "file": "audio/voice/workshop_n_2.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_3",
       "text": "három",
+      "spokenText": "A szám: három.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_3.mp3"
+      "file": "audio/voice/workshop_n_3.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_4",
       "text": "négy",
+      "spokenText": "A szám: négy.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_4.mp3"
+      "file": "audio/voice/workshop_n_4.mp3",
+      "extract": {
+        "from": 8,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_5",
       "text": "öt",
+      "spokenText": "A szám: öt.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_5.mp3"
+      "file": "audio/voice/workshop_n_5.mp3",
+      "extract": {
+        "from": 8,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_6",
       "text": "hat",
+      "spokenText": "A szám: hat.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_6.mp3"
+      "file": "audio/voice/workshop_n_6.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_7",
       "text": "hét",
+      "spokenText": "A szám: hét.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_7.mp3"
+      "file": "audio/voice/workshop_n_7.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_8",
       "text": "nyolc",
+      "spokenText": "A szám: nyolc.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_8.mp3"
+      "file": "audio/voice/workshop_n_8.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_9",
       "text": "kilenc",
+      "spokenText": "A szám: kilenc.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_9.mp3"
+      "file": "audio/voice/workshop_n_9.mp3",
+      "extract": {
+        "from": 8,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_10",
       "text": "tíz",
+      "spokenText": "A szám: tíz.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_10.mp3"
+      "file": "audio/voice/workshop_n_10.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_11",
       "text": "tizenegy",
+      "spokenText": "A szám: tizenegy.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_11.mp3"
+      "file": "audio/voice/workshop_n_11.mp3",
+      "extract": {
+        "from": 8,
+        "to": 16,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_12",
       "text": "tizenkettő",
+      "spokenText": "A szám: tizenkettő.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_12.mp3"
+      "file": "audio/voice/workshop_n_12.mp3",
+      "extract": {
+        "from": 8,
+        "to": 18,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_13",
       "text": "tizenhárom",
+      "spokenText": "A szám: tizenhárom.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_13.mp3"
+      "file": "audio/voice/workshop_n_13.mp3",
+      "extract": {
+        "from": 8,
+        "to": 18,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_14",
       "text": "tizennégy",
+      "spokenText": "A szám: tizennégy.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_14.mp3"
+      "file": "audio/voice/workshop_n_14.mp3",
+      "extract": {
+        "from": 8,
+        "to": 17,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "workshop_n_15",
       "text": "tizenöt",
+      "spokenText": "A szám: tizenöt.",
       "group": "workshop",
-      "file": "audio/voice/workshop_n_15.mp3"
+      "file": "audio/voice/workshop_n_15.mp3",
+      "extract": {
+        "from": 8,
+        "to": 15,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "pour_start",
@@ -1458,396 +1729,688 @@
     {
       "id": "r_word_roka",
       "text": "róka",
+      "spokenText": "Ez egy róka.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_roka.mp3"
+      "file": "audio/voice/r_word_roka.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_repa",
       "text": "répa",
+      "spokenText": "Ez egy répa.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_repa.mp3"
+      "file": "audio/voice/r_word_repa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_robot",
       "text": "robot",
+      "spokenText": "Ez egy robot.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_robot.mp3"
+      "file": "audio/voice/r_word_robot.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_ruha",
       "text": "ruha",
+      "spokenText": "Ez egy ruha.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_ruha.mp3"
+      "file": "audio/voice/r_word_ruha.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_rozsa",
       "text": "rózsa",
+      "spokenText": "Ez egy rózsa.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_rozsa.mp3"
+      "file": "audio/voice/r_word_rozsa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_raketa",
       "text": "rakéta",
+      "spokenText": "Ez egy rakéta.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_raketa.mp3"
+      "file": "audio/voice/r_word_raketa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_radio",
       "text": "rádió",
+      "spokenText": "Ez egy rádió.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_radio.mp3"
+      "file": "audio/voice/r_word_radio.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_rak",
       "text": "rák",
+      "spokenText": "Ez egy rák.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_rak.mp3"
+      "file": "audio/voice/r_word_rak.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_rizs",
       "text": "rizs",
+      "spokenText": "forró rizs.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_rizs.mp3"
+      "file": "audio/voice/r_word_rizs.mp3",
+      "extract": {
+        "from": 6,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_roller",
       "text": "roller",
+      "spokenText": "Ez egy roller.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_roller.mp3"
+      "file": "audio/voice/r_word_roller.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_virag",
       "text": "virág",
+      "spokenText": "Ez egy virág.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_virag.mp3"
+      "file": "audio/voice/r_word_virag.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_korte",
       "text": "körte",
+      "spokenText": "Ez egy körte.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_korte.mp3"
+      "file": "audio/voice/r_word_korte.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_perec",
       "text": "perec",
+      "spokenText": "Egy finom perec.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_perec.mp3"
+      "file": "audio/voice/r_word_perec.mp3",
+      "extract": {
+        "from": 10,
+        "to": 15,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_korona",
       "text": "korona",
+      "spokenText": "Ez egy korona.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_korona.mp3"
+      "file": "audio/voice/r_word_korona.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_barack",
       "text": "barack",
+      "spokenText": "Ez egy baratszk.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_barack.mp3"
+      "file": "audio/voice/r_word_barack.mp3",
+      "extract": {
+        "from": 7,
+        "to": 15,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "barack"
+      },
+      "spokenTarget": "baratszk"
     },
     {
       "id": "r_word_ceruza",
       "text": "ceruza",
+      "spokenText": "Ez egy ceruza.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_ceruza.mp3"
+      "file": "audio/voice/r_word_ceruza.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_erdo",
       "text": "erdő",
+      "spokenText": "Ez egy erdő.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_erdo.mp3"
+      "file": "audio/voice/r_word_erdo.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_sarkany",
       "text": "sárkány",
+      "spokenText": "Ez egy sárkány.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_sarkany.mp3"
+      "file": "audio/voice/r_word_sarkany.mp3",
+      "extract": {
+        "from": 7,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_torta",
       "text": "torta",
+      "spokenText": "Ez egy torta.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_torta.mp3"
+      "file": "audio/voice/r_word_torta.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_dinnye",
       "text": "görögdinnye",
+      "spokenText": "érett görögdinnye.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_dinnye.mp3"
+      "file": "audio/voice/r_word_dinnye.mp3",
+      "extract": {
+        "from": 6,
+        "to": 17,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_var",
       "text": "vár",
+      "spokenText": "Ez egy vár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_var.mp3"
+      "file": "audio/voice/r_word_var.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_pohar",
       "text": "pohár",
+      "spokenText": "Ez egy pohár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_pohar.mp3"
+      "file": "audio/voice/r_word_pohar.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_madar",
       "text": "madár",
+      "spokenText": "Ez egy madár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_madar.mp3"
+      "file": "audio/voice/r_word_madar.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_eger",
       "text": "egér",
+      "spokenText": "Ez egy egér.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_eger.mp3"
+      "file": "audio/voice/r_word_eger.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_hoember",
       "text": "hóember",
+      "spokenText": "Ez egy hóember.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_hoember.mp3"
+      "file": "audio/voice/r_word_hoember.mp3",
+      "extract": {
+        "from": 7,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_naptar",
       "text": "naptár",
+      "spokenText": "Ez egy naptár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_naptar.mp3"
+      "file": "audio/voice/r_word_naptar.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_szamar",
       "text": "szamár",
+      "spokenText": "Ez egy szamár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_szamar.mp3"
+      "file": "audio/voice/r_word_szamar.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_vodor",
       "text": "vödör",
+      "spokenText": "Ez egy vödör.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_vodor.mp3"
+      "file": "audio/voice/r_word_vodor.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_sator",
       "text": "sátor",
+      "spokenText": "Ez egy sátor.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_sator.mp3"
+      "file": "audio/voice/r_word_sator.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_kosar",
       "text": "kosár",
+      "spokenText": "Ez egy kosár.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_kosar.mp3"
+      "file": "audio/voice/r_word_kosar.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_alma",
       "text": "alma",
+      "spokenText": "Ez egy alma.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_alma.mp3"
+      "file": "audio/voice/r_word_alma.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_cica",
       "text": "cica",
+      "spokenText": "Ez egy cica.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_cica.mp3"
+      "file": "audio/voice/r_word_cica.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_kutya",
       "text": "kutya",
+      "spokenText": "Ez egy kutya.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_kutya.mp3"
+      "file": "audio/voice/r_word_kutya.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_labda",
       "text": "labda",
+      "spokenText": "Ez egy labda.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_labda.mp3"
+      "file": "audio/voice/r_word_labda.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_baba",
       "text": "baba",
+      "spokenText": "Ez egy baba.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_baba.mp3"
+      "file": "audio/voice/r_word_baba.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_word_banan",
       "text": "banán",
+      "spokenText": "Ez egy banán.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_banan.mp3"
+      "file": "audio/voice/r_word_banan.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_phrase_roka",
       "text": "vörös róka",
+      "spokenText": "vörös róka.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_roka.mp3"
     },
     {
       "id": "r_phrase_repa",
       "text": "piros répa",
+      "spokenText": "piros répa.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_repa.mp3"
     },
     {
       "id": "r_phrase_robot",
       "text": "vidám robot",
+      "spokenText": "vidám robot.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_robot.mp3"
     },
     {
       "id": "r_phrase_ruha",
       "text": "piros ruha",
+      "spokenText": "piros ruha.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_ruha.mp3"
     },
     {
       "id": "r_phrase_rozsa",
       "text": "piros rózsa",
+      "spokenText": "piros rózsa.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_rozsa.mp3"
     },
     {
       "id": "r_phrase_raketa",
       "text": "repül a rakéta",
+      "spokenText": "repül a rakéta.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_raketa.mp3"
     },
     {
       "id": "r_phrase_radio",
       "text": "szól a rádió",
+      "spokenText": "szól a rádió.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_radio.mp3"
     },
     {
       "id": "r_phrase_rak",
       "text": "apró rák",
+      "spokenText": "apró rák.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_rak.mp3"
     },
     {
       "id": "r_phrase_rizs",
       "text": "forró rizs",
+      "spokenText": "forró rizs.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_rizs.mp3"
     },
     {
       "id": "r_phrase_roller",
       "text": "gurul a roller",
+      "spokenText": "gurul a roller.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_roller.mp3"
     },
     {
       "id": "r_phrase_virag",
       "text": "piros virág",
+      "spokenText": "piros virág.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_virag.mp3"
     },
     {
       "id": "r_phrase_korte",
       "text": "érett körte",
+      "spokenText": "érett körte.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_korte.mp3"
     },
     {
       "id": "r_phrase_perec",
       "text": "kerek perec",
+      "spokenText": "kerek perec.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_perec.mp3"
     },
     {
       "id": "r_phrase_korona",
       "text": "arany korona",
+      "spokenText": "arany korona.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_korona.mp3"
     },
     {
       "id": "r_phrase_barack",
       "text": "érett barack",
+      "spokenText": "A gyümölcs: érett baratszk.",
       "group": "r-practice",
-      "file": "audio/voice/r_phrase_barack.mp3"
+      "file": "audio/voice/r_phrase_barack.mp3",
+      "extract": {
+        "from": 12,
+        "to": 26,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "érett barack"
+      },
+      "spokenTarget": "érett baratszk"
     },
     {
       "id": "r_phrase_ceruza",
       "text": "piros ceruza",
+      "spokenText": "piros ceruza.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_ceruza.mp3"
     },
     {
       "id": "r_phrase_erdo",
       "text": "sűrű erdő",
+      "spokenText": "sűrű erdő.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_erdo.mp3"
     },
     {
       "id": "r_phrase_sarkany",
       "text": "repül a sárkány",
+      "spokenText": "repül a sárkány.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_sarkany.mp3"
     },
     {
       "id": "r_phrase_torta",
       "text": "kerek torta",
+      "spokenText": "kerek torta.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_torta.mp3"
     },
     {
       "id": "r_phrase_dinnye",
       "text": "érett görögdinnye",
+      "spokenText": "érett görögdinnye.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_dinnye.mp3"
     },
     {
       "id": "r_phrase_var",
       "text": "magas vár",
+      "spokenText": "magas vár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_var.mp3"
     },
     {
       "id": "r_phrase_pohar",
       "text": "üres pohár",
+      "spokenText": "üres pohár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_pohar.mp3"
     },
     {
       "id": "r_phrase_madar",
       "text": "repül a madár",
+      "spokenText": "repül a madár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_madar.mp3"
     },
     {
       "id": "r_phrase_eger",
       "text": "apró egér",
+      "spokenText": "apró egér.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_eger.mp3"
     },
     {
       "id": "r_phrase_hoember",
       "text": "fehér hóember",
+      "spokenText": "fehér hóember.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_hoember.mp3"
     },
     {
       "id": "r_phrase_naptar",
       "text": "új naptár",
+      "spokenText": "új naptár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_naptar.mp3"
     },
     {
       "id": "r_phrase_szamar",
       "text": "szürke szamár",
+      "spokenText": "szürke szamár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_szamar.mp3"
     },
     {
       "id": "r_phrase_vodor",
       "text": "üres vödör",
+      "spokenText": "üres vödör.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_vodor.mp3"
     },
     {
       "id": "r_phrase_sator",
       "text": "piros sátor",
+      "spokenText": "piros sátor.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_sator.mp3"
     },
     {
       "id": "r_phrase_kosar",
       "text": "üres kosár",
+      "spokenText": "üres kosár.",
       "group": "r-practice",
       "file": "audio/voice/r_phrase_kosar.mp3"
     },
@@ -1861,13 +2424,29 @@
       "id": "r_rhyme_roka_1",
       "text": "Robot őrzi a répát.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_roka_1.mp3"
+      "file": "audio/voice/r_rhyme_roka_1.mp3",
+      "spokenText": "Mondjuk együtt: Robot őrzi a répát.",
+      "extract": {
+        "from": 16,
+        "to": 35,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_rhyme_roka_2",
       "text": "Ropi roppan, perec kerek.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_roka_2.mp3"
+      "file": "audio/voice/r_rhyme_roka_2.mp3",
+      "spokenText": "Mondjuk együtt: Ropi roppan, peretsz kerek.",
+      "extract": {
+        "from": 16,
+        "to": 43,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ropi roppan, perec kerek."
+      },
+      "spokenTarget": "Ropi roppan, peretsz kerek."
     },
     {
       "id": "r_rhyme_roka_3",
@@ -1885,7 +2464,14 @@
       "id": "r_rhyme_kert_1",
       "text": "Robot locsol friss vízcseppel.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_kert_1.mp3"
+      "file": "audio/voice/r_rhyme_kert_1.mp3",
+      "spokenText": "Mondjuk együtt: Robot locsol friss vízcseppel.",
+      "extract": {
+        "from": 16,
+        "to": 46,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_rhyme_kert_2",
@@ -1927,7 +2513,14 @@
       "id": "r_rhyme_robot_0",
       "text": "Rajzol a robot: kerek a nap.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_robot_0.mp3"
+      "file": "audio/voice/r_rhyme_robot_0.mp3",
+      "spokenText": "Mondjuk együtt: Rajzol a robot: kerek a nap.",
+      "extract": {
+        "from": 16,
+        "to": 44,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "r_rhyme_robot_1",
@@ -2238,192 +2831,368 @@
     {
       "id": "word_viz",
       "text": "víz",
+      "spokenText": "Ez egy víz.",
       "group": "word",
-      "file": "audio/voice/word_viz.mp3"
+      "file": "audio/voice/word_viz.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_anya",
       "text": "anya",
+      "spokenText": "Ez egy anya.",
       "group": "word",
-      "file": "audio/voice/word_anya.mp3"
+      "file": "audio/voice/word_anya.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_apa",
       "text": "apa",
+      "spokenText": "Ez egy apa.",
       "group": "word",
-      "file": "audio/voice/word_apa.mp3"
+      "file": "audio/voice/word_apa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_auto",
       "text": "autó",
+      "spokenText": "Ez egy autó.",
       "group": "word",
-      "file": "audio/voice/word_auto.mp3"
+      "file": "audio/voice/word_auto.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_labda",
       "text": "labda",
+      "spokenText": "Ez egy labda.",
       "group": "word",
-      "file": "audio/voice/word_labda.mp3"
+      "file": "audio/voice/word_labda.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_cica",
       "text": "cica",
+      "spokenText": "Ez egy cica.",
       "group": "word",
-      "file": "audio/voice/word_cica.mp3"
+      "file": "audio/voice/word_cica.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_alma",
       "text": "alma",
+      "spokenText": "Ez egy alma.",
       "group": "word",
-      "file": "audio/voice/word_alma.mp3"
+      "file": "audio/voice/word_alma.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_kifli",
       "text": "kifli",
+      "spokenText": "Ez egy kifli.",
       "group": "word",
-      "file": "audio/voice/word_kifli.mp3"
+      "file": "audio/voice/word_kifli.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_tej",
       "text": "tej",
+      "spokenText": "Ez egy tej.",
       "group": "word",
-      "file": "audio/voice/word_tej.mp3"
+      "file": "audio/voice/word_tej.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_furdokad",
       "text": "fürdőkád",
+      "spokenText": "Ez egy fürdőkád.",
       "group": "word",
-      "file": "audio/voice/word_furdokad.mp3"
+      "file": "audio/voice/word_furdokad.mp3",
+      "extract": {
+        "from": 7,
+        "to": 15,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_maci",
       "text": "maci",
+      "spokenText": "Ez egy maci.",
       "group": "word",
-      "file": "audio/voice/word_maci.mp3"
+      "file": "audio/voice/word_maci.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_szia",
       "text": "szia",
+      "spokenText": "Mondjuk együtt: szia.",
       "group": "word",
-      "file": "audio/voice/word_szia.mp3"
+      "file": "audio/voice/word_szia.mp3",
+      "extract": {
+        "from": 16,
+        "to": 20,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_kutya",
       "text": "kutya",
+      "spokenText": "Ez egy kutya.",
       "group": "word",
-      "file": "audio/voice/word_kutya.mp3"
+      "file": "audio/voice/word_kutya.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_baba",
       "text": "baba",
+      "spokenText": "Ez egy baba.",
       "group": "word",
-      "file": "audio/voice/word_baba.mp3"
+      "file": "audio/voice/word_baba.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_nap",
       "text": "nap",
+      "spokenText": "Ez egy nap.",
       "group": "word",
-      "file": "audio/voice/word_nap.mp3"
+      "file": "audio/voice/word_nap.mp3",
+      "extract": {
+        "from": 7,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_hold",
       "text": "hold",
+      "spokenText": "Ez egy hold.",
       "group": "word",
-      "file": "audio/voice/word_hold.mp3"
+      "file": "audio/voice/word_hold.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_fa",
       "text": "fa",
+      "spokenText": "Ez egy fa.",
       "group": "word",
-      "file": "audio/voice/word_fa.mp3"
+      "file": "audio/voice/word_fa.mp3",
+      "extract": {
+        "from": 7,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_virag",
       "text": "virág",
+      "spokenText": "Ez egy virág.",
       "group": "word",
-      "file": "audio/voice/word_virag.mp3"
+      "file": "audio/voice/word_virag.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_kenyer",
       "text": "kenyér",
+      "spokenText": "Ez egy kenyér.",
       "group": "word",
-      "file": "audio/voice/word_kenyer.mp3"
+      "file": "audio/voice/word_kenyer.mp3",
+      "extract": {
+        "from": 7,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_kanal",
       "text": "kanál",
+      "spokenText": "Ez egy kanál.",
       "group": "word",
-      "file": "audio/voice/word_kanal.mp3"
+      "file": "audio/voice/word_kanal.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_cipo",
       "text": "cipő",
+      "spokenText": "cipő.",
       "group": "word",
       "file": "audio/voice/word_cipo.mp3"
     },
     {
       "id": "word_sapka",
       "text": "sapka",
+      "spokenText": "Ez egy sapka.",
       "group": "word",
-      "file": "audio/voice/word_sapka.mp3"
+      "file": "audio/voice/word_sapka.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_vonat",
       "text": "vonat",
+      "spokenText": "Ez egy vonat.",
       "group": "word",
-      "file": "audio/voice/word_vonat.mp3"
+      "file": "audio/voice/word_vonat.mp3",
+      "extract": {
+        "from": 7,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "word_busz",
       "text": "busz",
+      "spokenText": "Ez egy busz.",
       "group": "word",
-      "file": "audio/voice/word_busz.mp3"
+      "file": "audio/voice/word_busz.mp3",
+      "extract": {
+        "from": 7,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "phrase_kerek_vizet",
       "text": "kérek vizet",
+      "spokenText": "kérek vizet.",
       "group": "phrase",
       "file": "audio/voice/phrase_kerek_vizet.mp3"
     },
     {
       "id": "phrase_meg_alma",
       "text": "még alma",
+      "spokenText": "még alma.",
       "group": "phrase",
       "file": "audio/voice/phrase_meg_alma.mp3"
     },
     {
       "id": "phrase_anya_gyere",
       "text": "anya gyere",
+      "spokenText": "anya gyere.",
       "group": "phrase",
       "file": "audio/voice/phrase_anya_gyere.mp3"
     },
     {
       "id": "phrase_apa_auto",
       "text": "apa autó",
+      "spokenText": "apa autó.",
       "group": "phrase",
       "file": "audio/voice/phrase_apa_auto.mp3"
     },
     {
       "id": "phrase_nagy_labda",
       "text": "nagy labda",
+      "spokenText": "nagy labda.",
       "group": "phrase",
       "file": "audio/voice/phrase_nagy_labda.mp3"
     },
     {
       "id": "phrase_nem_kerem",
       "text": "nem kérem",
+      "spokenText": "nem kérem.",
       "group": "phrase",
       "file": "audio/voice/phrase_nem_kerem.mp3"
     },
     {
       "id": "number_1",
       "text": "egy",
+      "spokenText": "A szám: egy.",
       "group": "number",
-      "file": "audio/voice/number_1.mp3"
+      "file": "audio/voice/number_1.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_1",
       "text": "egy autó",
+      "spokenText": "egy autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_1.mp3"
     },
@@ -2436,6 +3205,7 @@
     {
       "id": "quantity_labda_1",
       "text": "egy labda",
+      "spokenText": "egy labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_1.mp3"
     },
@@ -2448,6 +3218,7 @@
     {
       "id": "quantity_alma_1",
       "text": "egy alma",
+      "spokenText": "egy alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_1.mp3"
     },
@@ -2460,12 +3231,20 @@
     {
       "id": "number_2",
       "text": "kettő",
+      "spokenText": "A szám: kettő.",
       "group": "number",
-      "file": "audio/voice/number_2.mp3"
+      "file": "audio/voice/number_2.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_2",
       "text": "két autó",
+      "spokenText": "két autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_2.mp3"
     },
@@ -2478,6 +3257,7 @@
     {
       "id": "quantity_labda_2",
       "text": "két labda",
+      "spokenText": "két labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_2.mp3"
     },
@@ -2490,6 +3270,7 @@
     {
       "id": "quantity_alma_2",
       "text": "két alma",
+      "spokenText": "két alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_2.mp3"
     },
@@ -2502,12 +3283,20 @@
     {
       "id": "number_3",
       "text": "három",
+      "spokenText": "A szám: három.",
       "group": "number",
-      "file": "audio/voice/number_3.mp3"
+      "file": "audio/voice/number_3.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_3",
       "text": "három autó",
+      "spokenText": "három autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_3.mp3"
     },
@@ -2520,6 +3309,7 @@
     {
       "id": "quantity_labda_3",
       "text": "három labda",
+      "spokenText": "három labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_3.mp3"
     },
@@ -2532,6 +3322,7 @@
     {
       "id": "quantity_alma_3",
       "text": "három alma",
+      "spokenText": "három alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_3.mp3"
     },
@@ -2544,12 +3335,20 @@
     {
       "id": "number_4",
       "text": "négy",
+      "spokenText": "A szám: négy.",
       "group": "number",
-      "file": "audio/voice/number_4.mp3"
+      "file": "audio/voice/number_4.mp3",
+      "extract": {
+        "from": 8,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_4",
       "text": "négy autó",
+      "spokenText": "négy autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_4.mp3"
     },
@@ -2562,6 +3361,7 @@
     {
       "id": "quantity_labda_4",
       "text": "négy labda",
+      "spokenText": "négy labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_4.mp3"
     },
@@ -2574,6 +3374,7 @@
     {
       "id": "quantity_alma_4",
       "text": "négy alma",
+      "spokenText": "négy alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_4.mp3"
     },
@@ -2586,12 +3387,20 @@
     {
       "id": "number_5",
       "text": "öt",
+      "spokenText": "A szám: öt.",
       "group": "number",
-      "file": "audio/voice/number_5.mp3"
+      "file": "audio/voice/number_5.mp3",
+      "extract": {
+        "from": 8,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_5",
       "text": "öt autó",
+      "spokenText": "öt autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_5.mp3"
     },
@@ -2604,6 +3413,7 @@
     {
       "id": "quantity_labda_5",
       "text": "öt labda",
+      "spokenText": "öt labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_5.mp3"
     },
@@ -2616,6 +3426,7 @@
     {
       "id": "quantity_alma_5",
       "text": "öt alma",
+      "spokenText": "öt alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_5.mp3"
     },
@@ -2628,12 +3439,20 @@
     {
       "id": "number_6",
       "text": "hat",
+      "spokenText": "A szám: hat.",
       "group": "number",
-      "file": "audio/voice/number_6.mp3"
+      "file": "audio/voice/number_6.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_6",
       "text": "hat autó",
+      "spokenText": "hat autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_6.mp3"
     },
@@ -2646,6 +3465,7 @@
     {
       "id": "quantity_labda_6",
       "text": "hat labda",
+      "spokenText": "hat labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_6.mp3"
     },
@@ -2658,6 +3478,7 @@
     {
       "id": "quantity_alma_6",
       "text": "hat alma",
+      "spokenText": "hat alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_6.mp3"
     },
@@ -2670,12 +3491,20 @@
     {
       "id": "number_7",
       "text": "hét",
+      "spokenText": "A szám: hét.",
       "group": "number",
-      "file": "audio/voice/number_7.mp3"
+      "file": "audio/voice/number_7.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_7",
       "text": "hét autó",
+      "spokenText": "hét autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_7.mp3"
     },
@@ -2688,6 +3517,7 @@
     {
       "id": "quantity_labda_7",
       "text": "hét labda",
+      "spokenText": "hét labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_7.mp3"
     },
@@ -2700,6 +3530,7 @@
     {
       "id": "quantity_alma_7",
       "text": "hét alma",
+      "spokenText": "hét alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_7.mp3"
     },
@@ -2712,12 +3543,20 @@
     {
       "id": "number_8",
       "text": "nyolc",
+      "spokenText": "A szám: nyolc.",
       "group": "number",
-      "file": "audio/voice/number_8.mp3"
+      "file": "audio/voice/number_8.mp3",
+      "extract": {
+        "from": 8,
+        "to": 13,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_8",
       "text": "nyolc autó",
+      "spokenText": "nyolc autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_8.mp3"
     },
@@ -2730,6 +3569,7 @@
     {
       "id": "quantity_labda_8",
       "text": "nyolc labda",
+      "spokenText": "nyolc labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_8.mp3"
     },
@@ -2742,6 +3582,7 @@
     {
       "id": "quantity_alma_8",
       "text": "nyolc alma",
+      "spokenText": "nyolc alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_8.mp3"
     },
@@ -2754,12 +3595,20 @@
     {
       "id": "number_9",
       "text": "kilenc",
+      "spokenText": "A szám: kilenc.",
       "group": "number",
-      "file": "audio/voice/number_9.mp3"
+      "file": "audio/voice/number_9.mp3",
+      "extract": {
+        "from": 8,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_9",
       "text": "kilenc autó",
+      "spokenText": "kilenc autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_9.mp3"
     },
@@ -2772,6 +3621,7 @@
     {
       "id": "quantity_labda_9",
       "text": "kilenc labda",
+      "spokenText": "kilenc labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_9.mp3"
     },
@@ -2784,6 +3634,7 @@
     {
       "id": "quantity_alma_9",
       "text": "kilenc alma",
+      "spokenText": "kilenc alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_9.mp3"
     },
@@ -2796,12 +3647,20 @@
     {
       "id": "number_10",
       "text": "tíz",
+      "spokenText": "A szám: tíz.",
       "group": "number",
-      "file": "audio/voice/number_10.mp3"
+      "file": "audio/voice/number_10.mp3",
+      "extract": {
+        "from": 8,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15
+      }
     },
     {
       "id": "quantity_auto_10",
       "text": "tíz autó",
+      "spokenText": "tíz autó.",
       "group": "number",
       "file": "audio/voice/quantity_auto_10.mp3"
     },
@@ -2814,6 +3673,7 @@
     {
       "id": "quantity_labda_10",
       "text": "tíz labda",
+      "spokenText": "tíz labda.",
       "group": "number",
       "file": "audio/voice/quantity_labda_10.mp3"
     },
@@ -2826,6 +3686,7 @@
     {
       "id": "quantity_alma_10",
       "text": "tíz alma",
+      "spokenText": "tíz alma.",
       "group": "number",
       "file": "audio/voice/quantity_alma_10.mp3"
     },
