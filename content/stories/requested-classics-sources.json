@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "retrievedOn": "2026-10-12",
+  "stories": [
+    {
+      "id": "classic-palko",
+      "sourceUrl": "https://mek.oszk.hu/00200/00232/html/02.htm#32",
+      "sourceSha256": "65313acbb716eade8a845e60e44ac3c114325cb381d8ff9a28c9e88438df23da",
+      "textSha256": "895859010ff2644d6a8dd0573803c8e3984edb489da06da94edaef528b7dfc2d",
+      "boundary": {
+        "startAnchor": "32",
+        "nextAnchor": "33"
+      },
+      "paragraphs": 74,
+      "nonemptyLines": 74,
+      "sourceBytes": 359425
+    },
+    {
+      "id": "classic-fulemile",
+      "sourceUrl": "https://mek.oszk.hu/00500/00597/html/vs185302.htm#19",
+      "sourceSha256": "63cf049c998328087c290a7340971e6a62bf4aa1a60a2c85cde08ac68e80ab07",
+      "textSha256": "b4624b488aa6f3e75f9a4a767e132cccdfc6a0efaa5df47190a2205ecd7ec8ce",
+      "boundary": {
+        "startAnchor": "19",
+        "nextAnchor": null
+      },
+      "paragraphs": 10,
+      "nonemptyLines": 160,
+      "sourceBytes": 29905
+    },
+    {
+      "id": "classic-arany-lacinak",
+      "sourceUrl": "https://mek.oszk.hu/01000/01006/html/vs184703.htm#53",
+      "sourceSha256": "a6ffa37429f11a0dd42afe1cea45f87c268a24c9ea06911284ec8d2163993447",
+      "textSha256": "8d6c720fadf7933b3702286757f2d508557a9a48d069f67652a1f702f1af64a6",
+      "boundary": {
+        "startAnchor": "53",
+        "nextAnchor": "54"
+      },
+      "paragraphs": 2,
+      "nonemptyLines": 72,
+      "sourceBytes": 38889
+    }
+  ]
+}

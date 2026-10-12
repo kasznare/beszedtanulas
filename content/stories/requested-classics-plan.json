@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "config": {
+    "provider": "ElevenLabs",
+    "voice_id": "yj30vwTGJxSHezdAGsv9",
+    "voice_name": "Jessa - Easygoing and Effortless",
+    "model_id": "eleven_v4",
+    "language_code": "hu",
+    "voice_settings": {
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "output_format": "mp3_44100_128",
+    "seed": 42
+  },
+  "pronunciation": {
+    "version": 1,
+    "model_id": "eleven_v4",
+    "language_code": "hu",
+    "words": {
+      "képek": "ˈkeːpɛk",
+      "képet": "ˈkeːpɛt",
+      "képeket": "ˈkeːpɛkɛt",
+      "képét": "ˈkeːpeːt",
+      "képpárokat": "ˈkeːpːaːrokɒt",
+      "még": "ˈmeːɡ",
+      "víz": "viːz",
+      "vizet": "ˈvizɛt",
+      "rakjuk": "ˈrɒkjuk",
+      "rakj": "ˈrɒkj"
+    }
+  },
+  "stories": [
+    {
+      "id": "classic-palko",
+      "title": "Gyöngyvirág Palkó",
+      "author": "Benedek Elek",
+      "displayCharacters": 12639,
+      "providerCharacters": 12691,
+      "parts": 2,
+      "partCharacters": [
+        9932,
+        2759
+      ],
+      "partDisplaySha256": [
+        "a291937f7a88fc70d684292a78a55357dfa07510b8b1c6c58c5256e23c4d4446",
+        "80e0f14afdca99251009416813cfd6771859b903a29c36acd9d13f4b0632b35e"
+      ],
+      "partInputSha256": [
+        "cfd45250f99af692cc9520d5d348432e06ca2bf5be48ab43dceeb51f289b450d",
+        "740b0d6c53dd6965b23d52959cb5e0aa0a1c424afc64f82ed17464d38d35b676"
+      ],
+      "fingerprint": "2e6f14bc13ed5fa7c06e22d27f8dedfb37a48fbc2b46189fc911206e06597b7f",
+      "audioStatus": "ready",
+      "conservativeCredits": 12691
+    },
+    {
+      "id": "classic-fulemile",
+      "title": "A fülemile",
+      "author": "Arany János",
+      "displayCharacters": 3886,
+      "providerCharacters": 3894,
+      "parts": 1,
+      "partCharacters": [
+        3894
+      ],
+      "partDisplaySha256": [
+        "05fddd6973859b111e09eb354acf1ba8d57651642c03e055e215c8dbd4d10d93"
+      ],
+      "partInputSha256": [
+        "e449252780c90e233ab1a8344c265873a2d262423eee37330eb89ecb2e6595fc"
+      ],
+      "fingerprint": "25f17a806153654cfd01f02867a77febde825a14c77c1d54e7106c18df2b8eaa",
+      "audioStatus": "ready",
+      "conservativeCredits": 3894
+    },
+    {
+      "id": "classic-arany-lacinak",
+      "title": "Arany Lacinak",
+      "author": "Petőfi Sándor",
+      "displayCharacters": 1420,
+      "providerCharacters": 1430,
+      "parts": 1,
+      "partCharacters": [
+        1430
+      ],
+      "partDisplaySha256": [
+        "1cdb7ca2e2da49b5770809ee9aeabd8945b482528d069f613aec054b9dd86f5e"
+      ],
+      "partInputSha256": [
+        "629d527d2ce6d330195961090ea2f46a06d4fa93f1e1a4c7272fa3fbaa04aadd"
+      ],
+      "fingerprint": "d62ca7564f99def102cb4e6875880cd81701da1390310b5ae2ae7c2229af060f",
+      "audioStatus": "ready",
+      "conservativeCredits": 1430
+    }
+  ],
+  "providerCharacters": 18015,
+  "pendingCharacters": 0,
+  "costBasis": "1 credit per provider character, no promotional discount assumed",
+  "minimumPendingCredits": 0,
+  "pendingCreditsWithSafetyMargin": 0,
+  "paidCache": "~/.config/beszedtanulas/requested-classics-audiobook-cache/"
+}

@@ -32,9 +32,10 @@ if (provider === 'elevenlabs') {
   assert.equal(receipts.voice, voice.voice);
   assert.equal(receipts.rate, voice.rate);
 }
-assert.equal(AUDIOBOOKS.length, catalog.stories.length);
+const recordedEntries = catalog.stories.filter(entry => !entry.audioStatus || entry.audioStatus === 'ready');
+assert.equal(AUDIOBOOKS.length, recordedEntries.length);
 assert.equal(new Set(AUDIOBOOKS.map(story => story.id)).size, AUDIOBOOKS.length);
-assert.deepEqual(Object.keys(receipts.stories).sort(), catalog.stories.map(story => story.id).sort());
+assert.deepEqual(Object.keys(receipts.stories).sort(), recordedEntries.map(story => story.id).sort());
 for (const story of AUDIOBOOKS) {
   const entry = catalog.stories.find(entry => entry.id === story.id);
   assert.ok(entry, `Unknown story: ${story.id}`);
@@ -48,9 +49,20 @@ for (const story of AUDIOBOOKS) {
   const generation = provider === 'elevenlabs'
     ? [receipts.voice, receipts.model, receipts.language, receipts.settings, receipts.outputFormat, receipts.seed, spoken]
     : [receipts.voice, receipts.rate, spoken];
-  assert.equal(receipt.fingerprint, hash(JSON.stringify(generation)), `Stale recording: ${story.id}`);
+  if (receipt.schemaVersion === 3) {
+    const pronunciation = JSON.parse(await read('voice-pronunciation.json'));
+    const displayed = `${story.title}\n\n${text}`;
+    const spokenInput = displayed.replace(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu, word => pronunciation.words[word.toLocaleLowerCase('hu-HU')] ? `/${pronunciation.words[word.toLocaleLowerCase('hu-HU')]}/` : word);
+    assert.equal(receipt.fingerprint, hash(JSON.stringify([voiceConfig, spokenInput])));
+    assert.equal(receipt.displayTextSha256, hash(displayed));
+    assert.equal(receipt.spokenTextSha256, hash(spokenInput));
+    assert.equal(receipt.pronunciationSha256, hash(await read('voice-pronunciation.json')));
+    assert.equal(receipt.characterCount, Array.from(spokenInput).length);
+  } else {
+    assert.equal(receipt.fingerprint, hash(JSON.stringify(generation)), `Stale recording: ${story.id}`);
+  }
   if (provider === 'elevenlabs') {
-    assert.equal(receipt.characterCount, Array.from(spoken).length, `Changed character count: ${story.id}`);
+    if (receipt.schemaVersion !== 3) assert.equal(receipt.characterCount, Array.from(spoken).length, `Changed character count: ${story.id}`);
     assert.ok(Number.isFinite(receipt.credits) && receipt.credits >= 0, `Invalid credit receipt: ${story.id}`);
   }
   assert.ok(Number.isInteger(receipt.parts) && receipt.parts > 0, `Missing audio parts: ${story.id}`);

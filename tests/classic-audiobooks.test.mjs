@@ -7,7 +7,7 @@ import { STORY_PLAYBACK_MAPS } from '../story-playback-maps.js';
 
 test('ten complete public-domain classics have sources, authors and fixed recordings', async () => {
   const catalog = JSON.parse(await readFile(new URL('../content/stories/catalog.json', import.meta.url)));
-  const classics = catalog.stories.filter(story => story.collection === 'Magyar klasszikusok');
+  const classics = catalog.stories.filter(story => story.collection === 'Magyar klasszikusok' && /^story-(1[3-9]|2[0-2])$/.test(story.id));
   assert.equal(classics.length, 10);
   assert.equal(classics.filter(story => story.kind === 'Mese').length, 6);
   assert.equal(classics.filter(story => story.kind === 'Vers').length, 4);

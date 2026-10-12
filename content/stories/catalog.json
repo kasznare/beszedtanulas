@@ -1,7 +1,7 @@
 {
   "version": 1,
   "extractedOn": "2026-10-08",
-  "note": "Az első tizenkét mese a korábban mentett, saját generált mesekatalógusból származik. A 13–22. mű közkincs magyar klasszikus az OSZK MEK eredeti szövegével, szerző- és forrásmegjelöléssel. Az illusztrációk meglétét és időalapját művenként rögzítjük.",
+  "note": "Az első tizenkét mese a korábban mentett, saját generált mesekatalógusból származik. A további művek hiteles forrását, jogállását, az illusztrációk időalapját és a hangkészültséget művenként dokumentáljuk. A forrásellenőrzésre váró modern változatok teljes szövege nincs a publikált csomagban.",
   "stories": [
     {
       "id": "story-01",
@@ -387,6 +387,204 @@
         "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
       },
       "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak."
+    },
+    {
+      "id": "classic-palko",
+      "title": "Gyöngyvirág Palkó",
+      "author": "Benedek Elek",
+      "kind": "Mese",
+      "emoji": "🌼",
+      "file": "requested-classics/classic-palko.txt",
+      "sourceUrl": "https://mek.oszk.hu/00200/00232/html/02.htm#32",
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "illustrated": true,
+      "visualClock": "recording",
+      "audioStatus": "ready",
+      "words": 1992,
+      "characters": 12620,
+      "paragraphs": 74,
+      "lines": 74,
+      "sha256": "895859010ff2644d6a8dd0573803c8e3984edb489da06da94edaef528b7dfc2d",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1929,
+        "biographyUrl": "https://mek.oszk.hu/00200/00232/cimkes.html",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK MEK teljes mű, saját címhorgonytól a következő műig. Eredeti írásmód és központozás; csak HTML-formázás és környező szóközök rendezve. Minden BR verssor és minden P versszak megmarad.",
+      "opening": "Itt sem volt, ott sem volt, de valahol mégis volt, volt egyszer egy király, s annak egy akkora fiacskája, mint egy ütés tapló; Palkó volt a neve. Búsult a király éjjel-nappal, sóhajtozott:",
+      "ending": "Így volt, vége volt, igaz volt. Aki nem hiszi, járjon utána."
+    },
+    {
+      "id": "classic-fulemile",
+      "title": "A fülemile",
+      "author": "Arany János",
+      "kind": "Vers",
+      "emoji": "🐦",
+      "file": "requested-classics/classic-fulemile.txt",
+      "sourceUrl": "https://mek.oszk.hu/00500/00597/html/vs185302.htm#19",
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "illustrated": true,
+      "visualClock": "recording",
+      "audioStatus": "ready",
+      "words": 635,
+      "characters": 3874,
+      "paragraphs": 10,
+      "lines": 160,
+      "sha256": "b4624b488aa6f3e75f9a4a767e132cccdfc6a0efaa5df47190a2205ecd7ec8ce",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1882,
+        "biographyUrl": "https://mek.oszk.hu/00500/00597/cimkes.html",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK MEK teljes mű, saját címhorgonytól a következő műig. Eredeti írásmód és központozás; csak HTML-formázás és környező szóközök rendezve. Minden BR verssor és minden P versszak megmarad. Az eredeti * elválasztó is megmarad; a mű alatti (1854) dátum metaadat.",
+      "opening": "Hajdanában, amikor még\nÍgy beszélt a magyar ember:\nHa per, úgymond, hadd legyen per!\n(Ami nem volt épen oly rég) -\nValahol a Tiszaháton\nÉlt egy gazda: Pál barátom,\nS Péter, annak tőszomszédja;\nRólok szól e rövid példa.",
+      "ending": "Milyen szép dolog, hogy már ma\nNem történik ilyes lárma,\nÖssze a szomszéd se zördül,\nA rokonság\nCsupa jóság,\nMagyar ember fél a pörtül...\nNincsen osztály, nincs egyesség\nHogy szépszóval meg ne essék,\nA testvérek\nÖsszeférnek,\nFelebarát\nMind jó barát:\nSemmiségért megpörölni,\nVagy megenni, vagy megölni\nEgymást korántsem akarja:\nDe hol is akadna ügyvéd\nKi a fülemile füttyét\nMai napság felvállalja!?",
+      "searchAliases": [
+        "A fülemüle"
+      ],
+      "sourceDate": "1854"
+    },
+    {
+      "id": "classic-arany-lacinak",
+      "title": "Arany Lacinak",
+      "author": "Petőfi Sándor",
+      "kind": "Vers",
+      "emoji": "🦋",
+      "file": "requested-classics/classic-arany-lacinak.txt",
+      "sourceUrl": "https://mek.oszk.hu/01000/01006/html/vs184703.htm#53",
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "illustrated": true,
+      "visualClock": "recording",
+      "audioStatus": "ready",
+      "words": 241,
+      "characters": 1405,
+      "paragraphs": 2,
+      "lines": 72,
+      "sha256": "8d6c720fadf7933b3702286757f2d508557a9a48d069f67652a1f702f1af64a6",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1849,
+        "biographyUrl": "https://mek.oszk.hu/01000/01006/cimkes.html",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK MEK teljes mű, saját címhorgonytól a következő műig. Eredeti írásmód és központozás; csak HTML-formázás és környező szóközök rendezve. Minden BR verssor és minden P versszak megmarad.",
+      "opening": "Laci te,\nHallod-e?\nJer ide,\nJer, ha mondom,\nRontom-bontom,\nÜlj meg itten az ölemben,\nDe ne moccanj, mert különben\nMeg talállak csípni,\nIgy ni!\nUgye fáj?\nHát ne kiabálj.\nSzájadat betedd,\nS nyisd ki füledet,\nNyisd ki ezt a kis kaput;\nMajd meglátod, hogy mi fut\nRajta át fejedbe...\nEgy kis tarka lepke.\nTarka lepke, kis mese,\nSzállj be Laci fejibe.",
+      "ending": "Volt egy ember, nagybajúszos.\nMit csinált? Elment a kúthoz.\nDe nem volt viz a vederbe',\nKapta magát, telemerte.\nÉs vajon minek\nMerítette meg\nAzt a vedret?\nTán a kertet\nKéne meglocsolnia?\nVagy ihatnék?... nem biz a.\nTelt vederrel a kezében\nA mezőre ballag szépen,\nOtt megállt és körülnézett;\nEjnye vajon mit szemlélhet?\nTán a fényes délibábot?\nHisz olyat már sokat látott...\nVagy a szomszéd falu tornyát?\nHisz azon meg nem sokat lát...\nVagy tán azt az embert,\nKi amott a kendert\nÁztatóba hordja?\nArra sincsen gondja.\nMire van hát?\nEbugattát!\nMár csak megmondom, mi végett\nNézi át a mezőséget,\nA vizet mért hozta ki?\nÜrgét akar önteni.\nNinini:\nOtt az ürge.\nHű, mi fürge,\nMint szalad!\nPillanat,\nS odabenn van,\nBenn a lyukban.\nA mi emberünk se' rest,\nOdanyargal egyenest\nA lyuk mellé,\nS beleönté\nA veder vizet;\nTorkig tele lett.\nA szegény kis ürge\nEgy darabig türte,\nHanem aztán csak kimászott,\nMég az inge is átázott.\nA lyuk száján nyakon csipték,\nNyakon csipték, hazavitték,\nS mostan...\nItt van...\nKarjaimban,\nMert e fürge\nPajkos ürge\nTe vagy, Laci, te bizony!",
+      "sourceDate": "Szalonta, 1847. június 1-10"
+    },
+    {
+      "id": "kriza-fortelyos",
+      "title": "A fortélyos leány",
+      "author": "Kriza János gyűjtése",
+      "kind": "Mese",
+      "emoji": "🧩",
+      "collection": "Székely furfangos mesék",
+      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
+      "tags": [
+        "székely",
+        "furfangos",
+        "tréfás"
+      ],
+      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#10",
+      "audioStatus": "rights-pending",
+      "illustrated": false,
+      "providerCharacters": 9656,
+      "rights": {
+        "status": "edition-review-required",
+        "collectorDiedYear": 1875,
+        "editionYear": 1961,
+        "editor": "Kovács Ágnes",
+        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
+        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
+        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
+        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
+      },
+      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
+      "reviewCharacters": 9625,
+      "reviewParagraphs": 75,
+      "reviewTextSha256": "636d208d4b64e44b253bf07d987ff1214543e3e7d0c3fe1fd90838bcc483392d"
+    },
+    {
+      "id": "kriza-asszony-ordog",
+      "title": "Az egyszeri asszony meg az ördög",
+      "author": "Kriza János gyűjtése",
+      "kind": "Mese",
+      "emoji": "🧩",
+      "collection": "Székely furfangos mesék",
+      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
+      "tags": [
+        "székely",
+        "furfangos",
+        "tréfás"
+      ],
+      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#17",
+      "audioStatus": "rights-pending",
+      "illustrated": false,
+      "providerCharacters": 4171,
+      "rights": {
+        "status": "edition-review-required",
+        "collectorDiedYear": 1875,
+        "editionYear": 1961,
+        "editor": "Kovács Ágnes",
+        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
+        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
+        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
+        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
+      },
+      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
+      "reviewCharacters": 4137,
+      "reviewParagraphs": 49,
+      "reviewTextSha256": "a0bda10bfb2029bb5cccc7b407d14c4b31cb43cd59ff46117efd0b36c1ebafb9"
+    },
+    {
+      "id": "kriza-harom-hazug",
+      "title": "Három hazug mese",
+      "author": "Kriza János gyűjtése",
+      "kind": "Mese",
+      "emoji": "🧩",
+      "collection": "Székely furfangos mesék",
+      "description": "Tréfás székely népmese furfangról és talpraesettségről.",
+      "tags": [
+        "székely",
+        "furfangos",
+        "tréfás"
+      ],
+      "sourceUrl": "https://mek.oszk.hu/00200/00237/00237.htm#22",
+      "audioStatus": "rights-pending",
+      "illustrated": false,
+      "providerCharacters": 11206,
+      "rights": {
+        "status": "edition-review-required",
+        "collectorDiedYear": 1875,
+        "editionYear": 1961,
+        "editor": "Kovács Ágnes",
+        "basis": "Az 1961-es kiadás stiláris átdolgozás; a gyűjtő közkincs státusza nem igazolja önmagában ennek a változatnak újraközlését.",
+        "editionUrl": "https://vmek.oszk.hu/00200/00237/cimkes.html",
+        "adaptationEvidence": "https://nti.abtk.hu/images/adattar/mese/mnk8.pdf",
+        "originalManuscriptEvidence": "https://real.mtak.hu/33056/1/Domokos_pdfa.pdf"
+      },
+      "sourceNote": "A teljes MEK-szöveg magán forrásellenőrzési cache-ben megőrizve, nincs a webhelyen vagy Gitben; publikálás és hanggenerálás eredeti forrásra vagy jogengedélyre vár.",
+      "reviewCharacters": 11138,
+      "reviewParagraphs": 56,
+      "reviewTextSha256": "78e91adecfbcf8c7f5e342f50b5d77c9cddf99e546da569759d865b4b74141f7",
+      "partsInWork": 3
     }
   ]
 }

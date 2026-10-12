@@ -12,6 +12,7 @@ export async function parsePrivateAudiobook(file) {
   const { story, audio } = bundle || {};
   if (bundle?.format !== 'beszedtanulas-private-audiobook' || bundle.version !== 1 ||
       typeof story?.title !== 'string' || !story.title.trim() || story.title.length > 200 ||
+      (story.author !== undefined && (typeof story.author !== 'string' || story.author.length > 200)) ||
       typeof story.text !== 'string' || !story.text.trim() || story.text.length > 100000 ||
       !Number.isFinite(story.duration) || story.duration <= 0 || story.duration > 7200 ||
       !Number.isInteger(story.bytes) || story.bytes <= 0 || story.bytes > MAX_AUDIO ||
@@ -26,6 +27,7 @@ export async function parsePrivateAudiobook(file) {
   const sha256 = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
   if (bytes.length !== story.bytes || sha256 !== story.sha256) throw Error('A mesefájl hangja hiányos vagy sérült.');
   return { id: `local-${sha256}`, title: story.title.trim(), text: story.text,
+    ...(story.author?.trim() ? { author: story.author.trim(), kind: 'Saját mese' } : {}),
     duration: story.duration, bytes: bytes.length, sha256, emoji: '📖', local: true,
     audio: new Blob([bytes], { type: 'audio/mpeg' }) };
 }
@@ -59,7 +61,10 @@ async function stored(mode, operation) {
 const metadata = ({ audio, ...story }) => story;
 export async function importPrivateAudiobook(file) {
   const story = await parsePrivateAudiobook(file);
-  await stored('readwrite', store => store.put(story));
+  // ArrayBuffer storage also works in WebKit versions where cloning a Blob
+  // into IndexedDB fails. Existing saved Blobs remain readable below.
+  const audio = await story.audio.arrayBuffer();
+  await stored('readwrite', store => store.put({ ...story, audio }));
   return metadata(story);
 }
 export async function loadLocalAudiobooks() {
@@ -68,7 +73,9 @@ export async function loadLocalAudiobooks() {
 export async function resolveLocalAudiobookSource(story) {
   const saved = await stored('readonly', store => store.get(story.id));
   if (!saved?.audio || saved.sha256 !== story.sha256) throw Error('A saját mese nem található ezen az eszközön. Importáld újra a fájlból!');
-  return { url: URL.createObjectURL(saved.audio), blob: true };
+  const audio = saved.audio instanceof Blob ? saved.audio : new Blob([saved.audio], { type: 'audio/mpeg' });
+  if (audio.size !== story.bytes) throw Error('A saját mese hangja sérült. Importáld újra a fájlból!');
+  return { url: URL.createObjectURL(audio), blob: true };
 }
 export async function deleteLocalAudiobook(id) {
   if (!id.startsWith('local-')) throw Error('Csak saját mesét lehet eltávolítani.');
