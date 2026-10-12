@@ -27,7 +27,8 @@ async page => {
     await page.waitForFunction(() => document.querySelector('#audiobooks')?.dataset.phase === 'ready');
   };
   await open();
-  ok(await page.locator('.story-card').count() === 22, 'The public library includes all twenty-two recordings');
+  const publishedCount = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.length);
+  ok(await page.locator('.story-card').count() === publishedCount && publishedCount >= 22, 'The public library preserves the original twenty-two recordings');
   const classics = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.filter(story => Number(story.id.slice(6)) >= 13));
   ok(classics.length === 10, 'All ten classics are present');
   for (const story of classics) {

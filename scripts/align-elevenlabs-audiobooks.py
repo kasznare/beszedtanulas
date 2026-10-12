@@ -264,6 +264,7 @@ def main():
                          archived if archived.is_dir() else ROOT / "output/story-timing")
     out = args.out or args.source / "timing"
     catalog = json.loads((ROOT / "content/stories/catalog.json").read_text())["stories"]
+    catalog = [entry for entry in catalog if not entry['id'].startswith('rado-')]
     stories = [entry for entry in catalog if not args.story or entry["id"] in args.story]
     if args.story and len(stories) != len(set(args.story)):
         raise ValueError("Unknown story ID requested")

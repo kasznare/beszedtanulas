@@ -32,9 +32,15 @@ if (provider === 'elevenlabs') {
   assert.equal(receipts.voice, voice.voice);
   assert.equal(receipts.rate, voice.rate);
 }
-assert.equal(AUDIOBOOKS.length, catalog.stories.length);
+const readyCatalog = catalog.stories.filter(story => story.audioStatus !== 'pending');
+const pronunciation = JSON.parse(await read('voice-pronunciation.json'));
+const phonetic = text => text.replace(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu, word => {
+  const ipa = pronunciation.words[word.toLocaleLowerCase('hu-HU')];
+  return ipa ? `/${ipa}/` : word;
+});
+assert.equal(AUDIOBOOKS.length, readyCatalog.length);
 assert.equal(new Set(AUDIOBOOKS.map(story => story.id)).size, AUDIOBOOKS.length);
-assert.deepEqual(Object.keys(receipts.stories).sort(), catalog.stories.map(story => story.id).sort());
+assert.deepEqual(Object.keys(receipts.stories).sort(), readyCatalog.map(story => story.id).sort());
 for (const story of AUDIOBOOKS) {
   const entry = catalog.stories.find(entry => entry.id === story.id);
   assert.ok(entry, `Unknown story: ${story.id}`);
@@ -44,11 +50,17 @@ for (const story of AUDIOBOOKS) {
   assert.equal(story.text, text, `Changed spoken story: ${story.id}`);
   assert.equal(story.title, entry.title);
   const receipt = receipts.stories[story.id];
-  const spoken = `${story.title}.\n\n${text}`;
-  const generation = provider === 'elevenlabs'
+  const displayed = receipt.schemaVersion === 3 ? `${story.title}\n\n${text}` : `${story.title}.\n\n${text}`;
+  const spoken = receipt.schemaVersion === 3 ? phonetic(displayed) : displayed;
+  const generation = receipt.schemaVersion === 3 ? [voiceConfig, spoken] : provider === 'elevenlabs'
     ? [receipts.voice, receipts.model, receipts.language, receipts.settings, receipts.outputFormat, receipts.seed, spoken]
     : [receipts.voice, receipts.rate, spoken];
   assert.equal(receipt.fingerprint, hash(JSON.stringify(generation)), `Stale recording: ${story.id}`);
+  if (receipt.schemaVersion === 3) {
+    assert.equal(receipt.displayTextSha256, hash(displayed));
+    assert.equal(receipt.spokenTextSha256, hash(spoken));
+    assert.equal(receipt.pronunciationSha256, hash(await read('voice-pronunciation.json')));
+  }
   if (provider === 'elevenlabs') {
     assert.equal(receipt.characterCount, Array.from(spoken).length, `Changed character count: ${story.id}`);
     assert.ok(Number.isFinite(receipt.credits) && receipt.credits >= 0, `Invalid credit receipt: ${story.id}`);

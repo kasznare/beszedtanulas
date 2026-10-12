@@ -28,3 +28,12 @@
 @media(max-height:420px) and (orientation:landscape){.story-player{grid-template-columns:70px minmax(0,1fr);padding:14px;gap:12px}.story-cover{font-size:3rem}.story-player h2{margin-bottom:8px}.story-actions{margin-bottom:0}.story-toggle{min-height:52px}.story-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.story-card:active,.story-toggle:active{transform:none}}
 @media(max-width:650px){.story-byline{grid-column:1/-1;margin:0}}
+.rado-library{margin-top:24px;padding:18px;border:1px solid #d9c6a4;border-radius:20px;background:#fffaf1;overflow-wrap:anywhere}
+.rado-library h3{margin:0 0 10px}.rado-library p{line-height:1.6}.rado-search-label{display:block;font-weight:700;margin-bottom:6px}
+.rado-search{box-sizing:border-box;width:100%;min-height:48px;font:inherit;border:2px solid #d9c6a4;border-radius:12px;padding:10px;background:#fffdf7;color:inherit}
+.rado-volume{margin-top:12px}.rado-volume summary{min-height:48px;padding:12px;box-sizing:border-box;cursor:pointer;font-weight:700;background:#f4ead9;border-radius:12px}
+.rado-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.rado-card{display:flex;flex-direction:column;gap:8px;min-height:88px;padding:14px;font:inherit;text-align:left;color:inherit;background:#faf2e2;border:2px solid #d9c6a4;border-radius:14px;cursor:pointer;overflow-wrap:anywhere}.rado-card small{font-size:.8rem;line-height:1.5}.rado-card[aria-pressed=true]{border-color:#60805e}
+.rado-reader{margin:16px 0;padding:16px;background:#fffdf7;border:2px solid #95b896;border-radius:16px}.rado-reader h4{font-size:1.2rem;margin:0}.rado-text{white-space:pre-wrap;line-height:1.8;max-height:60vh;overflow:auto;margin-top:16px}.rado-reader .story-source{font-size:.8rem}
+.rado-caption{grid-column:1/-1;border-top:1px solid #e8dcc8;padding-top:12px}.rado-caption summary{cursor:pointer;min-height:44px;font-weight:700}.rado-caption p{white-space:pre-wrap;line-height:1.7;background:#eaf0e4;padding:12px;border-radius:12px;margin:0}
+.rado-library [hidden],.rado-caption[hidden]{display:none!important}
+@media(max-width:650px){.rado-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rado-library{padding:14px}.rado-reader{padding:12px}}

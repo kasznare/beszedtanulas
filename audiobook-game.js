@@ -2,6 +2,7 @@ import { AUDIOBOOKS } from './audiobook-data.js';
 import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
 import { createIllustratedStory } from './story-visual-player.js';
 import { importPrivateAudiobook, loadLocalAudiobooks, resolveLocalAudiobookSource, deleteLocalAudiobook } from './local-audiobooks.js';
+import { setupRadoLibrary, radoCaption } from './rado-library.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
 export const formatStoryTime = seconds => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, '0')}`;
@@ -36,6 +37,12 @@ export function setupAudiobooks({ stopPlayback }) {
       link.href = story.sourceUrl; link.target = '_blank'; link.rel = 'noopener noreferrer';
       link.textContent = 'Szöveg forrása: OSZK Magyar Elektronikus Könyvtár';
       $('#story-source').replaceChildren(link); $('#story-source').dataset.story = story.id;
+      if (story.rights?.licenseUrl) {
+        const credit = document.createElement('span'); credit.textContent = ` · ${story.rights.attribution} · `;
+        const license = document.createElement('a'); license.href = story.rights.licenseUrl;
+        license.textContent = story.rights.license; license.target = '_blank'; license.rel = 'noopener noreferrer';
+        $('#story-source').append(credit, license);
+      }
     }
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
@@ -62,6 +69,9 @@ export function setupAudiobooks({ stopPlayback }) {
       $('#story-transcript').open = false;
     }
     $('#story-bookmark-warning').hidden = !bookmarkWarning;
+    const caption = radoCaption(story, state.position);
+    $('#rado-caption').hidden = !caption;
+    if ($('#rado-caption-text').textContent !== caption) $('#rado-caption-text').textContent = caption;
     for (const button of root.querySelectorAll('.story-card[data-story]')) {
       const selected = button.dataset.story === story.id;
       button.setAttribute('aria-pressed', String(selected));
@@ -79,6 +89,19 @@ export function setupAudiobooks({ stopPlayback }) {
     visualWrap.id = 'story-visual-wrap'; visualWrap.className = 'story-visual-wrap';
     visualWrap.innerHTML = '<div id="story-visual" class="story-visual"></div><div class="story-visual-footer"><p id="story-scene-title"></p><label class="story-motion-label"><input id="story-motion" type="checkbox"> Mozgás</label></div>';
     root.querySelector('.story-download-row').before(visualWrap);
+    const caption = document.createElement('details'); caption.id = 'rado-caption'; caption.className = 'rado-caption';
+    caption.open = true; caption.hidden = true;
+    caption.innerHTML = '<summary>Felirat</summary><p id="rado-caption-text"></p>';
+    root.querySelector('.story-download-row').before(caption);
+    const collection = document.createElement('section'); collection.className = 'rado-library'; collection.setAttribute('aria-labelledby', 'rado-title');
+    root.querySelector('.story-list-title').before(collection);
+    setupRadoLibrary(collection, { readyStories: stories, onRead: () => player.pause(), onPlay: async id => {
+      await player.select(id);
+      if (active && player.getState().storyId === id) {
+        $('#story-toggle').focus({ preventScroll: true }); $('#story-title').scrollIntoView({ block: 'start', behavior: 'auto' });
+        await player.play();
+      }
+    } });
     visual = createIllustratedStory($('#story-visual'), { storyId: player.getPreferences().selected, readTime: player.getPosition, onScene: scene => { $('#story-scene-title').textContent = scene.title; } });
     $('#story-motion').checked = visual.motion;
     $('#story-motion').addEventListener('change', event => visual.setMotion(event.target.checked));

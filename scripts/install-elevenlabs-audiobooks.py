@@ -30,6 +30,8 @@ def main():
     parser.add_argument('--install', action='store_true')
     args = parser.parse_args()
     catalog = json.loads((ROOT / 'content/stories/catalog.json').read_text())['stories']
+    catalog_order = {entry['id']: index for index, entry in enumerate(catalog)}
+    catalog = [entry for entry in catalog if not entry['id'].startswith('rado-')]
     current = (ROOT / 'audiobook-data.js').read_text()
     existing = json.loads(current.split('export const AUDIOBOOKS = ', 1)[1].strip().removesuffix(';'))
     previous = {story['id']: story for story in existing}
@@ -37,7 +39,14 @@ def main():
     illustrated_ids = {entry['id'] for entry in catalog if entry.get('illustrated') is not False and entry.get('visualClock') != 'recording'}
     if set(maps) != illustrated_ids:
         raise ValueError('Every retimed illustrated story must have a verified SVG clock map')
-    new_stories, receipts, captions = [], {}, {}
+    # The legacy stage owns the original recordings only. Preserve the separate
+    # Radó pipeline's ready recordings and measured captions on reinstallation.
+    new_stories = [story for story in existing if story['id'].startswith('rado-')]
+    keep = {story['id'] for story in new_stories}
+    published_receipts = json.loads((ROOT / 'audio/audiobooks/generated.json').read_text())['stories']
+    published_captions = json.loads((ROOT / 'story-caption-timing.js').read_text().split('export const STORY_CAPTION_TIMES = ', 1)[1].strip().removesuffix(';'))
+    receipts = {key: value for key, value in published_receipts.items() if key in keep}
+    captions = {key: value for key, value in published_captions.items() if key in keep}
     metadata = None
     for entry in catalog:
         story = json.loads((STAGED / f"{entry['id']}.json").read_text())
@@ -103,8 +112,11 @@ def main():
             shutil.copyfile(ROOT / name, backup)
     (ROOT / 'output/story-timing').mkdir(parents=True, exist_ok=True)
     for story in new_stories:
+        if story['id'] in keep:
+            continue
         shutil.copyfile(STAGED / f"{story['id']}.mp3", ROOT / story['file'])
         shutil.copyfile(STAGED / 'timing' / f"{story['id']}.json", ROOT / 'output/story-timing' / f"{story['id']}.json")
+    new_stories.sort(key=lambda story: catalog_order[story['id']])
     write(ROOT / 'audio/audiobooks/generated.json', json.dumps({**metadata, 'stories': receipts}, ensure_ascii=False, indent=2) + '\n')
     write(ROOT / 'audiobook-data.js', '// Generated from fixed ElevenLabs recordings. No runtime synthesis.\nexport const AUDIOBOOKS = '
           + json.dumps(new_stories, ensure_ascii=False, indent=2) + ';\n')

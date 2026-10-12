@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "tales": 50,
+  "ready": 26,
+  "pending": 24,
+  "providerCharacters": 398751,
+  "pendingCharacters": 311983,
+  "conservativePendingCredits": 311983,
+  "conservativePendingCreditsWithMargin": 343182,
+  "actualRecordingCredits": 9545.0,
+  "paidRequests": [
+    {
+      "fingerprint": "14fa18ae8ee1f9a890b256a269c5854301abe58447383c7efd36150be0d4dc26",
+      "audioSha256": "990e111defd589d41b069ea31ba0d79a3e9446e3bf8046a02b5d68d3e63a4ab6",
+      "providerCharacters": 2452,
+      "credits": 270.0,
+      "requestId": "YFtVKL26So7mJGk4EKON",
+      "historyItemId": "V5oEtdjcWv3Ejsg6fzOp"
+    },
+    {
+      "fingerprint": "2a70c62366fe59d6870e51e69310d911af0198b1c5034a8f97bd469f770e5db7",
+      "audioSha256": "a86e8ae73fe9383cce9f405378ab9f3640b0994fc3eee23ad0febeeb64ad68ef",
+      "providerCharacters": 4253,
+      "credits": 468.0,
+      "requestId": "RCPHhiG7wpIVNF0Y8XYC",
+      "historyItemId": "B9oNsxpu1Cr3xgCtZaEn"
+    },
+    {
+      "fingerprint": "345ec482f07e6b9db2e99fbead8deae5bd3ecac5414bdf30856534412ebb9f32",
+      "audioSha256": "4867a641e9fd22ae28418c432f21b31ce8a962047d3a5615c66087dde9d10169",
+      "providerCharacters": 3265,
+      "credits": 359.0,
+      "requestId": "biMEEsdHIJx2hLtrTEGr",
+      "historyItemId": "dVzq6JHGr0Ct7tr9IIvP"
+    },
+    {
+      "fingerprint": "3769d91c3c8208550b869955a42b47c51efd7ac72fcddc19f58c6cda7f2d4553",
+      "audioSha256": "820fe39f6b6ec0e906b99c6c0926f1d4e902e566768d1d1657de2ae5790c1859",
+      "providerCharacters": 811,
+      "credits": 89.0,
+      "requestId": "Ans6ovGXhZS6IdIxZz01",
+      "historyItemId": "DSSM7YzST4C4unSJDU8Y"
+    },
+    {
+      "fingerprint": "3909b63d64f2d91d9115259017ae9ffc82860ee81f4f857fddbe7d2f9dd65292",
+      "audioSha256": "51aec975020bf7fa702ffae8f6a338ae17a3daf47bb768b4c7e3be47b05ab7a9",
+      "providerCharacters": 5191,
+      "credits": 571.0,
+      "requestId": "UHs2XK5dlQSE12HElxhP",
+      "historyItemId": "05FLiN7MPwL69EjUv2ro"
+    },
+    {
+      "fingerprint": "3a86ebba3e7653f8e6d5bf7915ea262448c1f82f322a0fd00f9044ac5478818a",
+      "audioSha256": "1595e1a746f2005e5202c4cb2e1900592c146f16a259489c52f3be8341a54379",
+      "providerCharacters": 1405,
+      "credits": 155.0,
+      "requestId": "7KuiPJ3SaLsyR2rEWOdg",
+      "historyItemId": "FnOlEAu6h7vTnDlXxKty"
+    },
+    {
+      "fingerprint": "4acd66afd2695c9c87086ebdf152741e8183a65e2b94f7f2472248f16c58e266",
+      "audioSha256": "b95824180b55db232b21c6611d15961430dbb17ab3c9d44b322233baf63bf62e",
+      "providerCharacters": 787,
+      "credits": 87.0,
+      "requestId": "odKwq5WRpHhHtKeTRK0B",
+      "historyItemId": "iy5u3qXOqufi1sywU2CN"
+    },
+    {
+      "fingerprint": "4c072d07d244fc7f5152df82d4bcb43aceb5b0467316a45c9b7fe331629f14ff",
+      "audioSha256": "a1e0338b6eaf839246a8352a5c0ebfef467cb510cb040979bc69cd940b01b18c",
+      "providerCharacters": 2305,
+      "credits": 254.0,
+      "requestId": "uoT3RzQUvqTq1TTzvuxr",
+      "historyItemId": "gCZGoAt5KWb7X2wWOxoT"
+    },
+    {
+      "fingerprint": "4dd779a51ce720fc283d5afc0de69d5c508b83ecfac683d5140df6e2ae45e56b",
+      "audioSha256": "cd5e9b5b63640e4a1cdec1f37cb59fd319a4322c3054a14c483cb4190b04c978",
+      "providerCharacters": 5351,
+      "credits": 589.0,
+      "requestId": "s725DIjl7rYNuyX6lIpW",
+      "historyItemId": "uDYaYPASaszmjfZuklQd"
+    },
+    {
+      "fingerprint": "5e34204bdb506a6126df4a23badcff7fb2bb3da23a03f3266376ba57bc1f995b",
+      "audioSha256": "3fa0ea7bb1b5a4e4935947a48a42a7afe8b0574fd595300d2b6de0f8be9f9923",
+      "providerCharacters": 5092,
+      "credits": 560.0,
+      "requestId": "OXgQyVPzvEtfjB7IGwlD",
+      "historyItemId": "5mVC3q6SWpefc47YwPAu"
+    },
+    {
+      "fingerprint": "65d87d8af4b67fa680dffb43441c12acbc4cfb35aee519bc858462ae80c63064",
+      "audioSha256": "1b1e3e5df6aa8d57e7a6f33f41665a9941ddb16a43549ca1548ebcea47873b11",
+      "providerCharacters": 2056,
+      "credits": 226.0,
+      "requestId": "RXYZPJWm8zCvHD8itWrP",
+      "historyItemId": "AA5075OqdKDZFDa48cIj"
+    },
+    {
+      "fingerprint": "68b61224e7fe2012d5cd837f6ff3fc709abeb47ec8af7cc67ed3fff468e04056",
+      "audioSha256": "e73022a9ebbe6a1db10ea78c91b39261c86af5be5d63254b0ad518ded82fc511",
+      "providerCharacters": 1649,
+      "credits": 181.0,
+      "requestId": "Q2sza2oaiTmxNCUSb94Y",
+      "historyItemId": "JuFdx2cHES1j61RxsylK"
+    },
+    {
+      "fingerprint": "760a90962d8ddc7f9645059c32e84af6c3440b2b7d78b268e061f4285984a652",
+      "audioSha256": "4afe92a134449ab68f6b1d6a01012a3cb1a910c91265ebfd4db7781dd4198652",
+      "providerCharacters": 3733,
+      "credits": 411.0,
+      "requestId": "447KBo8EDrq3JtJgFJdC",
+      "historyItemId": "X6RoodAXWtKLf4YQibi0"
+    },
+    {
+      "fingerprint": "8549e6cb57e5ed7d96b63b711ef4703c93e1a3448c489eeac559e68c8c02a93a",
+      "audioSha256": "68f31b05f1d6b0a3946ab7bda9177fae16c340d1716de6f7b86033265f29ac02",
+      "providerCharacters": 2490,
+      "credits": 274.0,
+      "requestId": "9W9Yxcm3p6tLiM4u7JnU",
+      "historyItemId": "O7brfMl6VJ4MtwQKMtmQ"
+    },
+    {
+      "fingerprint": "854f7dd861fb0c54f6b205ad308bcc7ff636ef9a9ee1f61dd6ca2d8bcad07c28",
+      "audioSha256": "37db8e4716552561083f5996d69ab58d0daca5f274aea23abcd6f786ab3db833",
+      "providerCharacters": 3594,
+      "credits": 395.0,
+      "requestId": "nabTvHuhr5DTV7kcYdX5",
+      "historyItemId": "bhSbcLqf6jpfQc5fI8NX"
+    },
+    {
+      "fingerprint": "90686657a1f1f49ad7adc48cbd88e137c98ced676f9e5a27e353ad8a6dbcb484",
+      "audioSha256": "25e22341d23f2a8b9e96741ff0a7c06275255c08356edfbc4198cbc4da00eee2",
+      "providerCharacters": 2397,
+      "credits": 264.0,
+      "requestId": "JR4Vg7OI0ujSLRCDcFbY",
+      "historyItemId": "IyvtKkn0TAFSPvNp9Bmj"
+    },
+    {
+      "fingerprint": "c99bb33ae5b7b881277de01f84ee8f026fdfb3ad9ef8afa367341f5525ef9abe",
+      "audioSha256": "af5d636f72b604daff7a8393a46d8d44c18a8e6adcfc8d75a42eca1f653432c5",
+      "providerCharacters": 2540,
+      "credits": 279.0,
+      "requestId": "E8I5QYFB2599IkA54jl2",
+      "historyItemId": "X6wCQkze7ZvTi9PTbr6y"
+    },
+    {
+      "fingerprint": "ca58e2e7474d7fabd4c60f7ade01a96d8edf7b578447bbf6cb61b61b195ff353",
+      "audioSha256": "82fc61350ec1caf3c111c7e3c840c0d3439c8a958416cf3450b5908483c64d31",
+      "providerCharacters": 2328,
+      "credits": 256.0,
+      "requestId": "GnfhXJQV6f0keqVM451p",
+      "historyItemId": "tuuZCcWJzT5rdWwJstvk"
+    },
+    {
+      "fingerprint": "d02d9dceb9ba765daf5f44165a0156425ad4a91cc13947369c2ca02a71020f57",
+      "audioSha256": "27aa6ac7617d59a3f133450c49b870d7911b108dfdaf13242804a9ed72106ec5",
+      "providerCharacters": 5146,
+      "credits": 566.0,
+      "requestId": "PvcqI1ZgZBi7LrBrHn8l",
+      "historyItemId": "nWvGLrN0RF42lo2T3Mxo"
+    },
+    {
+      "fingerprint": "d062f561365007d9c1f474a4068e8ae7d6ee95fd3492cc95e94759ca21d30ab0",
+      "audioSha256": "2d7283fde750274e40fa42daf5d2bbfd30f01e4cece6c6dd20a8cca6c0895eae",
+      "providerCharacters": 3350,
+      "credits": 369.0,
+      "requestId": "fQZrtPWxf91EcrFu8N6r",
+      "historyItemId": "EGTaRzkDuPqfCaBARK1I"
+    },
+    {
+      "fingerprint": "d9e383771a49f9228224fdd76137b0ddfb31b6cfb21b8f6d31ede342e0e76e9b",
+      "audioSha256": "e10bebd9a243609a55469ffdec54ce354f6d235a62bb6185cfb874658a219edf",
+      "providerCharacters": 4477,
+      "credits": 492.0,
+      "requestId": "Y8AbSoH2775E85aBP4Y6",
+      "historyItemId": "B3kKVY1oQsBn3RG0ARcZ"
+    },
+    {
+      "fingerprint": "e2f42052ffa73742b33f41751f46d6b3086efa3c0e9f3bd2e479ea25e51ba668",
+      "audioSha256": "28128fde0a0c6503ac11ca24bb6c98edf464aefd39b9657faa7675fe09e1ed58",
+      "providerCharacters": 3549,
+      "credits": 390.0,
+      "requestId": "w2SD1cHHB5d4u0G3px2X",
+      "historyItemId": "qXwhtMXvE0U5Pp2Q5KBF"
+    },
+    {
+      "fingerprint": "e46d72871980b59f3cbc0ae2250bb124a06eaa18e4e2bd80d8ca22e8788fdf76",
+      "audioSha256": "7a240e4f2c12a379b37299aa098e3cf8abed673742aebddeb662183fe8933bdc",
+      "providerCharacters": 6365,
+      "credits": 700.0,
+      "requestId": "NFlKkOWRjAbxTfK3sjqi",
+      "historyItemId": "TTrBrEwv0zht875Ux8M2"
+    },
+    {
+      "fingerprint": "ee5ca3693dc70ebdcc2888a4a0dbffb5a10c5bedc7ffc5da93a6ea06fd9c5958",
+      "audioSha256": "24366bd9877d3b99963ca112a40f3aebcdeb904c10aab3f7b465844c40e0e29d",
+      "providerCharacters": 2704,
+      "credits": 297.0,
+      "requestId": "MBHJyxhanY6sqZ3hPTwI",
+      "historyItemId": "9Cf9JH1h9SfIOjRt8Kin"
+    },
+    {
+      "fingerprint": "f9e7be2b70a04ffd98a93743202d81e2643b3b6b209434bf0e8fb74d0466e363",
+      "audioSha256": "e16459a02bcab00959dccb9690637a3dd36263e3b6ea47f7c3897bd24374513b",
+      "providerCharacters": 4707,
+      "credits": 518.0,
+      "requestId": "bnual3YohuR0OOEeas0l",
+      "historyItemId": "iKDPnxq0df5BgKpqcC2k"
+    },
+    {
+      "fingerprint": "fee3eced7b18bc9904783f334c580a19fe10dacb69d54abbbbc6e14688ac0474",
+      "audioSha256": "5f05f87d0089b271b6e9c1017b61476a3298a247d3fd0f01585c8a1fb75d2b6b",
+      "providerCharacters": 4771,
+      "credits": 525.0,
+      "requestId": "MkG01v6kAw0L2xY531cO",
+      "historyItemId": "LiYZKwjVM1d5PUYNDXhy"
+    }
+  ],
+  "balance": {
+    "character_count": 32926,
+    "character_limit": 40000,
+    "status": "active",
+    "tier": "starter",
+    "remaining": 7074,
+    "checkedAt": "2026-10-12T21:09:49.744695+02:00"
+  },
+  "note": "Actual cost is the sum of unique paid response headers, not the shared account usage delta. Future credit need uses the undiscounted 1 credit/character rate; promotional receipt prices are not guaranteed.",
+  "costReference": "https://elevenlabs.io/pricing",
+  "runQuotaChecks": [
+    {
+      "startedAt": 1791830318.376794,
+      "availableBefore": 18600,
+      "conservativeBatchCredits": 17809,
+      "selected": [
+        "rado-i-01",
+        "rado-i-07",
+        "rado-i-20",
+        "rado-i-04",
+        "rado-ii-18",
+        "rado-i-05",
+        "rado-i-03",
+        "rado-i-24",
+        "rado-ii-19"
+      ],
+      "completed": [
+        "rado-i-01",
+        "rado-i-07",
+        "rado-i-20",
+        "rado-i-04",
+        "rado-ii-18",
+        "rado-i-05",
+        "rado-i-03",
+        "rado-i-24",
+        "rado-ii-19"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791830757.222413,
+      "availableBefore": 16233,
+      "conservativeBatchCredits": 15784,
+      "selected": [
+        "rado-i-12",
+        "rado-i-13",
+        "rado-i-06",
+        "rado-ii-15",
+        "rado-i-08"
+      ],
+      "completed": [
+        "rado-i-12",
+        "rado-i-13",
+        "rado-i-06",
+        "rado-ii-15",
+        "rado-i-08"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831044.905838,
+      "availableBefore": 13259,
+      "conservativeBatchCredits": 11964,
+      "selected": [
+        "rado-i-09",
+        "rado-i-11",
+        "rado-i-25"
+      ],
+      "completed": [
+        "rado-i-09",
+        "rado-i-11",
+        "rado-i-25"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831263.736773,
+      "availableBefore": 12063,
+      "conservativeBatchCredits": 9603,
+      "selected": [
+        "rado-i-23",
+        "rado-i-14"
+      ],
+      "completed": [
+        "rado-i-23",
+        "rado-i-14"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831431.4580648,
+      "availableBefore": 11103,
+      "conservativeBatchCredits": 10426,
+      "selected": [
+        "rado-ii-14",
+        "rado-i-02"
+      ],
+      "completed": [
+        "rado-ii-14",
+        "rado-i-02"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831614.018126,
+      "availableBefore": 10060,
+      "conservativeBatchCredits": 5602,
+      "selected": [
+        "rado-i-10"
+      ],
+      "completed": [
+        "rado-i-10"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831715.036256,
+      "availableBefore": 9500,
+      "conservativeBatchCredits": 5661,
+      "selected": [
+        "rado-i-22"
+      ],
+      "completed": [
+        "rado-i-22"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831818.07361,
+      "availableBefore": 8934,
+      "conservativeBatchCredits": 5711,
+      "selected": [
+        "rado-ii-17"
+      ],
+      "completed": [
+        "rado-ii-17"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791831925.543245,
+      "availableBefore": 8363,
+      "conservativeBatchCredits": 5887,
+      "selected": [
+        "rado-ii-16"
+      ],
+      "completed": [
+        "rado-ii-16"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791832028.761564,
+      "availableBefore": 7774,
+      "conservativeBatchCredits": 7002,
+      "selected": [
+        "rado-i-17"
+      ],
+      "completed": [
+        "rado-i-17"
+      ],
+      "errors": []
+    },
+    {
+      "startedAt": 1791832149.3494022,
+      "availableBefore": 7074,
+      "conservativeBatchCredits": 0,
+      "selected": [],
+      "completed": [],
+      "errors": []
+    }
+  ]
+}

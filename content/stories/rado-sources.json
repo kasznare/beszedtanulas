@@ -1,0 +1,570 @@
+{
+  "version": 1,
+  "volumes": [
+    {
+      "volume": "I",
+      "archiveName": "RADÓ VILMOS: MAGYAR GYERMEK- ÉS NÉPMESÉK I..webarchive",
+      "archiveSha256": "fc42415c7a7e495bac1ce0821070d34413e2fcd2eb901360dd50b46be53561e7",
+      "archiveBytes": 698796,
+      "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm",
+      "encoding": "UTF-8",
+      "taleCount": 31,
+      "resources": [
+        {
+          "url": "https://mek.oszk.hu/11400/11479/11479.htm",
+          "urlSha256": "66ad1d2db29da78f7a9887cf1b845c014d491d472c911f546d7e40c1d523c8eb",
+          "queryOmitted": false,
+          "mimeType": "text/html",
+          "bytes": 261570,
+          "sha256": "0853d3d53fc3fb87c5849a8f5c557e2e3a47c97a814bfe2f55b6669829c2b242",
+          "role": "main",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/libs/mootools-more.js",
+          "urlSha256": "ac6439dedc1743ca3b1e6805e82af0eaa14ea69e0d372eaa0c20b51a9ac8aba3",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 150404,
+          "sha256": "8a67c4d217541a473a18aba811a9bb6618caa49310c800f21ac50948710a446b",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/js/email.js",
+          "urlSha256": "282e9585190539484948cdabdb3251c2967b3f988495d1544d8534b1517c2e95",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 770,
+          "sha256": "a2d9f9c146e86d2ad7a485914b891d3af282a0ff46e167fd1c2de129273d9b28",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/Sfw.js",
+          "urlSha256": "c57ae4b8df35f46b4b838d4632146f6915bc7a5774769bc302a1a1dd0fb5c6be",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 3333,
+          "sha256": "35d8260f83b9c3a51a0c49d4786619dd5cc6a2d2fd014126b6f85059756e36f7",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/pdfmodal/pdf-modal.js",
+          "urlSha256": "6e0ab97ab5ed409729872c6faa9c5801c6128a5b62bfa6ebe80f49ced6443df9",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 2615,
+          "sha256": "5e3a089e0ee73eb51bc187ad405790a21bfce41d89799567da0cd6a6c1dc407c",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/libs/mootools-core.js",
+          "urlSha256": "d56bad99290c4bfa406ba03c34ce6072f98467ed0a53f85e02262096beb61c5b",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 90109,
+          "sha256": "ff097a23d6444aa4a821ad31594d5613233715512bb70a844af0209d6f1eabca",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/S-controller.js",
+          "urlSha256": "251c73d7e8eba20b2c01071c5e7124eb681f277b979839feb61e4073e4572fec",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 32077,
+          "sha256": "b4efc37d22fda7cbc9c78b95b0a383f0365d183c7d272c15d65cd043a7b6f059",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/gemius.js",
+          "urlSha256": "086f56e9187539f2c9f89293616e248b9e218a727a71c7b0bb39a992a92f4c1a",
+          "queryOmitted": false,
+          "mimeType": "text/javascript",
+          "bytes": 61555,
+          "sha256": "718761bfa91fa6a76a25c93273e983311278746e600a94cbf685020c580a7154",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://ls.hit.gemius.pl/lsget.html#dbg=1",
+          "urlSha256": "aa501a387c4b874810dc47208411a0d85b6ca69adddb226d836960a1351033cf",
+          "queryOmitted": false,
+          "mimeType": "text/html",
+          "bytes": 5761,
+          "sha256": "89efbd4c07e81a3b0d1287e22b4f21222e9167121d1929d2dc080ba73e4666da",
+          "role": "frame-main",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/_1791829713349/redot.js",
+          "urlSha256": "e29f2bc397f3510f63bf3715e28e62783f5aecb068332d59ebbe0625e2d6e144",
+          "queryOmitted": true,
+          "mimeType": "text/javascript",
+          "bytes": 1054,
+          "sha256": "63f6c924afc9816e5f4dc321871e4aa08716422d5bca3719c856552361ba3d38",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/gemius.js",
+          "urlSha256": "086f56e9187539f2c9f89293616e248b9e218a727a71c7b0bb39a992a92f4c1a",
+          "queryOmitted": false,
+          "mimeType": "text/javascript",
+          "bytes": 61555,
+          "sha256": "718761bfa91fa6a76a25c93273e983311278746e600a94cbf685020c580a7154",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/fpdata.js",
+          "urlSha256": "b895f7fd873cf3f41660df5626c2d69786084222fa990c8b4b7f762618134aea",
+          "queryOmitted": true,
+          "mimeType": "text/javascript",
+          "bytes": 287,
+          "sha256": "7328f7f5b216b0896521395f5b68124c6e48a35dd29ff544f2b5c9ea20e7d746",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/_1791829708450/redot.js",
+          "urlSha256": "9ab3f6f5ae87e02d267fbb640944274074b4ac57cf2c074ddb69badf4926653c",
+          "queryOmitted": true,
+          "mimeType": "text/javascript",
+          "bytes": 1054,
+          "sha256": "6d6e29943e16abf924a7d2503f7165829ea848e261391630b051e7352f6621bf",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        }
+      ],
+      "images": [],
+      "otherEmbeddedElements": [],
+      "references": [
+        {
+          "element": "link",
+          "url": "https://mek.oszk.hu/vmek2/vmek.php3"
+        },
+        {
+          "element": "script",
+          "url": "https://gthu.hit.gemius.pl/gemius.js"
+        },
+        {
+          "element": "iframe",
+          "url": "https://ls.hit.gemius.pl/lsget.html#dbg=1"
+        }
+      ],
+      "toc": [
+        {
+          "index": 1,
+          "title": "A vadgalamb és a szarka.",
+          "id": "rado-i-01"
+        },
+        {
+          "index": 2,
+          "title": "A kis kakas kitúrta a sövényt.",
+          "id": "rado-i-02"
+        },
+        {
+          "index": 3,
+          "title": "A medve és a farkas.",
+          "id": "rado-i-03"
+        },
+        {
+          "index": 4,
+          "title": "A kakas meg a jérce.",
+          "id": "rado-i-04"
+        },
+        {
+          "index": 5,
+          "title": "A farkas-tanya.",
+          "id": "rado-i-05"
+        },
+        {
+          "index": 6,
+          "title": "A kóró és a kis madár.",
+          "id": "rado-i-06"
+        },
+        {
+          "index": 7,
+          "title": "A farkas és a sas.",
+          "id": "rado-i-07"
+        },
+        {
+          "index": 8,
+          "title": "A róka, medve és a szegény ember.",
+          "id": "rado-i-08"
+        },
+        {
+          "index": 9,
+          "title": "A szürke ló.",
+          "id": "rado-i-09"
+        },
+        {
+          "index": 10,
+          "title": "A Kacor király.",
+          "id": "rado-i-10"
+        },
+        {
+          "index": 11,
+          "title": "Farkas-barkas.",
+          "id": "rado-i-11"
+        },
+        {
+          "index": 12,
+          "title": "A kis malac és a farkasok.",
+          "id": "rado-i-12"
+        },
+        {
+          "index": 13,
+          "title": "A kis gömböc.",
+          "id": "rado-i-13"
+        },
+        {
+          "index": 14,
+          "title": "Félig nyúzott bakkecske.",
+          "id": "rado-i-14"
+        },
+        {
+          "index": 15,
+          "title": "Az angyal-bárányok.",
+          "id": "rado-i-15"
+        },
+        {
+          "index": 16,
+          "title": "A mészáros legény.",
+          "id": "rado-i-16"
+        },
+        {
+          "index": 17,
+          "title": "A zarándok és az Isten angyala.",
+          "id": "rado-i-17"
+        },
+        {
+          "index": 18,
+          "title": "Szerencse és az Áldás.",
+          "id": "rado-i-18"
+        },
+        {
+          "index": 19,
+          "title": "A király nyulai.",
+          "id": "rado-i-19"
+        },
+        {
+          "index": 20,
+          "title": "Az okos leány.",
+          "id": "rado-i-20"
+        },
+        {
+          "index": 21,
+          "title": "A kerek kő.",
+          "id": "rado-i-21"
+        },
+        {
+          "index": 22,
+          "title": "Az Igazság és Hamisság.",
+          "id": "rado-i-22"
+        },
+        {
+          "index": 23,
+          "title": "A kívánságok.",
+          "id": "rado-i-23"
+        },
+        {
+          "index": 24,
+          "title": "A királyfi és a felesége.",
+          "id": "rado-i-24"
+        },
+        {
+          "index": 25,
+          "title": "A béka komája.",
+          "id": "rado-i-25"
+        },
+        {
+          "index": 26,
+          "title": "A hazug és a szót szóra mondó.",
+          "id": "rado-i-26"
+        },
+        {
+          "index": 27,
+          "title": "Dongó meg Mohácsi.",
+          "id": "rado-i-27"
+        },
+        {
+          "index": 28,
+          "title": "Gagyi gazda.",
+          "id": "rado-i-28"
+        },
+        {
+          "index": 29,
+          "title": "Miklós vitéz.",
+          "id": "rado-i-29"
+        },
+        {
+          "index": 30,
+          "title": "Babszem Jankó.",
+          "id": "rado-i-30"
+        },
+        {
+          "index": 31,
+          "title": "Az őzike.",
+          "id": "rado-i-31"
+        }
+      ]
+    },
+    {
+      "volume": "II",
+      "archiveName": "RADÓ VILMOS: MAGYAR GYERMEK- ÉS NÉPMESÉK II..webarchive",
+      "archiveSha256": "4381a2114a2e98fc16b3e6f96b8d8b2442514f0a26d64e15bc38816598369a03",
+      "archiveBytes": 727376,
+      "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm",
+      "encoding": "UTF-8",
+      "taleCount": 19,
+      "resources": [
+        {
+          "url": "https://mek.oszk.hu/11600/11620/11620.htm",
+          "urlSha256": "ba923d2455250580566d79b9584e6ff7b78c20f2c05900a93da18e74ed182c71",
+          "queryOmitted": false,
+          "mimeType": "text/html",
+          "bytes": 292470,
+          "sha256": "c2f4b34884b61888e1446398770275b313cf8dbcfe98219c4404b31004ab081c",
+          "role": "main",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/libs/mootools-more.js",
+          "urlSha256": "ac6439dedc1743ca3b1e6805e82af0eaa14ea69e0d372eaa0c20b51a9ac8aba3",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 150404,
+          "sha256": "8a67c4d217541a473a18aba811a9bb6618caa49310c800f21ac50948710a446b",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/js/email.js",
+          "urlSha256": "282e9585190539484948cdabdb3251c2967b3f988495d1544d8534b1517c2e95",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 770,
+          "sha256": "a2d9f9c146e86d2ad7a485914b891d3af282a0ff46e167fd1c2de129273d9b28",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/Sfw.js",
+          "urlSha256": "c57ae4b8df35f46b4b838d4632146f6915bc7a5774769bc302a1a1dd0fb5c6be",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 3333,
+          "sha256": "35d8260f83b9c3a51a0c49d4786619dd5cc6a2d2fd014126b6f85059756e36f7",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/pdfmodal/pdf-modal.js",
+          "urlSha256": "6e0ab97ab5ed409729872c6faa9c5801c6128a5b62bfa6ebe80f49ced6443df9",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 2615,
+          "sha256": "5e3a089e0ee73eb51bc187ad405790a21bfce41d89799567da0cd6a6c1dc407c",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/libs/mootools-core.js",
+          "urlSha256": "d56bad99290c4bfa406ba03c34ce6072f98467ed0a53f85e02262096beb61c5b",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 90109,
+          "sha256": "ff097a23d6444aa4a821ad31594d5613233715512bb70a844af0209d6f1eabca",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://mek.oszk.hu/oszkhtml/js/S-controller.js",
+          "urlSha256": "251c73d7e8eba20b2c01071c5e7124eb681f277b979839feb61e4073e4572fec",
+          "queryOmitted": false,
+          "mimeType": "application/javascript",
+          "bytes": 32077,
+          "sha256": "b4efc37d22fda7cbc9c78b95b0a383f0365d183c7d272c15d65cd043a7b6f059",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/gemius.js",
+          "urlSha256": "086f56e9187539f2c9f89293616e248b9e218a727a71c7b0bb39a992a92f4c1a",
+          "queryOmitted": false,
+          "mimeType": "text/javascript",
+          "bytes": 61555,
+          "sha256": "718761bfa91fa6a76a25c93273e983311278746e600a94cbf685020c580a7154",
+          "role": "embedded",
+          "frame": "root"
+        },
+        {
+          "url": "https://ls.hit.gemius.pl/lsget.html#dbg=1",
+          "urlSha256": "aa501a387c4b874810dc47208411a0d85b6ca69adddb226d836960a1351033cf",
+          "queryOmitted": false,
+          "mimeType": "text/html",
+          "bytes": 5761,
+          "sha256": "89efbd4c07e81a3b0d1287e22b4f21222e9167121d1929d2dc080ba73e4666da",
+          "role": "frame-main",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/gemius.js",
+          "urlSha256": "086f56e9187539f2c9f89293616e248b9e218a727a71c7b0bb39a992a92f4c1a",
+          "queryOmitted": false,
+          "mimeType": "text/javascript",
+          "bytes": 61555,
+          "sha256": "718761bfa91fa6a76a25c93273e983311278746e600a94cbf685020c580a7154",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/_1791829747983/redot.js",
+          "urlSha256": "5ad2d2722e87ed97c8bd6196a1fb2ebc45ee6687608911f40e9c6c40c8613a43",
+          "queryOmitted": true,
+          "mimeType": "text/javascript",
+          "bytes": 1054,
+          "sha256": "9ee60d71f9b689186ab6b5d14804e385154f9373d1a80ee0348cd11a439762aa",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        },
+        {
+          "url": "https://gthu.hit.gemius.pl/_1791829751491/redot.js",
+          "urlSha256": "0c12eed1b3161b9c3dd3027b4f090d4cd53bf55bfe5426931c1e8c906a82992d",
+          "queryOmitted": true,
+          "mimeType": "text/javascript",
+          "bytes": 1054,
+          "sha256": "880eefb0a57064b86c43b4a2358617e9508c50c23e806a2396466dbea231d127",
+          "role": "frame-embedded",
+          "frame": "root/frame-00"
+        }
+      ],
+      "images": [],
+      "otherEmbeddedElements": [],
+      "references": [
+        {
+          "element": "link",
+          "url": "https://mek.oszk.hu/vmek2/vmek.php3"
+        },
+        {
+          "element": "script",
+          "url": "https://gthu.hit.gemius.pl/gemius.js"
+        },
+        {
+          "element": "iframe",
+          "url": "https://ls.hit.gemius.pl/lsget.html#dbg=1"
+        }
+      ],
+      "toc": [
+        {
+          "index": 1,
+          "title": "A három szerencsepróbáló.",
+          "id": "rado-ii-01"
+        },
+        {
+          "index": 2,
+          "title": "Pancimanci.",
+          "id": "rado-ii-02"
+        },
+        {
+          "index": 3,
+          "title": "A veres tehén.",
+          "id": "rado-ii-03"
+        },
+        {
+          "index": 4,
+          "title": "Fehérlófia.",
+          "id": "rado-ii-04"
+        },
+        {
+          "index": 5,
+          "title": "A vitéz szabó.",
+          "id": "rado-ii-05"
+        },
+        {
+          "index": 6,
+          "title": "A cigánypurdé.",
+          "id": "rado-ii-06"
+        },
+        {
+          "index": 7,
+          "title": "János királyfi és Szélike.",
+          "id": "rado-ii-07"
+        },
+        {
+          "index": 8,
+          "title": "Adj' Isten egészségére!",
+          "id": "rado-ii-08"
+        },
+        {
+          "index": 9,
+          "title": "Az aranyfogú testvérek.",
+          "id": "rado-ii-09"
+        },
+        {
+          "index": 10,
+          "title": "A vasfejű ember.",
+          "id": "rado-ii-10"
+        },
+        {
+          "index": 11,
+          "title": "A Kilenc.",
+          "id": "rado-ii-11"
+        },
+        {
+          "index": 12,
+          "title": "Vas Laci.",
+          "id": "rado-ii-12"
+        },
+        {
+          "index": 13,
+          "title": "Árgyirus királyfi és Tündér Ilona.",
+          "id": "rado-ii-13"
+        },
+        {
+          "index": 14,
+          "title": "Ilók és Mihók.",
+          "id": "rado-ii-14"
+        },
+        {
+          "index": 15,
+          "title": "A bolondos legény.",
+          "id": "rado-ii-15"
+        },
+        {
+          "index": 16,
+          "title": "A kis ködmön.",
+          "id": "rado-ii-16"
+        },
+        {
+          "index": 17,
+          "title": "Az egyszeri gyerek.",
+          "id": "rado-ii-17"
+        },
+        {
+          "index": 18,
+          "title": "Csali mese.",
+          "id": "rado-ii-18"
+        },
+        {
+          "index": 19,
+          "title": "Az már nem igaz!",
+          "id": "rado-ii-19"
+        }
+      ]
+    }
+  ],
+  "transformations": [
+    "HTML wrapping whitespace collapsed within paragraphs",
+    "Paragraph boundaries and intentional br verse breaks retained",
+    "Footnote callouts stored separately with their paragraph and full note",
+    "Source spelling, punctuation, titles and story endings unchanged"
+  ],
+  "archiveBackup": "~/.local/share/beszedtanulas/rado-sources/"
+}

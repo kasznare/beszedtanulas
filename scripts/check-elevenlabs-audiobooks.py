@@ -147,6 +147,7 @@ def main():
     parser.add_argument('--ids', nargs='+')
     args = parser.parse_args()
     entries = json.loads((SOURCE / 'catalog.json').read_text())['stories']
+    entries = [entry for entry in entries if not entry['id'].startswith('rado-')]
     if args.ids:
         known = {entry['id'] for entry in entries}
         require(set(args.ids) <= known, 'Unknown story IDs')

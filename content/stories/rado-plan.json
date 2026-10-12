@@ -1,0 +1,1101 @@
+{
+  "version": 1,
+  "config": {
+    "provider": "ElevenLabs",
+    "voice_id": "yj30vwTGJxSHezdAGsv9",
+    "voice_name": "Jessa - Easygoing and Effortless",
+    "model_id": "eleven_v4",
+    "language_code": "hu",
+    "voice_settings": {
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "output_format": "mp3_44100_128",
+    "seed": 42
+  },
+  "pronunciation": {
+    "version": 1,
+    "model_id": "eleven_v4",
+    "language_code": "hu",
+    "words": {
+      "képek": "ˈkeːpɛk",
+      "képet": "ˈkeːpɛt",
+      "képeket": "ˈkeːpɛkɛt",
+      "képét": "ˈkeːpeːt",
+      "képpárokat": "ˈkeːpːaːrokɒt",
+      "még": "ˈmeːɡ",
+      "víz": "viːz",
+      "vizet": "ˈvizɛt",
+      "rakjuk": "ˈrɒkjuk",
+      "rakj": "ˈrɒkj"
+    }
+  },
+  "stories": [
+    {
+      "id": "rado-i-01",
+      "title": "A vadgalamb és a szarka.",
+      "volume": "I",
+      "displayCharacters": 787,
+      "providerCharacters": 787,
+      "parts": 1,
+      "partCharacters": [
+        787
+      ],
+      "partDisplaySha256": [
+        "45eecea39af77406ad87e5588bb973b4cfab59e70204ec297a3a8f9f6138e150"
+      ],
+      "partInputSha256": [
+        "45eecea39af77406ad87e5588bb973b4cfab59e70204ec297a3a8f9f6138e150"
+      ],
+      "fingerprint": "c4b7c9604e31698d2aa26991b3ed98180174583d38f3b801aeefb26c81aafe40",
+      "audioStatus": "ready",
+      "conservativeCredits": 787
+    },
+    {
+      "id": "rado-i-02",
+      "title": "A kis kakas kitúrta a sövényt.",
+      "volume": "I",
+      "displayCharacters": 4738,
+      "providerCharacters": 4771,
+      "parts": 1,
+      "partCharacters": [
+        4771
+      ],
+      "partDisplaySha256": [
+        "3451090ce4b286b1ad7c3de59235038dfda8322ffe79403066264b6a998f5443"
+      ],
+      "partInputSha256": [
+        "da0bcbe2b4dd75f330fe359b67d5f84bdf7fdbf555787a30070986d0893e983e"
+      ],
+      "fingerprint": "cfd9766c4cff47c7196502ca4be41fa92702ec4511f42e7b964021fdde694855",
+      "audioStatus": "ready",
+      "conservativeCredits": 4771
+    },
+    {
+      "id": "rado-i-03",
+      "title": "A medve és a farkas.",
+      "volume": "I",
+      "displayCharacters": 2324,
+      "providerCharacters": 2328,
+      "parts": 1,
+      "partCharacters": [
+        2328
+      ],
+      "partDisplaySha256": [
+        "cd6b931212960ae28bd89429831815ef883c1c238b188543f11e83057ec6f10d"
+      ],
+      "partInputSha256": [
+        "3966fc5b2898d7e443e393cb6bae4168a6dba8e9373df2233cf25dcfda736213"
+      ],
+      "fingerprint": "b19dadfaf056a60b0fc809a2db9cfb57584b6fa00fc2b262c81636d2de10ab29",
+      "audioStatus": "ready",
+      "conservativeCredits": 2328
+    },
+    {
+      "id": "rado-i-04",
+      "title": "A kakas meg a jérce.",
+      "volume": "I",
+      "displayCharacters": 1649,
+      "providerCharacters": 1649,
+      "parts": 1,
+      "partCharacters": [
+        1649
+      ],
+      "partDisplaySha256": [
+        "b6747164b03f6eda02260f1c2b997244fc7b6d8f39faa8c3335eaabd429dc564"
+      ],
+      "partInputSha256": [
+        "b6747164b03f6eda02260f1c2b997244fc7b6d8f39faa8c3335eaabd429dc564"
+      ],
+      "fingerprint": "75e3e67b2c98f1c94324fb06c5fb35933678b28a0aeab59ed02afcc6fa41d3a7",
+      "audioStatus": "ready",
+      "conservativeCredits": 1649
+    },
+    {
+      "id": "rado-i-05",
+      "title": "A farkas-tanya.",
+      "volume": "I",
+      "displayCharacters": 2297,
+      "providerCharacters": 2305,
+      "parts": 1,
+      "partCharacters": [
+        2305
+      ],
+      "partDisplaySha256": [
+        "69c493dfd9c8012850919b84db676b6be3814a428a75724ab762fb649f72bfcd"
+      ],
+      "partInputSha256": [
+        "50f10bac3b7e2c699dbb0d63f5f94128ed47167f7a84b7a98a5a15239489f557"
+      ],
+      "fingerprint": "fc2cc63d51ab3d041c27d1bd5e40ccc10099a463069738c5aeec767791780715",
+      "audioStatus": "ready",
+      "conservativeCredits": 2305
+    },
+    {
+      "id": "rado-i-06",
+      "title": "A kóró és a kis madár.",
+      "volume": "I",
+      "displayCharacters": 2664,
+      "providerCharacters": 2704,
+      "parts": 1,
+      "partCharacters": [
+        2704
+      ],
+      "partDisplaySha256": [
+        "b0e08f64e159a566bbcfb56222552dc0795a8b5504dad0609024e6f5e3c764fb"
+      ],
+      "partInputSha256": [
+        "1c9e03990266ec791b1182b0bf55d805fa94b410021d9e8f84781769dcdc7312"
+      ],
+      "fingerprint": "17e611fa0648844f3eb5033bb76c6e689dd68b1c383585fb6a529041127252da",
+      "audioStatus": "ready",
+      "conservativeCredits": 2704
+    },
+    {
+      "id": "rado-i-07",
+      "title": "A farkas és a sas.",
+      "volume": "I",
+      "displayCharacters": 791,
+      "providerCharacters": 811,
+      "parts": 1,
+      "partCharacters": [
+        811
+      ],
+      "partDisplaySha256": [
+        "422a13aa39afd32cf9a23276cce5596a67ebba3eb3ca27c997874b8a2a174930"
+      ],
+      "partInputSha256": [
+        "4069811b87add9e2ad6ed39052df33e4d0792dc4c18cd379d66a5991f1ce3e30"
+      ],
+      "fingerprint": "5b8c095dbe6f5014a917961792cd1c2e2bc3e149da6cc80be4fdefd15a248fb4",
+      "audioStatus": "ready",
+      "conservativeCredits": 811
+    },
+    {
+      "id": "rado-i-08",
+      "title": "A róka, medve és a szegény ember.",
+      "volume": "I",
+      "displayCharacters": 3334,
+      "providerCharacters": 3350,
+      "parts": 1,
+      "partCharacters": [
+        3350
+      ],
+      "partDisplaySha256": [
+        "2db1331767de90e3ff7fa403611487684b359bce001a5f4564be2a7c8eb4e980"
+      ],
+      "partInputSha256": [
+        "023896b52bb6457b03c004b0dd2b911817dfd50e80c5e3bab96a194b3e247ccc"
+      ],
+      "fingerprint": "3ae77a73919350777cc3adf1bee7bbab8d168ab9834bb65f1b8042471bbe6d74",
+      "audioStatus": "ready",
+      "conservativeCredits": 3350
+    },
+    {
+      "id": "rado-i-09",
+      "title": "A szürke ló.",
+      "volume": "I",
+      "displayCharacters": 3537,
+      "providerCharacters": 3549,
+      "parts": 1,
+      "partCharacters": [
+        3549
+      ],
+      "partDisplaySha256": [
+        "11132c418ba41390dcb236d6112d4c577d14c9d3625b2eb1e7ddc6035db4d223"
+      ],
+      "partInputSha256": [
+        "cb41b936bdfb368129533bd0342916b600535d336a1f4f19c43962584671b154"
+      ],
+      "fingerprint": "283b7e9e63c2080f4b77bdfaeacb702d9b3914b6bb0468b5126d847cf9e52947",
+      "audioStatus": "ready",
+      "conservativeCredits": 3549
+    },
+    {
+      "id": "rado-i-10",
+      "title": "A Kacor király.",
+      "volume": "I",
+      "displayCharacters": 5088,
+      "providerCharacters": 5092,
+      "parts": 1,
+      "partCharacters": [
+        5092
+      ],
+      "partDisplaySha256": [
+        "ec67dc294d408dec001592e772cd4fe66929dca7f8d8374cfc2d7fb4ac524c7c"
+      ],
+      "partInputSha256": [
+        "8221bc254f8568536125e5a54cebea618284aa8623f5de55e53b4421c42312da"
+      ],
+      "fingerprint": "fb02f96e7243067f1d0be45bda1da64eeba82005863dd379f976693edca872c6",
+      "audioStatus": "ready",
+      "conservativeCredits": 5092
+    },
+    {
+      "id": "rado-i-11",
+      "title": "Farkas-barkas.",
+      "volume": "I",
+      "displayCharacters": 3586,
+      "providerCharacters": 3594,
+      "parts": 1,
+      "partCharacters": [
+        3594
+      ],
+      "partDisplaySha256": [
+        "4c801ccbeee42519be389bf6645f05d8e4280ee5116e4a41658afa9484e09e5f"
+      ],
+      "partInputSha256": [
+        "fa9953d0e5df9dd73b6d7ea8823c46ff3f97688c7db84d3a466b560b9fe41cf5"
+      ],
+      "fingerprint": "b45c7d11b41e60f00002fb198a3774ec69da38e2acc7f5394a931560c1252b55",
+      "audioStatus": "ready",
+      "conservativeCredits": 3594
+    },
+    {
+      "id": "rado-i-12",
+      "title": "A kis malac és a farkasok.",
+      "volume": "I",
+      "displayCharacters": 2478,
+      "providerCharacters": 2490,
+      "parts": 1,
+      "partCharacters": [
+        2490
+      ],
+      "partDisplaySha256": [
+        "43720e44508eb46959317b8e2bdfbd286b07e131551748234811d1c95307b182"
+      ],
+      "partInputSha256": [
+        "d26066977f11a8b83778377d05ec65c15837f35213a400f5c8cda7750cdb59ac"
+      ],
+      "fingerprint": "9fdbdc74f2c55981ffa3052164dcd985306eb347a4c2d42d886b89ead3e188ee",
+      "audioStatus": "ready",
+      "conservativeCredits": 2490
+    },
+    {
+      "id": "rado-i-13",
+      "title": "A kis gömböc.",
+      "volume": "I",
+      "displayCharacters": 2533,
+      "providerCharacters": 2540,
+      "parts": 1,
+      "partCharacters": [
+        2540
+      ],
+      "partDisplaySha256": [
+        "a14e7825c3d1983719ab78a4fe080b22f3ef18f0c858617acf5e785a5d8714d1"
+      ],
+      "partInputSha256": [
+        "9e29c94978035c136fa6efcd9e194398870e9dea493cec104ad52a0c808b4939"
+      ],
+      "fingerprint": "f8db217efae126938a2339aa610c6ad73c6c423fba2dd84f33d37a77c8c2ccef",
+      "audioStatus": "ready",
+      "conservativeCredits": 2540
+    },
+    {
+      "id": "rado-i-14",
+      "title": "Félig nyúzott bakkecske.",
+      "volume": "I",
+      "displayCharacters": 4465,
+      "providerCharacters": 4477,
+      "parts": 1,
+      "partCharacters": [
+        4477
+      ],
+      "partDisplaySha256": [
+        "62df66638bce83e4e4e51808ac9ebb8c52e0c06a7127fba3fe50b8f14424ab19"
+      ],
+      "partInputSha256": [
+        "baea85164abffcf41204e4b27ceb69f4c75194efb755ce9c6653b2ac55796b19"
+      ],
+      "fingerprint": "c6816220d9c90f468fefa41d09dca3870eade5969ae18ac98f52258ad0425a30",
+      "audioStatus": "ready",
+      "conservativeCredits": 4477
+    },
+    {
+      "id": "rado-i-15",
+      "title": "Az angyal-bárányok.",
+      "volume": "I",
+      "displayCharacters": 6957,
+      "providerCharacters": 6979,
+      "parts": 1,
+      "partCharacters": [
+        6979
+      ],
+      "partDisplaySha256": [
+        "7845d7c6051ccaa0a944cc0978823e39922a92bdd91db9f21c2d42c20ab9c420"
+      ],
+      "partInputSha256": [
+        "138d557b32c973b180a84d01460b94d2489beadb21d26a8cef0f7306df86c6a8"
+      ],
+      "fingerprint": "abbb7114397fac2b78f8ca0dd59e94ec9b1f6c12afb6360a0d83280699c3a53e",
+      "audioStatus": "pending",
+      "conservativeCredits": 6979
+    },
+    {
+      "id": "rado-i-16",
+      "title": "A mészáros legény.",
+      "volume": "I",
+      "displayCharacters": 10081,
+      "providerCharacters": 10101,
+      "parts": 2,
+      "partCharacters": [
+        9965,
+        136
+      ],
+      "partDisplaySha256": [
+        "5cf740a3f73b1310a95026b1dad7c4900f4b6bd9920c40339ef23ab5385c70e1",
+        "60407b927b1d475c12812252d2cf28a4d2812af545dcb385b825c731be003238"
+      ],
+      "partInputSha256": [
+        "6dc731d6129ed6d9ef69c4c134d5ae1ef5fb62a8546b2b28111e2f3aa0f6eeb1",
+        "0c9d1029027c85fada4f0d6bcf9e1e189c7fd0c829e6adedc79ea078a3c82303"
+      ],
+      "fingerprint": "36abceb7da0901846fa151a08613190f7f783da1abb53f966d7dbee5cbb08816",
+      "audioStatus": "pending",
+      "conservativeCredits": 10101
+    },
+    {
+      "id": "rado-i-17",
+      "title": "A zarándok és az Isten angyala.",
+      "volume": "I",
+      "displayCharacters": 6341,
+      "providerCharacters": 6365,
+      "parts": 1,
+      "partCharacters": [
+        6365
+      ],
+      "partDisplaySha256": [
+        "90bae86c48ee16f4c6dee74562dc6f516d0cd710c43a9cc8ba711ea0c4329433"
+      ],
+      "partInputSha256": [
+        "c6d3a39a4a1879e641d85c9c61d6bdce47c87376433210f8d22e08edafa0f0a4"
+      ],
+      "fingerprint": "721451b24b9050583c764716e02a37028ed0a8ad53279b11801f72ac3c857ad9",
+      "audioStatus": "ready",
+      "conservativeCredits": 6365
+    },
+    {
+      "id": "rado-i-18",
+      "title": "Szerencse és az Áldás.",
+      "volume": "I",
+      "displayCharacters": 6923,
+      "providerCharacters": 6950,
+      "parts": 1,
+      "partCharacters": [
+        6950
+      ],
+      "partDisplaySha256": [
+        "ad6a5a5614475a37c4ae7faba41ae0186e7bc62e55787a6ee17d1fa6cfd9ab94"
+      ],
+      "partInputSha256": [
+        "7e13a9e4b64ef82c7533e5b3c4e74bc7e70ec5cdf8e23a290f2902d4811b37d2"
+      ],
+      "fingerprint": "a391171e24379e294060ea522fc06cf3390ecd32054b09575912b48e7864ced5",
+      "audioStatus": "pending",
+      "conservativeCredits": 6950
+    },
+    {
+      "id": "rado-i-19",
+      "title": "A király nyulai.",
+      "volume": "I",
+      "displayCharacters": 6766,
+      "providerCharacters": 6810,
+      "parts": 1,
+      "partCharacters": [
+        6810
+      ],
+      "partDisplaySha256": [
+        "4c5239b7cf764f2479ca5991827df2bdd186c986cceb6d1db4d67334a0062050"
+      ],
+      "partInputSha256": [
+        "ac2aa996232449fb8cd99ec8f7830373737b0cff9c535b71c6f425c6f86b855f"
+      ],
+      "fingerprint": "2e242316eac0e1d11f3b3d4d7ddd62be4664b94b5f7709fb905b8e0a5fca62e5",
+      "audioStatus": "pending",
+      "conservativeCredits": 6810
+    },
+    {
+      "id": "rado-i-20",
+      "title": "Az okos leány.",
+      "volume": "I",
+      "displayCharacters": 1401,
+      "providerCharacters": 1405,
+      "parts": 1,
+      "partCharacters": [
+        1405
+      ],
+      "partDisplaySha256": [
+        "c4b8651e6894115e9e5a397d2c9273a23b3d2d17002fc1d43aa06e1834d41576"
+      ],
+      "partInputSha256": [
+        "e1955ad8062bc1987456ac5e565ea587c23933e15787066a36299bf860311883"
+      ],
+      "fingerprint": "4883f32c57bb5888c5ee9e01d8ba6b82132d03d8ce60c77dc58a2741d970846e",
+      "audioStatus": "ready",
+      "conservativeCredits": 1405
+    },
+    {
+      "id": "rado-i-21",
+      "title": "A kerek kő.",
+      "volume": "I",
+      "displayCharacters": 11996,
+      "providerCharacters": 12069,
+      "parts": 2,
+      "partCharacters": [
+        9993,
+        2076
+      ],
+      "partDisplaySha256": [
+        "68e0d17c69cbb914fa925843bc7036fece39d88b0f7d9269b2764523930d0972",
+        "eb4e8ba3cd73980f1e322939102f0de6e661c26e7a09cbfad77a12a69bfbfc79"
+      ],
+      "partInputSha256": [
+        "3df4ebdbd1b5c94a6848958b6be9b0cd313e2fffc2413d7647a75e717eb9cbbb",
+        "15c3580a415abf9c210a6febb0c2e4d306b146a3c3d8c16f4b67f56f86e99ab3"
+      ],
+      "fingerprint": "83ca6404f017e24e67c43105b09abccd6939fbbcfbca35342365e103d9b70bef",
+      "audioStatus": "pending",
+      "conservativeCredits": 12069
+    },
+    {
+      "id": "rado-i-22",
+      "title": "Az Igazság és Hamisság.",
+      "volume": "I",
+      "displayCharacters": 5133,
+      "providerCharacters": 5146,
+      "parts": 1,
+      "partCharacters": [
+        5146
+      ],
+      "partDisplaySha256": [
+        "aef0c9fc6e4897c2b0511c5844b05bf1f1012b8a29816b07d0da55f9428a3a81"
+      ],
+      "partInputSha256": [
+        "084eacf693b40c0b10387d62fdc0c5d708577a019bb737814f56bb3f9b159c0e"
+      ],
+      "fingerprint": "3acca6e48275d21952f003b5ba39fb5db72c3521251591fd708f3158902d3a58",
+      "audioStatus": "ready",
+      "conservativeCredits": 5146
+    },
+    {
+      "id": "rado-i-23",
+      "title": "A kívánságok.",
+      "volume": "I",
+      "displayCharacters": 4246,
+      "providerCharacters": 4253,
+      "parts": 1,
+      "partCharacters": [
+        4253
+      ],
+      "partDisplaySha256": [
+        "2735f93186b338912ae48d8792e789d54651bf5c675e23de009fb7288d68c2da"
+      ],
+      "partInputSha256": [
+        "0b33651494f41f42469232b3f54011abe76788afa71a0536ff77f3af8356db5f"
+      ],
+      "fingerprint": "0660456f098785d862ed956abcc4e8256fcc5a457301651f88b1553f9dc3794f",
+      "audioStatus": "ready",
+      "conservativeCredits": 4253
+    },
+    {
+      "id": "rado-i-24",
+      "title": "A királyfi és a felesége.",
+      "volume": "I",
+      "displayCharacters": 2393,
+      "providerCharacters": 2397,
+      "parts": 1,
+      "partCharacters": [
+        2397
+      ],
+      "partDisplaySha256": [
+        "ee8e997791f2f49611c50fa98d0b98388baadd7e755dd10bb3f977a5c4331044"
+      ],
+      "partInputSha256": [
+        "41761d45e50b2090df77037655b53df607f401fbc0fe104ab83582bcb6a12d34"
+      ],
+      "fingerprint": "cfc6ae12e7429d514bf1fac2f6d6483ba47ae82f0cc946d845d3a46d24a0b894",
+      "audioStatus": "ready",
+      "conservativeCredits": 2397
+    },
+    {
+      "id": "rado-i-25",
+      "title": "A béka komája.",
+      "volume": "I",
+      "displayCharacters": 3718,
+      "providerCharacters": 3733,
+      "parts": 1,
+      "partCharacters": [
+        3733
+      ],
+      "partDisplaySha256": [
+        "91addeeb67500303a9e5e8cb493afacfba2be953b42127e1c106c8c1e618d3e4"
+      ],
+      "partInputSha256": [
+        "bd6ec1d5e56aaf3ac9bdb06f06e301f067cf4662f0b78e8eef7dbd1ef0074cfc"
+      ],
+      "fingerprint": "6a034f061f9750bc22ed1e6cca0ed175c7ba1b15b997e7c66a212112be4e4ed5",
+      "audioStatus": "ready",
+      "conservativeCredits": 3733
+    },
+    {
+      "id": "rado-i-26",
+      "title": "A hazug és a szót szóra mondó.",
+      "volume": "I",
+      "displayCharacters": 10941,
+      "providerCharacters": 10961,
+      "parts": 2,
+      "partCharacters": [
+        9803,
+        1158
+      ],
+      "partDisplaySha256": [
+        "55b22e3bf5f575a00f0500ee6e54a68205100db1215de9a5c32bd8a55ad3fdbd",
+        "6fee50d7a32399ba2e9d17364e4d69f2780fa74473791cc7d95ff52b56a3a562"
+      ],
+      "partInputSha256": [
+        "0e96ce4b73bdc636d0222e8830a38830949764aa100574fae66710dc53b2f5d3",
+        "6fee50d7a32399ba2e9d17364e4d69f2780fa74473791cc7d95ff52b56a3a562"
+      ],
+      "fingerprint": "17acc9dcf63491b3f275af958ddf3e3e4a8958837718b9e5fcbeb1811e7908e2",
+      "audioStatus": "pending",
+      "conservativeCredits": 10961
+    },
+    {
+      "id": "rado-i-27",
+      "title": "Dongó meg Mohácsi.",
+      "volume": "I",
+      "displayCharacters": 19819,
+      "providerCharacters": 19899,
+      "parts": 3,
+      "partCharacters": [
+        9821,
+        9861,
+        217
+      ],
+      "partDisplaySha256": [
+        "7aedc704b330cd7818105af682d672e373fa054606bfce49b1ef81f537551eb4",
+        "18d100957d558bb3104a1363a5b84f78dc47420260e27e8ccfa4b43d0033bc03",
+        "816e312c8fedf05653497b5b72f8f96bba864040872c13d614f63c24711127c6"
+      ],
+      "partInputSha256": [
+        "97c30d16a416a47ed02a0601b80fd5532d50b2d5c5e9752e4fe1c15afcb07e09",
+        "28861141eed65e0d9cc9036f5ac2985a6ce7ae7ed7802ee39e1b788e13fa7018",
+        "e91e9f55dabbb4c9c58faf7a3a81a39c435a6844c3a1f6115302faee8f26afac"
+      ],
+      "fingerprint": "3ce8cc427c7269af676bd46ef76778be4de5afd4295bafd8e67f12cba5090ed3",
+      "audioStatus": "pending",
+      "conservativeCredits": 19899
+    },
+    {
+      "id": "rado-i-28",
+      "title": "Gagyi gazda.",
+      "volume": "I",
+      "displayCharacters": 11314,
+      "providerCharacters": 11361,
+      "parts": 2,
+      "partCharacters": [
+        9691,
+        1670
+      ],
+      "partDisplaySha256": [
+        "1b6b3cf2d062ec9f72df36b5dc54fe35f72261b3bd9fadc7224b0e46ed33f59f",
+        "67840e6dc7e9c916373b0c147967d0eec7b47f959940588ea551b60bd73efd67"
+      ],
+      "partInputSha256": [
+        "5784a5a97f63c35112be93ab7e294b3e7400131eef083daeb5e0b46ddc19216b",
+        "90830b5f27402fb03615138e07772ea6f87ad7d9e71794e2cb0585205c62a9ff"
+      ],
+      "fingerprint": "eea29657594adc4f585fbffa67c0697c922a103f5dcaa404c69550963db7dbb2",
+      "audioStatus": "pending",
+      "conservativeCredits": 11361
+    },
+    {
+      "id": "rado-i-29",
+      "title": "Miklós vitéz.",
+      "volume": "I",
+      "displayCharacters": 7682,
+      "providerCharacters": 7723,
+      "parts": 1,
+      "partCharacters": [
+        7723
+      ],
+      "partDisplaySha256": [
+        "45fddceb578592095c9b60b26b2ba58a9e1a2f8a51b419c3be96baf7d41ec265"
+      ],
+      "partInputSha256": [
+        "14aec919ea7f28e473fe1806a3b45d73bc7e4a0dc35acbd2be3436d08d196b6e"
+      ],
+      "fingerprint": "f7d144407471ec331062031c181ca7482ed9e3bc125d9114c9fd3b3888cc02f6",
+      "audioStatus": "pending",
+      "conservativeCredits": 7723
+    },
+    {
+      "id": "rado-i-30",
+      "title": "Babszem Jankó.",
+      "volume": "I",
+      "displayCharacters": 13918,
+      "providerCharacters": 13978,
+      "parts": 2,
+      "partCharacters": [
+        9970,
+        4008
+      ],
+      "partDisplaySha256": [
+        "d5bac7a3b7a5cf49586f145bad57d731e32c47d21cfa56f550051cc677802f19",
+        "0db7fe9e90a8666748102d88b5815361baf820afe2e4b6565cd8971ce05f62c8"
+      ],
+      "partInputSha256": [
+        "73b2abdf4ab723028f96db18bfc36b7036cacff881fb35fc917ae76ae109b3d2",
+        "81aaca2c078b6c300092f1da2ab04ad05548ef70bda6b6a2a2ad32bd3f2aed02"
+      ],
+      "fingerprint": "409fe43c07cab8e5ac38a2b30b73a3451cb754dcd13dfeb7d174887248815471",
+      "audioStatus": "pending",
+      "conservativeCredits": 13978
+    },
+    {
+      "id": "rado-i-31",
+      "title": "Az őzike.",
+      "volume": "I",
+      "displayCharacters": 11030,
+      "providerCharacters": 11079,
+      "parts": 2,
+      "partCharacters": [
+        9825,
+        1254
+      ],
+      "partDisplaySha256": [
+        "cdfd943fb8dffb6d231e00f3b6519b7afacee0be29b8089ca7bad4555c2668ed",
+        "4e016ad79d25d7d0eca3a6cec915272bd14cfa9bfeb5a0673be488774da50310"
+      ],
+      "partInputSha256": [
+        "33488e56ae1426e210ecae1653b240209660d681248e24e414fd70436a64f217",
+        "12b55227ddf1ee8292e57ab731f8fad9246d83c4221ef0e2e7d928703f611e45"
+      ],
+      "fingerprint": "aaafd007bd6f886789c9b26b63c79bcf9cad25a6ea7cac14f12d1120d67ac78e",
+      "audioStatus": "pending",
+      "conservativeCredits": 11079
+    },
+    {
+      "id": "rado-ii-01",
+      "title": "A három szerencsepróbáló.",
+      "volume": "II",
+      "displayCharacters": 8224,
+      "providerCharacters": 8243,
+      "parts": 1,
+      "partCharacters": [
+        8243
+      ],
+      "partDisplaySha256": [
+        "8d9ea8d788ee12ce899892c1697e24c5e97560c64aeb7f62a813254bf9b51d87"
+      ],
+      "partInputSha256": [
+        "998c34201346091ae42921679b7f1e958377b6fc4278b8c31dfe2e1c48ac6db9"
+      ],
+      "fingerprint": "c3d5f4071ea831d3956a9339a686e072f39f524345e315db21e96911f0d543e1",
+      "audioStatus": "pending",
+      "conservativeCredits": 8243
+    },
+    {
+      "id": "rado-ii-02",
+      "title": "Pancimanci.",
+      "volume": "II",
+      "displayCharacters": 7683,
+      "providerCharacters": 7723,
+      "parts": 1,
+      "partCharacters": [
+        7723
+      ],
+      "partDisplaySha256": [
+        "44859dc3e01c2c4445ca82959b11a3b746f2379476e3f38daf466e2747f140c9"
+      ],
+      "partInputSha256": [
+        "5b1f022714e48be4c1747d7715a57b550de61ccc8543b0620cca23830b247d7e"
+      ],
+      "fingerprint": "fdd73d62d3b0afc4c69e77ed2a19f01f1902993c74cc6501f4c3edbca0917e3c",
+      "audioStatus": "pending",
+      "conservativeCredits": 7723
+    },
+    {
+      "id": "rado-ii-03",
+      "title": "A veres tehén.",
+      "volume": "II",
+      "displayCharacters": 16550,
+      "providerCharacters": 16610,
+      "parts": 2,
+      "partCharacters": [
+        9934,
+        6676
+      ],
+      "partDisplaySha256": [
+        "f9bc118ae265bf4f5ee364919111f7fc7d0e76615fc1a8ed22f9f5410831e203",
+        "c31e915e8e5e43606e241e02d100be17ae2cdc5f163c833c42d8d7f82f507c32"
+      ],
+      "partInputSha256": [
+        "d55ccdb319909ba110899fdcc08ee944ed65a12cfb3071ca51207162aef22417",
+        "51da9e09d0b66e973235c3f9f96b63f28e331af54abc12a89670f16824f3c139"
+      ],
+      "fingerprint": "be517eae13864be18b9d8223d6154a8e101d3d8276fb88a6bff85bb9a364e570",
+      "audioStatus": "pending",
+      "conservativeCredits": 16610
+    },
+    {
+      "id": "rado-ii-04",
+      "title": "Fehérlófia.",
+      "volume": "II",
+      "displayCharacters": 13437,
+      "providerCharacters": 13477,
+      "parts": 2,
+      "partCharacters": [
+        9260,
+        4217
+      ],
+      "partDisplaySha256": [
+        "f07f1aa6f7f5f2212517baa0bb625bbcb2368d0135786362c820d96af3e6b747",
+        "0592e2a041ba1a2bcfed89b9874863054aa1475d0d33dc0a88f65661604d04de"
+      ],
+      "partInputSha256": [
+        "59c96566fcbcaf01a7f45cd724f339710b1e576851b5e49cdc362a691611a824",
+        "861451837c11cd7e97cf893f202aba954d5004eb74f4d945ce3e7ad0362b2d08"
+      ],
+      "fingerprint": "2b9d2ca50b1b3fce1795d479b09e011da2079e35426861cc5464b5daa014b11e",
+      "audioStatus": "pending",
+      "conservativeCredits": 13477
+    },
+    {
+      "id": "rado-ii-05",
+      "title": "A vitéz szabó.",
+      "volume": "II",
+      "displayCharacters": 16195,
+      "providerCharacters": 16268,
+      "parts": 2,
+      "partCharacters": [
+        9917,
+        6351
+      ],
+      "partDisplaySha256": [
+        "a63f70639b15d7375cb9acdb59f525551e98bd4ff8c6f1a88dd9fb2f5a4c1363",
+        "1d6e9303403737b5119e6bca1261ada63b0f766447e9d0571244363629c6ad2b"
+      ],
+      "partInputSha256": [
+        "cd54bf0ac3aa04864f606f5e3a092f6a09797ca26b2e9adcf6a91d555272c6b5",
+        "35ff4fb4520a6e1e6879faccbf3f563417aa243964f601a5d5dd9e217ea290ad"
+      ],
+      "fingerprint": "730823bc65e6095bd61791b251090501c3c80b13bff93240844c90db4905d3c8",
+      "audioStatus": "pending",
+      "conservativeCredits": 16268
+    },
+    {
+      "id": "rado-ii-06",
+      "title": "A cigánypurdé.",
+      "volume": "II",
+      "displayCharacters": 15751,
+      "providerCharacters": 15809,
+      "parts": 2,
+      "partCharacters": [
+        9929,
+        5880
+      ],
+      "partDisplaySha256": [
+        "c97d58da97a660c32c8557f82178fcfdf30ed38f74f92678b327154a6ced4374",
+        "246da0cada2a3c32b13c2fe2d5c57dc18d14fe32b7c13736352964badb9fee54"
+      ],
+      "partInputSha256": [
+        "a4d6bee6e5cd9c57ebbef2e5c0c21fa42539b2a3974a08b3b63c64a34e778677",
+        "2d06ed5be78868da1f06802b37cd7099ee9a4c473d681c26a7ac837a0a7522eb"
+      ],
+      "fingerprint": "a5a2ac7ce37f7c79e4334232e2ef2e69eb836cbea1c8d72898f49a726ee67522",
+      "audioStatus": "pending",
+      "conservativeCredits": 15809
+    },
+    {
+      "id": "rado-ii-07",
+      "title": "János királyfi és Szélike.",
+      "volume": "II",
+      "displayCharacters": 9996,
+      "providerCharacters": 10044,
+      "parts": 2,
+      "partCharacters": [
+        9853,
+        191
+      ],
+      "partDisplaySha256": [
+        "2a7bd7c242bc5b39592e69c5758d4f4d316dec2eaadc11f64b8395974756d68f",
+        "0e30a972d79d8d63db4185750b12a9129498ac058d92bc9c5672c447de9d8afa"
+      ],
+      "partInputSha256": [
+        "4f5aa2e4df6a864818ebce1b5c2e2f61d375ca489cb68a43ed79ebdad33cb087",
+        "4a7a4b718ebf1e47504ef554fb7e6aa134c76a30ca0377da608e2e0647fe6404"
+      ],
+      "fingerprint": "46c3f377d69b9c38680e7bc71cbd1a77c097faf6e03967487267feb06e350b30",
+      "audioStatus": "pending",
+      "conservativeCredits": 10044
+    },
+    {
+      "id": "rado-ii-08",
+      "title": "Adj' Isten egészségére!",
+      "volume": "II",
+      "displayCharacters": 8088,
+      "providerCharacters": 8120,
+      "parts": 1,
+      "partCharacters": [
+        8120
+      ],
+      "partDisplaySha256": [
+        "0592704f5c42dc915e3d4e6adc97aede700e57f1b6170437b0fe6d7c8a9cacd6"
+      ],
+      "partInputSha256": [
+        "b97ec1b4a561fb6e212bf346cd8d02d42f29432f2c7468ba286538dd188dc400"
+      ],
+      "fingerprint": "3bdb7153531972b2ad216727ae358c0ad34baffc94a3a8d1a58b4a1d47365e12",
+      "audioStatus": "pending",
+      "conservativeCredits": 8120
+    },
+    {
+      "id": "rado-ii-09",
+      "title": "Az aranyfogú testvérek.",
+      "volume": "II",
+      "displayCharacters": 14886,
+      "providerCharacters": 14929,
+      "parts": 2,
+      "partCharacters": [
+        9882,
+        5047
+      ],
+      "partDisplaySha256": [
+        "a743c7a45095256a72046b304fce50f180ac663734fc92cd5800aaebd431d0dc",
+        "f626f87cd3c75a924d2ad24d57ed7c5b95364a2b5b47de66b608c62be878a6ee"
+      ],
+      "partInputSha256": [
+        "e008fbb60c2508b5ffeda0eaef3b0a9b0068e82b07cd9c6993d6e9b7067cd8df",
+        "3be3b30cd7d5acb5edaa4afe9cfaf4649f50a0c1dab8472692849fe9acbbb0dc"
+      ],
+      "fingerprint": "cbf500c39ac6ff0b33164d671c25abbb9725cc473ef291383196886901a97159",
+      "audioStatus": "pending",
+      "conservativeCredits": 14929
+    },
+    {
+      "id": "rado-ii-10",
+      "title": "A vasfejű ember.",
+      "volume": "II",
+      "displayCharacters": 16413,
+      "providerCharacters": 16453,
+      "parts": 2,
+      "partCharacters": [
+        9947,
+        6506
+      ],
+      "partDisplaySha256": [
+        "f4f5341690e45392526305588d11b225f6ee861784cd7baefb2799dee76259c5",
+        "d47fc6028eaa75ebf58ff8c2ca76fb51065c677e9dc087daf2a35e551c1cd93b"
+      ],
+      "partInputSha256": [
+        "c49b2f2d963b0ff3734d5bd6230570babe5acdfc8d3fc8862f24d2ad920516b0",
+        "8bb11b2bd0bcf7f788f50885819a0091e881572c0bedb37a78a93b0079d4d509"
+      ],
+      "fingerprint": "8865e66c37140c8658b474f634023b00345c2c461bd39c2b3c95a9f424ccf3a4",
+      "audioStatus": "pending",
+      "conservativeCredits": 16453
+    },
+    {
+      "id": "rado-ii-11",
+      "title": "A Kilenc.",
+      "volume": "II",
+      "displayCharacters": 17033,
+      "providerCharacters": 17102,
+      "parts": 2,
+      "partCharacters": [
+        9998,
+        7104
+      ],
+      "partDisplaySha256": [
+        "675e7aaf8f819a7c9461281b610988f593fb3733ebc8078fbfafa4a8343cd1da",
+        "4a707857be7d1a358f939a4fad647111e231063049c749b3a7ccd64f559cf87e"
+      ],
+      "partInputSha256": [
+        "90456c211c6b9c735445a53122fbf18ad590cf2f986e93b2e37d158c46febae1",
+        "ca64b6e3a500d18121329006eeb8626be538d5a254eafb4182b82a92fdc4f150"
+      ],
+      "fingerprint": "37552a5e634eca023d167720ac3cdc01728374d2d2b4656a6172bcfdde979451",
+      "audioStatus": "pending",
+      "conservativeCredits": 17102
+    },
+    {
+      "id": "rado-ii-12",
+      "title": "Vas Laci.",
+      "volume": "II",
+      "displayCharacters": 19984,
+      "providerCharacters": 20035,
+      "parts": 3,
+      "partCharacters": [
+        9664,
+        9931,
+        440
+      ],
+      "partDisplaySha256": [
+        "4fdc9ca2e242e0759f6dc0edf7d03e9b350e74cbc8388a7d9476a88eb19f4ce1",
+        "b1661113bbd2c5cda171e1ad2202a95a7f3dc8bb4183e5489a2eba78b4c56e4e",
+        "fb6e81289d93c50a3bbae5f7594ab693cc8e18df34a92423229444e669771bb0"
+      ],
+      "partInputSha256": [
+        "bd4cefae9aeaa79db994099899aff5f7c56a8f5087fe44167b1c3f1597cd3d8f",
+        "b49de6765722ff08622ba2fe3b33fedbc0bd10ff4425a0bdc5709c020fb510e4",
+        "fb6e81289d93c50a3bbae5f7594ab693cc8e18df34a92423229444e669771bb0"
+      ],
+      "fingerprint": "92d8c50c63013bf2559b01ed7e8e52dd63976151adfe2d09dd39fd30e8b0385b",
+      "audioStatus": "pending",
+      "conservativeCredits": 20035
+    },
+    {
+      "id": "rado-ii-13",
+      "title": "Árgyirus királyfi és Tündér Ilona.",
+      "volume": "II",
+      "displayCharacters": 29153,
+      "providerCharacters": 29260,
+      "parts": 3,
+      "partCharacters": [
+        9551,
+        9710,
+        9999
+      ],
+      "partDisplaySha256": [
+        "16be4d9bb47913ad96d9da5eb0a1a32c8e80bf238bf347dd70aa5decdead4415",
+        "78743fa7e1ffd44f030a019e3dbc2e78bb82f7236fed349f343de7f342415f1c",
+        "0c045c0a168c26d91ddfc8b4d33bf99d5079b54f0a547ba31d17c9406c7d45a9"
+      ],
+      "partInputSha256": [
+        "fc0dd47dbf8b355692590e2968e1ddcbfeb1ff7f1a37e65ba7336cc9f58c7910",
+        "100c92d12a0bff84e781608590ab373b175abbc1131b2b2c766bd11e56150761",
+        "1bd7b5b04f25d1cd7ba1450abae1ae5d49b81dd7e3695db57ba502c5182e17d6"
+      ],
+      "fingerprint": "5073bd6d40bc113aed3509203c70bb917d8c20e02e49624d568fdb346dfd8194",
+      "audioStatus": "pending",
+      "conservativeCredits": 29260
+    },
+    {
+      "id": "rado-ii-14",
+      "title": "Ilók és Mihók.",
+      "volume": "II",
+      "displayCharacters": 4707,
+      "providerCharacters": 4707,
+      "parts": 1,
+      "partCharacters": [
+        4707
+      ],
+      "partDisplaySha256": [
+        "5b06deb3ec76ad71749d5022bd4f85b17c7f217d16ae06b6793d4aeff6bff951"
+      ],
+      "partInputSha256": [
+        "5b06deb3ec76ad71749d5022bd4f85b17c7f217d16ae06b6793d4aeff6bff951"
+      ],
+      "fingerprint": "59370122ff876845174541f8540373ab2ad8e634a3d97d79d62eea900616cfa9",
+      "audioStatus": "ready",
+      "conservativeCredits": 4707
+    },
+    {
+      "id": "rado-ii-15",
+      "title": "A bolondos legény.",
+      "volume": "II",
+      "displayCharacters": 3257,
+      "providerCharacters": 3265,
+      "parts": 1,
+      "partCharacters": [
+        3265
+      ],
+      "partDisplaySha256": [
+        "412c096f44351f5bf798cb6dd2b901c76362f754a4d06f10c79db9714a5ac9ac"
+      ],
+      "partInputSha256": [
+        "4053215a360372dc681856e364cd324d4fdf4d450d04142fef85fa9cac503ffe"
+      ],
+      "fingerprint": "e1545cb1c68fe6ba317d76ab56099cbe655b9f791d192a13280b8b52ba7ee49e",
+      "audioStatus": "ready",
+      "conservativeCredits": 3265
+    },
+    {
+      "id": "rado-ii-16",
+      "title": "A kis ködmön.",
+      "volume": "II",
+      "displayCharacters": 5339,
+      "providerCharacters": 5351,
+      "parts": 1,
+      "partCharacters": [
+        5351
+      ],
+      "partDisplaySha256": [
+        "19a0b1f6bfb4388720e6f7e27cd0f68d4a7e694b2c6766eca74450e7103509e2"
+      ],
+      "partInputSha256": [
+        "5626ec6730a4756e5a3faf2a6bf44c618dab66b3d8cfa4f835f6d137fcef58bf"
+      ],
+      "fingerprint": "2f2ffd4b6a5cbeda0a0cc76d0ae5f6acac0a5b45ea7dd7a75bfcaaff50093295",
+      "audioStatus": "ready",
+      "conservativeCredits": 5351
+    },
+    {
+      "id": "rado-ii-17",
+      "title": "Az egyszeri gyerek.",
+      "volume": "II",
+      "displayCharacters": 5171,
+      "providerCharacters": 5191,
+      "parts": 1,
+      "partCharacters": [
+        5191
+      ],
+      "partDisplaySha256": [
+        "a4d57b043059561d0bd7708159bef61bdfd6025344025be0ae6e2ce44b710fc6"
+      ],
+      "partInputSha256": [
+        "a4f16db49733ce1237a3430b37288ac49b28139e6a4788d419d072f81d1dd4b6"
+      ],
+      "fingerprint": "708bb49ae48f0cbed129169993908377531371bea33609aabae387107b324679",
+      "audioStatus": "ready",
+      "conservativeCredits": 5191
+    },
+    {
+      "id": "rado-ii-18",
+      "title": "Csali mese.",
+      "volume": "II",
+      "displayCharacters": 2056,
+      "providerCharacters": 2056,
+      "parts": 1,
+      "partCharacters": [
+        2056
+      ],
+      "partDisplaySha256": [
+        "1aa86e2a5ffd61c53b2387ff100e40f918744700a8456c6ee9048070566f13fa"
+      ],
+      "partInputSha256": [
+        "1aa86e2a5ffd61c53b2387ff100e40f918744700a8456c6ee9048070566f13fa"
+      ],
+      "fingerprint": "b850f5b61edcbab27538fe89051e4da3b6cbb3753a46019afc7bbd80fda90531",
+      "audioStatus": "ready",
+      "conservativeCredits": 2056
+    },
+    {
+      "id": "rado-ii-19",
+      "title": "Az már nem igaz!",
+      "volume": "II",
+      "displayCharacters": 2436,
+      "providerCharacters": 2452,
+      "parts": 1,
+      "partCharacters": [
+        2452
+      ],
+      "partDisplaySha256": [
+        "6e9d706b7efc673b1bab704c56d21d9fe0e3d5aa62cbe6664a1e77af1cc88791"
+      ],
+      "partInputSha256": [
+        "48f3b782615ac06cccd296af603a8a3b6c9ee3fefa668fab9737a2e51c7c3818"
+      ],
+      "fingerprint": "1f668d13caf769c4206957b5c537821ca06c2ff922df0111420cb52ee57c6783",
+      "audioStatus": "ready",
+      "conservativeCredits": 2452
+    }
+  ],
+  "providerCharacters": 398751,
+  "pendingCharacters": 311983,
+  "costBasis": "1 credit per provider character, no promotional discount assumed",
+  "minimumPendingCredits": 311983,
+  "pendingCreditsWithSafetyMargin": 343182,
+  "paidCache": "~/.config/beszedtanulas/rado-audiobook-cache/"
+}

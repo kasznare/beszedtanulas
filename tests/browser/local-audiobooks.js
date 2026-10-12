@@ -30,6 +30,7 @@ async page => {
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   };
   await open();
+  const publicCount = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.length);
   // The fixture uses an existing verified recording and an independent test title.
   const bundle = await page.evaluate(async () => {
     const story = (await import('/audiobook-data.js')).AUDIOBOOKS[0];
@@ -44,7 +45,7 @@ async page => {
   await page.locator('#story-import-file').setInputFiles(input(bundle));
   await page.waitForFunction(() => document.querySelector('#story-title').textContent.startsWith('Saját tesztmese'));
   await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
-  ok(await page.locator('.story-card').count() === 23, 'A private story joins the twenty-two public stories');
+  ok(await page.locator('.story-card').count() === publicCount + 1, 'A private story joins the complete public library');
   ok(await page.locator('#story-visual-wrap').isHidden(), 'The private audiobook has no generated illustrations');
   ok(await page.locator('#story-visual').innerHTML() === '', 'The previous animation is destroyed');
   ok((await page.locator('#story-title').innerText()).includes('<b>'), 'Imported titles render as plain text');
@@ -70,11 +71,11 @@ async page => {
   await context.setOffline(false);
   await page.locator('#story-import-file').setInputFiles(input(bundle));
   await page.waitForFunction(() => document.querySelector('#story-import-status').textContent.includes('elkészült') && !document.querySelector('#story-import').disabled);
-  ok(await page.locator('.story-card').count() === 23, 'Importing the same recording does not duplicate it');
+  ok(await page.locator('.story-card').count() === publicCount + 1, 'Importing the same recording does not duplicate it');
   const corrupt = { ...bundle, audio: { ...bundle.audio, base64: 'dHJ1bmNhdGVk' } };
   await page.locator('#story-import-file').setInputFiles(input(corrupt));
   await page.waitForFunction(() => document.querySelector('#story-import-status').textContent.includes('sérült'));
-  ok(await page.locator('.story-card').count() === 23, 'A corrupt import preserves the stored recording');
+  ok(await page.locator('.story-card').count() === publicCount + 1, 'A corrupt import preserves the stored recording');
   for (const [width, height] of [[375, 667], [834, 1194]]) {
     await page.setViewportSize({ width, height });
     ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Local story layout fits ${width}px`);
@@ -85,7 +86,7 @@ async page => {
   await page.locator('[data-story^="local-"]').click();
   await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   await page.locator('#story-remove').click();
-  await page.waitForFunction(() => document.querySelectorAll('.story-card').length === 22);
+  await page.waitForFunction(count => document.querySelectorAll('.story-card').length === count, publicCount);
   ok(await page.evaluate(async () => (await (await import('/local-audiobooks.js')).loadLocalAudiobooks()).length === 0), 'Removal deletes the local recording');
   ok(errors.length === 0, 'No application JavaScript errors');
   return { checks: checks.length, passed: checks, errors };

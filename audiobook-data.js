@@ -1,4 +1,4 @@
-// Generated from fixed ElevenLabs recordings. No runtime synthesis.
+// Generated from complete sources and verified fixed recordings.
 export const AUDIOBOOKS = [
   {
     "id": "story-01",
@@ -269,5 +269,551 @@ export const AUDIOBOOKS = [
     "description": "Játékos verses mese egy apró macskáról és két iciri-piciri ökröcskéről.",
     "sourceUrl": "https://mek.oszk.hu/11400/11475/11475.htm#24",
     "illustrated": false
+  },
+  {
+    "id": "rado-i-01",
+    "title": "A vadgalamb és a szarka.",
+    "text": "Tudod-e, miért nem ért a vadgalamb a fészekcsináláshoz? miért rak olyan hitvány fészket, amely csak néhány szál száraz ágból van összetákolva?\nElmondom én.\nA vadgalamb a szarkát kérte meg, tanítsa meg őt a fészekrakásra, mert ebben a szarka igen nagy mester. Olyan fészket tud csinálni, hogy ahhoz a héja, ölyű hozzá nem fér. A szarka szívesen elvállalta a tanítást s fészekrakás közben, míg egy-egy galyat a helyére illesztett, mindig mondogatta a maga módján:\n- Csak így, csak úgy! csak így, csak úgy!\nA vadgalamb erre mindíg azt felelte:\n- Tuudom, tuudom, tuudom!\nA szarka elhallgatta azt egy darabig, de utóljára megharagudott. \"Ha tudod, csináld!\" s ott hagyta a fészket fele munkájában.\nA vadgalamb azóta sem tudott ebből a mesterségből többet megtanulni.",
+    "file": "audio/audiobooks/rado-i-01.mp3",
+    "duration": 57.68,
+    "bytes": 924151,
+    "sha256": "b95824180b55db232b21c6611d15961430dbb17ab3c9d44b322233baf63bf62e",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#1",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-02",
+    "title": "A kis kakas kitúrta a sövényt.",
+    "text": "Egyszer elment egy kis kakas a sövény alá kapargálni. Addig-addig kapargatott, míg a sövény ki nem dűlt. Rászáll egy szarka a kidűlt sövényre s azt kérdezi tőle:\n- Ugyan, sövény, mi lelt téged? Még tegnap milyen szépen állottál itt!\n- Jaj, szarka koma - feleli a sövény - kijött a kis kakas alattam kapargálni; én kidűltem bánatomban.\n- No, akkor én meg kitépem a szép farkam - feleli a szarka s csakugyan ki is tépte a szép farkát. Azután rászállott egy diófára. Csodálkozott a diófa, hogy olyan kusza a szarka, megkérdezi tőle:\n- Mi lelt téged, szarka koma? Még tegnap oly szép farkad volt, ma meg egészen kusza vagy!\n- Jaj, édes komám - feleli a szarka - kiment tegnap a kis kakas sövény alá kapargálni; sövény kidűlt bánatában, én meg szép farkam kitéptem.\n- Akkor én is lenyesem a szép galyamat - feleli a diófa. És csakugyan le is nyeste a szép galyát.\nDélfelé a nagy forróságban odamegy egy őz a diófa alá pihenni. Látja, hogy a diófa egészen kopasz. Megkérdezi tőle:\n- Mi lelt téged, szép diófa? Még tegnap oly szép galyad volt, ma meg egészen kopasz vagy.\n- Jaj, kedves kis őzem - felel a diófa - kiment tegnap a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; én lenyestem galyam, ágam.\n- Én pedig megölöm a két szép fiamat - felel az őzike. Meg is ölte mind a kettőt. Búsult, búsult aztán az őzike. Egyszer megszomjazott, elment a kútra vizet inni. Csodálkozott a kút, hogy magában jön az őzike, mert máskor a két szép kis fiát is elhozta. Megkérdi hát tőle:\n- Hogy van az, hogy ma csak egyedül jössz, őz koma? Hol hagytad a két szép fiadat?\n- Jaj, kút koma - felel az őz - kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát, én pedig megöltem a két kis fiamat.\n- Úgy én is vérré változtatom tiszta vizemet - felelt a kút. S úgy is lett. Mikor Sára, a szolgáló, egy dézsával a kútra ment, kérdezi a kutat:\n- Ugyan, kedves kutam, hogy van az, hogy ma tiszta víz helyett vér van benned?\n- Jaj, Sára néném - felelt a kút - kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát; őz megölte két kis fiát; bennem meg a víz vérré vált.\n- Én meg szétverem fejemen a dézsát. Szét is verte, úgy ment dagadt fejjel az asszonyához. Mindjárt kérdezte az asszonya:\n- Mi lelt téged, Sára lányom?\n- Jaj, édes néném asszony - feleli Sára - kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát; őz megölte két kis fiát; kútban a víz mind vérré vált; én meg szétvertem a fejemen a dézsát.\n- Én pedig falra kenem a kovászomat! - Éppen akkor akarta a kovászt dagasztani, de mégis a falra kente. Látja az ura, amint hazajött este, hogy a kovász mind a falra van kenve, kérdi a feleségétől:\n- Hát te megbolondultál, kedves feleségem, hogy a falra kented azt a sok szép kovászt?\n- Jaj, kedves férjem uram, kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát; őz megölte két kis fiát; kútban a víz mind vérré vált; Sára lányom szétverte a fején a dézsát; én meg mind falra kentem a kovászt.\n- Úgy én meg leborotválom a szép szakállam. - És csakugyan le is borotválta. Nemsokára hazajött a legény fiuk is, látja, hogy az apja úgy le van koppasztva, mint a leforrázott csirke. Megkérdezi tőle:\n- Mi lelte kendet, édesapám uram?\n- Édes fiam, nagy baj történt. Kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát; őz megölte két kis fiát; kútban a víz mind vérré vált; Sára lányom szétverte a fején a dézsát; édesanyád falra kente a kovászát; én pedig leborotváltam a szép szakállam.\n- Jól van - mondja a legény - én meg levágom a négy ökrünk lábát! - Avval fogta a fejszét, kiment az istállóba s mindjárt elvágta az egyik ökör első lábát. Már a másodikat is akarta vágni, de egy katona éppen arra ment, az rákiáltott:\n- Elment az eszed, te legény, mit csinálsz avval az ökörrel?\n- Jaj, édes katona uram, kiment reggel a kis kakas sövény alá kapargálni; sövény kidűlt bánatában; szarka szép farkát kitépte; fa lenyeste ágát, galyát; őz megölte két kis fiát; kútban a víz mind vérré vált; Sára néném szétverte fején a dézsát; anyámasszony falra kente a kovászát; édesapám mind lenyeste szép szakállát; én pedig levágom a négy ökrünk lábát!\n- Le ám az eszed világát! - kiáltott a katona s úgy megkardlapozta a legényt, hogy alig bírt bemenni a házba. A katona pedig elhajtotta a négy ökröt a vásárra, eladta. Mint kiszolgált katona megházasodott, az árából nagy lakodalmat csaptak. Most is élnek, ha meg nem haltak.",
+    "file": "audio/audiobooks/rado-i-02.mp3",
+    "duration": 357.6,
+    "bytes": 5722741,
+    "sha256": "5f05f87d0089b271b6e9c1017b61476a3298a247d3fd0f01585c8a1fb75d2b6b",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#2",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-03",
+    "title": "A medve és a farkas.",
+    "text": "Medve: Jó reggelt, farkas koma!\nFarkas: Nekem ugyan nem jó, de azért fogadj Isten!\nMedve: De szomorú vagy; tán bizony megéheztél, hogy olyan csikasz a horpaszod? De nini, te véres vagy, mi bajod esett?\nFarkas: Jaj, komám, én pórul jártam. Nagyon megéheztem és kaptam magam, bementem a faluba egy kis eledelt szerezni. Amint egy bárányt el akartam csípni, a kutya elkezdett ugatni, csaholni. Kiugrik erre az ember és fényes farkával, amit ő baltának nevez, úgy elpáholt, hogy alig tudtam az irhámat tovább cipelni.\nMedve: Sokat hallom én azt az embert emlegetni. Csak találkozhatnám egyszer vele, úgy összetépném, mint ezt a galagonya-bokrot.\nFarkas: Telhetik kedved benne. Gyere el holnap reggel hozzám, mutatok én neked embert.\nEl is ment másnap korán reggel a medve a farkashoz. Azután az országút mellett egy bokor mögött lesbe állottak.\nCsak várnak, csak várnak, egyszer csak arra jön egy gyermek.\nMedve: Hát ez az ember?\nFarkas: Nem, ez csak lesz.\nCsak várnak, csak várnak, egyszer csak arra jön egy vén koldus.\nMedve: Hát ez az ember?\nFarkas: Nem, ez csak volt.\nCsak várnak, csak várnak, egyszer csak arra jön egy huszár.\nMedve: Hát ez az ember?\nFarkas: Ez már talpig ember.\nMost a medve kiült az országút kellő közepére és elállta a huszár útját. A farkas pedig a bokorban maradt, onnét nézte az egész dolgot.\nAmint a huszár meglátja a medvét az út közepén, előveszi a pisztolyát és kétszer is rálő. Mind a két lövés talált, mert a mackó ugyancsak megrázkódott belé. De azért fel se vette, csak ott maradt ültő helyiben. A huszár se veszi tréfára a dolgot, kirántja a fényes kardját s innen is, túl is úgy megszabdalja medve uramat, hogy egészen vérbe köpülve fut a közeli erdőbe. A huszár nem űzhette tovább, mert sietős volt az útja, nagy pecsétű levelet vitt.\nEgy hét múlva, mikor már félig-meddig kiheverte a medve a bajt, találkozik vele a farkas.\nFarkas: No, komám, most már csak elhiszed, hogy az ember a legerősebb állat?\nMedve: Vagy akarom, vagy nem, el kell hinnem. Hanem soha világ életemben én olyan furcsa állatot nem láttam, mint ez az ember. Legelőbb is, mikor vagy harminc lépésnyire volt tőlem, mint a vadmacska, úgy a szemem közé fujt, hogy még a bőröm is borsódzott tőle. Aztán, mikor közel jött hozzám, avval a fényes nyelvével úgy megpofozgatott, hogy szinte meghaltam belé.",
+    "file": "audio/audiobooks/rado-i-03.mp3",
+    "duration": 170.96,
+    "bytes": 2736422,
+    "sha256": "82fc61350ec1caf3c111c7e3c840c0d3439c8a958416cf3450b5908483c64d31",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#3",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-04",
+    "title": "A kakas meg a jérce.",
+    "text": "Volt egyszer egy asszonynak egy kakasa meg egy jércéje. Egyszer ezek elmentek eprészni és megfogadták, hogy amit találnak, megosztoznak rajta. Aztán elváltak egymástól és befelé mentek az erdőbe. A jérce aztán, amint keresgélt, talált egy szem epret és megette.\nMikor összekerültek, kérdezi a kakas: No, mit találtál?\n- Egy szem epret.\n- Hol van?\n- Megettem.\nMegharagszik erre a kakas, kivágja a jérce begyit, kiveszi belőle az egy szem epret, aztán megeszi.\nHanem mikor hazafelé ment, megijedt, hogy no most kikap az asszonytól azért, amit tett. Aztán meg is sajnálta a jércét.\nElfutott tehát a vargához fonalért, amellyel a jérce begyét bevarrhassa. De a varga azt mondta, hogy hozzon neki elébb sörtét a disznótól.\nEl is ment a kakas a disznóhoz. De az meg azt mondta, hogy hozzon neki a cséplőtől zabot.\nDe a cséplő sem adott, hanem azt mondta, hogy hozzon neki a gazdasszonytól lepényt.\nElment a kakas a gazdasszonyhoz lepényért. Ez meg azt mondta, hogy hozzon neki elébb tejet a tehéntől.\nElment a tehénhez is. De ennek meg fű kellett a rétről.\nSzaladt a kakas a rétre, kért tőle füvet. A rét addig nem adott, míg esőt nem kér az Istentől.\nA kakas aztán kért esőt. Az Isten adott is esőt. Futott most visszafelé nagy örömmel:\nIsten nekem esőt át,\nEsőt adom rétnek;\nRét nekem füvet ád,\nFüvet a tehénnek;\nTehén nekem tejet ád,\nTejet az asszonynak;\nAsszony nekem lepényt ád,\nLepényt a cséplőnek;\nCséplő nekem zabot ád,\nZabot a disznónak;\nDisznó nekem sörtét ád,\nSörtét a vargának.\nVarga nekem fonalat ad, hogy bevarrhassam a begyit a jércének, amely majd megdöglik.\nAzután bevarrta a jérce begyit s megint jó barátok lettek.",
+    "file": "audio/audiobooks/rado-i-04.mp3",
+    "duration": 123.2,
+    "bytes": 1972393,
+    "sha256": "e73022a9ebbe6a1db10ea78c91b39261c86af5be5d63254b0ad518ded82fc511",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#4",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-05",
+    "title": "A farkas-tanya.",
+    "text": "Egyszer volt, hol nem volt, volt egy tojás. Ez a tojás megindult világra. Görgött, görgött, egyszer előtalált egy récét. Azt kérdi tőle a réce:\n- Hová mégy, tojás koma?\n- Megyek világra.\n- Én is megyek, menjünk együtt.\nMennek, mendegélnek, előtalálnak egy kakast.\n- Hová mentek, réce koma?\n- Megyünk világra.\n- Én is megyek, menjünk együtt.\nMegint mennek, mendegélnek, előtalálnak egy varrótűt.\n- Hová mentek, kakas koma?\n- Megyünk világra.\n- Én is megyek, menjünk együtt.\nMegint mennek, mendegélnek, előtalálnak egy rákot.\n- Hová mentek, tű koma?\n- Megyünk világra.\n- Én is megyek, menjünk együtt.\nMegint mennek, mendegélnek, előtalálnak egy lovat, végre pedig egy ökröt.\nMentek aztán, mendegéltek, egyszer rájuk esteledett. Ott volt egy kis ház, abba bementek. Kiki lefeküdt a maga helyére. A tojás belefeküdt a tüzes hamuba. A réce meg a kakas felültek a kandalló tetejére. A rák belemászott egy dézsa vízbe. A tű a törülközőbe szúródott belé. A ló lefeküdt a ház közepére, az ökör meg a pitvarba.\nEgyszer jön ám haza a tizenkét farkas, akiké a kis ház volt. A legöregebb még messziről elkezdett kiabálni:\n- Phű-phű de idegen szagot érzek! Ki mer bemenni?\nVolt köztük egy hányaveti, az azt mondta, hogy ő bemegy, nem fél ő semmitől.\nBe is ment. Hogy az övék volt a ház, egészen tudta a dörgést, hol mi áll. Legelőször is a kandalló tetején kereste a gyujtófát, hogy majd mécset gyujt. De a kakas meg a réce elkezdtek lármázni.\nAkkor belenyúlt a hamuba, hogy majd parazsat keres, de a tojás elpukkant.\nSzaladt a dézsához mosakodni. Ott meg a rák csípte meg ollójával. Azután szaladt a törülközőhöz. Ott meg a tű szúrta meg.\nNagy ijedten a ház közepére ugrik. Ott a ló rúgja oldalba.\nAmint szaladt kifelé, az ökör is nekiesett, felkapta a szarvára, az udvar közepére lökte.\nErre elkezdett ordítani, mint a fába esett féreg. Szaladt a többi farkasokhoz:\n- Jaj, fussunk, fussunk! Égszakadás! Földindulás! Valamennyi ördög, mind odabent van.\nNyúlok a hamuba,\nMeglőnek puskával.\nFutok a dézsához,\nMegvágnak ollóval.\nKapkodok kendőhöz,\nBanya szúr tűjével.\nFutok ajtó mellé,\nKilöknek lapáttal.\nSzaladok pitvarba,\nVesznek vasvillára!\nEgy kiált: Hep hep-hep!\nMás ordít: Add feljebb!\nAkkor nagyot estem,\nBezzeg jaj volt nekem!\nAkkor nekiindultak, még most is szaladnak, ha meg nem álltak.",
+    "file": "audio/audiobooks/rado-i-05.mp3",
+    "duration": 180.56,
+    "bytes": 2890231,
+    "sha256": "a1e0338b6eaf839246a8352a5c0ebfef467cb510cb040979bc69cd940b01b18c",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#5",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-06",
+    "title": "A kóró és a kis madár.",
+    "text": "Egyszer volt, hol nem volt, volt a világon egy kis madár. Ez a kis madár egyszer nagyon megúnta magát, rászállt egy kóróra.\n- Kis kóró, ringass engemet!\n- Nem ringatom biz én senki kis madarát!\nA kis madár megharagudott, elrepült onnan. Amint ment, mendegélt, talált egy kecskét.\n- Kecske, rágd el a kórót!\nKecske nem ment kóró-rágni, a kóró mégse ringatta a kis madarat. Megint ment, mendegélt a kis madár, talált egy farkast.\n- Farkas, edd meg a kecskét!\nFarkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy falut.\n- Falu, kergesd el a farkast!\nFalu nem ment farkas-kergetni, a farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy tüzet.\n- Tűz, égesd meg a falut!\nTűz nem ment falu-égetni, falu nem ment farkas-kergetni, farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy vizet.\n- Víz, oltsd el a tüzet!\nVíz nem ment tüzet oltani, tűz nem ment falu-égetni, falu nem ment farkas-kergetni, farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy bikát.\n- Bika, idd fel a vizet!\nBika nem ment vizet inni, víz nem ment tüzet oltani, tűz nem ment falu-égetni, falu nem ment farkas-kergetni, farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy furkót.\n- Furkó, üsd agyon a bikát!\nFurkó nem ment bika-ütni, bika nem ment vizet inni, víz nem ment tüzet oltani, tűz nem ment falu-égetni, falu nem ment farkas-kergetni, farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy férget.\n- Féreg fúrd ki a fúrkót!\nFéreg nem ment fúrkót fúrni, fúrkó nem ment bika-ütni, bika nem ment vizet inni, víz nem ment tüzet oltani, tűz nem ment falu-égetni, falu nem ment farkas-kergetni, farkas nem ment kecske-enni, kecske nem ment kóró-rágni, kóró mégse ringatta a kis madarat.\nMegint ment, mendegélt a kis madár, talált egy kakast.\n- Kakas, kapd fel a férget!\nSzalad a kakas, kapja a férget; szalad a féreg, fúrja a furkót; szalad a furkó, üti a bikát; szalad a bika, issza a vizet; szalad a víz, oltja a tüzet; szalad tűz, égeti a falut; szalad a falu, kergeti a farkast; szalad a farkas, eszi a kecskét; szalad a kecske, rágja a kórót; a kóró bezzeg ringatta a kis madarat.\nHa még akkor sem ringatta volna, az én mesém is tovább tartott volna.",
+    "file": "audio/audiobooks/rado-i-06.mp3",
+    "duration": 221.84,
+    "bytes": 3550607,
+    "sha256": "24366bd9877d3b99963ca112a40f3aebcdeb904c10aab3f7b465844c40e0e29d",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#6",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-07",
+    "title": "A farkas és a sas.",
+    "text": "Kérte a farkas a madarak királyát:\n- Taníts meg engem röpülni!\n- Óh, csak fogódzkodjál a farkamba, mondja a sas.\nHát a farkas belefogódzott a farkába, aztán vitte felfelé. Mikor már jó magasan voltak, kérdi a sas a farkast:\n- Farkas koma, látod-e még földet?\n- Még látom.\nMegint viszi felfelé, megint mondja a sas:\n- Farkas koma, látod-e még a földet?\n- Még látom.\nMennek följebb; megint mondja:\n- Látod-e még?\n- Nem látom.\nErre azt mondja neki a sas:\n- No hát ereszd el a farkamat!\nEleresztette, aztán ment lefelé. Nagyon örült a farkas, hogy ilyen sebesen repül. Azt mondja egy tuskónak:\n- Kelj előlem, te szenes tuskó, mert agyon ütlek! Kelj előlem, te szenes tuskó, mert agyon ütlek!\nDe biz a szenes tuskó nem ment el előle. Rávágódott a farkas, menten szörnyet halt.",
+    "file": "audio/audiobooks/rado-i-07.mp3",
+    "duration": 60.96,
+    "bytes": 976396,
+    "sha256": "820fe39f6b6ec0e906b99c6c0926f1d4e902e566768d1d1657de2ae5790c1859",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#7",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-08",
+    "title": "A róka, medve és a szegény ember.",
+    "text": "Egyszer volt, hol nem volt, volt egyszer egy szegény ember. Ez a szegény ember egy reggel két tehenével kiindult szántani. Amint az erdő mellett megyen, egyszer csak hall valami bömbölést, makogást. Bemegy az erdőbe megnézni, vajjon mi lehet az? Hát látja, hogy egy nagy medve verekedik egy kis nyúllal.\n- No még ilyet sem láttam életemben - mondja a szegény ember és olyan jóízűen kacagott rajta, hogy majd kipukkant.\n- Ejnye veszett hordta embere, hogy mersz te rajtam kacagni?! - rivallott reá a medve. - No azért meglakolsz, tehenestül együtt megeszlek.\nA szegény ember bezzeg most már nem kacagott. Nagyon kérte a medvét, hogy legalább estig ne egye meg. Addig felszántja a földjét, szegény háza-népe hogy ne maradjon kenyér nélkűl.\n- No hát estig nem bántalak, de akkor megeszlek!\nAvval a medve elment a dolgára, a szegény ember pedig búsan szántogatott. Délfelé odavetődött egy róka. Észrevette, hogy a szegény ember búsul. Kérdezte tőle, mi baja?\nA szegény ember elmondta, hogy járt a medvével.\n- Ha csak ennyi a baj, azon könnyen tudok én segíteni. Semmi bajod se lesz; magad is megmaradsz, a tehened is s még a medve bőre is a tied lesz. De mit fizetsz, ha megsegítlek?\nA szegény ember nem tudta, mit ígérjen, mert nem igen volt miből. Végre kilenc tyúkban s egy kakasban egyeztek meg. Nehezen ígérte meg a szegény ember, mert nem tudta, honnan teremtse ki; de mégis megígérte.\n- No most már, szegény ember, hallgass rám! Mikor a medve estefelé idejön, én elbúvok a bokorba s kürtölök, ahogy a vadászok szoktak. Akkor a medve azt kérdi: mi az? Te azt mondod: vadászok jönnek. Erre a medve megijed s kér, hogy bujtasd el. Te belebujtatod a szenes zsákba s megmondod neki, hogy meg ne mozduljon. Én akkor kijövök a bokorból s kérdem: mi van abban a zsákban? Te azt mondod: szenes tőke. Én nem akarom elhinni s azt mondom: vágd abba a csúcsba a fejszédet! Te úgy vágod fejbe a medvét, hogy mindjárt szörnyet hal.\nA szegény ember megörvendett a jó tanácsnak s követte is. Minden úgy történt, ahogy a róka mondta. A medve pórul járt s a szegény ember megszabadult tehenestűl.\n- Nem megmondtam, hogy így lesz? - mondja a róka. - Tanuld meg ebből, hogy többet ésszel, mint erővel. De nekem most dolgom van, hazasietek. Hanem holnap elmegyek hozzád a kilenc tyúkért s az egy kakasért. Jó kövérek legyenek! Otthon légy, mert különben megkeserülöd!\nA szegény ember szekerére vetette a medvét, vígan tért haza. Otthon jó vacsorát csapott, jót aludott rája s nem sokat félt a rókától, mert megtanulta tőle: többet ésszel, mint erővel.\nReggel, alig nyitotta ki a szemét, már kopogtatta az ajtót a róka és kérte a kilenc tyúkot és az egy kakast.\nMindjárt komám, mindjárt, csak felöltözöm - mondja a szegény ember. Hamar felöltözött, de nem nyitotta ki az ajtót, hanem megállott a ház közepén s elkezdett a szájával csaholni.\n- Te szegény ember, mi tesz úgy? talán csak nem kopó?\n- Bizony, komám, kopó az, még pedig két kopó. Itt aludtak az ágy alatt, nem tudom, honnan kerültek ide. Megérezték a szagodat, ki akarnak rohanni, alig tudom már tartani őket!\n- Csak addig tartsd, amíg elfutok. Nem bánom, maradjon inkább neked a tyúk is, a kakas is.\nMire a szegény ember kinyitotta az ajtót, a róka már túl volt ungon-berken. Nagyot kacagott rajta a szegény ember s talán még most is kacag, ha meg nem halt.",
+    "file": "audio/audiobooks/rado-i-08.mp3",
+    "duration": 238.8,
+    "bytes": 3821862,
+    "sha256": "2d7283fde750274e40fa42daf5d2bbfd30f01e4cece6c6dd20a8cca6c0895eae",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#8",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-09",
+    "title": "A szürke ló.",
+    "text": "Egyszer volt egy szegény ember, akinek a világon semmi egyebe nem volt, csak egy szürke lova. Úgy kereste a mindennapi kenyerét, hogy eljárt a szürke lovával őrölni; éjjel-nappal mindig őrölt vele. A szürke ló nagyon megúnta ezt a dolgot. Látta, hogy a más lova mindig párjával őröl, neki meg magának kellett húzni a malmot. Azt mondja hát a gazdájának:\n- Édes gazdám, mi dolog az, hogy más ember mindig két lóval őröl, te meg egyedül húzatod velem a malmot.\n- Biz annak az az oka, kedves lovam, hogy egy árva bogaram sincs, akit melléd foghatnék.\n- Ha csak ez a baj, eressz el engem, majd kerítek én magamnak társat.\nA szegény ember mindjárt kifogta a malomból, eleresztette. Elindult hát a szürke ló, hogy társat kerítsen magának. Mén, mendegél hetedhét ország ellen, egyszer meglát egy rókalyukat. Kapja magát, ráfekszik a lyukra, mintha meg volna halva, mintha már a farkát se tudná mozdítani.\nOdabent a rókalyukban egy öreg róka lakott három fiával. Egyszer a legkisebb fia ki akar menni. Meglátja a szürke lovat, azt gondolja a fehérségéről, hogy hó van. Visszamegy az anyjához:\n- Jaj, anyám, nem lehet most kimenni, nagy hó van odakint.\n- Már hogy volna - feleli az öreg róka - hiszen éppen nyár közepe van most. Eredj te, fiam - mondja a középső fiának - te öregebb vagy, többet tudsz, nézd meg, mi az?\nKimegy a középső fia is. Az is meglátja a szürke lovat a lyuk száján, az is visszamegy:\n- Jaj, anyám, csakugyan nem lehet most kimenni, hó van.\n- Már hogy volna most hó, hiszen éppen nyár közepe van. Eredj te ki, legöregebb fiam, te legtöbbet láttál már a világon, nézd meg, mi van ott?\nKimegy a legöregebb fia is. De az is csak avval megy vissza:\n- De bizony csakugyan hó van, akárhogy van a dolog, semmit se látni, csak a nagy fehérséget.\n- Nem lehet most hó, hiszen éppen nyár közepe van - mondja az öreg róka. - Avval maga ment ki. Látja, hogy nem hó, hanem szürke ló. Gondolkozóba esik, hogy kellene azt elhúzni onnan. Ha ott marad, még csak ki se tudnak járni tőle. Próbálják elhúzni a három fiával, de meg se tudják mozdítani. Elmegy hát az öreg róka a farkas komájához:\n- Kedves komám, ugyancsak jó pecsenyére tettem szert. Már oda is vittem a lyukam szájához, de sehogyse fér belé. Pedig ha kívül marad, mind kikezdik a varjak. Azért hát azt gondoltam, húzzuk el a te barlangodhoz. Abba talán belefér. Majd rájárhatunk ketten is.\nA farkas megörült a jó pecsenyének. Gondolta magában: Csak egyszer az ő barlangjában legyen, nem eszik abból a róka egy fél falatot sem. Mindjárt visszamentek a róka lyukához. Még akkor is ott feküdt a szürke ló, tettette magát, mintha meg volna halva. Mikor odaértek, elkezdett a farkas tanakodni:\n- Hogy kellene ezt az én barlangomhoz elvinni, koma?\n- Hát csak úgy - felelt a róka - ahogy én idáig hoztam: a farkam a farkához kötöttem, úgy húztam árkon-bokron keresztül, még csak nehéz sem volt. Most hát kössük a te farkadhoz a farkát - úgy a legszebben elviheted.\nA farkas mindjárt ráállott: \"A bizony jó lesz!\" Már előre fente a fogát a jó pecsenyére. - A róka meg jó erősen összekötötte a farkas farkát a szürke ló farkával.\n- Húzhatod már, koma!\nHúzza a farkas, majd megszakad, de meg se bírja mozdítani. Amint legjobban erőlködik, hirtelen felugrik a szürke ló s elkezd szaladni. Húzza ám a farkast a farkánál fogva maga után árkon-bokron keresztül, viszi egyenesen a gazdájához.\n- No, gazdám, hoztam magamnak társat!\nA szegény ember mindjárt agyonverte a farkast. A bőrét eladta jó pénzért, azon vett egy másik lovat. Attól fogva sohasem őrölt magában a szürke ló.",
+    "file": "audio/audiobooks/rado-i-09.mp3",
+    "duration": 260.08,
+    "bytes": 4162499,
+    "sha256": "28128fde0a0c6503ac11ca24bb6c98edf464aefd39b9657faa7675fe09e1ed58",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#9",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-10",
+    "title": "A Kacor király.",
+    "text": "Egyszer volt, hol nem volt, volt egyszer egy özvegyasszony, annak volt egy nagy macskája. Ez a nagy macska éppen olyan nyalánk volt, mint a kis macska, s egy reggel mind felnyalta a lábasból a tejet. Megharagudott az özvegyasszony, jól megverte a macskát és elkergette a háztól. A macska elbujdosodott a falu végére s ott nagy-szomorúan leült a híd mellé. A híd mellett ült a róka is, lógatta a lompos farkát. Meglátja a macska, neki-neki fut s játszadozni kezd a róka farkával. A róka megijed, felugrik, megfordul. A macska is megijed, hátrál s felborzolja magát. Így nézték egymást egy darabig. A róka sohasem látott macskát, a macska sem rókát. Mindegyik félt, de egyik sem tudta, mit csináljon. Végtére a róka megszólalt:\n- Ugyan, ha meg nem sérteném, nem mondaná meg, miféle úri nemzetség?\n- Én vagyok a Kacor király.\n- Kacor király?! Soha hírét sem hallottam.\n- Bizony pedig hallhattad volna. Minden állatot meg tudok régulázni, olyan nagy a hatalmam.\nEkkor a róka megszeppent s nagy alázatosan kérte a macskát, hogy legyen vendége egy kis csirkehúsra. Minthogy már délfelé járt az idő s a macska nagyon ehetnék volt, nem várt két meghívást. Elindultak hát a róka barlangjába. A macska hamar belétalálta magát a nagy uraságba s örvendett, hogy a róka olyan tisztelettel szolgálja, mintha valóságos király volna. Urasan is viselte magát, keveset szólott és sokat evett. Ebéd után álomra dűlt s azt parancsolta a rókának, ügyeljen, hogy senkise háborgassa, amíg alszik.\nA róka kiállott a barlang szájához strázsálni. Hát éppen akkor ment el ott a kis nyúl. Szólt a róka:\n- Hallod-e, te kis nyúl, itt ne járj, mert az én uram, a Kacor király alszik. Ha kijön, majd nem tudod, merre szaladj. Minden állatot megréguláz, olyan nagy a hatalma!\nMegijedt a kis nyúl, szép lassan elkotródott. Egy tisztáson lekuporodott s mind azon gondolkozott: Ki lehet az a Kacor király? Soha hírét sem hallottam.\nArra bódorgott egy medve is. Kérdi tőle a kis nyúl, hová megyen?\n- Járok egyet, mert nagyon megúntam magam.\n- Jaj erre ne járj, mert a róka azt mondja, az ő ura, a Kacor király, alszik, s ha kijő, majd nem tudod, merre szaladj. Minden állatot megréguláz, olyan nagy a hatalma!\n- Kacor király! Soha hírét sem hallottam. Már csak azért is arra megyek, legalább meglátom, milyen az a Kacor király.\nEl is indult a medve a róka barlangja felé. Szólt a róka:\n- Hallod-e, te medve, itt ne járj, mert az én uram, a Kacor király, alszik. Ha kijő, majd nem tudod, merre szaladj. Minden állatot megréguláz olyan nagy a hatalma!\nErre a medvének inába szállt a bátorsága. Szó nélkül megfordult s visszatért a kis nyúlhoz. Ott találta a farkast és a varjút, akik azt panaszolták, hogy ők is éppen úgy jártak.\n- Ki lehet az a Kacor király? Soha hírét sem hallottuk! - mondták mindnyájan - s mind azon tanakodtak, mit tudjanak csinálni, hogy megláthassák. Abban állapodtak meg, hogy meghívják ebédre a rókával együtt. Mindjárt el is küldötték a varjút a vendégeket meghívni.\nMikor a róka meglátta a varjút, nagy méreggel kifutott s összeszidta, hogy megint alkalmatlankodik.\n- Eltakarodj innen! Nem megmondtam már, az én uram a Kacor király. Ha kijön, majd nem tudod, merre szaladj. Minden állatot megréguláz, olyan nagy a hatalma!\n- Tudom, nagyon jól tudom. Nem is a magam jószántából jöttem ide, hanem a medve, a farkas meg a nyúl küldöttek, hogy meghívjalak benneteket hozzájuk ebédre.\n- Az már más; várj egy kicsit!\nEvvel bement a róka megjelenteni a dolgot a Kacor királynak. Kevés vártatva ki is jött, tudtára adta a varjúnak, hogy a Kacor király szívesen fogadta a meghívást. Elmennek ebédre, csak tudják, hová.\n- Eljövök én holnap utánatok s vezetlek.\nA jó hírre a medve, farkas és nyúl ugyancsak felütötték a Laci konyháját. A kis nyulat megtették szakácsnak, mert kurta farka van s úgy nem könnyen égeti meg magát. A medve, mint legerősebb, fát s vadat hordott a konyhára. A farkas asztalt terített s pecsenyét forgatott.\nMikor már kész volt az ebéd, a varjú elindult a vendégek után. Egyik fáról a másikra repült, de nem mert leszállni, hanem csak a fán maradt s onnan szólítgatta a rókát.\n- Várj egy kicsit, mindjárt készen leszünk - mondja a róka - csak még a bajszát pödri ki az én felséges uram.\nVégre kijött a Kacor király. Lassan és nagy méltósággal lépdelt elől, de a varjút mind szemmel tartotta, mert félt tőle. A varjú is szepegett, csak fél szemmel mert reá tekinteni. Egyik fáról a másikra szökdécselt, úgy vezette őket.\nA medve, a farkas, a nyúl nagy várakozásban voltak; mind azt mondogatták: \"Vajjon milyen lehet az a Kacor király?\" Ki-kinéztek az útra, ahonnan a vendégeket várták.\n- Ott jön, ott jön! Jaj Istenem, merre fussak?! - kiáltja a kis nyúl s ijedtében nekifut a tűznek. A medve is megijed s futtában úgy vágja a fejét egy nagy fába, hogy ketté hasad. A farkas nyársostúl, sültöstűl elszalad. A varjú pedig, hogy hírmondó se maradjon, követi a többiek példáját.\nAz éhes vendégek csak hült helyét találták mind az ebédnek, mind a gazdának. Szerencsére ezalatt a kis nyúl a tűzben jól megsült. Kihúzták, jóllaktak belőle s maig is élnek, ha meg nem haltak.",
+    "file": "audio/audiobooks/rado-i-10.mp3",
+    "duration": 375.76,
+    "bytes": 6013222,
+    "sha256": "3fa0ea7bb1b5a4e4935947a48a42a7afe8b0574fd595300d2b6de0f8be9f9923",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#10",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-11",
+    "title": "Farkas-barkas.",
+    "text": "Volt a világon egy kis tyúk. Csak ott kapargált, csak ott kapargált a szeméten. Egyszer a szomszéd fia áthajított egy kis követ s az egyenesen a kis tyúk fejére esett. Megijedt a kis tyúk, szaladt, szaladt, mindig ezt kiabálta: \"Fussunk, fussunk, égszakadás, földindulás!\" Amint szaladt, előtalált egy kis kakast. Azt kérdezi a kis kakas:\n- Hova szaladsz, kis tyúk koma?\n- Jaj, fussunk, fussunk, égszakadás, földindulás!\n- Honnan tudod?\n- Fejemen történt.\n- No hát fussunk, én is futok.\nFutottak, futottak, előtaláltak egy nyulat. Kérdezi a nyúl:\n- Hová szaladtok, kakas koma?\n- Jaj, fussunk, fussunk, égszakadás, földindulás!\n- Honnan tudod?\n- Tyúk komától.\n- Hát tyúk koma?\n- Fején történt.\n- No hát fussunk, én is futok.\nMegint futottak, előtaláltak egy őzet. Kérdezi az őz:\n- Hova szaladtok, nyúl koma?\n- Jaj, fussunk, fussunk, égszakadás, földindulás!\n- Honnan tudod?\n- Kakas komától.\n- Hát kakas koma?\n- Tyúk komától.\n- Hát tyúk koma?\n- Fején történt.\n- No hát fussunk, én is futok.\nMegint futnak, előtalálnak egy rókát. Kérdezi a róka:\n- Hova szaladtok, őz koma?\n- Jaj, fussunk, fussunk, égszakadás, földindulás!\n- Honnan tudod?\n- Nyúl komától.\n- Hát nyúl koma?\n- Kakas komától.\n- Hát kakas koma?\n- Tyúk komától.\n- Hát tyúk koma?\n- Fején történt.\n- No hát fussunk, én is futok.\nFutottak, futottak, előtaláltak egy farkast. Kérdezi a farkas:\n- Hova futtok, róka koma?\n- Jaj, fussunk, fussunk, égszakadás, földindulás!\n- Honnan tudod?\n- Őz komától.\n- Hát őz koma?\n- Nyúl komától.\n- Hát nyúl koma?\n- Kakas komától.\n- Hát kakas koma?\n- Tyúk komától.\n- Hát tyúk koma?\n- Fején történt.\n- No hát fussunk, én is futok.\nFutottak, futottak, mindig csak ezt kiabálták: \"Jaj, fussunk, fussunk, égszakadás, földindulás!\" Már rájuk is esteledett, de azért ők csak futottak. Egyszer egy verembe estek. Mit csináljanak, mit csináljanak? hogy menjenek ki? Már nagyon éhesek voltak. Egyszer azt mondja a farkas:\n- No, barátaim, komáim, már most mit csináljunk? Nagyon is ehetnénk, ha ez soká így tart, mindnyájan meghalunk. Hanem gondoltam én egyet. Mondjuk el mindnyájunk nevét; akié a legcsúnyább lesz, azt együk meg. Ráálltak mindnyájan. Elkezdte a farkas:\n- Farkas-barkas jaj de szép,\nRóka-bóka az is szép,\nŐzöm-bőzöm az is szép,\nNyúlom-búlom az is szép,\nKakas-bakas az is szép,\nTyúkom-búkom jaj de rút!\nSzétszaggatták a kis tyúkot, meg is ették hamarjában. De biz az még a fél fogukra sem volt elég. Megint elkezdte a farkas:\n- Farkas-barkas jaj de szép!\nRóka-bóka az is szép,\nŐzöm-bőzöm az is szép,\nNyúlom-búlom az is szép,\nKakas-bakas jaj de rút!\nSzétszaggatták a kakast is, be is érték vele akkor nap. Hanem bizony másnap megéheztek. Megint elkezdte a farkas:\n- Farkas-barkas jaj de szép!\nRóka-bóka az is szép,\nŐzöm-bőzöm az is szép,\nNyúlom-búlom jaj de rút!\nMegették a kis nyulat is; az is elég volt egy napra. De másnapra megéheztek. Megint elkezdte a farkas:\n- Farkas-barkas jaj de szép!\nRóka-bóka az is szép,\nŐzöm-bőzöm jaj de rút!\nSzéttépték az őzet is; az már elég volt vagy két napra. De biz utóljára az is elfogyott. Megint nagyon megéheztek. Egyszer azt mondja a farkas a rókának:\n- No, róka pajtás, már most nincs mit enni. Hanem vagy én eszlek meg téged, vagy te engem. Azért hát birkózzunk meg, nézzük, melyik lesz a győztes?\nMegbirkóztak. A farkas lett a győztes, megölte a rókát. Már evvel beérte egy hétig is. Hanem ekkor ez is elfogyott. Megint megéhezett a farkas. Mit csináljon nagy kínjában? Elkezdett ordítani, amint a torkán kifért. Éppen vadászok jártak arra, észrevették, agyonlőtték, bőréből bundát csináltak. Még most is viselik, ha el nem nyűtték.",
+    "file": "audio/audiobooks/rado-i-11.mp3",
+    "duration": 277.84,
+    "bytes": 4446711,
+    "sha256": "37db8e4716552561083f5996d69ab58d0daca5f274aea23abcd6f786ab3db833",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#11",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-12",
+    "title": "A kis malac és a farkasok.",
+    "text": "Volt a világon egy kis malac, annak volt egy kis háza egy nagy rengeteg erdő közepén. Egyszer, amint ebben a kis házban főzögetett magának, odamegy egy nagy ordas farkas, beszól az ajtón:\n- Eressz be, kedves malackám, nagyon hideg van idekint, fázom.\n- Nem eresztlek biz én, mert megeszel.\n- Ereszd be hát legalább az egyik hátulsó lábam.\nA kis malac beeresztette az egyik hátulsó lábát. Hanem alattomban odatett egy nagy fazék vizet a tűzhöz.\nKicsi idő múlva megint megszólal a farkas:\n- Ugyan, kedves malackám, ereszd be a másik hátulsó lábam is.\nA kis malac beeresztette azt is. De a farkas avval se érte be, hanem egy kis idő múlva megint beszólott:\n- Kedves kis malackám, ereszd be a két első lábam is.\nA kis malac beeresztette a két első lábát. De a farkasnak az se volt elég, megint megszólalt:\n- Édes, kedves kis malackám, eressz be már egészen, majd meglásd, egy újjal sem nyúlok hozzád.\nErre a kis malac egy zsákot szépen odatett a nyíláshoz, hogy amint a farkas jön háttal befelé, egyenesen abba menjen be. Avval beeresztette.\nA farkas csakugyan a zsákba ment be. A kis malac se volt rest, hirtelen bekötötte a zsák száját, lekapta a tűzről a nagy fazék forró vizet, leforrázta vele a farkast, azután hirtelen felmászott a nagy fára.\nA farkas egy darabig ordított, mert a forró víz úgy levitte a szőrét, hogy egy szál se maradt rajta. Azután addig hányta-vetette magát, mig utóljára kioldózott a zsák szája. Kibujt belőle, szaladt egyenesen segítséget hozni.\nVissza is jött nemsokára vagy tized magával. Elkezdték keresni a kis malacot. Addig-addig keresték, mig valamelyik csakugyan meglátta a fa tetején. Odamentek a fa alá, elkezdtek tanakodni, hogy mitévők legyenek? Mi módon fogják meg a kis malacot? Mert egyik se tudott a fára felmászni.\nNagysokára aztán arra határozták el magukat, hogy egymás hátára állanak mindnyájan; úgy aztán a legelső majd csak eléri. El is kezdtek egymás hátára felmászni. A kopasz maradt legalól, mert félt feljebb menni. Így hát a többi mind az ő hátán volt.\nMár olyan magasan voltak, hogy csak egyetlenegy hiányzott. Az az egy is elkezdett már mászni felfelé. Akkor a kis malac hirtelen elkiáltotta magát:\n- Forró vizet a kopasznak!\nA kopasz megijedt s kiugrott a többi alól. A sok farkas mind lepotyogott. Kinek a lába, kinek a nyaka tört ki. A kopasz meg úgy elszaladt, hogy sohse látták többet.\nA kis malac szépen leszállott a fáról, hazament. Többet felé sem mertek menni a háza tájékának a farkasok.",
+    "file": "audio/audiobooks/rado-i-12.mp3",
+    "duration": 177.52,
+    "bytes": 2841330,
+    "sha256": "68f31b05f1d6b0a3946ab7bda9177fae16c340d1716de6f7b86033265f29ac02",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#12",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-13",
+    "title": "A kis gömböc.",
+    "text": "Egyszer volt, hol nem volt, volt a világon egy szegény ember. Annak volt egy felesége, három leánya meg egy kis malaca. Egyszer megölték a kis malacot, a húsát felkötötték a padlásra. Már kolbásza, hurkája, sonkája, mindene elfogyott a kis malacnak, csak a gömböce volt még meg. Egyszer arra is ráéhezett a szegény asszony. Felküldte a legöregebb lányát a padlásra:\n- Eredj, lányom, hozd le azt a kis gömböcöt, főzzük meg.\nFelment a legöregebbik lány érte. Amint le akarta vágni, elkiáltotta magát a kis gömböc: \"Hamm, bekaplak!\" Avval bekapta. Már odalent nem győzték várni. Felküldte a szegény asszony a középső lányát.\n- Eredj már, lányom, nézd meg, mit csinál a nénéd ennyi ideig?\nFelment a középső lány, kereste a nénjét, s hogy nem találta, le akarta vágni a gömböcöt. De a gömböc megint elkiáltotta magát: \"Hamm, téged is bekaplak!\" Avval bekapta ezt is. Már odalent sehogyse tudták elgondolni, hogy mért nem jön az a két lány. Felküldte hát a szegény asszony a legkisebb lányát is.\n- Ugyan, lányom, eredj már fel, nézd meg, mit csinál a két nénéd. Aztán hozzátok le azt a kis gömböcöt valahára.\nFelment a legkisebb lány is. De ezt is csak elnyelte a gömböc. Már a két öreg sehogy se tudta mire vélni a dolgot.\n- No apjuk - mondja a szegény asszony - már látom, magamnak kell felmennem. Azok most bizonyosan az aszalt meggyet eszik.\nFelment a szegény asszony, kereste a lányait, s hogy nem találta, le akarta vágni a gömböcöt. De a gömböc őt is bekapta.\nA szegény ember csak várta, csak várta őket, s hogy nem jöttek, gondolta, tán valami baj van. Felment ő is. Amint közel ment a kis gömböchöz, ez elkiáltotta magát: \"Hamm, téged is bekaplak!\" Avval bekapta őt is. De a rossz kóc-madzag már az öt embert nem bírta meg; leszakadt a kis gömböc.\nElkezdett görögni. Görgött, görgött, a padlás lépcsőjén is legörgött, kiment egyenesen az utcára. Éppen ott ment el egy csomó kaszás, jött haza a mezőről. A kis gömböc azokra is rákiáltott: \"Hamm, titeket is bekaplak!\" Avval bekapta ezeket is.\nMegint görgött tovább. Előtalált egy csapat katonát, azokra is rákiáltott: \"Hamm, titeket is bekaplak!\" Avval bekapta ezeket is.\nMegint csak görgött odább. Egyszer csak egy hídra tért, amely alatt a víz egészen kiszáradt. Éppen akkor ment arra egy hintó. A kis gömböc félre akart előle ugrani, hogy el ne tapossa. De leesett a hídról, kirepedt az oldala, kiomlott belőle a sok ember. Ki-ki a maga dolgára ment, a kis gömböc meg ott maradt kirepedve.\nHa a kis gömböc ki nem repedt volna, az én mesém is tovább tartott volna.",
+    "file": "audio/audiobooks/rado-i-13.mp3",
+    "duration": 186.0,
+    "bytes": 2977167,
+    "sha256": "af5d636f72b604daff7a8393a46d8d44c18a8e6adcfc8d75a42eca1f653432c5",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#13",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-14",
+    "title": "Félig nyúzott bakkecske.",
+    "text": "Egyszer volt, hol nem volt, volt a világon egy ember. Annak volt két fia meg egy kecskéje. Azt mondja egy reggel az ember a nagyobbik fiának:\n- Hajtsd ki, fiam, ezt a kecskét legelni! De olyan helyre hajtsd, ahol jól lakhatik.\nA fiú kihajtotta szép füves helyre. Evett a kecske evett, míg úgy jól nem lakott, hogy alig tudott mozdulni. Akkor kérdezi tőle a fiú:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelelt a kecske:\nÚgy jóllaktam, mint a duda,\nEgy szál fű sem fér több belém!\nEvvel a fiú hazahajtotta. Otthon kérdi az apja a kecskétől:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelel a kecske:\n- Jaj, jó gazdám, dehogy laktam,\nMint a kutya, úgy koplaltam!\nMegharagudott erre az ember, mindjárt elkergette a fiút a háztól.\nMásnap reggel mondja a kisebbik fiának:\n- Hajtsd ki most te, fiam, a kecskét. De jó helyre hajtsd, mert ha éhen hozod haza, úgy jársz, mint a bátyád.\nKihajtotta a fiú még szebb füves helyre, mint a bátyja. Jól is lakott a kecske megint, úgyhogy alig bírta. Akkor kérdezi tőle a fiú:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelelt a kecske:\n- Úgy jóllaktam, mint a duda,\nEgy szál fű sem fér több belém!\nEvvel a fiú hazahajtotta. Otthon megint kérdi az ember a kecskétől:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelel a kecske megint:\n- Jaj, jó gazdám, dehogy laktam,\nMint a kutya, úgy koplaltam!\nEz még jobban megharagította az embert, elkergette ezt a fiát is.\nHarmadnap reggel nem volt kire bízni a kecskét. Maga hajtotta ki az ember. Még szebb füves helyre vitte, mint a fiai. A kecske úgy jóllakott, hogy csak eldűlt, mint egy darab fa. Kérdezi tőle az ember:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelel a kecske:\n- Úgy jóllaktam, mint a duda,\nEgy szál fű sem fér több belém!\nEvvel hazahajtja az ember. Otthon kérdi tőle:\n- Kedves kecském, jóllaktál?\nElég füvecskét kaptál?\nFelel a kecske:\n- Jaj, jó gazdám, dehogy laktam,\nMint a kutya, úgy koplaltam!\nNagyon megharagudott erre az ember. Most látta, hogy a két fiát is ártatlanul kergette el a háztól.\n- No hiszen megállj, kutya kecske, meglakolsz te ezért!\nElővett egy éles kést, a kecskét megkötötte egy fához, elkezdte nyúzni elevenen. Mikor már félig megnyúzta, megszólalt a kecske:\n- Jaj, jaj, jaj, jó gazdám,\nNe húzd le a bundám!\nÚgy jóllaktam, mint a duda,\nEgy szál fű sem fér több belém!\nErre aztán félbehagyta a nyúzást, eloldta a fától a félig megnyúzott kecskét. A kecske, amint megszabadult, elkezdett szaladni árkon-bokron keresztül. Szaladt, szaladt, egyszer egy róka-lyukhoz ért, abba belebujt. Ott aztán meghúzta magát szépen. Egyszer jön haza a róka. Amint be akarna menni, a kecske ezt kiáltja:\n- Én vagyok, bém vagyok,\nFélig nyúzott bakkecske;\nSzarvaimmal tusálok,\nBajuszommal szurkálok,\nSzaladj mindjárt, mert megdöflek!\nMegijedt a róka, elszaladt a farkashoz.\n- Farkas komám, gyere hamar, ördög van a lyukamban.\nOdamegy a farkas a lyuk szájához:\n- Ki vagy, mi vagy, róka komám lyukába', lyukába'?\n- Én vagyok, bém vagyok,\nFélig nyúzott bakkecske;\nSzarvaimmal tusálok,\nBajuszommal szurkálok,\nSzaladj mindjárt, mert megdöflek!\nMegijedt a farkas is, elszaladt a medvéhez.\n- Jaj, komám, gyere hamar, ördög van a róka koma lyukában.\nOdamegy a medve is a lyukhoz, beszól rajta:\n- Ki vagy, mi vagy róka komám lyukába', lyukába'?\n- Én vagyok, bém vagyok,\nFélig nyúzott bakkecske;\nSzarvaimmal tusálok,\nBajuszommal szurkálok,\nSzaladj mindjárt, mert megdöflek!\nMegijedt a medve is, elszaladtak mind a hárman. Szaladtak, szaladtak, egyszer előtaláltak egy sündisznót.\n- Hova szaladtok, medve koma? - kérdi a sündisznó.\n- Jaj szaladjunk, te is szaladj, ördög van a róka koma lyukában.\n- Nem szaladok én! Gyertek vissza, hátha ki tudnám onnét riasztani.\n- Már hogy tudnád, én csak erősebb vagyok, farkas komám is, mégse tudtuk - felel a medve.\n- No csak próbáljunk szerencsét - mondja a sündisznó.\nVisszamentek hát. Beszól a sündisznó a lyuk száján:\n- Ki vagy, mi vagy róka komám lyukába', lyukába'?\n- Én vagyok, bém vagyok,\nFélig nyúzott bakkecske;\nSzarvaimmal tusálok,\nBajuszommal szurkálok,\nSzaladj mindjárt, mert megdöflek!\nDe a sündisznó nem ijedt meg, hanem összegombolyította magát, begurult, elkezdte szurkálni minden oldalról a nyúzott részét a kecskének. Ez se vette tréfára a dolgot, kiugrott a lyukból. Idekint aztán mindjárt megismerte őkelmét a medve is, farkas is. Megfogták, széttépték, jó lakomát csináltak belőle.\nHa szét nem tépték volna, az én mesém is tovább tartott volna.",
+    "file": "audio/audiobooks/rado-i-14.mp3",
+    "duration": 333.84,
+    "bytes": 5342398,
+    "sha256": "e10bebd9a243609a55469ffdec54ce354f6d235a62bb6185cfb874658a219edf",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#14",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-17",
+    "title": "A zarándok és az Isten angyala.",
+    "text": "Egy gazdag embernek igen-igen sok szép báránya volt. Kihajtatta kicsi szolgájával a rétre, hogy legeltesse ott. De meghagyta, hogy a bárányok s a feje!... úgy viselje gondjukat. Amint a kis legény a bárányok mellett furulyázgatott, arra jött egy hetyke legényke s addig kötekedett a kis juhászbojtárral, hogy ez botjával úgy fejbe teremtette, hogy a kötekedő legény nyomban szörnyet halt. Megijedt a kis bojtár, széttekintett, hogy nem látta-e valaki, aztán egy árokba temette a holttestet. Mikor este hazament a bárányokkal, hiányzott egy közülük.\nA gazdag ember a fiát elküldötte a kis juhászbojtárral, hogy keressék meg az elveszett bárányt. De mikor semmiképpen a nyomára nem akadtak, rátámadt a gazda fia, hogy bizonyosan megette, s úgy megütötte botjával, hogy még egy jajszót sem kiálthatott, szörnyű halált halt. Gondolta a gazda fia: Úgysem lát senki az ég alatt, eltemetem egy árokba. El is temette éppen abba az árokba, hol a másik legényke feküdt.\nAzonban mind a két gyilkosságot látta egy zarándok. De mivel a fiú apja gazdag ember volt, nem mert törvényre menni. Gondolta, hogy úgyis hiábavalóság, a gazdag ember kipörli az életből. Imádságra adta hát magát s három egész esztendőn át folyvást azért imádkozott, hogy az Úristen alázza meg a gazdag embert, hogy ő aztán félelem nélkül jelenthesse fel. De az Isten nem hallgatta meg a zarándok imádságát; a gazdag ember még gazdagabb lett három esztendő lefolyásában. Arra határozta magát ekkor a zarándok, hogy ő bizony többé egy szót sem imádkozik hiába, hanem világi életet él ezután. Miért imádkozzék ő többet, mikor az Isten a gonoszokat áldja meg s az Istenes emberről megfeledkezik?!\nElhagyta kicsi házikóját s elindult a világba. Túljárt már hetedhét országon s egy emberre talált, aki egy nagy tűz mellett heverészett. Letelepedett ő is a tűz mellé s ott elbeszélte, hogy mily járatban van.\nAzt mondja a másik ember:\n- Én is olyan kegyes életet éltem, mint te, de hogy láttam a rosszak boldogulását, a jók sanyarú életét, eltökéltem magam, hogy többé nem kegyeskedem, hanem élek, ahogy Isten más teremtése.\nBarátságot fogadtak egyszerre s virradatkor elindultak ketten. Estére beértek egy faluba s a legelső jobb külsejű háznál szállást kértek éjjelre. A gazda, kinek szép felesége volt s egyetlenegy fiacskája, azt mondta: Istené a szállás! - és még vacsorára is meghívta vendégeit. Azután ágyat vetettek nekik s egymásnak nyugalmas jóéjtszakát kívánva, lefeküdtek, elaludtak.\nMikor már mindenki első álmában volt, felkelt a zarándok útitársa s egy késsel elvágta a gyermek nyakát. Azzal felkeltette a zarándokot és szép suttyomban tovább utaztak.\nMásnap estére más faluba értek, s ott is találtak egy jószívű gazdára. Ez nemcsak szállást adott, hanem jó vacsorát és bort, annyit, amennyit csak meg győztek inni. Volt a gazdának egy szép ezüst-pohara s vendégeit mind abból kínálgatta. Biztatta, csak igyanak abból a pohárból, ő is mindig abból iszik s más poharat még a szájához sem venne. Lenyugodtak a jó boros vacsora után. De a zarándok társa csak azt várta, hogy a gazda hortyogni kezdjen. Leakasztotta az ezüst-poharat a szegről, azzal keltette a zarándokot, hogy tovább egy házzal!\nMentek, mentek, sokáig vándoroltak, míg egyszer egy faluban rájuk esteledett. Hát egyszer csak olyan esős idő támadt, olyan sötétség kerekedett, hogy fejszét lehetett volna akasztani rája. Bekérezkednek egy házhoz. De a gazda kikiáltott: A szomszéd jobb ember, mint én! Mennek a szomszédhoz, az is éppen azt kiáltotta. Rendre fogták a házakat, de mindenütt kifizették, hogy: A szomszéd jobb ember, mint én! A legutolsó házban azonban addig kunyoráltak, hogy a gazda, egy vén ember, beeresztette, de akkor sem a házba, hanem a disznópajtába. A vén gazda gondolta magában, hogy azok a gonosz, mérges disznók még darabokra szaggatják a két embert, s legalább másnap nem kell nekik kukoricát adatni. A disznók nem bántották a vándorokat és ezek csendesen aludtak reggelig. A zarándok társa ekkor megköszönte a szállást s a vén gazdának ajándékozta az ezüst-poharat jószívűségeért.\nMentek tovább s útközben egy olyan keskeny pallóhoz értek, amelyen egyszerre csak egy ember mehetett által. Azt mondja a zarándok:\n- Üljünk le ide, mert látod-e, éppen most lépett egy ember a pallóra, várjuk meg, míg általjő.\nA társa azonban nem hallgatott rá. Szembe ment az emberrel, s mikor ez szerencsés jónapot kívánt, megragadta, a vízbe taszította. Az bele is fúlt egyszeribe.\nA zarándok ezen erősen megbotránkozott s elhatározta, hogy többet nem jár egy úton társával. A pallón túl egy keresztúthoz értek s itt azt mondta a társának:\n- Én veled tovább nem utazom. Ha te keletre mégy, én nyugatra megyek.\n- Hát miért nem akarsz velem utazni? - kérdezte a társa.\n- Azért, mert tovább nem tudom nézni gonoszságaidat. Megölted a jószívű gazda fiát, a másiknak elloptad a kedvelt poharát s odaajándékoztad annak a rossz embernek, ki a disznópajtában adott éjjeli szállást. Most meg a vízbe taszítottad azt a becsületes embert, pedig szerencsés jónapot kívánt.\n- Várj csak egy kicsit - szólt az útitársa - ha még neked áll feljebb! Hát te mit tettél? Zarándok létedre elnézted, hogy az egyik ember megölje a másikat és nem szóltál, mert féltél, hogy betörik a fejed. Zarándok létedre nem tudtad bevárni a bűn büntetését, hanem világi életre adtad magadat. Tudd meg, hogy én az Isten angyala vagyok. Tudom az embernek jövendő életét s aszerint cselekszem. Annak a jószívű gazdának azért öltem meg egyetlen fiát, mert szülei elkényeztették volna s lett volna belőle akasztófára való gazember. Ezerszerte több keserűséget okozott volna életével, mint okozott halálával. Annak a másiknak azért loptam el az ezüst poharát, mert elrészegesedett volna, annyira szeretett ivogatni belőle. De így eltökélte magát, hogy többet nem iszik. Annak a vén gazdának pedig azért ajándékoztam a lopott ezüst poharat, hogy kapjon bele az ivásba s igya meg mindenét. Mert az olyan embernek nem való a gazdagság, aki nem könyörül a szegény utasokon. A pallóról pedig azért taszítottam vízbe ezt a becsületes forma embert, mert éppen akkor indult a gonoszság útjára. Ezt legalább megmentettem a kárhozattól. Te is térj vissza kicsi házikódba s ne siettesd a jó Istent, mert ő szent kegyelme nem késik soha az igazságosztással. Ezt mondván az angyal, fényes lángszekéren felszállott az égbe.",
+    "file": "audio/audiobooks/rado-i-17.mp3",
+    "duration": 454.88,
+    "bytes": 7279221,
+    "sha256": "7a240e4f2c12a379b37299aa098e3cf8abed673742aebddeb662183fe8933bdc",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#17",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-20",
+    "title": "Az okos leány.",
+    "text": "Egyszer volt, hol nem volt, volt egy molnárnak egy takaros és okos leánya. Az olyan okos volt, hogy hetedhét ország ellen járt a híre. Meghallja ezt a király. Odaizen neki, hogy van neki a padlásán száz esztendős kendere, fonja meg azt arany cérnának.\nA leány erre visszaizen, hogy van nekik egy száz esztendős sövényük, csináltasson abból a király arany orsót, akkor szívesen megfonja az arany fonalat. De azt csak nem kívánhatja a király, hogy az arany fonalat haszontalan fa-orsón fonja meg.\nTetszett a királynak a felelet. Megint azt izeni, hogy van neki egy lyukas korsója a padláson, foldja meg azt, ha tudja.\nMegint visszaizen a leány, hogy fordíttassa ki hát a király a korsót, mert azt csak nem látta senki, hogy színéről foldoztak volna meg valamit.\nEz a felelet még jobban megtetszett a királynak. Most meg azt izeni, hogy menjen el a leány őhozzá, de úgy, hogy mégse menjen; köszönjön is, mikor elébe ér, de mégse köszönjön; vigyen is neki ajándékot, ne is.\nErre a leány elkéri az apjától a szamarat, felül rá, aztán úgy megyen a királyhoz. Otthon egy galambot megfogott, szitával leterítette és elvitte magával. Mikor aztán a király elébe ér, egy szót sem szól, hanem meghajtja magát; aztán a galambot a szita alól elrepíti. Így aztán ment is, nem is; köszönt is, nem is; vitt is ajándékot, nem is.\nA király úgy megszerette az okos leányt, hogy mindjárt elvette feleségül.",
+    "file": "audio/audiobooks/rado-i-20.mp3",
+    "duration": 102.24,
+    "bytes": 1636772,
+    "sha256": "1595e1a746f2005e5202c4cb2e1900592c146f16a259489c52f3be8341a54379",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#20",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-22",
+    "title": "Az Igazság és Hamisság.",
+    "text": "Ezelőtt sok évvel, a napját éppen nem tudom megmondani, az Igazság jól feltarisznyálva útnak indult, be akarta járni a világot. Ment, ment hegyen-völgyön, falun, városon keresztül. Addig ment, míg egyszer előtalálta a Hamisságot.\n- Jó napot, földi! - köszön az Igazság - hova, meddig szándékozol?\n- Megyek, bejárom a világot - felelt a Hamisság.\n- Éppen jó - mond az Igazság - én is odaindultam; utazzunk hát együtt!\n- Legyen! - mondja a Hamisság. - De tudod-e, az utazóknak jó egyességben kell ám élni. Osszuk hát meg az útravalónkat!\nItt megegyeztek, hogy először az egyik pogácsáját fogják megenni, azután a másikét. Hogy megéheztek, a Hamisság azt mondja az Igazságnak:\n- Együk meg a tiedet előbb, te aztán könnyebben fogsz utazni. Az Igazság bizony közre ereszti az útravalóját s együtt elköltik.\nMikor ez már elfogyott, a Hamisságét is együtt kellett volna elkölteni. Mondja az Igazság a Hamisságnak:\n- Barátom, adj már most nekem a tiedből is!\nAzt mondja a Hamisság:\n- Hadd vájjam ki az egyik szemedet, úgy adok belőle neked is!\nMennek tovább, ismét kér az Igazság. De a másik nem akart külömben adni, csak úgy, ha megengedi, hogy az egyik szemét kivájja.\nEgyszer úgy megéhezett a szegény Igazság, hogy egy toppot sem tudott lépni. Nem volt szegénynek mit tenni, ő bizony megengedte, hogy az egyik szemét kivájja. Akkor adott neki egy darab pogácsát a Hamisság.\nMennek tovább, ismét megéhezik a szegény Igazság. Kér a Hamisság pogácsájából, de ez azt mondja, nem ád, ha meg nem engedi, hogy a másik szemét is kivájja. Mit volt mit tenni, kénytelen volt azt is megengedni, mert szinte meghalt éhen.\nMennek, mind mennek, ismét kér az Igazság a Hamisság pogácsájából. Most azt mondta a Hamisság, hogy addig nem ád, míg meg nem engedi, hogy mind a két kezét-lábát levágja. Szegény Igazság, neki ugyan megesett! De mit tudott tenni? Az ember az életért mindenét odaadja. Azt is megengedte, csakhogy meg ne haljon éhen.\nMost, hogy mindezt megtette, a Hamisság ott akarta hagyni magában. De a szegény Igazság rimánkodott, hogy ne hagyja el őt ily gyámoltalan, hanem tegyen vele annyi barátságot, hogy vezesse el a legközelebbi város kapujához, hogy a vásárosoktól ott alamizsnát kéregessen.\nEl is vezette a Hamisság, de nem a város kapujához, hanem ott nem messze a hegyen volt egy akasztófa, ahhoz vezette. Ott leültette s ott hagyta. A szegény Igazság megtapogatja, hogy vajjon ott van-e a város kapuja? Ott várta az embereket, de hát egy lélek sem járt arra, csak a szél süvöltözött.\nEgyszer csak éjfélkor odamegy három varjú, egy vén meg két fia. Kérdezi a vén:\n- Mondjátok meg, mit hallottatok, mit láttatok?\nAzt mondja az egyik:\n- Én azt hallottam, hogy ma éjtszaka olyan harmat hull, hogyha avval az ember csonka-bonka kezét s vak szemét megmossa, még frissebb lesz, mintha újra született volna. Ezt a szegény Igazság mind hallgatta.\nAzt mondja a másik fiavarjú is:\n- Én kitudtam, hogy ennek a városnak mit kellene csinálni, hogy a szomjúság miatt mindegyre ne halnának az emberek olyan erősen. A rétben vagyon egy fűzfa, a fűzfa alatt egy malomkő. Ha valaki azt onnan kivenné, éppen olyan szélesen jönne a víz, mint a malomkerék. Evvel mind a három varjú elrepült onnan, olyan gyorsan, mint a szél.\nA szegény Igazság nekiáll, a harmatos földön meghengerődzik s örömére a karjai kiépültek. Azután keresgélt, mindenfelé tapogatódzott, s ami burjánt csak kaphatott, arról a harmatot mind a szeme helyére dörzsölte. Mire megvirradt, szerencsésen meglátta a világosságot. Hálát adott az Igazság az ő Istenének, hogy őt, mint igazat, el nem hagyta.\nMost az Igazság fogja magát, siet a közellevő városba. Nemsokára elérkezett oda, hát látja, hogy minden ember gyászol. Egyenesen elmegyen a királyhoz s megjelenti, hogy mi okból jött oda. Igen nagy öröme támadt a királynak. Mindjárt kihirdetteti a városban, hogy nála olyan ember van, aki a városnak bő vizet tudna árasztani.\nAz Igazság elmegyen néhányad magával le a rétre. Ott a fűzfa alól kiásatja a nagy malomkövet, hát akkora helyről buzog fel a víz, mint amekkora helyt feküdt a malomkő. Erősen megörvendett a király s az egész népség nagy vígsággal ünnepet tartott.\nA király nem is eresztette el az Igazságot, hanem magánál marasztotta. Úgy tartotta őt minden dologban, mint legbizodalmasabb emberét, nagy gazdagságba s boldogságba helyezte.\nIdő telve a Hamisságnak is elfogyott az útravalója. Kéregetésből kezdett élegetni. De kevés háznál boldogult s étlen szinte meghalt.\nEkkor véletlen reátalál útitársára, az Igazságra, aki most olyan gazdag volt. Kérdi a Hamisság:\n- Hát te hogy tettél szert erre a töméntelen gazdagságra? - Az Igazság, ahogy volt, épp úgy elbeszélte neki.\nFogja magát a Hamisság is, fogad egy embert, hogy az ő két szemét is vájja ki, a két karját pedig vágja le, aztán őt is vezesse ki az akasztófához. Úgy teszen az az ember, levágja a két karját, a két szemét kivájja, aztán elvezeti ki az akasztófához s ott hagyja.\nVárja, várja a Hamisság a három varjút. Éjfélkor el is jönnek, leszállnak az akasztófára. Egyszer megérezik, hogy ott valaki van, a varjúk bizony leszálltak rája - s mind egy szikráig megették a Hamisságot.",
+    "file": "audio/audiobooks/rado-i-22.mp3",
+    "duration": 380.48,
+    "bytes": 6088873,
+    "sha256": "27aa6ac7617d59a3f133450c49b870d7911b108dfdaf13242804a9ed72106ec5",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#22",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-23",
+    "title": "A kívánságok.",
+    "text": "Hol volt, hol nem volt, elég az, hogy volt egyszer egy szegény ember s annak egy csinos felesége. Mind a ketten szerették egymást. Csak az volt a bajuk, hogy szegények voltak; egyiknek sem volt semmije sem. Ezért aztán megtörtént, hogy néha egy kicsit összepöröltek és szemére hányták egymásnak, hogy egyiknek sem volt semmije. De azért szerették egymást.\nEgyszer estve az asszony előbb jött haza, mint a férje, és a konyhában a padkán tüzet rakott, ámbár nem igen volt mit főzni.\n- Legalább egy kis levest főzök az uramnak. Mire haza jön, elkészül - gondolta magában. De alig teszi fel a bográcsot a tűzhöz és a tűzre nehány hasáb fát, hogy a víz annál hamarább felforrjon, ura már hazajön és ő is a felesége mellé a padkára ül.\nOtt melegednek a tűznél, mert már hideg ősz volt. A szomszéd faluban épp az nap kezdték a szüretet.\n- Tudod-e, mi újság, feleségem? - kérdezi az ember az asszonyt.\n- Nem tudom biz én, semmit se hallottam. Hát mondja meg, hogy mi?\n- Hát amint jöttem most az uraság kukoricaföldjéről, messziről a sötétben észrevettem, hogy az úton valami fekete folt van. De nem tudtam megismerni, hogy micsoda. Közelebb jöttem, hát uramfia! mi volt? Egy szép, aranyos kis kocsi, benne egy szép asszony, elűl meg szép négy mókus befogva.\n- Tréfál kend - szakítá félbe az asszony.\n- Nem tréfálok biz én, valóságos igaz. Tudod, milyen sáros a mi határunkban az út. Hát bizony a mókusok a kocsival megakadtak, sehogyse bírtak tovább menni. Az asszony meg nem mert kiszállani a sárba, hogy aranyos ruháját be ne piszkítsa. Én, amint megláttam, el akartam szaladni, mert valami gonosz léleknek tartottam. De ő utánam kiált s kér, hogy segítsem ki a sárból, semmi bajom sem lesz, meg is jutalmaz. Gondolom magamban, hogy bizony jól esnék, ha segítene szegénységünkön. Segítségemmel a mókusok kihúzták a sárból. Ekkor az asszony kérdezi, hogy házas vagyok-e? Megmondom neki. - Hát gazdag vagy-e? - kérdezi tovább. - Dehogy vagyok, alig van szegényebb ember a falunkban. - Nohát ezen segíthetünk - azt mondja - feleségednek három kívánságát fogom teljesíteni. - Ezzel elment, mintha a sárkányok vitték volna. Tündér volt.\n- Az ugyan rászedte kendet - mondja a felesége.\n- Majd meglátjuk, próbálj csak valamit kívánni, édes feleségem.\nErre az asszony hamarjában kimondja:\n- Bárcsak volna egy kolbászunk, ezen a szép parázson ugyancsak megsülne!\nAlig mondta ki, máris leszállt a kéményből egy lábas, benne akkora kolbász, hogy kertet lehetett volna vele keríteni.\n- Ez helyes! - kiáltják mindketten.\n- De a másik két kívánságot okosabban kell felhasználnunk. De jó dolgunk leszen akkor! Mindjárt veszek két tinót meg két lovat, egy malacot is veszünk - így szólt az ember.\nEközben levette kalapjáról a pipáját, kihúzta a dohányos zacskót és megtömte. Most rá akar gyujtani, de olyan ügyetlenül veszi az üszköt, hogy a lábast kolbászostul feldönti.\n- Az Istenért, a kolbász! Ugyan mit csinál kend? Bár az orrára nőne kendnek! - kiált bosszúsan az asszony és a kolbászt ki akarja kapni a tűzből.\nDe ez akkor már a férje orrán lógott, le egészen a lába ujjáig.\n- Uram teremtőm, segíts! - így kiált fel megint az asszony.\n- Lásd, bolond, oda a második kívánság! - mondja az ura. - Hát ezzel most mit csináljunk?\n- Levesszük - felel az asszony.\n- Bizony egészen idenőtt az orromhoz, nem lehet azt levenni.\n- Hát levágjuk, másképp nem segíthetünk.\n- Dehogy engedem, dehogy hagyom a testemet vágni, a világ minden kincseért sem. De tudod-e, mit, feleségem? Még egy kívánságunk van hátra. Kívánd, hogy a kolbász visszamenjen a lábasba. Akkor megint jó lesz minden.\nAz asszony meg így felelt:\n- Hát a tinó meg a ló meg a malac akkor hol marad?\n- De hiszen, ilyen bajusszal csak nem járhatok!\nSokáig így pöröltek. Utóljára csakugyan rábírta az asszonyt, hogy azt kívánja, hogy a kolbász visszamenjen a lábasba. De ezzel odavolt a három kívánság s ők most is olyan szegények maradtak, mint ezelőtt.\nAzonban a kolbászt jóízűen megették. De mivel most átlátták, hogy pörölésük volt az oka, hogy nem lett se tinójuk, se lovuk, se malacuk, megegyeztek abban, hogy ezután jobb békességben fognak élni. Nem is pöröltek aztán soha. Jobban is ment a dolguk s idővel tinót is, lovat is, malacot is szereztek, mert szorgalmasak és takarékosok voltak.",
+    "file": "audio/audiobooks/rado-i-23.mp3",
+    "duration": 310.4,
+    "bytes": 4967488,
+    "sha256": "a86e8ae73fe9383cce9f405378ab9f3640b0994fc3eee23ad0febeeb64ad68ef",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#23",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-24",
+    "title": "A királyfi és a felesége.",
+    "text": "Egy királyfinak szándéka volt egy igen szép leányt elvenni. Neki nem kellett gazdag családból, csak hogy szép és okos legyen.\nElment tehát megnézni az országokat, hogy egy szép leányra találjon. Amint hallották, hogy az ifjú király utazik, mindenütt kivonultak tiszteletére. Egy faluban talált is egy szép leányra, aki legszegényebb volt a faluban. Éppen a gulyás lánya volt. Azt mondta a leányzó:\n- Hogy menjek én hozzád feleségül, mikor olyan szegény vagyok?\n- Ne gondolj te avval - feleli a király - csak jöjj el hozzám oly föltétellel, hogy sohasem szólsz ellenemre.\nMinden megtörtént. Nem is szólt sohasem ellenére a királynak, csak éppen akkor, mikor egypár paraszt utazott arra.\nEz így esett. Egyik paraszt ökörrel utazott, a másik lóval. A lónak az első állomáson egy éjjel csikója lett és a csikó elment reggel az ökör után. Az ökrös ember nem akarta visszaadni. Azért a másik ember elment panaszra a királyhoz.\nA király azt itélte, azé a csikó, aki után ment. Úgy hát a lovas embernek tüstént távoznia kellett. De a királyné, aki akkor a kertben hintázott, azonnal utána ment és azt mondta neki:\n- Te szegény ember, a király majd elmegy az erdőbe vadászni, te meg vígy magaddal egy hálót és tedd egy tuskóhoz. És még egyebet is mondott neki.\nAz ember megtette. A király, amint vadászni ment, meglátta és megkérdezte, hogy mit csinál.\n- Halászok - mondja a szegény ember.\n- Hogy lehet a tuskónak hala? - kérdezi a király.\nErre azt feleli az ember:\n- Úgy lehet a tuskónak hala, mint az ökörnek kis csikója.\nMindjárt gondolta a király, hogy a felesége biztatta fel az embert. Azért elmegy és azt mondja a feleségének, ki akkor a tornácon ült, hogy távozzék a házától és menjen vissza apjához, a gulyáshoz.\nA királyné azt mondja:\n- Hát mit adsz nekem, édes királyom, emlékül, hogy eddig veled éltem?\n- Amit akarsz, ami neked legkedvesebb, azt adom neked - feleli a király.\nA királyné valami szert adott férjének az italába, amitől elaludt. Akkor megparancsolta a kocsisnak, hogy fogjon be. A királyt is feltették a kocsira s elvitték a királyné apjához, a gulyáshoz.\nMikor a király felébredt, kérdezte, hogy hol van, hogy miért hozták ide?\nA felesége ezt válaszolta:\n- Én hoztalak ide, mert magad mondtad, hogy azt hozzam magammal, ami nekem legkedvesebb; azért téged hoztalak ide.\nA királynak ez nagyon megtetszett, visszavitte a feleségét és holtig élt vele.",
+    "file": "audio/audiobooks/rado-i-24.mp3",
+    "duration": 169.84,
+    "bytes": 2718450,
+    "sha256": "25e22341d23f2a8b9e96741ff0a7c06275255c08356edfbc4198cbc4da00eee2",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#24",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-i-25",
+    "title": "A béka komája.",
+    "text": "Egyszer egy szegény asszony elment a Garamra mosni. Meglát ott egy akkora nagy pohos békát, mint a világ. Meg nem állta szó nélkül:\n- Hej, béka, béka! én elmennék neked komának, ha engemet hínál.\nHarmadnapra csak jön egy vízbefúlt a szegény asszonyhoz, mondja neki, hogy a békának leánya született, jöjjön most el komának, ahogy megígérte.\nA szegény asszony el is ment.\nMentek, mendegéltek egészen a Garamig. Ott a vízbefúlt ráütött a vízre egy kis vesszővel, a Garam menten kétfelé vált. Szép száraz út választotta el.\nMegindultak a száraz úton. Mikor a meder közepére értek, hát egy nagy kő állta útjukat. De a vízbefúlt ráütött a vesszővel, a nagy kő elgurult, alatta pedig egy nagy lyuk volt. Abban lakott a béka.\nAhogy a szegény asszony bement a lyukba, mindjárt ott találta az első házban a békát. Száraz békanyálból csinált ágyon feküdt, mellette meg egy fényes békateknőben kis magzatja aludt. Anyja ringatta meg dédelgette, hogy: Brekeke, breke, tuú! koaksz tuú! Máskülönben igen szemetes volt a szoba.\nA szegény asszony felvette keresztlányát s bármint útálta is a förtelmes kis jószágot, mégis megcsókolta, azután magasra emelte s elmondta, hogy:\nÓh szép kisdedecske,\nGyönyörű gyöngyöcske,\nSzülőid örömére\nNagyot nőjj esztendőre!\nA béka meg arra kérte a komáját, hogy tisztogasson ki nála, de a szemetet ne vesse el, hanem vigye haza. Még a másik szobáját is söpörje ki, de vigyázzon, hogy vagy egy fazekat fel ne fordítson, se a fedőt le ne vegye valamelyikről. Ezzel a béka a falnak fordult és elaludt.\nA szegény asszony bemegy a másik szobába. Lát ott a polcokon sok fazekat; mind zöld, mázos szilkék voltak, zöld mázos fedőkkel letakarva. Ő bizony meg nem állta, hogy meg ne nézze, mi van bennük.\nEgyenesen odament a polchoz, levette az első szilkéről a fedőt, hát abból csak kiröppen egy hófehér lelkecske s azt mondja suttogva:\n- Isten fizesse meg! - avval elszáll.\nLevette a másikról a fedőt. Abból is hófehér lelkecske röppent ki, az is azt mondta:\n- Isten fizesse meg! - s az is elszállt. Így sorba mind kitakargatta a szilkéket. Mindegyikből egy-egy lelkecske szállt el, mindegyik azt mondta:\n- Isten fizesse meg!\nMár megfordult a szegény asszony, hogy kimegy a szobából, amint az ajtó mellett meglát még egy betakart kettős-fazekacskát. Mindjárt levette arról is a fedőket s kireppentek belőle az ő iker-gyermekeinek a lelkecskéi. A szegény asszony nagyon megörült, mert még csak két esztendővel azelőtt temette el őket. Egyszerre estek be a Garamba.\nElmondták az anyjuknak, hogy amint a vízbe fúltak, a béka mindjárt elfogta a lelküket s azóta itt tartotta elzárva, hogy a mennyországba ne mehessenek. Mert míg a lelkük nem jut a mennyországba, addig a Garam ki nem veti a holttestüket. A vízbefúltaknak mindaddig a békát kell szolgálniok.\nAzután a szegény asszony visszatette a két lelkecskét a kettős-fazekacskába, letakarta s az összesöpört szemét közé a kötényébe dugta.\nAkkor aztán elbúcsúzott a békától. De ahogy kiment a lyukból, már nem találta ott a vízbefúltat. Hanem a folyó mégis kétfelé vált előtte, mert két hal összefogózkodva ketté hasította előtte a vizet.\nMikor a szegény asszony a partra ért, a Garam megint összecsapódott. Levette a fedőt a kettős-fazekacskáról, kiröppentek belőle a gyermek-lelkek. A Garam pedig abban a szempillantásban kivetett a kövekre két gyermektestet. A lelkecskék áldása foganatos lett; az Isten megfizette a szegény asszony jó tettét, a gyermek-lelkek visszamentek a gyermek-testekbe.\nA szegény asszonynak megint volt fia is, lánya is meg pénze is. Mert az a sok szemét, amit a békánál összesöpört volt, mire hazaértek, mind arannyá, ezüstté változott a kötényében.\nAzután már igen jó dolguk volt, nem szenvedtek semmiben szükséget.",
+    "file": "audio/audiobooks/rado-i-25.mp3",
+    "duration": 271.04,
+    "bytes": 4337624,
+    "sha256": "4afe92a134449ab68f6b1d6a01012a3cb1a910c91265ebfd4db7781dd4198652",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11400/11479/11479.htm#25",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "I"
+  },
+  {
+    "id": "rado-ii-14",
+    "title": "Ilók és Mihók.",
+    "text": "Hol volt, hol nem volt, hetedhét országon túl volt egy özvegyasszony és egy Mihók nevű boldogtalan fia. Egyszer azt mondja Mihók az anyjának:\n- Édes anyókám, házasodhatnám.\n- Kit vennél el, édes Mihókom?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nMihók elmegy az Ilókék házához s egy tűt kap ajándékba. Jövet megúnta a kezében tartani, s amint egy szénás szekeret ér, beszúrja a szénába. Megérkezik a szénás szekér s Mihók váltig keresi a lehányt szénában a tűt, de nem lelte meg. Erre elment haza az anyjához.\n- Hol voltál, édes Mihókom?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem semmit, adtak.\n- Mit adtak?\n- Egy tűt.\n- Hadd lássam.\n- Egy szekér szénába szúrtam, nem lelem sehol benne.\n- Jaj, fiam, nem jól cselekedtél, a süvegedbe kellett volna szúrni.\n- Másszor úgy teszek.\nMegint azt mondja az anyjának:\n- Édes anyókám, házasodhatnám.\n- Kit vennél el, fiam?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nMihók elmegy leány-nézni s kap ajándékba egy ekevasat. Hazamenet beléteszi a süvegébe. De nem akart megállani, hol jobbra, hol balra húzta le a süveget, a fejét is összeverte. Utóljára megrestelte Mihók s elhajította a sárba. Hazamegy üres kézzel.\n- Hol voltál, fiam?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem, adtak.\n- Mit adtak?\n- Egy ekevasat.\n- Hadd lássam.\n- A süvegembe szúrtam, de nem akart megállani s elhajítottam.\n- Jaj, fiam, nem jól cselekedtél; a válladra kellett volna vetned s úgy hoznod haza.\n- Másszor úgy teszek.\nMegint elkezdi Mihók:\n- Édes anyókám, házasodhatnám.\n- Kit vennél el, fiam?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nElmegy Mihók a lányos házhoz, kap ajándékba egy kis kutyát. Hazamenet a vállára veti s úgy viszi haza. A kutyának sehogysem tetszett ez a hely. Mennél jobban nyomta oda, annál jobban fickándozott. Utóljára mardosni kezdte a vállát. Mihóknak fájt s eldobta.\n- Hol voltál, fiam?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem, adtak.\n- Mit adtak?\n- Egy kis kutyát.\n- Hadd lássam.\n- A vállamra vetettem, de marta s eleresztettem.\n- Jaj, fiam, nem jól cselekedtél. Egy madzagra kellett volna kötnöd, magad után húznod s szólítgatnod: Kucó! kucó!\n- Másszor úgy teszek.\nMegint elkezdi Mihók:\n- Édes anyókám, házasodhatnám.\n- Kit vennél el, fiam?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nElmegy Mihók Ilókékhoz és kap ajándékba egy oldal szalonnát. Jó erős madzagot köt rá, maga után vonszolja, ballag hazafelé s mindúntalan szólítgatja: Kucó! kucó! A kutyák nem kérették soká magukat, az egész faluból reágyűltek a szalonnára, s amíg Mihók hazaért, mind megették, csak az álla csontját hagyták meg, amelyikre a madzag volt kötve.\n- Hol voltál, fiam?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem, adtak egy nagy darab szalonnát, ezt a!\n- Hisz ez csak az álla csontja.\n- Madzagra kötöttem, magam után húztam, talán megették a kutyák.\n- Jaj, fiam, nem jól cselekedtél. A hátadra kellett volna venned, hazahoznod s a házban felakasztanod a füstre.\n- Másszor úgy teszek.\nÚjra kezdi Mihók:\n- Édes anyókám, házasodhatnék.\n- Kit vennél el, fiam?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nMihók ismét maga ment el a lányos házhoz s kapott egy borjút. Kötelet hurkolt a nyakára, hátára vetette s akármennyire feszengett, kapálódzott, rugdosta, mégis hazavitte nagy nehezen. Otthon felvonszolta a pallásra s felakasztotta a kakasülőre.\n- Hol voltál, fiam?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem, adtak egy borjút.\n- Hol van? nem látom.\n- Hazahoztam a hátamon s felakasztottam a füstre.\n- Jaj, édes fiam, nem jól tettél. Gyengén kellett volna körülkeríteni a nyakát kötéllel, szépen hazavezetni, a pajtába a jászol elé kötni s szénát vetni elébe.\nIsmét kezdi Mihók:\n- Édes anyókám, házasodhatnám.\n- Kit vennél el, fiam?\n- Ilókot, édes anyókám.\n- Eredj, fiam, kéresd meg.\nMihók elmegy s odaadják neki a leányt. Mihók egy kötelet vet Ilók nyakába; vezeti hazafelé, szólítgatja: \"Ne bocikám! ne! ne!\" Hazaérve beköti a pajtába, szénát vet elibe, aztán bereteszeli az ajtót s bemegy a házba.\n- Hol voltál, fiam?\n- Ilóknál, édes anyókám.\n- Mit vittél neki?\n- Nem vittem, ideadták Ilókot, hihihi!\n- Hát hol van?\n- Bekötöttem a pajtába.\n- Jaj, fiam, nem jól tettél! Eredj hamar, círógasd meg, vess szép szemeket rája s hozd be a házba.\nMihók el is ment mindjárt. A háznál valamennyi apró-marhának kivájta a szemét, a pajtába ment, megcírógatta Ilókot s ráhányta a szemeket. Ilók szegény azt gondolta, hogy csúfolódik vele. Megsokalta a tréfát, elszaladt haza.\nAzalatt a násznép összegyült a lakodalomra, elment a vőlegénnyel a menyasszony után. Kibékítik Ilókot nagy bajjal s elviszik a vőlegényhez. Egybekelnek s máig is élnek, ha meg nem haltak.",
+    "file": "audio/audiobooks/rado-ii-14.mp3",
+    "duration": 357.6,
+    "bytes": 5722741,
+    "sha256": "e16459a02bcab00959dccb9690637a3dd36263e3b6ea47f7c3897bd24374513b",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#14",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
+  },
+  {
+    "id": "rado-ii-15",
+    "title": "A bolondos legény.",
+    "text": "Volt egyszer egy szegény ember. Holta után három fiára egy bikát hagyott. A fiak úgy egyeztek meg, hogy építsen mindegyik egy-egy pajtát, s amelyikbe belefut a bika, legyen azé. Csakugyan építettek; a két nagyobbik olyan cifrát, hogy még a pap is ellakhatott volna benne. A harmadik - egy kicsit bolondos is volt - hitvány nyírfavesszőből font egyet. Eleresztik a bikát s az egyenesen a vesszőpajtába futott.\nA két nagyobb legény eleget bosszankodott. De ők akarták így, oda kellett engedni a bikát a bolondnak. Ez egyszeribe kötelet vet a fejére s annál fogva vezeti a vásárra. Amint az országúton megy, nagy szél kerekedik s egy nagy horgos fűzfa elkezd nyikorogni, mint a kenetlen szekér.\n- Hm! - gondolja magában a bolondos legény - ez bizonyosan meg akarja venni a bikát. Odakiált a fűzfának:\n- Mit adsz érte, hé?\nA fűzfa csak nyikorgott.\n- Ehe! - gondolja a legény. - Ennek, látom, csak úgy kell, ha mind a két szarvát kiütöm. - Kapja magát s a bikának mind a két szarvát leüti egy szempillantásra.\nHanem a fűzfa csak nyikorgott.\n- Hát nincs most pénzed? Nem baj, csak szerencse! Majd eljövök a jövő héten. - Azzal megköti a fűzfához a bikát, ő meg elindul hazafelé.\nKérdik otthon a bátyjai:\n- Hát, bolond, eladtad-e a bikát?\n- Meghiszem azt - felelt a bolondos legény.\n- Kinek adtad el, te bolond? Mert tudom, hogy istenesen megcsaltak - kötekedik a legnagyobb testvér.\n- De hiszen, jó helyen van az, hékám! Eladtam egy horgas fűzfának negyven forintért.\n- Hát a pénz hol van?\n- Megadja majd a jövő héten, ha arra járok.\nKacagni kezd a két legény. - No te, világ bolondja, azt ugyan jól eladtad! Majd megkapod az árát borjúnyúzó pénteken.\nA bolondos legény nem is hederített a bátyjaira. A következő héten elmegy a fűzfához s kéri a pénzt. De az erre egy kukkot sem szólt.\n- Hát ez a becsület? - mondja a legény. Kapja a fejszét s úgy vágja tövön a fűzfát, hogy gyökerestül kidül a földből. Nézi a helyét, hát egy éktelen üst pénz van alatta. Azt mondja a fűzfának a legény:\n- No hallod-e, ebből már elviszem a bika árát, a többit pedig elviszem kamat fejében. - S úgy, amint volt, kiemelte az üstöt, belehúzta a fejsze nyelébe, fellódította a hátára s hazáig meg sem állott. Megérkezik. Meglátja a más két legény a tenger pénzt, összesúgnak-búgnak, hogy az a pénz jobb volna nekik, mint annak a bolondnak.\n- Öljük meg az éjjel - mondja az egyik.\n- Aztán vessük a vízbe - mondja a másik.\nHanem a bolondos legénynek jó füle volt s meghallotta, hogy miben járnak a bátyjai. Elszökött hazulról éjjel és reggel egyenesen a királyhoz ment panaszra. Ennek a királynak olyan leánya volt, hogy soha emberi lélek meg nem tudta nevettetni, annyira a búnak ereszkedett. Mikor a bolondos legény elmondta panaszát, olyan jóízűen elkacagta magát, hogy az egész ház tájéka zengett belé.\nAzt mondja a király erre:\n- No, te legény, én megfogadtam, hogy aki a leányomat meg tudja nevettetni, annak adom. Én nem is másítom meg a szavamat. Neked adom a leányom s fele királyságomat, a testvéreidet pedig felakasztatom.\n- Felséges királyom! ne akasztasd fel a szegényeket, majd jók lesznek az udvarban béreseknek.\n- Jól van - mond a király - teljék a kedved.\nCsaptak aztán olyan vendégséget, de olyat, hogy hét nap és hét éjjel még a ló is bort ivott.",
+    "file": "audio/audiobooks/rado-ii-15.mp3",
+    "duration": 238.16,
+    "bytes": 3811831,
+    "sha256": "4867a641e9fd22ae28418c432f21b31ce8a962047d3a5615c66087dde9d10169",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#15",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
+  },
+  {
+    "id": "rado-ii-16",
+    "title": "A kis ködmön.",
+    "text": "Volt a világon, hol nem volt, volt egy jómódú paraszt ember, annak volt egy felesége meg egy leánya. Egyszer odament egy szép fiatal legény másodmagával háztűz-nézni. Mindjárt kínálták őket tyúkkal, kaláccsal. Borért is leküldte az ember a leányát a pincébe. Lement a leány, elkezdte vigyázni, hogy melyik a legnagyobb hordó, hogy abból vigyen, mert azt mondta az napja. Amint ott vizsgálódik, szemébe ötlik egy nagy káposztás-kő a pince egyik oldalához támasztva. Elgondolkozott a leány, hogy őérte most itt vannak a háztűz-nézők. Ő most férjhez megy, lesz majd neki egy kis fia. Annak ő vesz egy kis ködmönt a vásárban. A kis fiú egyszer le talál szökni a pincébe. Csak ott ugrál, csak ott ugrál a káposztás-kő körül. A káposztás-kő eldűl, a kis fiút agyonüti. Kire marad akkor a kis ködmön? Ezen annyira elkeseredett, hogy leült az ászokra, ott sírt.\nMár odafönt nem győzték várni. Leküldte hát az ember a feleségét is:\n- Ugyan, anyjuk, eredj le már, nézd meg, mit csinál az a leány ennyi ideig abban a pincében? Tán a bort folyatta el, azért nem mer följönni.\nLement az asszony, látja, hogy ott sír a leánya az ászokon:\n- Hát téged mi lelt, hogy oly keservesen sírdogálsz?\n- Hogy ne sírnék, édesanyám, mikor így meg így elgondoltam jövendőbeli állapotomat. - Avval elbeszélte, hogy mit gondolt hát el. Az asszony, amint ezt meghallotta, leült a leánya mellé s ő is rákezdte a sírást.\nNagyon megharagudott már odafent a gazda, nem állhatta meg káromkodás nélkül.\n- Ejnye szedte-vette, már bizonyosan a bort folyatták el! Elmegyek, megnézem, hova vesztek?\nLement az ember is. Még akkor is zokogtak azok egymás mellett. Az ember sehogyse tudta elgondolni, hogy mi bajuk akadt?\n- Hát ti mit sírtok-rítok? mi bajotok esett oly hirtelen?!\n- Jaj, kedves apjukom, hogy ne sírnánk-rínánk - felelt rá az asszony - mikor milyen szomorú dolog jutott az eszünkbe.\nItt elbeszéltek neki mindent s úgyannyira elkeserítették, hogy az is közibük ült, segített nekik a sírásban.\nA kérő se győzte várni. Kapta magát, lement utánuk a pincébe. Sohse tudta mire vélni, mikor meglátta őket, hogy mit sírhatnak olyan keservesen. Kérdezi aztán tőlük. Azok elbeszélték neki. A kérő csak kicsibe múlt, hogy hanyatt nem vágta magát, olyan jóízűt nevetett.\n- No - azt mondja - még ilyen bolond embereket nem láttam. Hanem most elindulok, addig megyek, míg három ilyen bolondra nem akadok, mint kendtek hárman. Ha aztán akadnék, akkor visszajövök, elveszem a kendtek leányát, ha az Isten is úgy akarja.\nElindult a legény, azokat meg ott hagyta a pincében, hogy sírjanak, amíg nekik tetszik. Ment aztán, mendegélt hetedhét ország ellen, talált egy embert, aki egy nagy rakás diót vasvillával akart a padlásra felhányni. Közelebb megy hozzá, megszólítja:\n- Hát kend, atyafi, mit csinál avval a dióval?\n- Én bizony nagy munkában vagyok. Már félesztendő óta mindig hányom ezt a diót, de sehogyse tudom fölhányni. Szegény ember vagyok, de adnék annak az embernek száz forintot, aki valami módon fölszállítaná.\n- No hát majd fölszállítom én - mondja a kérő. Avval elővett egy vékát, félóra alatt mind felhordta a diót. Mindjárt megkapta a száz forintot. Tovább ment vele.\n- No gondolta magában - akadtam már egy bolondra.\nMegint ment, mendegélt, talál egy embert. Csak nézte, hogy mit csinál? De sehogyse tudta eltalálni. A keziben volt egy teknő, avval hol kiszaladt, hol be egy olyan házba, amelyiknek nem volt ablaka, csak egy kis lyuk forma ajtója. Odamegy hozzá, megszólítja:\n- Jó napot adjon Isten, földi! Hát miben fáradozik kend?\n- Fogadj Isten, atyafi. Hát biz én a tavasszal lesz egy esztendeje, hogy ezt a házat csináltattam. Nem tudom, miféle Isten csudája, hogy olyan sötét. Csak elnézem, hogy a másé milyen világos, pedig semmit se csinál neki. Én meg, mióta készen van, mindig azt csinálom, hogy hordom bele a világosságot teknővel. Látja kend, most is abban munkálkodom. De adnék is száz forintot annak az embernek, aki világossá tudná tenni.\n- No majd világossá teszem én - mondja rá a legény. Elővett egy fejszét, vágott a házon két ablakot, az ajtót is nagyobbra vette, mindjárt világos lett a ház. A legény megkapta itt is a száz forintot. Avval ezt is ott hagyta.\n- No - gondolta magában - akadtam már második bolondra is.\nMegint mendegélt, talált egy asszonyt, aki a kis csirkéit erővel dugdosta volna egy kotló alá. Megszólítja a legény:\n- Hát kend, néném asszony, mit csinál?\n- Biz én, öcsém, ezeket a csirkéket dugdosnám a kotló alá, mert attól félek, hogy ha szerte-széjjel szaladgálnak, elkapja valamelyiket a héja. De sehogyse tudom aládugni, mert ha egyik felől bedugom, a másik felől kibúvik. Adnék is száz forintot annak az embernek, aki jó tanácsot tudna adni, hogy mitévő legyek velük?\n- Én megmondom, néném asszony. Sohse dugdossa kend azokat a csirkéket a kotló alá. Majd ha a kotló héját lát, dugdosás nélkül is maga alá veszi őket.\nAz asszony nagyon megörült a jó tanácsnak, mindjárt odaadta a legénynek a száz forintot. Az is megörült neki, mindjárt visszaindult.\n- No, hála Istennek - gondolta magában - megtaláltam mind a három bolondot.\nMihelyt hazaért, mindjárt elkendőzte a leányt. Két hét múlva a lakodalmat is megtartották. Többet aztán nem is hallottam felőlük, csak annyit, hogy lett nekik egy kis fiuk, vettek is neki ködmönt, hanem azért a káposztás-kő nem ütötte agyon. Még most is élnek, ha meg nem haltak.",
+    "file": "audio/audiobooks/rado-ii-16.mp3",
+    "duration": 383.12,
+    "bytes": 6131087,
+    "sha256": "cd5e9b5b63640e4a1cdec1f37cb59fd319a4322c3054a14c483cb4190b04c978",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#16",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
+  },
+  {
+    "id": "rado-ii-17",
+    "title": "Az egyszeri gyerek.",
+    "text": "Mikor én olyan suhancgyerek voltam, egyszer mondja az édesapám, hogy fogjak be két ökröt, menjek az erdőre fáért. Befogom a két ökröt, elindulok az erdőre. Csak megyek, csak megyek az ökör előtt. De igen nagy volt a sár, egyszer beleragadt a fél csizmám, mezitláb maradtam. Húznám ki a csizmám a sárból, de biz a nem jött. Mit csináljak, mit csináljak? Hazaszaladtam egy emelő rúdért, avval kifeszegettem a csizmám a sárból. De míg az emelő rúdért jártam, úgy elment a két ökör a szekérrel, hogy se híre, se nyoma nem volt. Most már mitévő legyek? Ha hazamegyek, megnyúz az édesapám. Kaptam magam, bementem Váradra, beállottam szűrszabó-inasnak. A gazdám adott egy rongyos darócot, azt a nyakamba gabalyítottam. Olyan úr voltam, hogy még!\nMásnap azt mondja a gazdám:\n- Fogd fel ezt a kosarat, öcsém, menjünk a piacra, vegyünk borsót ebédre. - Kimentünk a piacra, meg is vettünk mindent, de borsót mégis elfelejtettünk venni. Mikor hazaérünk, észreveszi a gazdám, hogy nincs borsó. Mindjárt mondja nekem:\n- Eredj vissza, fiam, a piacra, elfelejtettünk borsót venni; végy te!\nVissza is mentem én, vettem is borsót, de nem találtam vele haza. Csak keresem, csak keresem a házunkat. Egyszer rám esteledik. No most már mit csináljak, hol háljak? Egyszer meglátok egy kis világot egy ház ablakában. Bementem a házba. Odabent egy vén asszony főzött puliszkát egy akkora fazékban, hogy három üst se tenne ki rajta. Én éhes voltam, mondom az asszonynak:\n- Néném asszony, adjon egy kis kását!\nAz asszony mindjárt elibém tett egy tál gölődényt, úgy jóllaktam töltött káposztával, hogy még most is tele van a hasam korpaciberével.\nAmint jóllaktam, lefeküdtem a kuckóba, belehúztam magamat a darócomba. Egyszer jön haza a gazda nagy részegen a kocsmából. Az asszony kitálalja neki a puliszkát. Az ember meglát engem a kuckóban, hí, hogy menjek, egyem vele. Én már jól voltam lakva, nem akartam menni. De rám kiáltott, hogy majd így, meg amúgy, csak ne egyem! Az asztalhoz ültem hát. De biz én belém nem fért egy falat se. - Be volt kötve a szűröm ujja, mind abba eresztettem a puliszkát.\nMikor jóllakott az ember, felugrott, elkezdett táncolni. Engem is megfogott, hogy táncoljak vele. Táncoltunk, táncoltunk, egyszer kiódzott a darócom ujja, elkezdett belőle potyogni a puliszka. Az ember felkapott egy botot és ütni akart. Jó, hogy el tudtam szaladni, mert nagyon végig hegedűlt volna a hátamon.\nSzaladtam, szaladtam, egyszer egy malomhoz értem. Kaptam magam, belefeküdtem a garatba. Amint ott fekszem, egyszer odajön három tolvaj egy lopott birkával. Ott megnyúzzák, elkezdenek tanakodni, hogy hová tegyék a bélit, hogy rá ne akadjanak. Az egyik azt találta ki, hogy a garatba kellene lökni. Mindjárt oda is hozta a garathoz. Én is megijedtem, hogy rám veti, elkiáltom magam:\n- Rám ne lökje kend azt a böndőt!\nErre a három tolvaj megijedt, elszaladt, mind ott hagyták a sok birkahúst. A lármára a molnármester is felébredt, kijött, megdicsért, hogy elijesztettem a tolvajokat:\n- No, öcsém, te derék gyerek vagy. Nem állanál be hozzám inasnak?\n- Biz én beállok - mondom. Be is állottam mindjárt.\nA gazdám adott kenyérebédre egy tojást. De bicskám nem volt, ideadta a szép csillagos nyelű bicskáját is, hogy egyem vele. Eszegettem, eszegettem a tojást, egyszer beleejtettem a csillagos nyelű bicskát. Most már hogy vegyem ki? Volt ott egy tizenhat öles lajtorja, azt beleeresztettem. De még az se érte el a fenekét, nem tudtam kivenni a bicskát. Megijedtem, hogy megver a molnár-gazdám a szép bicskáért, elfutottam innen is.\nNyargaltam hegyen, völgyön, árkon, bokron keresztül. Egyszer egy kis házhoz értem. Próbáltam bemenni az ajtaján, sehogyse fértem be, még búva sem. Próbáltam az ablakán, állva is könnyen bementem. Odabent éppen lakodalmaztak. Állott a lakzi ugyancsak, volt dínom-dánom, lé meg lé elég volt, Duna, Tisza zsákban volt.\nAlighogy bementem, mindjárt elibém állottak, hogy menjek a patikába jóféle sáfrányért. \"Biz én nem megyek!\" Ott volt ez is, mindjárt fülön fogtam:\n- Eredj, öcsém, a patikába jóféle sáfrányért. Itt van egy szamár, ülj rá! De meg ne sarkantyúzd, mert acél-körme tüzet ád, tapló-hasán végig fut, szalma-dereka meggyullad, hólyag-feje kicsattan, mindjárt ló nélkül maradsz.\nFelült hát a szamárra. Míg ment, lassan ment; de jövet megsarkantyúzta, acél-körme tüzet adott, tapló-hasán végig futott, szalma-dereka meggyulladt, hólyag-feje kicsattant, mindjárt ló nélkül maradt.\nErre mind elhányta a sáfrányt, bejött a lakodalomba. Ugyancsak elkezdte táncoltatni a szalmaderekú kisasszonyokat. A sarokban volt egy nagy sárga-leves zsák. Én váltig mondtam a fiúnak:\n- Ne táncoltasd olyan nagyon azokat a szalmaderekú kisasszonyokat, mert a zabtaréjú sárgaréz-sarkantyúddal majd kirúgod a sárga-leves zsákot!\nDe ő nem hallgatott rá, csak forgatta, csak ugratta őket. Egyszer aztán csakugyan kirúgta a zsákot. No iszen volt drága mulatság! A sárga lé a szamárnak csukló körméig se ért, ezt meg majd elnyelte, majd belefúlt. Bele is fulladt volna, de én felszaladtam a padlásra, lehoztam egy kétágú vashorgot, azt az orrába akasztottam, úgy húztam ki. Aki nem hiszi, megnézheti, még most is ott van az orrán a két lyuk, a horog helye.",
+    "file": "audio/audiobooks/rado-ii-17.mp3",
+    "duration": 380.16,
+    "bytes": 6083439,
+    "sha256": "51aec975020bf7fa702ffae8f6a338ae17a3daf47bb768b4c7e3be47b05ab7a9",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#17",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
+  },
+  {
+    "id": "rado-ii-18",
+    "title": "Csali mese.",
+    "text": "Éppen úgy láttam, mint most. Volt nekem hat ökröm, szekerem. Befogtam a járomba, a szekérbe tettem hat zsákot. A hat ökör meg se tudta mozdítani. Fogtam magamat s mind a hat ökröt feldaraboltam és a szekérbe hánytam, a zsákokat pedig a járomba fogtam. Úgy vitték, mint a szél. Úgy láttam, mint most. Mikor a malomhoz értem, se a malom, se a molnár nem volt otthon. Egy nagy cserfa ostornyelem volt, a zsákok elébe szúrtam, hogy el ne fussanak. Már most elmentem, hogy a molnárt meg a malmot megkerítsem. A molnárt megkaptam, egy csűrben egerészett, a malom egy erdőben eprészett. Amíg én ezeket előkerítettem, a cserfa ostornyélből egy nagy fa nőtt, amely éppen az égbe ért. Eszembe jutott, hogy nekem van az égben egy Mariska néném. Felmentem hozzá. Éppen szitált, kotyfolt nekem szúnyogtojásból rántottát. Ettem, ittam, hát egyszer csak odajő egy juhász meg egy gulyás s azt kérdik tőlem:\n- Mit keresel abban a szúnyogtojás-rántottában?\nÉn azt feleltem, hogy a késem meg a villám beleejtettem. Erre azt mondták:\n- Ne keresd ok nélkül, mert én a gulyámat, én pedig a nyájamat vesztettem belé és soha meg nem kaptam.\nDe én arra nem hallgattam. Csak ettem, ettem, s mikor le akartam jönni, már a cserfa lecsonkult volt. Mariska néném csinált korpából kötelet és avval lebocsátkoztam. Ahol a fa csonka volt, üres volt. Az üregben pedig madárfiak voltak. Próbáltam, hogy a kezem benyujtom, de nem fért. Próbáltam a fejem, kottyanva is belefért. Mikor pedig ki akartam venni, nem fért ki. Fogtam magam s felmentem Mariska nénémhez, egy baltát kértem. A fejemet kivágtam, a madárfiakat pedig madzaggal a derekamra kötöttem. A madárfiak velem elrepültek. Vittek, vittek egész egy tóig, ahol valami asszonyok mostak s azt kiáltották:\n- Ó ve Mária leszállott az égből!\nÉn úgy értettem, hogy azt mondják: Old meg a madzagot! Mindjárt megoldtam. A madarak elrepültek, én meg a tóba buktam s annyi halat kicsaptam, hogy tizenkét vasas szekér el nem bírta volna. Jött egy mezitelen cigánypurdé, a kötője elejében mind elvitte. Éppen úgy láttam, mint most!",
+    "file": "audio/audiobooks/rado-ii-18.mp3",
+    "duration": 145.6,
+    "bytes": 2330584,
+    "sha256": "1b1e3e5df6aa8d57e7a6f33f41665a9941ddb16a43549ca1548ebcea47873b11",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#18",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
+  },
+  {
+    "id": "rado-ii-19",
+    "title": "Az már nem igaz!",
+    "text": "Egyszer volt, hol nem volt, még az Óperenciás tengeren is túl volt egy szegény ember, annak volt három fia. Egyszer a király kihirdetteti az egész országban, hogy annak adja a leányát, aki előtte olyat tud mondani, amit ő el nem hisz. Meghallja ezt a szegény ember legöregebb fia, akit Péternek híttak. Kapja magát elmegy a királyhoz, megmondja a szolgának, hogy ő beszélni akar a királlyal. Már akkor annyi királyfi meg más nagy úr megfordult volt a király előtt, akik közül mindegyik a király-kisasszonyt akarta volna elvenni, mint a csillag az égen. De biz ott egy se tudott olyat mondani, amit a király el ne hitt volna. Bemegy hát Péter a királyhoz, köszön neki:\n- Jó napot adjon Isten, király uram!\n- Adjon Isten neked is, fiam! Hát mi járatban vagy?\n- Én bizony házasodni akarok, uram király!\n- Jól van, fiam, de hát aztán mire vinnéd az asszonyt?\n- Tudja az Isten! majd csak eltartanám valahogy.... Az apámnak van egy háza meg egy kis földje is.\n- Elhiszem, fiam - mondja a király.\n- Aztán meg van három darab marhánk is.\n- Azt is elhiszem.\n- Most nemrégiben a tőzeg annyira meggyült az udvarunkon, hogy már nem is fértünk tőle.\n- Elhiszem.\n- Egyszer azt mondja az apánk: Fiaim, hordjátok ki ezt a dudvát arra a kis földre, majd talán használ neki valamit.\n- Elhiszem.\n- Mi aztán kihordtuk a dudvát három hétig két kocsin.\n- Elhiszem.\n- Hanem tévedésből a szomszéd földjére hordtuk mind egy szálig.\n- Elhiszem.\n- Mikor már ez is megvolt, hazamentem, megmondtam az apámnak.\n- Elhiszem.\n- Akkor aztán én, az édesapám, meg a két kisebb testvérem, úgy négyecskén kimentünk a földünkre.\n- Elhiszem.\n- Azután megfogtuk a szomszédunk földjének a négy sarkát, felemeltük, mint az abroszt szokás, és a dudvát róla a mi földünkre fordítottuk.\n- Elhiszem.\n- Azután a földünket tele szórtuk fűmaggal.\n- Elhiszem.\n- Aztán olyan sűrű erdő nőtt rajta, hogy olyat még senki sem látott.\n- Elhiszem.\n- Az apám aztán sajnálta kivágatni azokat a gyönyörű fákat, hát vett egy falka disznót.\n- Elhiszem.\n- Aztán megfogadta a felséged öregapját kanásznak...\n- Hazudsz! akaszt...! - Hanem a királynak hirtelen eszébe jutott a fogadása. Rögtön papot hívatott, a szegény ember fiával összeadta a leányát. Csaptak akkora lakodalmat, hogy hét országra szólt a híre. Még az árva gyermeknek is akkora kalácsot adtak a kezébe, mint a karom. Volt lé, meg lé, hát még a sok hús nélkül való lé!\nGallér híján köpönyeg,\nHazudtam, mert volt kinek.",
+    "file": "audio/audiobooks/rado-ii-19.mp3",
+    "duration": 172.64,
+    "bytes": 2763172,
+    "sha256": "990e111defd589d41b069ea31ba0d79a3e9446e3bf8046a02b5d68d3e63a4ab6",
+    "emoji": "📖",
+    "author": "Radó Vilmos (egybeállító)",
+    "kind": "Mese",
+    "illustrated": false,
+    "sourceUrl": "https://mek.oszk.hu/11600/11620/11620.htm#19",
+    "rights": {
+      "status": "licensed",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Radó Vilmos: Magyar gyermek- és népmesék. Elektronikus változat: Magyar Elektronikus Könyvtárért Egyesület, 2013; Országos Széchényi Könyvtár E-könyvtári Szolgáltatások Osztálya; Varjú Mária (MEK-metaadat)."
+    },
+    "volume": "II"
   }
 ];

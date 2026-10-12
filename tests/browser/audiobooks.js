@@ -28,7 +28,8 @@ async page => {
   const current=()=>page.evaluate(()=>storyQA.audios.findLast(audio=>audio.src.includes('/audio/audiobooks/')||audio.src.startsWith('blob:'))?.currentTime);
   const seek=async seconds=>page.locator('#story-seek').evaluate((element,value)=>{element.value=value;element.dispatchEvent(new Event('input',{bubbles:true}));},seconds);
   await open();
-  ok(await page.locator('.story-card[data-story]').count()===22,'All twenty-two public recordings are available in Mesék és Maci → Mesetár');
+  const publishedCount = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.length);
+  ok(await page.locator('.story-card[data-story]').count()===publishedCount && publishedCount>=22,'All public recordings and the original twenty-two are available in Mesetár');
   await page.locator('#story-toggle').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
@@ -55,6 +56,7 @@ async page => {
   await page.locator('[data-open="audiobooks"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok((await page.locator('#story-title').innerText()).includes('munkagépek'),'The last selected story is restored');
   await page.locator('[data-story="story-01"]').click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+  await page.waitForFunction(()=>storyQA.audios.findLast(a=>a.src.includes('/audio/audiobooks/')||a.src.startsWith('blob:'))?.currentTime>=124);
   ok(await current()>=124,'The first story retains its own bookmark');
   await page.reload();
   await open();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
