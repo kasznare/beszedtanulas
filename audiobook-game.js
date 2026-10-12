@@ -2,7 +2,7 @@ import { AUDIOBOOKS } from './audiobook-data.js';
 import { REQUESTED_CLASSICS } from './requested-classics.js';
 import { KRIZA_REQUESTED } from './kriza-requested.js';
 import { mergeStoryLibrary, matchesStorySearch } from './audiobook-library.js';
-import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
+import { createAudiobookPlayer, resolveAudiobookSource, isAudiobookSaved, saveAudiobookOffline, requestAudiobookPersistence, loadAudiobookPreferences, saveAudiobookPreferences } from './audiobook-player.js';
 import { createIllustratedStory } from './story-visual-player.js';
 import { importPrivateAudiobook, loadLocalAudiobooks, resolveLocalAudiobookSource, deleteLocalAudiobook } from './local-audiobooks.js';
 import { setupRadoLibrary, radoCaption } from './rado-library.js';
@@ -23,12 +23,13 @@ export function setupAudiobooks({ stopPlayback }) {
     stories, preferences: loadAudiobookPreferences(storage, stories),
     resolveSource: story => story.local ? resolveLocalAudiobookSource(story) : resolveAudiobookSource(story),
     persist: value => { if (!saveAudiobookPreferences(storage, value)) bookmarkWarning = true; },
-    beforePlay: stopPlayback, onChange: update,
+    beforePlay: () => { stopPlayback(); void requestAudiobookPersistence(); }, onChange: update,
   });
   function update(state = player.getState()) {
     if (!active) return;
     const story = stories.find(story => story.id === state.storyId);
     if (!story) return;
+    if (state.offlineSaved) downloaded.add(story.id);
     const playing = ['playing', 'buffering'].includes(state.phase);
     const pending = Boolean(story.audioStatus && story.audioStatus !== 'ready');
     const illustrated = visual?.select(story.id, player.getPosition(), state.phase === 'playing') === true;
@@ -68,8 +69,8 @@ export function setupAudiobooks({ stopPlayback }) {
     download.hidden = Boolean(story.local) || pending;
     $('#story-remove').hidden = !story.local;
     download.disabled = saving.has(story.id) || downloaded.has(story.id);
-    download.textContent = saving.has(story.id) ? 'Letöltés…' : downloaded.has(story.id) ? '✓ Letöltve' : '↓ Letöltés';
-    $('#story-offline').textContent = notices.get(story.id) || (story.audioStatus === 'rights-pending' ? 'Eredeti közkincs szövegre vagy publikálási jogengedélyre vár.' : pending ? `A hang még nem készült el. Teljes áras becslése: ${story.providerCharacters ?? '?'} kredit. A teljes szöveg internet nélkül is olvasható.` : story.local ? 'Saját mese: ezen az eszközön, internet nélkül is hallgatható.' : downloaded.has(story.id) ? 'Ez a mese internet nélkül is hallgatható ezen az eszközön.' : `Internet nélkül is szeretnétek? Töltsd le ezt a mesét! (${(story.bytes / 1e6).toFixed(1).replace('.', ',')} MB)`);
+    download.textContent = saving.has(story.id) ? 'Mentés…' : downloaded.has(story.id) ? '✓ Letöltve' : '↓ Letöltés';
+    $('#story-offline').textContent = notices.get(story.id) || (story.audioStatus === 'rights-pending' ? 'Eredeti közkincs szövegre vagy publikálási jogengedélyre vár.' : pending ? `A hang még nem készült el. Teljes áras becslése: ${story.providerCharacters ?? '?'} kredit. A teljes szöveg internet nélkül is olvasható.` : story.local ? 'Saját mese: ezen az eszközön, internet nélkül is hallgatható.' : downloaded.has(story.id) ? 'Ez a mese internet nélkül is hallgatható ezen az eszközön.' : saving.has(story.id) ? 'A mesét közben elmentjük erre az eszközre…' : `Az első hallgatáskor automatikusan elmentjük a mesét. Előre is letöltheted. (${(story.bytes / 1e6).toFixed(1).replace('.', ',')} MB)`);
     if ($('#story-text').dataset.story !== story.id) {
       $('#story-text').textContent = story.text; $('#story-text').dataset.story = story.id;
       $('#story-transcript').open = false;
@@ -139,6 +140,7 @@ export function setupAudiobooks({ stopPlayback }) {
     $('#story-download').addEventListener('click', async () => {
       const story = stories.find(s => s.id === player.getState().storyId);
       if (!story || saving.has(story.id) || downloaded.has(story.id)) return;
+      void requestAudiobookPersistence();
       saving.add(story.id); notices.delete(story.id); update();
       const abort = new AbortController(), timer = setTimeout(() => abort.abort(), 120000);
       try { await saveAudiobookOffline(story, { signal: abort.signal }); downloaded.add(story.id); }
@@ -191,6 +193,20 @@ export function setupAudiobooks({ stopPlayback }) {
     });
   }
   window.addEventListener('pagehide', () => player?.pause());
+  function onStorageMessage(message) {
+    if (!['AUDIOBOOK_SAVING', 'AUDIOBOOK_SAVED', 'AUDIOBOOK_SAVE_ERROR'].includes(message?.type)) return;
+    const story = stories.find(story => !story.local && story.file === message.file && story.sha256 === message.sha256);
+    if (!story) return;
+    if (message.type === 'AUDIOBOOK_SAVING') { saving.add(story.id); notices.delete(story.id); }
+    else {
+      saving.delete(story.id);
+      if (message.type === 'AUDIOBOOK_SAVED') { downloaded.add(story.id); notices.delete(story.id); }
+      else notices.set(story.id, 'A mesét most nem sikerült elmenteni. Ellenőrizd a kapcsolatot vagy a szabad tárhelyet, és próbáld újra a Letöltés gombbal!');
+    }
+    if (player) update();
+  }
+  navigator.serviceWorker?.addEventListener('message', event => onStorageMessage(event.data));
+  document.addEventListener('audiobookstorage', event => onStorageMessage(event.detail));
   return {
     async start() {
       active = false; player?.stop(); visual?.destroy(); visual = null;

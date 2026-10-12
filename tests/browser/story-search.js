@@ -38,29 +38,32 @@ async page => {
   ok(await page.locator('#story-search').evaluate(element=>element===document.activeElement),'Clear returns keyboard focus to search');
   await search('palko');await page.locator('#story-search').press('Escape');ok(await page.locator('#story-search').inputValue()===''&&await visible().count()===total,'Escape clears the query');
   await search('arany lacinak');await visible().first().focus();await page.keyboard.press('Enter');
-  ok(await page.locator('#story-title').textContent()==='Arany Lacinak','Keyboard selects a search result');await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+  ok(await page.locator('#story-title').textContent()==='Arany Lacinak','Keyboard selects a search result');
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
+  await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   await page.locator('#story-seek').evaluate(element=>{element.value=42;element.dispatchEvent(new Event('input',{bubbles:true}));});
   const before=Number(await page.locator('#story-seek').inputValue());
   await search('nincs-ilyen-cim');await page.waitForTimeout(700);
   ok(await page.locator('#story-title').textContent()==='Arany Lacinak','Filtering preserves selected work outside results');
   ok(await page.locator('#audiobooks').getAttribute('data-phase')==='playing'&&Number(await page.locator('#story-seek').inputValue())>=before,'Filtering preserves position and running playback');
-  await search('fulemule');await visible().first().click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+  await search('fulemule');await visible().first().click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok(await page.locator('#audiobooks').getAttribute('data-phase')==='ready','Choosing another result follows the normal stopped state');
   ok(await page.evaluate(()=>storySearchQA.audios.every(audio=>audio.paused)),'Previous recording stopped after choosing another result');
   const classics=await page.evaluate(async()=>(await import('/audiobook-data.js')).AUDIOBOOKS.filter(story=>story.id.startsWith('classic-')));
   await search('');
   for(const story of classics){
-    await page.locator(`.story-card[data-story="${story.id}"]`).click();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
+    await page.locator(`.story-card[data-story="${story.id}"]`).click();
+    await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
+    await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
     await page.locator('#story-transcript summary').click();ok(await page.locator('#story-text').textContent()===story.text,`${story.id}: full original text and stanza breaks`);
     await page.locator('#story-transcript summary').click();ok(await page.locator('#story-visual-wrap').isVisible(),`${story.id}: illustrated SVG view`);
     const sample=await page.evaluate(async id=>{const visual=(await import('/story-visual-library.js')).storyVisualFor(id);return visual.scenes[Math.floor(visual.scenes.length/2)];},story.id);
     await page.locator('#story-seek').evaluate((element,time)=>{element.value=Math.ceil(time);element.dispatchEvent(new Event('input',{bubbles:true}));},sample.time);
     ok(await page.locator('#story-visual').getAttribute('data-scene')===sample.id,`${story.id}: seeking restores an actual caption-anchored scene`);
-    await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
+    await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
     ok(true,`${story.id}: real fixed Jessa MP3 plays`);await page.locator('#story-toggle').click();
-    await page.locator('#story-download').click();await page.waitForFunction(()=>document.querySelector('#story-download').textContent.includes('Letöltve'));
-    ok(true,`${story.id}: separately verified offline download`);
+    await page.waitForFunction(()=>document.querySelector('#story-download').textContent.includes('Letöltve'));
+    ok(true,`${story.id}: playback automatically stores verified offline audio`);
   }
   await page.evaluate(async()=>{
     const story=(await import('/audiobook-data.js')).AUDIOBOOKS.find(story=>story.id==='story-16');

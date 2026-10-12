@@ -19,7 +19,7 @@ export function normalizeAudiobookState(value, stories = AUDIOBOOKS) {
 
 export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () => new Audio(), resolveSource = async story => ({ url: cacheKey(story) }), releaseSource = source => { if (source?.blob) URL.revokeObjectURL(source.url); }, preferences = {}, persist = () => {}, beforePlay = () => {}, onChange = () => {} } = {}) {
   let saved = normalizeAudiobookState(preferences, stories);
-  let audio, source, generation = 0, playGeneration = 0, wantsPlayback = false, saveBucket = -1;
+  let audio, source, sourceAttached = false, generation = 0, playGeneration = 0, wantsPlayback = false, saveBucket = -1;
   let state = { storyId: saved.selected, phase: 'idle', position: saved.positions[saved.selected]?.seconds || 0, duration: stories.find(story => story.id === saved.selected)?.duration || 0, metadata: false };
   const story = () => stories.find(entry => entry.id === state.storyId);
   const emit = () => onChange({ ...state });
@@ -39,8 +39,8 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     emit();
   }
   function release() {
-    if (audio) { audio.pause(); audio.removeAttribute('src'); audio.load(); }
-    releaseSource(source); source = null; audio = null;
+    if (audio) { audio.pause(); audio.removeAttribute('src'); if (sourceAttached) audio.load(); }
+    releaseSource(source); source = null; audio = null; sourceAttached = false;
   }
   async function select(id) {
     const current = stories.find(entry => entry.id === id);
@@ -56,8 +56,10 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     catch { if (token === generation) { state.phase = 'error'; emit(); } return false; }
     if (token !== generation) { releaseSource(resolved); return false; }
     source = resolved;
+    state.offlineSaved = resolved.blob === true;
     const element = audioFactory(); audio = element;
-    element.preload = 'metadata'; element.setAttribute('playsinline', '');
+    // Unheard public stories only start downloading after the play gesture.
+    element.preload = resolved.saveOnPlay ? 'none' : 'metadata'; element.setAttribute('playsinline', '');
     const active = () => token === generation && element === audio;
     element.addEventListener('loadedmetadata', () => {
       if (!active()) return;
@@ -90,7 +92,8 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
       remember(true); emit();
     });
     element.addEventListener('error', () => { if (active()) { wantsPlayback = false; state.phase = 'error'; remember(); emit(); } });
-    element.src = resolved.url;
+    sourceAttached = !resolved.saveOnPlay;
+    if (sourceAttached) element.src = resolved.url;
     state.phase = 'ready'; saveBucket = -1; emit();
     return true;
   }
@@ -99,10 +102,17 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     beforePlay();
     const token = generation, attempt = ++playGeneration, element = audio;
     wantsPlayback = true;
+    if (!sourceAttached) { element.src = source.url; element.preload = 'metadata'; sourceAttached = true; }
     if (state.phase === 'ended') { state.position = 0; element.currentTime = 0; }
     if (state.phase === 'error') element.load();
     state.phase = 'buffering'; emit();
-    try { await element.play(); }
+    try {
+      const playback = element.play();
+      // First visits can start playback before the offline worker takes control.
+      // The fallback only runs then; controlled playback shares one SW download.
+      void source?.onPlay?.();
+      await playback;
+    }
     catch { if (token === generation && attempt === playGeneration) { wantsPlayback = false; state.phase = 'error'; emit(); } return false; }
     return token === generation && attempt === playGeneration && wantsPlayback;
   }
@@ -131,21 +141,62 @@ export async function resolveAudiobookSource(story) {
     const cached = await (await openCache())?.match(cacheKey(story));
     if (cached) return { url: URL.createObjectURL(await cached.blob()), blob: true };
   } catch { /* Streaming remains available if local storage is unavailable. */ }
-  return { url: cacheKey(story) };
+  return { url: cacheKey(story), saveOnPlay: true, onPlay: () => {
+    if (!globalThis.navigator?.serviceWorker?.controller) void saveAudiobookOffline(story).catch(() => {});
+  } };
 }
-export async function saveAudiobookOffline(story, { signal } = {}) {
+const offlineSaves = new Map();
+const storageEvent = (story, type) => {
+  if (globalThis.document) document.dispatchEvent(new CustomEvent('audiobookstorage', { detail: { type, file: story.file, sha256: story.sha256 } }));
+};
+async function storeAudiobook(story) {
   const cache = await openCache();
   if (!cache) throw Error('offline-storage');
-  const response = await fetch(cacheKey(story), { cache: 'reload', signal });
-  if (response.status !== 200) throw Error('download');
-  const bytes = await response.clone().arrayBuffer();
+  if (await cache.match(cacheKey(story))) return;
+  storageEvent(story, 'AUDIOBOOK_SAVING');
+  const abort = new AbortController(), timer = setTimeout(() => abort.abort(), 120000);
+  let response, bytes;
+  try {
+    response = await fetch(cacheKey(story), { cache: 'reload', signal: abort.signal });
+    if (response.status !== 200) throw Error('download');
+    bytes = await response.clone().arrayBuffer();
+  }
+  finally { clearTimeout(timer); }
   const digest = await crypto.subtle.digest('SHA-256', bytes);
   const hash = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
   if (hash !== story.sha256) throw Error('incomplete-download');
   await cache.put(cacheKey(story), response);
   // Remove earlier recordings of this same story only after the new one is saved.
   const pathname = new URL(cacheKey(story)).pathname;
-  for (const key of await cache.keys()) if (new URL(key.url).pathname === pathname && key.url !== cacheKey(story)) await cache.delete(key);
+  // A page still running older code can finish a manual save after an update.
+  // Let the controlling worker decide which version may remove older copies.
+  if (!globalThis.navigator?.serviceWorker?.controller) {
+    for (const key of await cache.keys()) if (new URL(key.url).pathname === pathname && key.url !== cacheKey(story)) await cache.delete(key);
+  }
+  storageEvent(story, 'AUDIOBOOK_SAVED');
+}
+
+export async function saveAudiobookOffline(story, { signal } = {}) {
+  const key = cacheKey(story);
+  signal?.throwIfAborted();
+  if (!offlineSaves.has(key)) {
+    const save = storeAudiobook(story).catch(error => { storageEvent(story, 'AUDIOBOOK_SAVE_ERROR'); throw error; }).finally(() => offlineSaves.delete(key));
+    offlineSaves.set(key, save);
+  }
+  const operation = offlineSaves.get(key);
+  if (!signal) return operation;
+  // One cancelled listener must not abort another listener's shared save.
+  return new Promise((resolve, reject) => {
+    const aborted = () => reject(signal.reason);
+    signal.addEventListener('abort', aborted, { once: true });
+    operation.then(resolve, reject).finally(() => signal.removeEventListener('abort', aborted));
+  });
+}
+
+let persistenceRequest;
+export function requestAudiobookPersistence() {
+  persistenceRequest ||= Promise.resolve().then(() => globalThis.navigator?.storage?.persist?.()).catch(() => false);
+  return persistenceRequest;
 }
 
 export function loadAudiobookPreferences(storage, stories = AUDIOBOOKS) {

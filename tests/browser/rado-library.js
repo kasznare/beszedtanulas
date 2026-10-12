@@ -54,9 +54,10 @@ async page => {
   await page.locator('#story-search').fill('');
   for (const story of ready) {
     await page.locator(`[data-story="${story.id}"]`).click();
+    await page.locator('#story-toggle').click();
+    await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
     await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
     ok(await page.locator('#story-visual-wrap').isHidden(), `${story.id}: clears the prior SVG without fabricated illustrations`);
-    await page.locator('#story-toggle').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
     ok(await page.evaluate(id => radoQA.audios.some(a => a.src.includes(id) && !a.paused && a.readyState >= 2), story.id), `${story.id}: real MP3 decoded and plays`);
     const cue = await page.evaluate(async id => (await import('/story-caption-timing.js')).STORY_CAPTION_TIMES[id].at(-1), story.id);
@@ -66,9 +67,8 @@ async page => {
     ok(true, `${story.id}: final original line follows the actual audio timestamps`);
     await page.locator('#story-toggle').click();
     await page.locator('#story-seek').evaluate((element, seconds) => { element.value = seconds; element.dispatchEvent(new Event('input', { bubbles: true })); }, Math.floor(story.duration / 2));
-    await page.locator('#story-download').click();
     await page.waitForFunction(() => document.querySelector('#story-download').textContent.includes('Letöltve'), { timeout: 120000 });
-    ok(true, `${story.id}: separate hash-verified offline download`);
+    ok(true, `${story.id}: automatic hash-verified offline save after playback`);
   }
   await context.setOffline(true);
   for (const story of ready) {

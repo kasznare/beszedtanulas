@@ -46,8 +46,8 @@ async page => {
   ok(await page.evaluate(()=>document.querySelector('#audiobooks').dataset.phase==='playing'),'Hiding the document does not interrupt a listening session');
   await page.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event('visibilitychange'));});
   await page.locator('#story-toggle').click();
-  await page.locator('#story-download').click();await page.waitForFunction(()=>document.querySelector('#story-download').textContent.includes('Letöltve'));
-  ok((await page.locator('#story-offline').innerText()).includes('internet nélkül'),'A verified story can be downloaded separately');
+  await page.waitForFunction(()=>document.querySelector('#story-download').textContent.includes('Letöltve'));
+  ok((await page.locator('#story-offline').innerText()).includes('internet nélkül'),'Playback automatically stores the verified story');
   await page.locator('[data-story="story-02"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok(await page.evaluate(()=>storyQA.audios.filter(a=>a.src.includes('story-01')).every(a=>a.paused)),'Choosing another story stops the old audio');
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
@@ -66,7 +66,7 @@ async page => {
   await open();await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(await page.evaluate(()=>storyQA.audios.some(a=>a.src.startsWith('blob:')&&!a.paused)),'The downloaded MP3 plays with the network disconnected');
-  await page.locator('#story-toggle').click();await page.locator('[data-story="story-02"]').click();
+  await page.locator('#story-toggle').click();await page.locator('[data-story="story-03"]').click();
   await page.waitForFunction(()=>['ready','error'].includes(document.querySelector('#audiobooks').dataset.phase));
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='error');
   ok((await page.locator('#story-status').innerText()).includes('próbáld újra'),'An unsaved offline story shows a retry message');
@@ -75,7 +75,9 @@ async page => {
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(true,'Retry starts the fixed recording when the network returns');await page.locator('#story-toggle').click();
   // SW-owned network requests bypass page.route; inject only the download failure.
-  await page.evaluate(()=>{window.storyQAFetch=fetch;window.fetch=(input,init)=>String(input).includes('/audio/audiobooks/story-02.mp3')?Promise.resolve(new Response('corrupt',{status:200})):storyQAFetch(input,init);});
+  await page.locator('[data-story="story-04"]').click();
+  await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
+  await page.evaluate(()=>{window.storyQAFetch=fetch;window.fetch=(input,init)=>String(input).includes('/audio/audiobooks/story-04.mp3')?Promise.resolve(new Response('corrupt',{status:200})):storyQAFetch(input,init);});
   await page.locator('#story-download').click();await page.waitForFunction(()=>document.querySelector('#story-offline').textContent.includes('nem sikerült'));
   ok(!(await page.locator('#story-download').isDisabled()),'A corrupt download is not marked saved and remains retryable');
   await page.evaluate(()=>{window.fetch=storyQAFetch;delete window.storyQAFetch;});await page.locator('#story-download').click();
@@ -83,6 +85,8 @@ async page => {
   await page.locator('#story-restart').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   ok(await current()<3,'Restart begins at the start of the story');await page.locator('#story-toggle').click();
   await page.locator('#story-transcript summary').click();ok((await page.locator('#story-text').innerText()).length>4000,'The original story text can also be read');await page.locator('#story-transcript summary').click();
+  await page.locator('[data-story="story-02"]').click();
+  await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   await context.setOffline(true); await page.reload(); await open();
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   const mappedOfflineTime = await page.evaluate(async()=> (await import('/story-playback-timing.js')).storyAnimationTime('story-02',120.1));

@@ -33,6 +33,8 @@ async page => {
   ok(classics.length === 10, 'All ten classics are present');
   for (const story of classics) {
     await page.locator(`[data-story="${story.id}"]`).click();
+    await page.locator('#story-toggle').click();
+    await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
     await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
     ok(await page.locator('#story-title').innerText() === story.title, `${story.id}: complete title`);
     ok((await page.locator('#story-byline').innerText()).includes(story.author), `${story.id}: author visible`);
@@ -45,14 +47,12 @@ async page => {
     ok(await page.locator('#story-text').textContent() === story.text, `${story.id}: complete source text and stanza breaks`);
     ok(await page.locator('#story-source a').getAttribute('href') === story.sourceUrl, `${story.id}: primary source link`);
     await page.locator('#story-transcript summary').click();
-    await page.locator('#story-toggle').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
     ok(true, `${story.id}: real fixed MP3 plays`);
     await page.locator('#story-seek').evaluate((element, seconds) => { element.value = seconds; element.dispatchEvent(new Event('input', { bubbles: true })); }, Math.floor(story.duration / 2));
     await page.locator('#story-toggle').click();
-    await page.locator('#story-download').click();
     await page.waitForFunction(() => document.querySelector('#story-download').textContent.includes('Letöltve'));
-    ok(true, `${story.id}: SHA-verified offline download`);
+    ok(true, `${story.id}: playback automatically stores the SHA-verified recording`);
   }
   await context.setOffline(true);
   for (const story of classics) {

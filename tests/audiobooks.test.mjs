@@ -69,6 +69,41 @@ test('ending, seeking, retrying and restarting keep completion separate from boo
   player.seek(92);await player.restart();assert.equal(audio.currentTime,0);
 });
 
+test('an unheard story attaches its network source only on the first play gesture', async () => {
+  let starts = 0;
+  const { player, audios } = fixture({ resolveSource: async () => ({ url: 'unheard.mp3', saveOnPlay: true, onPlay: () => starts++ }) });
+  await player.select('a');
+  assert.equal(audios[0].src, undefined);
+  assert.equal(player.getState().phase, 'ready');
+  await player.play();
+  assert.equal(audios[0].src, 'unheard.mp3');
+  assert.equal(starts, 1);
+  player.pause(); await player.play();
+  assert.equal(audios.length, 1);
+  player.stop(); assert.equal(audios[0].paused, true);
+});
+
+test('concurrent offline saves share one request; cancelling one listener preserves the other save', async () => {
+  const originals = { caches: globalThis.caches, fetch: globalThis.fetch };
+  const bytes = 'a complete recording', sha256 = createHash('sha256').update(bytes).digest('hex');
+  const story = { id: 'shared', file: 'audio/audiobooks/shared.mp3', sha256 };
+  const store = new Map(); let release, requests = 0;
+  globalThis.caches = { open: async () => ({ match: async key => store.get(key)?.clone(), put: async (key, response) => store.set(key, response.clone()), keys: async () => [...store.keys()].map(url => ({ url })), delete: async key => store.delete(key.url) }) };
+  globalThis.fetch = () => { requests++; return new Promise(resolve => { release = () => resolve(new Response(bytes)); }); };
+  try {
+    const abort = new AbortController();
+    const first = saveAudiobookOffline(story, { signal: abort.signal });
+    const second = saveAudiobookOffline(story);
+    const rejected = assert.rejects(first, { name: 'AbortError' });
+    abort.abort();
+    await new Promise(resolve => setImmediate(resolve)); release();
+    await rejected; await second;
+    assert.equal(requests, 1); assert.equal(await isAudiobookSaved(story), true);
+    await saveAudiobookOffline({ ...story, title: 'Corrected title' });
+    assert.equal(requests, 1, 'Metadata edits cannot redownload unchanged audio');
+  } finally { globalThis.caches = originals.caches; globalThis.fetch = originals.fetch; }
+});
+
 test('failed or corrupt downloads preserve the old audio and a retry stores verified bytes', async () => {
   const originals={caches:globalThis.caches,fetch:globalThis.fetch};
   const bytes='complete mp3 bytes', sha256=createHash('sha256').update(bytes).digest('hex');

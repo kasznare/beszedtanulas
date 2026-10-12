@@ -45,7 +45,7 @@ const assets = await Promise.all([...new Set(files)].map(async file => ({ file, 
 const optionalAssets = await Promise.all(AUDIOBOOKS.map(async story => {
   const sha256 = hash(await readFile(new URL(story.file, root)));
   if (sha256 !== story.sha256) throw Error(`Unverified audiobook: ${story.id}`);
-  return { file: story.file, sha256 };
+  return { file: story.file, sha256, bytes: story.bytes };
 }));
 const runtime = await readFile(new URL('service-worker-runtime.js', root), 'utf8');
 const version = hash(JSON.stringify(assets) + JSON.stringify(optionalAssets) + runtime).slice(0, 16);
