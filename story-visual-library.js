@@ -7,8 +7,9 @@ import { STORIES as routes } from './story-scenes/routes.js';
 import { STORIES as seasons } from './story-scenes/seasons.js';
 import { STORIES as classicTales } from './story-scenes/classic-tales.js';
 import { STORIES as classicPoems } from './story-scenes/classic-poems.js';
+import { STORIES as requestedClassics } from './story-scenes/requested-classics.js';
 
-const definitions = new Map([...workshop, ...routes, ...seasons, ...classicTales, ...classicPoems].map(story => [story.id, story]));
+const definitions = new Map([...workshop, ...routes, ...seasons, ...classicTales, ...classicPoems, ...requestedClassics].map(story => [story.id, story]));
 definitions.set('story-01', { id: 'story-01', legacy: true, duration: STORY_VISUAL_DURATION, scenes: STORY_VISUAL_SCENES });
 export const STORY_VISUAL_LIBRARY = AUDIOBOOKS.filter(story => story.illustrated !== false).map(story => {
   const definition = definitions.get(story.id);

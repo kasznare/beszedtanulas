@@ -14,10 +14,12 @@ from pathlib import Path
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from bs4 import BeautifulSoup, NavigableString
+from elevenlabs_voice import TOKEN
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'content/stories'
 BACKUP = Path.home() / '.local/share/beszedtanulas/rado-sources'
+PRONUNCIATION = json.loads((ROOT / 'voice-pronunciation.json').read_text())['words']
 VOLUMES = [('i', 31, 'https://mek.oszk.hu/11400/11479/11479.htm'),
            ('ii', 19, 'https://mek.oszk.hu/11600/11620/11620.htm')]
 
@@ -109,6 +111,8 @@ def extract(path, volume, count, url):
         lines = [paragraph(p) for p in body_nodes if paragraph(p)]
         assert lines
         text = '\n'.join(lines)
+        provider_input = TOKEN.sub(lambda m: '/' + PRONUNCIATION[m.group().lower()] + '/'
+                                   if m.group().lower() in PRONUNCIATION else m.group(), title + '\n\n' + text)
         footnotes = []
         for p in body_nodes:
             for a in p.find_all('a', class_='sdfootnoteanc'):
@@ -119,11 +123,12 @@ def extract(path, volume, count, url):
         start = html.index(f'<a name="{index}">')
         stop = html.index(f'<a name="{index + 1}">') if index < count else html.index('JEGYZETEK', start)
         entries.append({'id': f'rado-{volume}-{index:02d}', 'title': title,
-                        'author': 'Radó Vilmos (egybeállító)', 'kind': 'Mese',
+                        'author': 'Radó Vilmos (egybeállító)', 'kind': 'Mese', 'emoji': '📖',
                         'collection': 'Magyar gyermek- és népmesék', 'volume': volume.upper(),
                         'sourceIndex': index, 'sourceUrl': url + f'#{index}',
                         'file': f'rado/{volume}-{index:02d}.txt', 'sha256': sha(data),
                         'characters': len(text), 'words': len(text.split()),
+                        'providerCharacters': len(provider_input),
                         'paragraphs': len(lines), 'opening': lines[0], 'ending': lines[-1],
                         'footnotes': footnotes, 'sourceHtmlRange': [start, stop],
                         'sourceRangeSha256': sha(html[start:stop].encode()),

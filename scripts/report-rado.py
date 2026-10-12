@@ -2,7 +2,7 @@
 import argparse
 import importlib.util
 import json
-import math
+import re
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -105,10 +105,14 @@ def main():
               'hálózat nélküli lejátszás és olvasás, természetes hangvég és telefon/tablet elrendezés. A régi hangok és feliratok változatlan '
               'adatát a friss kiinduló főággal összevetettük. Fizikai iPhone/iPad próba és minden felvétel hallás utáni magyar kiejtésvizsgálata '
               'nem történt; a magánhangzók hosszúságát nem állítjuk gépi átirattal igazoltnak.', '',
-              'A privát import Chrome-próbája sikeres. A jelenlegi Playwright WebKit futtatókörnyezetben az IndexedDB '
-              'Blob mentése UnknownError hibát ad: egy alkalmazáskód nélküli, ötbájtos Blob-próba is ugyanúgy meghiúsul. '
-              'Ezért a WebKit privát importot ezen a környezeten nem állítjuk igazoltnak. A meglévő privát tárolási kódhoz '
-              'és felhasználói mesékhez nem nyúltunk.', '',
+              'Az összevezetett főág ArrayBuffer-alapú privát mentési javítása megmaradt, a korábbi Blob-formátumot is olvassa. '
+              'A privát import, könyvjelző, offline IndexedDB-hang és eltávolítás 18 ellenőrzése Chrome és WebKit alatt sikeres. '
+              'A normál felhasználói böngésző privát meséihez nem nyúltunk; csak külön localhost-próbák futottak.', '',
+              'A végleges Radó-próba böngészőnként 524 sikeres ellenőrzés: 26 kész hang és 24 várakozó mese, '
+              'mind az 50 teljes szöveg. Az összevezetett teljes build 225 Node-tesztje, az öt alap Python-teszt, '
+              'a hét Radó-generálási teszt és a három friss klasszikus-generálási teszt sikeres. '
+              'Minden 51 nyilvános MP3 teljes dekódolása ellenőrzött. A friss közös kereső, a három új főági klasszikus '
+              'és a privát szerzőkeresés külön 52 ellenőrzése is sikeres mindkét böngészőben.', '',
               'A hosszú MP3-ak az opcionális offline fájljegyzékben vannak; az alap játékcsomag nem tölti le őket automatikusan. '
               'A kész felirat a tényleges felvétel időbélyegét követi, nem a szöveghosszból becsült időt.', '',
               'Előkészítés és leltár fizetős kérés nélkül: `python3 scripts/generate-rado-audiobooks.py`. '
@@ -116,7 +120,9 @@ def main():
               'A program újra ellenőrzi a meglévő keretet és újrahasználja a fizetett cache-t. '
               'Pending vagy félbemaradt eredményt nem küld újra; előbb a szolgáltatói előzményekből kell helyreállítani. '
               'Telepítés a már kész cache-ből fizetős kérés nélkül: `--install`.', '']
-    (ROOT / 'content/stories/rado-coverage.md').write_text('\n'.join(lines))
+    report = re.sub(r'(?<=\d),(?=\d{3}\b)', '\u202f', '\n'.join(lines))
+    report = re.sub(r'(\d)\.(\d{2}) perc', r'\1,\2 perc', report)
+    (ROOT / 'content/stories/rado-coverage.md').write_text(report)
     print(json.dumps({k: data[k] for k in ['ready', 'pending', 'providerCharacters', 'pendingCharacters', 'actualRecordingCredits', 'balance']}, ensure_ascii=False))
 
 

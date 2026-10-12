@@ -31,7 +31,7 @@ def main():
     args = parser.parse_args()
     catalog = json.loads((ROOT / 'content/stories/catalog.json').read_text())['stories']
     catalog_order = {entry['id']: index for index, entry in enumerate(catalog)}
-    catalog = [entry for entry in catalog if not entry['id'].startswith('rado-')]
+    catalog = [entry for entry in catalog if entry['id'].startswith('story-')]
     current = (ROOT / 'audiobook-data.js').read_text()
     existing = json.loads(current.split('export const AUDIOBOOKS = ', 1)[1].strip().removesuffix(';'))
     previous = {story['id']: story for story in existing}
@@ -41,7 +41,8 @@ def main():
         raise ValueError('Every retimed illustrated story must have a verified SVG clock map')
     # The legacy stage owns the original recordings only. Preserve the separate
     # Radó pipeline's ready recordings and measured captions on reinstallation.
-    new_stories = [story for story in existing if story['id'].startswith('rado-')]
+    managed_ids = {entry['id'] for entry in catalog}
+    new_stories = [story for story in existing if story['id'] not in managed_ids]
     keep = {story['id'] for story in new_stories}
     published_receipts = json.loads((ROOT / 'audio/audiobooks/generated.json').read_text())['stories']
     published_captions = json.loads((ROOT / 'story-caption-timing.js').read_text().split('export const STORY_CAPTION_TIMES = ', 1)[1].strip().removesuffix(';'))

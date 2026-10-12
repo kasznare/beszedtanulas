@@ -1,6 +1,7 @@
 import { RADO_STORIES } from './rado-stories.js';
 import { RADO_WORD_TIMING } from './rado-word-timing.js';
 import { STORY_CAPTION_TIMES } from './story-caption-timing.js';
+import { matchesStorySearch } from './audiobook-library.js';
 
 const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 
@@ -45,7 +46,7 @@ export function setupRadoLibrary(host, { readyStories, onRead, onPlay }) {
     const query = event.target.value.trim().toLocaleLowerCase('hu-HU');
     let visible = 0;
     for (const button of host.querySelectorAll('[data-rado-story]')) {
-      button.hidden = !button.querySelector('strong').textContent.toLocaleLowerCase('hu-HU').includes(query);
+      button.hidden = !matchesStorySearch(RADO_STORIES.find(story => story.id === button.dataset.radoStory), query);
       if (!button.hidden) visible++;
     }
     for (const volume of host.querySelectorAll('.rado-volume')) {

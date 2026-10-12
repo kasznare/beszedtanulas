@@ -224,7 +224,7 @@
     "status": "active",
     "tier": "starter",
     "remaining": 7074,
-    "checkedAt": "2026-10-12T21:09:49.744695+02:00"
+    "checkedAt": "2026-10-12T21:29:33.758544+02:00"
   },
   "note": "Actual cost is the sum of unique paid response headers, not the shared account usage delta. Future credit need uses the undiscounted 1 credit/character rate; promotional receipt prices are not guaranteed.",
   "costReference": "https://elevenlabs.io/pricing",

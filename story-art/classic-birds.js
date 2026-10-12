@@ -5,8 +5,8 @@ export function classicBird(kind = 'tit') {
   const long = ['stork', 'crane', 'bittern'].includes(kind);
   const rooster = kind === 'rooster', hen = kind === 'hen', poultry = rooster || hen;
   const crow = kind === 'crow', magpie = kind === 'magpie', tit = kind === 'tit', hoopoe = kind === 'hoopoe';
-  const body = rooster ? '#ca7850' : hen ? '#d9af72' : crow ? '#424f56' : magpie ? '#f7f0db' : tit ? '#e7c85e' : hoopoe ? '#ca946b' : kind === 'bittern' ? '#b7a27a' : kind === 'crane' ? '#b2bdbc' : long ? '#f8f2dc' : '#9aaeb8';
-  const wing = rooster ? '#dba266' : hen ? '#bb854e' : crow || magpie ? '#3e5159' : tit ? '#819398' : hoopoe ? '#f2e3c6' : kind === 'bittern' ? '#978663' : long ? '#435961' : '#738e9c';
+  const body = kind === 'nightingale' ? '#b49374' : rooster ? '#ca7850' : hen ? '#d9af72' : crow ? '#424f56' : magpie ? '#f7f0db' : tit ? '#e7c85e' : hoopoe ? '#ca946b' : kind === 'bittern' ? '#b7a27a' : kind === 'crane' ? '#b2bdbc' : long ? '#f8f2dc' : '#9aaeb8';
+  const wing = kind === 'nightingale' ? '#987859' : rooster ? '#dba266' : hen ? '#bb854e' : crow || magpie ? '#3e5159' : tit ? '#819398' : hoopoe ? '#f2e3c6' : kind === 'bittern' ? '#978663' : long ? '#435961' : '#738e9c';
   const neckY = long ? -178 : poultry ? -102 : -88;
   return `<g data-model="bird-${kind}">
     <g class="cl-foot cl-foot-left" transform="translate(-20 0)"><path d="M0 ${long ? -88 : -35}V-4m0 0-13 5m13-5 16 4m-16-4 3 7" fill="none" stroke="${kind === 'stork' ? '#b76f52' : long ? '#a57655' : '#b78a4b'}" stroke-width="${long ? 5 : 4}" stroke-linecap="round"/></g>

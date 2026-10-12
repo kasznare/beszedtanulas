@@ -24,6 +24,11 @@ test('invalid and stale bookmarks cannot seek outside a story', () => {
   assert.deepEqual(normalizeAudiobookState({selected:'unknown',positions:{a:{seconds:60,sha256:'old'}}},stories),{selected:'a',positions:{}});
   assert.equal(normalizeAudiobookState(bookmark(65),stories).positions.a.seconds,65);
 });
+test('text-only and source-review entries without an audio hash cannot break preference loading',()=>{
+  const pending=[{id:'review',audioStatus:'rights-pending',duration:0},{id:'text',sha256:'source-hash',audioStatus:'pending',duration:0},...stories];
+  assert.deepEqual(normalizeAudiobookState(null,pending),{selected:'review',positions:{}});
+  assert.deepEqual(normalizeAudiobookState({selected:'review',positions:{review:{seconds:3}}},pending),{selected:'review',positions:{}});
+});
 test('initial home-screen cleanup preserves a saved bookmark; playback continues beyond one minute', async () => {
   const {player,audios,saves}=fixture();
   player.stop(); assert.equal(player.getPreferences().positions.a.seconds,65);assert.equal(saves.length,0);

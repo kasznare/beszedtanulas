@@ -233,7 +233,7 @@ def main():
     entries = json.loads((SOURCE / 'catalog.json').read_text())['stories']
     if args.ids and any(story_id.startswith('rado-') for story_id in args.ids):
         raise RuntimeError('Radó sources use separate display/pronunciation input; use generate-rado-audiobooks.py')
-    entries = [entry for entry in entries if not entry['id'].startswith('rado-')]
+    entries = [entry for entry in entries if entry['id'].startswith('story-')]
     if args.ids:
         known = {entry['id'] for entry in entries}
         if set(args.ids) - known:

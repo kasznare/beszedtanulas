@@ -32,7 +32,8 @@ async page => {
   const stories = await page.evaluate(async () => (await import('/rado-stories.js')).RADO_STORIES);
   const ready = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.filter(s => s.id.startsWith('rado-')));
   ok(stories.length === 50 && await page.locator('[data-rado-story]').count() === 50, 'Both volumes: all 50 source tales listed');
-  ok(await page.locator('.story-card[data-story]').count() === 22 + ready.length, 'All original 22 recordings preserved alongside the new complete recordings');
+  const publicCount = await page.evaluate(async () => (await (await fetch('/content/stories/catalog.json')).json()).stories.length);
+  ok(await page.locator('.story-card[data-story]').count() === publicCount && publicCount >= 22 + stories.length, 'All original recordings and newly published collections preserved alongside all Radó tales');
   for (const story of stories) {
     await page.locator(`.rado-volume[data-volume="${story.volume}"]`).evaluate(element => { element.open = true; });
     await page.locator(`[data-rado-story="${story.id}"]`).click();
@@ -48,6 +49,9 @@ async page => {
   await page.locator('#rado-search').fill('nincs ilyen mesecím');
   ok(await page.locator('[data-rado-story]:visible').count() === 0 && (await page.locator('#rado-search-status').innerText()).includes('0'), 'Empty search result is visible');
   await page.locator('#rado-search').fill('');
+  await page.locator('#story-search').fill('ozike');
+  ok(await page.locator('.story-card:visible').count() === 1 && await page.locator('.story-card:visible').getAttribute('data-story') === 'rado-i-31', 'The shared accentless Mesetár search includes pending Radó tales');
+  await page.locator('#story-search').fill('');
   for (const story of ready) {
     await page.locator(`[data-story="${story.id}"]`).click();
     await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
@@ -83,6 +87,10 @@ async page => {
     await page.locator(`.rado-volume[data-volume="${story.volume}"]`).evaluate(element => { element.open = true; });
     await page.locator(`[data-rado-story="${story.id}"]`).click();
     ok(await page.locator('#rado-reader-text').textContent() === story.text, `${story.id}: full pending text also available offline`);
+    await page.locator(`[data-story="${story.id}"]`).click();
+    await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'text');
+    ok(await page.locator('#story-text').textContent() === story.text, `${story.id}: the common player also retains the full offline source`);
+    ok(await page.locator('#story-toggle').isDisabled() && await page.locator('#story-download').isHidden(), `${story.id}: the shared library cannot fabricate pending audio`);
   }
   ok(await page.evaluate(() => radoQA.browserSpeech === 0), 'No browser voice fallback');
   await context.setOffline(false);

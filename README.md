@@ -4,6 +4,26 @@ Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és 
 
 Éles oldal: [Beszédtanulás a GitHub Pagesen](https://kasznare.github.io/beszedtanulas/). Nincs szükség ChatGPT-bejelentkezésre. A `main` ágra küldött commitot a meglévő GitHub Pages **pages build and deployment** folyamata automatikusan kitelepíti. Közzététel előtt `npm run build` és `git diff --check`, utána commit és push; külön Sites-kitelepítés nem kell.
 
+
+### Mesetár kereső és a 2026. október 12-i válogatás
+
+A „Keresés cím vagy szerző alapján” mező az összes betöltött mű címében, szerzőjében, gyűjteményében és kereshető leírásában szűr. Kis-/nagybetű, ékezet és többszörös szóköz nem számít; az „A fülemüle” címváltozat is megtalálja Arany **A fülemile** című versét. Törlés gomb és Escape üríti a mezőt. A keresés nem állítja le a lejátszást és nem változtatja a kiválasztott művet. A privát, helyi mesék címe és opcionális szerzője is kereshető, hálózati továbbítás nélkül. Az IndexedDB új importjai hangbájtokat tárolnak; a korábbi Blob-felvételek kompatibilisek maradnak.
+
+| Kért mű | Teljes szöveg / szerkezet | Hangállapot | Tényleges új kredit |
+| --- | --- | --- | ---: |
+| Benedek Elek: Gyöngyvirág Palkó | 74 bekezdés, MEK 00232 HTML 02 #32 | Jessa, 15:04, külön MP3, 27 SVG-jelenet | 1 396 |
+| Arany János: A fülemile | 160 nem üres sor, 10 blokk, a * elválasztóval | Jessa, 5:17, külön MP3, 21 SVG-jelenet | 428 |
+| Petőfi Sándor: Arany Lacinak | 72 verssor, 2 versszak | Jessa, 1:53, külön MP3, 22 SVG-jelenet | 157 |
+| Kriza gyűjtése: A fortélyos leány | teljes 1961-es forrás magán ellenőrzési cache-ben | Eredeti közkincs változatra / jogengedélyre vár | 0 |
+| Kriza gyűjtése: Az egyszeri asszony meg az ördög | teljes 1961-es forrás magán ellenőrzési cache-ben | Eredeti közkincs változatra / jogengedélyre vár | 0 |
+| Kriza gyűjtése: Három hazug mese | mindhárom számozott rész együtt a magán cache-ben | Eredeti közkincs változatra / jogengedélyre vár | 0 |
+
+A három kész mű teljes áras felső becslése **18 015 szolgáltatói karakter/kredit**, a bizonylatok szerinti tényleges fogyasztás **1 981 kredit**. A Kriza-változatok leltára 9 656 + 4 171 + 11 206 = **25 033 szolgáltatói karakter**; erre nincs hangkérés és nincs tényleges kreditfogyasztás. Az 1961-es kiadás Kovács Ágnes stiláris átdolgozását tartalmazza ([Magyar népmesekatalógus](https://nti.abtk.hu/images/adattar/mese/mnk8.pdf)); Kriza közkincs státusza nem igazolja önmagában ezt a változatot. A három várakozó cím és a státusz kereshető, az átdolgozott próza nincs a publikált kódban, a Gitben vagy az offline csomagban. Az 1882-es Székelyföldi gyűjtés, az 1900-as és az 1937-es Székely népmesék nem tartalmazzák a kért azonos teljes változatokat; eltérő meséket nem helyettesítettünk be.
+
+Import és ellenőrzés: `python3 scripts/import-requested-classics.py --check`. Hangterv: `python3 scripts/generate-requested-classics.py` (csak leltár). Fizetett generálás csak kifejezett `--generate` kapcsolóval történik; minden új rész előtt friss kvótaolvasás és a Radó-kérések foglalásának levonása szükséges. Sikeres vagy bizonytalan kérést nem küldünk újra; fizetett válaszok, rész-MP3-ak, bizonylatok és függő naplók a repón kívüli `~/.config/beszedtanulas/requested-classics-audiobook-cache/` könyvtárban maradnak. Hiányos művet nem telepít a `--install`. Reset, vásárlás és előfizetés-változtatás nincs a folyamatban. Az IPA-kiejtési bemenet szóhelyei egy az egyben a megjelenített eredeti írásmód szóhelyeihez tartoznak; az ASR önmagában nem magánhangzóhossz-bizonyíték.
+
+A három hosszú MP3 kizárólag az opcionális offline listán szerepel, a játékcsomag telepítése nem tölti le őket. A 22 korábbi felvétel, a régi SVG-időleképezések, a rövid és családi hangok, valamint az állathangok változatlanok. A kereső gyűjteményadatokból épít, címek kézi listázása nélkül.
+
 ## Indítás
 
 A projekt könyvtárában:

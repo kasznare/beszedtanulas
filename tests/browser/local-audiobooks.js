@@ -5,6 +5,7 @@ async page => {
   const ok = (value, message) => { if (!value) throw Error(message); checks.push(message); };
   await context.setOffline(false);
   await page.route('https://cdn.jsdelivr.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '' }));
+  await page.goto(new URL('/', page.url()).href);
   await page.evaluate(async () => {
     for (const registration of await navigator.serviceWorker.getRegistrations()) await registration.unregister();
     for (const name of await caches.keys()) await caches.delete(name);
@@ -30,7 +31,7 @@ async page => {
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   };
   await open();
-  const publicCount = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.length);
+  const publicCount = await page.evaluate(async () => (await (await fetch('/content/stories/catalog.json')).json()).stories.length);
   // The fixture uses an existing verified recording and an independent test title.
   const bundle = await page.evaluate(async () => {
     const story = (await import('/audiobook-data.js')).AUDIOBOOKS[0];

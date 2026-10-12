@@ -28,7 +28,7 @@ async page => {
   const current=()=>page.evaluate(()=>storyQA.audios.findLast(audio=>audio.src.includes('/audio/audiobooks/')||audio.src.startsWith('blob:'))?.currentTime);
   const seek=async seconds=>page.locator('#story-seek').evaluate((element,value)=>{element.value=value;element.dispatchEvent(new Event('input',{bubbles:true}));},seconds);
   await open();
-  const publishedCount = await page.evaluate(async () => (await import('/audiobook-data.js')).AUDIOBOOKS.length);
+  const publishedCount = await page.evaluate(async () => (await (await fetch('/content/stories/catalog.json')).json()).stories.length);
   ok(await page.locator('.story-card[data-story]').count()===publishedCount && publishedCount>=22,'All public recordings and the original twenty-two are available in Mesetár');
   await page.locator('#story-toggle').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');

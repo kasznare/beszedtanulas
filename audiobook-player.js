@@ -10,7 +10,7 @@ export function normalizeAudiobookState(value, stories = AUDIOBOOKS) {
   const positions = {};
   for (const story of stories) {
     const entry = source.positions?.[story.id];
-    if (entry?.sha256 === story.sha256 && finite(entry.seconds) && entry.seconds >= 0 && entry.seconds < story.duration - 1) {
+    if (entry && typeof story.sha256 === 'string' && entry.sha256 === story.sha256 && finite(entry.seconds) && entry.seconds >= 0 && entry.seconds < story.duration - 1) {
       positions[story.id] = { seconds: entry.seconds, sha256: story.sha256 };
     }
   }
@@ -50,6 +50,7 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     saved.selected = id;
     state = { storyId: id, phase: 'loading', position: saved.positions[id]?.seconds || 0, duration: current.duration, metadata: false };
     remember(); emit();
+    if (current.audioStatus && current.audioStatus !== 'ready') { state.phase = 'text'; emit(); return true; }
     let resolved;
     try { resolved = await resolveSource(current); }
     catch { if (token === generation) { state.phase = 'error'; emit(); } return false; }
