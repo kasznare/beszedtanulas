@@ -28,7 +28,7 @@ async page => {
   const current=()=>page.evaluate(()=>storyQA.audios.findLast(audio=>audio.src.includes('/audio/audiobooks/')||audio.src.startsWith('blob:'))?.currentTime);
   const seek=async seconds=>page.locator('#story-seek').evaluate((element,value)=>{element.value=value;element.dispatchEvent(new Event('input',{bubbles:true}));},seconds);
   await open();
-  ok(await page.locator('.story-card[data-story]').count()===17,'All seventeen public recordings are available in Mesék és Maci → Mesetár');
+  ok(await page.locator('.story-card[data-story]').count()===22,'All twenty-two public recordings are available in Mesék és Maci → Mesetár');
   await page.locator('#story-toggle').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);

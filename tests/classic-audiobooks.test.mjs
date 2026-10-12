@@ -5,11 +5,12 @@ import { AUDIOBOOKS } from '../audiobook-data.js';
 import { storyVisualFor } from '../story-visual-library.js';
 import { STORY_PLAYBACK_MAPS } from '../story-playback-maps.js';
 
-test('five complete public-domain classics have sources, authors and fixed recordings and complete illustrations', async () => {
+test('ten complete public-domain classics have sources, authors and fixed recordings', async () => {
   const catalog = JSON.parse(await readFile(new URL('../content/stories/catalog.json', import.meta.url)));
   const classics = catalog.stories.filter(story => story.collection === 'Magyar klasszikusok');
-  assert.equal(classics.length, 5);
-  assert.deepEqual(classics.map(story => story.kind).sort(), ['Mese', 'Mese', 'Mese', 'Vers', 'Vers']);
+  assert.equal(classics.length, 10);
+  assert.equal(classics.filter(story => story.kind === 'Mese').length, 6);
+  assert.equal(classics.filter(story => story.kind === 'Vers').length, 4);
   for (const entry of classics) {
     const story = AUDIOBOOKS.find(story => story.id === entry.id);
     assert.ok(story, entry.id);
@@ -17,11 +18,14 @@ test('five complete public-domain classics have sources, authors and fixed recor
     assert.equal(story.kind, entry.kind);
     assert.equal(story.sourceUrl, entry.sourceUrl);
     assert.equal(new URL(story.sourceUrl).hostname, 'mek.oszk.hu');
-    assert.equal(story.illustrated, true);
-    assert.equal(entry.illustrated, true);
-    assert.equal(entry.visualClock, 'recording');
-    assert.ok(storyVisualFor(entry.id).scenes.length >= 12);
-    assert.equal(storyVisualFor(entry.id).visualDuration, story.duration);
+    assert.equal(story.illustrated, entry.illustrated);
+    if (entry.illustrated) {
+      assert.equal(entry.visualClock, 'recording');
+      assert.ok(storyVisualFor(entry.id).scenes.length >= 12);
+      assert.equal(storyVisualFor(entry.id).visualDuration, story.duration);
+    } else {
+      assert.equal(storyVisualFor(entry.id), undefined);
+    }
     assert.equal(STORY_PLAYBACK_MAPS[entry.id], undefined);
     assert.equal(entry.rights.status, 'public-domain');
     assert.ok(entry.rights.authorDiedYear + 71 <= 2026);
@@ -32,6 +36,9 @@ test('five complete public-domain classics have sources, authors and fixed recor
     const lines = story.text.split('\n').filter(line => line.trim());
     assert.ok(lines.length > 5);
     assert.notEqual(lines[0], story.title);
-    if (entry.kind === 'Vers') assert.ok(story.text.includes('\n\n'), 'Stanza breaks remain in poems');
+    if (entry.kind === 'Vers' && entry.id !== 'story-22') assert.ok(story.text.includes('\n\n'), 'Stanza breaks remain in poems');
+    if (entry.id === 'story-21') assert.equal(story.text.split('\n\n').length, 7, 'All seven Altató stanzas remain');
+    if (entry.id === 'story-22') assert.ok(story.text.startsWith('Ajaj, hol volt\nHol nem...\n'), 'HTML source wrapping does not split the spoken verse line');
+    if (entry.id === 'story-19') assert.equal(story.text.includes('hajtania köszörűkövet'), false, 'Missing source word boundary is corrected');
   }
 });

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "extractedOn": "2026-10-08",
-  "note": "Az első tizenkét mese a korábban mentett, saját generált mesekatalógusból származik. A 13–17. mű közkincs magyar klasszikus az OSZK MEK eredeti szövegével, szerző- és forrásmegjelöléssel; illusztráció nélküli felolvasás.",
+  "note": "Az első tizenkét mese a korábban mentett, saját generált mesekatalógusból származik. A 13–22. mű közkincs magyar klasszikus az OSZK MEK eredeti szövegével, szerző- és forrásmegjelöléssel. Az illusztrációk meglétét és időalapját művenként rögzítjük.",
   "stories": [
     {
       "id": "story-01",
@@ -254,6 +254,139 @@
         "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
       },
       "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege; a HTML-tördelés és a sorok körüli szóközök rendezve. A versek versszakai megmaradnak."
+    },
+    {
+      "id": "story-18",
+      "title": "A kóró és a kis madár",
+      "author": "Arany László gyűjtése",
+      "kind": "Mese",
+      "emoji": "🐦",
+      "file": "18-koro-es-kis-madar.txt",
+      "sourceUrl": "https://mek.oszk.hu/00500/00598/00598.htm#11",
+      "description": "Ismétlődő láncmese a kismadárról, aki ringatózni szeretne.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 448,
+      "sha256": "437e44304b5a1ce75d49c192da74256a343f623799645f8bba5f76c60d0ed917",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1898,
+        "biographyUrl": "https://www.nekb.gov.hu/nemzeti-sirkert/budapest/fiumei-uti-sirkert/arany-laszlo",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak."
+    },
+    {
+      "id": "story-19",
+      "title": "A nyulacska harangocskája",
+      "author": "Benedek Elek",
+      "kind": "Mese",
+      "emoji": "🔔",
+      "file": "19-nyulacska-harangocskaja.txt",
+      "sourceUrl": "https://mek.oszk.hu/04800/04873/04873.htm#13",
+      "description": "A nyulacska sorra segítséget kér, hogy visszakapja szépen szóló harangocskáját.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 725,
+      "sha256": "d93c41e26d7c0ddbb90a33add2e49b3f39930a4973672436a5fcdef853cdf873",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1929,
+        "biographyUrl": "https://bpk.uni-sopron.hu/benedek-elekrol",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak. A digitális forrás egy hiányzó szavak közti szóköze javítva: „hajtania” → „hajtani a”.",
+      "editorialCorrections": {
+        "hajtania köszörűkövet": "hajtani a köszörűkövet"
+      }
+    },
+    {
+      "id": "story-20",
+      "title": "A három kívánság",
+      "author": "Benedek Elek",
+      "kind": "Mese",
+      "emoji": "✨",
+      "file": "20-harom-kivansag.txt",
+      "sourceUrl": "https://mek.oszk.hu/04700/04776/04776.htm#24",
+      "description": "Humoros mese egy tündér ajándékáról és három elhamarkodott kívánságról.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 605,
+      "sha256": "889b48efcb8356e67ff6e9beeba24a347d7a352bbb649782114c6e7de8eaedb4",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1929,
+        "biographyUrl": "https://bpk.uni-sopron.hu/benedek-elekrol",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak."
+    },
+    {
+      "id": "story-21",
+      "title": "Altató",
+      "author": "József Attila",
+      "kind": "Vers",
+      "emoji": "🌙",
+      "file": "21-altato.txt",
+      "sourceUrl": "https://mek.oszk.hu/11800/11864/html/1935.html#altato",
+      "description": "Nyugodt esti vers: az ég, a rét, a bogarak és a villamos is elalszanak.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 134,
+      "sha256": "50460fced9ae0d21c81c2d79888db299e2428202124a21b65ba2706311588994",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1937,
+        "biographyUrl": "https://opac-nevter.pim.hu/record/-/record/PIM59579",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak."
+    },
+    {
+      "id": "story-22",
+      "title": "Iciri-piciri",
+      "author": "Móricz Zsigmond",
+      "kind": "Vers",
+      "emoji": "🐱",
+      "file": "22-iciri-piciri.txt",
+      "sourceUrl": "https://mek.oszk.hu/11400/11475/11475.htm#24",
+      "description": "Játékos verses mese egy apró macskáról és két iciri-piciri ökröcskéről.",
+      "illustrated": false,
+      "collection": "Magyar klasszikusok",
+      "ageRange": [
+        5,
+        8
+      ],
+      "words": 101,
+      "sha256": "bd8e4de5e97e3ce25480c525d93f28f1ce4b0a07c3079c9949eeeedb2196ebc7",
+      "rights": {
+        "status": "public-domain",
+        "authorDiedYear": 1942,
+        "biographyUrl": "https://archivum.pim.hu/pim.hu/2024/pim.hu/hu/dia/dia-tagjai/moricz-zsigmond.html",
+        "ruleUrl": "https://njt.jog.gov.hu/jogszabaly/1999-76-00-00",
+        "basis": "A szerző halálát követő hetven év eltelt; eredeti magyar szöveg, modern átdolgozás nélkül."
+      },
+      "sourceNote": "OSZK Magyar Elektronikus Könyvtár. Csak a mű szövege, a cím és a kiadói jegyzetek nélkül. A HTML-címkék eltávolítva, a tördelési szóközök rendezve; a verssorok és a meglévő versszakok megmaradnak."
     }
   ]
 }
