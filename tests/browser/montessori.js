@@ -38,11 +38,11 @@ async page => {
   };
   try {
     await page.setViewportSize({ width: 1194, height: 834 }); await menu();
-    ok(await page.locator('[data-mo-game]').count() === 3, 'Three games are reachable from the activity menu');
+    ok(await page.locator('[data-mo-game]').count() === 5, 'Five games are reachable from the activity menu');
     for (const [kind, levels] of [['shapes', 4], ['colors', 3], ['tower', 3]]) {
       await page.locator(`[data-mo-game="${kind}"]`).click();
       for (let level = 1; level <= levels; level++) {
-        await page.locator(`[data-mo-level="${level}"]`).click();
+        await page.locator(`[data-mo-level="${level}"]`).click(); await page.locator('#mo-restart').click();
         const before = (await saved()).rewards;
         const ids = await page.locator('[data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
         const targets = await page.locator('[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
@@ -89,7 +89,7 @@ async page => {
       }
       await menu();
     }
-    await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="3"]').click();
+    await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="3"]').click(); await page.locator('#mo-restart').click();
     let id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
     await move(id, `[data-mo-target="${id}"]`);
     ok(await page.locator('.mo-box-window svg').count() === 1 && await page.locator('.mo-drag-preview').count() === 0, 'Actual mouse drag animates one drop and removes the preview');
@@ -109,7 +109,7 @@ async page => {
     await page.locator(`[data-mo-target="${id}"]`).focus(); await page.keyboard.press('Enter'); await ready();
     ok(await page.locator('.mo-box-window svg').count() === 1, 'Keyboard alone places a piece');
 
-    await page.locator('[data-mo-level="4"]').click();
+    await page.locator('[data-mo-level="4"]').click(); await page.locator('#mo-restart').click();
     const blocker = page.locator('[data-mo-blocker]').first(), blockerId = await blocker.getAttribute('data-mo-blocker');
     let rect = await blocker.boundingBox();
     await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2); await page.mouse.down(); await page.mouse.move(rect.x + rect.width / 2 + 20, rect.y + rect.height / 2, { steps: 5 }); await page.mouse.up();
@@ -145,7 +145,7 @@ async page => {
       }
     }
     await page.setViewportSize({ width: 1194, height: 834 }); await menu();
-    await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click();
+    await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
     await page.emulateMedia({ reducedMotion: 'reduce' });
     id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
     await place(id, id);
@@ -162,7 +162,7 @@ async page => {
     ok(true, 'App back leaves the workshop for its parent menu');
 
     if (context._options?.hasTouch) {
-      await menu(); await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click();
+      await menu(); await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
       id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
       await page.locator(`[data-mo-piece="${id}"]`).tap(); await page.locator(`[data-mo-target="${id}"]`).tap(); await ready();
       ok(await page.locator('#montessori').getAttribute('data-done') === 'true', 'Native touchscreen taps select and place');
@@ -170,7 +170,7 @@ async page => {
     await page.waitForFunction(() => document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'), undefined, { timeout: 60000 });
     await context.setOffline(true); await page.reload(); await menu();
     for (const kind of ['shapes', 'colors', 'tower']) {
-      await page.locator(`[data-mo-game="${kind}"]`).click(); await page.locator('[data-mo-level="1"]').click();
+      await page.locator(`[data-mo-game="${kind}"]`).click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
       const ids = await page.locator('[data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
       if (kind === 'tower') ids.sort((a, b) => Number(b.split('-')[1]) - Number(a.split('-')[1]));
       for (const id of ids) await place(id, kind === 'shapes' ? id : kind === 'colors' ? id.split('-')[0] : 'tower');

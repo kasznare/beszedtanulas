@@ -1,5 +1,18 @@
 ## 2026. október 13. – Formadoboz: egy közös felület, szín és alak, megmaradó akadályok
 
+## 2026. október 13. – Montessori: 26 szint, szabadon tologatható bábuk és két összetettebb játék
+
+A felhasználó több szintet, helyükön maradó tologatható bábukat és nehezebb Montessori játékokat kért. Az előző élesítésre adott commit/push engedéllyel folytattuk. Új managed munkafa: montessori-challenges, ág codex/montessori-challenges, alap cfe8695. A montessori-release munkafát közben másik chat használta interakciós hangokhoz; annak változtatásait érintetlenül hagytuk. Az origin/main a kiadás előtti fetch szerint nem változott.
+
+Öt játék, összesen 26 szint: Formadoboz 8 (méret, forgatás, ismétlődő alak/szín, 6/8 elemes deszkák és több akadály), Színtálcák 5 (világos/sötét árnyalat és pontos darabszám, maradék golyókkal), torony 5 (3–7 korong), új Rendezőrács 4 (sor alakja/mérete + oszlop színe), új Mintaemlék 4 (4/5/6/8 elem, elrejthető, időkorlát nélküli minta). A minták telefonon számozott sorokra törnek. A rács és a mintasor hibás kirakást is elfogad; a gyerek áthelyezhet és felcserélhet lerakott elemeket, majd külön ellenőrizhet. A minta újranézése megőrzi a kirakást.
+
+A formák a deszkán szabadon eltolhatók; rossz lyukra ejtéskor is megőrzik az elengedés helyét. A forgatásgombok és billentyűzetnyilak a kijelölt bábun hatnak. A bábu alatt lévő lyukba is lehet ejteni forgatás után: a húzott eredeti elem nem fogja el a cél hit-tesztjét. Húzás közben a képernyő szélén automatikus görgetés segít; elengedéskor/megszakításkor leáll. Az akadályok megmaradnak a deszkán és visszatolhatók; az összetett deszkákon függőlegesen parkolnak a lyukak fölötti területen.
+
+Új montessori-art.js és montessori-session.js. Magból újragenerált feladat + ellenőrzött mozdulatok mentése helyben, profilonként és szintenként, beszedtanulas.montessori.v2 kulcsokon. Kilépés, szintváltás és újratöltés megőrzi a pozíciót, elfordítást, akadályt és kirakást. Az Új játék új magot ad. Visszavonás az adott belépés utolsó 40 lépéséig. A már jutalmazott kör újratöltése/visszavonása/újraellenőrzése nem jutalmaz újra. Az új útmutatók a rögzített Jessa/Eleven v4 rendszerben: 11 új klip és friss műhelymenü, összesen 1064 karakter. A privát, már megfizetett cache-ből helyreálltak; quotaDelta=0, visszaállító kreditet nem váltottunk be.
+
+Ellenőrzés: teljes npm build, 260 JavaScript- és 17 Python-teszt sikeres, 732 runtime fájl. Alap Montessori böngészős próba: 97 Chromium / 98 WebKit. Új teljes 26 szintes próba: 92 Chromium / 92 WebKit; teljes hibás rács/minta javítása, csere, profil/szint szerinti folytatás, újratöltés, képernyőméretek és új játékok/hangok offline működése. További 4/4 húzási regresszió: lyukra parkolt bábu forgatás utáni bedobása és képernyőszéli görgetés/leállás. Natív Chromium érintés: 22 ellenőrzés, szabad parkolással és helyzetmegőrzéssel. Képek: output/playwright/challenges-*. Közzététel a meglévő main → GitHub Pages folyamattal.
+
+
 A felhasználó pontosította a mintát: a formák már a játék felületén feküdtek; a félretolt akadály ugyanott megmaradt; a különböző színű formákat a velük egyező színű keretű, megfelelő alakú lyukakba kellett tenni. A montessori-release munkafát és codex/montessori-games ágat folytattuk az éles b0e7c5e változatról.
 
 A formadoboz külön tálcája megszűnt. A formák és a színes keretű lyukak közös fa felületen vannak, stabil, egymástól elkülönülő helyeken. A szín és az alak egyaránt kötelező: a 2. szinten a megfelelő forma mellett ugyanaz az alak más színnel és ugyanaz a szín más alakkal is megjelenik; a 3–4. szinten ezek saját lyukat kapnak. Az első szint továbbra is egy forma/egy lyuk. A tárgyak szemléltető színe a doboz ablakában és a húzási/átesési animációban is megmarad.

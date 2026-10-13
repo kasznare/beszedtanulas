@@ -505,7 +505,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/puzzle_done.mp3"
   },
   "montessori_menu": {
-    "text": "Fedezzük fel a kis műhelyt! Válassz formadobozt, színtálcákat vagy tornyot!",
+    "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
     "file": "audio/voice/montessori_menu.mp3"
   },
   "montessori_shapes_1": {
@@ -523,6 +523,50 @@ export const VOICE_CLIPS = {
   "montessori_shapes_4": {
     "text": "Csúsztasd félre az akadályokat a deszkán! Az akadályra koppinthatsz is. Aztán tedd a formákat az ugyanolyan színű kerettel jelölt, hozzájuk illő lyukakba!",
     "file": "audio/voice/montessori_shapes_4.mp3"
+  },
+  "montessori_shapes_size": {
+    "text": "A szín, az alak és a méret is számít. A kicsi forma a kicsi lyukba illik. A bábukat arrébb is tolhatod a deszkán.",
+    "file": "audio/voice/montessori_shapes_size.mp3"
+  },
+  "montessori_shapes_turn": {
+    "text": "Nézd meg a méretet és az elfordítást is! A kijelölt formát a forgatás gombbal fordíthatod el. Tedd minden formát a helyére!",
+    "file": "audio/voice/montessori_shapes_turn.mp3"
+  },
+  "montessori_colors_shades": {
+    "text": "A világos és a sötét golyóknak külön tálkájuk van. A golyó és a tálka árnyalata is egyezzen!",
+    "file": "audio/voice/montessori_colors_shades.mp3"
+  },
+  "montessori_colors_count": {
+    "text": "Minden tálkába annyi golyó kerüljön, amennyit a pöttyök mutatnak! Maradhatnak golyók a tálcán.",
+    "file": "audio/voice/montessori_colors_count.mp3"
+  },
+  "montessori_grid": {
+    "text": "Nézd a sor jelét és az oszlop színét! A kettő együtt mutatja az elem helyét. Rakd tele a rácsot, majd ellenőrizd!",
+    "file": "audio/voice/montessori_grid.mp3"
+  },
+  "montessori_grid_size": {
+    "text": "A sorban az alak és a méret, az oszlopban a szín mutatja a helyet. Figyelj mindháromra, majd ellenőrizd!",
+    "file": "audio/voice/montessori_grid_size.mp3"
+  },
+  "montessori_grid_done": {
+    "text": "Minden elem a megfelelő sorban és oszlopban van!",
+    "file": "audio/voice/montessori_grid_done.mp3"
+  },
+  "montessori_grid_retry": {
+    "text": "Nézd meg újra a sor és az oszlop jelét! A lerakott elemeket is áthelyezheted.",
+    "file": "audio/voice/montessori_grid_retry.mp3"
+  },
+  "montessori_memory": {
+    "text": "Figyeld meg a mintát! Ha megjegyezted, rejtsd el, és rakd ki emlékezetből! A végén ellenőrizd!",
+    "file": "audio/voice/montessori_memory.mp3"
+  },
+  "montessori_memory_done": {
+    "text": "Újra kiraktad a megfigyelt mintát!",
+    "file": "audio/voice/montessori_memory_done.mp3"
+  },
+  "montessori_memory_retry": {
+    "text": "Nézzük meg újra a mintát! Az elemeket átcserélheted, és újra ellenőrizheted.",
+    "file": "audio/voice/montessori_memory_retry.mp3"
   },
   "montessori_colors": {
     "text": "Tedd a golyókat az azonos színű tálkákba! Húzd oda, vagy koppints a golyóra, majd a tálkára!",

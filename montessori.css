@@ -142,3 +142,64 @@
 @media (max-width: 370px) { .mo-card { grid-template-columns: 125px 1fr; padding-right: 12px; }.mo-card-art { transform: scale(.66); }.mo-levels { display: grid; grid-template-columns: 1fr 1fr; }.mo-workspace { padding-inline: 8px; }.mo-bowl { width: 104px; } }
 @media (max-height: 500px) and (orientation: landscape) { .mo-heading h2 { font-size: 1.4rem; margin: 5px 0; }.mo-game-top { margin: 0 0 10px; }.mo-levels { margin: 12px 0; }.mo-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 15px; align-items: center; }.mo-box, .mo-color-board, .mo-tower-board { margin-bottom: 0; }.mo-tray-label { font-size: .7rem; }.mo-holes { gap: 0 8px; }.mo-hole-cell { min-height: 91px; }.mo-box-single .mo-hole-cell { min-height: 110px; }.mo-box-single .mo-hole svg { width: 88px; height: 88px; }.mo-box-single .mo-hole { height: 105px; }.mo-status { margin: 11px 0; } }
 @media (prefers-reduced-motion: reduce) { .montessori-panel *, .mo-drag-preview, .mo-flying-piece { animation: none !important; transition: none !important; }.mo-card:hover { transform: none; } }
+/* Larger exercises keep each symbol readable and each move reversible. */
+.mo-card-grid { background: #eaf0eb; }.mo-card-memory { background: #f0ebf4; }
+.mo-mini-grid { color: #77947e; font-size: 130px; line-height: 1; }
+.mo-mini-memory { max-width: 180px; color: #b87561; font-size: 38px; word-spacing: 10px; line-height: 1.8; }
+.mo-progress { gap: 5px; flex-wrap: wrap; justify-content: flex-end; max-width: 160px; }
+.mo-capacity { display: flex; justify-content: center; gap: 6px; }
+.mo-capacity i { width: 9px; height: 9px; border: 1px solid #806e56; border-radius: 50%; }.mo-capacity .is-filled { background: #806e56; }
+[data-game="colors"][data-level="4"] .mo-workspace, [data-game="colors"][data-level="5"] .mo-workspace,
+[data-game="grid"] .mo-workspace, [data-game="memory"] .mo-workspace { display: block; }
+[data-game="colors"][data-level="4"] .mo-color-board, [data-game="colors"][data-level="5"] .mo-color-board { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 20px; max-width: 100%; }
+.mo-grid-board { display: grid; grid-template-columns: minmax(48px, .7fr) repeat(var(--mo-columns), minmax(0, 1fr)); gap: 9px; max-width: 600px; margin: 0 auto 24px; align-items: stretch; }
+.mo-column-label, .mo-row-label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; font-size: .75rem; }
+.mo-column-label { min-height: 65px; }.mo-column-label i { width: 26px; height: 26px; border-radius: 50%; }
+.mo-row-label .mo-shape-art { width: calc(58px * var(--mo-scale)); height: calc(58px * var(--mo-scale)); }
+.mo-row-label small { min-height: 14px; font-size: .7rem; }
+.mo-slot, .mo-slot.mo-piece { display: grid; place-items: center; width: 100%; min-width: 44px; height: 100px; border: 2px solid #d7c7ac; border-radius: 16px; background: #fff7e5; touch-action: none; color: #b4a78e; font-size: 26px; }
+.mo-slot .mo-shape-art { width: calc(70px * var(--mo-scale)); height: calc(70px * var(--mo-scale)); }
+.mo-slot.is-selected { border-color: #758b68; background: #e9eddf; }
+.mo-memory-board { text-align: center; margin-bottom: 23px; }
+.mo-memory-pattern, .mo-memory-slots { display: flex; justify-content: flex-start; gap: 8px; overflow-x: auto; padding: 10px 4px 18px; margin: 0 auto 12px; max-width: 100%; }
+.mo-memory-pattern > span { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 74px; height: 100px; gap: 10px; border-bottom: 3px solid #d5bb91; }
+.mo-memory-pattern svg { width: 58px; height: 58px; }.mo-memory-pattern small { font-size: .7rem; }
+.mo-memory-slots .mo-slot { flex: 0 0 74px; }.mo-memory-slots .mo-slot svg { width: 60px; height: 60px; }
+[data-game="grid"] .mo-tray .mo-piece, [data-game="memory"] .mo-tray .mo-piece { width: 88px; height: 88px; }
+[data-game="grid"] .mo-tray .mo-shape-art, [data-game="memory"] .mo-tray .mo-shape-art { width: calc(68px * var(--mo-scale)); height: calc(68px * var(--mo-scale)); }
+.mo-board-pieces .mo-piece svg { width: calc(82px * var(--mo-scale)); height: calc(82px * var(--mo-scale)); }
+.mo-surface-box .mo-hole svg.mo-shape-art { width: calc(82px * var(--mo-scale)); height: calc(82px * var(--mo-scale)); }
+.mo-surface-box .mo-hole-cell, .mo-board-pieces .mo-piece { left: clamp(52px, var(--mo-x), calc(100% - 52px)); top: clamp(52px, var(--mo-y), calc(100% - 52px)); }
+[data-game="shapes"][data-level="7"] .mo-shape-surface, [data-game="shapes"][data-level="8"] .mo-shape-surface { aspect-ratio: 1.1; }
+[data-game="shapes"][data-level="7"] .mo-blocker, [data-game="shapes"][data-level="8"] .mo-blocker { --mo-slide-distance: 0px; transform: translateY(calc(var(--mo-slide) * var(--mo-park))); }
+[data-game="shapes"][data-level="7"] .mo-blocker:active:not(:disabled), [data-game="shapes"][data-level="8"] .mo-blocker:active:not(:disabled) { transform: translateY(calc(var(--mo-slide) * var(--mo-park))); }
+.mo-disc { width: calc(32px + var(--mo-size) * 22px); }
+[data-game="tower"] .mo-piece .mo-disc { width: calc(32px + var(--mo-size) * 16px); }
+[data-game="tower"][data-level="4"] .mo-tower-target, [data-game="tower"][data-level="5"] .mo-tower-target { height: 295px; }
+[data-game="tower"][data-level="4"] .mo-tower-board, [data-game="tower"][data-level="5"] .mo-tower-board { min-height: 325px; }
+@media (max-width: 650px) {
+  [data-game="colors"][data-level="4"] .mo-color-board, [data-game="colors"][data-level="5"] .mo-color-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mo-grid-board { gap: 5px; grid-template-columns: 48px repeat(var(--mo-columns), minmax(0, 1fr)); }
+  .mo-slot, .mo-slot.mo-piece { height: 74px; border-radius: 12px; }.mo-slot .mo-shape-art { width: calc(46px * var(--mo-scale)); height: calc(46px * var(--mo-scale)); }
+  .mo-row-label .mo-shape-art { width: calc(40px * var(--mo-scale)); height: calc(40px * var(--mo-scale)); }
+  [data-game="grid"] .mo-tray .mo-piece, [data-game="memory"] .mo-tray .mo-piece { width: 66px; height: 70px; }
+  [data-game="grid"] .mo-tray .mo-shape-art, [data-game="memory"] .mo-tray .mo-shape-art { width: calc(52px * var(--mo-scale)); height: calc(52px * var(--mo-scale)); }
+  .mo-memory-pattern > span { min-width: 58px; }.mo-memory-pattern svg { width: 48px; height: 48px; }.mo-memory-slots .mo-slot { flex-basis: 64px; height: 82px; }.mo-memory-slots .mo-slot svg { width: 48px; height: 48px; }
+  .mo-board-pieces .mo-piece svg { width: calc(64px * var(--mo-scale)); height: calc(64px * var(--mo-scale)); }
+  .mo-surface-box .mo-hole svg.mo-shape-art { width: calc(66px * var(--mo-scale)); height: calc(66px * var(--mo-scale)); }
+  .mo-surface-box .mo-hole-cell, .mo-board-pieces .mo-piece { left: clamp(42px, var(--mo-x), calc(100% - 42px)); top: clamp(42px, var(--mo-y), calc(100% - 42px)); }
+  [data-game="shapes"][data-level="7"] .mo-shape-surface, [data-game="shapes"][data-level="8"] .mo-shape-surface { aspect-ratio: .55; }
+  [data-game="tower"] .mo-piece .mo-disc { width: calc(20px + var(--mo-size) * 11px); }
+}
+
+.mo-shape-surface { container-type: size; }
+.mo-memory-pattern, .mo-memory-slots { display: grid; grid-template-columns: repeat(var(--mo-count), minmax(0, 1fr)); overflow: visible; }
+.mo-memory-pattern > span { min-width: 0; }.mo-memory-slots .mo-slot { position: relative; min-width: 44px; height: 104px; padding-bottom: 20px; }
+.mo-slot-number { position: absolute; bottom: 6px; font-size: .68rem; color: #8e7b5f; }
+@media (max-width: 650px) {
+  .mo-memory-pattern, .mo-memory-slots { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mo-memory-slots .mo-slot { height: 85px; }
+}
+.mo-row-label svg { fill: #88785f; stroke: #b3a185; }
+
+.mo-piece.is-dragging { pointer-events: none; }

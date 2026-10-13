@@ -4,6 +4,7 @@ async page => {
   const ok = (value, message) => { if (!value) throw Error(message); checks.push(message); };
   page.on('pageerror', error => errors.push(error.message));
   await page.evaluate(async () => {
+    localStorage.removeItem('beszedtanulas.playTime.v1');
     for (const registration of await navigator.serviceWorker.getRegistrations()) await registration.unregister();
     for (const key of await caches.keys()) await caches.delete(key);
     const saved = JSON.parse(localStorage.getItem('speech_game_progress_v1')) || {};
@@ -19,14 +20,14 @@ async page => {
     await page.setViewportSize(size);
     for (const kind of ['shapes', 'colors', 'tower']) {
       await page.locator(`[data-mo-game="${kind}"]`).click();
-      await page.locator(`[data-mo-level="${kind === 'shapes' ? 4 : 3}"]`).click();
+      await page.locator(`[data-mo-level="${kind === 'shapes' ? 4 : 3}"]`).click(); await page.locator('#mo-restart').click();
       ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), `${kind}: final layout has no overflow at ${size.width}×${size.height}`);
       await page.screenshot({ path: `output/playwright/montessori-final-${kind}-${size.width}.png`, fullPage: true, animations: 'disabled' });
       await page.locator('#mo-back').click();
     }
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="3"]').click();
+  await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="3"]').click(); await page.locator('#mo-restart').click();
   const client = await context.newCDPSession(page);
   await client.send('Emulation.setTouchEmulationEnabled', { enabled: true });
   const dragTouch = async (from, to, release = true) => {
@@ -37,16 +38,25 @@ async page => {
   };
   const center = rect => ({ x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 });
   const id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
-  await page.locator(`[data-mo-piece="${id}"]`).scrollIntoViewIfNeeded();
+  await page.locator('[data-mo-surface]').scrollIntoViewIfNeeded();
   await dragTouch(center(await page.locator(`[data-mo-piece="${id}"]`).boundingBox()), center(await page.locator(`[data-mo-target="${id}"]`).boundingBox()));
   await ready();
   ok(await page.locator('.mo-box-window svg').count() === 1, 'Native touch drag places and animates a shape');
-  await page.locator('[data-mo-level="4"]').click();
+  await page.locator('#mo-restart').click();
+  const parkedId = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
+  await page.locator('[data-mo-surface]').scrollIntoViewIfNeeded(); const board = await page.locator('[data-mo-surface]').boundingBox();
+  await dragTouch(center(await page.locator(`[data-mo-piece="${parkedId}"]`).boundingBox()), { x: board.x + board.width * .4, y: board.y + board.height * .4 });
+  const parked = await page.evaluate(id => { const key = Object.keys(localStorage).find(k => k.startsWith('beszedtanulas.montessori.v2:') && k.endsWith(':shapes:3')); return JSON.parse(localStorage.getItem(key)).positions[id]; }, parkedId);
+  ok(parked && Math.abs(parked[0] - 40) < 1 && Math.abs(parked[1] - 40) < 1, 'Native touch can park a piece freely on the wooden surface');
+  await page.locator('#mo-back').click(); await page.locator('[data-mo-game="shapes"]').click();
+  const location = await page.locator(`[data-mo-piece="${parkedId}"]`).getAttribute('style');
+  ok(location.includes('--mo-x:40') && location.includes('--mo-y:40'), 'A touch-parked piece retains its location after returning');
+  await page.locator('[data-mo-level="4"]').click(); await page.locator('#mo-restart').click();
   const blocker = page.locator('[data-mo-blocker]').first(), blockerId = await blocker.getAttribute('data-mo-blocker');
   const start = center(await blocker.boundingBox());
   await dragTouch(start, { x: start.x + 85, y: start.y });
   ok(await page.locator(`[data-mo-blocker="${blockerId}"].is-cleared`).count() === 1, 'Native touch drag clears an obstacle');
-  await page.locator('[data-mo-level="3"]').click();
+  await page.locator('[data-mo-level="3"]').click(); await page.locator('#mo-restart').click();
   const hiddenId = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
   await page.locator(`[data-mo-piece="${hiddenId}"]`).click(); await page.locator(`[data-mo-target="${hiddenId}"]`).click();
   await page.evaluate(() => {

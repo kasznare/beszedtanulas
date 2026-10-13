@@ -34,7 +34,7 @@ import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
-import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode } from "./progress-profiles.js";
+import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode, profileKey } from "./progress-profiles.js";
 import { createCloudSaveQueue } from "./cloud-save-queue.js";
 import { createPlayTimeLimit, PLAY_TIME_KEY, formatPlayTime } from "./play-time.js";
 
@@ -427,6 +427,7 @@ chessGame = setupChessGame({
   },
 });
 montessoriGame = setupMontessoriGame({
+  getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
   getOptions: () => state.settings,
   setOptions: options => { Object.assign(state.settings, normalizeMontessoriOptions(options)); saveProgress(); },
   speak: (id, force) => { if (force || state.settings.spokenGuidance) return speakVoice(id); }, stopPlayback,

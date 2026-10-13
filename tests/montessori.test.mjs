@@ -1,22 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { newMontessoriRound, normalizeMontessoriOptions, placeMontessoriPiece, clearMontessoriBlocker, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, MONTESSORI_GAMES } from '../montessori-data.js';
+import { newMontessoriRound, normalizeMontessoriOptions, placeMontessoriPiece, clearMontessoriBlocker, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, montessoriSame, rotateMontessoriPiece, montessoriCurrentPiece, moveMontessoriPiece, checkMontessoriRound, MONTESSORI_GAMES } from '../montessori-data.js';
 
-test('all ten difficulty variants are solvable, with unique pieces and targets', () => {
+test('all 26 difficulty variants are solvable, with unique pieces and targets', () => {
+  assert.equal(Object.values(MONTESSORI_GAMES).reduce((n, game) => n + game.levels.length, 0), 26);
   for (const [kind, game] of Object.entries(MONTESSORI_GAMES)) for (let level = 1; level <= game.levels.length; level++) {
     for (const value of [0, .25, .7, .9999]) {
       let round = newMontessoriRound(kind, level, () => value);
       assert.equal(new Set(round.pieces.map(piece => piece.id)).size, round.pieces.length);
       assert.equal(new Set(round.targets.map(target => target.id)).size, round.targets.length);
       for (const target of round.blockers) round = clearMontessoriBlocker(round, target);
+      if (kind === 'memory') round = { ...round, phase: 'play' };
       const order = kind === 'tower' ? [...round.pieces].sort((a, b) => b.size - a.size) : round.pieces;
-      for (const piece of order) {
-        const target = round.targets.find(target => kind === 'shapes' ? target.shape === piece.shape && target.color === piece.color : kind === 'colors' ? target.color === piece.color : true);
+      for (const original of order) {
+        if (montessoriComplete(round)) break;
+        if (kind === 'shapes') { const target = round.targets.find(t => t.id === original.id); if (!target) continue; for (let i = 0; i < 4 && !montessoriSame(montessoriCurrentPiece(round, original.id), target); i++) round = rotateMontessoriPiece(round, original.id); }
+        const piece = montessoriCurrentPiece(round, original.id);
+        const target = round.targets.find(t => kind === 'tower' || (kind === 'colors' ? t.color === piece.color && t.shade === piece.shade && round.placements.filter(p => p.target === t.id).length < t.count : montessoriSame(piece, t.expected || t) && !round.placements.some(p => p.target === t.id)));
         if (!target) continue;
         const result = placeMontessoriPiece(round, piece.id, target.id);
-        assert.equal(result.accepted, true, `${kind}/${level}: ${piece.id}`);
-        round = result.round;
+        assert.equal(result.accepted, true, `${kind}/${level}: ${piece.id}`); round = result.round;
       }
+      round = checkMontessoriRound(round);
       assert.equal(montessoriComplete(round), true, `${kind}/${level}`);
       assert.equal(round.placements.length, round.total);
     }
@@ -108,10 +113,61 @@ test('tower requires largest to smallest at every step', () => {
 });
 
 test('unknown choices and invalid saved difficulty values fall back safely', () => {
-  assert.deepEqual(normalizeMontessoriOptions(null), { montessoriShapesLevel: 1, montessoriColorsLevel: 1, montessoriTowerLevel: 1 });
-  assert.deepEqual(normalizeMontessoriOptions({ montessoriShapesLevel: 4, montessoriColorsLevel: 4, montessoriTowerLevel: 2.5 }), { montessoriShapesLevel: 4, montessoriColorsLevel: 1, montessoriTowerLevel: 1 });
+  assert.deepEqual(normalizeMontessoriOptions(null), { montessoriShapesLevel: 1, montessoriColorsLevel: 1, montessoriTowerLevel: 1, montessoriGridLevel: 1, montessoriMemoryLevel: 1 });
+  assert.deepEqual(normalizeMontessoriOptions({ montessoriShapesLevel: 4, montessoriColorsLevel: 4, montessoriTowerLevel: 2.5 }), { montessoriShapesLevel: 4, montessoriColorsLevel: 4, montessoriTowerLevel: 1, montessoriGridLevel: 1, montessoriMemoryLevel: 1 });
   const round = newMontessoriRound('unknown', 900, () => NaN);
   assert.equal(round.kind, 'shapes'); assert.equal(round.level, 1);
   assert.equal(placeMontessoriPiece(round, '__proto__', round.targets[0].id).reason, 'invalid');
   assert.equal(placeMontessoriPiece(round, round.pieces[0].id, 'missing').reason, 'invalid');
+});
+
+test('free piece positions and rotation preserve immutable undo snapshots', () => {
+  const round = newMontessoriRound('shapes', 6), piece = round.pieces.find(p => p.shape === 'triangle'), before = structuredClone(round);
+  let moved = moveMontessoriPiece(round, piece.id, 35, 47);
+  assert.deepEqual(montessoriBoardLayout(moved).pieces[piece.id], [35, 47]);
+  moved = rotateMontessoriPiece(moved, piece.id);
+  assert.deepEqual(montessoriBoardLayout(moved).pieces[piece.id], [35, 47]);
+  assert.deepEqual(round, before);
+  assert.deepEqual(moveMontessoriPiece(moved, piece.id, -50, 200).positions[piece.id], [5, 95]);
+  assert.strictEqual(moveMontessoriPiece(round, piece.id, NaN, 20), round);
+  const target = round.targets.find(t => t.id === piece.id);
+  assert.equal(placeMontessoriPiece(round, piece.id, target.id).reason, 'mismatch');
+  let aligned = round; for (let n = 0; n < 3; n++) aligned = rotateMontessoriPiece(aligned, piece.id);
+  assert.equal(placeMontessoriPiece(aligned, piece.id, target.id).accepted, true);
+});
+
+test('size and shade mismatches fail, and exact amounts leave spare balls', () => {
+  const shapes = newMontessoriRound('shapes', 5), target = shapes.targets[0];
+  const wrong = shapes.pieces.find(p => p.color === target.color && p.shape === target.shape && p.size !== target.size);
+  assert.equal(placeMontessoriPiece(shapes, wrong.id, target.id).reason, 'mismatch');
+  let colors = newMontessoriRound('colors', 5), bowl = colors.targets[0];
+  const opposite = colors.pieces.find(p => p.color === bowl.color && p.shade !== bowl.shade);
+  assert.equal(placeMontessoriPiece(colors, opposite.id, bowl.id).reason, 'mismatch');
+  const matching = colors.pieces.filter(p => p.color === bowl.color && p.shade === bowl.shade);
+  for (const piece of matching.slice(0, bowl.count)) colors = placeMontessoriPiece(colors, piece.id, bowl.id).round;
+  assert.equal(placeMontessoriPiece(colors, matching.at(-1).id, bowl.id).reason, 'full');
+});
+
+test('grid requires both row and column, retains wrong placements, and supports swapping', () => {
+  let round = newMontessoriRound('grid', 1), a = round.targets[0], b = round.targets[1];
+  const pa = round.pieces.find(p => montessoriSame(p, a)), pb = round.pieces.find(p => montessoriSame(p, b));
+  round = placeMontessoriPiece(round, pa.id, b.id).round; round = placeMontessoriPiece(round, pb.id, a.id).round;
+  assert.equal(checkMontessoriRound(round).checked, false);
+  const before = structuredClone(round);
+  round = placeMontessoriPiece(round, pa.id, a.id).round;
+  assert.equal(round.placements.find(p => p.piece === pb.id).target, b.id);
+  assert.equal(before.placements.find(p => p.piece === pa.id).target, b.id);
+  assert.equal(montessoriComplete(round), false);
+});
+
+test('memory has unlimited preview, then verifies color and shape only when checked', () => {
+  let round = newMontessoriRound('memory', 4);
+  assert.equal(placeMontessoriPiece(round, round.pieces[0].id, round.targets[0].id).reason, 'preview');
+  round = { ...round, phase: 'play' };
+  for (const target of round.targets) {
+    const piece = round.pieces.find(p => montessoriSame(p, target.expected) && !round.placements.some(move => move.piece === p.id));
+    round = placeMontessoriPiece(round, piece.id, target.id).round;
+  }
+  assert.equal(montessoriComplete(round), false);
+  assert.equal(montessoriComplete(checkMontessoriRound(round)), true);
 });
