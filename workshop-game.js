@@ -1,7 +1,7 @@
 import { WORKSHOP_GAMES, WORKSHOP_NAMES, WORKSHOP_LEVEL_NAMES, WORKSHOP_COLORS, WORKSHOP_SHAPES, workshopObjectName, generateWorkshopTask, newWorkshopSession, normalizeWorkshop, workshopSortTarget, workshopHint, completeWorkshop, rememberWorkshop, undoWorkshop } from './workshop-data.js';
 import { createSuccessDelay } from './success-delay.js';
 
-export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel }) {
+export function setupWorkshop({ effect = () => {}, getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel }) {
   const root = document.querySelector('#workshop');
   if (!root) return { start() {}, stop() {}, repeat() {} };
   root.classList.add('workshop-panel');
@@ -67,7 +67,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     const instructions = kind === 'sort' ? (level === 1 ? 'Válassz egy tárgyat, majd a hozzá illő színes tálcát!' : level === 2 ? 'A szín és a forma együtt mutatja a helyet.' : `A ${task.wantedSize ? 'nagy' : 'kis'} tárgyakat szín és forma szerint válogasd. A többi a levélre kerül.`) : kind === 'pattern' ? (level === 3 ? 'Két szín váltakozik. A forma hármasával ismétlődik.' : 'Figyeld a mintát! Töltsd ki az üres helyeket!') : (level === 1 ? 'A rudakkal rakj ugyanannyit a jobb oldalra!' : `${task.countRequired} különböző hosszúságú rúddal legyen ugyanannyi mindkét oldalon!`);
     root.innerHTML = `<div class="ws-toolbar"><button id="ws-back">↶ Liget</button><span>${WORKSHOP_LEVEL_NAMES[level - 1]} <span aria-hidden="true">${'◆'.repeat(level)}</span></span><button id="ws-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="ws-heading"><h2 tabindex="-1">${WORKSHOP_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! A kis műhelyben új feladat vár.' : instructions}</p></div>${finished() ? '<div class="ws-celebration" role="img" aria-label="Elkészült a feladat"><span aria-hidden="true">✿</span><strong>Szép munka!</strong><span aria-hidden="true">✿</span></div>' : ''}<div id="ws-work"></div><p id="ws-status" class="ws-status" role="status" aria-live="polite">${status}</p><div class="ws-actions"><button id="ws-undo" ${session.done || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="ws-hint" ${session.done ? 'disabled' : ''}>☀ Segítség${session.help ? ` ${session.help}/3` : ''}</button>${finished() ? '<button id="ws-next" class="ws-primary">Új feladat →</button>' : `<button id="ws-check" class="ws-primary" ${session.done ? 'disabled' : ''}>Kész! ✓</button>`}</div>`;
     bind('#ws-back', () => { if (active) { menu(); say('workshop_menu'); } }); bind('#ws-repeat', repeat);
-    bind('#ws-undo', () => { if (!allowed()) return; undoWorkshop(session); selected = null; status = 'Visszavontad az utolsó lépést. Folytathatod.'; arrived = null; tried = false; save(); render('ws-undo'); });
+    bind('#ws-undo', () => { if (!allowed()) return; effect('undo'); undoWorkshop(session); selected = null; status = 'Visszavontad az utolsó lépést. Folytathatod.'; arrived = null; tried = false; save(); render('ws-undo'); });
     bind('#ws-hint', hint); bind('#ws-check', check); bind('#ws-next', () => { if (active) startGame(kind, true); });
     if (kind === 'sort') renderSort(); else if (kind === 'pattern') renderPattern(); else renderBalance();
     if (successPending) $('#ws-repeat').disabled = true;
@@ -86,14 +86,14 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     const tip = correction(), remaining = session.moves.placements.filter(n => n < 0).length;
     $('#ws-work').innerHTML = `<div class="ws-sort-layout"><section class="ws-table"><div class="ws-section-title"><h3>Asztal</h3><span>${remaining} tárgy</span></div><div class="ws-token-pool">${task.objects.map((_, i) => session.moves.placements[i] < 0 ? sortToken(i, tip) : '').join('') || '<span class="ws-empty">✿ Minden tárgy tálcán van.</span>'}</div><p class="ws-selection">${selected === null ? 'Koppints egy tárgyra!' : `${workshopObjectName(task.objects[selected])} · Válassz tálcát!`}</p><button id="ws-return" ${selected === null || session.done || session.moves.placements[selected] < 0 ? 'disabled' : ''}>↶ Vissza az asztalra</button></section><div class="ws-bins">${task.bins.map((bin, index) => `<section class="ws-bin ${bin.other ? 'ws-leaf-bin' : ''} ${session.help >= 3 && tip?.target === index ? 'ws-hint-focus' : ''}"><button id="ws-bin-${index}" class="ws-bin-target" data-bin="${index}" aria-label="Tedd a kijelölt tárgyat ide: ${binLabel(bin)}" ${selected === null || session.done ? 'disabled' : ''}>${bin.other ? '<span class="ws-leaf" aria-hidden="true">❧</span>' : objectArt({ color: bin.color, shape: bin.shape || 'circle' })}<span>${binLabel(bin)}</span></button><div class="ws-bin-tokens">${task.objects.map((_, i) => session.moves.placements[i] === index ? sortToken(i, tip) : '').join('')}${session.help >= 3 && tip?.target === index ? `<span class="ws-ghost" aria-label="Ide illő tárgy mintája">${objectArt(task.objects[tip.index], level === 3)}</span>` : ''}</div></section>`).join('')}</div></div>${session.help ? `<p class="ws-hint-note">${session.help === 1 ? 'A tárgy és a tálca színjele megegyezik.' + (level > 1 ? ' A formát is figyeld!' : '') : session.help === 2 ? 'A napocskával jelölt tárgynak keress helyet!' : 'A jelölt tárgy a napocskával jelölt tálcára illik.'}</p>` : ''}`;
     root.querySelectorAll('[data-token]').forEach(button => button.addEventListener('click', () => {
-      if (!allowed()) return; selected = selected === Number(button.dataset.token) ? null : Number(button.dataset.token); arrived = null; render(button.id);
+      if (!allowed()) return; selected = selected === Number(button.dataset.token) ? null : Number(button.dataset.token); arrived = null; effect('grab'); render(button.id);
     }));
     root.querySelectorAll('[data-bin]').forEach(button => button.addEventListener('click', () => moveObject(Number(button.dataset.bin))));
     bind('#ws-return', () => moveObject(-1));
   }
   function moveObject(destination) {
     if (!allowed() || selected === null || session.moves.placements[selected] === destination) return;
-    rememberWorkshop(session); const index = selected; session.moves.placements[index] = destination; selected = null; arrived = index; status = ''; tried = false; save(); render(`ws-token-${index}`);
+    effect(destination < 0 ? 'undo' : 'wood'); rememberWorkshop(session); const index = selected; session.moves.placements[index] = destination; selected = null; arrived = index; status = ''; tried = false; save(); render(`ws-token-${index}`);
   }
   function renderPattern() {
     const tip = correction();
@@ -104,9 +104,9 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     root.querySelectorAll('[data-slot]').forEach(button => button.addEventListener('click', () => { if (!allowed()) return; slot = Number(button.dataset.slot); render(button.id); }));
     root.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click', () => {
       if (!allowed() || session.moves.answers[slot] === Number(button.dataset.choice)) return;
-      rememberWorkshop(session); session.moves.answers[slot] = Number(button.dataset.choice); const next = session.moves.answers.findIndex((answer, i) => answer === null && i > slot); const any = session.moves.answers.indexOf(null); slot = next >= 0 ? next : any >= 0 ? any : slot; status = ''; tried = false; save(); render(button.id);
+      effect('snap'); rememberWorkshop(session); session.moves.answers[slot] = Number(button.dataset.choice); const next = session.moves.answers.findIndex((answer, i) => answer === null && i > slot); const any = session.moves.answers.indexOf(null); slot = next >= 0 ? next : any >= 0 ? any : slot; status = ''; tried = false; save(); render(button.id);
     }));
-    bind('#ws-clear-slot', () => { if (!allowed() || session.moves.answers[slot] === null) return; rememberWorkshop(session); session.moves.answers[slot] = null; status = ''; tried = false; save(); render(`ws-slot-${slot}`); });
+    bind('#ws-clear-slot', () => { if (!allowed() || session.moves.answers[slot] === null) return; effect('undo'); rememberWorkshop(session); session.moves.answers[slot] = null; status = ''; tried = false; save(); render(`ws-slot-${slot}`); });
   }
   function scaleArt(sum) {
     const tilt = Math.max(-14, Math.min(14, (sum - task.target) * 3));
@@ -121,10 +121,10 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
     }).join('')}</div>${session.help >= 2 ? `<p class="ws-hint-note">${sum < task.target ? `Még ${task.target - sum} egység hiányzik.` : sum > task.target ? `${sum - task.target} egységgel több van a jobb oldalon.` : task.countRequired && (session.moves.rods.length !== task.countRequired || new Set(session.moves.rods).size !== session.moves.rods.length) ? 'A mennyiség egyezik. A rudak száma és különböző hossza is számít.' : 'A két oldal egyensúlyban van.'}${session.help >= 3 && tip?.action !== 'ready' ? `<br>${tip?.action === 'remove' ? `A jelölt ${tip.value} egységnyi rudat vedd vissza!` : `Tegyél be egy ${tip.value} egységnyi rudat!`}` : ''}</p>` : session.help === 1 ? '<p class="ws-hint-note">Egy pötty egy egység. Hasonlítsd össze a két oldalt!</p>' : ''}</section></div>`;
     root.querySelectorAll('[data-add]').forEach(button => button.addEventListener('click', () => {
       const value = Number(button.dataset.add); if (!allowed() || session.moves.rods.length >= task.maxPieces || session.moves.rods.filter(n => n === value).length >= task.stock) return;
-      rememberWorkshop(session); session.moves.rods.push(value); status = ''; tried = false; save(); render(button.id);
+      effect('wood'); rememberWorkshop(session); session.moves.rods.push(value); status = ''; tried = false; save(); render(button.id);
     }));
     root.querySelectorAll('[data-take]').forEach(button => button.addEventListener('click', () => {
-      if (!allowed()) return; const index = Number(button.dataset.take), value = session.moves.rods[index]; rememberWorkshop(session); session.moves.rods.splice(index, 1); status = ''; tried = false; save(); render(`ws-add-${value}`);
+      if (!allowed()) return; const index = Number(button.dataset.take), value = session.moves.rods[index]; effect('undo'); rememberWorkshop(session); session.moves.rods.splice(index, 1); status = ''; tried = false; save(); render(`ws-add-${value}`);
     }));
   }
   function hint() {
@@ -156,7 +156,7 @@ export function setupWorkshop({ getProgress, updateProgress, getOptions, speak, 
       });
       return;
     }
-    session.misses = Math.min(9999, session.misses + 1); tried = true;
+    effect('retry'); session.misses = Math.min(9999, session.misses + 1); tried = true;
     if (kind === 'sort') status = session.moves.placements.some(n => n < 0) ? 'Még van tárgy az asztalon. Mindegyiknek keress helyet!' : 'Néhány tárgy másik helyre illik. A pontozott szél segít megkeresni.';
     else if (kind === 'pattern') status = session.moves.answers.includes(null) ? 'Még van üres hely. A mintából válassz rá formát!' : 'Néhány elem még máshogy folytatja a mintát. Átcserélheted őket.';
     else status = 'Hasonlítsd össze a két oldalt, és rendezd át a rudakat!' + (task.countRequired ? ` ${task.countRequired} különböző hosszúságú rúd kell.` : '');

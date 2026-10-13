@@ -1,7 +1,7 @@
 import { words, teddyRequests } from "./game-data.js";
 import { buildListeningRound } from "./listening-game.js";
 
-export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
   const panel = document.querySelector("#teddy-game");
   const answers = document.querySelector("#teddy-answers");
   const progress = document.querySelector("#teddy-progress");
@@ -51,7 +51,7 @@ export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlaybac
   }
 
   async function feed(button, food) {
-    solved = true;
+    solved = true; effect('collect');
     stopPlayback();
     button.classList.add("is-fed");
     for (const choice of answers.children) choice.disabled = true;
@@ -109,7 +109,7 @@ export function setupTeddyGame({ getOptions, playPrompt, playThanks, stopPlaybac
       button.addEventListener("click", () => {
         if (solved || complete || !round.length || document.hidden) return;
         if (food.id !== round[index].target.id) {
-          misses += 1;
+          effect('retry'); misses += 1;
           status.textContent = "Hallgassuk meg újra!";
           panel.dataset.mood = "thinking";
           if (misses >= 2) answers.querySelector(`[data-word="${round[index].target.id}"]`).classList.add("is-hint");

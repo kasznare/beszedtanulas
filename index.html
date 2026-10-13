@@ -325,6 +325,10 @@
           <select id="word-voice"><option value="natural">Jessa magyar mesélőhangja</option><option value="family">Meglévő saját felvételek</option></select>
           <label class="check-label"><input type="checkbox" id="spoken-guidance" checked /> Hangos segítség a játékokban</label>
           <button id="voice-preview" class="parent-action">Hang kipróbálása</button>
+          <label class="check-label"><input type="checkbox" id="sound-effects" checked /> Hangeffektek a mozdulatokhoz</label>
+          <label for="effects-volume">Effektek hangereje: <output id="effects-volume-value" for="effects-volume">60%</output></label>
+          <input type="range" id="effects-volume" min="0" max="100" step="5" value="60" aria-label="Hangeffektek hangereje" />
+          <button id="effects-preview" class="parent-action" data-effect="none">Effektek kipróbálása</button>
           <p class="parent-note">Az új mesélőhang géppel készült magyar hang. A saját szófelvételek megmaradnak, bármikor visszaválaszthatók.</p>
           <p id="device-status" class="parent-note" role="status"></p>
         </div>

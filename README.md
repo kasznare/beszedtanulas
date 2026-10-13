@@ -230,6 +230,16 @@ Források:
 
 Hiányzó saját felvételnél a játék a kész Jessa-hangra vált. Ha a gyári MP3 sem indul, látható üzenet kéri az ismétlést; a játék nem vált másik böngészőhangra. A dinamikus szám- és mennyiségmondatokat is a teljes helyi hangjegyzék fedi le. A 24 családi szófelvétel, az R-kaland saját felvevője, az állathangok és a zörejek változatlanok.
 
+## Hangeffektek a mozdulatokhoz
+
+A koppintás és a kijelölés rövid közös jelzést kap. A Montessori megfogás, fa ütközés, átesés, forgatás, akadálycsúsztatás és golyólerakás külön hallható. A Rendezőrács és Mintaemlék lerakása illesztési, a minta elrejtése és újranézése papírhangot kap; az ellenőrzés külön sikert vagy újrapróbálást jelez. A sakkban külön figurakoppanás, ütési és visszavonási hang van; a képkirakó megfogást, illesztést és visszatételt jelez, a kártyák papírfordítást. A macis játékok étel- és ruhamozdulatai, a Meseliget almái/tányérjai, a Műhelyliget rudai és formái, a bolt, a szabálygép, a róka lépései és az R-kaland képes találatai is effektet kapnak. A meglévő vízöntési hang ugyanarra a külön szabályozható effektkimenetre kapcsolódik.
+
+A szülői beállításokban a **Hangeffektek a mozdulatokhoz** kapcsoló, a külön hangerő (alapból 60%) és az **Effektek kipróbálása** gomb kezeli a jelzéseket. A hangerőcsúszka legalább 44 px magas érintési felületet ad. A hangos segítség kapcsolójától függetlenek. Nulla hangerő vagy kikapcsolás a vízöntést és a sikerhangot is elnémítja; a beszéd, mesék, saját felvételek és állathangok külön maradnak. A beállítás újratöltés után megmarad.
+
+A rövid effektek helyben készülnek Web Audio tónusokból és szűrt zajból; nincs új MP3-letöltés vagy beszédgenerálás. Felolvasás mellett halkabbak, mikrofonos gyűjtés/felvétel közben nem szólnak. A meglévő rövid mikrofonindítási jel megmarad. Kilépés és oldalelrejtés megszünteti az aktív és időzített effekteket. Egy mozdulat saját hangja helyettesíti az általános kattintást, a húzás minden képkockája nem indít új hangot. Legfeljebb négy rövid effekt lehet egyszerre aktív. Sikertelen helyre tett elem finom újrapróbálási jelzést kap.
+
+Megvalósítás: `interaction-audio.js`, játékok saját eseménykezelői, `app.js`, `index.html`. Ellenőrzés: `tests/interaction-audio.test.mjs` és `tests/browser/interaction-audio.js` valódi Web Audio forrásokkal, külön Chrome/WebKit tesztprofilokban.
+
 ## A hangot követő képi jelzések
 
 A szabálygép példájára koppintva a bemeneti szám, a fogaskerék és a kimeneti szám a narráció sorrendjében kap finom, statikus zöld keretet. A hosszabb segítségek a felolvasott részt emelik ki: kosarak, plusz/mínusz gombok, csomag és ház, almáskert és kosár, állatok és tányérok. A képkártya, a megszámolt tárgy és a kétszavas gyakorlás képei is követik a hangot. A Képpárokban az éppen felfordított kép, a műhelyekben a tálcák, mintasorok, mérlegoldalak és a segítségben megnevezett rúd kap jelzést. A választós játékokban a beszélő figura vagy a hangszóró kap jelzést; a helyes választ a kiemelés nem mutatja meg előre.

@@ -1,7 +1,7 @@
 import { buildDressRound } from "./dress-data.js";
 import { createDressBear, createDressIcon } from "./dress-art.js";
 
-export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupDressGame({ effect = () => {}, getChoiceCount, playPrompt, playThanks, stopPlayback, onComplete, onRestart = () => {} }) {
   const panel = document.querySelector("#dress-game");
   const answers = document.querySelector("#dress-answers");
   const progress = document.querySelector("#dress-progress");
@@ -54,7 +54,7 @@ export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPla
       button.addEventListener("click", () => {
         if (!round.length || solved || complete || document.hidden) return;
         if (item.id !== round[index].target.id) {
-          misses++;
+          effect('retry'); misses++;
           status.textContent = "Hallgassuk meg újra!";
           panel.dataset.mood = "thinking";
           if (misses >= 2) answers.querySelector(`[data-item="${round[index].target.id}"]`).classList.add("is-hint");
@@ -63,7 +63,7 @@ export function setupDressGame({ getChoiceCount, playPrompt, playThanks, stopPla
         }
         solved = true;
         stopPlayback();
-        bear.wear(item.id);
+        effect('fabric'); bear.wear(item.id);
         panel.dataset.mood = "happy";
         button.classList.add("is-correct");
         mark.textContent = "✓";

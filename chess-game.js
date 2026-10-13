@@ -2,7 +2,7 @@ import { CHESS_PIECES, CHESS_CLIPS, CHESS_LEVELS, chessPuzzlesForLevel, chessPuz
 import { chessArt } from './chess-art.js';
 
 const STORAGE_KEY = 'beszedtanulas.chess.v1';
-export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupChessGame({ effect = () => {}, speak, stopPlayback, onComplete, onRestart = () => {} }) {
   const root = document.querySelector('#chess');
   let options;
   try { options = normalizeChessOptions(JSON.parse(localStorage.getItem(STORAGE_KEY))); }
@@ -68,17 +68,18 @@ export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = ()
     const piece = board.find(item => item.square === square);
     if (piece?.color === 'white') {
       if (options.mode === 'puzzles' && !chessPuzzleMovers(puzzle, board).includes(piece)) { status('Ez a figura most a helyén marad. A feladatban megnevezett figurával lépj!'); return; }
-      selected = square;
+      selected = square; effect('grab');
       message = 'Most válassz egy mezőt!';
       render(`[data-chess-square="${square}"]`); return;
     }
     if (selected === null) { status('Előbb koppints a világos figurára!', 'chess_select'); return; }
     const legal = moveChessPiece(board, selected, square);
-    if (!legal) { status('Ide most nem léphet. Válassz másik mezőt, vagy koppints a Segíts! gombra!', 'chess_retry'); return; }
+    if (!legal) { effect('retry'); status('Ide most nem léphet. Válassz másik mezőt, vagy koppints a Segíts! gombra!', 'chess_retry'); return; }
     const next = options.mode === 'puzzles' ? moveChessPuzzlePiece(puzzle, board, selected, square, history.length) : legal;
     if (!next) {
-      status('Ez szabályos lépés lenne. Most a megjelölt célhoz keress egy lépést!'); return;
+      effect('retry'); status('Ez szabályos lépés lenne. Most a megjelölt célhoz keress egy lépést!'); return;
     }
+    effect(piece ? 'chessCapture' : 'chess');
     history.push({ board, selected, collected, lastMove });
     if (history.length > 64) history.shift();
     const promoted = board.find(item => item.square === selected)?.type === 'pawn' && next.find(item => item.square === square)?.type === 'queen';
@@ -129,7 +130,7 @@ export function setupChessGame({ speak, stopPlayback, onComplete, onRestart = ()
       render('#chess-hint'); if (hint) say('chess_hint'); else stopPlayback();
     } else if (button.id === 'chess-undo' && playable() && history.length) {
       stopPlayback();
-      ({ board, selected, collected, lastMove } = history.pop());
+      effect('undo'); ({ board, selected, collected, lastMove } = history.pop());
       message = 'Visszavontuk az utolsó lépést. Próbálj ki egy másikat!'; render('#chess-undo');
     }
   });

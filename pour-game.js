@@ -1,6 +1,6 @@
 import { POUR_LEVELS, JUG_CAPACITY, JUG_INTERIOR, JUG_SPOUT, jugLiquid, jugPourAngle, newPourRound, refillPour, advancePour, settlePour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from './pour-data.js';
 
-export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onComplete, getAudioContext, onRestart = () => {} }) {
+export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, stopPlayback, onComplete, getAudioContext, getAudioDestination = () => getAudioContext?.()?.destination, onRestart = () => {} }) {
   const root = document.querySelector('#pour');
   const names = ['Maci', 'Nyuszi'];
   let active = false, suspended = false, awarded = false, round = newPourRound(), selected = 0;
@@ -167,6 +167,7 @@ export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onCom
   }
 
   function cupFinished(cup) {
+    effect('serve');
     status = `${names[cup]} pohara elkészült! Most a másik barátunk következik.`;
     say(cup ? 'pour_rabbit_done' : 'pour_bear_done');
     if (round.done.every(Boolean)) say('pour_done');
@@ -258,9 +259,10 @@ export function setupPourGame({ getOptions, setLevel, speak, stopPlayback, onCom
       }
       const source = context.createBufferSource(), filter = context.createBiquadFilter(), gain = context.createGain();
       source.buffer = noiseBuffer; source.loop = true; filter.type = 'lowpass'; filter.frequency.value = 850;
-      gain.gain.value = 0; source.connect(filter); filter.connect(gain); gain.connect(context.destination); source.start();
+      gain.gain.value = 0; source.connect(filter); filter.connect(gain); gain.connect(getAudioDestination() || context.destination); source.start();
       flowSound = { source, filter, gain };
     }
+    getAudioDestination();
     flowSound.gain.gain.setTargetAtTime(.025 * strength, context.currentTime, .03);
   }
   function stopFlowSound() {

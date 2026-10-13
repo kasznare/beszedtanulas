@@ -4,7 +4,7 @@ import { createSuccessDelay } from './success-delay.js';
 
 const animals = ['🐰', '🐱', '🐶', '🐼', '🦊', '🐨', '🐸', '🐯', '🐷', '🐵'];
 const names = ['nyuszi', 'cica', 'kutya', 'panda', 'róka', 'koala', 'béka', 'tigris', 'malac', 'majom'];
-export function setupMeadow({ getProgress, updateProgress, getOptions, speak, stopPlayback, openScreen }) {
+export function setupMeadow({ effect = () => {}, getProgress, updateProgress, getOptions, speak, stopPlayback, openScreen }) {
   const root = document.querySelector('#meseliget');
   let active = false, mode = 'map', story = false, solved = false, helped = false;
   let target = 3, round = 0, length = 3, selected = new Set(), dressed = 0, bear, lastClip = 'mese_map';
@@ -108,8 +108,8 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
       button.setAttribute('aria-label', {sapka:'Sapka', cipo:'Cipő', sal:'Sál'}[id]); button.append(createDressIcon(id));
       button.addEventListener('click', () => {
         if (!active || solved || document.hidden) return;
-        if (id !== item) { helped = true; button.classList.add('meadow-try'); say(`dress_request_${item}`); return; }
-        bear.wear(item); dressed++;
+        if (id !== item) { effect('retry'); helped = true; button.classList.add('meadow-try'); say(`dress_request_${item}`); return; }
+        effect('fabric'); bear.wear(item); dressed++;
         if (dressed === 2) win(); else { renderDress(); root.querySelector('[data-item="cipo"]')?.focus({preventScroll:true}); say('dress_request_cipo'); }
       }); root.querySelector('.meadow-clothes').append(button);
     }
@@ -128,6 +128,7 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
     if (!active || solved || document.hidden) return;
     moves.push([...selected]);
     const added = !selected.has(id);
+    effect(added ? mode === 'collect' ? 'collect' : 'serve' : 'undo');
     if (added) selected.add(id); else selected.delete(id);
     if (mode === 'collect') renderCollect(id, {id,added}); else renderServe(id, {id,added});
     selectionStatus();
@@ -135,14 +136,14 @@ export function setupMeadow({ getProgress, updateProgress, getOptions, speak, st
   }
   function undo() {
     if (!active || solved || document.hidden || !moves.length) return;
-    stopPlayback(); selected = new Set(moves.pop());
+    stopPlayback(); effect('undo'); selected = new Set(moves.pop());
     if (mode === 'collect') renderCollect(); else renderServe();
     selectionStatus();
     if (!moves.length) root.querySelector(mode === 'collect' ? '[data-apple]' : '[data-guest]')?.focus({preventScroll:true});
   }
   function resetTask() {
     if (!active || solved || document.hidden || !selected.size) return;
-    stopPlayback(); moves.push([...selected]); selected.clear();
+    stopPlayback(); effect('undo'); moves.push([...selected]); selected.clear();
     if (mode === 'collect') renderCollect(); else renderServe();
     selectionStatus(); root.querySelector('#meadow-undo')?.focus({preventScroll:true});
   }

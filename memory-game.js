@@ -1,6 +1,6 @@
 import { buildMemoryDeck } from './memory-data.js';
 
-export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onComplete, setPairs, onRestart = () => {} }) {
+export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak, stopPlayback, onComplete, setPairs, onRestart = () => {} }) {
   const root = document.querySelector('#memory');
   let active = false, deck = [], open = [], matched = new Set(), preview = false, busy = false, finished = false;
   let generation = 0, timer;
@@ -40,11 +40,11 @@ export function setupMemoryGame({ getOptions, playWord, speak, stopPlayback, onC
     if (!active || busy || preview || finished || document.hidden || open.includes(key)) return;
     const card = deck.find(c => c.key === key);
     if (!card || matched.has(card.word.id)) return;
-    open.push(key); playWord(card.word, { target: `.memory-card[data-card="${key}"] .memory-card-face` }); render(key);
+    effect('card'); open.push(key); playWord(card.word, { target: `.memory-card[data-card="${key}"] .memory-card-face` }); render(key);
     if (open.length !== 2) return;
     const first = deck.find(c => c.key === open[0]);
     if (first.word.id === card.word.id) {
-      matched.add(card.word.id); open = []; render();
+      effect('collect'); matched.add(card.word.id); open = []; render();
       root.querySelector('#memory-status').textContent = 'Egyforma képek! Megvan egy pár.';
       if (matched.size === deck.length / 2) {
         finished = true; render(); onComplete(matched.size);

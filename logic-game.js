@@ -1,7 +1,7 @@
 import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, generateTask, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove } from './logic-data.js';
 import { createSuccessDelay } from './success-delay.js';
 
-export function setupLogic({ getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
+export function setupLogic({ effect = () => {}, getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
   const root = document.querySelector('#furfangliget');
   let active = false, kind = null, session = null, task = null, slot = 0, trial = false, busy = false;
   let animation = 0, status = '', ghost = [], fox = null, walked = 0, machineRun = null, delivering = false, counters = true;
@@ -92,7 +92,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
       if (![1, 2, 3].includes(level) || level === session.level) return;
       localLevels[kind] = level; setLevel?.(kind, level); startGame(kind, true);
     });
-    bind('#logic-undo', () => { if (!allowed()) return; undoMove(session); trial = false; ghost = []; fox = null; walked = 0; status = ''; save(); render('logic-undo'); });
+    bind('#logic-undo', () => { if (!allowed()) return; effect('undo'); undoMove(session); trial = false; ghost = []; fox = null; walked = 0; status = ''; save(); render('logic-undo'); });
     bind('#logic-hint', hint); bind('#logic-check', check); bind('#logic-next', () => startGame(kind, true));
     if (kind === 'shop') renderShop(); else if (kind === 'machine') renderMachine(); else renderRoute();
     if (successPending) root.querySelectorAll('[data-example], [data-question], #logic-counters, #logic-route-view, #logic-repeat').forEach(button => { button.disabled = true; });
@@ -106,7 +106,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   }
   function changeAmount(index, value, focus, repaint = true) {
     if (!allowed() || value === session.values[index]) return;
-    remember(session); session.values[index] = value; status = ''; save();
+    effect('wood'); remember(session); session.values[index] = value; status = ''; save();
     if (repaint) { render(focus); return; }
     // Keep the clicked button in place when a numeric field commits on blur.
     $('#logic-status').textContent = ''; $('#logic-undo').disabled = false;
@@ -154,7 +154,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     root.querySelectorAll('[data-op]').forEach(button => button.addEventListener('click', () => {
       if (!allowed()) return;
       const changedSlot = slot;
-      remember(session); session.program[slot] = button.dataset.op; slot = (slot + 1) % task.slots; trial = false; status = ''; save(); render(button.id);
+      effect('machine'); remember(session); session.program[slot] = button.dataset.op; slot = (slot + 1) % task.slots; trial = false; status = ''; save(); render(button.id);
       say({ id: `logic_op_${button.dataset.op}`, cue: { target: `#logic-slot-${changedSlot}`, motion: 'machine' } });
     }));
     root.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => {
@@ -173,9 +173,9 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   }
   function tryMachine() {
     if (!allowed()) return;
-    if (!session.program.every(Boolean)) { status = 'Tegyél műveletet minden üres helyre!'; say('logic_machine_empty'); render('logic-trial'); return; }
+    if (!session.program.every(Boolean)) { effect('retry'); status = 'Tegyél műveletet minden üres helyre!'; say('logic_machine_empty'); render('logic-trial'); return; }
     busy = true; trial = false; stopPlayback(); const token = ++animation;
-    machineRun = { example: 0, step: 0 }; status = 'A te géped sorban kipróbálja a három példát.';
+    effect('machine'); machineRun = { example: 0, step: 0 }; status = 'A te géped sorban kipróbálja a három példát.';
     const tick = () => {
       render();
       later(token, () => {
@@ -244,12 +244,12 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   function move(cell, drag = false, focus = '') {
     if (!allowed()) return;
     const last = session.path.at(-1);
-    if (cell === last) { if (drag || session.path.length === 1) return; remember(session); session.path.pop(); }
+    if (cell === last) { if (drag || session.path.length === 1) return; effect('undo'); remember(session); session.path.pop(); }
     else if (neighbours(last, task.size).includes(cell) && !task.blocked.includes(cell)) {
       if (session.path.length > task.maxSteps) { status = 'Megtelt az útiterv. Vonj vissza egy lépést!'; if (!drag) say('logic_route_full'); render(); return; }
-      remember(session); session.path.push(cell);
+      effect('step'); remember(session); session.path.push(cell);
     } else {
-      if (!drag) { status = 'Csak szomszédos, szabad mezőre léphetsz.'; say('logic_route_adjacent'); render(); }
+      if (!drag) { effect('retry'); status = 'Csak szomszédos, szabad mezőre léphetsz.'; say('logic_route_adjacent'); render(); }
       return;
     }
     ghost = []; fox = null; walked = 0; status = ''; save(); render(focus || (textRoute() ? 'logic-route-view' : `logic-cell-${cell}`));
@@ -310,7 +310,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
       } else { render(); repeat(); }
       return;
     }
-    session.misses = Math.min(9999, session.misses + 1);
+    effect('retry'); session.misses = Math.min(9999, session.misses + 1);
     if (kind === 'shop') {
       const i = session.values.findIndex((n, j) => n !== task.orders[session.stage][j]), more = session.values[i] < task.orders[session.stage][i];
       status = `${i ? 'A gesztenyés' : 'Az almás'} kosárban ${more ? 'még kevés' : 'most sok'} a termés. Módosíthatsz rajta.`; say(more ? 'logic_shop_more' : 'logic_shop_less');
@@ -325,6 +325,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
   function check() {
     if (!allowed()) return;
     if (kind === 'shop' && taskSolved(task, session)) {
+      effect('serve');
       if (session.stage === task.orders.length - 1) { delivering = true; resolve(); return; }
       busy = true; delivering = true; stopPlayback(); const token = ++animation; status = 'A vásárlókhoz indulnak a kosarak.'; render();
       later(token, () => { busy = false; delivering = false; resolve(); }, 850); return;
@@ -333,7 +334,7 @@ export function setupLogic({ getProgress, updateProgress, getOptions, speak, sto
     busy = true; stopPlayback(); const token = ++animation; let index = 0; fox = task.start; walked = 0;
     status = 'A róka kipróbálja az útitervedet.'; render();
     const tick = () => {
-      walked = index; fox = session.path[index++]; positionFox(fox);
+      walked = index; fox = session.path[index++]; positionFox(fox); if (walked) effect('step');
       root.querySelectorAll('[data-plan-step]').forEach(step => {
         const current = Number(step.dataset.planStep) === walked;
         step.classList.toggle('is-current', current);

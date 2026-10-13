@@ -1,3 +1,13 @@
+## 2026. október 13. – Hangeffektek az alkalmazás műveleteihez
+
+A felhasználó külön pontosította: a meglévő beszédhangok jók, a kattintás, megfogás, lerakás és siker hangeffektjeit kéri minden játékhoz. „Mehet tedd bele” engedéllyel folytattuk a montessori-release managed munkafában, codex/interaction-sounds ágon. A közös checkout érintetlen. A közben megjelent b186e34 főági Montessori-bővítés integrálva; mind az öt játék, 26 szint, profilonként mentett tábla és új Jessa-klip megmaradt.
+
+Új interaction-audio.js: rövid Web Audio tónusok és szűrt zajok, közös effektkimenet, legfeljebb négy aktív hang, 45 ms ismétlésvédelem. Kattintás/kijelölés, megfogás, fakoppanás/átesés/csúszás/forgatás, golyó, papír, illesztés, sakk lépés/ütés, ruha, kínálás, gyűjtés, lépés, gép, visszavonás, újrapróbálás és siker. A játékok saját eseményei indítják; a mozdulathang helyettesíti az általános kattintást. A rács és mintamemória külön lerakás-, ellenőrzés- és mintafordítás-hangot is kap. A folyamatos vízöntési hang ugyanarra a hangerőszabályozható buszra kapcsolódik.
+
+A szülői beállításban Hangeffektek a mozdulatokhoz kapcsoló, 60%-os alap hangerő és Effektek kipróbálása gomb. A csúszka 44 px magas érintési felület; telefonon és tableten ellenőrizve. A beállítás a hangos segítségtől független és újratöltés után megmarad. Felolvasás közben halkulás, mikrofonos felvétel/gyűjtés alatt némítás, kilépés/oldalelrejtés után aktív és késleltetett hangok megszüntetése. A halk mikrofonindítási jel megmaradt. Beszéd-/mese-/családi hangfájl nem változott; nincs új hanggenerálási API-kérés vagy kredithasználat.
+
+Ellenőrzés: teljes npm build, 269 JavaScript- és 17 Python-teszt sikeres, ebből kilenc új hangeffekt-modulteszt. Chrome és WebKit motoronként 40 valódi Web Audio böngészős próba: első kattintás, duplázás nélküli megfogás/lerakás, animáció és megszakítás, forgatás/billentyűzet, rács- és mintamemória, sakk lépés/ütés/visszavonás, puzzle, kártya, műhely, bolt, számolás, macietetés/öltözés, szintetikus bemenettel végzett mikrofonos felvétel és némítás, hangerő/némítás tartós mentése, előnézet, háttérbe váltás és offline újratöltés. További két-két elrendezési próba 390/1194 px méreten, képek: output/playwright/effects-controls-*. A WebKit motorpróba nem fizikai iPhone-teszt. Végleges offline csomag: 679 alapfájl, bd46e1eaa11f6a07; a statikus kiadás 733 runtime fájl. Közzététel a már engedélyezett main → GitHub Pages folyamattal.
+
 ## 2026. október 13. – Formadoboz: egy közös felület, szín és alak, megmaradó akadályok
 
 ## 2026. október 13. – Montessori: 26 szint, szabadon tologatható bábuk és két összetettebb játék

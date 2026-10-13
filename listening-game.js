@@ -24,7 +24,7 @@ export function buildListeningRound(pool, length = 5, choiceCount = 2, random = 
   }));
 }
 
-export function setupListeningGame({ getOptions, playPrompt, playCorrect, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupListeningGame({ effect = () => {}, getOptions, playPrompt, playCorrect, stopPlayback, onComplete, onRestart = () => {} }) {
   const answers = document.querySelector("#listening-answers");
   const progress = document.querySelector("#listening-progress");
   const status = document.querySelector("#listening-status");
@@ -75,7 +75,7 @@ export function setupListeningGame({ getOptions, playPrompt, playCorrect, stopPl
         if (solved || complete || !round.length) return;
         answers.querySelectorAll(".is-retry").forEach(item => item.classList.remove("is-retry"));
         if (word.id !== round[index].target.id) {
-          button.classList.add("is-retry");
+          effect("retry"); button.classList.add("is-retry");
           status.textContent = "Hallgassuk meg újra!";
           repeat({ retry: true });
           return;

@@ -1,6 +1,6 @@
 import { PUZZLE_IMAGES, PUZZLE_SIZES, normalizePuzzleOptions, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete } from './puzzle-data.js';
 
-export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, speak, stopPlayback, onComplete, onRestart = () => {} }) {
   const root = document.querySelector('#puzzle');
   let active = false, puzzle, picture, placed, selected = null, hint = false, finished = false;
   let drag = null, blockClickUntil = 0, blockedClick = null;
@@ -44,9 +44,9 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     active = true; placed = new Map(); selected = null; hint = false; finished = false; blockClickUntil = 0;
     render(); say('puzzle_start');
   }
-  function select(id) {
+  function select(id, audible = true) {
     if (!playable() || !puzzle.pieces.some(piece => piece.id === id)) return;
-    selected = selected === id ? null : id;
+    selected = selected === id ? null : id; if (audible) effect('grab');
     syncSelection();
     status(selected === null ? 'Válassz egy képdarabot!' : 'Válassz egy mezőt! A foglalt helyen a darabok cserélődnek.');
   }
@@ -57,6 +57,7 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     if (!placePuzzlePiece(puzzle, placed, pieceId, id)) {
       selected = null; syncSelection(); status('Válassz egy képdarabot!'); return;
     }
+    effect('snap');
     selected = null;
     finished = isPuzzleComplete(puzzle, placed);
     render(finished ? '#puzzle-restart' : `[data-piece="${pieceId}"]`);
@@ -71,13 +72,14 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     if (!playable() || selected === null) return;
     const id = selected;
     if (!removePuzzlePiece(puzzle, placed, id)) return;
+    effect('card');
     selected = null; stopPlayback(); render(`[data-piece="${id}"]`);
     status('A darab újra a tálcán van. Válassz neki egy másik helyet!');
   }
-  function activatePiece(button) {
+  function activatePiece(button, audible = true) {
     const id = Number(button.dataset.piece);
     if (button.dataset.slot !== undefined && selected !== null && selected !== id) place(Number(button.dataset.slot));
-    else select(id);
+    else select(id, audible);
   }
 
   function cleanupDrag() {
@@ -93,7 +95,7 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     if (!button || !playable() || !event.isPrimary || event.button !== 0) return;
     cleanupDrag(); blockClickUntil = 0;
     drag = { button, id: Number(button.dataset.piece), pointerId: event.pointerId, x: event.clientX, y: event.clientY };
-    root.setPointerCapture(event.pointerId);
+    root.setPointerCapture(event.pointerId); effect('grab');
   });
   root.addEventListener('pointermove', event => {
     if (!drag || drag.pointerId !== event.pointerId || !playable()) return;
@@ -128,8 +130,8 @@ export function setupPuzzleGame({ getOptions, setOptions, speak, stopPlayback, o
     if (wasDragged) {
       if (slot && root.contains(slot)) place(Number(slot.dataset.slot));
       else if (target?.closest('.puzzle-tray') && root.contains(target)) returnToTray();
-      else { status('A darab itt vár. Koppints a helyére, vagy húzd oda!'); focus(`[data-piece="${pieceId}"]`); }
-    } else { activatePiece(button); focus(`[data-piece="${pieceId}"]`); }
+      else { effect('card'); status('A darab itt vár. Koppints a helyére, vagy húzd oda!'); focus(`[data-piece="${pieceId}"]`); }
+    } else { activatePiece(button, false); focus(`[data-piece="${pieceId}"]`); }
   });
   root.addEventListener('pointercancel', cleanupDrag);
   root.addEventListener('lostpointercapture', cleanupDrag);

@@ -5,7 +5,7 @@ import { createSuccessDelay } from './success-delay.js';
 const html = value => String(value ?? '').replace(/[&<>"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const marked = text => [...text].map(letter=>letter.toLocaleLowerCase('hu')==='r'?`<strong class="rp-r">${letter}</strong>`:html(letter)).join('');
 
-export function setupRPractice({ getProgress, updateProgress, speak, stopPlayback, listen }) {
+export function setupRPractice({ effect = () => {}, getProgress, updateProgress, speak, stopPlayback, listen, quietEffects = () => {} }) {
   const root=document.querySelector('#r-practice');
   if (!root) return {start(){},stop(){},repeat(){}};
   let storage; try {storage=window.localStorage;} catch {storage=null;}
@@ -25,7 +25,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   function stopReplay() {clearTimeout(replayTimer);replayTimer=null;if(replayAudio){replayAudio.onplaying=replayAudio.onended=replayAudio.onerror=null;replayAudio.pause();replayAudio.removeAttribute('src');replayAudio=null;}if(replayUrl){URL.revokeObjectURL(replayUrl);replayUrl=null;}}
   function clearRecording(){stopReplay();recording=null;recordingDuration=0;recordingSeconds=0;}
   function cancel({keepSuccess=false}={}) { generation++; clearTimeout(transitionTimer);transitionTimer=null;actionWord=null;controller?.abort(); controller=null; recorder.cancel();stopReplay();stopPlayback(); phase='idle'; if(!keepSuccess){successDelay.cancel();successPending=false;} }
-  function report(event) { updateProgress(recordRProgress(getProgress(),game,event)); }
+  function report(event) { if (event === 'round') effect('success'); else if (['confirmed','recognized','matched'].includes(event)) effect('collect'); updateProgress(recordRProgress(getProgress(),game,event)); }
   function progressDots(count=deck.length, index=step) {
     return `<div class="rp-dots" aria-label="${Math.min(index+1,count)}. feladat, összesen ${count}">${Array.from({length:count},(_,i)=>`<span class="${i<index||completed?'is-done':i===index?'is-current':''}" aria-hidden="true">${i<index||completed?'✿':'•'}</span>`).join('')}</div>`;
   }
@@ -178,7 +178,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   async function practiceSpeech() {
     if(!allowed()||completed||phase!=='idle'||prefs.speechMode==='together'||!['post','workshop','rhyme'].includes(game))return;
     cancel();const token=generation, attempt=new AbortController();controller=attempt;let started=false;
-    readyToAdvance=false;transcript='';phase='preparing';message='Mikrofon előkészítése…';render();
+    readyToAdvance=false;transcript='';phase='preparing';quietEffects();message='Mikrofon előkészítése…';render();
     try {
       const result=await listen({text:targetText(),mode:prefs.speechMode,signal:attempt.signal,onStart:()=>{
         if(!allowed()||token!==generation||attempt.signal.aborted)return;
@@ -198,7 +198,7 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   async function recordEcho() {
     if(!allowed()||game!=='echo'||phase!=='idle')return;
     cancel();clearRecording();const token=generation,attempt=new AbortController();controller=attempt;
-    phase='preparing';message='Mikrofon előkészítése…';render();
+    phase='preparing';quietEffects();message='Mikrofon előkészítése…';render();
     const result=await recorder.record({signal:attempt.signal,onStart:()=>{
       if(!allowed()||generation!==token||attempt.signal.aborted)return;
       phase='recording';recordingSeconds=0;message='Most felvesszük a hangodat. Mondd a szót!';render();
@@ -241,8 +241,8 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
       return;
     }
     const word=currentWord();
-    if(game==='post')deliveries.push({word,recipient});
-    else decorations.push({word,stamp});
+    if(game==='post'){effect('serve');deliveries.push({word,recipient});}
+    else {effect('snap');decorations.push({word,stamp});}
     step++;readyToAdvance=false;transcript='';message='';
     if(step===deck.length){completed=true;report('round');finishRound({target:'.rp-finish'});return;}
     if(game==='post'){
@@ -256,14 +256,14 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   }
   function chooseRLocation(id) {
     if(!allowed()||game!=='hunter'||prefs.hunterKind!=='position'||completed||solved||phase!=='idle')return;
-    if(!rSoundPositions(deck[step].target.text).includes(id)){wrongId=id;render();void playClips(['r_retry',`r_word_${deck[step].target.id}`],{target:'.rp-position-target'});return;}
-    solved=true;wrongId='';report('practice');render();void playClips([`r_position_${id}`,'guide_good'],{target:`[data-r-location="${id}"]`});
+    if(!rSoundPositions(deck[step].target.text).includes(id)){effect('retry');wrongId=id;render();void playClips(['r_retry',`r_word_${deck[step].target.id}`],{target:'.rp-position-target'});return;}
+    effect('collect');solved=true;wrongId='';report('practice');render();void playClips([`r_position_${id}`,'guide_good'],{target:`[data-r-location="${id}"]`});
   }
   function chooseRhymeWord(id) {
     if(!allowed()||game!=='rhyme'||prefs.rhymeMode!=='missing'||completed||rhymeSolved||phase!=='idle')return;
     const gap=rhymeGap(currentRhyme().id,step);
-    if(id!==gap.word.id){rhymeWrong=id;message='Hallgassuk meg a sort még egyszer!';render();void playClips(['r_retry',targetClip()],{target:'.rp-gap-line'});return;}
-    rhymeSolved=true;rhymeWrong='';rhymeDone.add(step);report('practice');render();void playClips(['guide_good',gap.voice,targetClip()],id=>({target:id===gap.voice?`[data-gap-choice="${gap.word.id}"]`:'.rp-gap-line'}));
+    if(id!==gap.word.id){effect('retry');rhymeWrong=id;message='Hallgassuk meg a sort még egyszer!';render();void playClips(['r_retry',targetClip()],{target:'.rp-gap-line'});return;}
+    effect('collect');rhymeSolved=true;rhymeWrong='';rhymeDone.add(step);report('practice');render();void playClips(['guide_good',gap.voice,targetClip()],id=>({target:id===gap.voice?`[data-gap-choice="${gap.word.id}"]`:'.rp-gap-line'}));
   }
   function nextRhymePuzzle() {
     if(!allowed()||game!=='rhyme'||prefs.rhymeMode!=='missing'||!rhymeSolved||completed||phase!=='idle')return;
@@ -273,8 +273,8 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   }
   function chooseHunter(id) {
     if(!allowed()||game!=='hunter'||completed||solved||phase!=='idle')return;
-    if(id!==deck[step].target.id){wrongId=id;message='Hallgassuk meg újra, és válasszunk!';render();return;}
-    solved=true;wrongId='';message='Megtaláltad a képet!';report('practice');render();
+    if(id!==deck[step].target.id){effect('retry');wrongId=id;message='Hallgassuk meg újra, és válasszunk!';render();return;}
+    effect('collect');solved=true;wrongId='';message='Megtaláltad a képet!';report('practice');render();
     void playClips(['r_found'],{target:`.rp-option[data-id="${id}"]`});
   }
   function nextHunter() {
@@ -330,5 +330,5 @@ export function setupRPractice({ getProgress, updateProgress, speak, stopPlaybac
   window.addEventListener('pagehide',()=>{if(active)stop();});
   function start(){cancel();active=true;game='hub';message='';render();}
   function stop(){active=false;cancel();clearRecording();}
-  return {start,stop,repeat:playCurrent};
+  return {start,stop,repeat:playCurrent,isCapturing:()=>active&&['preparing','listening','recording'].includes(phase),isReplaying:()=>active&&phase==='replay'};
 }

@@ -154,6 +154,7 @@ body[data-screen="parent"] .app-bar { position: sticky; top: 0; background: var(
 .parent-controls { padding: 20px; background: #f5efdf; }
 .parent-controls select, .parent-controls input[type="text"] { font-size: 16px; }
 .parent-controls .check-label { display: flex; align-items: center; gap: 10px; margin: 18px 0; }
+#effects-volume { width: 100%; min-height: 44px; padding: 0; accent-color: var(--primary); }
 .check-label input { width: 22px; height: 22px; }
 .parent-note { font-size: 13px; color: #6d7869; line-height: 1.5; }
 .parent-action { border: 0; border-radius: 12px; padding: 12px 16px; min-height: 48px; background: var(--primary); color: white; cursor: pointer; }

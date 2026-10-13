@@ -8,6 +8,7 @@ import { narrationCue } from "./narration-cues.js";
 import { normalizeText, similarityScore, matchTwoWordPhrase } from "./speech-matching.js";
 import { setupOffline } from "./offline-client.js";
 import { createSuccessDelay } from "./success-delay.js";
+import { createInteractionAudio, normalizeEffectOptions, setupInterfaceEffects } from "./interaction-audio.js";
 import { GROUPS, parentScreen, canonicalTrail, transitionTrail, createHistoryState, restoreHistoryState } from "./navigation.js";
 import { snapshotProgress, normalizeUndo, replaceProgress } from "./progress-data.js";
 import { setupProgressTools } from "./progress-tools.js";
@@ -56,7 +57,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions() };
 const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
@@ -113,6 +114,8 @@ let micRequest = null;
 let micGeneration = 0;
 let micError = "A mikrofon nem érhető el. Engedélyezd a böngészőben, majd próbáld újra!";
 let sfxContext = null;
+let effects;
+const playEffect = kind => effects?.play(kind);
 let supabaseClient = null;
 let supabaseProfileId = null;
 let supabaseReady = false;
@@ -325,7 +328,14 @@ supabaseSyncNowBtn.addEventListener("click", () => {
 
 setupNavigation();
 setupParentSettings();
+effects = createInteractionAudio({
+  getContext: getSfxContext, getOptions: () => state.settings,
+  isHidden: () => document.hidden,
+  isCapturing: () => listening || Boolean(rPractice?.isCapturing?.()),
+  isNarrating: () => Boolean(cancelPlayback) || document.querySelector('#audiobooks')?.dataset.phase === 'playing' || Boolean(rPractice?.isReplaying?.()),
+});
 listeningGame = setupListeningGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ words: getPracticeWords(), length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playListeningPrompt,
@@ -339,6 +349,7 @@ listeningGame = setupListeningGame({
   },
 });
 teddyGame = setupTeddyGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playTeddyPrompt,
@@ -352,6 +363,7 @@ teddyGame = setupTeddyGame({
   },
 });
 dressGame = setupDressGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getChoiceCount: () => state.settings.listeningChoices,
   playPrompt: playDressPrompt,
@@ -365,16 +377,18 @@ dressGame = setupDressGame({
   },
 });
 meadowGame = setupMeadow({
+  effect: playEffect,
   getProgress: () => state.meadow,
   getOptions: () => state.settings,
   speak: (id, cue) => speakVoice(id, undefined, cue), stopPlayback, openScreen: showScreen,
   updateProgress: (progress, reward) => {
     state.meadow = progress;
-    if (reward) state.rewards += 1;
+    if (reward) { state.rewards += 1; playEffect('success'); }
     saveProgress(); refreshStats();
   },
 });
 logicGame = setupLogic({
+  effect: playEffect,
   getProgress: () => state.logic, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
   setRouteView: view => {
@@ -390,11 +404,12 @@ logicGame = setupLogic({
   },
   updateProgress: (progress, reward) => {
     state.logic = progress;
-    if (reward) state.rewards += 1;
+    if (reward) { state.rewards += 1; playEffect('success'); }
     saveProgress(); refreshStats();
   },
 });
 memoryGame = setupMemoryGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ words: getPracticeWords(), memoryPairs: state.settings.memoryPairs }),
   playWord: (word, cue) => playWord(word, undefined, cue), speak: id => speakVoice(id), stopPlayback,
@@ -409,6 +424,7 @@ memoryGame = setupMemoryGame({
   },
 });
 puzzleGame = setupPuzzleGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
   setOptions: options => { Object.assign(state.settings, normalizePuzzleOptions(options)); saveProgress(); },
@@ -419,6 +435,7 @@ puzzleGame = setupPuzzleGame({
   },
 });
 chessGame = setupChessGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id, undefined, { target: '.chess-rule', motion: 'pulse' }); }, stopPlayback,
   onComplete: count => {
@@ -428,12 +445,14 @@ chessGame = setupChessGame({
 });
 montessoriGame = setupMontessoriGame({
   getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
+  effect: playEffect,
   getOptions: () => state.settings,
   setOptions: options => { Object.assign(state.settings, normalizeMontessoriOptions(options)); saveProgress(); },
   speak: (id, force) => { if (force || state.settings.spokenGuidance) return speakVoice(id); }, stopPlayback,
   onComplete: () => { state.rewards += 1; saveProgress(); refreshStats(); },
 });
 workshopGame = setupWorkshop({
+  effect: playEffect,
   getProgress: () => state.workshop, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
   setLevel: level => {
@@ -444,7 +463,7 @@ workshopGame = setupWorkshop({
   },
   updateProgress: (progress, reward) => {
     state.workshop = progress;
-    if (reward) state.rewards += 1;
+    if (reward) { state.rewards += 1; playEffect('success'); }
     saveProgress(); refreshStats();
   },
 });
@@ -460,17 +479,19 @@ animalBook = setupAnimalBook({
 });
 audiobooks = setupAudiobooks({ stopPlayback, onListeningChange: playing => { if (playing) playTime?.start(); } });
 pourGame = setupPourGame({
+  effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
   setLevel: level => { state.settings.pourLevel = level; saveProgress(); },
   speak: id => { if (state.settings.spokenGuidance) return speakVoice(id); },
-  stopPlayback, getAudioContext: getSfxContext,
+  stopPlayback, getAudioContext: getSfxContext, getAudioDestination: () => effects.destination(),
   onComplete: count => {
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound('pour', count);
   },
 });
 rPractice = setupRPractice({
+  effect: playEffect, quietEffects: () => effects.stop(),
   getProgress: () => state.rPractice,
   updateProgress: progress => { state.rPractice=progress; saveProgress({sync:false}); refreshStats(); },
   speak: (id,cue) => speakVoice(id,undefined,cue), stopPlayback,
@@ -549,6 +570,9 @@ applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 setupPlayTime();
+setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
+document.addEventListener("visibilitychange", () => { if (document.hidden) effects.stop(); else effects.sync(); });
+window.addEventListener("pagehide", () => effects.stop());
 
 function renderPlayTime(status) {
   document.querySelector('#home-play-time').textContent = status.started ? `Játékidő: ${formatPlayTime(status.remainingMs)} · utána 15 perc pihenő` : '30 perc játék · utána 15 perc pihenő';
@@ -714,11 +738,12 @@ function renderNumberQuiz() {
       if (quizSolved) return;
       const status = document.querySelector("#number-quiz-status");
       if (quantity !== quizTarget) {
+        playEffect('retry');
         status.textContent = "Még egyszer?";
         speakGuide("again");
         return;
       }
-      quizSolved = true;
+      quizSolved = true; playEffect('success');
       button.classList.add("is-correct");
       status.textContent = "⭐";
       speakVoiceSequence(["guide_good", `quantity_${countingObject.id}_${quizTarget}`]);
@@ -754,7 +779,7 @@ function renderNumbers() {
     button.innerHTML = `<span aria-hidden="true">${countingObject.emoji}</span><span class="counting-order" aria-hidden="true"></span>`;
     button.addEventListener("click", () => {
       if (countedObjects.has(index)) return;
-      countedObjects.add(index);
+      playEffect('collect'); countedObjects.add(index);
       const count = countedObjects.size;
       button.setAttribute("aria-pressed", "true");
       button.querySelector(".counting-order").textContent = count;
@@ -826,6 +851,7 @@ function renderFlipGame() {
     card.addEventListener("click", async () => {
       if (flipRoundComplete) return;
       const token = flipRoundToken;
+      playEffect(card.classList.contains("is-open") ? "select" : "card");
       card.classList.add("is-open");
       card.setAttribute("aria-label", `${word.label} meghallgatása`);
       card.setAttribute("aria-pressed", "true");
@@ -1079,6 +1105,7 @@ function stopPlayback() {
   narration.stop();
   cancelPlayback?.();
   cancelPlayback = null;
+  effects?.sync();
   cardsGrid.querySelectorAll(".is-speaking").forEach((card) => card.classList.remove("is-speaking"));
 }
 
@@ -1117,10 +1144,12 @@ async function tryPlayFileWithBuffer(src, token, visual) {
       visual?.stop();
       try { source.stop(); source.disconnect(); } catch {}
       if (cancelPlayback === cancel) cancelPlayback = null;
+      effects?.sync();
       resolve(result);
     };
     const cancel = () => finish(true);
     cancelPlayback = cancel;
+    effects?.sync();
     source.onended = () => finish(true);
     try {
       source.start();
@@ -1150,10 +1179,12 @@ function tryPlayFileWithElement(src, token, visual) {
       visual?.stop();
       audio.pause();
       if (cancelPlayback === cancel) cancelPlayback = null;
+      effects?.sync();
       resolve(result);
     };
     const cancel = () => finish(true);
     cancelPlayback = cancel;
+    effects?.sync();
     audio.onended = () => finish(true);
     audio.onerror = () => finish(false);
     audio.onplaying = () => {
@@ -1278,6 +1309,7 @@ function normalizeState(input) {
       memoryPairs: [2, 3, 4, 6].includes(input.settings?.memoryPairs) ? input.settings.memoryPairs : 3,
       ...normalizePuzzleOptions(input.settings),
       ...normalizeMontessoriOptions(input.settings),
+      ...normalizeEffectOptions(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
@@ -1561,7 +1593,9 @@ async function runListeningTask(kind, task) {
   stopPlayback();
   const controller = new AbortController();
   activeAttempt = controller;
+  effects.stop();
   listening = true;
+  effects.sync();
   flipBusy = kind === "flip";
   document.querySelector("#stop-listening").hidden = kind !== "word" || autoSessionRunning;
   try {
@@ -1581,6 +1615,7 @@ async function runListeningTask(kind, task) {
       controller.abort();
       activeAttempt = null;
       listening = false;
+      effects.sync();
       flipBusy = false;
       setListeningUi(false);
       setPhraseListeningUi(false);
@@ -1807,73 +1842,8 @@ function setPhraseState(kind, text) {
   }
 }
 
-function playSuccessSound() {
-  const context = getSfxContext();
-  if (!context) return;
-  if (context.state === "suspended") {
-    context.resume().catch(() => {});
-  }
-  const now = context.currentTime;
-  const master = context.createGain();
-  master.gain.value = 0.12;
-  master.connect(context.destination);
-
-  // Bright "clink" style hit with short layered tones.
-  playTone(context, master, 1318, now, 0.08, "triangle", 0.23);
-  playTone(context, master, 1568, now + 0.06, 0.13, "sine", 0.12);
-  playTone(context, master, 2637, now + 0.015, 0.06, "sine", 0.13);
-  playTone(context, master, 1568, now + 0.11, 0.11, "triangle", 0.18);
-  playTone(context, master, 2093, now + 0.15, 0.18, "sine", 0.09);
-
-  setTimeout(() => {
-    try {
-      master.disconnect();
-    } catch {}
-  }, 700);
-}
-
-function playTone(
-  context,
-  destination,
-  freq,
-  startAt,
-  duration,
-  waveType = "triangle",
-  peak = 0.16,
-) {
-  const osc = context.createOscillator();
-  const gain = context.createGain();
-  osc.type = waveType;
-  osc.frequency.setValueAtTime(freq, startAt);
-  gain.gain.setValueAtTime(0.0001, startAt);
-  gain.gain.exponentialRampToValueAtTime(peak, startAt + 0.02);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-  osc.connect(gain);
-  gain.connect(destination);
-  osc.start(startAt);
-  osc.stop(startAt + duration + 0.02);
-}
-
-function playListeningStartSound() {
-  const context = getSfxContext();
-  if (!context) return;
-  if (context.state === "suspended") {
-    context.resume().catch(() => {});
-  }
-  const now = context.currentTime;
-  const master = context.createGain();
-  master.gain.value = 0.02;
-  master.connect(context.destination);
-
-  playTone(context, master, 520, now, 0.09);
-  playTone(context, master, 620, now + 0.1, 0.1);
-
-  setTimeout(() => {
-    try {
-      master.disconnect();
-    } catch {}
-  }, 550);
-}
+function playSuccessSound() { playEffect('success'); }
+function playListeningStartSound() { playEffect('listen'); }
 
 async function startAutoImitateSession() {
   roundSuccess.cancel();
@@ -2228,6 +2198,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
     screen = 'play-break'; announce = false;
   }
   stopAutoImitateSession(false);
+  effects?.stop();
   listeningGame?.stop();
   teddyGame?.stop();
   dressGame?.stop();
@@ -2337,6 +2308,22 @@ function setupParentSettings() {
   const topic = document.querySelector("#practice-topic");
   const wordVoice = document.querySelector("#word-voice");
   const guidance = document.querySelector("#spoken-guidance");
+  const effectsEnabled = document.querySelector('#sound-effects');
+  const effectsVolume = document.querySelector('#effects-volume');
+  const effectsPreview = document.querySelector('#effects-preview');
+  const syncEffectsControls = () => {
+    effectsEnabled.checked = state.settings.soundEffects;
+    effectsVolume.value = Math.round(state.settings.effectsVolume * 100);
+    document.querySelector('#effects-volume-value').textContent = `${effectsVolume.value}%`;
+    effectsVolume.disabled = !state.settings.soundEffects;
+    effectsPreview.disabled = !state.settings.soundEffects || state.settings.effectsVolume === 0;
+    effects?.sync();
+  };
+  syncEffectsControls();
+  effectsEnabled.addEventListener('change', () => { state.settings.soundEffects = effectsEnabled.checked; effects.stop(); syncEffectsControls(); saveProgress(); });
+  effectsVolume.addEventListener('input', () => { state.settings.effectsVolume = Number(effectsVolume.value) / 100; syncEffectsControls(); });
+  effectsVolume.addEventListener('change', () => { saveProgress(); playEffect('wood'); });
+  effectsPreview.addEventListener('click', () => effects.preview());
   const listeningChoices = document.querySelector("#listening-choices");
   wordCategories.forEach(category => {
     const option = document.createElement("option");
