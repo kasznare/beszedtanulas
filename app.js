@@ -34,6 +34,7 @@ import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
 import { checkpointProfiles, normalizeProfileStore, switchProgressProfile, mergeWordProgress, isSharedProfileCode } from "./progress-profiles.js";
 import { createCloudSaveQueue } from "./cloud-save-queue.js";
+import { createPlayTimeLimit, PLAY_TIME_KEY, formatPlayTime } from "./play-time.js";
 
 let selectedCategory = "all";
 
@@ -59,6 +60,10 @@ let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
 let appNavigation = restoreHistoryState(null);
 let offlineClient;
+let playTime;
+let handlingPlayTime = false;
+let parentGateUnlocksTime = false;
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'chess', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let flipRoundToken = 0;
@@ -91,6 +96,7 @@ const screenInfo = {
   numbers: { title: "Számoljunk!", guide: "count" },
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
+  'play-break': { title: "Pihenőidő" },
 };
 let currentImitate = 0;
 let autoSessionToken = 0;
@@ -292,6 +298,7 @@ function syncProfileControls() {
     : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
   const group = GROUPS.find(value => value.screen === currentScreen || value.screens.includes(currentScreen) || (currentScreen === 'cards' && value.screen === 'picture-menu'));
   document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
+  playTime?.tick();
 }
 
 supabaseConnectBtn.addEventListener("click", () => {
@@ -440,7 +447,7 @@ animalBook = setupAnimalBook({
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
 });
-audiobooks = setupAudiobooks({ stopPlayback });
+audiobooks = setupAudiobooks({ stopPlayback, onListeningChange: playing => { if (playing) playTime?.start(); } });
 pourGame = setupPourGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
@@ -530,6 +537,59 @@ renderDebug({
 applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
+setupPlayTime();
+
+function renderPlayTime(status) {
+  document.querySelector('#home-play-time').textContent = status.started ? `Játékidő: ${formatPlayTime(status.remainingMs)} · utána 15 perc pihenő` : '30 perc játék · utána 15 perc pihenő';
+  document.querySelector('#parent-play-time').textContent = status.locked
+    ? `Pihenő: még ${formatPlayTime(status.breakRemainingMs)}`
+    : `Hátralévő játékidő: ${formatPlayTime(status.remainingMs)} / 30:00`;
+  document.querySelector('#break-countdown').textContent = formatPlayTime(status.breakRemainingMs);
+  document.querySelector('#play-time-storage-error').hidden = !status.storageError;
+  if (handlingPlayTime) return;
+  handlingPlayTime = true;
+  // Playback callbacks also run inside navigation. Reconcile after that
+  // transition finishes, so an expiring budget cannot restart a stopped game.
+  queueMicrotask(() => {
+    try {
+      const latest = playTime.snapshot();
+      if (latest.locked && !['parent', 'play-break'].includes(currentScreen)) {
+        showScreen('play-break', { announce: false });
+      } else if (!latest.locked && currentScreen === 'play-break') {
+        showScreen('home', { announce: false });
+      }
+    } finally { handlingPlayTime = false; }
+  });
+}
+
+function setupPlayTime() {
+  playTime = createPlayTimeLimit({
+    storage: { getItem: key => localStorage.getItem(key), setItem: (key, value) => localStorage.setItem(key, value) },
+    onChange: renderPlayTime,
+  });
+  playTime.tick();
+  document.querySelector('#break-parent-unlock').addEventListener('click', () => showParentGate({ unlockTime: true }));
+  document.querySelector('#parent-renew-play-time').addEventListener('click', () => {
+    if (currentScreen === 'parent') playTime.renew();
+  });
+  for (const type of ['pointerdown', 'keydown', 'click']) {
+    document.addEventListener(type, event => {
+      const status = playTime.tick();
+      if (status.locked && currentScreen !== 'parent' && !event.target.closest?.('#play-break, #parent-gate, #parent-button')) {
+        if (event.cancelable) event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+    }, { capture: true, passive: false });
+  }
+  document.addEventListener('visibilitychange', () => playTime.tick());
+  window.addEventListener('pageshow', () => playTime.tick());
+  window.addEventListener('focus', () => playTime.tick());
+  window.addEventListener('storage', event => {
+    if (event.key === PLAY_TIME_KEY || event.key === null) playTime.tick();
+  });
+  setInterval(() => playTime.tick(), 1000);
+}
 
 function numberQuantityLabel(number = currentNumber) {
   return `${number === 2 ? "két" : numberNames[number]} ${countingObject.label}`;
@@ -2151,6 +2211,9 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
     showParentGate();
     return;
   }
+  if (playTime?.tick({ notify: false }).locked && screen !== 'parent') {
+    screen = 'play-break'; announce = false;
+  }
   stopAutoImitateSession(false);
   listeningGame?.stop();
   teddyGame?.stop();
@@ -2188,7 +2251,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   syncProfileControls();
   syncNumberMode();
   updateBackButton();
-  document.querySelector("#help-button").hidden = screen === "parent";
+  document.querySelector("#help-button").hidden = ['parent', 'play-break'].includes(screen);
   if (screen === "cards") renderCards();
   if (screen === "imitate") { renderImitate(); renderRoundProgress(); }
   if (screen === "two-word") renderTwoWordMode();
@@ -2213,11 +2276,14 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   window.scrollTo(0, 0);
   if (announce && !["listening-game", "teddy-game", "dress-game"].includes(screen) && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
   offlineClient?.notifyScreenChange();
+  if (timedScreens.has(screen) && screen !== 'audiobooks') playTime?.start();
+  else playTime?.tick();
 }
 
-function showParentGate() {
+function showParentGate({ unlockTime = false } = {}) {
   roundSuccess.cancel();
   stopPlayback();
+  parentGateUnlocksTime = unlockTime;
   const dialog = document.querySelector("#parent-gate");
   const a = 6 + Math.floor(Math.random() * 5);
   const b = 3 + Math.floor(Math.random() * 5);
@@ -2230,7 +2296,13 @@ function showParentGate() {
     const button = document.createElement("button");
     button.textContent = value;
     button.addEventListener("click", () => {
-      if (value === correct) showScreen("parent", { announce: false, allowParent: true });
+      if (value === correct) {
+        if (parentGateUnlocksTime) {
+          dialog.close();
+          playTime.renew();
+          showScreen('home', { announce: false });
+        } else showScreen("parent", { announce: false, allowParent: true });
+      }
       else document.querySelector("#parent-gate-status").textContent = "Próbáld újra!";
     });
     answers.appendChild(button);

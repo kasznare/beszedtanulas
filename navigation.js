@@ -9,7 +9,7 @@ export const GROUPS = Object.freeze([
   { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'pour', 'flip'] },
 ].map(group => Object.freeze({ ...group, screens: Object.freeze(group.screens) })));
 
-const screens = new Set(['home', 'parent', 'cards', ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);
+const screens = new Set(['home', 'parent', 'play-break', 'cards', ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);
 const categories = new Set(wordCategories.map(category => category.id));
 const modes = new Set(['count', 'quiz']);
 const parents = new Map(GROUPS.flatMap(group => [

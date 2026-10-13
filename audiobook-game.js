@@ -11,7 +11,7 @@ import { RADO_STORIES } from './rado-stories.js';
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
 export const formatStoryTime = seconds => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, '0')}`;
 
-export function setupAudiobooks({ stopPlayback }) {
+export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) {
   const root = document.querySelector('#audiobooks');
   let storage;
   try { storage = localStorage; } catch { storage = null; }
@@ -26,6 +26,7 @@ export function setupAudiobooks({ stopPlayback }) {
     beforePlay: () => { stopPlayback(); void requestAudiobookPersistence(); }, onChange: update,
   });
   function update(state = player.getState()) {
+    onListeningChange(active && state.phase === 'playing');
     if (!active) return;
     const story = stories.find(story => story.id === state.storyId);
     if (!story) return;
@@ -232,7 +233,7 @@ export function setupAudiobooks({ stopPlayback }) {
       update();
     },
     pause() { player?.pause(); },
-    stop() { active = false; player?.stop(); session++; visual?.destroy(); visual = null; },
+    stop() { active = false; player?.stop(); onListeningChange(false); session++; visual?.destroy(); visual = null; },
     repeat() { const status = $('#story-status'); if (active && status) status.textContent = 'Válassz egy mesét! A nagy gombbal elindíthatod vagy szüneteltetheted.'; },
   };
 }

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="./pour.css" />
   <link rel="stylesheet" href="./r-practice.css" />
   <link rel="stylesheet" href="./navigation.css" />
+  <link rel="stylesheet" href="./play-time.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -55,7 +56,17 @@
         <button class="home-tile tone-lilac" data-open="activity-menu" aria-label="Kirakók és ügyesség"><span class="home-art art-activity" aria-hidden="true"><span class="activity-puzzle">🧩</span><span class="activity-drop">💧</span></span><span class="home-tile-copy"><span class="tile-title">Kirakók és ügyesség</span><small>Párok · kirakók · játék a vízzel</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
       </div>
       <p id="home-update-status" class="home-update-status" role="status" hidden></p>
+      <p id="home-play-time" class="play-time-note"></p>
       <p class="home-footer"><span aria-hidden="true">♡</span> Egy kis játék. Együtt.</p>
+    </section>
+
+    <section id="play-break" class="panel play-break" aria-labelledby="break-title">
+      <div class="break-art" aria-hidden="true">🧸 🌿</div>
+      <h2 id="break-title">Most pihenjünk egy kicsit!</h2>
+      <p>Jót játszottunk! Mozogjunk, igyunk vagy bújjunk össze.</p>
+      <p class="break-time">Újra játszhatunk <span id="break-countdown" class="break-countdown" role="timer" aria-live="off">15:00</span> múlva.</p>
+      <button id="break-parent-unlock" class="parent-action">Szülői feloldás</button>
+      <p class="parent-note">15 perc pihenő után magától újra elindítható a játék. A szülő hamarabb is adhat újabb 30 percet.</p>
     </section>
 
     <section id="play-menu" class="panel menu-panel" aria-label="Mesék és Maci">
@@ -275,6 +286,13 @@
             <button id="parent-return-child" class="parent-action parent-action--secondary" data-return-child hidden>Vissza a gyerekhez</button>
           </div>
           <p id="profile-status" class="parent-note" role="status" hidden></p>
+        </div>
+        <div class="parent-controls">
+          <h2>Játékidő és pihenő</h2>
+          <p id="parent-play-time" class="play-time-summary" role="status"></p>
+          <p class="parent-note">Az első játék vagy mese indításakor elindul a 30 perc, utána 15 perc pihenő következik. A visszaszámlálás folyamatos: tétlenség, menüben várakozás, szüneteltetett mese, szülői próba, háttérbe váltás és bezárt oldal közben is telik. Minden játék és mese közös időkeretet használ.</p>
+          <button id="parent-renew-play-time" class="parent-action">Új 30 perc indítása</button>
+          <p id="play-time-storage-error" class="parent-note" role="alert" hidden>Az időkorlátot most nem sikerül elmenteni. Ebben az ablakban működik, de újranyitáskor elveszhet.</p>
         </div>
         <div class="parent-controls"><h2>Furfangliget – matematika és logika</h2><div class="logic-parent-grid">
           <label>Bolti számkör<select id="math-limit"><option value="5">1–5</option><option value="10">1–10</option><option value="20">1–20</option></select></label>

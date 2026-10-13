@@ -39,6 +39,8 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 
 ## Játék és beállítások
 
+Az első játék vagy mese indításakor közös **30 perces, folyamatos visszaszámlálás** indul. Sem tétlenség, sem menüben várakozás, szüneteltetett mese, szülői próba, háttérbe váltás vagy az oldal bezárása nem állítja meg. A határidőnél a hang és a mikrofon leáll, és **15 perces pihenőképernyő** jelenik meg. A pihenő végén automatikusan új 30 perces keret nyílik, amely a következő játék vagy mese indításával kezdődik. A **Szülői feloldás** a meglévő felnőtt belépőn keresztül hamarabb is új időkeretet ad; a szülői beállítások **Játékidő és pihenő** részében is indítható új 30 perc. Az abszolút határidő ugyanazon böngésző/eszköz helyi tárolójában megmarad frissítés és újranyitás után is; a párhuzamos ablakok közös keretet használnak. Ez nem eszközök közötti felhős korlát. Az eredmények visszaállítása és nullázása nem nullázza az időkeretet.
+
 | Csoport | Játékok |
 | --- | --- |
 | **Képek és hangok** | Képes témák, Hol van?, Hangos állatkönyv |
