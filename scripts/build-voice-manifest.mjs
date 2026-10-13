@@ -6,6 +6,7 @@ import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
+import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
@@ -25,7 +26,7 @@ const guides = {
   menu_speech: 'Mondjuk együtt! Válassz szavakat, rövid kifejezést vagy a róka R-kalandját!',
   menu_thinking: 'Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!',
   menu_stories: 'Hallgassunk mesét, vagy játsszunk a macival! Válassz egy képet!',
-  menu_activity: 'Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!',
+  menu_activity: 'Keress képpárokat, rakj össze egy képet, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!',
   dress: 'Sétálni szeretnék! Segíts felöltözni! Koppints arra, amit kérek!',
   dress_finished: 'Felöltöztem! Köszönöm! Indulhat a séta!',
   teddy: 'Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!',
@@ -62,6 +63,7 @@ for (const [id, text] of Object.entries(guides)) add(`guide_${id}`, text);
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) add(id, text, 'puzzle');
+for (const [id, text] of Object.entries(MONTESSORI_CLIPS)) add(id, text, 'montessori');
 for (const [id, text] of Object.entries(CHESS_CLIPS)) add(id, text, 'chess');
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop');
 for (const [id, text] of Object.entries(POUR_CLIPS)) add(id, text, 'pour');

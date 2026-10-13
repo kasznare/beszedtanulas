@@ -726,8 +726,8 @@
       "characterCost": 7.0
     },
     "guide_menu_activity": {
-      "fingerprint": "69ac71943d91d6e3e2ed53e10f81ef60b5b0acafae304a8e8240ade1570ff0b1",
-      "sha256": "6148518242ea65f1a0a679e232f0258ca24bd58eb7edf682ff09bdba7072bd1a",
+      "fingerprint": "9187190a8043cdfde58408b1bac44821797652e0f563caaa00fca12736c73b52",
+      "sha256": "d3c84000da3f72e2e69439ee49c3ef565e8626ce917749e4aabfe7422107a393",
       "words": [
         [
           0.025,
@@ -735,68 +735,93 @@
           "Keress"
         ],
         [
-          0.425,
-          1.385,
+          0.385,
+          1.345,
           "képpárokat"
         ],
         [
-          1.705,
-          1.945,
+          1.625,
+          1.838,
           "rakj"
         ],
         [
-          1.985,
-          2.185,
+          1.865,
+          2.105,
           "össze"
         ],
         [
-          2.225,
-          2.345,
+          2.145,
+          2.265,
           "egy"
         ],
         [
-          2.425,
+          2.305,
           2.985,
           "képet"
         ],
         [
-          3.225,
-          3.465,
-          "vagy"
-        ],
-        [
+          3.345,
           3.625,
-          3.865,
-          "tölts"
+          "fedezd"
         ],
         [
-          3.945,
-          3.998,
+          3.705,
+          3.785,
+          "fel"
+        ],
+        [
+          3.812,
+          3.838,
           "a"
         ],
         [
-          4.052,
-          4.905,
-          "barátainknak"
+          3.865,
+          4.465,
+          "Montessori"
         ],
         [
-          5.305,
-          5.665,
-          "Válassz"
+          4.505,
+          5.065,
+          "műhelyt"
+        ],
+        [
+          5.265,
+          5.545,
+          "vagy"
         ],
         [
           5.705,
-          5.825,
+          5.945,
+          "tölts"
+        ],
+        [
+          5.985,
+          6.025,
+          "a"
+        ],
+        [
+          6.105,
+          6.985,
+          "barátainknak"
+        ],
+        [
+          7.305,
+          7.705,
+          "Válassz"
+        ],
+        [
+          7.745,
+          7.865,
           "egy"
         ],
         [
-          5.865,
-          6.585,
+          7.905,
+          8.585,
           "játékot"
         ]
       ],
-      "duration": 6.744989,
-      "characterCost": 13.0
+      "duration": 8.744989,
+      "characterCost": 60.0
     },
     "guide_dress_finished": {
       "fingerprint": "da9a6587f1277dde136a38607cd2b0c1c1e82295f1091f4eeabc9f139ce670d6",
@@ -20047,6 +20072,936 @@
       ],
       "duration": 1.054989,
       "characterCost": 2.0
+    },
+    "montessori_menu": {
+      "fingerprint": "e9bc1d0d6ae6757627cf556dcdf5fe46c4d02d8694908b3ccca02c5391e8b801",
+      "sha256": "c9f379cf2a3232d609c6e45c930cab2c150191b9d755760dbbc363d3cd92f3dc",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Fedezzük"
+        ],
+        [
+          0.64,
+          0.72,
+          "fel"
+        ],
+        [
+          0.747,
+          0.773,
+          "a"
+        ],
+        [
+          0.8,
+          0.96,
+          "kis"
+        ],
+        [
+          1.04,
+          1.6,
+          "műhelyt"
+        ],
+        [
+          2.0,
+          2.4,
+          "Válassz"
+        ],
+        [
+          2.52,
+          3.28,
+          "formadobozt"
+        ],
+        [
+          3.48,
+          4.4,
+          "színtálcákat"
+        ],
+        [
+          4.48,
+          4.64,
+          "vagy"
+        ],
+        [
+          4.72,
+          5.28,
+          "tornyot"
+        ]
+      ],
+      "duration": 5.44,
+      "characterCost": 30.0
+    },
+    "montessori_shapes_1": {
+      "fingerprint": "04afb0536fd4564660c726cff97bb8c1638c629b4159959515b85c67704e1538",
+      "sha256": "fe2a7f27f04a5cdf7623a75ae053a8f4918696b7ba6a5b2bafb5ac932fb3e53f",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Tedd"
+        ],
+        [
+          0.28,
+          0.32,
+          "a"
+        ],
+        [
+          0.4,
+          0.88,
+          "formát"
+        ],
+        [
+          0.92,
+          0.96,
+          "a"
+        ],
+        [
+          1.04,
+          1.44,
+          "hozzá"
+        ],
+        [
+          1.56,
+          1.76,
+          "illő"
+        ],
+        [
+          1.8,
+          2.24,
+          "lyukba"
+        ],
+        [
+          2.72,
+          3.04,
+          "Húzd"
+        ],
+        [
+          3.12,
+          3.44,
+          "oda"
+        ],
+        [
+          3.64,
+          3.84,
+          "vagy"
+        ],
+        [
+          3.88,
+          4.32,
+          "koppints"
+        ],
+        [
+          4.36,
+          4.4,
+          "a"
+        ],
+        [
+          4.48,
+          5.04,
+          "formára"
+        ],
+        [
+          5.2,
+          5.36,
+          "majd"
+        ],
+        [
+          5.4,
+          5.44,
+          "a"
+        ],
+        [
+          5.48,
+          5.92,
+          "lyukra"
+        ]
+      ],
+      "duration": 6.16,
+      "characterCost": 34.0
+    },
+    "montessori_shapes_2": {
+      "fingerprint": "fe47fc4cb152badb60117343f4ffcfb9d2bd2f58911ed63b79cdc7f3d4e6f1bb",
+      "sha256": "271fe09d11975a80f072fa0e31d24a425819465cc3a367bc01ff737b684856c4",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Melyik"
+        ],
+        [
+          0.48,
+          0.72,
+          "forma"
+        ],
+        [
+          0.8,
+          1.04,
+          "illik"
+        ],
+        [
+          1.12,
+          1.28,
+          "ebbe"
+        ],
+        [
+          1.36,
+          1.4,
+          "a"
+        ],
+        [
+          1.44,
+          1.92,
+          "lyukba"
+        ],
+        [
+          2.4,
+          2.8,
+          "Válaszd"
+        ],
+        [
+          2.88,
+          3.04,
+          "ki"
+        ],
+        [
+          3.28,
+          3.36,
+          "és"
+        ],
+        [
+          3.44,
+          3.64,
+          "tedd"
+        ],
+        [
+          3.68,
+          4.0,
+          "bele"
+        ]
+      ],
+      "duration": 4.16,
+      "characterCost": 24.0
+    },
+    "montessori_shapes_3": {
+      "fingerprint": "b8931ee024437cd57b1e96ea309d317e88c694183b8dfd6c4a905f8023883652",
+      "sha256": "51d46f8a6ba4d0f5c089e8fda7b194e0362587dc257255f233fc6b8b601e3bc0",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Minden"
+        ],
+        [
+          0.48,
+          1.04,
+          "formának"
+        ],
+        [
+          1.08,
+          1.52,
+          "saját"
+        ],
+        [
+          1.573,
+          1.76,
+          "helye"
+        ],
+        [
+          1.84,
+          2.08,
+          "van"
+        ],
+        [
+          2.56,
+          2.8,
+          "Tedd"
+        ],
+        [
+          2.84,
+          2.88,
+          "a"
+        ],
+        [
+          2.96,
+          3.52,
+          "formákat"
+        ],
+        [
+          3.56,
+          3.6,
+          "a"
+        ],
+        [
+          3.68,
+          4.16,
+          "hozzájuk"
+        ],
+        [
+          4.28,
+          4.48,
+          "illő"
+        ],
+        [
+          4.52,
+          5.12,
+          "lyukakba"
+        ]
+      ],
+      "duration": 5.28,
+      "characterCost": 30.0
+    },
+    "montessori_shapes_4": {
+      "fingerprint": "bb0cf949e3c20b08c6724dda09fad60d860e6434be88a3143a36db22b42f2840",
+      "sha256": "11045e287174029a18dde8b7b803086d0cfb407008c65bb6dfbc12dc129abd32",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Csúsztasd"
+        ],
+        [
+          0.6,
+          0.8,
+          "félre"
+        ],
+        [
+          0.88,
+          0.96,
+          "az"
+        ],
+        [
+          1.04,
+          1.76,
+          "akadályokat"
+        ],
+        [
+          1.813,
+          2.0,
+          "hogy"
+        ],
+        [
+          2.04,
+          2.56,
+          "szabaddá"
+        ],
+        [
+          2.6,
+          3.04,
+          "váljanak"
+        ],
+        [
+          3.12,
+          3.147,
+          "a"
+        ],
+        [
+          3.173,
+          3.6,
+          "lyukak"
+        ],
+        [
+          4.08,
+          4.16,
+          "Az"
+        ],
+        [
+          4.24,
+          4.72,
+          "akadályra"
+        ],
+        [
+          4.8,
+          5.52,
+          "koppinthatsz"
+        ],
+        [
+          5.64,
+          5.76,
+          "is"
+        ],
+        [
+          6.24,
+          6.64,
+          "Aztán"
+        ],
+        [
+          6.72,
+          6.96,
+          "tedd"
+        ],
+        [
+          6.987,
+          7.013,
+          "a"
+        ],
+        [
+          7.04,
+          7.6,
+          "formákat"
+        ],
+        [
+          7.64,
+          7.68,
+          "a"
+        ],
+        [
+          7.76,
+          8.32,
+          "helyükre"
+        ]
+      ],
+      "duration": 8.56,
+      "characterCost": 51.0
+    },
+    "montessori_colors": {
+      "fingerprint": "197c4a697f5655a609bb709637637f9ea283b8dd32a1de546e88c54fa8c6a761",
+      "sha256": "f550f3315117b938c640d94bd4f7302e016ec8ae71f7b3bba7b2f6aaa1b2b710",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Tedd"
+        ],
+        [
+          0.28,
+          0.32,
+          "a"
+        ],
+        [
+          0.4,
+          0.96,
+          "golyókat"
+        ],
+        [
+          1.04,
+          1.12,
+          "az"
+        ],
+        [
+          1.28,
+          1.52,
+          "azonos"
+        ],
+        [
+          1.6,
+          1.92,
+          "színű"
+        ],
+        [
+          1.96,
+          2.64,
+          "tálkákba"
+        ],
+        [
+          3.04,
+          3.36,
+          "Húzd"
+        ],
+        [
+          3.52,
+          3.68,
+          "oda"
+        ],
+        [
+          3.84,
+          4.0,
+          "vagy"
+        ],
+        [
+          4.04,
+          4.48,
+          "koppints"
+        ],
+        [
+          4.52,
+          4.56,
+          "a"
+        ],
+        [
+          4.6,
+          5.04,
+          "golyóra"
+        ],
+        [
+          5.28,
+          5.4,
+          "majd"
+        ],
+        [
+          5.44,
+          5.48,
+          "a"
+        ],
+        [
+          5.52,
+          6.16,
+          "tálkára"
+        ]
+      ],
+      "duration": 6.32,
+      "characterCost": 37.0
+    },
+    "montessori_shape_retry": {
+      "fingerprint": "483b712a3f3e45c6d0dd01787662373b60aa132dd81ddcb4e6f5d0f973cb46b5",
+      "sha256": "89d075cc0d3392ccfcf07544e9c844ab8a40b4cbd061f814aab559d23cd9d1b7",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Nézd"
+        ],
+        [
+          0.4,
+          0.48,
+          "meg"
+        ],
+        [
+          0.52,
+          0.56,
+          "a"
+        ],
+        [
+          0.64,
+          0.96,
+          "forma"
+        ],
+        [
+          1.0,
+          1.84,
+          "körvonalát"
+        ],
+        [
+          2.24,
+          2.56,
+          "Keress"
+        ],
+        [
+          2.6,
+          2.72,
+          "egy"
+        ],
+        [
+          2.8,
+          3.12,
+          "hozzá"
+        ],
+        [
+          3.24,
+          3.44,
+          "illő"
+        ],
+        [
+          3.48,
+          4.0,
+          "lyukat"
+        ]
+      ],
+      "duration": 4.16,
+      "characterCost": 23.0
+    },
+    "montessori_tower": {
+      "fingerprint": "127c3663f9de1c2faf649bcdf7c20dbf4da458cd8cc04058ee86cd2ed835959b",
+      "sha256": "14264b2f910a507ea2c50a568234bebab48fa5a4b7be543ce5a894f2943b96c4",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Építs"
+        ],
+        [
+          0.56,
+          1.12,
+          "tornyot"
+        ],
+        [
+          1.6,
+          1.64,
+          "A"
+        ],
+        [
+          1.68,
+          2.16,
+          "legnagyobb"
+        ],
+        [
+          2.24,
+          2.56,
+          "korong"
+        ],
+        [
+          2.64,
+          3.12,
+          "kerüljön"
+        ],
+        [
+          3.2,
+          3.76,
+          "alulra"
+        ],
+        [
+          4.08,
+          4.32,
+          "aztán"
+        ],
+        [
+          4.4,
+          4.64,
+          "mindig"
+        ],
+        [
+          4.72,
+          4.76,
+          "a"
+        ],
+        [
+          4.8,
+          5.44,
+          "következő"
+        ],
+        [
+          5.56,
+          6.16,
+          "legnagyobb"
+        ],
+        [
+          6.56,
+          6.72,
+          "Tedd"
+        ],
+        [
+          6.8,
+          6.84,
+          "a"
+        ],
+        [
+          6.88,
+          7.28,
+          "korongot"
+        ],
+        [
+          7.36,
+          7.4,
+          "a"
+        ],
+        [
+          7.44,
+          8.0,
+          "toronyra"
+        ]
+      ],
+      "duration": 8.24,
+      "characterCost": 46.0
+    },
+    "montessori_color_retry": {
+      "fingerprint": "dec1b7c985467712ad856bebb8b9711ede30ba69fc261da3c2a5fa0d8bfefeff",
+      "sha256": "8d1bb2ecc2f093809db9aabc7a5a1531dde06b9e657c5a53231e71552c3cce4c",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Keress"
+        ],
+        [
+          0.36,
+          0.48,
+          "egy"
+        ],
+        [
+          0.56,
+          1.04,
+          "ugyanilyen"
+        ],
+        [
+          1.12,
+          1.44,
+          "színű"
+        ],
+        [
+          1.48,
+          2.16,
+          "tálkát"
+        ]
+      ],
+      "duration": 2.32,
+      "characterCost": 14.0
+    },
+    "montessori_tower_retry": {
+      "fingerprint": "3ffb4c7f1dab8bb4cd95bc0f7badb920eaa1b93e285872c771402c29e57a1f42",
+      "sha256": "64bb10d443115a55b536f0dc9db0c22bdbaa0d663a5ab8b9ba4b124ab5eaa7e4",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Előbb"
+        ],
+        [
+          0.36,
+          0.44,
+          "egy"
+        ],
+        [
+          0.48,
+          0.8,
+          "nagyobb"
+        ],
+        [
+          0.88,
+          1.12,
+          "korong"
+        ],
+        [
+          1.2,
+          1.92,
+          "következik"
+        ],
+        [
+          2.32,
+          2.56,
+          "Nézd"
+        ],
+        [
+          2.64,
+          2.72,
+          "meg"
+        ],
+        [
+          2.747,
+          2.773,
+          "a"
+        ],
+        [
+          2.8,
+          3.52,
+          "tálcát"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 22.0
+    },
+    "montessori_clear": {
+      "fingerprint": "dad8f5f3a579cfb9f9e32eafa838e16a94b01a2b6b6e3e1f948aeb93a868cdb7",
+      "sha256": "c316f32092f6a0d4e57093272d582f07ce77fa18811f186d1944705a8cb0e3c2",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Szabad"
+        ],
+        [
+          0.56,
+          0.64,
+          "az"
+        ],
+        [
+          0.8,
+          0.96,
+          "út"
+        ],
+        [
+          1.36,
+          1.6,
+          "Most"
+        ],
+        [
+          1.68,
+          1.84,
+          "már"
+        ],
+        [
+          1.92,
+          2.32,
+          "belefér"
+        ],
+        [
+          2.36,
+          2.4,
+          "a"
+        ],
+        [
+          2.48,
+          2.96,
+          "forma"
+        ]
+      ],
+      "duration": 3.12,
+      "characterCost": 16.0
+    },
+    "montessori_blocked": {
+      "fingerprint": "4a2b513b43d4325c3409fab5c7cedb9940f1e342804e9928470e36ae2be1480d",
+      "sha256": "c599fe4518d4143e8c16cc65f01cc72cc2439483739e53897478d8d0c608fbf2",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Ezt"
+        ],
+        [
+          0.345,
+          0.372,
+          "a"
+        ],
+        [
+          0.398,
+          0.665,
+          "lyukat"
+        ],
+        [
+          0.745,
+          0.905,
+          "még"
+        ],
+        [
+          0.985,
+          1.385,
+          "akadály"
+        ],
+        [
+          1.425,
+          2.025,
+          "takarja"
+        ],
+        [
+          2.425,
+          2.825,
+          "Csúsztasd"
+        ],
+        [
+          2.865,
+          3.145,
+          "félre"
+        ],
+        [
+          3.225,
+          3.305,
+          "az"
+        ],
+        [
+          3.385,
+          4.105,
+          "akadályt"
+        ]
+      ],
+      "duration": 4.104989,
+      "characterCost": 33.0
+    },
+    "montessori_shapes_done": {
+      "fingerprint": "ca00121321cdb67d38b5de4f3bda30489734ab20bbcb245fd5c2c1b8b1a0f291",
+      "sha256": "10911a19ac54327f82dd210dca179a117f64a7b50483ec5fe73e39ce4ae74a52",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Minden"
+        ],
+        [
+          0.48,
+          0.8,
+          "forma"
+        ],
+        [
+          0.88,
+          1.52,
+          "átpottyant"
+        ],
+        [
+          1.6,
+          1.64,
+          "a"
+        ],
+        [
+          1.68,
+          2.24,
+          "dobozba"
+        ]
+      ],
+      "duration": 2.64,
+      "characterCost": 14.0
+    },
+    "montessori_colors_done": {
+      "fingerprint": "b04396cc125515c23abcc2d4d03286f9ee6e497aa05eec3feac2c2b2f63192f7",
+      "sha256": "b037b44b02a915aec1afea413809f72efda698af1b92c3bac372951313d31e21",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Minden"
+        ],
+        [
+          0.48,
+          0.88,
+          "golyó"
+        ],
+        [
+          0.96,
+          1.04,
+          "a"
+        ],
+        [
+          1.12,
+          1.52,
+          "saját"
+        ],
+        [
+          1.56,
+          1.84,
+          "színű"
+        ],
+        [
+          1.88,
+          2.56,
+          "tálkájába"
+        ],
+        [
+          2.68,
+          3.12,
+          "került"
+        ]
+      ],
+      "duration": 3.28,
+      "characterCost": 18.0
+    },
+    "montessori_tower_done": {
+      "fingerprint": "fb0de01c380f8ce1b16cf4118ef1100b7c1fef0aa3236e9c8c34c4b3891d0d80",
+      "sha256": "8e4d3884cebac8c737ef14271c6c6b5b322130063698f92e32d44a4a2944ff63",
+      "words": [
+        [
+          0.0,
+          0.72,
+          "Elkészült"
+        ],
+        [
+          0.76,
+          0.8,
+          "a"
+        ],
+        [
+          0.88,
+          1.28,
+          "torony"
+        ],
+        [
+          1.76,
+          2.0,
+          "Nagy"
+        ],
+        [
+          2.08,
+          2.4,
+          "alul"
+        ],
+        [
+          2.64,
+          2.96,
+          "kicsi"
+        ],
+        [
+          3.08,
+          3.52,
+          "felül"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 17.0
     }
   }
 }

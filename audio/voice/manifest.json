@@ -83,18 +83,18 @@
     },
     {
       "id": "guide_menu_activity",
-      "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!",
+      "text": "Keress képpárokat, rakj össze egy képet, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!",
       "group": "guide",
       "file": "audio/voice/guide_menu_activity.mp3",
-      "spokenText": "Mondjuk együtt: Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, vagy tölts a barátainknak! Válassz egy játékot!",
+      "spokenText": "Mondjuk együtt: Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!",
       "extract": {
         "from": 16,
-        "to": 116,
+        "to": 149,
         "before": 0.025,
         "after": 0.15,
-        "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!"
+        "text": "Keress képpárokat, rakj össze egy képet, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!"
       },
-      "spokenTarget": "Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, vagy tölts a barátainknak! Válassz egy játékot!"
+      "spokenTarget": "Keress /ˈkeːpːaːrokɒt/, /ˈrɒkj/ össze egy /ˈkeːpɛt/, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!"
     },
     {
       "id": "guide_dress",
@@ -1097,6 +1097,105 @@
       "text": "Elkészült a kép! Szép munka!",
       "group": "puzzle",
       "file": "audio/voice/puzzle_done.mp3"
+    },
+    {
+      "id": "montessori_menu",
+      "text": "Fedezzük fel a kis műhelyt! Válassz formadobozt, színtálcákat vagy tornyot!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_menu.mp3"
+    },
+    {
+      "id": "montessori_shapes_1",
+      "text": "Tedd a formát a hozzá illő lyukba! Húzd oda, vagy koppints a formára, majd a lyukra!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shapes_1.mp3"
+    },
+    {
+      "id": "montessori_shapes_2",
+      "text": "Melyik forma illik ebbe a lyukba? Válaszd ki, és tedd bele!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shapes_2.mp3"
+    },
+    {
+      "id": "montessori_shapes_3",
+      "text": "Minden formának saját helye van. Tedd a formákat a hozzájuk illő lyukakba!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shapes_3.mp3"
+    },
+    {
+      "id": "montessori_shapes_4",
+      "text": "Csúsztasd félre az akadályokat, hogy szabaddá váljanak a lyukak! Az akadályra koppinthatsz is. Aztán tedd a formákat a helyükre!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shapes_4.mp3"
+    },
+    {
+      "id": "montessori_colors",
+      "text": "Tedd a golyókat az azonos színű tálkákba! Húzd oda, vagy koppints a golyóra, majd a tálkára!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_colors.mp3"
+    },
+    {
+      "id": "montessori_tower",
+      "text": "Építs tornyot! A legnagyobb korong kerüljön alulra, aztán mindig a következő legnagyobb. Tedd a korongot a toronyra!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_tower.mp3"
+    },
+    {
+      "id": "montessori_shape_retry",
+      "text": "Nézd meg a forma körvonalát! Keress egy hozzá illő lyukat!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shape_retry.mp3"
+    },
+    {
+      "id": "montessori_color_retry",
+      "text": "Keress egy ugyanilyen színű tálkát!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_color_retry.mp3"
+    },
+    {
+      "id": "montessori_tower_retry",
+      "text": "Előbb egy nagyobb korong következik. Nézd meg a tálcát!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_tower_retry.mp3"
+    },
+    {
+      "id": "montessori_blocked",
+      "text": "Ezt a lyukat még akadály takarja. Csúsztasd félre az akadályt!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_blocked.mp3",
+      "spokenText": "Mondjuk együtt: Ezt a lyukat /ˈmeːɡ/ akadály takarja. Csúsztasd félre az akadályt!",
+      "extract": {
+        "from": 16,
+        "to": 82,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ezt a lyukat még akadály takarja. Csúsztasd félre az akadályt!"
+      },
+      "spokenTarget": "Ezt a lyukat /ˈmeːɡ/ akadály takarja. Csúsztasd félre az akadályt!"
+    },
+    {
+      "id": "montessori_clear",
+      "text": "Szabad az út! Most már belefér a forma.",
+      "group": "montessori",
+      "file": "audio/voice/montessori_clear.mp3"
+    },
+    {
+      "id": "montessori_shapes_done",
+      "text": "Minden forma átpottyant a dobozba!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shapes_done.mp3"
+    },
+    {
+      "id": "montessori_colors_done",
+      "text": "Minden golyó a saját színű tálkájába került!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_colors_done.mp3"
+    },
+    {
+      "id": "montessori_tower_done",
+      "text": "Elkészült a torony! Nagy alul, kicsi felül.",
+      "group": "montessori",
+      "file": "audio/voice/montessori_tower_done.mp3"
     },
     {
       "id": "chess_start",

@@ -29,7 +29,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/guide_menu_stories.mp3"
   },
   "guide_menu_activity": {
-    "text": "Keress képpárokat, rakj össze egy képet, vagy tölts a barátainknak! Válassz egy játékot!",
+    "text": "Keress képpárokat, rakj össze egy képet, fedezd fel a Montessori műhelyt, vagy tölts a barátainknak! Válassz egy játékot!",
     "file": "audio/voice/guide_menu_activity.mp3"
   },
   "guide_dress": {
@@ -503,6 +503,66 @@ export const VOICE_CLIPS = {
   "puzzle_done": {
     "text": "Elkészült a kép! Szép munka!",
     "file": "audio/voice/puzzle_done.mp3"
+  },
+  "montessori_menu": {
+    "text": "Fedezzük fel a kis műhelyt! Válassz formadobozt, színtálcákat vagy tornyot!",
+    "file": "audio/voice/montessori_menu.mp3"
+  },
+  "montessori_shapes_1": {
+    "text": "Tedd a formát a hozzá illő lyukba! Húzd oda, vagy koppints a formára, majd a lyukra!",
+    "file": "audio/voice/montessori_shapes_1.mp3"
+  },
+  "montessori_shapes_2": {
+    "text": "Melyik forma illik ebbe a lyukba? Válaszd ki, és tedd bele!",
+    "file": "audio/voice/montessori_shapes_2.mp3"
+  },
+  "montessori_shapes_3": {
+    "text": "Minden formának saját helye van. Tedd a formákat a hozzájuk illő lyukakba!",
+    "file": "audio/voice/montessori_shapes_3.mp3"
+  },
+  "montessori_shapes_4": {
+    "text": "Csúsztasd félre az akadályokat, hogy szabaddá váljanak a lyukak! Az akadályra koppinthatsz is. Aztán tedd a formákat a helyükre!",
+    "file": "audio/voice/montessori_shapes_4.mp3"
+  },
+  "montessori_colors": {
+    "text": "Tedd a golyókat az azonos színű tálkákba! Húzd oda, vagy koppints a golyóra, majd a tálkára!",
+    "file": "audio/voice/montessori_colors.mp3"
+  },
+  "montessori_tower": {
+    "text": "Építs tornyot! A legnagyobb korong kerüljön alulra, aztán mindig a következő legnagyobb. Tedd a korongot a toronyra!",
+    "file": "audio/voice/montessori_tower.mp3"
+  },
+  "montessori_shape_retry": {
+    "text": "Nézd meg a forma körvonalát! Keress egy hozzá illő lyukat!",
+    "file": "audio/voice/montessori_shape_retry.mp3"
+  },
+  "montessori_color_retry": {
+    "text": "Keress egy ugyanilyen színű tálkát!",
+    "file": "audio/voice/montessori_color_retry.mp3"
+  },
+  "montessori_tower_retry": {
+    "text": "Előbb egy nagyobb korong következik. Nézd meg a tálcát!",
+    "file": "audio/voice/montessori_tower_retry.mp3"
+  },
+  "montessori_blocked": {
+    "text": "Ezt a lyukat még akadály takarja. Csúsztasd félre az akadályt!",
+    "file": "audio/voice/montessori_blocked.mp3"
+  },
+  "montessori_clear": {
+    "text": "Szabad az út! Most már belefér a forma.",
+    "file": "audio/voice/montessori_clear.mp3"
+  },
+  "montessori_shapes_done": {
+    "text": "Minden forma átpottyant a dobozba!",
+    "file": "audio/voice/montessori_shapes_done.mp3"
+  },
+  "montessori_colors_done": {
+    "text": "Minden golyó a saját színű tálkájába került!",
+    "file": "audio/voice/montessori_colors_done.mp3"
+  },
+  "montessori_tower_done": {
+    "text": "Elkészült a torony! Nagy alul, kicsi felül.",
+    "file": "audio/voice/montessori_tower_done.mp3"
   },
   "chess_start": {
     "text": "Ismerkedjünk a sakkfigurákkal! Válassz egy figurát. Koppints rá, aztán egy pöttyös mezőre!",

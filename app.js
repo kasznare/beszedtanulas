@@ -20,6 +20,8 @@ import { setupMemoryGame } from "./memory-game.js";
 import { setupPuzzleGame } from "./puzzle-game.js";
 import { setupChessGame } from "./chess-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
+import { setupMontessoriGame } from "./montessori-game.js";
+import { normalizeMontessoriOptions } from "./montessori-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
 import { setupAudiobooks } from "./audiobook-game.js";
@@ -54,7 +56,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions() };
 const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
@@ -63,8 +65,8 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'chess', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
-const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', 'r-practice': '[data-action="hub"]' };
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let flipRoundToken = 0;
 let flipRoundComplete = false;
@@ -79,6 +81,7 @@ const screenInfo = {
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
   puzzle: { title: "Képkirakó" },
+  montessori: { title: "Montessori műhely" },
   chess: { title: "Sakkliget" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
@@ -126,6 +129,7 @@ let meadowGame;
 let logicGame;
 let memoryGame;
 let puzzleGame;
+let montessoriGame;
 let chessGame;
 let workshopGame;
 let animalBook;
@@ -421,6 +425,12 @@ chessGame = setupChessGame({
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound("chess", count);
   },
+});
+montessoriGame = setupMontessoriGame({
+  getOptions: () => state.settings,
+  setOptions: options => { Object.assign(state.settings, normalizeMontessoriOptions(options)); saveProgress(); },
+  speak: (id, force) => { if (force || state.settings.spokenGuidance) return speakVoice(id); }, stopPlayback,
+  onComplete: () => { state.rewards += 1; saveProgress(); refreshStats(); },
 });
 workshopGame = setupWorkshop({
   getProgress: () => state.workshop, getOptions: () => state.settings,
@@ -1266,6 +1276,7 @@ function normalizeState(input) {
       listeningChoices: input.settings?.listeningChoices === 3 ? 3 : 2,
       memoryPairs: [2, 3, 4, 6].includes(input.settings?.memoryPairs) ? input.settings.memoryPairs : 3,
       ...normalizePuzzleOptions(input.settings),
+      ...normalizeMontessoriOptions(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
@@ -2139,6 +2150,7 @@ function setupNavigation() {
     else if (currentScreen === "memory") memoryGame.repeat();
     else if (currentScreen === "pour") pourGame.repeat();
     else if (currentScreen === "puzzle") puzzleGame.repeat();
+    else if (currentScreen === "montessori") montessoriGame.repeat();
     else if (currentScreen === "chess") chessGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
@@ -2222,6 +2234,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   logicGame?.stop();
   memoryGame?.stop();
   puzzleGame?.stop();
+  montessoriGame?.stop();
   chessGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
@@ -2263,6 +2276,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "furfangliget") logicGame.start();
   if (screen === "memory") memoryGame.start();
   if (screen === "puzzle") puzzleGame.start();
+  if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
   if (screen === "workshop") workshopGame.start();
   if (screen === "animal-book") animalBook.start();
