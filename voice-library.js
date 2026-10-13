@@ -513,15 +513,15 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/montessori_shapes_1.mp3"
   },
   "montessori_shapes_2": {
-    "text": "Melyik forma illik ebbe a lyukba? Válaszd ki, és tedd bele!",
+    "text": "Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!",
     "file": "audio/voice/montessori_shapes_2.mp3"
   },
   "montessori_shapes_3": {
-    "text": "Minden formának saját helye van. Tedd a formákat a hozzájuk illő lyukakba!",
+    "text": "A szín és a forma is egyezzen! Tedd a formákat a hozzájuk illő, színes keretű lyukakba!",
     "file": "audio/voice/montessori_shapes_3.mp3"
   },
   "montessori_shapes_4": {
-    "text": "Csúsztasd félre az akadályokat, hogy szabaddá váljanak a lyukak! Az akadályra koppinthatsz is. Aztán tedd a formákat a helyükre!",
+    "text": "Csúsztasd félre az akadályokat a deszkán! Az akadályra koppinthatsz is. Aztán tedd a formákat az ugyanolyan színű kerettel jelölt, hozzájuk illő lyukakba!",
     "file": "audio/voice/montessori_shapes_4.mp3"
   },
   "montessori_colors": {
@@ -533,7 +533,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/montessori_tower.mp3"
   },
   "montessori_shape_retry": {
-    "text": "Nézd meg a forma körvonalát! Keress egy hozzá illő lyukat!",
+    "text": "Nézd meg az alakját és a színét is! Keress egy ugyanilyen színű kerettel jelölt, hozzá illő lyukat!",
     "file": "audio/voice/montessori_shape_retry.mp3"
   },
   "montessori_color_retry": {

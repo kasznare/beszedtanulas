@@ -1,5 +1,5 @@
 export const MONTESSORI_GAMES = {
-  shapes: { name: 'Formadoboz', description: 'Találd meg a formák helyét!', levels: ['Egy forma', 'Melyik illik ide?', 'Minden forma', 'Csúszó akadályok'] },
+  shapes: { name: 'Formadoboz', description: 'Párosítsd a színt és a formát!', levels: ['Egy forma', 'Szín és forma', 'Minden forma', 'Csúszó akadályok'] },
   colors: { name: 'Színtálcák', description: 'Gyűjtsd össze az azonos színeket!', levels: ['Két szín', 'Három szín', 'Négy szín'] },
   tower: { name: 'Építs tornyot!', description: 'Nagy alul, kicsi felül.', levels: ['Három korong', 'Négy korong', 'Öt korong'] },
 };
@@ -13,12 +13,12 @@ export const MONTESSORI_COLORS = [
 export const MONTESSORI_CLIPS = {
   montessori_menu: 'Fedezzük fel a kis műhelyt! Válassz formadobozt, színtálcákat vagy tornyot!',
   montessori_shapes_1: 'Tedd a formát a hozzá illő lyukba! Húzd oda, vagy koppints a formára, majd a lyukra!',
-  montessori_shapes_2: 'Melyik forma illik ebbe a lyukba? Válaszd ki, és tedd bele!',
-  montessori_shapes_3: 'Minden formának saját helye van. Tedd a formákat a hozzájuk illő lyukakba!',
-  montessori_shapes_4: 'Csúsztasd félre az akadályokat, hogy szabaddá váljanak a lyukak! Az akadályra koppinthatsz is. Aztán tedd a formákat a helyükre!',
+  montessori_shapes_2: 'Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!',
+  montessori_shapes_3: 'A szín és a forma is egyezzen! Tedd a formákat a hozzájuk illő, színes keretű lyukakba!',
+  montessori_shapes_4: 'Csúsztasd félre az akadályokat a deszkán! Az akadályra koppinthatsz is. Aztán tedd a formákat az ugyanolyan színű kerettel jelölt, hozzájuk illő lyukakba!',
   montessori_colors: 'Tedd a golyókat az azonos színű tálkákba! Húzd oda, vagy koppints a golyóra, majd a tálkára!',
   montessori_tower: 'Építs tornyot! A legnagyobb korong kerüljön alulra, aztán mindig a következő legnagyobb. Tedd a korongot a toronyra!',
-  montessori_shape_retry: 'Nézd meg a forma körvonalát! Keress egy hozzá illő lyukat!',
+  montessori_shape_retry: 'Nézd meg az alakját és a színét is! Keress egy ugyanilyen színű kerettel jelölt, hozzá illő lyukat!',
   montessori_color_retry: 'Keress egy ugyanilyen színű tálkát!',
   montessori_tower_retry: 'Előbb egy nagyobb korong következik. Nézd meg a tálcát!',
   montessori_blocked: 'Ezt a lyukat még akadály takarja. Csúsztasd félre az akadályt!',
@@ -52,9 +52,13 @@ export function newMontessoriRound(kind = 'shapes', level = 1, random = Math.ran
   let pieces, targets;
   if (kind === 'shapes') {
     const shapes = shuffled(Object.keys(MONTESSORI_SHAPES), random);
-    const count = level === 1 ? 1 : level === 4 ? 4 : 3;
-    pieces = shapes.slice(0, count).map(shape => ({ id: shape, shape }));
-    targets = (level <= 2 ? pieces.slice(0, 1) : shuffled(pieces, random)).map(piece => ({ id: piece.id, shape: piece.shape }));
+    const colors = shuffled(MONTESSORI_COLORS.map(color => color.id), random);
+    const combinations = [[shapes[0], colors[0]]];
+    // Repeated shapes and colors make both properties necessary to solve.
+    if (level >= 2) combinations.push([shapes[0], colors[1]], [shapes[1], colors[0]]);
+    if (level === 4) combinations.push([shapes[2], colors[2]]);
+    pieces = combinations.map(([shape, color]) => ({ id: `${shape}-${color}`, shape, color }));
+    targets = (level <= 2 ? pieces.slice(0, 1) : shuffled(pieces, random)).map(piece => ({ ...piece }));
   } else if (kind === 'colors') {
     targets = MONTESSORI_COLORS.slice(0, level + 1).map(color => ({ id: color.id, color: color.id }));
     pieces = targets.flatMap(target => [0, 1].map(i => ({ id: `${target.id}-${i}`, color: target.color })));
@@ -69,8 +73,18 @@ export function newMontessoriRound(kind = 'shapes', level = 1, random = Math.ran
 export function montessoriComplete(round) { return round.placements.length === round.total; }
 
 export function clearMontessoriBlocker(round, targetId) {
-  if (!round.blockers.includes(targetId) || round.cleared.includes(targetId)) return round;
-  return { ...round, cleared: [...round.cleared, targetId] };
+  return setMontessoriBlocker(round, targetId, true);
+}
+
+export function setMontessoriBlocker(round, targetId, cleared) {
+  if (!round.blockers.includes(targetId) || round.cleared.includes(targetId) === cleared) return round;
+  return { ...round, cleared: cleared ? [...round.cleared, targetId] : round.cleared.filter(id => id !== targetId) };
+}
+
+export function montessoriBoardLayout(round) {
+  const pieces = round.pieces.length === 1 ? [[25, 48]] : [[18, 23], [50, 17], [82, 26], [52, 41]];
+  const targets = round.targets.length === 1 ? [[round.pieces.length === 1 ? 74 : 50, round.pieces.length === 1 ? 50 : 74]] : round.targets.length === 3 ? [[20, 64], [50, 82], [80, 63]] : [[20, 62], [80, 62], [20, 84], [80, 84]];
+  return { pieces: Object.fromEntries(round.pieces.map((piece, i) => [piece.id, pieces[i]])), targets: Object.fromEntries(round.targets.map((target, i) => [target.id, targets[i]])) };
 }
 
 export function placeMontessoriPiece(round, pieceId, targetId) {
@@ -79,7 +93,7 @@ export function placeMontessoriPiece(round, pieceId, targetId) {
   if (!piece || !target || montessoriComplete(round) || round.placements.some(item => item.piece === pieceId)) return { accepted: false, reason: 'invalid', round };
   if (round.blockers.includes(targetId) && !round.cleared.includes(targetId)) return { accepted: false, reason: 'blocked', round };
   let fits;
-  if (round.kind === 'shapes') fits = piece.shape === target.shape && !round.placements.some(item => item.target === targetId);
+  if (round.kind === 'shapes') fits = piece.shape === target.shape && piece.color === target.color && !round.placements.some(item => item.target === targetId);
   else if (round.kind === 'colors') fits = piece.color === target.color;
   else fits = piece.size === Math.max(...round.pieces.filter(item => !round.placements.some(placement => placement.piece === item.id)).map(item => item.size));
   if (!fits) return { accepted: false, reason: 'mismatch', round };

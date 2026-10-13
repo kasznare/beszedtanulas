@@ -1,4 +1,4 @@
-import { MONTESSORI_GAMES, MONTESSORI_SHAPES, MONTESSORI_COLORS, normalizeMontessoriOptions, newMontessoriRound, placeMontessoriPiece, clearMontessoriBlocker, montessoriComplete } from './montessori-data.js';
+import { MONTESSORI_GAMES, MONTESSORI_SHAPES, MONTESSORI_COLORS, normalizeMontessoriOptions, newMontessoriRound, placeMontessoriPiece, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete } from './montessori-data.js';
 
 const shapePaths = {
   circle: '<circle cx="50" cy="50" r="38"/>',
@@ -8,9 +8,9 @@ const shapePaths = {
 };
 const holeClips = { circle: 'circle(38%)', square: 'inset(14% round 7%)', triangle: 'polygon(50% 9%, 93% 85%, 7% 85%)', hexagon: 'polygon(28% 12%, 72% 12%, 94% 50%, 72% 88%, 28% 88%, 6% 50%)' };
 const colorOf = id => MONTESSORI_COLORS.find(color => color.id === id);
-const shapeArt = (shape, hole = false) => `<svg class="mo-shape-art ${hole ? 'mo-hole-art' : ''}" viewBox="0 0 100 100" aria-hidden="true" fill="${hole ? '#624b36' : '#c97b60'}" stroke="${hole ? '#ad8053' : '#a45e48'}" stroke-width="4">${shapePaths[shape]}</svg>`;
-const pieceName = (piece, kind) => kind === 'shapes' ? MONTESSORI_SHAPES[piece.shape] : kind === 'colors' ? `${colorOf(piece.color).name.toLowerCase()} golyó` : `${piece.size}. méretű korong`;
-const pieceArt = (piece, kind) => kind === 'shapes' ? shapeArt(piece.shape) : kind === 'colors' ? `<span class="mo-ball" style="--mo-color:${colorOf(piece.color).hex}" aria-hidden="true"></span>` : `<span class="mo-disc" style="--mo-size:${piece.size}" aria-hidden="true"></span>`;
+const shapeArt = (shape, hole = false, color = 'coral') => `<svg class="mo-shape-art ${hole ? 'mo-hole-art' : ''}" viewBox="0 0 100 100" aria-hidden="true" fill="${hole ? '#624b36' : colorOf(color).hex}" stroke="${hole ? colorOf(color).hex : '#00000026'}" stroke-width="${hole ? 8 : 4}">${shapePaths[shape]}</svg>`;
+const pieceName = (piece, kind) => kind === 'shapes' ? `${colorOf(piece.color).name.toLowerCase()} ${MONTESSORI_SHAPES[piece.shape]}` : kind === 'colors' ? `${colorOf(piece.color).name.toLowerCase()} golyó` : `${piece.size}. méretű korong`;
+const pieceArt = (piece, kind) => kind === 'shapes' ? shapeArt(piece.shape, false, piece.color) : kind === 'colors' ? `<span class="mo-ball" style="--mo-color:${colorOf(piece.color).hex}" aria-hidden="true"></span>` : `<span class="mo-disc" style="--mo-size:${piece.size}" aria-hidden="true"></span>`;
 
 export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlayback, onComplete }) {
   const root = document.querySelector('#montessori');
@@ -22,14 +22,14 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
   const setStatus = message => { if ($('#mo-status')) $('#mo-status').textContent = message; };
   const focus = selector => $(selector)?.focus({ preventScroll: true });
   const levelKey = game => `montessori${game[0].toUpperCase()}${game.slice(1)}Level`;
-  const instructions = () => kind === 'shapes' ? round.level === 4 ? 'Csúsztasd félre az akadályokat, aztán pottyantsd be a formákat!' : round.level === 2 ? 'Melyik forma illik a lyukba?' : 'Pottyantsd a formákat a hozzájuk illő lyukakba!' : kind === 'colors' ? 'Minden golyót az ugyanolyan színű tálkába!' : 'A legnagyobbal kezdj, aztán egyre kisebb korongokat tegyél rá!';
+  const instructions = () => kind === 'shapes' ? round.level === 4 ? 'Told félre az akadályokat! A forma és a keret színe is egyezzen.' : round.level === 1 ? 'Húzd a formát a színes keretű lyukba!' : 'A forma alakja és a lyuk keretének színe is egyezzen!' : kind === 'colors' ? 'Minden golyót az ugyanolyan színű tálkába!' : 'A legnagyobbal kezdj, aztán egyre kisebb korongokat tegyél rá!';
 
   function cleanupDrag() {
     if (!drag) return;
     const previous = drag; drag = null;
     previous.ghost?.remove(); previous.button?.classList.remove('is-dragging');
     root.querySelectorAll('.is-drop-target').forEach(element => element.classList.remove('is-drop-target'));
-    if (previous.type === 'blocker' && !round.cleared.includes(previous.id)) previous.button.style.setProperty('--mo-slide', '0');
+    if (previous.type === 'blocker') previous.button.style.setProperty('--mo-slide', round.cleared.includes(previous.id) ? '1' : '0');
     if (root.hasPointerCapture(previous.pointerId)) root.releasePointerCapture(previous.pointerId);
   }
   function cleanupAnimation() {
@@ -66,16 +66,18 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
       <div class="mo-heading"><span class="mo-eyebrow">${kind === 'shapes' ? 'FORMÁK ÉS HELYEK' : kind === 'colors' ? 'AZONOS SZÍNEK' : 'NAGYTÓL KICSIIG'}</span><h2 tabindex="-1">${info.name}</h2><p id="mo-instructions">${instructions()}</p></div>
       <div class="mo-levels" role="group" aria-label="${info.name} nehézsége">${info.levels.map((name, i) => `<button data-mo-level="${i + 1}" aria-pressed="${round.level === i + 1}"><span>${i + 1}</span>${name}</button>`).join('')}</div>
       <div class="mo-workspace">${kind === 'shapes' ? shapeBoard() : kind === 'colors' ? colorBoard() : towerBoard()}
-        <div class="mo-tray-wrap"><p class="mo-tray-label">${done ? kind === 'shapes' && round.level === 2 ? 'Ezek más formájú lyukba illenének.' : 'Minden a helyére került.' : 'Válassz egyet, majd koppints a helyére — vagy húzd oda!'}</p><div class="mo-tray" role="group" aria-label="Mozgatható ${kind === 'shapes' ? 'formák' : kind === 'colors' ? 'golyók' : 'korongok'}">${remaining.map(piece => `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" aria-label="${pieceName(piece, kind)}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, kind)}</button>`).join('')}${!remaining.length ? '<span class="mo-empty-tray" aria-hidden="true">✧</span>' : ''}</div></div>
+        ${kind === 'shapes' ? '' : `<div class="mo-tray-wrap"><p class="mo-tray-label">${done ? 'Minden a helyére került.' : 'Válassz egyet, majd koppints a helyére — vagy húzd oda!'}</p><div class="mo-tray" role="group" aria-label="Mozgatható ${kind === 'colors' ? 'golyók' : 'korongok'}">${remaining.map(piece => `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" aria-label="${pieceName(piece, kind)}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, kind)}</button>`).join('')}${!remaining.length ? '<span class="mo-empty-tray" aria-hidden="true">✧</span>' : ''}</div></div>`}
       </div><p id="mo-status" class="mo-status ${done ? 'is-done' : ''}" role="status" aria-live="polite">${message || (done ? { shapes: 'Minden forma átpottyant!', colors: 'Minden szín a helyén!', tower: 'Elkészült a tornyod!' }[kind] : 'Itt minden mozdulatot kipróbálhatsz.')}</p>
       <div class="mo-actions"><button id="mo-undo" class="mo-soft-button" ${history.length ? '' : 'disabled'}>↶ Visszavonom</button><button id="mo-restart" class="mo-soft-button">↻ Új játék</button>${done && round.level < info.levels.length ? '<button id="mo-next" class="mo-next">Következő szint →</button>' : ''}</div>`;
     if (focusSelector) focus(focusSelector);
   }
   function shapeBoard() {
-    return `<div class="mo-box ${round.targets.length === 1 ? 'mo-box-single' : ''}" aria-label="Fa formadoboz"><div class="mo-box-lid"><div class="mo-holes">${round.targets.map(target => {
+    const layout = montessoriBoardLayout(round), done = montessoriComplete(round);
+    const position = ([x, y]) => `--mo-x:${x}%;--mo-y:${y}%;`;
+    return `<div class="mo-box mo-surface-box" aria-label="Fa formadoboz"><div class="mo-box-lid"><div class="mo-shape-surface" data-mo-surface><div class="mo-holes" role="group" aria-label="Színes keretű lyukak">${round.targets.map(target => {
       const placed = round.placements.some(placement => placement.target === target.id), blocked = round.blockers.includes(target.id), cleared = round.cleared.includes(target.id);
-      return `<div class="mo-hole-cell"><button class="mo-hole ${placed ? 'is-placed' : ''}" data-mo-target="${target.id}" aria-label="${MONTESSORI_SHAPES[target.shape]} alakú lyuk${placed ? ', kész' : blocked && !cleared ? ', akadály takarja' : ''}" aria-describedby="mo-instructions" ${placed ? 'disabled' : ''}>${shapeArt(target.shape, true)}${placed ? '<span class="mo-hole-check" aria-hidden="true">✓</span>' : ''}</button>${blocked ? `<button class="mo-blocker ${cleared ? 'is-cleared' : ''}" data-mo-blocker="${target.id}" style="--mo-slide:${cleared ? 1 : 0}" aria-label="Akadály a ${MONTESSORI_SHAPES[target.shape]} előtt. Húzd jobbra, vagy koppints rá!" ${cleared || montessoriComplete(round) ? 'disabled' : ''}><span aria-hidden="true">⋮⋮ <b>→</b></span></button>` : ''}</div>`;
-    }).join('')}</div></div><div class="mo-box-front"><span class="mo-box-label">FORMADOBOZ</span><div class="mo-box-window" aria-label="A bedobott formák">${round.placements.map(placement => `<span>${shapeArt(round.pieces.find(piece => piece.id === placement.piece).shape)}</span>`).join('')}</div></div></div>`;
+      return `<div class="mo-hole-cell" style="${position(layout.targets[target.id])}"><button class="mo-hole ${placed ? 'is-placed' : ''}" data-mo-target="${target.id}" data-mo-shape="${target.shape}" data-mo-color="${target.color}" aria-label="${colorOf(target.color).name} keretű ${MONTESSORI_SHAPES[target.shape]} alakú lyuk${placed ? ', kész' : blocked && !cleared ? ', akadály takarja' : ''}" aria-describedby="mo-instructions" ${placed ? 'disabled' : ''}>${shapeArt(target.shape, true, target.color)}${placed ? '<span class="mo-hole-check" aria-hidden="true">✓</span>' : ''}</button>${blocked ? `<button class="mo-blocker ${cleared ? 'is-cleared' : ''}" data-mo-blocker="${target.id}" style="--mo-slide:${cleared ? 1 : 0}" aria-pressed="${cleared}" aria-label="Akadály a ${pieceName(target, 'shapes')} lyukánál. ${cleared ? 'Húzd balra, vagy koppints a visszatolásához!' : 'Húzd jobbra, vagy koppints a félretolásához!'}" ${done ? 'disabled' : ''}><span aria-hidden="true">⋮⋮ <b>${cleared ? '←' : '→'}</b></span></button>` : ''}</div>`;
+    }).join('')}</div><div class="mo-board-pieces" role="group" aria-label="A deszkán fekvő, mozgatható formák">${round.pieces.filter(piece => !round.placements.some(placement => placement.piece === piece.id)).map(piece => `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" data-mo-shape="${piece.shape}" data-mo-color="${piece.color}" style="${position(layout.pieces[piece.id])}" aria-label="${pieceName(piece, 'shapes')}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, 'shapes')}</button>`).join('')}</div></div></div><div class="mo-box-front"><span class="mo-box-label">FORMADOBOZ</span><div class="mo-box-window" aria-label="A bedobott formák">${round.placements.map(placement => `<span>${pieceArt(round.pieces.find(piece => piece.id === placement.piece), 'shapes')}</span>`).join('')}</div></div></div>`;
   }
   function colorBoard() {
     return `<div class="mo-color-board" role="group" aria-label="Színes tálkák">${round.targets.map(target => {
@@ -98,12 +100,12 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     selected = selected === id ? null : id; syncSelection();
     setStatus(selected ? 'Hová illik? Koppints a helyére!' : 'Válassz egy elemet a tálcáról!');
   }
-  function clearBlocker(id) {
+  function moveBlocker(id, cleared = !round.cleared.includes(id)) {
     if (!playable()) return;
-    const next = clearMontessoriBlocker(round, id);
+    const next = setMontessoriBlocker(round, id, cleared);
     if (next === round) return;
     history.push(round); round = next;
-    render('[data-mo-piece]', 'Szabad a lyuk! Most már beleteheted a formát.'); syncSelection(); say('montessori_clear');
+    render(`[data-mo-blocker="${id}"]`, cleared ? 'Szabad a lyuk! Az akadály mellette maradt a deszkán.' : 'Visszatoltuk az akadályt a lyuk elé.'); syncSelection(); if (cleared) say('montessori_clear');
   }
   function place(targetId) {
     if (!playable()) return;
@@ -112,7 +114,7 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     if (!result.accepted) {
       if (result.reason === 'invalid') return;
       const blocked = result.reason === 'blocked';
-      const text = blocked ? 'Előbb csúsztasd félre az akadályt!' : kind === 'shapes' ? 'Nézd a körvonalát! Ez a forma másik lyukba illik.' : kind === 'colors' ? 'Keress ugyanilyen színű tálkát!' : 'Előbb a legnagyobb megmaradt korong következik.';
+      const text = blocked ? 'Előbb csúsztasd félre az akadályt!' : kind === 'shapes' ? 'A forma és a keret színe is egyezzen! Nézd meg mindkettőt.' : kind === 'colors' ? 'Keress ugyanilyen színű tálkát!' : 'Előbb a legnagyobb megmaradt korong következik.';
       setStatus(text); say(blocked ? 'montessori_blocked' : { shapes: 'montessori_shape_retry', colors: 'montessori_color_retry', tower: 'montessori_tower_retry' }[kind]);
       const target = $(`[data-mo-target="${targetId}"]`); target?.classList.remove('is-retry'); if (target) { void target.offsetWidth; target.classList.add('is-retry'); }
       return;
@@ -137,6 +139,7 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     const art = button.firstElementChild.getBoundingClientRect();
     floating = document.createElement('div'); floating.className = 'mo-flying-piece'; floating.setAttribute('aria-hidden', 'true');
     floating.innerHTML = button.innerHTML;
+    floating.firstElementChild.style.width = `${art.width}px`; floating.firstElementChild.style.height = `${art.height}px`;
     floating.style.cssText = `left:${from.left + from.width / 2 - art.width / 2}px;top:${from.top + from.height / 2 - art.height / 2}px;width:${art.width}px;height:${art.height}px;`;
     document.body.appendChild(floating); button.classList.add('is-dragging');
     const dx = to.left + to.width / 2 - (from.left + from.width / 2), dy = to.top + to.height / 2 - (from.top + from.height / 2);
@@ -148,7 +151,7 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
       const chute = document.createElement('span'); chute.className = 'mo-drop-chute'; chute.setAttribute('aria-hidden', 'true'); chute.appendChild(floating); target.appendChild(chute);
       if (kind === 'shapes') {
         const hole = target.querySelector('svg').getBoundingClientRect();
-        chute.style.cssText = `left:${hole.left - to.left}px;top:${hole.top - to.top}px;width:${hole.width}px;height:${hole.height}px;clip-path:${holeClips[target.dataset.moTarget]};`;
+        chute.style.cssText = `left:${hole.left - to.left}px;top:${hole.top - to.top}px;width:${hole.width}px;height:${hole.height}px;clip-path:${holeClips[target.dataset.moShape]};`;
       }
       animations.push(floating.animate(kind === 'shapes' ? [{ transform: 'translateY(0) scale(.95)', opacity: 1 }, { transform: 'translateY(28px) scale(.8)', opacity: 1, offset: .45 }, { transform: 'translateY(95px) scale(.5)', opacity: 0 }] : [{ transform: 'translateY(-20px) scale(.95)', opacity: 1 }, { transform: 'translateY(12px) scale(.85)', opacity: 1 }, { transform: 'translateY(8px) scale(.85)', opacity: 1 }], { duration: 420, easing: 'ease-in', fill: 'forwards' }));
       timer = setTimeout(finish, 440);
@@ -160,7 +163,8 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     if (!button || button.disabled || !playable() || !event.isPrimary || event.button !== 0) return;
     cleanupDrag();
     const blocker = button.dataset.moBlocker;
-    drag = { type: blocker ? 'blocker' : 'piece', id: blocker || button.dataset.moPiece, button, pointerId: event.pointerId, x: event.clientX, y: event.clientY, moved: false, slide: 0 };
+    const initialSlide = blocker && round.cleared.includes(blocker) ? 1 : 0;
+    drag = { type: blocker ? 'blocker' : 'piece', id: blocker || button.dataset.moPiece, button, pointerId: event.pointerId, x: event.clientX, y: event.clientY, moved: false, slide: initialSlide, initialSlide };
     root.setPointerCapture(event.pointerId);
   });
   root.addEventListener('pointermove', event => {
@@ -169,13 +173,15 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     drag.moved = true; event.preventDefault();
     if (drag.type === 'blocker') {
       const distance = drag.button.offsetWidth + 8;
-      drag.slide = Math.max(0, Math.min(1, (event.clientX - drag.x) / distance));
+      drag.slide = Math.max(0, Math.min(1, drag.initialSlide + (event.clientX - drag.x) / distance));
       drag.button.style.setProperty('--mo-slide', String(drag.slide)); return;
     }
     if (!drag.ghost) {
       selected = drag.id; syncSelection();
       const rect = drag.button.getBoundingClientRect();
       drag.ghost = document.createElement('div'); drag.ghost.className = 'mo-drag-preview'; drag.ghost.setAttribute('aria-hidden', 'true'); drag.ghost.innerHTML = drag.button.innerHTML;
+      const art = drag.button.firstElementChild.getBoundingClientRect();
+      drag.ghost.firstElementChild.style.width = `${art.width}px`; drag.ghost.firstElementChild.style.height = `${art.height}px`;
       drag.ghost.style.width = `${rect.width}px`; drag.ghost.style.height = `${rect.height}px`;
       drag.width = rect.width; drag.height = rect.height; document.body.appendChild(drag.ghost); drag.button.classList.add('is-dragging');
     }
@@ -190,8 +196,10 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     cleanupDrag(); suppressed = previous.id; suppressUntil = performance.now() + 400;
     if (!playable()) return;
     if (previous.type === 'blocker') {
-      if (!previous.moved || previous.slide >= .8) clearBlocker(previous.id);
-      else setStatus('Húzd az akadályt egészen jobbra, vagy koppints rá!');
+      if (!previous.moved) moveBlocker(previous.id);
+      else if (previous.slide >= .8) moveBlocker(previous.id, true);
+      else if (previous.slide <= .2) moveBlocker(previous.id, false);
+      else setStatus('Csúsztasd az akadályt teljesen félre, vagy koppints rá!');
     } else if (previous.moved) {
       if (target && root.contains(target)) place(target.dataset.moTarget);
       else { setStatus('Az elem itt vár. Húzd a helyére, vagy koppints oda!'); focus(`[data-mo-piece="${previous.id}"]`); }
@@ -207,7 +215,7 @@ export function setupMontessoriGame({ getOptions, setOptions, speak, stopPlaybac
     if (button.dataset.moGame) startGame(button.dataset.moGame);
     else if (button.dataset.moLevel) startGame(kind, Number(button.dataset.moLevel));
     else if (button.dataset.moPiece) select(button.dataset.moPiece);
-    else if (button.dataset.moBlocker) clearBlocker(button.dataset.moBlocker);
+    else if (button.dataset.moBlocker) moveBlocker(button.dataset.moBlocker);
     else if (button.dataset.moTarget) place(button.dataset.moTarget);
     else if (button.id === 'mo-back') { menu(`[data-mo-game="${kind}"]`); say('montessori_menu'); }
     else if (button.id === 'mo-restart') startGame(kind, round.level);

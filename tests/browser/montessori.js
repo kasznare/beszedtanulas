@@ -48,6 +48,7 @@ async page => {
         const targets = await page.locator('[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
         const key = `montessori${kind[0].toUpperCase()}${kind.slice(1)}Level`;
         ok((await saved()).settings[key] === level, `${kind}/${level}: difficulty is saved`);
+        if (kind === 'shapes') ok(await page.locator('.mo-board-pieces [data-mo-piece]').count() === ids.length && await page.locator('#montessori .mo-tray-wrap').count() === 0, `shapes/${level}: all loose pieces lie on the same wooden surface`);
         if (kind === 'shapes' && level === 4) {
           const id = await page.locator('[data-mo-blocker]').first().getAttribute('data-mo-blocker');
           await choose(id); await page.locator(`[data-mo-target="${id}"]`).focus(); await page.keyboard.press('Enter');
@@ -57,6 +58,18 @@ async page => {
           const wrongId = kind === 'shapes' ? ids.find(id => id !== targets[0]) : kind === 'tower' ? 'disc-0' : ids.find(id => !id.startsWith(`${targets[0]}-`));
           await choose(wrongId); await page.locator(`[data-mo-target="${targets[0]}"]`).click();
           ok(await page.locator('[data-mo-piece]').count() === ids.length && (await saved()).rewards === before, `${kind}/${level}: wrong choice stays retryable`);
+        }
+        if (kind === 'shapes' && level >= 2) {
+          const pieces = await page.locator('[data-mo-piece]').evaluateAll(buttons => buttons.map(button => ({ id: button.dataset.moPiece, shape: button.dataset.moShape, color: button.dataset.moColor, fill: button.querySelector('svg').getAttribute('fill') })));
+          const holes = await page.locator('[data-mo-target]').evaluateAll(buttons => buttons.map(button => ({ id: button.dataset.moTarget, shape: button.dataset.moShape, color: button.dataset.moColor, rim: button.querySelector('svg').getAttribute('stroke') })));
+          const hole = holes.find(hole => pieces.some(piece => piece.shape === hole.shape && piece.color !== hole.color) && pieces.some(piece => piece.color === hole.color && piece.shape !== hole.shape));
+          const wrongColor = pieces.find(piece => piece.shape === hole.shape && piece.color !== hole.color);
+          const wrongShape = pieces.find(piece => piece.color === hole.color && piece.shape !== hole.shape);
+          for (const piece of [wrongColor, wrongShape]) {
+            await choose(piece.id); await page.locator(`[data-mo-target="${hole.id}"]`).click();
+            ok(await page.locator('.mo-box-window svg').count() === 0, `shapes/${level}: ${piece === wrongColor ? 'same shape, wrong color' : 'same color, wrong shape'} is refused`);
+          }
+          ok(pieces.every(piece => !holes.some(hole => hole.id === piece.id && hole.rim !== piece.fill)), `shapes/${level}: visible rim colors match their corresponding pieces`);
         }
         const order = kind === 'tower' ? ids.sort((a, b) => Number(b.split('-')[1]) - Number(a.split('-')[1])) : ids;
         for (const id of order) {
@@ -104,13 +117,28 @@ async page => {
     rect = await blocker.boundingBox();
     await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2); await page.mouse.down(); await page.mouse.move(rect.x + rect.width / 2 + 125, rect.y + rect.height / 2, { steps: 12 }); await page.mouse.up();
     ok(await page.locator(`[data-mo-blocker="${blockerId}"].is-cleared`).count() === 1, 'Obstacle slides out of the way with an actual drag');
+    ok(await blocker.isVisible() && !await blocker.isDisabled(), 'Moved obstacle stays visible and movable on the board');
+    rect = await blocker.boundingBox();
+    await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2); await page.mouse.down(); await page.mouse.move(rect.x + rect.width / 2 - 125, rect.y + rect.height / 2, { steps: 12 }); await page.mouse.up();
+    ok(await page.locator(`[data-mo-blocker="${blockerId}"]:not(.is-cleared)`).count() === 1, 'A moved obstacle can slide back over the hole');
     await page.locator('#mo-undo').click();
-    ok(await page.locator(`[data-mo-blocker="${blockerId}"]:not(.is-cleared)`).count() === 1, 'Undo restores an obstacle');
+    ok(await page.locator(`[data-mo-blocker="${blockerId}"].is-cleared`).count() === 1, 'Undo restores the previous obstacle position');
 
     for (const size of [{ width: 320, height: 740 }, { width: 390, height: 844 }, { width: 932, height: 430 }]) {
       await page.setViewportSize(size);
       for (const kind of ['shapes', 'colors', 'tower']) {
         await menu(); await page.locator(`[data-mo-game="${kind}"]`).click();
+        if (kind === 'shapes') {
+          await page.locator('[data-mo-blocker]').first().click();
+          const visible = await page.evaluate(() => {
+            const board = document.querySelector('[data-mo-surface]').getBoundingClientRect();
+            return [...document.querySelectorAll('.mo-blocker')].every(button => {
+              const rect = button.getBoundingClientRect(), style = getComputedStyle(button);
+              return style.visibility !== 'hidden' && Number(style.opacity) === 1 && rect.left >= board.left && rect.right <= board.right && rect.top >= board.top && rect.bottom <= board.bottom;
+            });
+          });
+          ok(visible, `shapes: moved obstacles stay fully visible on the ${size.width}px board`);
+        }
         const metrics = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth + 2, small: [...document.querySelectorAll('#montessori button')].filter(button => !button.disabled && button.getClientRects().length && (button.getBoundingClientRect().width < 43 || button.getBoundingClientRect().height < 43)).map(button => button.getAttribute('aria-label') || button.textContent) }));
         ok(!metrics.overflow && !metrics.small.length, `${kind}: ${size.width}×${size.height} fits with large touch targets (${metrics.small.join(',')})`);
         await page.screenshot({ path: `output/playwright/montessori-${kind}-${context.browser().browserType().name()}-${size.width}.png`, fullPage: true, animations: 'disabled' });

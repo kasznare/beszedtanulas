@@ -1,3 +1,15 @@
+## 2026. október 13. – Formadoboz: egy közös felület, szín és alak, megmaradó akadályok
+
+A felhasználó pontosította a mintát: a formák már a játék felületén feküdtek; a félretolt akadály ugyanott megmaradt; a különböző színű formákat a velük egyező színű keretű, megfelelő alakú lyukakba kellett tenni. A montessori-release munkafát és codex/montessori-games ágat folytattuk az éles b0e7c5e változatról.
+
+A formadoboz külön tálcája megszűnt. A formák és a színes keretű lyukak közös fa felületen vannak, stabil, egymástól elkülönülő helyeken. A szín és az alak egyaránt kötelező: a 2. szinten a megfelelő forma mellett ugyanaz az alak más színnel és ugyanaz a szín más alakkal is megjelenik; a 3–4. szinten ezek saját lyukat kapnak. Az első szint továbbra is egy forma/egy lyuk. A tárgyak szemléltető színe a doboz ablakában és a húzási/átesési animációban is megmarad.
+
+A két akadály teljes méretben és teljes fedettséggel a deszkán marad félretolás után, telefonon is. Ugyanazon vízszintes útvonalon vissza is húzható a lyuk elé; koppintás/Enter is váltja a két helyzetet. A kis mozdulat az eredeti állapotba tér vissza. Mindkét irány visszavonható, a lefedett lyuk továbbra sem fogad formát. Az akadály mozgatása nem ad új jutalmat. A színtálcák, torony, játékidő és többi játék megmaradt.
+
+Négy módosított Jessa-útmutató azonos voice-config.json beállítással, 440 új bemeneti karakter, bizonylat szerint 177 normál használati kredit. Az összes többi kész hangot újrahasználtuk, reset vagy vásárlás nélkül. A narráció a deszkán fekvő formákhoz és az új szín/alak útmutatókhoz igazodik.
+
+Ellenőrzés: teljes build, 251 JavaScript- és 17 Python-teszt sikeres; a kibővített teljes böngészős próba 97 Chromium / 98 WebKit ellenőrzése sikeres. Külön ellenőrzi a közös fa felületet, az egyező alak/eltérő szín és egyező szín/eltérő alak elutasítását, a tényleges keretszíneket, az akadály oda-vissza húzását és teljes láthatóságát 320/390/932 szélességben. További 20 natív érintéses, megszakítási, hang- és játékidő-próba sikeres. A közös button:active szabály centerező/akadály-transzformációját felülíró ütközést javítottuk, így lenyomáskor sem ugranak el a felületi tárgyak. Offline lenyomat: 5c15b53e9c03fa36; 665 alapfájl, 53 opcionális mesehang; dist: 719 fájl. Képek: output/playwright/montessori-shapes-*. Közzététel a meglévő main → GitHub Pages folyamattal.
+
 ## 2026. október 13. – Montessori játékok az aktuális éles ágon
 
 A felhasználó az elkészült Montessori játékok commitját, pushát és éles kipróbálását kérte. A közös checkout az induláskor 31 committal volt az origin/main mögött; a korábbi, külön Csomagösvény-módosítások és a helyi content/ fájlok ott megmaradtak. A kiadáshoz a 271e872 alapból külön managed munkafa készült (montessori-release), codex/montessori-games ágon. A jelenlegi Mesetár, sakk, Jessa hangok és játékidő-kezelés megőrzésével illesztettük be a Montessori fejlesztést.

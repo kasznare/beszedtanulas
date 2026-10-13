@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { newMontessoriRound, normalizeMontessoriOptions, placeMontessoriPiece, clearMontessoriBlocker, montessoriComplete, MONTESSORI_GAMES } from '../montessori-data.js';
+import { newMontessoriRound, normalizeMontessoriOptions, placeMontessoriPiece, clearMontessoriBlocker, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, MONTESSORI_GAMES } from '../montessori-data.js';
 
 test('all ten difficulty variants are solvable, with unique pieces and targets', () => {
   for (const [kind, game] of Object.entries(MONTESSORI_GAMES)) for (let level = 1; level <= game.levels.length; level++) {
@@ -11,7 +11,7 @@ test('all ten difficulty variants are solvable, with unique pieces and targets',
       for (const target of round.blockers) round = clearMontessoriBlocker(round, target);
       const order = kind === 'tower' ? [...round.pieces].sort((a, b) => b.size - a.size) : round.pieces;
       for (const piece of order) {
-        const target = round.targets.find(target => kind === 'shapes' ? target.shape === piece.shape : kind === 'colors' ? target.color === piece.color : true);
+        const target = round.targets.find(target => kind === 'shapes' ? target.shape === piece.shape && target.color === piece.color : kind === 'colors' ? target.color === piece.color : true);
         if (!target) continue;
         const result = placeMontessoriPiece(round, piece.id, target.id);
         assert.equal(result.accepted, true, `${kind}/${level}: ${piece.id}`);
@@ -30,7 +30,45 @@ test('shape box isolates one shape, introduces distractors, then multiple holes 
   const incorrect = round.pieces.find(piece => piece.shape !== target.shape);
   assert.equal(placeMontessoriPiece(round, incorrect.id, target.id).reason, 'mismatch');
   const finished = placeMontessoriPiece(round, target.id, target.id).round;
-  assert.equal(montessoriComplete(finished), true, 'two distractors can remain in the tray');
+  assert.equal(montessoriComplete(finished), true, 'two distractors can remain on the board');
+});
+
+test('shape matching requires both color and outline at every choice level', () => {
+  for (let level = 2; level <= 4; level++) {
+    const round = newMontessoriRound('shapes', level, () => .5);
+    const target = round.targets.find(target => round.pieces.some(piece => piece.shape === target.shape && piece.color !== target.color) && round.pieces.some(piece => piece.color === target.color && piece.shape !== target.shape));
+    const matching = round.pieces.find(piece => piece.id === target.id);
+    const differentColor = round.pieces.find(piece => piece.shape === target.shape && piece.color !== target.color);
+    const differentShape = round.pieces.find(piece => piece.color === target.color && piece.shape !== target.shape);
+    let opened = round;
+    for (const id of round.blockers) opened = clearMontessoriBlocker(opened, id);
+    assert.equal(placeMontessoriPiece(opened, differentColor.id, target.id).reason, 'mismatch');
+    assert.equal(placeMontessoriPiece(opened, differentShape.id, target.id).reason, 'mismatch');
+    assert.equal(placeMontessoriPiece(opened, matching.id, target.id).accepted, true);
+  }
+});
+
+test('a moved obstacle can return to cover the same hole without changing placements', () => {
+  const round = newMontessoriRound('shapes', 4), id = round.blockers[0];
+  const opened = setMontessoriBlocker(round, id, true);
+  const closed = setMontessoriBlocker(opened, id, false);
+  assert.deepEqual(closed, round);
+  assert.equal(placeMontessoriPiece(closed, id, id).reason, 'blocked');
+  assert.equal(placeMontessoriPiece(opened, id, id).accepted, true);
+});
+
+test('every shape and hole has a stable location inside the shared board', () => {
+  for (let level = 1; level <= 4; level++) {
+    const round = newMontessoriRound('shapes', level);
+    const layout = montessoriBoardLayout(round);
+    for (const [items, positions] of [[round.pieces, layout.pieces], [round.targets, layout.targets]]) {
+      for (const item of items) {
+        const [x, y] = positions[item.id];
+        assert.ok(x >= 15 && x <= 85 && y >= 15 && y <= 85);
+      }
+    }
+    assert.deepEqual(montessoriBoardLayout({ ...round, placements: [{ piece: round.pieces[0].id, target: round.targets[0].id }] }), layout);
+  }
 });
 
 test('blocked holes refuse a matching shape until that specific obstacle moves', () => {
