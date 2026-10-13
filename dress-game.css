@@ -56,3 +56,10 @@
 @media (prefers-reduced-motion: reduce) {
   .dress-garment.is-worn { animation: none; }
 }
+.dress-weather { text-align: center; margin: 4px 0 12px; color: #4e675c; font-weight: 650; }
+.dress-answers[data-count="free"] { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 10px; }
+.dress-answers[data-count="free"] .dress-choice { min-height: 110px; max-width: none; padding: 6px; gap: 2px; font-size: .8rem; }
+.dress-answers[data-count="free"] .dress-icon { height: 72px; max-width: 82px; }
+.dress-choice[aria-pressed="true"] { border-color: #43815b; background: #e1efda; }
+.dress-choice[aria-pressed="true"]::after { content: '✓'; position: absolute; top: 4px; right: 7px; color: #387b56; font-weight: 800; }
+@media (max-width: 649px) { .dress-weather { font-size: .9rem; } .dress-answers[data-count="free"] .dress-choice { min-height: 96px; } .dress-answers[data-count="free"] .dress-icon { height: 60px; } }

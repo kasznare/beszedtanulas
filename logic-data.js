@@ -78,23 +78,40 @@ function validSession(s, kind) {
 }
 const count=n=>integer(n,0,Number.MAX_SAFE_INTEGER)?n:0;
 export function normalizeLogic(value={}) {
-  const result={version:1,games:{},sessions:{}};
+  // Keep the active-session shape readable by existing profile and backup clients.
+  // The optional archive adds independent resume slots without changing old saves.
+  const result={version:1,games:{},sessions:{},levelSessions:{}};
   for(const kind of LOGIC_GAMES) {
     result.games[kind] = Array.from({length:3},(_,i)=>({independent:count(value?.games?.[kind]?.[i]?.independent),assisted:count(value?.games?.[kind]?.[i]?.assisted)}));
     result.sessions[kind] = validSession(value?.sessions?.[kind],kind)?structuredClone(value.sessions[kind]):null;
+    result.levelSessions[kind] = Array.from({length:3},(_,i)=>{
+      const saved=value?.levelSessions?.[kind]?.[i];
+      return validSession(saved,kind)&&saved.level===i+1?structuredClone(saved):null;
+    });
   }
   return result;
 }
 export function validateLogic(value) {
   if(value===undefined)return normalizeLogic();
   const normal=normalizeLogic(value);
-  if(!value || value.version!==1 || LOGIC_GAMES.some(k=>!Array.isArray(value.games?.[k])||value.games[k].length!==3||value.games[k].some((v,i)=>!v||v.independent!==normal.games[k][i].independent||v.assisted!==normal.games[k][i].assisted)|| (value.sessions?.[k]!==null&&!validSession(value.sessions?.[k],k)))) throw new Error('A Furfangliget mentése hibás. Nem módosítottam a játékot.');
+  if(!value || value.version!==1 || LOGIC_GAMES.some(k=>!Array.isArray(value.games?.[k])||value.games[k].length!==3||value.games[k].some((v,i)=>!v||v.independent!==normal.games[k][i].independent||v.assisted!==normal.games[k][i].assisted)|| (value.sessions?.[k]!==null&&!validSession(value.sessions?.[k],k)) || (value.levelSessions!==undefined && (!Array.isArray(value.levelSessions?.[k]) || value.levelSessions[k].length!==3 || value.levelSessions[k].some((s,i)=>s!==null&&(!validSession(s,k)||s.level!==i+1)))))) throw new Error('A Furfangliget mentése hibás. Nem módosítottam a játékot.');
   return normal;
+}
+export function logicSessionForLevel(progress, kind, level) {
+  const current=progress.sessions[kind];
+  return current?.level===level?current:progress.levelSessions?.[kind]?.[level-1]??null;
+}
+export function storeLogicSession(progress, session) {
+  const previous=progress.sessions[session.kind];
+  if(previous&&previous.level!==session.level) progress.levelSessions[session.kind][previous.level-1]=structuredClone(previous);
+  progress.sessions[session.kind]=structuredClone(session);
+  // The active copy is authoritative; leave only inactive levels in the archive.
+  progress.levelSessions[session.kind][session.level-1]=null;
 }
 export function completeLogic(value,kind) {
   const next=normalizeLogic(value), s=next.sessions[kind];
   if(!s||s.done||!taskSolved(generateTask(kind,s.level,s.limit,s.seed),s))return {progress:next,reward:false,changed:false};
   if(kind==='shop'&&s.stage===0){s.stage=1;s.history=[];return {progress:next,reward:false,changed:true};}
-  s.done=true;s.history=[];next.games[kind][s.level-1][s.help||s.misses?'assisted':'independent']++;
+  s.done=true;s.history=[];const bucket=next.games[kind][s.level-1], key=s.help||s.misses?'assisted':'independent';bucket[key]=Math.min(Number.MAX_SAFE_INTEGER,bucket[key]+1);
   return {progress:next,reward:true,changed:true};
 }

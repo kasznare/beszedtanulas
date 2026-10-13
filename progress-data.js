@@ -3,6 +3,8 @@ import { normalizeWorkshop, validateWorkshop } from "./workshop-data.js";
 import { words } from "./game-data.js";
 import { normalizeMeadow, validateMeadow } from "./meseliget-data.js";
 import { normalizeRProgress, validateRProgress } from "./r-practice-data.js";
+import { normalizeNumberProgress, validateNumberProgress } from "./number-data.js";
+import { normalizePuzzleProgress, validatePuzzleProgress } from "./puzzle-data.js";
 
 export const MAX_BACKUP_BYTES = 1024 * 1024;
 const SCHEMA = "beszedtanulas-progress";
@@ -24,7 +26,7 @@ export function snapshotProgress(source = {}) {
       lastSeenAt: validDate(raw.lastSeenAt) ? new Date(raw.lastSeenAt).toISOString() : "",
     };
   }
-  return { plays: cleanCounter(source.plays), attempts: cleanCounter(source.attempts), rewards: cleanCounter(source.rewards), wordStats, meadow: normalizeMeadow(source.meadow), logic: normalizeLogic(source.logic), workshop: normalizeWorkshop(source.workshop), rPractice: normalizeRProgress(source.rPractice) };
+  return { plays: cleanCounter(source.plays), attempts: cleanCounter(source.attempts), rewards: cleanCounter(source.rewards), wordStats, meadow: normalizeMeadow(source.meadow), logic: normalizeLogic(source.logic), workshop: normalizeWorkshop(source.workshop), rPractice: normalizeRProgress(source.rPractice), numbers: normalizeNumberProgress(source.numbers), puzzles: normalizePuzzleProgress(source.puzzles) };
 }
 
 export function validateProgress(source) {
@@ -35,6 +37,8 @@ export function validateProgress(source) {
   validateLogic(source.logic);
   validateWorkshop(source.workshop);
   validateRProgress(source.rPractice);
+  validateNumberProgress(source.numbers);
+  validatePuzzleProgress(source.puzzles);
   for (const [id, stats] of Object.entries(source.wordStats)) {
     if (!wordIds.has(id)) throw new Error("Ez a mentés más vagy újabb szóanyagot használ. Előbb frissítsd a játékot.");
     if (!isObject(stats) || ![stats.attempts, stats.successes, stats.streak].every(counter) ||

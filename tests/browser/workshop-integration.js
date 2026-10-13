@@ -9,7 +9,7 @@ async page => {
   const home = async () => { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); };
   const enter = async () => { await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="workshop"]').click(); };
   const parent = async () => { await home(); await page.locator('#parent-button').click(); const numbers = (await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number); await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${numbers[0]+numbers[1]}$`)}).click(); };
-  const task = (kind, level) => page.evaluate(async ({kind,level}) => { const d = await import('./workshop-data.js'), session = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions[kind][level-1]; const task = d.generateWorkshopTask(kind,level,session.seed); return { ...task, destinations: kind === 'sort' ? task.objects.map(object => d.workshopSortTarget(task,object)) : [], solution: kind === 'balance' ? d.workshopBalanceSolutions(task)[0] : [] }; }, {kind,level});
+  const task = (kind, level) => page.evaluate(async ({kind,level}) => { const d = await import('./workshop-data.js'), session = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions[kind][level-1]; const task = d.workshopTaskForSession(session); return { ...task, destinations: kind === 'sort' ? task.objects.map(object => d.workshopSortTarget(task,object)) : [], solution: kind === 'balance' ? d.workshopBalanceSolutions(task)[0] : [] }; }, {kind,level});
   const solve = async (kind,t) => {
     if (kind === 'sort') for (const [i,bin] of t.destinations.entries()) { await page.locator(`[data-token="${i}"]`).click(); await page.locator(`[data-bin="${bin}"]`).click(); }
     if (kind === 'pattern') for (const [i,position] of t.holes.entries()) { await page.locator(`[data-slot="${i}"]`).click(); await page.locator(`[data-choice="${t.sequence[position]}"]`).click(); }
@@ -34,6 +34,7 @@ async page => {
       await page.reload(); await enter(); await page.locator(`[data-game="${kind}"]`).click();
       ok(JSON.stringify((await state()).workshop.sessions[kind][level-1]) === JSON.stringify(saved), `${kind} L${level}: exact work survives reload`);
       await page.locator('#ws-check').evaluate(button => {button.click(); button.click();});
+      if (kind === 'sort') { await solve(kind,await task(kind,level)); await page.locator('#ws-check').evaluate(button => {button.click(); button.click();}); }
       ok((await state()).rewards === before+1, `${kind} L${level}: exactly one completion reward`);
       ok((await state()).workshop.games[kind][level-1].assisted === 1, `${kind} L${level}: aided result stays in its level`);
       await page.locator('#ws-back').click(); await page.locator(`[data-game="${kind}"]`).click();

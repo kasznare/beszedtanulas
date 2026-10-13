@@ -1,3 +1,8 @@
+import { wordPicture, setWordPicture } from "./word-art.js";
+import { normalizePracticeSettings } from "./portal-practice-data.js";
+import { normalizeNumberSettings, normalizeNumberProgress } from "./number-data.js";
+import { setupFlipGame } from "./flip-game.js";
+import { setupNumberGames } from "./number-game.js";
 import { PROJECT_SUPABASE } from "./supabase-config.js";
 
 import { words, wordCategories, twoWordPhrases, TODDLER_ALIASES } from "./game-data.js";
@@ -40,6 +45,7 @@ import { createCloudSaveQueue } from "./cloud-save-queue.js";
 import { createPlayTimeLimit, PLAY_TIME_KEY, formatPlayTime } from "./play-time.js";
 
 let selectedCategory = "all";
+let practiceLaunchWordId = null;
 
 const STORAGE_KEY = "speech_game_progress_v1";
 const WORD_LISTEN_WINDOW_MS = 18_000;
@@ -57,7 +63,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions(), ...normalizePracticeSettings(), ...normalizeNumberSettings() };
 const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
@@ -69,8 +75,6 @@ let parentGateUnlocksTime = false;
 const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
-let flipRoundToken = 0;
-let flipRoundComplete = false;
 let completedRoundKind = "imitate";
 const screenInfo = {
   home: { title: "Játsszunk együtt!", guide: "welcome" },
@@ -139,23 +143,17 @@ let animalBook;
 let audiobooks;
 let pourGame;
 let rPractice;
+let numberGame;
+let flipGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
-const numberNames = ["nulla", "egy", "kettő", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc", "tíz"];
-const countingObjects = words.filter((word) => ["alma", "labda", "auto"].includes(word.id));
-let currentNumber = 3;
-let countingObject = countingObjects.find((word) => word.id === "alma");
-let countedObjects = new Set();
-let numberLimit = state.settings.numberLimit;
+let togetherWordRound=null, togetherWordStep=0, wordConfirmed=false;
+let phraseStep=0, phraseConfirmed=false, phraseRound=null, phraseRoundStep=0;
 let numberMode = "count";
-let quizTarget = 0;
-let quizSolved = false;
 
 const panels = [...document.querySelectorAll(".panel")];
 const cardsGrid = document.querySelector("#cards-grid");
-const flipGrid = document.querySelector("#flip-grid");
-const flipStatus = document.querySelector("#flip-status");
 const imitateEmoji = document.querySelector("#imitate-emoji");
 const imitateWord = document.querySelector("#imitate-word");
 const imitatePrompt = document.querySelector("#imitate-prompt");
@@ -213,7 +211,8 @@ document.querySelector("#play-model").addEventListener("click", () => {
 document.querySelector("#next-word").addEventListener("click", () => {
   stopAutoImitateSession();
   primeSfx();
-  currentImitate = (currentImitate + 1) % words.length;
+  const pool=getSpeechWords();
+  currentImitate=words.findIndex(word=>word.id===pool[(pool.findIndex(w=>w.id===words[currentImitate].id)+1)%pool.length].id);
   renderImitate();
 });
 
@@ -224,12 +223,13 @@ listenBtn.addEventListener("click", () => {
 
 playPhraseBtn.addEventListener("click", () => {
   primeSfx();
-  playPhrase(twoWordPhrases[currentPhrase]);
+  playCurrentPhrase();
 });
 
 nextPhraseBtn.addEventListener("click", () => {
   stopAutoImitateSession();
   primeSfx();
+  phraseStep=0;phraseConfirmed=false;phraseRound=null;
   currentPhrase = (currentPhrase + 1) % twoWordPhrases.length;
   renderTwoWordMode();
 });
@@ -337,7 +337,12 @@ effects = createInteractionAudio({
 listeningGame = setupListeningGame({
   effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
-  getOptions: () => ({ words: getPracticeWords(), length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
+  getOptions: () => {
+    const firstWordId=practiceLaunchWordId;practiceLaunchWordId=null;
+    return { words:getPracticeWords(),length:state.settings.roundLength,choiceCount:state.settings.listeningChoices,difficulty:state.settings.listeningDifficulty,firstWordId };
+  },
+  setDifficulty: value => { state.settings.listeningDifficulty=value; saveProgress(); },
+  speak: id => speakVoice(id),
   playPrompt: playListeningPrompt,
   playCorrect: () => { stopPlayback(); playSuccessSound(); speakGuide("good"); },
   stopPlayback,
@@ -353,6 +358,7 @@ teddyGame = setupTeddyGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playTeddyPrompt,
+  speak: id => speakVoice(id),
   playThanks: () => speakVoice("guide_teddy_thanks"),
   stopPlayback,
   onComplete: count => {
@@ -367,6 +373,7 @@ dressGame = setupDressGame({
   onRestart: () => roundSuccess.cancel(),
   getChoiceCount: () => state.settings.listeningChoices,
   playPrompt: playDressPrompt,
+  speak: id => speakVoice(id),
   playThanks: item => speakVoice(`dress_thanks_${item.id}`),
   stopPlayback,
   onComplete: count => {
@@ -427,6 +434,8 @@ puzzleGame = setupPuzzleGame({
   effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => state.settings,
+  getProgress: () => state.puzzles,
+  setProgress: progress => { state.puzzles = progress; saveProgress({sync:false}); },
   setOptions: options => { Object.assign(state.settings, normalizePuzzleOptions(options)); saveProgress(); },
   speak: id => speakVoice(id), stopPlayback,
   onComplete: count => {
@@ -474,6 +483,8 @@ animalBook = setupAnimalBook({
     const played = await tryPlayFile(`./audio/animals/${id}.mp3`, token, { start: () => onStart?.(), stop() {} });
     return token === playbackToken && played;
   },
+  playName: id => speakVoice(`abk_name_${id}`),
+  speak: id => speakVoice(id),
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
 });
@@ -492,6 +503,7 @@ pourGame = setupPourGame({
 });
 rPractice = setupRPractice({
   effect: playEffect, quietEffects: () => effects.stop(),
+  onRestart: () => roundSuccess.cancel(),
   getProgress: () => state.rPractice,
   updateProgress: progress => { state.rPractice=progress; saveProgress({sync:false}); refreshStats(); },
   speak: (id,cue) => speakVoice(id,undefined,cue), stopPlayback,
@@ -501,6 +513,22 @@ rPractice = setupRPractice({
     if(speech.error&&speech.error!=='no-speech'&&speech.error!=='aborted')throw Error(speechErrorMessage(speech.error));
     return {matched:matchRPracticeSpeech(text,speech.alternatives),transcript:speech.transcript};
   },
+});
+flipGame=setupFlipGame({
+  effect:playEffect,onRestart:()=>roundSuccess.cancel(),
+  getOptions:()=>({words:getPracticeWords(),flipMode:state.settings.flipMode}),
+  setMode:mode=>{state.settings.flipMode=mode;saveProgress();},
+  playWord:(word,cue)=>playWord(word,undefined,cue),speak:ids=>Array.isArray(ids)?speakVoiceSequence(ids):speakVoice(ids),stopPlayback,
+  onComplete:count=>{state.rewards++;saveProgress();refreshStats();celebrateRound("flip",count);},
+});
+numberGame = setupNumberGames({
+  effect:playEffect,onRestart:()=>roundSuccess.cancel(),
+  getProgress: () => state.numbers,
+  setProgress: (progress,{reward=false}={}) => { state.numbers=progress;if(reward)state.rewards++;saveProgress({sync:false});refreshStats(); },
+  getOptions: () => state.settings,
+  setOptions: patch => { Object.assign(state.settings,patch); saveProgress({sync:false}); },
+  speak: ids => speakVoiceSequence(ids), stopPlayback,
+  onComplete: (mode,count) => celebrateRound(`numbers-${mode}`,count),
 });
 progressTools = setupProgressTools({
   getState: () => state,
@@ -546,11 +574,11 @@ document.addEventListener("visibilitychange", () => {
 window.addEventListener("pagehide", stopAutoImitateSession);
 window.addEventListener("pagehide", () => roundSuccess.cancel());
 
+setupBasicPractice();
 setupCategories();
 renderRoundProgress();
 renderCards();
 setupNumbers();
-renderFlipGame();
 renderImitate();
 renderTwoWordMode();
 refreshStats();
@@ -626,81 +654,17 @@ function setupPlayTime() {
   setInterval(() => playTime.tick(), 1000);
 }
 
-function numberQuantityLabel(number = currentNumber) {
-  return `${number === 2 ? "két" : numberNames[number]} ${countingObject.label}`;
-}
-
 function setupNumbers() {
-  const picker = document.querySelector("#number-picker");
-  for (let number = 1; number <= 10; number += 1) {
-    const button = document.createElement("button");
-    button.className = "number-choice";
-    button.textContent = number;
-    button.setAttribute("aria-label", `${number} – ${numberNames[number]}`);
-    button.addEventListener("click", () => {
-      currentNumber = number;
-      renderNumbers();
-      speakVoice(`number_${number}`);
-    });
-    picker.appendChild(button);
-  }
-  countingObjects.forEach((object) => {
-    const button = document.createElement("button");
-    button.className = "number-object-choice";
-    button.textContent = object.emoji;
-    button.setAttribute("aria-label", object.label);
-    button.addEventListener("click", () => {
-      countingObject = object;
-      renderNumbers();
-      if (numberMode === "quiz") {
-        renderNumberQuiz();
-        speakNumberQuestion();
-      } else {
-        speakVoice(`quantity_${countingObject.id}_${currentNumber}`);
-      }
-    });
-    document.querySelector("#number-object-picker").appendChild(button);
+  document.querySelectorAll('.number-mode').forEach(button => button.addEventListener('click', () => {
+    numberMode=button.dataset.mode; showScreen('numbers', {announce:false});
+  }));
+  document.querySelector('#number-level').addEventListener('change', event => {
+    state.settings.numberLimit=Number(event.target.value);saveProgress();numberGame.setLimit();
   });
-  document.querySelector("#number-model").addEventListener("click", () => {
-    speakVoiceSequence([{id:`number_${currentNumber}`, cue:{target:'#number-symbol'}}, {id:`quantity_${countingObject.id}_${currentNumber}`, cue:{target:'.counting-object'}}]);
-  });
-  document.querySelector("#number-restart").addEventListener("click", renderNumbers);
-  document.querySelector("#number-next").addEventListener("click", () => {
-    currentNumber = currentNumber % numberLimit + 1;
-    renderNumbers();
-    speakVoice(`number_${currentNumber}`);
-  });
-  document.querySelectorAll(".number-mode").forEach((button) => {
-    button.addEventListener("click", () => {
-      numberMode = button.dataset.mode;
-      showScreen("numbers", { announce: false });
-      if (numberMode === "quiz") speakNumberQuestion();
-      else speakGuide('count');
-    });
-  });
-  document.querySelector("#number-level").addEventListener("change", (event) => {
-    numberLimit = Number(event.target.value);
-    state.settings.numberLimit = numberLimit;
-    saveProgress();
-    currentNumber = Math.min(currentNumber, numberLimit);
-    renderNumbers();
-    if (numberMode === "quiz") {
-      renderNumberQuiz();
-      if (currentScreen === "numbers") speakNumberQuestion();
-    }
-  });
-  document.querySelector("#number-question-play").addEventListener("click", speakNumberQuestion);
-  document.querySelector("#number-quiz-next").addEventListener("click", () => {
-    if (!quizSolved) return;
-    renderNumberQuiz();
-    speakNumberQuestion();
-  });
-  renderNumbers();
 }
-
-function speakNumberQuestion() {
-  speakVoice(`question_${countingObject.id}_${quizTarget}`);
-}
+function renderNumbers() { numberGame.start('count'); }
+function renderNumberQuiz() { numberGame.start('quiz'); }
+function speakNumberQuestion() { return numberGame.repeat(); }
 
 function shuffleNumbers(values) {
   for (let index = values.length - 1; index > 0; index -= 1) {
@@ -708,89 +672,6 @@ function shuffleNumbers(values) {
     [values[index], values[other]] = [values[other], values[index]];
   }
   return values;
-}
-
-function renderNumberQuiz() {
-  quizSolved = false;
-  const candidates = Array.from({ length: numberLimit }, (_, index) => index + 1);
-  quizTarget = shuffleNumbers(candidates.filter((number) => number !== quizTarget))[0];
-  const alternatives = shuffleNumbers(candidates.filter((number) => number !== quizTarget)).slice(0, 2);
-  const choices = shuffleNumbers([quizTarget, ...alternatives]);
-  document.querySelector("#number-question").textContent = VOICE_CLIPS[`question_${countingObject.id}_${quizTarget}`].text;
-  document.querySelector("#number-quiz-status").textContent = "";
-  document.querySelector("#number-quiz-next").disabled = true;
-  const answers = document.querySelector("#number-answers");
-  answers.replaceChildren();
-  choices.forEach((quantity) => {
-    const button = document.createElement("button");
-    button.className = "number-answer";
-    button.setAttribute("aria-label", numberQuantityLabel(quantity));
-    const group = document.createElement("span");
-    group.className = "number-answer-objects";
-    group.setAttribute("aria-hidden", "true");
-    for (let index = 0; index < quantity; index += 1) {
-      const object = document.createElement("span");
-      object.textContent = countingObject.emoji;
-      group.appendChild(object);
-    }
-    button.appendChild(group);
-    button.addEventListener("click", () => {
-      if (quizSolved) return;
-      const status = document.querySelector("#number-quiz-status");
-      if (quantity !== quizTarget) {
-        playEffect('retry');
-        status.textContent = "Még egyszer?";
-        speakGuide("again");
-        return;
-      }
-      quizSolved = true; playEffect('success');
-      button.classList.add("is-correct");
-      status.textContent = "⭐";
-      speakVoiceSequence(["guide_good", `quantity_${countingObject.id}_${quizTarget}`]);
-      document.querySelector("#number-quiz-next").disabled = false;
-    });
-    answers.appendChild(button);
-  });
-}
-
-function renderNumbers() {
-  stopPlayback();
-  countedObjects = new Set();
-  document.querySelectorAll("#number-picker .number-choice").forEach((button, index) => {
-    button.hidden = index + 1 > numberLimit;
-    button.setAttribute("aria-pressed", String(index + 1 === currentNumber));
-  });
-  document.querySelectorAll("#number-object-picker .number-object-choice").forEach((button, index) => {
-    button.setAttribute("aria-pressed", String(countingObjects[index] === countingObject));
-  });
-  document.querySelector("#number-symbol").textContent = currentNumber;
-  document.querySelector("#number-name").textContent = numberQuantityLabel();
-  document.querySelector("#number-model").setAttribute("aria-label", `${numberNames[currentNumber]}, ${numberQuantityLabel()} meghallgatása`);
-  const status = document.querySelector("#number-status");
-  status.textContent = "";
-  const objects = document.querySelector("#number-objects");
-  objects.replaceChildren();
-  for (let index = 0; index < currentNumber; index += 1) {
-    const button = document.createElement("button");
-    button.className = "counting-object";
-    button.dataset.countingIndex = index;
-    button.setAttribute("aria-label", `${index + 1}. ${countingObject.label}`);
-    button.setAttribute("aria-pressed", "false");
-    button.innerHTML = `<span aria-hidden="true">${countingObject.emoji}</span><span class="counting-order" aria-hidden="true"></span>`;
-    button.addEventListener("click", () => {
-      if (countedObjects.has(index)) return;
-      playEffect('collect'); countedObjects.add(index);
-      const count = countedObjects.size;
-      button.setAttribute("aria-pressed", "true");
-      button.querySelector(".counting-order").textContent = count;
-      button.setAttribute("aria-label", `${index + 1}. ${countingObject.label}, megszámolva: ${count}`);
-      const complete = count === currentNumber;
-      status.textContent = complete ? "⭐" : `${count} / ${currentNumber}`;
-      const counted = {id:`number_${count}`, cue:{target:`[data-counting-index="${index}"]`}};
-      speakVoiceSequence(complete ? [counted, {id:"guide_good", cue:{target:'.counting-object'}}] : [counted]);
-    });
-    objects.appendChild(button);
-  }
 }
 
 function setupCategories() {
@@ -809,9 +690,106 @@ function setupCategories() {
   });
 }
 
+function setupBasicPractice() {
+  document.querySelector('#card-find').addEventListener('click',()=>launchCardPractice('listening-game'));
+  document.querySelector('#card-say').addEventListener('click',()=>launchCardPractice('imitate'));
+  document.querySelectorAll('[data-word-mode]').forEach(button=>button.addEventListener('click',()=>{
+    stopAutoImitateSession(false);state.settings.wordPracticeMode=button.dataset.wordMode;saveProgress();renderImitate();
+  }));
+  document.querySelectorAll('[data-phrase-mode]').forEach(button=>button.addEventListener('click',()=>{
+    stopAutoImitateSession(false);state.settings.phrasePracticeMode=button.dataset.phraseMode;saveProgress();renderTwoWordMode();
+  }));
+  const favorites=document.querySelector('#word-favorites');
+  favorites.innerHTML=words.map(word=>`<button data-favorite="${word.id}" aria-label="${word.label} a kedvencek közé" aria-pressed="${state.settings.favoriteWords.includes(word.id)}">${wordPicture(word)}<span>${word.label}</span></button>`).join('');
+  favorites.addEventListener('click',event=>{
+    const button=event.target.closest('[data-favorite]');if(!button)return;
+    const selected=new Set(state.settings.favoriteWords),id=button.dataset.favorite;
+    if(selected.has(id))selected.delete(id);else if(selected.size<5)selected.add(id);else{document.querySelector('#favorite-status').textContent='Öt képet választhatunk. Előbb vegyél ki egy másikat!';return;}
+    stopAutoImitateSession(false);state.settings.favoriteWords=[...selected];
+    if(!selected.size)state.settings.useFavorites=false;
+    const pool=getSpeechWords();
+    if(!pool.some(word=>word.id===words[currentImitate].id)){currentImitate=words.findIndex(word=>word.id===pool[0].id);renderImitate();}
+    saveProgress();syncBasicPractice();
+  });
+  document.querySelector('#use-favorites').addEventListener('click',()=>{
+    stopAutoImitateSession(false);state.settings.useFavorites=!state.settings.useFavorites;saveProgress();
+    const pool=getSpeechWords();currentImitate=words.findIndex(w=>w.id===pool[0].id);renderImitate();
+  });
+  document.querySelector('#word-confirm').addEventListener('click',confirmTogetherWord);
+  document.querySelector('#phrase-confirm').addEventListener('click',()=>{if(!listening&&!phraseConfirmed)completePhraseStep();});
+  document.querySelector('#phrase-stop').addEventListener('click',()=>{stopAutoImitateSession(false);phraseStatus.textContent='Megálltunk. Folytathatjuk együtt.';});
+  document.querySelector('#phrase-parts-toggle').addEventListener('click',()=>{
+    stopAutoImitateSession(false);state.settings.phraseParts=!state.settings.phraseParts;phraseStep=0;phraseConfirmed=false;saveProgress();renderTwoWordMode();
+  });
+  document.querySelector('#phrase-round-start').addEventListener('click',startPhraseRound);
+}
+function launchCardPractice(screen) {
+  const word=words.find(w=>w.id===practiceLaunchWordId);if(!word)return;
+  state.settings.practiceTopic=selectedCategory;state.settings.useFavorites=false;saveProgress();
+  currentImitate=words.indexOf(word);showScreen(screen);
+}
+function syncBasicPractice() {
+  const wordTogether=state.settings.wordPracticeMode==='together',phraseTogether=state.settings.phrasePracticeMode==='together';
+  document.querySelectorAll('[data-word-mode]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.wordMode==='together')===wordTogether)));
+  document.querySelectorAll('[data-phrase-mode]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.phraseMode==='together')===phraseTogether)));
+  listenBtn.hidden=wordTogether;document.querySelector('#word-confirm').hidden=!wordTogether;document.querySelector('#word-confirm').disabled=wordConfirmed;
+  listenPhraseBtn.hidden=phraseTogether;document.querySelector('#phrase-confirm').hidden=!phraseTogether;document.querySelector('#phrase-confirm').disabled=phraseConfirmed;
+  document.querySelectorAll('[data-favorite]').forEach(b=>b.setAttribute('aria-pressed',String(state.settings.favoriteWords.includes(b.dataset.favorite))));
+  document.querySelector('#use-favorites').setAttribute('aria-pressed',String(state.settings.useFavorites));
+  document.querySelector('#use-favorites').disabled=state.settings.favoriteWords.length===0;
+  document.querySelector('#favorite-status').textContent=`${state.settings.favoriteWords.length} / 5 kedvenc szó`;
+  const parts=state.settings.phraseParts,phrase=twoWordPhrases[currentPhrase];
+  document.querySelector('#phrase-parts-toggle').setAttribute('aria-pressed',String(parts));
+  const panel=document.querySelector('#phrase-parts');panel.hidden=!parts;
+  panel.innerHTML=parts?[...phrase.text.split(' '),'Együtt'].map((text,i)=>`<button class="upgrade-action" data-practice-part="${i}" aria-pressed="${phraseStep===i}" aria-label="${i<2?text+' külön meghallgatása':'Teljes kifejezés meghallgatása'}">${i+1}. ${text} 🔊</button>`).join(''):'';
+  panel.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{if(listening)return;phraseStep=Number(b.dataset.practicePart);phraseConfirmed=false;syncBasicPractice();playCurrentPhrase();}));
+  document.querySelector('#phrase-round-status').textContent=phraseRound?`${phraseRoundStep} / ${phraseRound.length} kifejezés megvan`:parts?`Most: ${phraseStep<2?phrase.text.split(' ')[phraseStep]:'a két szó együtt'}`:'Hallgassuk meg, és mondjuk együtt!';
+  if(wordTogether&&!autoSessionRunning)listenStatus.textContent=wordConfirmed?'Együtt kimondtátok!':'Hallgassuk meg, és mondjuk együtt!';
+  if(phraseTogether)phraseStatus.textContent=phraseConfirmed?'Együtt kimondtátok!':parts&&phraseStep<2?'Először ezt a szót mondjuk!':'Most a két szót együtt!';
+}
+function startTogetherWordRound() {
+  roundSuccess.cancel();
+  stopAutoImitateSession(false);togetherWordRound=buildAdaptiveSessionWords();togetherWordStep=0;autoSessionRunning=true;
+  document.querySelector('#round-complete').close();
+  setButtonIcon(document.querySelector('#auto-session'),'stop');
+  document.querySelector('#auto-session').setAttribute('aria-label','Gyakorlás megállítása');document.querySelector('#auto-session').setAttribute('aria-pressed','true');
+  currentImitate=words.findIndex(w=>w.id===togetherWordRound[0].id);renderImitate();renderRoundProgress(0,togetherWordRound.length);playWord(words[currentImitate]);
+}
+function confirmTogetherWord() {
+  if(currentScreen!=='imitate'||wordConfirmed||listening)return;
+  wordConfirmed=true;stopPlayback();showSuccessBadge();playSuccessSound();
+  if(togetherWordRound){
+    togetherWordStep++;
+    if(togetherWordStep===togetherWordRound.length){const count=togetherWordStep;stopAutoImitateSession(false);state.rewards++;saveProgress();refreshStats();renderRoundProgress(count,count);celebrateRound('imitate',count);return;}
+    currentImitate=words.findIndex(w=>w.id===togetherWordRound[togetherWordStep].id);renderImitate();renderRoundProgress(togetherWordStep,togetherWordRound.length);playWord(words[currentImitate]);
+  }else{state.rewards++;saveProgress();refreshStats();syncBasicPractice();document.querySelector('#next-word').focus({preventScroll:true});}
+}
+function playCurrentPhrase() {
+  const phrase=twoWordPhrases[currentPhrase];
+  if(state.settings.phraseParts&&phraseStep<2)return speakVoice(`phrase_part_${phrase.id}_${phraseStep}`,undefined,{target:`[data-phrase-part="${phraseStep}"]`});
+  return playPhrase(phrase);
+}
+function startPhraseRound() {
+  roundSuccess.cancel();
+  stopAutoImitateSession(false);phraseRound=Array.from({length:state.settings.roundLength},(_,i)=>(currentPhrase+i)%twoWordPhrases.length);phraseRoundStep=0;phraseStep=0;phraseConfirmed=false;
+  renderTwoWordMode();playCurrentPhrase();
+}
+function completePhraseStep() {
+  if(currentScreen!=='two-word'||phraseConfirmed)return;
+  if(state.settings.phraseParts&&phraseStep<2){phraseStep++;syncBasicPractice();playCurrentPhrase();return;}
+  phraseConfirmed=true;showPhraseSuccessBadge();
+  if(phraseRound){
+    phraseRoundStep++;
+    if(phraseRoundStep===phraseRound.length){const count=phraseRound.length;phraseRound=null;state.rewards++;saveProgress();refreshStats();syncBasicPractice();celebrateRound('two-word',count);return;}
+    currentPhrase=phraseRound[phraseRoundStep];phraseStep=0;phraseConfirmed=false;renderTwoWordMode();playCurrentPhrase();
+  }else{state.rewards++;saveProgress();refreshStats();syncBasicPractice();nextPhraseBtn.focus({preventScroll:true});}
+}
+
 function renderCards() {
   cardsGrid.innerHTML = "";
   const category = wordCategories.find((entry) => entry.id === selectedCategory);
+  document.querySelector('#card-followup').hidden=!category.words.includes(practiceLaunchWordId);
+  if(!category.words.includes(practiceLaunchWordId))practiceLaunchWordId=null;
   const visibleWords = words.filter((word) => category.words.includes(word.id));
   document.querySelectorAll(".category-choice").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.category === selectedCategory));
@@ -821,9 +799,12 @@ function renderCards() {
     const button = document.createElement("button");
     button.className = "card";
     button.dataset.word = word.id;
-    button.innerHTML = `<div class="card-emoji">${word.emoji}</div><div class="card-word">${word.label}</div>`;
+    button.innerHTML = `<div class="card-emoji">${wordPicture(word)}</div><div class="card-word">${word.label}</div>`;
     button.setAttribute("aria-label", `${word.label} meghallgatása`);
     button.addEventListener("click", async () => {
+      practiceLaunchWordId=word.id;
+      const followup=document.querySelector("#card-followup");followup.hidden=false;
+      document.querySelector("#card-selected").textContent=`Ezzel játszunk: ${word.label}`;
       const playback = playWord(word, undefined, {target:`.card[data-word="${word.id}"] .card-emoji`});
       const token = playbackToken;
       cardsGrid.querySelectorAll(".card").forEach((card) => card.classList.remove("is-speaking"));
@@ -835,53 +816,20 @@ function renderCards() {
   });
 }
 
-function renderFlipGame() {
-  roundSuccess.cancel();
-  flipRoundToken += 1;
-  flipRoundComplete = false;
-  flipGrid.replaceChildren();
-  const deck = shuffleNumbers([...getPracticeWords()]).slice(0, 6);
-  deck.forEach((word, index) => {
-    const card = document.createElement("button");
-    card.className = "flip-card";
-    card.dataset.word = word.id;
-    card.setAttribute("aria-label", `Meglepetés ${index + 1}`);
-    card.setAttribute("aria-pressed", "false");
-    card.innerHTML = `<span class="flip-card-face flip-card-back" aria-hidden="true">✦</span><span class="flip-card-face flip-card-front" aria-hidden="true"><span class="card-emoji">${word.emoji}</span><span class="card-word">${word.label}</span></span>`;
-    card.addEventListener("click", async () => {
-      if (flipRoundComplete) return;
-      const token = flipRoundToken;
-      playEffect(card.classList.contains("is-open") ? "select" : "card");
-      card.classList.add("is-open");
-      card.setAttribute("aria-label", `${word.label} meghallgatása`);
-      card.setAttribute("aria-pressed", "true");
-      const found = flipGrid.querySelectorAll(".is-open").length;
-      flipStatus.textContent = `${found} / ${deck.length}`;
-      const completed = found === deck.length;
-      if (completed) flipRoundComplete = true;
-      await playWord(word, undefined, {target:`.flip-card[data-word="${word.id}"] .flip-card-front .card-emoji`});
-      if (completed && token === flipRoundToken && currentScreen === "flip") {
-        state.rewards += 1;
-        saveProgress();
-        refreshStats();
-        celebrateRound("flip", deck.length);
-      }
-    });
-    flipGrid.appendChild(card);
-  });
-  flipStatus.textContent = `0 / ${deck.length}`;
-}
+function renderFlipGame() { flipGame.start(); }
 
 function renderImitate() {
   roundSuccess.cancel();
   const word = words[currentImitate];
-  imitateEmoji.textContent = word.emoji;
+  setWordPicture(imitateEmoji,word);
   imitateWord.textContent = word.label;
   imitatePrompt.textContent = `Mondd: ${word.label}`;
   setListeningUi(false);
   setEngineState("idle", "Készen áll.");
   listenStatus.textContent = autoSessionRunning ? "Hallgassuk meg!" : "🔊 → 🎤";
   hideSuccessBadge();
+  wordConfirmed=false;
+  syncBasicPractice();
   setSpeechRecovery("word", false);
 }
 
@@ -889,7 +837,10 @@ function renderTwoWordMode() {
   const phrase = twoWordPhrases[currentPhrase];
   phraseEmoji.replaceChildren(...phrase.emojis.map((emoji, i) => {
     const picture = document.createElement('span'); picture.className = 'phrase-picture';
-    picture.dataset.phrasePart = i; picture.textContent = emoji; return picture;
+    picture.dataset.phrasePart = i;
+    const word=words.find(word=>word.emoji===emoji);
+    if(word)setWordPicture(picture,word);else picture.textContent=emoji;
+    return picture;
   }));
   phraseText.textContent = phrase.text;
   phrasePrompt.textContent = `Mondd: ${phrase.text}`;
@@ -898,6 +849,7 @@ function renderTwoWordMode() {
   phraseStatus.textContent = "🔊 → 🎤";
   hidePhraseSuccessBadge();
   setSpeechRecovery("phrase", false);
+  syncBasicPractice();
 }
 
 async function playPhrase(phrase) {
@@ -906,7 +858,9 @@ async function playPhrase(phrase) {
 }
 
 async function startPhraseListeningAttempt() {
-  const phrase = twoWordPhrases[currentPhrase];
+  const wholePhrase = twoWordPhrases[currentPhrase];
+  const targetStep=state.settings.phraseParts?phraseStep:2;
+  const phrase = targetStep<2 ? {...wholePhrase,text:wholePhrase.text.split(" ")[targetStep],targets:[wholePhrase.targets[targetStep]]} : wholePhrase;
   return runListeningTask("phrase", async (signal) => {
     setPhraseListeningUi(true, false);
     setPhraseState("preparing", "A beszédfelismerés előkészítése.");
@@ -924,13 +878,14 @@ async function startPhraseListeningAttempt() {
     });
     signal.throwIfAborted();
     if (result.success) {
-      setPhraseState("success", "Ügyes! Megvolt a két szó.");
+      setPhraseState("success", state.detection.mode==='encouraging'?"Hallottuk a hangodat.":"Megvan a kifejezés!");
       showPhraseSuccessBadge();
       playSuccessSound();
-      state.rewards += 1;
       saveProgress();
       refreshStats();
       await burstConfettiOverlay(900);
+      signal.throwIfAborted();
+      completePhraseStep();
     } else {
       setPhraseState("rejected", result.reason || "Próbáljuk meg együtt még egyszer!");
       await sleep(260);
@@ -942,14 +897,19 @@ async function startPhraseListeningAttempt() {
 }
 
 async function detectTwoWordPhrase(phrase, signal, onStart) {
+  if(state.detection.mode==='encouraging'){
+    const result=await detectRVoiceActivity({signal,onStart});
+    return {success:result.detected,reason:result.detected?'Hallottuk a hangodat.':'Próbáljuk meg együtt!'};
+  }
+  const matches=alternatives=>phrase.targets.length===2?matchTwoWordPhrase(phrase.targets,alternatives,TWO_WORD_MATCH_THRESHOLD).success:(alternatives||[]).some(text=>normalizeText(text).split(' ').some(token=>[phrase.targets[0].base,...phrase.targets[0].aliases].some(form=>similarityScore(normalizeText(form),token)>=TWO_WORD_MATCH_THRESHOLD)));
   const speech = await recognizeHungarianSpeech({
     timeoutMs: SPEECH_TIMING.phrase, signal, onStart,
-    isMatch: result => matchTwoWordPhrase(phrase.targets, result.alternatives, TWO_WORD_MATCH_THRESHOLD).success,
+    isMatch: result => matches(result.alternatives),
   });
   signal.throwIfAborted();
   if (speech.error && speech.error !== "no-speech") throw new Error(speechErrorMessage(speech.error));
-  const { success, scores } = matchTwoWordPhrase(phrase.targets, speech.alternatives, TWO_WORD_MATCH_THRESHOLD);
-  return { success, reason: success ? "Mindkét szó megvan." : `Még nincs meg mindkét szó (${scores.map(score => score.toFixed(2)).join(" / ")}).` };
+  const success=matches(speech.alternatives);
+  return {success, reason:success?"Megvan a kifejezés!":"Próbáljuk meg együtt még egyszer!"};
 }
 
 function syncDetectionControls() {
@@ -1041,6 +1001,16 @@ function renderDebug(result) {
 }
 
 function refreshStats() {
+  const numberSummary=document.querySelector('#number-summary');
+  if(numberSummary){
+    const data=normalizeNumberProgress(state.numbers);
+    const summaries=['count','quiz'].map(mode=>{
+      const results=Object.entries(data.stats[mode]).filter(([,v])=>v.independent+v.helped).map(([n,v])=>`${n}-es mennyiség: ${v.independent} önálló, ${v.helped} segítséggel`).join('; ');
+      return results?`${mode==='count'?'Számlálás':'Mennyiségkeresés'}: ${results}`:'';
+    }).filter(Boolean);
+    numberSummary.textContent=summaries.length?summaries.join('. '):'A befejezett számolási feladatok eredménye itt jelenik meg, mennyiségenként.';
+  }
+
   const rSummary = document.querySelector('#r-practice-summary');
   if(rSummary){const games=Object.values(normalizeRProgress(state.rPractice).games);rSummary.textContent=`Közös körök: ${games.reduce((sum,game)=>sum+game.rounds,0)}. Mikrofonos próbák és képes találatok: ${games.reduce((sum,game)=>sum+game.practices,0)}. Felismert szavak vagy sorok: ${games.reduce((sum,game)=>sum+game.recognized,0)}. Közösen jelzett gyakorlások: ${games.reduce((sum,game)=>sum+game.confirmed,0)}.`;}
   const workshop = normalizeWorkshop(state.workshop);
@@ -1281,6 +1251,8 @@ function baseProgress() {
     logic: normalizeLogic(),
     workshop: normalizeWorkshop(),
     rPractice: normalizeRProgress(),
+    numbers: normalizeNumberProgress(),
+    puzzles: {},
     settings: { ...SETTINGS_DEFAULTS },
     detection: { ...DETECTION_DEFAULTS },
     supabase: { ...SUPABASE_CONFIG_DEFAULTS },
@@ -1310,6 +1282,8 @@ function normalizeState(input) {
       ...normalizePuzzleOptions(input.settings),
       ...normalizeMontessoriOptions(input.settings),
       ...normalizeEffectOptions(input.settings),
+      ...normalizePracticeSettings(input.settings),
+      ...normalizeNumberSettings(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
@@ -1385,8 +1359,13 @@ function getPracticeWords() {
   return words.filter(word => category.words.includes(word.id));
 }
 
+function getSpeechWords() {
+  const favorites=words.filter(word=>state.settings.favoriteWords.includes(word.id));
+  return state.settings.useFavorites && favorites.length ? favorites : getPracticeWords();
+}
+
 function buildAdaptiveSessionWords() {
-  const ranked = shuffleNumbers([...getPracticeWords()])
+  const ranked = shuffleNumbers([...getSpeechWords()])
     .map(word => ({ word, score: getWordDifficultyScore(word) }))
     .sort((a, b) => b.score - a.score)
     .map(entry => entry.word);
@@ -1602,7 +1581,7 @@ async function runListeningTask(kind, task) {
     return await task(controller.signal);
   } catch (error) {
     if (controller.signal.aborted) return false;
-    const status = kind === "phrase" ? phraseStatus : kind === "flip" ? flipStatus : listenStatus;
+    const status = kind === "phrase" ? phraseStatus : kind === "flip" ? document.querySelector('#flip-status') : listenStatus;
     document.querySelector("#device-status").textContent = error.message || "A mikrofon nem érhető el.";
     if (autoSessionRunning) stopAutoImitateSession(false);
     status.textContent = "Kérj segítséget egy felnőttől. 🔒";
@@ -1622,7 +1601,7 @@ async function runListeningTask(kind, task) {
       setEngineState("idle", "");
       setPhraseState("idle", "");
       document.querySelector("#stop-listening").hidden = true;
-      flipGrid.querySelectorAll(".is-open").forEach((card) => card.classList.remove("is-open", "is-success", "is-fail"));
+
       teardownMicMonitor();
     }
   }
@@ -1814,6 +1793,8 @@ function setListeningUi(active, ready = active) {
   listenBtn.disabled = active || autoSessionRunning;
   document.querySelector("#play-model").disabled = active || autoSessionRunning;
   document.querySelector("#next-word").disabled = active || autoSessionRunning;
+  if(autoSessionRunning&&state.settings.wordPracticeMode==='together')document.querySelector("#play-model").disabled=false;
+  document.querySelector("#word-confirm").disabled=active||wordConfirmed;
   setButtonIcon(listenBtn, "mic");
   const label = active ? ready ? "Hallgatlak" : "Hang előkészítése" : "Most én mondom";
   listenBtn.setAttribute("aria-label", label);
@@ -1822,7 +1803,7 @@ function setListeningUi(active, ready = active) {
 }
 
 function setPhraseListeningUi(active, ready = active) {
-  listenPhraseBtn.disabled = active;
+  listenPhraseBtn.disabled = active || phraseConfirmed;
   playPhraseBtn.disabled = active;
   nextPhraseBtn.disabled = active;
   setButtonIcon(listenPhraseBtn, "mic");
@@ -1830,6 +1811,10 @@ function setPhraseListeningUi(active, ready = active) {
   listenPhraseBtn.setAttribute("aria-label", label);
   listenPhraseBtn.setAttribute("title", label);
   phraseListeningIndicator.classList.toggle("is-hidden", !ready);
+  document.querySelector("#phrase-stop").hidden=!active;
+  document.querySelector("#phrase-confirm").disabled=active||phraseConfirmed;
+  document.querySelector("#phrase-round-start").disabled=active;
+  document.querySelectorAll("#phrase-parts button").forEach(b=>b.disabled=active);
 }
 
 function setPhraseState(kind, text) {
@@ -1847,6 +1832,7 @@ function playListeningStartSound() { playEffect('listen'); }
 
 async function startAutoImitateSession() {
   roundSuccess.cancel();
+  if(state.settings.wordPracticeMode==='together')return startTogetherWordRound();
   stopAutoImitateSession(false);
   document.querySelector("#round-complete").close();
   autoSessionRunning = true;
@@ -1892,6 +1878,7 @@ async function startAutoImitateSession() {
 function stopAutoImitateSession(showStatus = true) {
   autoSessionToken += 1;
   autoSessionRunning = false;
+  togetherWordRound=null;
   activeAttempt?.abort();
   activeAttempt = null;
   listening = false;
@@ -1907,8 +1894,7 @@ function stopAutoImitateSession(showStatus = true) {
   document.querySelector("#auto-session").setAttribute("aria-pressed", "false");
   document.querySelector("#stop-listening").hidden = true;
   document.querySelector("#session-status").textContent = "Együtt is gyakorolhattok, szóról szóra.";
-  if (showStatus) listenStatus.textContent = "🔊 → 🎤";
-  flipRoundToken += 1;
+  if (showStatus) listenStatus.textContent = state.settings.wordPracticeMode==='together'?"Mondjuk együtt!":"🔊 → 🎤";
   celebrationToken += 1;
   confettiLayer.classList.remove("is-active");
   confettiLayer.replaceChildren();
@@ -2116,6 +2102,8 @@ function setupNavigation() {
     if (listening || autoSessionRunning) stopAutoImitateSession(false);
     primeSfx();
     if (currentScreen === "numbers" && numberMode === "quiz") speakNumberQuestion();
+    else if (currentScreen === "flip") flipGame.repeat();
+    else if (currentScreen === "numbers") numberGame.repeat();
     else if (currentScreen === "meseliget") meadowGame.repeat();
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
@@ -2134,11 +2122,6 @@ function setupNavigation() {
   });
   document.querySelector("#parent-button").addEventListener("click", showParentGate);
   document.querySelector("#close-parent-gate").addEventListener("click", () => document.querySelector("#parent-gate").close());
-  document.querySelector("#flip-new").addEventListener("click", () => {
-    stopPlayback();
-    renderFlipGame();
-    speakGuide("flip");
-  });
   document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
   document.querySelector('#round-back').addEventListener('click', goBack);
   document.querySelector("#round-replay").addEventListener("click", () => {
@@ -2149,7 +2132,9 @@ function setupNavigation() {
     else if (completedRoundKind === "listening-game") showScreen("listening-game");
     else if (completedRoundKind === "memory") showScreen("memory");
     else if (completedRoundKind === "pour") showScreen("pour");
-    else if (completedRoundKind === "puzzle") showScreen("puzzle");
+    else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
+    else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
+    else if(completedRoundKind==='two-word'){showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
     else startAutoImitateSession();
   });
@@ -2213,6 +2198,8 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   audiobooks?.stop();
   pourGame?.stop();
   rPractice?.stop();
+  numberGame?.stop();
+  flipGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
@@ -2238,8 +2225,8 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   updateBackButton();
   document.querySelector("#help-button").hidden = ['parent', 'play-break'].includes(screen);
   if (screen === "cards") renderCards();
-  if (screen === "imitate") { renderImitate(); renderRoundProgress(); }
-  if (screen === "two-word") renderTwoWordMode();
+  if (screen === "imitate") { const pool=getSpeechWords();if(!pool.some(w=>w.id===words[currentImitate].id))currentImitate=words.findIndex(w=>w.id===pool[0].id);renderImitate(); renderRoundProgress(); }
+  if (screen === "two-word") {phraseRound=null;phraseStep=0;phraseConfirmed=false;renderTwoWordMode();}
   if (screen === "flip") renderFlipGame();
   if (screen === "listening-game") listeningGame.start({ announce });
   if (screen === "teddy-game") teddyGame.start({ announce });
@@ -2260,7 +2247,7 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   title.tabIndex = -1;
   title.focus({ preventScroll: true });
   window.scrollTo(0, 0);
-  if (announce && !["listening-game", "teddy-game", "dress-game"].includes(screen) && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
+  if (announce && !["listening-game", "teddy-game", "dress-game", "numbers", "flip"].includes(screen) && screenInfo[screen].guide) speakGuide(screenInfo[screen].guide);
   offlineClient?.notifyScreenChange();
   if (timedScreens.has(screen) && screen !== 'audiobooks') playTime?.start();
   else playTime?.tick();
@@ -2336,7 +2323,7 @@ function setupParentSettings() {
   wordVoice.value = state.settings.wordVoice;
   guidance.checked = state.settings.spokenGuidance;
   listeningChoices.value = state.settings.listeningChoices;
-  document.querySelector("#number-level").value = numberLimit;
+  document.querySelector("#number-level").value = state.settings.numberLimit;
   roundLength.addEventListener("change", () => { state.settings.roundLength = Number(roundLength.value); saveProgress(); renderRoundProgress(); });
   topic.addEventListener("change", () => { state.settings.practiceTopic = topic.value; saveProgress(); });
   wordVoice.addEventListener("change", () => { state.settings.wordVoice = wordVoice.value; saveProgress(); });
@@ -2362,7 +2349,8 @@ function renderRoundProgress(current = 0, total = state.settings.roundLength) {
 
 function celebrateRound(kind, count) {
   roundSuccess.schedule(() => {
-    if (currentScreen !== kind || document.querySelector('dialog[open]')) return;
+    const screen = kind.startsWith('numbers-') ? 'numbers' : kind;
+    if (currentScreen !== screen || document.querySelector('dialog[open]')) return;
     completedRoundKind = kind;
     playSuccessSound();
     burstConfettiOverlay(1000);

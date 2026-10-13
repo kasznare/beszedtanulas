@@ -142,11 +142,26 @@ async page => {
 
   const enterR = async game => { await page.evaluate(() => successScenes.open('r')); await page.locator(`#r-practice [data-game="${game}"]`).click(); await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle'); };
   const finishSpeech = async count => { for (let i = 0; i < count; i++) { await page.locator('#r-practice [data-action="advance"]').click(); await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle'); } };
-  await enterR('post'); const postBefore = (await snapshot()).rp.games.post.rounds; await finishSpeech(3);
-  ok((await snapshot()).rp.games.post.rounds === postBefore + 1 && await page.locator('.rp-parcel').count() === 3, 'R post: complete parcel scene and round count are immediate');
+  const finishPost = async () => {
+    for (const friend of ['fox', 'rabbit']) {
+      await finishSpeech(1);
+      await page.locator(`#r-practice [data-deliver="${friend}"]`).evaluate(button => { button.click(); button.click(); });
+      await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle');
+    }
+  };
+  const finishWorkshop = async () => {
+    for (let i = 0; i < 3; i++) {
+      await finishSpeech(1);
+      await page.locator('#r-practice [data-decoration="flower"]').click();
+      await page.locator(`#r-practice [data-place="${i}"]`).evaluate(button => { button.click(); button.click(); });
+      await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle');
+    }
+  };
+  await enterR('post'); const postBefore = (await snapshot()).rp.games.post.rounds; await finishPost();
+  ok((await snapshot()).rp.games.post.rounds === postBefore + 1 && await page.locator('.rp-parcel').count() === 2, 'R post: complete parcel scene and round count are immediate');
   ok(await page.locator('#r-practice [data-action="advance"]').isDisabled(), 'R post: the completed round cannot advance again');
   await checkQuietInterval('#r-practice', '.rp-finish', 'R parcel round');
-  await enterR('post'); await finishSpeech(3); await page.waitForTimeout(200);
+  await enterR('post'); await finishPost(); await page.waitForTimeout(200);
   await page.evaluate(() => successScenes.setHidden(true)); await page.waitForTimeout(1100);
   ok(await page.locator('.rp-finish').count() === 0, 'R post: hidden time pauses the final scene interval');
   await page.evaluate(() => { successScenes.setHidden(false); document.querySelector('#parent-gate').showModal(); }); await page.waitForTimeout(500);
@@ -154,10 +169,10 @@ async page => {
   await page.locator('.rp-finish').waitFor({ state: 'visible' });
   ok(!(await page.locator('#rp-status').innerText()).includes('megállt'), 'R post: the resumed final card has no stale stopped message');
   await page.evaluate(() => document.querySelector('#parent-gate').close());
-  await enterR('post'); await finishSpeech(3); const restartBefore = narration(await snapshot(), 'r_round_done');
+  await enterR('post'); await finishPost(); const restartBefore = narration(await snapshot(), 'r_round_done');
   await page.locator('#r-practice [data-action="restart"]').click(); await page.waitForTimeout(1100);
   ok(await page.locator('.rp-finish').count() === 0 && narration(await snapshot(), 'r_round_done') === restartBefore, 'R post: restart cancels the old card and final voice');
-  await enterR('workshop'); await finishSpeech(3);
+  await enterR('workshop'); await finishWorkshop();
   ok(await page.locator('.rp-decoration.is-decorated').count() === 3, 'R workshop: all final decorations remain visible');
   await checkQuietInterval('#r-practice', '.rp-finish', 'R decorated workshop');
   await enterR('rhyme'); await finishSpeech(4);

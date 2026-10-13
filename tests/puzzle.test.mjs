@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
-import { PUZZLE_IMAGES, PUZZLE_SIZES, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete, normalizePuzzleOptions } from '../puzzle-data.js';
+import { PUZZLE_IMAGES, PUZZLE_SIZES, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete, normalizePuzzleOptions, normalizePuzzleBoard, normalizePuzzleProgress, validatePuzzleProgress } from '../puzzle-data.js';
 
 test('every size covers the entire picture exactly once, with matching crop coordinates', () => {
   for (const count of PUZZLE_SIZES) {
@@ -118,13 +118,31 @@ test('saved settings accept all supported pictures/sizes and recover from malfor
     assert.deepEqual(normalizePuzzleOptions(value), { puzzleImage: 'farm', puzzlePieces: 6 });
   }
 });
-test('four distinct original pictures and puzzle modules ship in the offline bundle', async () => {
-  assert.equal(PUZZLE_IMAGES.length, 4);
-  assert.equal(new Set(PUZZLE_IMAGES.map(image => image.image)).size, 4);
+test('original illustrations and three simple beginner pictures exist', async () => {
+  assert.equal(PUZZLE_IMAGES.length, 7);
+  assert.equal(new Set(PUZZLE_IMAGES.map(image => image.image)).size, 7);
+  assert.equal(PUZZLE_IMAGES.filter(image => image.image.includes('puzzle-simple')).length, 3);
   const worker = await readFile(new URL('../sw.js', import.meta.url), 'utf8');
   const files = JSON.parse(worker.match(/const ASSETS = (\[[\s\S]*?\]);/)[1]).map(asset => asset.file);
   for (const file of ['puzzle-data.js', 'puzzle-game.js', 'puzzle.css', ...PUZZLE_IMAGES.map(image => image.image.replace('./', ''))]) {
     assert.ok((await stat(new URL(`../${file}`, import.meta.url))).size > 0);
-    assert.ok(files.includes(file), `${file} must be playable offline`);
+    if (!file.startsWith('assets/puzzle-simple/')) assert.ok(files.includes(file), `${file} must be playable offline`);
   }
+});
+test('saved boards reject duplicate and foreign pieces and preserve reward state', () => {
+  const puzzle = buildPuzzle(4, () => 0);
+  const board = { imageId: 'sun', pieceCount: 4, order: puzzle.order, placed: [[0, 2], [2, 0]], rewarded: true };
+  assert.deepEqual(normalizePuzzleBoard(board, 'sun', 4), board);
+  for (const invalid of [{ ...board, placed: [[0, 1], [0, 2]] }, { ...board, placed: [[0, 1], [2, 1]] }, { ...board, placed: [[8, 1]] }, { ...board, order: [0, 1, 1, 3] }, { ...board, rewarded: 'yes' }]) {
+    assert.equal(normalizePuzzleBoard(invalid, 'sun', 4), null);
+  }
+  assert.deepEqual(normalizePuzzleProgress({ 'sun:4': board, 'sun:2': board, bogus: board }), { 'sun:4': board });
+  assert.equal(validatePuzzleProgress({ 'sun:4': board }), true);
+  assert.equal(validatePuzzleProgress(undefined), true);
+  assert.throws(() => validatePuzzleProgress({ bogus: board }));
+  assert.throws(() => validatePuzzleProgress({ 'sun:4': { ...board, placed: [[0, 1], [0, 2]] } }));
+  const unawardedFull = { ...board, placed: [0, 1, 2, 3], rewarded: false };
+  assert.equal(normalizePuzzleBoard(unawardedFull, 'sun', 4).rewarded, true);
+  assert.throws(() => validatePuzzleProgress({ 'sun:4': unawardedFull }));
+  assert.deepEqual(normalizePuzzleBoard({ ...board, placed: [0, 2] }, 'sun', 4).placed, [[0, 0], [2, 2]]);
 });

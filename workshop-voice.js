@@ -34,5 +34,17 @@ export const WORKSHOP_CLIPS = {
   workshop_balance_retry: 'A rudakat még átrendezheted. Figyeld a mennyiséget és a megadott darabszámot! A lépéseket vissza is vonhatod.',
   workshop_balance_done: 'A két oldal egyensúlyban van! Megtaláltad az összeillő rudakat. Szép munka!',
   workshop_ready: 'Minden a helyén van. Koppints a Kész gombra!',
+  workshop_sort_again_1: 'Az első válogatás kész! Most csak a forma számít. Ugyanazokat a tárgyakat tedd a formájukhoz illő tálcára! A színt most nem kell figyelned.',
+  workshop_sort_again_2: 'Most új szabályt követünk! A forma és a méret együtt mutatja a helyet. A színt most nem kell figyelned. Ugyanazokat a tárgyakat rendezd át!',
+  workshop_sort_again_3: 'Az első válogatás kész! Most megfordul a méretszabály. Ugyanazokat a tárgyakat rendezd át! Figyeld, melyik méret kerül a színes tálcákra!',
+  workshop_sort_again_hint2: 'A napocskás tárggyal folytasd! Figyeld a mostani szabályt és a tálcák jeleit, majd válassz neki helyet!',
+  workshop_pattern_gap: 'Üres hely.',
+  workshop_balance_another: 'Ugyanazt a mennyiséget most más rudakkal rakd ki! Az eddigi megoldásod lent megmaradt.',
+  workshop_balance_duplicate: 'Ezt az összeállítást már kiraktad. Próbálj más rudakat! A segítség is mutathat új lehetőséget.',
 };
+for (const [color, name] of Object.entries({coral:'piros',blue:'kék',gold:'sárga',green:'zöld'})) {
+  for (const [shape, label] of Object.entries({circle:'kör',square:'négyzet',triangle:'háromszög'})) {
+    WORKSHOP_CLIPS[`workshop_object_${color}_${shape}`] = `${name} ${label}.`;
+  }
+}
 ['nulla', 'egy', 'kettő', 'három', 'négy', 'öt', 'hat', 'hét', 'nyolc', 'kilenc', 'tíz', 'tizenegy', 'tizenkettő', 'tizenhárom', 'tizennégy', 'tizenöt'].forEach((text, number) => { WORKSHOP_CLIPS[`workshop_n_${number}`] = text; });

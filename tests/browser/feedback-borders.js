@@ -49,9 +49,10 @@ async page => {
       await colour('.rp-rhyme-line.is-current', 'borderTopColor', sage);
       // Reproduce the reported double border while real model audio is playing.
       await p.locator('#r-practice [data-action="model"]').click();
-      await p.locator('.rp-rhyme-line.is-current.is-narrated').waitFor();
-      await colour('.rp-rhyme-line.is-current.is-narrated', 'borderTopColor', sage);
-      await colour('.rp-rhyme-line.is-current.is-narrated', 'outlineColor', sage);
+      await p.locator('.rp-rhyme-current.is-narrated').waitFor();
+      await colour('.rp-rhyme-line.is-current', 'borderTopColor', sage);
+      await colour('.rp-rhyme-current.is-narrated', 'outlineColor', sage);
+      await colour('.rp-rhyme-current.is-narrated', 'animationName', 'none');
       await p.locator('#r-practice[data-phase="idle"]').waitFor();
     }
     await p.locator('[data-rhyme="1"]').click(); await p.locator('#r-practice[data-phase="idle"]').waitFor();

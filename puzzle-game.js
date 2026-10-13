@@ -1,9 +1,20 @@
-import { PUZZLE_IMAGES, PUZZLE_SIZES, normalizePuzzleOptions, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete } from './puzzle-data.js';
+import { PUZZLE_IMAGES, PUZZLE_SIZES, normalizePuzzleOptions, normalizePuzzleBoard, buildPuzzle, placePuzzlePiece, removePuzzlePiece, isPuzzleComplete } from './puzzle-data.js';
 
-export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, speak, stopPlayback, onComplete, onRestart = () => {} }) {
+export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, getProgress, setProgress, speak, stopPlayback, onComplete, onRestart = () => {} }) {
   const root = document.querySelector('#puzzle');
   let active = false, puzzle, picture, placed, selected = null, hint = false, finished = false;
   let drag = null, blockClickUntil = 0, blockedClick = null;
+  let chooserOpen = false, localBoards = {};
+  const boardKey = () => `${picture.id}:${puzzle.pieces.length}`;
+  const boards = () => getProgress?.() ?? localBoards;
+  function savedBoard() { return normalizePuzzleBoard(boards()?.[boardKey()], picture.id, puzzle.pieces.length); }
+  function saveBoard(rewarded = false) {
+    const current = boards();
+    const next = { ...(current && typeof current === 'object' ? current : {}), [boardKey()]: {
+      imageId: picture.id, pieceCount: puzzle.pieces.length, order: [...puzzle.order], placed: [...placed].map(([slot, piece]) => [slot, piece]), rewarded,
+    } };
+    if (setProgress) setProgress(next); else localBoards = next;
+  }
   const playable = () => active && !finished && !document.hidden;
   const say = id => { if (active && !document.hidden) speak(id); };
   const crop = piece => `background-image:url('${picture.image}');background-size:${puzzle.columns * 100}% ${puzzle.rows * 100}%;background-position:${piece.x}% ${piece.y}%;`;
@@ -22,9 +33,9 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
 
   function render(focusSelector) {
     root.innerHTML = `<div class="puzzle-heading"><h2>${picture.name}</h2><p id="puzzle-instructions">Koppints egy darabra, majd egy mezőre — vagy húzd oda! Később is átteheted.</p></div>
-      <div class="puzzle-pictures" role="group" aria-label="Válassz puzzle képet">${PUZZLE_IMAGES.map(image => `<button data-puzzle-image="${image.id}" aria-pressed="${image.id === picture.id}" aria-label="${image.name} kirakó"><img src="${image.image}" alt="" draggable="false" width="1536" height="1024"><span>${image.name}</span></button>`).join('')}</div>
-      <div class="puzzle-toolbar"><div class="puzzle-sizes" role="group" aria-label="Képdarabok száma">${PUZZLE_SIZES.map(count => `<button data-puzzle-size="${count}" aria-pressed="${count === puzzle.pieces.length}">${count} darab</button>`).join('')}</div><span class="puzzle-progress" role="status">${placed.size} / ${puzzle.pieces.length} lerakva</span></div>
-      <div class="puzzle-workspace" style="--puzzle-cols:${puzzle.columns};--piece-ratio:${3 / puzzle.columns}">
+      <div class="puzzle-chooser"><button id="puzzle-choose" aria-expanded="${chooserOpen}" aria-controls="puzzle-choices">🖼️ Kép és darabszám: ${picture.name}, ${puzzle.pieces.length} darab</button><div id="puzzle-choices" ${chooserOpen ? '' : 'hidden'}><div class="puzzle-pictures" role="group" aria-label="Válassz puzzle képet">${PUZZLE_IMAGES.map(image => `<button data-puzzle-image="${image.id}" aria-pressed="${image.id === picture.id}" aria-label="${image.name} kirakó"><img src="${image.image}" alt="" draggable="false" width="600" height="400"><span>${image.name}</span></button>`).join('')}</div><div class="puzzle-sizes" role="group" aria-label="Képdarabok száma">${PUZZLE_SIZES.map(count => `<button data-puzzle-size="${count}" aria-pressed="${count === puzzle.pieces.length}">${count} darab</button>`).join('')}</div></div></div>
+      <div class="puzzle-toolbar"><span class="puzzle-progress" role="status">${placed.size} / ${puzzle.pieces.length} lerakva</span></div>
+      <div class="puzzle-workspace" style="--puzzle-cols:${puzzle.columns};--puzzle-rows:${puzzle.rows};--piece-ratio:${3 * puzzle.rows / (2 * puzzle.columns)}">
         <div class="puzzle-board ${hint ? 'has-hint' : ''} ${finished ? 'is-complete' : ''} ${selected !== null ? 'has-selection' : ''}" role="group" aria-label="${picture.name}, ide kerülnek a képdarabok" aria-describedby="puzzle-instructions"><img class="puzzle-reference" src="${picture.image}" alt="" draggable="false">${puzzle.pieces.map(slot => {
           const id = placed.get(slot.id), occupied = id !== undefined;
           return `<button class="puzzle-slot ${occupied ? `is-placed puzzle-piece ${selected === id ? 'is-selected' : ''}` : ''}" data-slot="${slot.id}" ${occupied && !finished ? `data-piece="${id}" aria-pressed="${selected === id}"` : ''} aria-label="${slot.row + 1}. sor, ${slot.column + 1}. hely${occupied ? `, ${id + 1}. képdarab${finished ? ', kész' : ', áthelyezhető'}` : ', üres'}" ${finished ? 'disabled' : ''} ${occupied ? `style="${crop(puzzle.pieces[id])}" draggable="false"` : ''}><span aria-hidden="true">${occupied ? '' : '✧'}</span></button>`;
@@ -41,8 +52,19 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
     const options = normalizePuzzleOptions(getOptions());
     picture = PUZZLE_IMAGES.find(image => image.id === options.puzzleImage);
     puzzle = buildPuzzle(options.puzzlePieces);
-    active = true; placed = new Map(); selected = null; hint = false; finished = false; blockClickUntil = 0;
+    active = true; selected = null; hint = false; blockClickUntil = 0;
+    const saved = savedBoard();
+    if (saved) puzzle.order = saved.order;
+    placed = new Map(saved?.placed ?? []);
+    finished = isPuzzleComplete(puzzle, placed);
+    if (!saved) saveBoard();
     render(); say('puzzle_start');
+  }
+  function restart() {
+    if (!puzzle || !picture) { start(); return; }
+    puzzle.order = buildPuzzle(puzzle.pieces.length).order;
+    placed = new Map(); finished = false; saveBoard(false);
+    start();
   }
   function select(id, audible = true) {
     if (!playable() || !puzzle.pieces.some(piece => piece.id === id)) return;
@@ -60,8 +82,10 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
     effect('snap');
     selected = null;
     finished = isPuzzleComplete(puzzle, placed);
+    const wasRewarded = Boolean(savedBoard()?.rewarded);
+    saveBoard(finished || wasRewarded);
     render(finished ? '#puzzle-restart' : `[data-piece="${pieceId}"]`);
-    if (finished) onComplete(puzzle.pieces.length);
+    if (finished && !wasRewarded) onComplete(puzzle.pieces.length);
     else {
       status(placed.size === puzzle.pieces.length ? 'Minden darab a táblán van. Nézd meg a képet, és cseréld meg, amit szeretnél!' : 'Letetted a darabot. Bármikor átteheted máshová!');
       // This recording describes a correct position, so only play it there.
@@ -73,6 +97,7 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
     const id = selected;
     if (!removePuzzlePiece(puzzle, placed, id)) return;
     effect('card');
+    saveBoard(Boolean(savedBoard()?.rewarded));
     selected = null; stopPlayback(); render(`[data-piece="${id}"]`);
     status('A darab újra a tálcán van. Válassz neki egy másik helyet!');
   }
@@ -142,13 +167,14 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
     if (blockedClick && performance.now() < blockClickUntil && event.detail > 0 && (Number(button.dataset.piece) === blockedClick.pieceId || (blockedClick.slotId !== undefined && button.dataset.slot === blockedClick.slotId))) return;
     if (button.dataset.piece !== undefined) activatePiece(button);
     else if (button.dataset.slot !== undefined) place(Number(button.dataset.slot));
+    else if (button.id === 'puzzle-choose') { chooserOpen = !chooserOpen; render('#puzzle-choose'); }
     else if (button.dataset.puzzleImage) {
       setOptions({ ...normalizePuzzleOptions(getOptions()), puzzleImage: button.dataset.puzzleImage });
       start(); focus(`[data-puzzle-image="${button.dataset.puzzleImage}"]`);
     } else if (button.dataset.puzzleSize) {
       setOptions({ ...normalizePuzzleOptions(getOptions()), puzzlePieces: Number(button.dataset.puzzleSize) });
       start(); focus(`[data-puzzle-size="${button.dataset.puzzleSize}"]`);
-    } else if (button.id === 'puzzle-restart') { start(); focus('#puzzle-restart'); }
+    } else if (button.id === 'puzzle-restart') { restart(); focus('#puzzle-restart'); }
     else if (button.id === 'puzzle-return') returnToTray();
     else if (button.id === 'puzzle-hint' && !finished) {
       hint = !hint; render('#puzzle-hint');
@@ -165,5 +191,5 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, spe
   document.addEventListener('visibilitychange', () => {
     if (active && document.hidden) { cleanupDrag(); stopPlayback(); }
   });
-  return { start, stop() { active = false; cleanupDrag(); stopPlayback(); }, repeat() { say(finished ? 'puzzle_done' : hint ? 'puzzle_hint' : 'puzzle_start'); } };
+  return { start, restart, stop() { active = false; cleanupDrag(); stopPlayback(); }, repeat() { say(finished ? 'puzzle_done' : hint ? 'puzzle_hint' : 'puzzle_start'); } };
 }

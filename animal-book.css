@@ -13,6 +13,13 @@
 .abk-eyebrow { display:block; font-size:.72rem; font-weight:800; letter-spacing:.1em; color:var(--abk-accent); }
 .abk-heading h2 { margin:5px 0 4px; font-size:clamp(1.6rem,4vw,2.15rem); line-height:1.12; font-family:Georgia,"Times New Roman",serif; font-weight:700; }
 .abk-heading p { margin:0; font-size:.96rem; line-height:1.4; }
+.abk-modes { display:flex; justify-content:center; flex-wrap:wrap; gap:7px; margin:0 0 9px; }
+.animal-book-panel .abk-modes button[aria-pressed="true"] { border-color:var(--abk-accent); background:var(--abk-tint); }
+.animal-book-panel #abk-name-sound { display:block; margin:0 auto 9px; }
+.abk-task { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 9px; }
+.abk-task p { width:100%; margin:0; text-align:center; font-weight:750; }
+.abk-task [hidden] { display:none; }
+.abk-animals.is-scene-task { display:none; }
 .abk-scene { position:relative; width:100%; margin:auto; border-radius:15px; background:var(--abk-tint); isolation:isolate; touch-action:pan-y; user-select:none; }
 .abk-image { display:block; width:100%; height:auto; aspect-ratio:auto 3 / 2; object-fit:contain; border-radius:15px; pointer-events:none; user-select:none; }
 .abk-image.is-missing { visibility:hidden; }

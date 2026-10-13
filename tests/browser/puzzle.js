@@ -33,7 +33,8 @@ async page => {
   try {
     await page.setViewportSize({ width: 1194, height: 834 });
     await enter();
-    ok(await page.locator('[data-puzzle-image]').count() === 4, 'Four illustrated puzzles are available');
+    await page.locator('#puzzle-choose').click();
+    ok(await page.locator('[data-puzzle-image]').count() === 7, 'Four illustrated and three beginner pictures are available');
     await page.locator('[data-slot="0"]').click();
     ok((await page.locator('#puzzle-status').innerText()).includes('Előbb'), 'An empty slot asks for a piece first');
     await page.locator('[data-piece="0"]').focus(); await page.keyboard.press('Enter');
@@ -69,10 +70,14 @@ async page => {
     await page.locator('#puzzle-restart').click();
     ok(await page.locator('.puzzle-slot.is-placed').count() === 0, 'Restart clears placed pieces');
 
-    for (const image of ['farm', 'garden', 'pond', 'forest']) for (const size of [6, 8, 10]) {
+    const boards = [
+      ...['sun', 'ball', 'apple'].flatMap(image => [2, 4].map(size => [image, size])),
+      ...['farm', 'garden', 'pond', 'forest'].flatMap(image => [6, 8, 10].map(size => [image, size])),
+    ];
+    for (const [image, size] of boards) {
       await page.locator(`[data-puzzle-image="${image}"]`).click();
       await page.locator(`[data-puzzle-size="${size}"]`).click();
-      await page.waitForFunction(() => [...document.querySelectorAll('#puzzle img')].every(image => image.complete && image.naturalWidth === 1536));
+      await page.waitForFunction(() => [...document.querySelectorAll('#puzzle img')].every(image => image.complete && image.naturalWidth > 0));
       ok(await page.locator('[data-piece]').count() === size && await page.locator('[data-slot]').count() === size, `${image}/${size}: full board and tray`);
       ok((await saved()).settings.puzzleImage === image && (await saved()).settings.puzzlePieces === size, `${image}/${size}: settings saved`);
       await page.locator('#puzzle-hint').click();
@@ -125,7 +130,7 @@ async page => {
       await page.setViewportSize({ width, height });
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
-        small: [...document.querySelectorAll('#puzzle button')].filter(button => { const r = button.getBoundingClientRect(); return r.width < 43.5 || r.height < 43.5; }).map(button => button.outerHTML.slice(0,100)),
+        small: [...document.querySelectorAll('#puzzle button')].filter(button => { const r = button.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.width < 43.5 || r.height < 43.5); }).map(button => button.outerHTML.slice(0,100)),
         ratio: document.querySelector('.puzzle-board').getBoundingClientRect().width / document.querySelector('.puzzle-board').getBoundingClientRect().height,
       }));
       ok(!layout.overflow && !layout.small.length && Math.abs(layout.ratio - 1.5) < .02, `${width}×${height}: whole image, no overflow and ≥44px controls (${JSON.stringify(layout)})`);
@@ -136,7 +141,8 @@ async page => {
     await page.evaluate(() => document.querySelector('#home-button').click()); await page.mouse.up();
     ok(await page.locator('.puzzle-drag-preview').count() === 0 && await page.locator('#home').isVisible(), 'Leaving during a drag removes its preview');
     await page.reload(); await enter();
-    ok(await page.locator('[data-piece]').count() === 10 && await page.locator('[data-puzzle-image="forest"]').getAttribute('aria-pressed') === 'true', 'Picture/size survive reload with a fresh board');
+    await page.locator('#puzzle-choose').click();
+    ok(await page.locator('[data-piece]').count() === 10 && await page.locator('[data-puzzle-image="forest"]').getAttribute('aria-pressed') === 'true', 'Picture/size survive reload with saved board');
     if (await page.evaluate(() => navigator.maxTouchPoints > 0)) {
       await page.locator('[data-piece="0"]').tap(); await page.locator('[data-slot="0"]').tap();
       ok(await page.locator('.puzzle-slot.is-placed').count() === 1, 'Actual touchscreen taps select and place');
@@ -144,9 +150,10 @@ async page => {
     }
     await page.waitForFunction(() => document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'), undefined, { timeout: 60000 });
     await context.setOffline(true); await page.reload(); await enter();
-    await page.locator('[data-puzzle-image="pond"]').click();
+    await page.locator('#puzzle-choose').click();
+    await page.locator('[data-puzzle-image="sun"]').click();
     await page.locator('[data-puzzle-size="6"]').click();
-    await page.waitForFunction(() => document.querySelector('.puzzle-reference').naturalWidth === 1536);
+    await page.waitForFunction(() => document.querySelector('.puzzle-reference').naturalWidth > 0);
     for (let id = 0; id < 6; id++) {
       await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${id}"]`).click();
     }
@@ -155,7 +162,7 @@ async page => {
     await page.locator('#round-replay').click();
     ok(await page.locator('[data-piece]').count() === 6 && await page.locator('.puzzle-slot.is-placed').count() === 0, 'Celebration replay starts a fresh puzzle');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
-    return { count: checks.length, pictures: 4, sizes: [6,8,10], engine: context.browser().browserType().name(), checks };
+    return { count: checks.length, pictures: 7, sizes: [2,4,6,8,10], engine: context.browser().browserType().name(), checks };
   } finally {
     await context.setOffline(false);
     page.off('pageerror', errorListener);

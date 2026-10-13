@@ -1,4 +1,4 @@
-import { POUR_LEVELS, JUG_CAPACITY, JUG_INTERIOR, JUG_SPOUT, jugLiquid, jugPourAngle, newPourRound, refillPour, advancePour, settlePour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from './pour-data.js';
+import { POUR_LEVELS, JUG_CAPACITY, JUG_INTERIOR, JUG_SPOUT, jugLiquid, jugPourAngle, newPourRound, refillPour, advancePour, settlePour, correctPour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from './pour-data.js';
 
 export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, stopPlayback, onComplete, getAudioContext, getAudioDestination = () => getAudioContext?.()?.destination, onRestart = () => {} }) {
   const root = document.querySelector('#pour');
@@ -12,6 +12,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
   let sensorAt = 0, calibrationAt = null, reference = null, filtered = 0, neutralRequired = true, latchedCup = null;
   let sensorAngle = 0, flowSound = null, noiseBuffer = null;
   let status = '', sensorNote = '';
+  let advancedRound = 0;
   const $ = selector => root.querySelector(selector);
   const say = id => { if (active && !suspended && !document.hidden) speak(id); };
   const orientation = () => screen.orientation?.angle ?? window.orientation ?? 0;
@@ -45,10 +46,11 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
 
   function render() {
     const rule = POUR_LEVELS[round.level - 1];
-    root.innerHTML = `<div class="pour-heading"><p><strong>Kínáljuk meg a barátainkat!</strong><br><span id="pour-level-name">${rule.name} · Tölts a jelzésig!</span><small id="pour-jug-amount" class="pour-jug-amount"></small></p><div class="pour-levels" role="group" aria-label="Öntés nehézsége">${POUR_LEVELS.map(level => `<button data-pour-level="${level.id}" aria-label="${level.id}. szint: ${level.name}" aria-pressed="${level.id === round.level}">${level.id}</button>`).join('')}</div></div>
+    const instruction = round.level === 3 ? `${round.targets[0] > round.targets[1] ? 'Maci' : 'Nyuszi'} többet kér. Figyeld a két jelet!` : 'Tölts a jelzésig!';
+    root.innerHTML = `<div class="pour-heading"><p><strong>Kínáljuk meg a barátainkat!</strong><br><span id="pour-level-name">${rule.name} · ${instruction}</span><small id="pour-jug-amount" class="pour-jug-amount"></small></p><div class="pour-levels" role="group" aria-label="Öntés nehézsége">${POUR_LEVELS.map(level => `<button data-pour-level="${level.id}" aria-label="${level.id}. szint: ${level.name}" aria-pressed="${level.id === round.level}">${level.id}</button>`).join('')}</div></div>
       <div class="pour-layout"><div class="pour-scene">${art()}</div><div class="pour-controls">
         <div class="pour-cups" role="group" aria-label="Válassz poharat">${names.map((name, i) => `<button class="pour-cup" data-pour-cup="${i}" aria-pressed="${selected === i}"><span class="pour-cup-name">${i ? '🐰' : '🧸'} ${name}</span><small id="pour-amount-${i}">Üres pohár</small></button>`).join('')}</div>
-        <div class="pour-actions"><button id="pour-hold" class="pour-hold" aria-label="Öntés a kiválasztott pohárba. Tartsd nyomva, majd engedd el!">💧 Tartsd nyomva!</button><button id="pour-empty" class="pour-empty">↶ Kiürítem</button></div>
+        <div class="pour-actions"><button id="pour-hold" class="pour-hold" aria-label="Öntés a kiválasztott pohárba. Tartsd nyomva, majd engedd el!">💧 Tartsd nyomva!</button><button id="pour-correct" class="pour-correct" aria-label="Egy kevés víz visszaöntése a kiválasztott pohárból">↶ Kicsit vissza</button><button id="pour-empty" class="pour-empty">Kiürítem</button></div>
         <p class="pour-hint" id="pour-hint">Válassz poharat, majd tartsd nyomva az öntést!<br>Húzd lefelé a kancsót, vagy használd a ← → nyilat!</p>
         <p id="pour-status" class="pour-status" role="status"></p>
         <div class="pour-mode" role="group" aria-label="Játék irányítása"><button id="pour-buttons" aria-pressed="${mode === 'buttons'}">☝ Gombokkal</button><button id="pour-tilt" aria-pressed="${mode === 'tilt'}" ${pending ? 'disabled' : ''}>${pending ? 'Egy pillanat…' : mode === 'tilt' ? '↔ Középhelyzet' : '↔ Döntögetéssel'}</button></div>
@@ -72,6 +74,14 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
       if (!playable()) return;
       release(); round = refillPour(round); emptyNotified = false;
       neutralRequired = true; status = 'Újra tele a kancsó!'; say('pour_refill'); update();
+    });
+    $('#pour-correct').addEventListener('click', () => {
+      if (!playable()) return;
+      release(); round = correctPour(round, selected);
+      const before = round.done[selected]; round = settlePour(round, selected);
+      if (!before && round.done[selected]) cupFinished(selected);
+      else status = `${names[selected]} poharából egy kicsit visszaöntöttél.`;
+      update();
     });
     $('#pour-restart').addEventListener('click', () => restart(round.level));
     $('#pour-finish').addEventListener('click', () => {
@@ -139,7 +149,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
       const button = $(`[data-pour-cup="${i}"]`);
       button.setAttribute('aria-pressed', selected === i); button.dataset.done = round.done[i];
       button.setAttribute('aria-label', `${names[i]} pohara: ${Math.round(fill * 100)} százalék. Cél: ${Math.round(round.targets[i] * 100)} százalék.${round.done[i] ? ' Elkészült.' : ''}`);
-      const amount = $(`#pour-amount-${i}`), label = round.spills[i] ? 'Kicsordult · ürítsd ki!' : round.done[i] ? '✓ Elkészült!' : pourFeedback(round, i) === 'over' ? 'Sok lett · ürítsd ki!' : `Jel: ${round.level === 3 ? (i ? 'magasabban' : 'fél pohár') : 'ugyanannyi'}`;
+      const amount = $(`#pour-amount-${i}`), label = round.done[i] ? '✓ Elkészült!' : pourFeedback(round, i) === 'over' ? 'Sok lett · önts vissza!' : `Cél: ${Math.round(round.targets[i] * 100)}% ${round.level === 3 ? (round.targets[i] > round.targets[1-i] ? '· több' : '· kevesebb') : ''}`;
       if (amount.textContent !== label) amount.textContent = label;
     }
     const statusText = complete ? 'Mindkét pohár elkészült! Kezdődhet a piknik!' : status;
@@ -148,6 +158,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
     $('#pour-hold').disabled = mode !== 'buttons' || !round.remaining || awarded;
     $('#pour-hold').dataset.held = held;
     $('#pour-empty').disabled = round.fills[selected] === 0 || awarded;
+    $('#pour-correct').disabled = round.fills[selected] === 0 || round.done[selected] || awarded;
     $('#pour-empty').textContent = `↶ ${names[selected]} pohara`;
     $('#pour-finish').disabled = !complete || awarded;
     $('#pour-hint').hidden = mode === 'tilt';
@@ -179,7 +190,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
     if (!before && round.done[cup]) cupFinished(cup);
     else if (round.fills[cup]) {
       const over = pourFeedback(round, cup) === 'over';
-      status = over ? 'Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!' : 'Még egy kicsi víz kell a jelzésig.';
+      status = over ? 'Kicsit sok lett. Önts vissza egy keveset!' : 'Még egy kicsi víz kell a jelzésig.';
       say(over ? 'pour_over' : 'pour_more');
     }
   }
@@ -330,14 +341,14 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
 
   function restart(level) {
     onRestart();
-    release(); generation++; pending = false; awarded = false; round = newPourRound(level); selected = 0; pose = { x: 127, angle: 0 }; emptyNotified = false;
+    release(); generation++; pending = false; awarded = false; round = newPourRound(level, level === 3 ? advancedRound++ : 0); selected = 0; pose = { x: 127, angle: 0 }; emptyNotified = false;
     if (mode === 'tilt') resetCalibration();
     status = 'Tölts a jelzésig, majd állítsd meg az öntést!';
     render(); if (mode === 'tilt') startLoop(); repeat();
   }
   function repeat() {
     release();
-    say(round.done.every(Boolean) ? 'pour_done' : mode === 'tilt' ? 'pour_tilt' : round.level === 3 ? 'pour_two' : round.level === 2 ? 'pour_manual' : 'pour_start');
+    say(round.done.every(Boolean) ? 'pour_done' : mode === 'tilt' ? 'pour_tilt' : round.level === 3 ? (round.targets[0] < round.targets[1] ? 'pour_two' : 'pour_two_reverse') : round.level === 2 ? 'pour_manual' : 'pour_start');
     if (mode === 'tilt') neutralRequired = true;
   }
   function suspend() {

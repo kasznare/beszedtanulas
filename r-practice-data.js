@@ -95,7 +95,8 @@ export function normalizeRPreferences(raw = {}) {
     choices: raw?.choices === 3 ? 3 : 2,
     roundLength: raw?.roundLength === 5 ? 5 : 3,
     hunterKind: Object.hasOwn(R_HUNTER_MODES,raw?.hunterKind) ? raw.hunterKind : 'picture',
-    rhymeMode: raw?.rhymeMode === 'missing' ? 'missing' : 'say',
+    rhymeMode: ['missing','repeat'].includes(raw?.rhymeMode) ? raw.rhymeMode : 'say',
+    rhymeShort: raw?.rhymeShort === true,
   };
 }
 export function loadRPreferences(storage) {
@@ -161,4 +162,53 @@ export function recordRProgress(progress, gameId, event) {
   if (event==='recognized' && stats.recognized<stats.practices) increment('recognized');
   if (event==='confirmed') increment('confirmed');
   return next;
+}
+
+// Two connected parcels make one small story. Every mission respects its word group.
+export const R_POST_MISSIONS = [
+  {id:'kirandulas',title:'Kirándulásra készülünk',icon:'🛴',words:['ruha','roller'],text:'Kirándulásra készülünk. Küldj ruhát és rollert!'},
+  {id:'ebed',title:'Ebédet készítünk',icon:'🍚',words:['repa','rizs'],text:'Ebédet készítünk. Küldj répát és rizst!'},
+  {id:'uzsonna',title:'Gyümölcsuzsonna',icon:'🍐',words:['korte','barack'],text:'Gyümölcsuzsonna készül. Küldj körtét és barackot!'},
+  {id:'unnep',title:'Ünnepi asztal',icon:'🎂',words:['torta','virag'],text:'Ünnepi asztalt készítünk. Küldj tortát és virágot!'},
+  {id:'piknik',title:'Piknikre készülünk',icon:'🧺',words:['pohar','kosar'],text:'Piknikre készülünk. Küldj poharat és kosarat!'},
+  {id:'tabor',title:'Tábort építünk',icon:'⛺',words:['vodor','sator'],text:'Tábort építünk. Küldj vödröt és sátrat!'},
+];
+export const R_DECORATIONS = [
+  {id:'flower',name:'virág',icon:'🌼'}, {id:'star',name:'csillag',icon:'⭐'},
+  {id:'heart',name:'szív',icon:'❤️'}, {id:'pretzel',name:'perec',icon:'🥨'},
+  {id:'leaf',name:'levél',icon:'🍃'}, {id:'bow',name:'masni',icon:'🎀'},
+];
+export function rPostMissions(position='all') {
+  const ids=new Set(rWordPool(position).map(word=>word.id));
+  return R_POST_MISSIONS.filter(mission=>mission.words.every(id=>ids.has(id)));
+}
+export function buildRPostMission(position='all',random=Math.random,previousId='') {
+  const pool=rPostMissions(position), available=pool.length?pool:R_POST_MISSIONS;
+  const fresh=available.filter(mission=>mission.id!==previousId);
+  const mission=shuffleR(fresh.length?fresh:available,random)[0];
+  return {...mission,deck:mission.words.map(id=>({...R_WORDS.find(word=>word.id===id)}))};
+}
+
+// Short meaningful units have their own generated recordings, not runtime speech.
+export const R_RHYME_PARTS = {
+  roka:[['Róka fut','a réten át.'],['Robot őrzi','a répát.'],['Ropi roppan,','perec kerek.'],['Velük játszik','minden gyerek.']],
+  kert:[['Piros rózsa','nyílik reggel.'],['Robot locsol','friss vízcseppel.'],['Róka körben','táncot jár.'],['Ránk egy szép','virágkert vár.']],
+  sator:[['Erre gyere,','erre várunk!'],['Erdő mellett','sátrat állunk.'],['Körte kerül','a kosárba.'],['Róka indul','vacsorára.']],
+  robot:[['Rajzol a robot:','kerek a nap.'],['Piros ceruzát','a kezébe kap.'],['Rajzol egy rókát,','rajzol egy várat.'],['Rajzol az égre','repülő madarat.']],
+};
+export function rRhymeUnits(rhyme,short=false) {
+  return rhyme.lines.flatMap(([text,icon],line)=> (short?R_RHYME_PARTS[rhyme.id][line]:[text]).map((part,index)=>({
+    text:part,icon,line,part:short?index:null,key:`${line}:${short?index:'full'}`,
+    clip:short?`r_rhyme_part_${rhyme.id}_${line}_${index}`:`r_rhyme_${rhyme.id}_${line}`,
+  })));
+}
+export function buildRRhymeStory(rhyme,random=Math.random) {
+  const cards=rhyme.lines.map(([text,icon],line)=>({id:line,text,icon}));
+  const mixed=shuffleR(cards,random);
+  // Avoid giving away the entire order on the initial board.
+  if(mixed.every((card,index)=>card.id===index))[mixed[0],mixed[1]]=[mixed[1],mixed[0]];
+  return mixed;
+}
+export function isRRhymeStoryComplete(order,length=4) {
+  return order.length===length&&order.every((id,index)=>id===index);
 }

@@ -91,3 +91,15 @@
   .teddy-head { animation: none !important; }
   .teddy-heart { transition: none; }
 }
+.teddy-modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 4px 0 14px; }
+.teddy-modes button { min-height: 44px; border: 2px solid #d7dfd0; border-radius: 14px; padding: 8px 14px; background: #fffdf5; color: #3c6049; font: inherit; cursor: pointer; }
+.teddy-modes button[aria-pressed="true"] { border-color: #387b56; background: #e5efdf; font-weight: 700; }
+.teddy-order { list-style: none; display: flex; gap: 10px; justify-content: center; padding: 0; margin: 0 0 12px; }
+.teddy-order[hidden] { display: none; }
+.teddy-order li { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 2px solid #d9dfd0; border-radius: 14px; background: #fffdf5; }
+.teddy-order li > span:first-child { width: 42px; height: 42px; display: grid; place-items: center; }
+.teddy-order .is-current { border-color: #b07d25; box-shadow: 0 0 0 2px #f8e3ad; }
+.teddy-order .is-done { background: #e3efdc; border-color: #6f9c71; }
+.teddy-food > svg,.teddy-food > img { width: 100%; height: 100%; max-height: 90px; }
+.teddy-morsel > svg,.teddy-morsel > img,.teddy-order svg,.teddy-order img { width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 649px) { .teddy-order { font-size: .85rem; gap: 6px; } .teddy-order li { padding: 4px 6px; } .teddy-modes { margin-bottom: 6px; } }

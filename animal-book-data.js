@@ -43,6 +43,13 @@ const pages = [
 export const ANIMAL_BOOK_PAGES = Object.freeze(pages.map(page => Object.freeze({ ...page, animals: Object.freeze(page.animals.map(animal => Object.freeze(animal))) })));
 export const ANIMAL_BOOK_ANIMALS = Object.freeze(ANIMAL_BOOK_PAGES.flatMap(page => page.animals));
 export const ANIMAL_BOOK_AUDIO = Object.freeze(Object.fromEntries(ANIMAL_BOOK_ANIMALS.map(animal => [animal.id, `./audio/animals/${animal.id}.mp3`])));
+export const ANIMAL_BOOK_CLIPS = Object.freeze({
+  abk_sound_guide: 'Hallgasd meg az állat hangját, és válaszd ki, melyik állat szólt!',
+  abk_scene_guide: 'Keresd meg a megnevezett állatot a képen!',
+  abk_try_again: 'Próbáld újra! Figyeld meg a képet vagy hallgasd meg a hangot!',
+  abk_well_done: 'Ügyes vagy! Megtaláltad az állatot!',
+  ...Object.fromEntries(ANIMAL_BOOK_ANIMALS.map(animal => [`abk_name_${animal.id}`, animal.label])),
+});
 
 export function animalBookPageIndex(id) {
   const index = ANIMAL_BOOK_PAGES.findIndex(page => page.id === id);

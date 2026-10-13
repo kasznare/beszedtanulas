@@ -61,6 +61,7 @@ async (page) => {
   const completed = JSON.stringify((await saved()).meadow);
   await page.locator('#meadow-undo').evaluate(button => button.click()); await page.locator('#meadow-reset').evaluate(button => button.click());
   ok(JSON.stringify((await saved()).meadow) === completed, 'Solved-task undo and reset cannot change saved progress');
+  await page.locator('#meadow-next').waitFor({state:'visible'});
   ok(await page.locator('#meadow-next').evaluate(button => button === document.activeElement), 'Completion moves keyboard focus to the next action');
   await page.locator('#meadow-next').click(); await plates(10); await page.locator('#meadow-undo').click(); await page.locator('#meadow-hint').click();
   ok(await page.locator('.has-plate').count() === 9 && await page.locator('.needs-plate').count() === 1, 'Undo and help reveal the one friend still missing a plate');

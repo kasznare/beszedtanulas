@@ -1,7 +1,10 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { words, twoWordPhrases, teddyRequests } from '../game-data.js';
 
-import { dressItems } from '../dress-data.js';
+import { DRESS_CLIPS } from '../dress-data.js';
+import { TEDDY_CLIPS } from '../teddy-data.js';
+import { ANIMAL_BOOK_CLIPS } from '../animal-book-data.js';
+import { PORTAL_CLIPS } from '../portal-practice-data.js';
 import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
@@ -60,6 +63,7 @@ const guides = {
   retry_count: 'Próbáld újra! Számold meg egyesével.',
 };
 for (const [id, text] of Object.entries(guides)) add(`guide_${id}`, text);
+for (const [group, source] of Object.entries({dress:DRESS_CLIPS,teddy:TEDDY_CLIPS,'animal-book':ANIMAL_BOOK_CLIPS,portal:PORTAL_CLIPS})) for (const [id,text] of Object.entries(source)) add(id,text,group);
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) add(id, text, 'puzzle');
@@ -70,10 +74,6 @@ for (const [id, text] of Object.entries(POUR_CLIPS)) add(id, text, 'pour');
 for (const [id, text] of Object.entries(R_CLIPS)) add(id, text, 'r-practice');
 for (const [id, text] of Object.entries(MESE_CLIPS)) add(id, text, 'meseliget');
 for (const [id, text] of Object.entries(teddyRequests)) add(`teddy_${id}`, text, 'teddy');
-for (const item of dressItems) {
-  add(`dress_request_${item.id}`, item.request, 'dress');
-  add(`dress_thanks_${item.id}`, item.thanks, 'dress');
-}
 for (const word of words) add(`word_${word.id}`, word.label, 'word');
 for (const phrase of twoWordPhrases) add(`phrase_${phrase.id}`, phrase.text, 'phrase');
 const names = ['nulla', 'egy', 'kettő', 'három', 'négy', 'öt', 'hat', 'hét', 'nyolc', 'kilenc', 'tíz'];
@@ -134,6 +134,28 @@ for (const clip of clips) {
     return ipa ? `/${ipa}/` : word;
   });
   if (target !== original) contextual(clip.id, 'Mondjuk együtt: ', target);
+}
+// Short practice parts use the same audited pronunciation as their full model.
+// The generator cuts them at the provider's character timings, without a new request.
+const displayTokens = text => [...text.matchAll(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu)];
+const spokenTokens = text => [...text.matchAll(/\/[^/]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu)];
+function excerptFrom(clip, source) {
+  const target = displayTokens(clip.text), display = displayTokens(source.text);
+  const start = display.findIndex((_, i) => target.every((word, j) => display[i+j]?.[0].toLocaleLowerCase('hu-HU') === word[0].toLocaleLowerCase('hu-HU')));
+  if (start < 0) throw Error(`Missing excerpt: ${clip.id} in ${source.id}`);
+  const spoken = source.spokenTarget || source.text, tokens = spokenTokens(spoken);
+  if (tokens.length !== display.length) throw Error(`Excerpt word mismatch: ${source.id}`);
+  const first = tokens[start], last = tokens[start + target.length - 1];
+  const offset = source.extract?.from || 0;
+  clip.spokenText = source.spokenText || source.text;
+  clip.spokenTarget = spoken.slice(first.index, last.index + last[0].length);
+  clip.extract = {from:offset+first.index,to:offset+last.index+last[0].length,before:0.025,after:0.12,text:clip.text};
+}
+for (const clip of clips) {
+  const rhyme = /^r_rhyme_part_(.+)_(\d+)_(\d+)$/.exec(clip.id);
+  const phrase = /^phrase_part_(.+)_(\d+)$/.exec(clip.id);
+  if (rhyme) excerptFrom(clip, clips.find(source => source.id === `r_rhyme_${rhyme[1]}_${rhyme[2]}`));
+  else if (phrase) excerptFrom(clip, clips.find(source => source.id === `phrase_${phrase[1]}`));
 }
 await mkdir(new URL('../audio/voice/', import.meta.url), { recursive: true });
 await writeFile(new URL('../audio/voice/manifest.json', import.meta.url), JSON.stringify({

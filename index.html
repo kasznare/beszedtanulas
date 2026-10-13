@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./child-ui.css" />
   <link rel="stylesheet" href="./teddy-game.css" />
+  <link rel="stylesheet" href="./upgrades.css" />
   <link rel="stylesheet" href="./dress-game.css" />
   <link rel="stylesheet" href="./meseliget.css" />
   <link rel="stylesheet" href="./logic.css" />
@@ -211,6 +212,7 @@
       <div class="cards-toolbar"><span id="cards-count" class="cards-count" role="status"></span><button class="small-icon" data-open="topics" aria-label="Másik képcsoport">🌈</button></div>
       <div id="category-picker" hidden></div>
       <div id="cards-grid" class="cards-grid"></div>
+      <div id="card-followup" class="card-followup" hidden><p id="card-selected"></p><button id="card-find" class="upgrade-action">🔎 Keressük meg!</button><button id="card-say" class="upgrade-action">💬 Mondjuk együtt!</button></div>
     </section>
 
     <section id="numbers" class="panel" aria-labelledby="numbers-title">
@@ -237,6 +239,8 @@
 
     <section id="imitate" class="panel practice-panel" aria-label="Mondd utánam">
       <div class="imitate-wrap">
+        <div id="word-mode" class="upgrade-options" role="group" aria-label="Szógyakorlás módja"><button data-word-mode="together">Együtt · mikrofon nélkül</button><button data-word-mode="microphone">Mikrofonnal</button></div>
+        <details class="upgrade-panel"><summary>Kedvenc szavak kiválasztása</summary><p class="upgrade-note">Válassz legfeljebb öt képet a közös gyakorláshoz!</p><div id="word-favorites" class="word-favorites"></div><div class="upgrade-options"><button id="use-favorites">Kedvencekkel gyakorlunk</button></div><p id="favorite-status" role="status"></p></details>
         <div id="round-progress" class="round-progress" aria-label="Gyakorlókör haladása"></div>
         <div id="imitate-emoji" class="imitate-emoji">💧</div>
         <h2 id="imitate-word">víz</h2>
@@ -245,6 +249,7 @@
         <div class="actions">
 <button id="play-model" class="secondary icon-btn" aria-label="Szó meghallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="listen-btn" class="primary icon-btn" aria-label="Most én mondom"><svg class="icon" aria-hidden="true"><use href="#i-mic"></use></svg></button><button id="next-word" class="secondary icon-btn" aria-label="Következő szó"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
         </div>
+        <div class="upgrade-options"><button id="word-confirm">✓ Együtt kimondtuk</button></div>
         <p id="listen-status" class="listen-status" role="status"></p>
         <div id="word-recovery" class="speech-recovery" hidden><button class="recovery-button" data-open="listening-game" aria-label="Játsszunk képekkel, mikrofon nélkül"><span aria-hidden="true">🔎</span><span>Képekkel játszom</span></button></div>
         <div id="success-badge" class="reward is-hidden" role="status">⭐</div>
@@ -259,6 +264,10 @@
 
     <section id="two-word" class="panel practice-panel" aria-label="Két szó">
       <div class="phrase-wrap">
+        <div id="phrase-mode" class="upgrade-options" role="group" aria-label="Kifejezésgyakorlás módja"><button data-phrase-mode="together">Együtt · mikrofon nélkül</button><button data-phrase-mode="microphone">Mikrofonnal</button></div>
+        <div class="upgrade-options"><button id="phrase-parts-toggle" aria-pressed="false">Külön, aztán együtt</button><button id="phrase-round-start">▶ Rövid gyakorlókör</button></div>
+        <p id="phrase-round-status" class="upgrade-note" role="status"></p>
+        <div id="phrase-parts" class="phrase-parts"></div>
         <div id="phrase-emoji" class="phrase-emoji">🙏 💧</div>
         <h2 id="phrase-text">kérek vizet</h2>
         <p id="phrase-prompt" class="sr-only">Mondd: kérek vizet</p>
@@ -266,6 +275,7 @@
         <div class="actions">
 <button id="play-phrase" class="secondary icon-btn" aria-label="Kifejezés meghallgatása"><svg class="icon" aria-hidden="true"><use href="#i-sound"></use></svg></button><button id="listen-phrase-btn" class="primary icon-btn" aria-label="Most én mondom"><svg class="icon" aria-hidden="true"><use href="#i-mic"></use></svg></button><button id="next-phrase" class="secondary icon-btn" aria-label="Következő kifejezés"><svg class="icon" aria-hidden="true"><use href="#i-next"></use></svg></button>
         </div>
+        <div class="upgrade-options"><button id="phrase-confirm">✓ Együtt kimondtuk</button><button id="phrase-stop" hidden>■ Megállítás</button></div>
         <p id="phrase-status" class="listen-status" role="status"></p>
         <div id="phrase-recovery" class="speech-recovery" hidden><button class="recovery-button" data-open="listening-game" aria-label="Játsszunk képekkel, mikrofon nélkül"><span aria-hidden="true">🔎</span><span>Képekkel játszom</span></button></div>
         <div id="phrase-success-badge" class="reward is-hidden" role="status">⭐</div>
@@ -302,8 +312,8 @@
           <label>Erdei bolt<select id="shop-level"><option value="1">Felfedező – képes rendelés</option><option value="2">Gondolkodó – hozzáadás és elvétel</option><option value="3">Tervező – összeg és különbség</option></select></label>
           <label>Szabálygép<select id="machine-level"><option value="1">Felfedező – ±1, ötig</option><option value="2">Gondolkodó – műveletek, tízig</option><option value="3">Tervező – két művelet, húszig</option></select></label>
           <label>Csomagösvény<select id="route-level"><option value="1">Felfedező – egy csomag, 3×3</option><option value="2">Gondolkodó – kerülőutak, 4×4</option><option value="3">Tervező – két csomag, 5×5</option></select></label>
-          <label>Csomagösvény segítsége<select id="route-view"><option value="map">Térképes</option><option value="steps">Csak lépések – kép nélkül</option></select><small>Kép nélkül szöveges pályaleírás és lépéslista segít. Fejben kell követni az utat. A választás a játékban is módosítható.</small></label>
-        </div><p class="parent-note">A szintváltás új feladatot indít az érintett játékban. Az eredmények megmaradnak. A beállítások ezen az eszközön közösek; a haladás és a félbehagyott feladatok profilonként külön mentődnek, fájlba is. A gépnél a nulla is szerepelhet.</p><div id="logic-summary" class="logic-summary"></div></div>
+          <label>Csomagösvény – róka mozgása<select id="route-view"><option value="map">Lépésenként mutassa</option><option value="steps">Csak indításkor mutassa</option></select><small>A térkép mindig látszik. A róka vagy minden kiválasztott lépés után megmutatja a helyét, vagy megvárja, amíg a teljes lépéssort elindítjuk. A választás a játékban is módosítható.</small></label>
+        </div><p class="parent-note">Minden szint megőrzi a saját félbehagyott feladatát. Az eredmények megmaradnak. A beállítások ezen az eszközön közösek; a haladás és a félbehagyott feladatok profilonként külön mentődnek, fájlba is. A gépnél a nulla is szerepelhet.</p><div id="logic-summary" class="logic-summary"></div></div>
         <div class="parent-controls"><h2>Műhelyliget – formák, minták és egyensúly</h2><label for="workshop-level">Műhelyek nehézsége</label><select id="workshop-level"><option value="1">Felfedező – színek, egyszerű minták, számbontás</option><option value="2">Gondolkodó – szín és forma, hosszabb minták, két rúd</option><option value="3">Tervező – több tulajdonság, kettős minták, három különböző rúd</option></select><p id="workshop-summary" class="logic-summary"></p><p class="parent-note">A szint a ligetben is választható. Minden játék minden szintje külön félbehagyott feladatot és önálló/segített eredményt őriz; profilváltással és fájlmentéssel együtt.</p></div>
         <div class="parent-controls"><h2>Meseliget</h2><p id="meadow-summary" class="meadow-summary"></p><p class="parent-note">A térképen az új piknik mérete is választható, a számolási szintig (1–3 / 1–5 / 1–10). A félbehagyott kaland megtartja a méretét. A szabad játék a körhosszt használja; választott mennyiséggel is gyakorolható. A haladás, az emlékek és a félbehagyott kaland a fájlmentésbe is bekerülnek.</p></div>
         <div class="parent-controls"><h2>Róka R-kalandja</h2><p id="r-practice-summary" class="logic-summary"></p><p class="parent-note">A képes találat, a mikrofonos próba, a felismert szó és a közösen jelzett gyakorlás külön eredmény. Ezek nem az R kiejtésének minősítései. A haladás profilonként menthető; saját hangfelvétel nem kerül a mentésbe.</p></div>
@@ -313,11 +323,11 @@
           <select id="round-length"><option value="3">3 szó · rövid kör</option><option value="5" selected>5 szó · nyugodt gyakorlás</option><option value="10">10 szó · hosszabb kör</option></select>
           <label for="practice-topic">Gyakorlás témája</label>
           <select id="practice-topic"></select>
-          <label for="number-level">Számolás</label>
+          <p id="number-summary" class="parent-note"></p><label for="number-level">Számolás</label>
           <select id="number-level"><option value="3">1–3</option><option value="5">1–5</option><option value="10">1–10</option></select>
           <label for="listening-choices">Képes játékok · választható képek</label>
           <select id="listening-choices"><option value="2">2 kép · könnyebb választás</option><option value="3">3 kép · több lehetőség</option></select>
-          <p class="parent-note">A Hol van? és a két macis játék választásait állítja. Az öltözés mindig négy ruhadarabból áll. A macis játékok tartalma független a gyakorlás témájától.</p>
+          <p class="parent-note">A Hol van? és a két macis játék választásait állítja. Az öltözésben három öltözék és egy szabad szekrény közül választhatunk. A macis játékok tartalma független a gyakorlás témájától.</p>
           <label for="memory-pairs">Képpárok · memóriajáték</label>
           <select id="memory-pairs"><option value="2">2 pár · első felfedezés</option><option value="3">3 pár · figyelő</option><option value="4">4 pár · emlékező</option><option value="6">6 pár · kihívás</option></select>
           <p class="parent-note">A Képpárok a választott témakör képeit használja. Kevés kép esetén annyi párt mutat, ahány külön kép van a témában. A játékban is választható a párok száma.</p>

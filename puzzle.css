@@ -5,6 +5,10 @@
 .puzzle-panel button { min-height:44px; min-width:44px; padding:10px 14px; border:2px solid #b3c6b6; border-radius:14px; background:#fffdf5; font:inherit; font-weight:750; cursor:pointer; }
 .puzzle-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .puzzle-pictures { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; max-width:540px; margin:0 auto 14px; }
+.puzzle-chooser { text-align:center; margin:0 auto 10px; }
+.puzzle-chooser #puzzle-choose { width:min(100%,540px); }
+.puzzle-chooser #puzzle-choices { padding:10px 0 2px; }
+.puzzle-chooser #puzzle-choices[hidden] { display:none; }
 .puzzle-pictures button { padding:4px; min-width:0; overflow:hidden; }
 .puzzle-pictures img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:9px; pointer-events:none; }
 .puzzle-pictures span { display:block; padding:4px 0 1px; font-size:.85rem; }
@@ -14,7 +18,7 @@
 .puzzle-sizes button { padding:8px 12px; }
 .puzzle-progress { font-weight:750; font-size:.9rem; }
 .puzzle-workspace { display:grid; gap:18px; align-items:start; }
-.puzzle-board { display:grid; position:relative; isolation:isolate; grid-template-columns:repeat(var(--puzzle-cols),minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); aspect-ratio:3/2; overflow:hidden; width:100%; border:4px solid #b7c8ac; border-radius:16px; background:#e7eadb; box-shadow:0 5px 0 #c5d1bb; }
+.puzzle-board { display:grid; position:relative; isolation:isolate; grid-template-columns:repeat(var(--puzzle-cols),minmax(0,1fr)); grid-template-rows:repeat(var(--puzzle-rows),minmax(0,1fr)); aspect-ratio:3/2; overflow:hidden; width:100%; border:4px solid #b7c8ac; border-radius:16px; background:#e7eadb; box-shadow:0 5px 0 #c5d1bb; }
 .puzzle-reference { position:absolute; z-index:-1; width:100%; height:100%; object-fit:fill; opacity:0; transition:opacity .2s; pointer-events:none; }
 .has-hint .puzzle-reference { opacity:.45; }
 .puzzle-board .puzzle-slot { padding:0; min-width:0; min-height:0; border:0; border-radius:0; background-color:transparent; background-repeat:no-repeat; box-shadow:inset 0 0 0 1px #879b7a66; font-size:1.7rem; color:#819877; }

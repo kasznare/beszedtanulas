@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { POUR_LEVELS, JUG_CAPACITY, JUG_INTERIOR, polygonArea, jugLiquid, jugPourAngle, refillPour, newPourRound, advancePour, settlePour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from '../pour-data.js';
+import { POUR_LEVELS, JUG_CAPACITY, JUG_INTERIOR, polygonArea, jugLiquid, jugPourAngle, refillPour, newPourRound, advancePour, settlePour, correctPour, pourFeedback, screenTilt, relativeTilt, tiltPourInput } from '../pour-data.js';
 
 test('every level can pass the mark and physically overflow without automatic stopping', () => {
   for (const level of POUR_LEVELS) {
@@ -74,6 +74,28 @@ test('advanced glasses have different amounts and a long frame cannot dump water
   assert.equal(advancePour(round, 0, NaN, 1), round);
   assert.equal(advancePour(round, 0, 1, Infinity), round);
   assert.equal(advancePour(round, 4, 1, .08), round);
+});
+test('advanced targets vary and small pour-back conserves water', () => {
+  assert.ok(newPourRound(3, 0).targets[0] < newPourRound(3, 0).targets[1]);
+  assert.ok(newPourRound(3, 1).targets[0] > newPourRound(3, 1).targets[1]);
+  const round = newPourRound(3); round.fills[0] = round.targets[0] + .1; round.remaining -= round.fills[0];
+  assert.equal(pourFeedback(round, 0), 'over');
+  const corrected = correctPour(round, 0);
+  assert.ok(corrected.fills[0] > 0 && corrected.fills[0] < round.fills[0]);
+  assert.ok(Math.abs(corrected.remaining + corrected.fills[0] - round.remaining - round.fills[0]) < 1e-10);
+  assert.equal(pourFeedback(corrected, 0), 'ready');
+  assert.equal(correctPour(corrected, 5), corrected);
+});
+test('advanced rounds alternate which friend needs more and excess can be corrected gradually', () => {
+  assert.ok(newPourRound(3, 0).targets[0] < newPourRound(3, 0).targets[1]);
+  assert.ok(newPourRound(3, 1).targets[0] > newPourRound(3, 1).targets[1]);
+  const round = newPourRound(3); round.fills[0] = round.targets[0] + .1;
+  assert.equal(pourFeedback(round, 0), 'over');
+  const corrected = correctPour(round, 0);
+  assert.ok(corrected.fills[0] > 0 && corrected.fills[0] < round.fills[0]);
+  assert.equal(round.fills[0], .55);
+  assert.equal(pourFeedback(corrected, 0), 'ready');
+  assert.equal(correctPour(corrected, 5), corrected);
 });
 
 test('device axes are remapped for both landscape orientations and null readings are rejected', () => {

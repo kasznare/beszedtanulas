@@ -67,21 +67,23 @@ async parent => {
     ok(await page.locator('[data-sound]').count()===2,'R sound choices still have their own listening buttons');
     await enter('post');await shots('recipients');
     const sent=[];
-    for(const friend of ['rabbit','bear','fox']){
+    for(const friend of ['rabbit','bear']){
       const id=await target(),word=data.words.find(w=>w.id===id);sent.push(id);
       await page.locator(`[data-recipient="${friend}"]`).click();
       ok(await page.locator(`[data-recipient="${friend}"]`).getAttribute('aria-pressed')==='true','The selected friend receives the parcel');
       ok(await page.evaluate(friend=>document.activeElement?.dataset.recipient===friend,friend),'Recipient selection keeps keyboard focus');
       await page.locator('[data-action="advance"]').evaluate(button=>{button.click();button.click();});await idle();
+      await page.locator(`[data-deliver="${friend}"]`).evaluate(button=>{button.click();button.click();});await idle();
       ok((await page.locator(`[data-recipient="${friend}"] .rp-mailbox`).getAttribute('aria-label')).includes(word.text),'The chosen word reaches the selected mailbox once');
     }
-    ok((await rounds()).post.rounds===1&&await page.locator('.rp-mailbox small').count()===3,'Three deliveries complete exactly one round and stay visible');
+    ok((await rounds()).post.rounds===1&&await page.locator('.rp-mailbox small').count()===2,'Two linked deliveries complete exactly one round and stay visible');
     await page.locator('[data-action="restart"]').click();await idle();ok(!sent.includes(await target()),'The next post round brings fresh words');
     await page.locator('[data-action="advance"]').click();await hub();const beforeCancel=await page.evaluate(()=>rVarietyQA.starts.length);
     await page.waitForTimeout(1100);ok(await root.getAttribute('data-game')==='hub'&&await page.evaluate(n=>rVarietyQA.starts.length===n,beforeCancel),'Leaving during delivery cancels its delayed next sample');
     await enter('workshop');await shots('stamps');
-    for(const stamp of ['flower','star','leaf']){
+    for(const [index,stamp] of ['flower','star','leaf'].entries()){
       await page.locator(`[data-stamp="${stamp}"]`).click();await page.locator('[data-action="advance"]').click();await idle();
+      await page.locator('[data-decoration="heart"]').click();await page.locator(`[data-place="${index}"]`).click();await idle();
       ok(await page.locator(`.rp-decoration.is-decorated.rp-stamp-${stamp}`).count()===1,`${stamp} decoration keeps its chosen shape`);
     }
     ok(await page.locator('.rp-finish').isVisible()&&await page.locator('.rp-decoration.is-decorated').count()===3,'The finished workshop keeps all chosen decorations');
@@ -114,8 +116,8 @@ async parent => {
     const played=await page.evaluate(()=>rVarietyQA.events.length);
     await page.locator('[data-action="compare"]').click();await page.locator('#r-practice[data-phase="replay"]').waitFor();await idle();
     const pair=await page.evaluate(n=>rVarietyQA.events.slice(n),played);
-    ok(pair.length===2&&pair[0].kind==='model'&&pair[0].id.startsWith('r_word_')&&pair[1].kind==='recording','Comparison plays Jessa first, then the native recording');
-    ok(await page.evaluate(url=>rVarietyQA.revoked.includes(url),pair[1].url),'Comparison releases its Blob URL when finished');
+    ok(pair.length===4&&pair[0].id==='r_echo_compare'&&pair[1].kind==='model'&&pair[1].id.startsWith('r_word_')&&pair[2].id==='r_echo_yours'&&pair[3].kind==='recording','Comparison plays Jessa first, then the native recording');
+    ok(await page.evaluate(url=>rVarietyQA.revoked.includes(url),pair.at(-1).url),'Comparison releases its Blob URL when finished');
     const beforeStop=await page.evaluate(()=>rVarietyQA.played.length);
     await page.locator('[data-action="compare"]').click();await page.locator('[data-action="stop"]').click();await page.waitForTimeout(2000);
     ok(await root.getAttribute('data-phase')==='idle'&&await page.evaluate(n=>!rVarietyQA.played.slice(n).some(url=>url.startsWith('blob:')),beforeStop),'Stopping the model prevents a delayed recording replay');

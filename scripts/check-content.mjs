@@ -5,7 +5,10 @@ import { words, wordCategories, twoWordPhrases, teddyRequests } from '../game-da
 import { VOICE_CLIPS } from '../voice-library.js';
 import { VOICE_TIMING } from '../voice-timing.js';
 
-import { dressItems } from '../dress-data.js';
+import { dressItems, DRESS_CLIPS } from '../dress-data.js';
+import { TEDDY_CLIPS } from '../teddy-data.js';
+import { ANIMAL_BOOK_CLIPS } from '../animal-book-data.js';
+import { PORTAL_CLIPS } from '../portal-practice-data.js';
 import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
@@ -45,6 +48,7 @@ for (const [id, text] of Object.entries(teddyRequests)) {
   assert.ok(wordCategories.find(category => category.id === 'food').words.includes(id), `Not a food: ${id}`);
   assert.equal(VOICE_CLIPS[`teddy_${id}`]?.text, text);
 }
+for (const source of [DRESS_CLIPS,TEDDY_CLIPS,ANIMAL_BOOK_CLIPS,PORTAL_CLIPS]) for (const [id,text] of Object.entries(source)) assert.equal(VOICE_CLIPS[id]?.text,text);
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);

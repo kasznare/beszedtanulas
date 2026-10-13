@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WORKSHOP_GAMES, WORKSHOP_COLORS, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopHint, normalizeWorkshop, validateWorkshop, completeWorkshop, rememberWorkshop, undoWorkshop } from '../workshop-data.js';
+import { WORKSHOP_GAMES, WORKSHOP_COLORS, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopHint, normalizeWorkshop, validateWorkshop, completeWorkshop, rememberWorkshop, undoWorkshop, workshopTaskForSession } from '../workshop-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 
 function solve(task, session) {
@@ -98,6 +98,10 @@ test('completion rewards once and keeps every game and level in its own counter 
     const session = newWorkshopSession(kind, level, 45), task = generateWorkshopTask(kind, level, 45); progress.sessions[kind][level - 1] = session;
     assert.equal(completeWorkshop(progress, kind, level).reward, false); solve(task, session);
     if (level === 2) session.help = 1; if (level === 3) session.misses = 1;
+    if (kind === 'sort') {
+      const first=completeWorkshop(progress,kind,level);assert.equal(first.reward,false);assert.equal(first.changed,true);
+      progress=first.progress;const second=progress.sessions[kind][level-1];solve(workshopTaskForSession(second),second);
+    }
     const completed = completeWorkshop(progress, kind, level); assert.equal(completed.reward, true); progress = completed.progress;
     assert.equal(progress.games[kind][level - 1][level === 1 ? 'independent' : 'assisted'], 1);
     assert.equal(completeWorkshop(progress, kind, level).reward, false); assert.equal(completeWorkshop(progress, kind, level).changed, false);

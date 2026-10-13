@@ -10,19 +10,30 @@ export const POUR_CLIPS = {
   pour_centre: 'Hozd vissza középre a telefont! Utána tölthetünk a másik pohárba.',
   pour_manual: 'Lassan önts a jelzésig! Amikor elengedjük a gombot, megáll a víz.',
   pour_two: 'A macinak kevesebb, a nyuszinak több víz kell. Figyeld a jelzéseket!',
+  pour_two_reverse: 'A nyuszinak kevesebb, a macinak több víz kell. Figyeld a jelzéseket!',
   pour_bear_done: 'A maci pohara elkészült! Köszönöm!',
   pour_rabbit_done: 'A nyuszi pohara elkészült! Köszönöm!',
   pour_more: 'Még egy kicsi víz kell. Töltsünk a jelzésig!',
-  pour_over: 'Kicsit sok lett. Ürítsd ki ezt a poharat, és próbáljuk újra!',
+  pour_over: 'Kicsit sok lett. Önts vissza egy keveset a pohárból!',
   pour_spill: 'Hopp, kicsordult a víz! Állítsd meg az öntést, és ürítsd ki a poharat!',
   pour_empty: 'Elfogyott a víz a kancsóból. A feltöltöm gombbal hozhatunk még vizet!',
   pour_refill: 'Újra tele a kancsó! Folytathatjuk az öntést.',
   pour_done: 'Mindkét barátunk kapott inni! Kezdődhet a piknik!',
 };
 
-export function newPourRound(level = 1) {
+export const POUR_ADVANCED_TARGETS = [[.45, .78], [.78, .45], [.55, .85], [.85, .55]];
+export function newPourRound(level = 1, roundIndex = 0) {
   const rule = POUR_LEVELS.find(item => item.id === level) || POUR_LEVELS[0];
-  return { level: rule.id, targets: [...rule.targets], fills: [0, 0], done: [false, false], remaining: JUG_CAPACITY, spills: [0, 0] };
+  const variation = rule.id === 3 ? POUR_ADVANCED_TARGETS[Math.abs(Number.isInteger(roundIndex) ? roundIndex : 0) % POUR_ADVANCED_TARGETS.length] : rule.targets;
+  return { level: rule.id, targets: [...variation], fills: [0, 0], done: [false, false], remaining: JUG_CAPACITY, spills: [0, 0] };
+}
+
+export function correctPour(round, cup, amount = .08) {
+  if (![0, 1].includes(cup) || round.done[cup] || !Number.isFinite(amount) || amount <= 0 || !round.fills[cup]) return round;
+  const returned = Math.min(.15, amount, round.fills[cup]);
+  const next = { ...round, fills: [...round.fills], done: [...round.done], remaining: Math.min(JUG_CAPACITY, round.remaining + returned) };
+  next.fills[cup] -= returned;
+  return next;
 }
 
 export function pourFeedback(round, cup) {

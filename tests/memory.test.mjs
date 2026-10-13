@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildMemoryDeck } from '../memory-data.js';
+import { buildMemoryDeck, normalizeMemoryTiming } from '../memory-data.js';
 import { words, wordCategories } from '../game-data.js';
 
 test('memory decks contain exactly two of every selected image at every supported size/topic', () => {
@@ -12,6 +12,10 @@ test('memory decks contain exactly two of every selected image at every supporte
     for (const id of new Set(deck.map(card => card.word.id))) assert.equal(deck.filter(card => card.word.id === id).length, 2);
     assert.equal(JSON.stringify(pool), original);
   }
+});
+test('memory timing accepts only the supported viewing choices', () => {
+  assert.deepEqual(normalizeMemoryTiming({ mismatchMs: 3500, previewMs: 0 }), { mismatchMs: 3500, previewMs: 0 });
+  assert.deepEqual(normalizeMemoryTiming({ mismatchMs: -1, previewMs: '0' }), { mismatchMs: 1100, previewMs: 3500 });
 });
 test('duplicate content cannot create extra pairs or an ambiguous deck', () => {
   assert.throws(() => buildMemoryDeck([words[0], words[0]]), /két külön kép/);

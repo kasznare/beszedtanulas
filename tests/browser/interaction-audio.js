@@ -47,7 +47,7 @@ async page => {
   const clear = async () => {
     // Let the preceding navigation's deferred click finish before measuring
     // this action. Keep the entire action's own dispatch in the recording.
-    await page.waitForTimeout(25);
+    await page.waitForTimeout(100);
     await page.evaluate(() => { fxQA.tones = []; fxQA.sources = []; });
   };
   const tones = () => page.evaluate(() => fxQA.tones);
@@ -124,7 +124,7 @@ async page => {
     await page.waitForFunction(()=>fxQA.sources.some(source=>source.duration>.3&&source.gainAtStart<=.18));
     ok(true, 'Effects are quieter when an existing spoken word starts');
     await enter('number-menu','workshop'); await page.locator('[data-game="balance"]').click(); await clear(); await page.locator('[data-add]').first().click(); ok(await heard(440), 'Workshop rods land with a wooden sound');
-    await enter('number-menu','furfangliget'); await page.locator('[data-game="shop"]').click(); await clear(); await page.locator('[data-delta="1"]').first().click(); ok(await heard(440), 'Changing the shop basket has a material sound');
+    await enter('number-menu','furfangliget'); await page.locator('[data-game="shop"]').click(); await clear(); await page.locator('[data-delta]:enabled').first().click(); ok(await heard(440), 'Changing the shop basket has a material sound');
     await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-mode="count"]').click();
     await clear(); await page.locator('.counting-object').first().click(); ok(await heard(610), 'Counting a new object has a collect cue');
     await enter('activity-menu','flip'); await clear(); await page.locator('.flip-card').first().click(); ok(await heard(400), 'Surprise cards also have a paper cue');
@@ -145,7 +145,7 @@ async page => {
     await enter('practice-menu','r-practice'); await page.locator('[data-game="echo"]').click();
     await page.waitForFunction(()=>document.querySelector('#r-practice').dataset.phase==='idle');
     await page.evaluate(()=>{
-      navigator.mediaDevices.getUserMedia=async()=>{
+      MediaDevices.prototype.getUserMedia=async()=>{
         const C=window.AudioContext||window.webkitAudioContext, ctx=new C(), oscillator=ctx.createOscillator(), destination=ctx.createMediaStreamDestination();
         oscillator.frequency.value=120; oscillator.connect(destination); oscillator.start(); ctx.resume();
         window.fxTestInput={ctx,oscillator}; return destination.stream;

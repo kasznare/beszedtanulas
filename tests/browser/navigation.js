@@ -48,7 +48,7 @@ async page => {
   ok(JSON.stringify(savedBefore.logic?.sessions)===JSON.stringify(savedAfter.logic?.sessions)&&JSON.stringify(savedBefore.workshop?.sessions)===JSON.stringify(savedAfter.workshop?.sessions)&&JSON.stringify(savedBefore.meadow?.adventure)===JSON.stringify(savedAfter.meadow?.adventure),`${screen}: back preserves saved work`);
   await back(parent);
  }
- await enter('activity-menu','puzzle');await page.locator('[data-puzzle-size="6"]').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards);
+ await enter('activity-menu','puzzle');await page.locator('#puzzle-choose').click();await page.locator('[data-puzzle-size="6"]').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards);
  for(let i=0;i<6;i++){await page.locator(`[data-piece="${i}"]`).click();await page.locator(`[data-slot="${i}"]`).click();}
  await page.locator('#round-complete[open]').waitFor();
  for(const viewport of [{width:375,height:667},{width:932,height:350}]){

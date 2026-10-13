@@ -25,10 +25,10 @@ export const LOGIC_CLIPS = {
  logic_machine_guess: 'A gép jó! Nézd meg újra a két új szám eredményét!',
  logic_machine_empty: 'Előbb tegyél műveletet a gép minden helyére!',
  logic_machine_done: 'Megfejtetted a szabályt, és a két új feladatot is megoldottad! Működik a gép!',
- logic_route_1: 'Tervezz utat a rókának! Vedd fel a csomagot, majd menj a házhoz! Koppints egymás melletti mezőkre, vagy húzd végig az ujjad! A próbagomb indítja a rókát.',
+ logic_route_1: 'Tervezz utat a rókának! Vedd fel a csomagot, majd menj a házhoz! A nyilakkal, koppintással vagy húzással választhatsz lépést. A róka minden lépés után megmutatja, hol jársz. A próbagombbal végigjárja az útitervedet.',
  logic_route_2: 'Vidd el a csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.',
  logic_route_3: 'Mindkét csomagot el kell vinni a házhoz. Gondold végig, merre kerülsz! Az utadnak bele kell férnie a megadott lépésszámba. Több jó út is lehet.',
- logic_route_steps: 'Most kép nélkül tervezünk. A leírásból tudjuk, hol vannak a csomagok, a kövek és a ház. A nyilakkal sorban megadod a lépéseket. Fejben követed az utat, majd a próbagombbal ellenőrzöd.',
+ logic_route_steps: 'Nézd a térképet! Látod a csomagokat, a köveket és a házat. A nyilakkal sorban add meg a lépéseket! A róka közben az indulásnál vár. Fejben kövesd az utat, majd a próbagombbal indítsd el a programodat!',
  logic_route_steps_hint2: 'A segítségnél megjelenik a következő lehetséges irány. A nyilakkal folytathatod az útitervet.',
  logic_route_steps_hint3: 'A segítségnél egy teljes lehetséges út lépései szerepelnek. Más jó út is lehet.',
  logic_route_steps_restart: 'Ez az út már túl hosszú lenne. Visszavonással javíthatsz, vagy újratervezhetsz. A segítségnél egy rövidebb út lépései szerepelnek.',
@@ -42,6 +42,9 @@ export const LOGIC_CLIPS = {
  logic_route_home: 'A csomag megvan, de még el kell jutni a házhoz. Folytasd az útitervet!',
  logic_route_done: 'Megérkezett minden csomag! A barátaink már vártak. Szép útiterv volt!',
  logic_saved: 'Itt folytathatod a félbehagyott feladatot.',
+ logic_machine_help_rule: 'Előbb találd meg a gép szabályát! Próbáld ki a műveleteket a példákon!',
+ logic_machine_experiment: 'Nézd, hogyan változott a saját számod! Két műveletnél a fordított sorrendet is megmutatjuk.',
+ logic_route_replan: 'Az eddigi lépések megmaradtak. Innen folytathatod új irányokkal az útitervet!',
  logic_op_add1: 'Adj hozzá egyet!', logic_op_sub1: 'Vegyél el egyet!', logic_op_add2: 'Adj hozzá kettőt!', logic_op_sub2: 'Vegyél el kettőt!', logic_op_double: 'Duplázd meg!', logic_op_add3: 'Adj hozzá hármat!', logic_op_sub3: 'Vegyél el hármat!',
 };
 const numbers = ['nulla','egy','kettő','három','négy','öt','hat','hét','nyolc','kilenc','tíz','tizenegy','tizenkettő','tizenhárom','tizennégy','tizenöt','tizenhat','tizenhét','tizennyolc','tizenkilenc','húsz'];

@@ -4,6 +4,13 @@ export const MEMORY_CLIPS = {
   memory_match: 'Ez egy pár! A két kép egyforma.',
   memory_done: 'Minden pár megvan! Szép munka!',
 };
+export const MEMORY_TIMING_KEY = 'beszedtanulas.memoryTiming.v1';
+export function normalizeMemoryTiming(value) {
+  return {
+    mismatchMs: [1100, 2000, 3500].includes(value?.mismatchMs) ? value.mismatchMs : 1100,
+    previewMs: [3500, 7000, 0].includes(value?.previewMs) ? value.previewMs : 3500,
+  };
+}
 
 export function buildMemoryDeck(pool, pairCount = 3, random = Math.random) {
   const unique = [...new Map(pool.map(word => [word.id, word])).values()];

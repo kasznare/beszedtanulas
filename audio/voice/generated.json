@@ -3923,142 +3923,172 @@
       "characterCost": 8.0
     },
     "logic_route_1": {
-      "fingerprint": "d17bb6c146c5c8f52b7e300af0c159ef21ec7050a2f715fb53c2b0ca7149885f",
-      "sha256": "46236d8befd2d9515fd64b709721d5e3ed0918a8878ae5b4bd4f97ec4661ca58",
+      "fingerprint": "e2d7ea89ef1232d26d5f62f2c0356fecf378348215b435a21f9243980faf0839",
+      "sha256": "556e2708ef1f411925c6407e66a32901d76633e747c5b5b45499b59cbe6f088d",
       "words": [
         [
           0.0,
-          0.4,
+          0.48,
           "Tervezz"
         ],
         [
-          0.48,
+          0.56,
           0.72,
           "utat"
         ],
         [
-          0.76,
           0.8,
+          0.84,
           "a"
         ],
         [
-          0.92,
+          0.88,
           1.6,
           "rókának"
         ],
         [
           2.0,
-          2.16,
+          2.24,
           "Vedd"
         ],
         [
-          2.24,
           2.32,
+          2.4,
           "fel"
         ],
         [
-          2.36,
-          2.4,
+          2.44,
+          2.48,
           "a"
         ],
         [
-          2.48,
-          2.96,
+          2.52,
+          3.04,
           "csomagot"
         ],
         [
-          3.067,
           3.2,
+          3.32,
           "majd"
         ],
         [
-          3.28,
-          3.44,
+          3.36,
+          3.56,
           "menj"
         ],
         [
-          3.467,
-          3.493,
+          3.6,
+          3.64,
           "a"
         ],
         [
-          3.52,
-          4.16,
+          3.68,
+          4.32,
           "házhoz"
         ],
         [
-          4.64,
-          5.04,
-          "Koppints"
-        ],
-        [
-          5.12,
-          5.44,
-          "egymás"
-        ],
-        [
-          5.52,
-          5.84,
-          "melletti"
-        ],
-        [
-          5.92,
-          6.48,
-          "mezőkre"
-        ],
-        [
-          6.64,
-          6.8,
-          "vagy"
-        ],
-        [
-          6.84,
-          7.12,
-          "húzd"
-        ],
-        [
-          7.16,
-          7.44,
-          "végig"
-        ],
-        [
-          7.52,
-          7.6,
-          "az"
-        ],
-        [
-          7.72,
-          8.08,
-          "ujjad"
-        ],
-        [
-          8.56,
-          8.64,
+          4.88,
+          4.96,
           "A"
         ],
         [
-          8.72,
-          9.36,
-          "próbagomb"
+          5.04,
+          5.68,
+          "nyilakkal"
         ],
         [
-          9.44,
+          5.88,
+          6.8,
+          "koppintással"
+        ],
+        [
+          6.88,
+          7.04,
+          "vagy"
+        ],
+        [
+          7.08,
+          7.68,
+          "húzással"
+        ],
+        [
+          7.72,
+          8.32,
+          "választhatsz"
+        ],
+        [
+          8.4,
+          8.96,
+          "lépést"
+        ],
+        [
+          9.52,
+          9.6,
+          "A"
+        ],
+        [
+          9.72,
           10.0,
-          "indítja"
-        ],
-        [
-          10.027,
-          10.053,
-          "a"
+          "róka"
         ],
         [
           10.08,
-          10.72,
-          "rókát"
+          10.4,
+          "minden"
+        ],
+        [
+          10.48,
+          10.8,
+          "lépés"
+        ],
+        [
+          10.88,
+          11.04,
+          "után"
+        ],
+        [
+          11.12,
+          11.76,
+          "megmutatja"
+        ],
+        [
+          11.92,
+          12.0,
+          "hol"
+        ],
+        [
+          12.08,
+          12.56,
+          "jársz"
+        ],
+        [
+          13.04,
+          13.12,
+          "A"
+        ],
+        [
+          13.2,
+          14.0,
+          "próbagombbal"
+        ],
+        [
+          14.08,
+          14.8,
+          "végigjárja"
+        ],
+        [
+          14.84,
+          14.88,
+          "az"
+        ],
+        [
+          14.96,
+          15.84,
+          "útitervedet"
         ]
       ],
-      "duration": 10.88,
-      "characterCost": 17.0
+      "duration": 16.0,
+      "characterCost": 86.0
     },
     "logic_route_2": {
       "fingerprint": "8a5e1880612615793d68c3266f92872d6eae502fffd01119764f819b2148ea33",
@@ -4297,162 +4327,187 @@
       "characterCost": 16.0
     },
     "logic_route_steps": {
-      "fingerprint": "31e34bc9f7249ed5ea89aee8e0ad1ae5b2df0675f165e9240010037bfb799bac",
-      "sha256": "632ac0094c782375dd3e61ea92b99197fd027b7f9502a4e9e4eccc62450c1dab",
+      "fingerprint": "676239bc221e06e3aeb743a572f4c8f14672030e5952c89278d8945358cad81a",
+      "sha256": "204f1becb6dd1352fe41329068f673305a00e53ba2123aa8e43ace9f6f226655",
       "words": [
         [
           0.0,
           0.32,
-          "Most"
+          "Nézd"
         ],
         [
+          0.36,
           0.4,
-          0.64,
-          "kép"
+          "a"
         ],
         [
-          0.68,
-          1.04,
-          "nélkül"
-        ],
-        [
+          0.44,
           1.12,
-          1.84,
-          "tervezünk"
+          "térképet"
         ],
         [
-          2.24,
-          2.28,
-          "A"
+          1.6,
+          1.92,
+          "Látod"
         ],
         [
-          2.32,
-          2.96,
-          "leírásból"
+          2.0,
+          2.04,
+          "a"
+        ],
+        [
+          2.08,
+          2.88,
+          "csomagokat"
         ],
         [
           3.0,
-          3.44,
-          "tudjuk"
+          3.04,
+          "a"
         ],
         [
-          3.6,
+          3.12,
           3.68,
-          "hol"
+          "köveket"
         ],
         [
-          3.733,
-          4.0,
-          "vannak"
-        ],
-        [
-          4.027,
-          4.053,
-          "a"
-        ],
-        [
-          4.08,
-          4.72,
-          "csomagok"
-        ],
-        [
-          4.84,
-          4.88,
-          "a"
-        ],
-        [
-          4.96,
-          5.44,
-          "kövek"
-        ],
-        [
-          5.52,
-          5.6,
+          3.76,
+          3.84,
           "és"
         ],
         [
-          5.64,
-          5.68,
+          3.88,
+          3.92,
           "a"
         ],
         [
-          5.76,
-          6.24,
-          "ház"
+          4.0,
+          4.56,
+          "házat"
         ],
         [
-          6.8,
-          6.88,
+          5.12,
+          5.2,
           "A"
         ],
         [
-          6.92,
-          7.44,
+          5.24,
+          5.76,
           "nyilakkal"
         ],
         [
-          7.52,
-          7.92,
+          5.84,
+          6.32,
           "sorban"
         ],
         [
-          8.0,
-          8.32,
-          "megadod"
+          6.4,
+          6.48,
+          "add"
         ],
         [
-          8.36,
-          8.4,
+          6.56,
+          6.64,
+          "meg"
+        ],
+        [
+          6.667,
+          6.693,
           "a"
         ],
         [
-          8.48,
-          9.28,
+          6.72,
+          7.52,
           "lépéseket"
         ],
         [
-          9.84,
-          10.24,
-          "Fejben"
+          8.08,
+          8.16,
+          "A"
         ],
         [
-          10.32,
-          10.64,
-          "követed"
+          8.28,
+          8.56,
+          "róka"
         ],
         [
-          10.72,
-          10.8,
+          8.64,
+          8.96,
+          "közben"
+        ],
+        [
+          9.0,
+          9.04,
           "az"
         ],
         [
+          9.12,
+          9.84,
+          "indulásnál"
+        ],
+        [
+          9.88,
+          10.24,
+          "vár"
+        ],
+        [
           10.88,
-          11.2,
-          "utat"
+          11.28,
+          "Fejben"
         ],
         [
           11.36,
-          11.52,
-          "majd"
+          11.68,
+          "kövesd"
         ],
         [
-          11.547,
-          11.573,
-          "a"
+          11.72,
+          11.76,
+          "az"
         ],
         [
-          11.6,
-          12.32,
-          "próbagombbal"
+          11.84,
+          12.16,
+          "utat"
         ],
         [
           12.4,
-          13.2,
-          "ellenőrzöd"
+          12.52,
+          "majd"
+        ],
+        [
+          12.56,
+          12.6,
+          "a"
+        ],
+        [
+          12.64,
+          13.44,
+          "próbagombbal"
+        ],
+        [
+          13.52,
+          14.0,
+          "indítsd"
+        ],
+        [
+          14.04,
+          14.08,
+          "el"
+        ],
+        [
+          14.16,
+          14.2,
+          "a"
+        ],
+        [
+          14.24,
+          14.96,
+          "programodat"
         ]
       ],
-      "duration": 13.36,
-      "characterCost": 20.0
+      "duration": 15.12,
+      "characterCost": 80.0
     },
     "logic_route_steps_hint2": {
       "fingerprint": "3965f7910c0b72f1c891e3f862942ba0674b40750ae241382dddb878a91d96df",
@@ -13060,8 +13115,8 @@
       "characterCost": 4.0
     },
     "pour_over": {
-      "fingerprint": "e8558de0e0348171935fc8a8ed1e92a56bd33c081ac8608d17a9fd98645218bc",
-      "sha256": "800849056a55ad9c397dd9f151f30816085c3c058cf7f7ebee5d20855210e19b",
+      "fingerprint": "659d7d115f917911fab7a1ced19eb9bc2963b9026f9fc4d213c1c2eb4be4cbe5",
+      "sha256": "dfe7853a0d35b559745e57f68f6a300ae97655479287d9c544c8fe5fb941d569",
       "words": [
         [
           0.0,
@@ -13080,47 +13135,37 @@
         ],
         [
           1.52,
-          1.88,
-          "Ürítsd"
+          1.76,
+          "Önts"
         ],
         [
-          1.92,
+          1.813,
           2.0,
-          "ki"
+          "vissza"
         ],
         [
           2.08,
-          2.24,
-          "ezt"
+          2.2,
+          "egy"
         ],
         [
-          2.28,
-          2.32,
+          2.24,
+          2.64,
+          "keveset"
+        ],
+        [
+          2.68,
+          2.72,
           "a"
         ],
         [
-          2.36,
-          2.8,
-          "poharat"
-        ],
-        [
-          2.96,
-          3.04,
-          "és"
-        ],
-        [
-          3.12,
-          3.6,
-          "próbáljuk"
-        ],
-        [
-          3.68,
-          4.08,
-          "újra"
+          2.773,
+          3.44,
+          "pohárból"
         ]
       ],
-      "duration": 4.24,
-      "characterCost": 7.0
+      "duration": 3.68,
+      "characterCost": 21.0
     },
     "pour_spill": {
       "fingerprint": "cde7dfe7228f3ea1320d1901e5edf219e11e670c17a74a9e3464bd9d078ce56a",
@@ -13529,87 +13574,67 @@
       "characterCost": 10.0
     },
     "r_post": {
-      "fingerprint": "10eba864e3e5366ee640c7862d9043eb86175169d88ddca88fa81ef0d5a84c79",
-      "sha256": "ccd9fb8809344f839bf844def642dd0880ff92db44f63131f3c869e8b6c2805b",
+      "fingerprint": "2fcb286a7aad92cd539fba858ef84f4f08534c3014d738c1001c38133054de0c",
+      "sha256": "90a3c6065dc59b76edf17b5e06f964504b1c548337548db4fdc0a5f3fd9f2aa1",
       "words": [
         [
           0.0,
-          0.4,
-          "Robot"
+          0.24,
+          "Két"
         ],
         [
-          0.48,
-          0.88,
-          "csomagot"
-        ],
-        [
-          0.96,
-          1.08,
-          "visz"
+          0.32,
+          1.04,
+          "összetartozó"
         ],
         [
           1.12,
-          1.16,
-          "a"
+          1.52,
+          "csomagot"
         ],
         [
-          1.2,
-          2.16,
-          "barátainknak"
+          1.6,
+          2.56,
+          "kézbesítünk"
         ],
         [
-          2.64,
-          3.093,
-          "Hallgasd"
+          2.96,
+          3.12,
+          "Mondd"
         ],
         [
-          3.147,
           3.2,
-          "meg"
-        ],
-        [
           3.24,
-          3.28,
           "a"
         ],
         [
-          3.36,
+          3.28,
           3.68,
           "szót"
         ],
         [
-          4.0,
+          3.92,
           4.16,
-          "mondd"
+          "aztán"
         ],
         [
-          4.24,
-          4.8,
-          "utánam"
-        ],
-        [
-          5.04,
-          5.12,
-          "és"
-        ],
-        [
-          5.16,
-          5.547,
+          4.2,
+          4.613,
           "válassz"
         ],
         [
-          5.573,
-          5.68,
+          4.667,
+          4.747,
           "egy"
         ],
         [
-          5.76,
-          6.32,
-          "barátot"
+          4.773,
+          5.28,
+          "házat"
         ]
       ],
-      "duration": 6.48,
-      "characterCost": 10.0
+      "duration": 5.44,
+      "characterCost": 31.0
     },
     "r_workshop": {
       "fingerprint": "d9a5ac698c53fb7c2d3c3ecc1d4c2ad7b7f37bbd2d7505f595a370aa2058acca",
@@ -13923,42 +13948,42 @@
       "characterCost": 3.0
     },
     "r_delivered": {
-      "fingerprint": "c45e226aecebbbcaccbc782343ff1ca552eb3fd39b75a37c1ca0c50418f032fc",
-      "sha256": "1f559eeb2cbb0bc8a91d6c4dbf0565c0c06d3c78642013c23a59b62749225024",
+      "fingerprint": "14d4c9075c7cc307062ada28ea197c335f0d48dd79138e0eaa412d6e1442e781",
+      "sha256": "5ef23557b2fbe25d8ea1f79c561436b8283eee3d3cda45f9adde2025d234ab6d",
       "words": [
         [
           0.0,
-          0.56,
-          "Elindult"
+          0.72,
+          "Megérkezett"
         ],
         [
-          0.64,
-          0.68,
+          0.76,
+          0.8,
           "a"
         ],
         [
-          0.72,
-          1.2,
+          0.88,
+          1.36,
           "csomag"
         ],
         [
           1.68,
-          2.0,
-          "Robot"
-        ],
-        [
           2.08,
-          2.32,
-          "örül"
+          "Köszönöm"
         ],
         [
-          2.44,
-          2.8,
-          "neki"
+          2.12,
+          2.16,
+          "a"
+        ],
+        [
+          2.24,
+          3.2,
+          "kézbesítést"
         ]
       ],
-      "duration": 3.04,
-      "characterCost": 4.0
+      "duration": 3.36,
+      "characterCost": 18.0
     },
     "r_word_repa": {
       "fingerprint": "649d7da7d5a4a36ca2eb759b3a75fdb514e72bb2c20f1aa25039e5ae83edf942",
@@ -22045,6 +22070,7973 @@
       ],
       "duration": 5.52,
       "characterCost": 30.0
+    },
+    "dress_weather_rain": {
+      "fingerprint": "bd163626c1edf4378171fbb07e511b19f13711abf1b2f6a0cdf00e839dd0be41",
+      "sha256": "70058560dc8e21929ab6daedc76a84dcaf11605b27ae41c85c8238e69fbbfd6b",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Esik"
+        ],
+        [
+          0.48,
+          0.56,
+          "az"
+        ],
+        [
+          0.64,
+          1.12,
+          "eső"
+        ],
+        [
+          1.44,
+          2.08,
+          "Készüljünk"
+        ],
+        [
+          2.107,
+          2.133,
+          "a"
+        ],
+        [
+          2.16,
+          3.12,
+          "pocsolyákhoz"
+        ]
+      ],
+      "duration": 3.28,
+      "characterCost": 16.0
+    },
+    "dress_weather_classic": {
+      "fingerprint": "5c80f95364953f3b67ef57c43a6518d52b3ae86c92909958379e74441b029bd7",
+      "sha256": "a3f8e67df5ce9d1e7db3338b744a03780793834d8cc36eca2d9f9634b5449a6d",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Hűvös"
+        ],
+        [
+          0.48,
+          0.88,
+          "időben"
+        ],
+        [
+          0.96,
+          1.84,
+          "sétálunk"
+        ]
+      ],
+      "duration": 2.0,
+      "characterCost": 9.0
+    },
+    "dress_weather_summer": {
+      "fingerprint": "51127f9aa118aa91885a3a8e098d2c388b71bc1f60b24e19ebcecb2c892a20d6",
+      "sha256": "bd10a8eef90ac0056cc8ecd48dbb2e31b3b6f81caf15a12f29c603472b0570cc",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Süt"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.48,
+          0.8,
+          "nap"
+        ],
+        [
+          1.2,
+          1.52,
+          "Könnyű"
+        ],
+        [
+          1.6,
+          1.84,
+          "ruhát"
+        ],
+        [
+          1.92,
+          2.24,
+          "vegyünk"
+        ],
+        [
+          2.32,
+          2.64,
+          "fel"
+        ]
+      ],
+      "duration": 2.88,
+      "characterCost": 14.0
+    },
+    "dress_name_polo": {
+      "fingerprint": "9fb59e3c715cd9146ca3a928238461bbc5b0bd36f31dc1d5eb92b4dfd14a1d14",
+      "sha256": "297a3b9866363763737f98c3bc8f13ad0198b7ccfb3da7be6dd5ea2cec6e281e",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "póló"
+        ]
+      ],
+      "duration": 0.8,
+      "characterCost": 2.0
+    },
+    "dress_wardrobe": {
+      "fingerprint": "181275ea5e589974de158b80713c7c29772d2167993ef4348d62019680df8105",
+      "sha256": "689ae96319b1fcecb65952e4951b9fb3c83a2920f2196db7bd9638ae869fe322",
+      "words": [
+        [
+          0.0,
+          0.533,
+          "Válassz"
+        ],
+        [
+          0.587,
+          0.88,
+          "ruhát"
+        ],
+        [
+          0.92,
+          0.96,
+          "a"
+        ],
+        [
+          1.08,
+          1.6,
+          "macinak"
+        ],
+        [
+          1.92,
+          2.08,
+          "Ha"
+        ],
+        [
+          2.16,
+          2.4,
+          "újra"
+        ],
+        [
+          2.48,
+          3.36,
+          "rákoppintasz"
+        ],
+        [
+          3.52,
+          4.16,
+          "leveszem"
+        ]
+      ],
+      "duration": 4.32,
+      "characterCost": 22.0
+    },
+    "dress_name_sal": {
+      "fingerprint": "1f3d94318c7295e12c932d2f49bb5dd250eb7deeffde2fabfdbf257d21dde78c",
+      "sha256": "6601f48af823297c66c4d683a1db73657cfc1dcaad2953d88775e71d63cbea83",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "sál"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "dress_request_esokabat": {
+      "fingerprint": "98fdcfaa7a336872c7b99d8cff4a1d60530fd7f943eecc08e64355328f8e1487",
+      "sha256": "242e0a645fc8d2848bded97b6620bf5b676024577dc4c8f62307d028de515557",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Kérem"
+        ],
+        [
+          0.4,
+          0.48,
+          "az"
+        ],
+        [
+          0.6,
+          1.6,
+          "esőkabátot"
+        ]
+      ],
+      "duration": 1.76,
+      "characterCost": 8.0
+    },
+    "dress_thanks_esokabat": {
+      "fingerprint": "adcd1fcd5017be0cd495ba6f7cedb1e06566fa6111403b1153b92eb99bbe34e9",
+      "sha256": "c022acd61515b62528f1d25b94415036951bdb91f42aa2f63ee3b1c10fd9a029",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Az"
+        ],
+        [
+          0.24,
+          0.96,
+          "esőkabát"
+        ],
+        [
+          1.04,
+          1.6,
+          "szárazon"
+        ],
+        [
+          1.68,
+          2.16,
+          "tart"
+        ]
+      ],
+      "duration": 2.4,
+      "characterCost": 10.0
+    },
+    "dress_name_esokabat": {
+      "fingerprint": "a97c0df3f9e6c00c463977f56f39e69f83a70c38f061fe9a818d32cc24aa6590",
+      "sha256": "dde37dd86e7a0066cffb6f88ad74c701b566853d23b9eb1956e1e21bb9914ea5",
+      "words": [
+        [
+          0.0,
+          1.12,
+          "esőkabát"
+        ]
+      ],
+      "duration": 1.28,
+      "characterCost": 4.0
+    },
+    "dress_request_gumicsizma": {
+      "fingerprint": "dff35bd707607fa526f51aa3e80547baa5dbd0a37b4f37ff56288fc051e8f073",
+      "sha256": "03b742b31d7a211d5b5cf5a5cb126e6ea3f18cd6b9f7861a2567ea6b483147b2",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Kérem"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.44,
+          1.44,
+          "gumicsizmát"
+        ]
+      ],
+      "duration": 1.6,
+      "characterCost": 8.0
+    },
+    "dress_thanks_gumicsizma": {
+      "fingerprint": "c186e23b9d9e613c02affc0cd5c44ce3798b78584783c84f2731647932a5beea",
+      "sha256": "6239c93826b3da6f357d4f4b17c67b59fcc20455e436fd3f0c77549bc1bbaa69",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "A"
+        ],
+        [
+          0.2,
+          1.04,
+          "gumicsizmában"
+        ],
+        [
+          1.12,
+          1.52,
+          "léphetek"
+        ],
+        [
+          1.56,
+          1.6,
+          "a"
+        ],
+        [
+          1.68,
+          2.48,
+          "pocsolyába"
+        ]
+      ],
+      "duration": 2.64,
+      "characterCost": 15.0
+    },
+    "dress_name_gumicsizma": {
+      "fingerprint": "c82988462cb3811ba9b94a7a0574067db392235a09c083a7ec24a21b92c9f71f",
+      "sha256": "eafe7cd492a7de9288b167c4500b5321ef5685bbad7e421448d2c8e612bdc975",
+      "words": [
+        [
+          0.0,
+          0.96,
+          "gumicsizma"
+        ]
+      ],
+      "duration": 1.36,
+      "characterCost": 4.0
+    },
+    "dress_request_napkalap": {
+      "fingerprint": "795244d421c3276d7fb1f319bd6993fd984e0ac3b5b3ac110faf6be6ff545356",
+      "sha256": "e37d0616fb5f5139e95a4b0a1e67fcae5f0e5247968e3e99f108df4524c2799d",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Kérem"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.52,
+          1.28,
+          "napkalapot"
+        ]
+      ],
+      "duration": 1.68,
+      "characterCost": 8.0
+    },
+    "dress_thanks_napkalap": {
+      "fingerprint": "fc4e782da00725a11f664eb0e1ec14be9d1650dd11d2553ef97280843bb19f05",
+      "sha256": "45698ee91ae9c7cbaceb78791bc31f19cbcbad33e54f857bfd4031956adc8edf",
+      "words": [
+        [
+          0.0,
+          0.08,
+          "A"
+        ],
+        [
+          0.16,
+          0.72,
+          "napkalap"
+        ],
+        [
+          0.8,
+          1.44,
+          "árnyékot"
+        ],
+        [
+          1.6,
+          1.76,
+          "ad"
+        ]
+      ],
+      "duration": 2.16,
+      "characterCost": 9.0
+    },
+    "dress_name_napkalap": {
+      "fingerprint": "7e97165f6be2d31856f2473102092b95bcbc5d00a1870ba140c0c708b49c210e",
+      "sha256": "118d7fdfcda4c75b39940025c883fef250f674b966ad8667401a18814e964c37",
+      "words": [
+        [
+          0.0,
+          0.88,
+          "napkalap"
+        ]
+      ],
+      "duration": 1.04,
+      "characterCost": 4.0
+    },
+    "dress_thanks_rovidnadrag": {
+      "fingerprint": "9ba48a45c8ae24e3e8a8c4eda7a18872a700ea2fc62c8f61e33d71d10970b867",
+      "sha256": "242402a0ab7b466236fe523c63bb00804dbb9282da3433e0c5627fcf116dd6fb",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Jó"
+        ],
+        [
+          0.32,
+          0.72,
+          "könnyű"
+        ],
+        [
+          0.76,
+          0.8,
+          "a"
+        ],
+        [
+          0.88,
+          1.84,
+          "rövidnadrágom"
+        ]
+      ],
+      "duration": 2.24,
+      "characterCost": 10.0
+    },
+    "dress_request_rovidnadrag": {
+      "fingerprint": "10664f549f3d1a906b890dee45182854c5081ef550a934fcd3799e39204bad53",
+      "sha256": "3509d0c0e5a3b5d4f541966c00a1dd1b6be70a781d68e1def39ef1b539e23954",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Kérem"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          1.52,
+          "rövidnadrágot"
+        ]
+      ],
+      "duration": 1.76,
+      "characterCost": 9.0
+    },
+    "dress_name_rovidnadrag": {
+      "fingerprint": "9026312020f8635292cd6d3eff79e164e964ecaab65e86c0ac5560b66c723427",
+      "sha256": "f09026542c1bdafb7963e4187c7d25cf1fc878a397f2751b516c5932793139a2",
+      "words": [
+        [
+          0.0,
+          1.12,
+          "rövidnadrág"
+        ]
+      ],
+      "duration": 1.28,
+      "characterCost": 5.0
+    },
+    "dress_request_szandal": {
+      "fingerprint": "eb84e0ad7db939ad07db7749bf29930ab452faae7e9c6816d17057fa0a867fea",
+      "sha256": "d4adad22a9f4986889306065963a4233c244ccb790168c3332486d3fa1aa9a9a",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Kérem"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.48,
+          1.2,
+          "szandált"
+        ]
+      ],
+      "duration": 1.44,
+      "characterCost": 7.0
+    },
+    "dress_name_szandal": {
+      "fingerprint": "35349f289368e73f5a3bb252a693f77e8e801de253587aa196defb1ada8bec82",
+      "sha256": "7e176b335ad778ff904102210f485b94e3cd097f54d7bf12e530ff9779af5df0",
+      "words": [
+        [
+          0.0,
+          0.8,
+          "szandál"
+        ]
+      ],
+      "duration": 1.04,
+      "characterCost": 3.0
+    },
+    "dress_thanks_szandal": {
+      "fingerprint": "dd313b1e21dacdcee1fdcfa5bf91d23411572513da50692d48d47bd0350a1a7b",
+      "sha256": "6b06cf857d03609b7cc4d3c7a929f8b50e61f47107d8ca43b2d92e9f4e8529e8",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "Szellős"
+        ],
+        [
+          0.68,
+          0.72,
+          "a"
+        ],
+        [
+          0.8,
+          1.6,
+          "szandálom"
+        ]
+      ],
+      "duration": 2.0,
+      "characterCost": 8.0
+    },
+    "teddy_sequence_next": {
+      "fingerprint": "cd4df0e08e6f6f99cdcd0af90cd2113a4e44cd8ebf0bae3a214827c3642e221c",
+      "sha256": "f611b76ed77143c3a3ab2f9d2233d3ea61a2f96375b022387605b96d6b222034",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Az"
+        ],
+        [
+          0.24,
+          0.56,
+          "első"
+        ],
+        [
+          0.68,
+          1.12,
+          "finomság"
+        ],
+        [
+          1.2,
+          1.68,
+          "megvan"
+        ],
+        [
+          2.08,
+          2.32,
+          "Most"
+        ],
+        [
+          2.36,
+          2.56,
+          "jöhet"
+        ],
+        [
+          2.64,
+          2.68,
+          "a"
+        ],
+        [
+          2.72,
+          3.36,
+          "második"
+        ]
+      ],
+      "duration": 3.52,
+      "characterCost": 18.0
+    },
+    "teddy_sequence_intro": {
+      "fingerprint": "9804e383290bc574b305e2ad683e89389f365470b37069f1cb1d8e2ece84a036",
+      "sha256": "de480695027f4c1d40066972db86436c1a8d5d024045bea8e5548d3afef537cd",
+      "words": [
+        [
+          0.0,
+          0.44,
+          "Figyelj"
+        ],
+        [
+          0.48,
+          0.52,
+          "a"
+        ],
+        [
+          0.56,
+          1.28,
+          "sorrendre"
+        ],
+        [
+          1.76,
+          2.16,
+          "Először"
+        ],
+        [
+          2.24,
+          2.4,
+          "az"
+        ],
+        [
+          2.56,
+          2.8,
+          "első"
+        ],
+        [
+          2.88,
+          3.6,
+          "finomságot"
+        ],
+        [
+          3.72,
+          3.84,
+          "add"
+        ],
+        [
+          4.2,
+          4.48,
+          "aztán"
+        ],
+        [
+          4.52,
+          4.56,
+          "a"
+        ],
+        [
+          4.6,
+          5.44,
+          "másodikat"
+        ]
+      ],
+      "duration": 5.6,
+      "characterCost": 28.0
+    },
+    "teddy_sequence_viz_alma": {
+      "fingerprint": "19ce753e201d893a436840faa27bdbdf51f867ac42d64ca480cf42f576261ed1",
+      "sha256": "f77a96357fc8d721f25eec68480a2044a3b3956e46e802115dd389d513025d58",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Először"
+        ],
+        [
+          0.505,
+          0.825,
+          "vizet"
+        ],
+        [
+          0.905,
+          1.305,
+          "kérek"
+        ],
+        [
+          1.545,
+          1.865,
+          "aztán"
+        ],
+        [
+          1.945,
+          2.505,
+          "almát"
+        ]
+      ],
+      "duration": 2.665556,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_viz_kifli": {
+      "fingerprint": "0d18d1d3bec026ee5914a3529d422c6abeccd07979b7caf977e6beee432486ec",
+      "sha256": "32f284539d1d0797e75958a5c0df755adffd45f0e0b9ab7e6a5d914d34065116",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Először"
+        ],
+        [
+          0.545,
+          0.905,
+          "vizet"
+        ],
+        [
+          0.945,
+          1.385,
+          "kérek"
+        ],
+        [
+          1.625,
+          1.945,
+          "aztán"
+        ],
+        [
+          2.025,
+          2.505,
+          "kiflit"
+        ]
+      ],
+      "duration": 2.665556,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_viz_tej": {
+      "fingerprint": "206fc3ab0300d4ed04c1684d9c6d6ed5298d815ec696d6ea1feba602678f7301",
+      "sha256": "f97cf55b80eb4e1fe4b2d071e6f062407f3634394295d61a4792742e0c2f5a86",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Először"
+        ],
+        [
+          0.505,
+          0.825,
+          "vizet"
+        ],
+        [
+          0.905,
+          1.305,
+          "kérek"
+        ],
+        [
+          1.545,
+          1.785,
+          "aztán"
+        ],
+        [
+          1.865,
+          2.425,
+          "tejet"
+        ]
+      ],
+      "duration": 2.584989,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_viz_kenyer": {
+      "fingerprint": "32b5a5fd27c39ce6675e08b49c44302f1d3db283457b74d2e199bf1ea0b37cea",
+      "sha256": "d6dd35df9cbb5542c60440cfbdb8208c49a19c0c533b503b03bd9e031bf9753b",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Először"
+        ],
+        [
+          0.545,
+          0.905,
+          "vizet"
+        ],
+        [
+          0.945,
+          1.385,
+          "kérek"
+        ],
+        [
+          1.625,
+          1.945,
+          "aztán"
+        ],
+        [
+          2.025,
+          2.585,
+          "kenyeret"
+        ]
+      ],
+      "duration": 2.744989,
+      "characterCost": 22.0
+    },
+    "teddy_sequence_alma_viz": {
+      "fingerprint": "3394f0c39a5eb2d087579a64e2ab492cf31fa3eee05c362b48dc1e8d1ec3a725",
+      "sha256": "af2302662e4e842661214ec7873d2f770cb7b09ac58c8f55c500c3680a1c6846",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Először"
+        ],
+        [
+          0.585,
+          0.985,
+          "almát"
+        ],
+        [
+          1.065,
+          1.465,
+          "kérek"
+        ],
+        [
+          1.745,
+          2.025,
+          "aztán"
+        ],
+        [
+          2.105,
+          2.625,
+          "vizet"
+        ]
+      ],
+      "duration": 2.744989,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_alma_kifli": {
+      "fingerprint": "3ede8abeed0a030054a103181486792e4063e6e9e13b0137f39765ee1de7231b",
+      "sha256": "bfe8b1b36d94dca2b30b959667e4c81fe9689fb3fbc7d068d6205f38c8619855",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.04,
+          "almát"
+        ],
+        [
+          1.12,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.84,
+          2.16,
+          "aztán"
+        ],
+        [
+          2.24,
+          2.72,
+          "kiflit"
+        ]
+      ],
+      "duration": 2.88,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_alma_tej": {
+      "fingerprint": "1a7b698f4a0decf9a06184a2461570badefd670d88a11d20d32a89b6f6c0d18a",
+      "sha256": "241fadd5c1a66e0f424877885c5b36069ebe4589b2a77ce16e807cbf63c78a74",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.72,
+          1.12,
+          "almát"
+        ],
+        [
+          1.2,
+          1.68,
+          "kérek"
+        ],
+        [
+          1.96,
+          2.24,
+          "aztán"
+        ],
+        [
+          2.32,
+          2.8,
+          "tejet"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 13.0
+    },
+    "teddy_sequence_alma_kenyer": {
+      "fingerprint": "c8a06d346f81a3507f7beb7e5416667647cb9fe5592820c3d1788d4bf60c7ab3",
+      "sha256": "15e2da2e79298d9da8ac92c16a5307d335486e906d83e6880f7cddf98fa53976",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.04,
+          "almát"
+        ],
+        [
+          1.12,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.84,
+          2.16,
+          "aztán"
+        ],
+        [
+          2.24,
+          2.8,
+          "kenyeret"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_kifli_viz": {
+      "fingerprint": "4d5d0ad293fbad11f08940d16507f7f50aaf8f8e54132d9518a8a2d4065204df",
+      "sha256": "0eab15ff6c7f959ef88dd8442889e160e20b2424f0e50e3f626796b9a7713c31",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Először"
+        ],
+        [
+          0.505,
+          0.905,
+          "kiflit"
+        ],
+        [
+          0.985,
+          1.465,
+          "kérek"
+        ],
+        [
+          1.705,
+          2.025,
+          "aztán"
+        ],
+        [
+          2.065,
+          2.545,
+          "vizet"
+        ]
+      ],
+      "duration": 2.665556,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_kifli_alma": {
+      "fingerprint": "1ec9a8b1f12f00f65bec1fa73ce3527a278c34c5617c04f752d88d26f8906a62",
+      "sha256": "fe480a5b9bd5f51229ed4740660de934c21327504a17496cc3568096e99abf5f",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.12,
+          "kiflit"
+        ],
+        [
+          1.16,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.84,
+          2.16,
+          "aztán"
+        ],
+        [
+          2.24,
+          2.8,
+          "almát"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_kifli_tej": {
+      "fingerprint": "42408790ecf8a7e9198dc471869d356d701eb03024b1596114cbae010e536c7c",
+      "sha256": "269ac6b5e7c1cce2ec3006e43d60e56f13ba328d1470a763d8da91bd17d7b596",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.12,
+          "kiflit"
+        ],
+        [
+          1.16,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.88,
+          2.16,
+          "aztán"
+        ],
+        [
+          2.24,
+          2.64,
+          "tejet"
+        ]
+      ],
+      "duration": 2.8,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_kifli_kenyer": {
+      "fingerprint": "4462d1a2741a48dc3d44005ca44a331f2ddc1a6b80a7d004b5375cafd755227a",
+      "sha256": "4b6992303fe7cc7a684308ea6bdef22dcb3392aa7291149bd5c89d64b9da7891",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.6,
+          1.04,
+          "kiflit"
+        ],
+        [
+          1.08,
+          1.52,
+          "kérek"
+        ],
+        [
+          1.8,
+          2.08,
+          "aztán"
+        ],
+        [
+          2.2,
+          2.72,
+          "kenyeret"
+        ]
+      ],
+      "duration": 2.88,
+      "characterCost": 15.0
+    },
+    "teddy_sequence_tej_viz": {
+      "fingerprint": "91e514924bf56d209936dd468ef2356bb016f502b5692c1344a5253f0d9ff355",
+      "sha256": "60485f306ad52b0b1cd4c91f06199d726dd9d727560d55959820f44f35433b03",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Először"
+        ],
+        [
+          0.585,
+          0.905,
+          "tejet"
+        ],
+        [
+          0.985,
+          1.465,
+          "kérek"
+        ],
+        [
+          1.745,
+          2.025,
+          "aztán"
+        ],
+        [
+          2.105,
+          2.625,
+          "vizet"
+        ]
+      ],
+      "duration": 2.744989,
+      "characterCost": 21.0
+    },
+    "teddy_sequence_tej_alma": {
+      "fingerprint": "230fff4c39c9752c5e5a3e9b0624170a2a286fe1d54f09dbf06c501c1515177b",
+      "sha256": "f4c5f4326aed9222f91e9ba56f52642b3639c64951d7e549fcf1c0259fc3c69a",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          0.96,
+          "tejet"
+        ],
+        [
+          1.04,
+          1.52,
+          "kérek"
+        ],
+        [
+          1.8,
+          2.16,
+          "aztán"
+        ],
+        [
+          2.32,
+          2.8,
+          "almát"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 13.0
+    },
+    "teddy_sequence_tej_kifli": {
+      "fingerprint": "2266c0b7b90dcc16a354aef1ee6a0c37b3bbac470d4b3b43bd78d4553a741326",
+      "sha256": "d4b1991b940bca99089b44d91e7d511b179bea43efe01e1a84c209d1a7a43344",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          0.96,
+          "tejet"
+        ],
+        [
+          1.04,
+          1.52,
+          "kérek"
+        ],
+        [
+          1.8,
+          2.08,
+          "aztán"
+        ],
+        [
+          2.12,
+          2.64,
+          "kiflit"
+        ]
+      ],
+      "duration": 2.8,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_tej_kenyer": {
+      "fingerprint": "f2c379e76ea5ce032745acbca625000ee70a9ee09e13caa22d9f052add9f684c",
+      "sha256": "5a779ff28449c9c0abedd31e3f0cd330d8b2a2683a644614c7fc701da9813f77",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          0.96,
+          "tejet"
+        ],
+        [
+          1.04,
+          1.52,
+          "kérek"
+        ],
+        [
+          1.8,
+          2.08,
+          "aztán"
+        ],
+        [
+          2.2,
+          2.72,
+          "kenyeret"
+        ]
+      ],
+      "duration": 2.88,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_kenyer_viz": {
+      "fingerprint": "b9cfcb116e2f1c92865c1d687c20b228d06d5754a27131c463a18c5e0c1561af",
+      "sha256": "4c224882e3745f04832d8a299e8e3824d3126b57c19354c2fd65b0a8798f2ea6",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Először"
+        ],
+        [
+          0.585,
+          0.985,
+          "kenyeret"
+        ],
+        [
+          1.065,
+          1.545,
+          "kérek"
+        ],
+        [
+          1.865,
+          2.185,
+          "aztán"
+        ],
+        [
+          2.225,
+          2.745,
+          "vizet"
+        ]
+      ],
+      "duration": 2.904989,
+      "characterCost": 22.0
+    },
+    "teddy_sequence_kenyer_alma": {
+      "fingerprint": "537312de63b4de22fefdebfef7b0442e0e4275360a6f1d681255edc980427c75",
+      "sha256": "74e4f86220c3ce1652662c502abfe8cff9986cf0959b81444b8bb635a73e3043",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.12,
+          "kenyeret"
+        ],
+        [
+          1.16,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.84,
+          2.24,
+          "aztán"
+        ],
+        [
+          2.4,
+          2.88,
+          "almát"
+        ]
+      ],
+      "duration": 3.04,
+      "characterCost": 14.0
+    },
+    "teddy_sequence_kenyer_kifli": {
+      "fingerprint": "9a7284e0176492d7d8449d6e03de762f2160879a7324f24516de80473904fa61",
+      "sha256": "42448f3572d24440c91c8025071d3b585f0424df9f929992145e801b4ec07463",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.68,
+          1.04,
+          "kenyeret"
+        ],
+        [
+          1.12,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.92,
+          2.24,
+          "aztán"
+        ],
+        [
+          2.32,
+          2.8,
+          "kiflit"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 15.0
+    },
+    "teddy_sequence_kenyer_tej": {
+      "fingerprint": "4c608f415c373362446e0d0022e2aace710f05e2ee2e0642e50ec3d21047f28a",
+      "sha256": "71e2d82bad2921cba1616c5978bb8d9451ad4c1470421012a03c906b24bdedd3",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Először"
+        ],
+        [
+          0.64,
+          1.12,
+          "kenyeret"
+        ],
+        [
+          1.16,
+          1.6,
+          "kérek"
+        ],
+        [
+          1.92,
+          2.24,
+          "aztán"
+        ],
+        [
+          2.32,
+          2.8,
+          "tejet"
+        ]
+      ],
+      "duration": 2.96,
+      "characterCost": 14.0
+    },
+    "abk_scene_guide": {
+      "fingerprint": "eaa8921069045dae361b888a1565da3956062cf4a5dcdb99bf0c24a0f276263e",
+      "sha256": "f1fe4b3451d2254083d4eae4eab16ff3ac389d1dd5f22d2e264a157af6d721a2",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Keresd"
+        ],
+        [
+          0.48,
+          0.56,
+          "meg"
+        ],
+        [
+          0.6,
+          0.64,
+          "a"
+        ],
+        [
+          0.76,
+          1.36,
+          "megnevezett"
+        ],
+        [
+          1.4,
+          1.84,
+          "állatot"
+        ],
+        [
+          1.88,
+          1.92,
+          "a"
+        ],
+        [
+          2.0,
+          2.56,
+          "képen"
+        ]
+      ],
+      "duration": 2.8,
+      "characterCost": 16.0
+    },
+    "abk_sound_guide": {
+      "fingerprint": "45ec1922e916a3ae33156b94005465e9538a0eb9eead2673cf66598e4f92a719",
+      "sha256": "87ef0cbc7941e52b875537b1498f4715f7e6430bc06396a6c74e1e3e9f6f845f",
+      "words": [
+        [
+          0.0,
+          0.44,
+          "Hallgasd"
+        ],
+        [
+          0.48,
+          0.64,
+          "meg"
+        ],
+        [
+          0.72,
+          0.8,
+          "az"
+        ],
+        [
+          0.84,
+          1.2,
+          "állat"
+        ],
+        [
+          1.32,
+          1.76,
+          "hangját"
+        ],
+        [
+          1.96,
+          2.08,
+          "és"
+        ],
+        [
+          2.12,
+          2.56,
+          "válaszd"
+        ],
+        [
+          2.64,
+          2.8,
+          "ki"
+        ],
+        [
+          3.0,
+          3.28,
+          "melyik"
+        ],
+        [
+          3.36,
+          3.68,
+          "állat"
+        ],
+        [
+          3.76,
+          4.16,
+          "szólt"
+        ]
+      ],
+      "duration": 4.4,
+      "characterCost": 26.0
+    },
+    "abk_well_done": {
+      "fingerprint": "922d28d073b4d7b469d214fec3cfb7e9d34d0739ad56fcd0f33f20e214845232",
+      "sha256": "7c4c4097c43ea1bdc177cca773c5fe50f3e40a97d0ca5a49383970a5321d4b39",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Ügyes"
+        ],
+        [
+          0.52,
+          0.8,
+          "vagy"
+        ],
+        [
+          1.12,
+          1.76,
+          "Megtaláltad"
+        ],
+        [
+          1.8,
+          1.84,
+          "az"
+        ],
+        [
+          1.92,
+          2.56,
+          "állatot"
+        ]
+      ],
+      "duration": 2.72,
+      "characterCost": 14.0
+    },
+    "abk_try_again": {
+      "fingerprint": "47e7bc3a3c11c15296b6e4419cf4c2da265e3a3f77c9a260c4e7afb243ededa2",
+      "sha256": "80e2f1217e80015b739e1e90f40710537e64d467a4444eb753dc90faf5a996b2",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Próbáld"
+        ],
+        [
+          0.545,
+          0.905,
+          "újra"
+        ],
+        [
+          1.385,
+          1.705,
+          "Figyeld"
+        ],
+        [
+          1.785,
+          1.865,
+          "meg"
+        ],
+        [
+          1.945,
+          1.985,
+          "a"
+        ],
+        [
+          2.025,
+          2.585,
+          "képet"
+        ],
+        [
+          2.745,
+          2.985,
+          "vagy"
+        ],
+        [
+          3.065,
+          3.518,
+          "hallgasd"
+        ],
+        [
+          3.572,
+          3.625,
+          "meg"
+        ],
+        [
+          3.652,
+          3.678,
+          "a"
+        ],
+        [
+          3.705,
+          4.265,
+          "hangot"
+        ]
+      ],
+      "duration": 4.424989,
+      "characterCost": 32.0
+    },
+    "abk_name_cow": {
+      "fingerprint": "6f03c67edfe23b9eda9142a77a9b3ac8078a52963bb344875df354d45d3517a4",
+      "sha256": "e156799156ea30e2a886d6f6f13f9f1d729985af64ccae94a19d473e48e79ddc",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "Tehén"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "abk_name_horse": {
+      "fingerprint": "e27c5cbf7c6e7298017aaf02ec902164be8e91c256390dc2fa45ed18950725bc",
+      "sha256": "448291abaa50cd13b4cfa6b4b5553f6639c239eee82b809ee6e17eaa3d01d0d7",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Ló"
+        ]
+      ],
+      "duration": 0.88,
+      "characterCost": 1.0
+    },
+    "abk_name_sheep": {
+      "fingerprint": "1d49c04dfec5e6c4b1599f9867a1e3ff30f0ab8fe3993f83897a91fc9aa05268",
+      "sha256": "d605d0313d3cbd485b9acce1df7095909361aeeb3c0c9391fbf790beb7d8b54f",
+      "words": [
+        [
+          0.0,
+          0.8,
+          "Bárány"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 3.0
+    },
+    "abk_name_dog": {
+      "fingerprint": "6f144c5d16cb4878d4d13dfa8b352d5cc536fe2a763560095615ae3e49eb558a",
+      "sha256": "cf5ef308b2dd7001094b55a665624738a21566b5f7515e7640aadb894f2a49ca",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Kutya"
+        ]
+      ],
+      "duration": 0.88,
+      "characterCost": 2.0
+    },
+    "abk_name_cat": {
+      "fingerprint": "e0ceb24b77d6af417ec14e258835df55e0d8dd969d8a3e0d08a7a63d4de14d44",
+      "sha256": "9c35ba8ecfa4e017cdf42d420c4db6c5f807d1b0ff72d8f9c4a6699d58920358",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Cica"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "abk_name_chicken": {
+      "fingerprint": "a06790009e17b18dda5ea857e746ae4979ffc0724a2034646553b779937d34b1",
+      "sha256": "ddfb47f55749d59ec87871b971a7b7b888ee4e785c030873f538a35fb4697377",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Tyúk"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "abk_name_frog": {
+      "fingerprint": "8307c5a69d07fb03007cfc1a08dd6d10a0e4e24f057297f7a32b93dae731d1ca",
+      "sha256": "ca3d424ca6b1c5b1a2a8ad88ad0efb856698433cc784dd1a9b08611a0a9d6aa3",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Béka"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "abk_name_duck": {
+      "fingerprint": "1e672f9ea61671be27af9b86b17ba83321bc6abb7c583c21fc5d80fe11103eff",
+      "sha256": "fe75c1587306ba03e9ae0bd1476d4478f6f00eea87f4c4029c7f1bdca07e139d",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Kacsa"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 2.0
+    },
+    "abk_name_goose": {
+      "fingerprint": "21b9b7c2762db1b6f2ff6dcd61c7470abd2a59dd82b368c78938e46b91e654ca",
+      "sha256": "4c6d21ed524ddf1effc38c64a74dc11e6f47ea8caa3e6d06deb17b21b161fdbc",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Liba"
+        ]
+      ],
+      "duration": 0.88,
+      "characterCost": 2.0
+    },
+    "abk_name_owl": {
+      "fingerprint": "9f6d4a7a8fcf64ecc20ae729373f69be25ab656d8a3fcdd9126eb529d94b0e2c",
+      "sha256": "014d4ded2ae66a6958636c4fc2624389ff2ddd3eedf8c938c71619231fcfe3ab",
+      "words": [
+        [
+          0.0,
+          0.72,
+          "Bagoly"
+        ]
+      ],
+      "duration": 0.88,
+      "characterCost": 3.0
+    },
+    "abk_name_wolf": {
+      "fingerprint": "78fc095e995799623da5fa1a6c93a14129164da79ef43ec810506077fd24a2d5",
+      "sha256": "5df0dd9f3f9a0d886e36d3c9c22913f8dbc62ce373b0eef607e823236abb18b4",
+      "words": [
+        [
+          0.0,
+          0.8,
+          "Farkas"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 3.0
+    },
+    "abk_name_cuckoo": {
+      "fingerprint": "a1cac4fbfc4da33211cbce1c27db059049382598d4917b38bea276db5777bd77",
+      "sha256": "462cb03fc33ac150d134c5eef92e8b048da04be595219840d14773ea36f34b42",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Kakukk"
+        ]
+      ],
+      "duration": 0.96,
+      "characterCost": 3.0
+    },
+    "practice_together": {
+      "fingerprint": "f4a6aabb48a6a037f1b2f196a9d0b65a30092e1321660915508b1294b0da56f1",
+      "sha256": "9fa04937c218da2422fcd6731b61187cb4f6ba9b88f45bef4abc7494117df7c7",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "Hallgassuk"
+        ],
+        [
+          0.76,
+          0.88,
+          "meg"
+        ],
+        [
+          0.96,
+          1.12,
+          "és"
+        ],
+        [
+          1.24,
+          1.52,
+          "mondjuk"
+        ],
+        [
+          1.64,
+          2.08,
+          "együtt"
+        ],
+        [
+          2.4,
+          2.48,
+          "Ha"
+        ],
+        [
+          2.56,
+          3.36,
+          "kimondtátok"
+        ],
+        [
+          3.56,
+          4.0,
+          "koppints"
+        ],
+        [
+          4.027,
+          4.053,
+          "a"
+        ],
+        [
+          4.08,
+          4.64,
+          "pipára"
+        ]
+      ],
+      "duration": 4.88,
+      "characterCost": 28.0
+    },
+    "practice_parts": {
+      "fingerprint": "afb272d407dbc7bfc93f0fd8067331fdfa30936e49d07c039cb621d492e859a1",
+      "sha256": "65f9cc1a56a22306cc39730b906299fc1d366b6f12dce2d09ae74d43ea1fbece",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Először"
+        ],
+        [
+          0.56,
+          0.88,
+          "külön"
+        ],
+        [
+          0.92,
+          0.96,
+          "a"
+        ],
+        [
+          1.0,
+          1.6,
+          "szavakat"
+        ],
+        [
+          1.92,
+          2.24,
+          "aztán"
+        ],
+        [
+          2.36,
+          2.72,
+          "együtt"
+        ],
+        [
+          2.747,
+          2.773,
+          "a"
+        ],
+        [
+          2.8,
+          3.68,
+          "kifejezést"
+        ]
+      ],
+      "duration": 3.84,
+      "characterCost": 21.0
+    },
+    "practice_round_done": {
+      "fingerprint": "75d2ff8dcedd5d58b87cb7757ceea34e01a22cba554e119e1d27f8d25a271fe7",
+      "sha256": "96bfee09950f8abe7a21010af569062e25291f0aa8712e00e83b6ebc3458cbdc",
+      "words": [
+        [
+          0.0,
+          0.72,
+          "Elkészült"
+        ],
+        [
+          0.747,
+          0.773,
+          "a"
+        ],
+        [
+          0.8,
+          1.12,
+          "közös"
+        ],
+        [
+          1.2,
+          2.16,
+          "gyakorlókör"
+        ]
+      ],
+      "duration": 2.4,
+      "characterCost": 12.0
+    },
+    "practice_part_done": {
+      "fingerprint": "cddfb2ee91efafe8d03def7753f185f28fa0d4e76d258cf536aa3fe27f5c2bda",
+      "sha256": "c443c482d6cc352ca1d60fb44ec49736fb29f97e46cae1c412585b255719551b",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Ez"
+        ],
+        [
+          0.64,
+          0.72,
+          "a"
+        ],
+        [
+          0.8,
+          0.96,
+          "szó"
+        ],
+        [
+          1.04,
+          1.52,
+          "megvan"
+        ],
+        [
+          2.04,
+          2.16,
+          "Most"
+        ],
+        [
+          2.2,
+          2.4,
+          "jöhet"
+        ],
+        [
+          2.44,
+          2.48,
+          "a"
+        ],
+        [
+          2.56,
+          3.28,
+          "következő"
+        ]
+      ],
+      "duration": 3.44,
+      "characterCost": 16.0
+    },
+    "counting_total": {
+      "fingerprint": "d8fd37b41c446dd2b79cf6050893dd6c1f5a0242be493c9d76b28ccb3b4554e4",
+      "sha256": "e7cdd8ed52a0cf40c1df4d0693097b094cd8b9cc2195828ee29990fd05fad5d5",
+      "words": [
+        [
+          0.0,
+          1.04,
+          "Megszámoltuk"
+        ],
+        [
+          1.52,
+          2.24,
+          "Összesen"
+        ]
+      ],
+      "duration": 2.48,
+      "characterCost": 10.0
+    },
+    "counting_self": {
+      "fingerprint": "8e4e808fb20f7c46729f36a63113ed8998399bc2eff370ec3ca22de26ab8eb23",
+      "sha256": "d25e7f72df2d18950dda1121a5d436caba0e0cb6c55ba68a9b4c1a4432cdffd4",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Számold"
+        ],
+        [
+          0.64,
+          0.72,
+          "meg"
+        ],
+        [
+          0.747,
+          0.773,
+          "a"
+        ],
+        [
+          0.8,
+          1.6,
+          "tárgyakat"
+        ],
+        [
+          2.0,
+          2.08,
+          "A"
+        ],
+        [
+          2.12,
+          2.48,
+          "végén"
+        ],
+        [
+          2.6,
+          3.28,
+          "megmutatjuk"
+        ],
+        [
+          3.36,
+          3.6,
+          "hány"
+        ],
+        [
+          3.68,
+          3.76,
+          "van"
+        ],
+        [
+          3.8,
+          4.48,
+          "összesen"
+        ]
+      ],
+      "duration": 4.64,
+      "characterCost": 26.0
+    },
+    "counting_compare": {
+      "fingerprint": "852715412bd9fa953cc7f9fde2901e3ebff27c3d4475865910047be1d5b608de",
+      "sha256": "208117fb86c236b6590052906fc5bb7c9c240907545e31cfa07e78b3369b1f20",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Nézzük"
+        ],
+        [
+          0.48,
+          0.56,
+          "meg"
+        ],
+        [
+          0.6,
+          1.36,
+          "párokban"
+        ],
+        [
+          1.76,
+          1.92,
+          "Az"
+        ],
+        [
+          2.0,
+          2.24,
+          "egyik"
+        ],
+        [
+          2.32,
+          2.56,
+          "sor"
+        ],
+        [
+          2.64,
+          2.72,
+          "a"
+        ],
+        [
+          2.8,
+          3.44,
+          "választott"
+        ],
+        [
+          3.48,
+          3.76,
+          "kép"
+        ],
+        [
+          4.12,
+          4.16,
+          "a"
+        ],
+        [
+          4.24,
+          4.72,
+          "másik"
+        ],
+        [
+          4.88,
+          4.96,
+          "a"
+        ],
+        [
+          5.04,
+          5.36,
+          "kért"
+        ],
+        [
+          5.4,
+          6.08,
+          "mennyiség"
+        ]
+      ],
+      "duration": 6.24,
+      "characterCost": 31.0
+    },
+    "counting_retry": {
+      "fingerprint": "8ed126c30734f6c0575cffde20710425665374ec8a5dfec63c66aaa401dd2637",
+      "sha256": "eee825571f9b489fd493350ce04b214ee5c160adab3aaabdded51ada27dbadf2",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "Számoljuk"
+        ],
+        [
+          0.585,
+          0.745,
+          "meg"
+        ],
+        [
+          0.825,
+          1.065,
+          "együtt"
+        ],
+        [
+          1.145,
+          1.185,
+          "a"
+        ],
+        [
+          1.225,
+          1.785,
+          "választott"
+        ],
+        [
+          1.825,
+          2.345,
+          "képet"
+        ]
+      ],
+      "duration": 2.504989,
+      "characterCost": 24.0
+    },
+    "counting_more": {
+      "fingerprint": "b4bed31b4c35f0d40680d242ecdf60520c1256a3018ac33be28373ae41e81354",
+      "sha256": "5fe4db00d1716b2631ca007935248ac373687d321d515dc39ce7fff94c5295df",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Ennél"
+        ],
+        [
+          0.4,
+          0.64,
+          "több"
+        ],
+        [
+          0.72,
+          1.12,
+          "tárgyat"
+        ],
+        [
+          1.2,
+          1.84,
+          "keresünk"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "counting_less": {
+      "fingerprint": "90379f703d8cac1bd35990c8472dcf7269710ef8992faf6abbacfadecb61c28b",
+      "sha256": "76ef27eb091f275f5b4f944a77266ef950280df1ab98d9bd90fde5343b1c9995",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Ennél"
+        ],
+        [
+          0.4,
+          0.88,
+          "kevesebb"
+        ],
+        [
+          0.96,
+          1.36,
+          "tárgyat"
+        ],
+        [
+          1.44,
+          2.08,
+          "keresünk"
+        ]
+      ],
+      "duration": 2.32,
+      "characterCost": 13.0
+    },
+    "flip_preview": {
+      "fingerprint": "a4c5f4a2ab26ec5a7e1e3650df4684b31fbfcdcf597cb91e01935c34188df19e",
+      "sha256": "f952211a3c351cfda46c6d3ba5629c40883aada8f931fa07cc9fd9c01710aeaf",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Nézd"
+        ],
+        [
+          0.4,
+          0.64,
+          "meg"
+        ],
+        [
+          0.8,
+          1.12,
+          "melyik"
+        ],
+        [
+          1.16,
+          1.44,
+          "kép"
+        ],
+        [
+          1.56,
+          1.68,
+          "hol"
+        ],
+        [
+          1.76,
+          2.16,
+          "bújik"
+        ],
+        [
+          2.32,
+          2.48,
+          "meg"
+        ],
+        [
+          2.8,
+          2.88,
+          "Ha"
+        ],
+        [
+          2.96,
+          3.36,
+          "készen"
+        ],
+        [
+          3.44,
+          3.76,
+          "állsz"
+        ],
+        [
+          3.96,
+          4.48,
+          "takarjuk"
+        ],
+        [
+          4.6,
+          4.72,
+          "le"
+        ]
+      ],
+      "duration": 4.88,
+      "characterCost": 26.0
+    },
+    "flip_missing": {
+      "fingerprint": "449b1522a219d71539ef6664680cce835588506a7376c74d85064499622ee886",
+      "sha256": "2471c7ab05b99d278e19ec9fc79573594e7a54e68022964b320b41b94a0104c6",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Nézd"
+        ],
+        [
+          0.345,
+          0.425,
+          "meg"
+        ],
+        [
+          0.505,
+          0.545,
+          "a"
+        ],
+        [
+          0.585,
+          1.305,
+          "képeket"
+        ],
+        [
+          1.705,
+          2.105,
+          "Azután"
+        ],
+        [
+          2.185,
+          2.305,
+          "egy"
+        ],
+        [
+          2.345,
+          3.065,
+          "elbújik"
+        ],
+        [
+          3.465,
+          3.785,
+          "Melyik"
+        ],
+        [
+          3.865,
+          4.505,
+          "hiányzik"
+        ]
+      ],
+      "duration": 4.664989,
+      "characterCost": 30.0
+    },
+    "flip_choose_missing": {
+      "fingerprint": "3cad1caf8662e06c6f4da43935af9868dbff3b1aa819e6eeb5047ad3b75c6400",
+      "sha256": "7371c5f6418edcdc6ac14653d838577eaaae3bcc1a58d928222c1e7e39940231",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Egy"
+        ],
+        [
+          0.24,
+          0.56,
+          "kép"
+        ],
+        [
+          0.64,
+          1.28,
+          "elbújt"
+        ],
+        [
+          1.76,
+          2.16,
+          "Válaszd"
+        ],
+        [
+          2.24,
+          2.32,
+          "ki"
+        ],
+        [
+          2.44,
+          2.72,
+          "alul"
+        ],
+        [
+          2.92,
+          3.2,
+          "melyik"
+        ],
+        [
+          3.28,
+          4.0,
+          "hiányzik"
+        ]
+      ],
+      "duration": 4.16,
+      "characterCost": 20.0
+    },
+    "flip_retry": {
+      "fingerprint": "dfb3254837fafbbeca51e50374088f8ef861463c182d89d4bee78f352bfafc7c",
+      "sha256": "7eb2222c377e8783c083cb4ee3d29c1c5cacdd750c5130b06c8483f3874fc854",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Ez"
+        ],
+        [
+          0.4,
+          0.56,
+          "most"
+        ],
+        [
+          0.64,
+          0.8,
+          "nem"
+        ],
+        [
+          0.88,
+          0.96,
+          "az"
+        ],
+        [
+          1.0,
+          1.04,
+          "a"
+        ],
+        [
+          1.12,
+          1.52,
+          "kép"
+        ],
+        [
+          2.0,
+          2.32,
+          "Nézzük"
+        ],
+        [
+          2.4,
+          2.48,
+          "meg"
+        ],
+        [
+          2.56,
+          2.88,
+          "újra"
+        ]
+      ],
+      "duration": 3.12,
+      "characterCost": 15.0
+    },
+    "flip_find": {
+      "fingerprint": "e2362ae7cda319acc6d222f89b0a66bd18ca04d6d9a27f7403b1bfbeb2381a4a",
+      "sha256": "611d0866534d2bfc0edfbf019878bfc1f7a513af11f7cd768658d4944584f202",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Hol"
+        ],
+        [
+          0.305,
+          0.585,
+          "bújt"
+        ],
+        [
+          0.665,
+          0.905,
+          "el"
+        ],
+        [
+          1.225,
+          1.585,
+          "Keresd"
+        ],
+        [
+          1.625,
+          1.705,
+          "meg"
+        ],
+        [
+          1.785,
+          1.825,
+          "a"
+        ],
+        [
+          1.865,
+          2.425,
+          "képét"
+        ]
+      ],
+      "duration": 2.665556,
+      "characterCost": 21.0
+    },
+    "listening_help": {
+      "fingerprint": "ac8317ca7cd5d10c2c63d7f4ad010adcbc759dee0af7aa6d872d48eeb2fb32fa",
+      "sha256": "70eb7eb7725f78780f6d8ba7659906eabec1c0fe0fa68dbf1af84faadab77869",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Nézzük"
+        ],
+        [
+          0.48,
+          0.56,
+          "meg"
+        ],
+        [
+          0.64,
+          1.2,
+          "együtt"
+        ],
+        [
+          1.68,
+          1.84,
+          "Ez"
+        ],
+        [
+          1.88,
+          1.92,
+          "a"
+        ],
+        [
+          2.0,
+          2.32,
+          "kép"
+        ],
+        [
+          2.4,
+          2.88,
+          "tartozik"
+        ],
+        [
+          2.92,
+          2.96,
+          "a"
+        ],
+        [
+          3.04,
+          3.44,
+          "hallott"
+        ],
+        [
+          3.52,
+          4.08,
+          "szóhoz"
+        ]
+      ],
+      "duration": 4.24,
+      "characterCost": 22.0
+    },
+    "workshop_object_coral_circle": {
+      "fingerprint": "8f3c1c6299796256f2d8dac03207cd138e5cd767d920eb7ca2ac54e4089cf7cb",
+      "sha256": "87679aa835b5deff97ac8da61d584bc1b8123a68f734790d112c75be32cea19f",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "piros"
+        ],
+        [
+          0.56,
+          0.96,
+          "kör"
+        ]
+      ],
+      "duration": 1.2,
+      "characterCost": 4.0
+    },
+    "workshop_pattern_gap": {
+      "fingerprint": "bc9ef1eafc8504a4f468101c1b4dcbbec89d2f759c9873c6170345b120eb4d66",
+      "sha256": "dcb0e74a75257843ca00a35aced44632af2baf1c06fa571f82ae0248e1826200",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Üres"
+        ],
+        [
+          0.52,
+          0.96,
+          "hely"
+        ]
+      ],
+      "duration": 1.2,
+      "characterCost": 4.0
+    },
+    "workshop_object_coral_triangle": {
+      "fingerprint": "82ee0a068b0df20ca99a0b09753f984ee51f59263695578525b5f811b3fc96dd",
+      "sha256": "fb35a1708c77b7f4ab652db75d129b84eb1e55ff0e983deae0f4feb1451ae48b",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "piros"
+        ],
+        [
+          0.6,
+          1.36,
+          "háromszög"
+        ]
+      ],
+      "duration": 1.6,
+      "characterCost": 6.0
+    },
+    "workshop_object_coral_square": {
+      "fingerprint": "027bb5fdaa210b948688aa9b7afd937cb6bac581ebbf8929fcf28cfb36eaa0dc",
+      "sha256": "5af2ddad13be81fa9fcf1a07e6104870948e155e16d4f6d7089a70b22460f33e",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "piros"
+        ],
+        [
+          0.64,
+          1.28,
+          "négyzet"
+        ]
+      ],
+      "duration": 1.44,
+      "characterCost": 6.0
+    },
+    "workshop_object_blue_circle": {
+      "fingerprint": "96e6c6910302312d7d289fc705746b7d9530bb077e280ea25e24d8be47a29b49",
+      "sha256": "f797737dcdce12036eafb601ac60d2b2628186fec2dd43a6ebd134dbb46bdd49",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "kék"
+        ],
+        [
+          0.56,
+          0.96,
+          "kör"
+        ]
+      ],
+      "duration": 1.36,
+      "characterCost": 3.0
+    },
+    "logic_machine_help_rule": {
+      "fingerprint": "5e8ffa9a0a84a5092a220483181c70663501765c8d86f859468e33e4923395aa",
+      "sha256": "851161f60511c0f1f3ee8932e4a29af9acc2b48859bb6d9817fa1d876b40b664",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Előbb"
+        ],
+        [
+          0.48,
+          0.8,
+          "találd"
+        ],
+        [
+          0.88,
+          0.96,
+          "meg"
+        ],
+        [
+          1.0,
+          1.04,
+          "a"
+        ],
+        [
+          1.12,
+          1.28,
+          "gép"
+        ],
+        [
+          1.36,
+          2.08,
+          "szabályát"
+        ],
+        [
+          2.56,
+          2.96,
+          "Próbáld"
+        ],
+        [
+          3.04,
+          3.12,
+          "ki"
+        ],
+        [
+          3.16,
+          3.2,
+          "a"
+        ],
+        [
+          3.24,
+          3.84,
+          "műveleteket"
+        ],
+        [
+          3.88,
+          3.92,
+          "a"
+        ],
+        [
+          4.0,
+          4.8,
+          "példákon"
+        ]
+      ],
+      "duration": 4.96,
+      "characterCost": 28.0
+    },
+    "logic_machine_experiment": {
+      "fingerprint": "b210e3a11246f5e057b601def193a8f640fb5a7de79b1d4b9477db8efe4e06f0",
+      "sha256": "830c51354575f36a2f730b04a7891c34e623ebdcc006e916241998d118f4e10d",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Nézd"
+        ],
+        [
+          0.8,
+          1.04,
+          "hogyan"
+        ],
+        [
+          1.12,
+          1.6,
+          "változott"
+        ],
+        [
+          1.64,
+          1.68,
+          "a"
+        ],
+        [
+          1.72,
+          2.16,
+          "saját"
+        ],
+        [
+          2.24,
+          2.72,
+          "számod"
+        ],
+        [
+          3.28,
+          3.52,
+          "Két"
+        ],
+        [
+          3.6,
+          4.24,
+          "műveletnél"
+        ],
+        [
+          4.32,
+          4.4,
+          "a"
+        ],
+        [
+          4.48,
+          4.96,
+          "fordított"
+        ],
+        [
+          5.04,
+          5.52,
+          "sorrendet"
+        ],
+        [
+          5.6,
+          5.68,
+          "is"
+        ],
+        [
+          5.8,
+          6.56,
+          "megmutatjuk"
+        ]
+      ],
+      "duration": 6.72,
+      "characterCost": 36.0
+    },
+    "logic_route_replan": {
+      "fingerprint": "2e8b2820fa869345c36c222c6855dfa02ac972decb3c91f3368c0c3000c663e2",
+      "sha256": "d413f790127d55cb1464291bc72a8cd7104b1c389cd9f1fd22ac34264953b0f6",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Az"
+        ],
+        [
+          0.28,
+          0.56,
+          "eddigi"
+        ],
+        [
+          0.64,
+          1.12,
+          "lépések"
+        ],
+        [
+          1.24,
+          2.0,
+          "megmaradtak"
+        ],
+        [
+          2.4,
+          2.72,
+          "Innen"
+        ],
+        [
+          2.76,
+          3.44,
+          "folytathatod"
+        ],
+        [
+          3.48,
+          3.6,
+          "új"
+        ],
+        [
+          3.68,
+          4.16,
+          "irányokkal"
+        ],
+        [
+          4.24,
+          4.32,
+          "az"
+        ],
+        [
+          4.36,
+          5.12,
+          "útitervet"
+        ]
+      ],
+      "duration": 5.28,
+      "characterCost": 31.0
+    },
+    "workshop_sort_again_1": {
+      "fingerprint": "24db2d39f1d3873270d12879401ac1301c1389fcc4000b4062f2e6a0b02b1ee6",
+      "sha256": "c3327907613aea2c08f20592ebf65f7c8ddf9ce5157d9eb15c6c7543ad399225",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Az"
+        ],
+        [
+          0.24,
+          0.56,
+          "első"
+        ],
+        [
+          0.6,
+          1.2,
+          "válogatás"
+        ],
+        [
+          1.28,
+          1.76,
+          "kész"
+        ],
+        [
+          2.08,
+          2.24,
+          "Most"
+        ],
+        [
+          2.28,
+          2.4,
+          "csak"
+        ],
+        [
+          2.44,
+          2.48,
+          "a"
+        ],
+        [
+          2.56,
+          2.88,
+          "forma"
+        ],
+        [
+          2.96,
+          3.52,
+          "számít"
+        ],
+        [
+          4.0,
+          4.56,
+          "Ugyanazokat"
+        ],
+        [
+          4.6,
+          4.64,
+          "a"
+        ],
+        [
+          4.72,
+          5.2,
+          "tárgyakat"
+        ],
+        [
+          5.36,
+          5.56,
+          "tedd"
+        ],
+        [
+          5.6,
+          5.68,
+          "a"
+        ],
+        [
+          5.8,
+          6.4,
+          "formájukhoz"
+        ],
+        [
+          6.48,
+          6.64,
+          "illő"
+        ],
+        [
+          6.72,
+          7.36,
+          "tálcára"
+        ],
+        [
+          7.84,
+          7.92,
+          "A"
+        ],
+        [
+          8.0,
+          8.32,
+          "színt"
+        ],
+        [
+          8.44,
+          8.56,
+          "most"
+        ],
+        [
+          8.613,
+          8.72,
+          "nem"
+        ],
+        [
+          8.76,
+          8.88,
+          "kell"
+        ],
+        [
+          8.96,
+          9.6,
+          "figyelned"
+        ]
+      ],
+      "duration": 9.76,
+      "characterCost": 56.0
+    },
+    "workshop_sort_again_2": {
+      "fingerprint": "b8c8beaa4b6729bd3ed9cdd4434bc3828c9ef50272dfc903afdc2299d18aa76e",
+      "sha256": "f5f8e96d6f3b0397a9a6840a541a255e5c54df7778adc4050ca2f5bcdb27f199",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Most"
+        ],
+        [
+          0.4,
+          0.56,
+          "új"
+        ],
+        [
+          0.64,
+          1.0,
+          "szabályt"
+        ],
+        [
+          1.04,
+          1.68,
+          "követünk"
+        ],
+        [
+          2.08,
+          2.16,
+          "A"
+        ],
+        [
+          2.24,
+          2.56,
+          "forma"
+        ],
+        [
+          2.64,
+          2.72,
+          "és"
+        ],
+        [
+          2.8,
+          2.84,
+          "a"
+        ],
+        [
+          2.88,
+          3.28,
+          "méret"
+        ],
+        [
+          3.36,
+          3.68,
+          "együtt"
+        ],
+        [
+          3.76,
+          4.16,
+          "mutatja"
+        ],
+        [
+          4.2,
+          4.24,
+          "a"
+        ],
+        [
+          4.32,
+          4.8,
+          "helyet"
+        ],
+        [
+          5.12,
+          5.2,
+          "A"
+        ],
+        [
+          5.28,
+          5.6,
+          "színt"
+        ],
+        [
+          5.72,
+          5.84,
+          "most"
+        ],
+        [
+          5.867,
+          5.92,
+          "nem"
+        ],
+        [
+          6.0,
+          6.16,
+          "kell"
+        ],
+        [
+          6.24,
+          6.88,
+          "figyelned"
+        ],
+        [
+          7.28,
+          7.84,
+          "Ugyanazokat"
+        ],
+        [
+          7.88,
+          7.92,
+          "a"
+        ],
+        [
+          8.0,
+          8.48,
+          "tárgyakat"
+        ],
+        [
+          8.6,
+          8.96,
+          "rendezd"
+        ],
+        [
+          9.04,
+          9.36,
+          "át"
+        ]
+      ],
+      "duration": 9.52,
+      "characterCost": 56.0
+    },
+    "workshop_sort_again_3": {
+      "fingerprint": "b720db78523d21f138f80098a6f15140274bdc3a8f646d2fc4d36a3708fcd253",
+      "sha256": "82ac7b473b9e08db2cabf789eefd06482bad8a59a1dd27f58306ffcf56f274dc",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Az"
+        ],
+        [
+          0.28,
+          0.48,
+          "első"
+        ],
+        [
+          0.52,
+          1.12,
+          "válogatás"
+        ],
+        [
+          1.2,
+          1.68,
+          "kész"
+        ],
+        [
+          2.08,
+          2.32,
+          "Most"
+        ],
+        [
+          2.44,
+          2.88,
+          "megfordul"
+        ],
+        [
+          2.92,
+          2.96,
+          "a"
+        ],
+        [
+          3.04,
+          3.92,
+          "méretszabály"
+        ],
+        [
+          4.4,
+          4.96,
+          "Ugyanazokat"
+        ],
+        [
+          5.0,
+          5.04,
+          "a"
+        ],
+        [
+          5.12,
+          5.6,
+          "tárgyakat"
+        ],
+        [
+          5.68,
+          6.16,
+          "rendezd"
+        ],
+        [
+          6.36,
+          6.56,
+          "át"
+        ],
+        [
+          7.04,
+          7.52,
+          "Figyeld"
+        ],
+        [
+          7.64,
+          7.92,
+          "melyik"
+        ],
+        [
+          8.0,
+          8.32,
+          "méret"
+        ],
+        [
+          8.4,
+          8.56,
+          "kerül"
+        ],
+        [
+          8.64,
+          8.68,
+          "a"
+        ],
+        [
+          8.72,
+          9.12,
+          "színes"
+        ],
+        [
+          9.2,
+          9.84,
+          "tálcákra"
+        ]
+      ],
+      "duration": 10.0,
+      "characterCost": 55.0
+    },
+    "workshop_sort_again_hint2": {
+      "fingerprint": "39a37c54f56a12e7f5cb8247b185b859f2e3206c2861852c4a44a47e24b0d304",
+      "sha256": "154ad9488d3ce1be02ec6b83059bc3b9368ce8816332dfd902f1cbfc14a906da",
+      "words": [
+        [
+          0.0,
+          0.08,
+          "A"
+        ],
+        [
+          0.2,
+          0.72,
+          "napocskás"
+        ],
+        [
+          0.8,
+          1.2,
+          "tárggyal"
+        ],
+        [
+          1.24,
+          1.84,
+          "folytasd"
+        ],
+        [
+          2.32,
+          2.64,
+          "Figyeld"
+        ],
+        [
+          2.72,
+          2.76,
+          "a"
+        ],
+        [
+          2.8,
+          3.2,
+          "mostani"
+        ],
+        [
+          3.28,
+          3.76,
+          "szabályt"
+        ],
+        [
+          3.84,
+          3.92,
+          "és"
+        ],
+        [
+          3.973,
+          4.027,
+          "a"
+        ],
+        [
+          4.08,
+          4.56,
+          "tálcák"
+        ],
+        [
+          4.64,
+          5.04,
+          "jeleit"
+        ],
+        [
+          5.44,
+          5.6,
+          "majd"
+        ],
+        [
+          5.64,
+          6.053,
+          "válassz"
+        ],
+        [
+          6.107,
+          6.24,
+          "neki"
+        ],
+        [
+          6.32,
+          6.8,
+          "helyet"
+        ]
+      ],
+      "duration": 6.96,
+      "characterCost": 41.0
+    },
+    "workshop_balance_another": {
+      "fingerprint": "3a2ca373ab94e7c5d8378cbd0eab623fd63a05e081810095834a418ac848a653",
+      "sha256": "88046fe511e904a297ce465989e084469e0f5e50c0b7e663f4625733f343fd66",
+      "words": [
+        [
+          0.0,
+          0.44,
+          "Ugyanazt"
+        ],
+        [
+          0.48,
+          0.52,
+          "a"
+        ],
+        [
+          0.56,
+          1.28,
+          "mennyiséget"
+        ],
+        [
+          1.4,
+          1.52,
+          "most"
+        ],
+        [
+          1.6,
+          1.84,
+          "más"
+        ],
+        [
+          1.96,
+          2.4,
+          "rudakkal"
+        ],
+        [
+          2.44,
+          2.68,
+          "rakd"
+        ],
+        [
+          2.72,
+          2.88,
+          "ki"
+        ],
+        [
+          3.36,
+          3.44,
+          "Az"
+        ],
+        [
+          3.52,
+          3.76,
+          "eddigi"
+        ],
+        [
+          3.88,
+          4.48,
+          "megoldásod"
+        ],
+        [
+          4.52,
+          4.8,
+          "lent"
+        ],
+        [
+          4.92,
+          5.52,
+          "megmaradt"
+        ]
+      ],
+      "duration": 5.68,
+      "characterCost": 34.0
+    },
+    "workshop_balance_duplicate": {
+      "fingerprint": "612fca495c4fd036da59edee596d0d5dc860210eaacb2bee79bc3f5793b08093",
+      "sha256": "d44c49b78747f2bb8ad69a640e86ac35dc5054659a96161d7cb6a1ec93ee9c78",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Ezt"
+        ],
+        [
+          0.24,
+          0.32,
+          "az"
+        ],
+        [
+          0.4,
+          1.2,
+          "összeállítást"
+        ],
+        [
+          1.253,
+          1.36,
+          "már"
+        ],
+        [
+          1.48,
+          2.08,
+          "kiraktad"
+        ],
+        [
+          2.4,
+          2.76,
+          "Próbálj"
+        ],
+        [
+          2.8,
+          3.04,
+          "más"
+        ],
+        [
+          3.12,
+          3.68,
+          "rudakat"
+        ],
+        [
+          4.16,
+          4.24,
+          "A"
+        ],
+        [
+          4.32,
+          4.88,
+          "segítség"
+        ],
+        [
+          4.96,
+          5.04,
+          "is"
+        ],
+        [
+          5.12,
+          5.52,
+          "mutathat"
+        ],
+        [
+          5.6,
+          5.68,
+          "új"
+        ],
+        [
+          5.76,
+          6.72,
+          "lehetőséget"
+        ]
+      ],
+      "duration": 6.88,
+      "characterCost": 38.0
+    },
+    "workshop_object_blue_square": {
+      "fingerprint": "da36e4271e2cda3d63c3ce80794873cffe268d23380ddc580c43383528b40339",
+      "sha256": "989b9b9e0a4199923a9f3ef0c75fbdc5d45c34d1c8cce60d370c3418030f9fad",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "kék"
+        ],
+        [
+          0.48,
+          1.2,
+          "négyzet"
+        ]
+      ],
+      "duration": 1.36,
+      "characterCost": 5.0
+    },
+    "workshop_object_blue_triangle": {
+      "fingerprint": "dc6473f172f80f4b0f4cbc572fb90c1582e5a394ae1cfdc7e7ef7ddb5513287f",
+      "sha256": "f75d137b42c7a0be9bcd5de9c4a27eb9bbbfd11583a4f54ca949e61ec320b9e4",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "kék"
+        ],
+        [
+          0.44,
+          1.28,
+          "háromszög"
+        ]
+      ],
+      "duration": 1.44,
+      "characterCost": 6.0
+    },
+    "workshop_object_gold_circle": {
+      "fingerprint": "5f118996fa5b395d3a9398733e2b29cf04fd53922fc3efa8c1e253daf75d9dc4",
+      "sha256": "4d54dee169cf511746da0da424f9df2602f0eaec788577416bffb21435acba1c",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "sárga"
+        ],
+        [
+          0.64,
+          1.04,
+          "kör"
+        ]
+      ],
+      "duration": 1.28,
+      "characterCost": 4.0
+    },
+    "workshop_object_gold_square": {
+      "fingerprint": "800e9926c8bb40b0a5483b86cdada96dfaf3d0c167fcc18b3c57ffee391c163e",
+      "sha256": "f80dfdce8d3621083f836779948f35cc9a130a824809583c4535de11bf27841b",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "sárga"
+        ],
+        [
+          0.64,
+          1.28,
+          "négyzet"
+        ]
+      ],
+      "duration": 1.44,
+      "characterCost": 6.0
+    },
+    "workshop_object_gold_triangle": {
+      "fingerprint": "e6c01b42beacf852b41124406d1d35e65affba13db57e5af6ce1e13f6e8d3e41",
+      "sha256": "eff8012b818f16125423eff3ca3c6db2e4471aa90a7d7f3949bab644dd4eddc4",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "sárga"
+        ],
+        [
+          0.56,
+          1.36,
+          "háromszög"
+        ]
+      ],
+      "duration": 1.6,
+      "characterCost": 6.0
+    },
+    "workshop_object_green_circle": {
+      "fingerprint": "aa38aa4492f6aa0b15273c393987458ee399321aae71b5c1727ada5cddb0678d",
+      "sha256": "a45e7a85e2b104f99e24acabb2348c022abb5edeb0ced600454971caabbf4e73",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "zöld"
+        ],
+        [
+          0.64,
+          1.04,
+          "kör"
+        ]
+      ],
+      "duration": 1.28,
+      "characterCost": 4.0
+    },
+    "workshop_object_green_square": {
+      "fingerprint": "e70bd23cd96168f6cf500598562581a324504186992cd1f71852d6ff6aa4f738",
+      "sha256": "6a9de37464c5420d2898112ef1ebe78b810ee77d068f5876d946b5ee800a2162",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "zöld"
+        ],
+        [
+          0.64,
+          1.28,
+          "négyzet"
+        ]
+      ],
+      "duration": 1.44,
+      "characterCost": 5.0
+    },
+    "workshop_object_green_triangle": {
+      "fingerprint": "fa643ed5904c1836721438f3abc2ce81199e83ce27b5172682fc1cc50bd95f13",
+      "sha256": "65071ab4dd06998a976553400444cc1dec8f4383526b3670aa7b2d9404cc00b4",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "zöld"
+        ],
+        [
+          0.56,
+          1.36,
+          "háromszög"
+        ]
+      ],
+      "duration": 1.6,
+      "characterCost": 6.0
+    },
+    "pour_two_reverse": {
+      "fingerprint": "1ee3b694be06af12c03e1e0d9f0345e40f6c371c5a0296d441a2255f11a98e70",
+      "sha256": "de9653408a15d05d6cba9f26f0e4f4bb6571d387a789a95cadd8e1318bdec7f6",
+      "words": [
+        [
+          0.025,
+          0.105,
+          "A"
+        ],
+        [
+          0.145,
+          0.665,
+          "nyuszinak"
+        ],
+        [
+          0.745,
+          1.305,
+          "kevesebb"
+        ],
+        [
+          1.585,
+          1.625,
+          "a"
+        ],
+        [
+          1.785,
+          2.185,
+          "macinak"
+        ],
+        [
+          2.265,
+          2.505,
+          "több"
+        ],
+        [
+          2.545,
+          2.825,
+          "víz"
+        ],
+        [
+          2.865,
+          3.225,
+          "kell"
+        ],
+        [
+          3.705,
+          4.025,
+          "Figyeld"
+        ],
+        [
+          4.065,
+          4.105,
+          "a"
+        ],
+        [
+          4.145,
+          4.985,
+          "jelzéseket"
+        ]
+      ],
+      "duration": 5.144989,
+      "characterCost": 35.0
+    },
+    "r_compare": {
+      "fingerprint": "676c52ec06cb1a8f1e72163f12433c5a40d21ca2037490db2c54a67ad8e44a46",
+      "sha256": "9769472de1d4f4a06d810138047c932e9f68372bf7c8afc2cacecd5acba6a066",
+      "words": [
+        [
+          0.025,
+          0.585,
+          "Hallgassuk"
+        ],
+        [
+          0.665,
+          0.745,
+          "meg"
+        ],
+        [
+          0.785,
+          0.905,
+          "ezt"
+        ],
+        [
+          0.945,
+          0.985,
+          "a"
+        ],
+        [
+          1.065,
+          1.305,
+          "két"
+        ],
+        [
+          1.385,
+          1.705,
+          "szót"
+        ],
+        [
+          2.105,
+          2.425,
+          "Figyeld"
+        ],
+        [
+          2.505,
+          2.585,
+          "a"
+        ],
+        [
+          2.665,
+          3.225,
+          "világító"
+        ],
+        [
+          3.285,
+          3.785,
+          "képet"
+        ]
+      ],
+      "duration": 3.945556,
+      "characterCost": 30.0
+    },
+    "r_decorate_choose": {
+      "fingerprint": "226099d0d22f2e66b1d41655f940915c4b86755e69a2b496324036d03bde8d1e",
+      "sha256": "be66775f0f2437203dbd7f1f56a8e5be83f210bc0b335b15aeb3561a9da5de90",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Válassz"
+        ],
+        [
+          0.52,
+          0.64,
+          "egy"
+        ],
+        [
+          0.72,
+          1.2,
+          "díszt"
+        ],
+        [
+          1.6,
+          2.0,
+          "Utána"
+        ],
+        [
+          2.04,
+          2.48,
+          "koppints"
+        ],
+        [
+          2.52,
+          2.6,
+          "egy"
+        ],
+        [
+          2.64,
+          2.88,
+          "helyre"
+        ],
+        [
+          2.96,
+          3.0,
+          "a"
+        ],
+        [
+          3.04,
+          3.76,
+          "műhelyben"
+        ]
+      ],
+      "duration": 3.92,
+      "characterCost": 23.0
+    },
+    "r_post_ready": {
+      "fingerprint": "13bdfd7c2027c509188bbe5b4b6511ac36e65bfba7b70873aa2e7b21c5ce1cf9",
+      "sha256": "c003bd95813fd0a1693dd1202e4e2caa17fb9b4f560320d008906233082e5661",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Kész"
+        ],
+        [
+          0.28,
+          0.32,
+          "a"
+        ],
+        [
+          0.4,
+          0.8,
+          "csomag"
+        ],
+        [
+          1.12,
+          1.52,
+          "Koppints"
+        ],
+        [
+          1.6,
+          1.84,
+          "annak"
+        ],
+        [
+          1.92,
+          1.96,
+          "a"
+        ],
+        [
+          2.0,
+          2.48,
+          "házára"
+        ],
+        [
+          2.587,
+          2.96,
+          "akinek"
+        ],
+        [
+          3.0,
+          3.68,
+          "küldöd"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 22.0
+    },
+    "r_rhyme_repeat": {
+      "fingerprint": "4d702abdcaafedec268ec8f02d2d50b631b6874acf94e14e678239b935fabe0f",
+      "sha256": "6d2bc0d7f78d99dd3d36333008511d9d1fb9810f1606cdc7cd668091897f8451",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Most"
+        ],
+        [
+          0.64,
+          1.2,
+          "mondjátok"
+        ],
+        [
+          1.32,
+          1.44,
+          "ti"
+        ],
+        [
+          1.84,
+          1.92,
+          "Ha"
+        ],
+        [
+          2.0,
+          2.4,
+          "készen"
+        ],
+        [
+          2.44,
+          2.88,
+          "vagytok"
+        ],
+        [
+          3.08,
+          3.28,
+          "jöhet"
+        ],
+        [
+          3.36,
+          3.44,
+          "a"
+        ],
+        [
+          3.48,
+          4.08,
+          "következő"
+        ],
+        [
+          4.12,
+          4.48,
+          "rész"
+        ]
+      ],
+      "duration": 4.64,
+      "characterCost": 24.0
+    },
+    "r_story": {
+      "fingerprint": "ecbaf410cce922b28a39e4faef089d812d6a00141d93da1e3ecf30f2d260e534",
+      "sha256": "e5779c1aa0ec69fc56e3c782ab73251d0b82fa3ea43ff744fb9e6660900c0097",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Tegyük"
+        ],
+        [
+          0.36,
+          0.72,
+          "sorba"
+        ],
+        [
+          0.76,
+          0.8,
+          "a"
+        ],
+        [
+          0.92,
+          1.28,
+          "mondóka"
+        ],
+        [
+          1.36,
+          2.0,
+          "képeit"
+        ],
+        [
+          2.4,
+          2.64,
+          "Melyik"
+        ],
+        [
+          2.72,
+          2.88,
+          "volt"
+        ],
+        [
+          2.96,
+          3.6,
+          "először"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "r_story_done": {
+      "fingerprint": "0a6c3f7992bb6fdf9a86ad12edcaf182b46463e29a23ece3ca7f15b8aecc9a00",
+      "sha256": "ec05f19a2c05bbbcda69ae553e22303e202da4b1ecad75c24e4dab20a527a4a8",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Sorba"
+        ],
+        [
+          0.6,
+          1.04,
+          "rendeztük"
+        ],
+        [
+          1.08,
+          1.12,
+          "a"
+        ],
+        [
+          1.24,
+          1.68,
+          "mondóka"
+        ],
+        [
+          1.72,
+          2.4,
+          "képeit"
+        ]
+      ],
+      "duration": 2.56,
+      "characterCost": 13.0
+    },
+    "r_story_retry": {
+      "fingerprint": "2548fba7ba94591a8e40d1bd41e9a7660bc3d8f2ee0ba7d1a9626e384e71f743",
+      "sha256": "434664862dc0abe213669aecf84203d2bb3ee83cf9f77f9b9efb22cbbeeb3e69",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Nézzük"
+        ],
+        [
+          0.505,
+          0.585,
+          "meg"
+        ],
+        [
+          0.665,
+          1.065,
+          "újra"
+        ],
+        [
+          1.625,
+          2.345,
+          "Meghallgathatod"
+        ],
+        [
+          2.425,
+          2.465,
+          "a"
+        ],
+        [
+          2.505,
+          2.905,
+          "képet"
+        ],
+        [
+          2.932,
+          2.958,
+          "a"
+        ],
+        [
+          2.985,
+          3.945,
+          "hanggombjával"
+        ]
+      ],
+      "duration": 4.184989,
+      "characterCost": 31.0
+    },
+    "r_echo_compare": {
+      "fingerprint": "be8ea8643896f47851a0c5d7a864d256fd7aabce890f8b2095f02d160a3003f3",
+      "sha256": "a2d38900cc9a6d99611fdd49934ab50ce8a910a1f46fe812386704c54b61a1a1",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Először"
+        ],
+        [
+          0.52,
+          0.56,
+          "a"
+        ],
+        [
+          0.64,
+          1.12,
+          "minta"
+        ],
+        [
+          1.44,
+          1.92,
+          "utána"
+        ],
+        [
+          1.96,
+          2.0,
+          "a"
+        ],
+        [
+          2.08,
+          2.48,
+          "saját"
+        ],
+        [
+          2.6,
+          2.88,
+          "hangod"
+        ],
+        [
+          2.96,
+          3.28,
+          "szól"
+        ]
+      ],
+      "duration": 3.52,
+      "characterCost": 17.0
+    },
+    "r_echo_yours": {
+      "fingerprint": "7bacdab6c6c25f64ddd6c5bec6595fcceadae82abc47b121bcf707891c878ca5",
+      "sha256": "aea7eba672390909e185f524e1948ad361dab2c043b91c1dce9d33a8e6e686a9",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Most"
+        ],
+        [
+          0.64,
+          0.72,
+          "a"
+        ],
+        [
+          0.8,
+          1.2,
+          "saját"
+        ],
+        [
+          1.32,
+          1.52,
+          "hangod"
+        ],
+        [
+          1.6,
+          2.32,
+          "következik"
+        ]
+      ],
+      "duration": 2.48,
+      "characterCost": 12.0
+    },
+    "r_mission_kirandulas": {
+      "fingerprint": "a040b0811a5e2da028f603507f12cdf93fa540df8374d470c78517e529a10a38",
+      "sha256": "e1b4b9419a3c8fe06175bb522b6f94b6aff6a5b22259e5c1b7e6d8dfbcda8088",
+      "words": [
+        [
+          0.0,
+          0.8,
+          "Kirándulásra"
+        ],
+        [
+          0.88,
+          1.52,
+          "készülünk"
+        ],
+        [
+          1.92,
+          2.2,
+          "Küldj"
+        ],
+        [
+          2.24,
+          2.64,
+          "ruhát"
+        ],
+        [
+          2.72,
+          2.8,
+          "és"
+        ],
+        [
+          2.88,
+          3.44,
+          "rollert"
+        ]
+      ],
+      "duration": 3.6,
+      "characterCost": 19.0
+    },
+    "r_mission_ebed": {
+      "fingerprint": "f9540e54a695343143aefc6fd97ca53672cc83af3901c7cdf4f52ec1c28a8202",
+      "sha256": "270323fe838f191f645d61cc1f2b71bf59fc11f56c024d9fb7223bb34c58a64f",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Ebédet"
+        ],
+        [
+          0.56,
+          1.36,
+          "készítünk"
+        ],
+        [
+          1.68,
+          2.04,
+          "Küldj"
+        ],
+        [
+          2.08,
+          2.56,
+          "répát"
+        ],
+        [
+          2.64,
+          2.8,
+          "és"
+        ],
+        [
+          2.96,
+          3.28,
+          "rizst"
+        ]
+      ],
+      "duration": 3.44,
+      "characterCost": 16.0
+    },
+    "r_mission_uzsonna": {
+      "fingerprint": "1500150f5392f2f6b3bc1f9316f59cb61ae436a8e69bae63ff497e6930964a8a",
+      "sha256": "ef8f3c58918dd881b742cce6486baf0bab4b3b559a3c0238aee8f0039573dd64",
+      "words": [
+        [
+          0.0,
+          0.88,
+          "Gyümölcsuzsonna"
+        ],
+        [
+          0.96,
+          1.52,
+          "készül"
+        ],
+        [
+          1.92,
+          2.2,
+          "Küldj"
+        ],
+        [
+          2.24,
+          2.72,
+          "körtét"
+        ],
+        [
+          2.8,
+          2.88,
+          "és"
+        ],
+        [
+          2.96,
+          3.6,
+          "barackot"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "r_mission_unnep": {
+      "fingerprint": "919fa1fde75ff257acdbc21cdd33b7b7184a297cf3590d0f9fb9a02f8756d55d",
+      "sha256": "060d3a26c9826cc7623fa5f4b4558c37c2e6e6a061fa8e0174078ce27e464ff5",
+      "words": [
+        [
+          0.0,
+          0.44,
+          "Ünnepi"
+        ],
+        [
+          0.48,
+          0.88,
+          "asztalt"
+        ],
+        [
+          0.92,
+          1.68,
+          "készítünk"
+        ],
+        [
+          2.0,
+          2.28,
+          "Küldj"
+        ],
+        [
+          2.32,
+          2.8,
+          "tortát"
+        ],
+        [
+          2.88,
+          2.96,
+          "és"
+        ],
+        [
+          3.04,
+          3.68,
+          "virágot"
+        ]
+      ],
+      "duration": 3.84,
+      "characterCost": 20.0
+    },
+    "r_mission_piknik": {
+      "fingerprint": "ce160075d9c0c37199159ef77cf93b916016ecddee3120c257380663d70c91b9",
+      "sha256": "ca9079334e4f5fc11551e1cd5cbce0f9e1473123590f1a98e3b2ba748f119fa5",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Piknikre"
+        ],
+        [
+          0.6,
+          1.28,
+          "készülünk"
+        ],
+        [
+          1.6,
+          1.88,
+          "Küldj"
+        ],
+        [
+          1.92,
+          2.32,
+          "poharat"
+        ],
+        [
+          2.4,
+          2.48,
+          "és"
+        ],
+        [
+          2.6,
+          3.12,
+          "kosarat"
+        ]
+      ],
+      "duration": 3.28,
+      "characterCost": 18.0
+    },
+    "r_mission_tabor": {
+      "fingerprint": "5be83f5bb971f5d4f966cc37e4e88046d3b56fc2f92fa283adad6bb2859d7a12",
+      "sha256": "99d1c7ba90bc5f6464a3f46cdb812458b928a84cd426ae93037d57ad21c5aa46",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Tábort"
+        ],
+        [
+          0.56,
+          1.28,
+          "építünk"
+        ],
+        [
+          1.6,
+          1.88,
+          "Küldj"
+        ],
+        [
+          1.92,
+          2.4,
+          "vödröt"
+        ],
+        [
+          2.48,
+          2.64,
+          "és"
+        ],
+        [
+          2.72,
+          3.36,
+          "sátrat"
+        ]
+      ],
+      "duration": 3.52,
+      "characterCost": 16.0
+    },
+    "mese_house_done": {
+      "fingerprint": "aafdd6bfc9475051e904af087a033ecf134c2e0aa6a18a996b27194ee4bdb36f",
+      "sha256": "97df313c87fddb46b25c24f88eec5795b68df814c92f85f66db020d602a98365",
+      "words": [
+        [
+          0.0,
+          0.96,
+          "Felöltöztem"
+        ],
+        [
+          1.44,
+          1.84,
+          "Köszönöm"
+        ],
+        [
+          1.88,
+          1.92,
+          "a"
+        ],
+        [
+          2.04,
+          2.8,
+          "segítséget"
+        ]
+      ],
+      "duration": 3.04,
+      "characterCost": 14.0
+    },
+    "mese_guest_nyuszi_plate": {
+      "fingerprint": "0c81b49693be8e97be86b9e10915d337957a89e6b1dc6ec5785af96a8a96c9e7",
+      "sha256": "d5ea72f0f38e0cb8a81e669d391f2e3c2d59b639fc2e4765f2eebe07973f2f3e",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.8,
+          "nyuszinak"
+        ],
+        [
+          0.84,
+          0.96,
+          "egy"
+        ],
+        [
+          1.04,
+          1.68,
+          "tányért"
+        ]
+      ],
+      "duration": 1.84,
+      "characterCost": 11.0
+    },
+    "mese_serve_full": {
+      "fingerprint": "6ad66b1a58ca7699b53f468fbc1421537885df1dbeda33d00bd2946c7f223d8e",
+      "sha256": "210242ead87e2d91b5fc108f63170f59ef67dedfcfdd20cd2bd0d43f556fbdb6",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.56,
+          0.64,
+          "a"
+        ],
+        [
+          0.72,
+          1.52,
+          "barátainknak"
+        ],
+        [
+          1.56,
+          2.0,
+          "tányért"
+        ],
+        [
+          2.08,
+          2.16,
+          "és"
+        ],
+        [
+          2.2,
+          2.72,
+          "poharat"
+        ],
+        [
+          3.04,
+          3.36,
+          "Figyeld"
+        ],
+        [
+          3.44,
+          3.52,
+          "meg"
+        ],
+        [
+          3.6,
+          3.68,
+          "ki"
+        ],
+        [
+          3.76,
+          4.4,
+          "következik"
+        ]
+      ],
+      "duration": 4.56,
+      "characterCost": 26.0
+    },
+    "mese_served_full": {
+      "fingerprint": "c58fefb82b8d8e6491005eaedc63b8d05ee72aa74ef7c0aeabd01ce2a3b5f477",
+      "sha256": "408d4d4f3509c23a158dae3c213d7b354f6c4423d7fbe2e62eb70fb06e939aef",
+      "words": [
+        [
+          0.0,
+          0.68,
+          "Mindenkinek"
+        ],
+        [
+          0.72,
+          1.04,
+          "jutott"
+        ],
+        [
+          1.08,
+          1.52,
+          "tányér"
+        ],
+        [
+          1.6,
+          1.68,
+          "és"
+        ],
+        [
+          1.76,
+          2.24,
+          "pohár"
+        ],
+        [
+          2.64,
+          3.2,
+          "Kezdődhet"
+        ],
+        [
+          3.24,
+          3.28,
+          "a"
+        ],
+        [
+          3.32,
+          3.84,
+          "piknik"
+        ]
+      ],
+      "duration": 4.0,
+      "characterCost": 22.0
+    },
+    "mese_only_apples": {
+      "fingerprint": "4e273c1de658ffe121df6b3ad2206ae1cfeddc75f2ac1aabc6441e6561e03a8c",
+      "sha256": "796f4fb09f9fd289a65b46cd588c7d6fffa54a12948d07a40a7e460d8e72ac89",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Ez"
+        ],
+        [
+          0.28,
+          0.8,
+          "körte"
+        ],
+        [
+          1.2,
+          1.44,
+          "Most"
+        ],
+        [
+          1.52,
+          1.92,
+          "almát"
+        ],
+        [
+          1.96,
+          2.56,
+          "gyűjtünk"
+        ],
+        [
+          2.88,
+          3.2,
+          "Keresd"
+        ],
+        [
+          3.24,
+          3.28,
+          "az"
+        ],
+        [
+          3.36,
+          4.08,
+          "almákat"
+        ]
+      ],
+      "duration": 4.24,
+      "characterCost": 20.0
+    },
+    "mese_named_retry": {
+      "fingerprint": "9ff6a122d4d09d2034e3c7b40beb5dc3575683a12f36abe383b05b09b33ee571",
+      "sha256": "f873473ff5e64f2bf92ba4abdec4fdd3c5c3229b4568d3fcbd74733a90a04540",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "Hallgassuk"
+        ],
+        [
+          0.72,
+          0.96,
+          "meg"
+        ],
+        [
+          1.24,
+          1.52,
+          "melyik"
+        ],
+        [
+          1.6,
+          2.24,
+          "barátunknak"
+        ],
+        [
+          2.36,
+          2.72,
+          "adjuk"
+        ]
+      ],
+      "duration": 2.88,
+      "characterCost": 16.0
+    },
+    "mese_table_more": {
+      "fingerprint": "5de0883cab1e8fbe53e26dec275764d13081d6ec31e8db61ccc60317be26a9d8",
+      "sha256": "5101dc06495300a0a77d1d14ecb60ac403e2f05448616d3210b47cdc069cc757",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Valami"
+        ],
+        [
+          0.425,
+          0.585,
+          "még"
+        ],
+        [
+          0.665,
+          1.065,
+          "hiányzik"
+        ],
+        [
+          1.105,
+          1.145,
+          "a"
+        ],
+        [
+          1.265,
+          2.105,
+          "terítékről"
+        ],
+        [
+          2.465,
+          2.745,
+          "Nézzük"
+        ],
+        [
+          2.825,
+          2.985,
+          "meg"
+        ],
+        [
+          3.065,
+          3.545,
+          "együtt"
+        ]
+      ],
+      "duration": 3.704989,
+      "characterCost": 29.0
+    },
+    "mese_sort_1": {
+      "fingerprint": "ade89af8ad84bb6b591072b05fe26c881e44f2bdb95d68d4ffd7e8373d8a0423",
+      "sha256": "b95b15f6a8760fe4bd03bfe4cea210f6d2abf85aaf5df44af28eddf25b5640b8",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.44,
+          0.52,
+          "egy"
+        ],
+        [
+          0.56,
+          0.96,
+          "almát"
+        ],
+        [
+          1.0,
+          1.04,
+          "a"
+        ],
+        [
+          1.16,
+          1.68,
+          "kosárba"
+        ],
+        [
+          2.08,
+          2.16,
+          "A"
+        ],
+        [
+          2.24,
+          2.8,
+          "körtéket"
+        ],
+        [
+          2.84,
+          3.04,
+          "hagyd"
+        ],
+        [
+          3.12,
+          3.2,
+          "a"
+        ],
+        [
+          3.24,
+          3.84,
+          "kertben"
+        ]
+      ],
+      "duration": 4.08,
+      "characterCost": 22.0
+    },
+    "mese_remove_1": {
+      "fingerprint": "5e9a5cd41005285b4df155160bee8d70de3a2712c55ea2f40fc202e8c25c229a",
+      "sha256": "186258a14a576c0d50a3487a005c61bb39319a01432b61d2d2f7893c94e68562",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.64,
+          "két"
+        ],
+        [
+          0.72,
+          0.88,
+          "alma"
+        ],
+        [
+          0.96,
+          1.04,
+          "a"
+        ],
+        [
+          1.16,
+          1.76,
+          "kosárban"
+        ],
+        [
+          2.16,
+          2.48,
+          "Tegyél"
+        ],
+        [
+          2.56,
+          2.8,
+          "vissza"
+        ],
+        [
+          2.84,
+          2.96,
+          "egy"
+        ],
+        [
+          3.08,
+          3.52,
+          "almát"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 20.0
+    },
+    "mese_memory_1": {
+      "fingerprint": "27b706f07c0b8e3e8f7abd73a8c0f4ba9b04032c28e27f271a81aa2e305e6c5f",
+      "sha256": "db05e88014842940d0a402a5aed46931e8224616296461a9def331e3c1c8a912",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Egy"
+        ],
+        [
+          0.28,
+          0.8,
+          "baráttal"
+        ],
+        [
+          0.84,
+          1.76,
+          "piknikeztünk"
+        ],
+        [
+          2.08,
+          2.48,
+          "Almát"
+        ],
+        [
+          2.6,
+          3.04,
+          "szedtünk"
+        ],
+        [
+          3.12,
+          3.28,
+          "és"
+        ],
+        [
+          3.4,
+          4.16,
+          "megterítettünk"
+        ],
+        [
+          4.28,
+          4.8,
+          "együtt"
+        ]
+      ],
+      "duration": 4.96,
+      "characterCost": 27.0
+    },
+    "mese_sort_2": {
+      "fingerprint": "2044419ddae8171bdeff8fa8e0c6a1cdffa232c8982c8c1f794969808c36fc77",
+      "sha256": "1f55797a45e533fe5628839ab2be6c4b084934cb1adea3302e1d1a91dfb24cb9",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.72,
+          "két"
+        ],
+        [
+          0.8,
+          1.12,
+          "almát"
+        ],
+        [
+          1.16,
+          1.2,
+          "a"
+        ],
+        [
+          1.32,
+          1.84,
+          "kosárba"
+        ],
+        [
+          2.24,
+          2.32,
+          "A"
+        ],
+        [
+          2.4,
+          2.96,
+          "körtéket"
+        ],
+        [
+          3.0,
+          3.2,
+          "hagyd"
+        ],
+        [
+          3.28,
+          3.32,
+          "a"
+        ],
+        [
+          3.36,
+          4.0,
+          "kertben"
+        ]
+      ],
+      "duration": 4.16,
+      "characterCost": 22.0
+    },
+    "mese_remove_2": {
+      "fingerprint": "2a7f6a63c66869976c07517d028feb691865a687b697db2d5228428b6569c62f",
+      "sha256": "716a035110878624a7a940939ee9ce8062bd691e45b5b4af074f5c6c4e499b75",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.72,
+          "három"
+        ],
+        [
+          0.8,
+          1.04,
+          "alma"
+        ],
+        [
+          1.12,
+          1.227,
+          "a"
+        ],
+        [
+          1.333,
+          1.92,
+          "kosárban"
+        ],
+        [
+          2.32,
+          2.64,
+          "Tegyél"
+        ],
+        [
+          2.72,
+          2.96,
+          "vissza"
+        ],
+        [
+          3.0,
+          3.12,
+          "egy"
+        ],
+        [
+          3.28,
+          3.76,
+          "almát"
+        ]
+      ],
+      "duration": 3.92,
+      "characterCost": 20.0
+    },
+    "mese_add_2": {
+      "fingerprint": "0fb1c18ed3bf6b6af286425772d80a9646fb90e505fc8a6ab6ebce10b70917b5",
+      "sha256": "f2306dd8de820392f6c4bca300c74ac794abb803020ae04c4bbf2ff8a01c05ab",
+      "words": [
+        [
+          0.025,
+          0.185,
+          "Van"
+        ],
+        [
+          0.225,
+          0.345,
+          "egy"
+        ],
+        [
+          0.425,
+          0.665,
+          "alma"
+        ],
+        [
+          0.705,
+          0.745,
+          "a"
+        ],
+        [
+          0.825,
+          1.545,
+          "kosárban"
+        ],
+        [
+          2.025,
+          2.265,
+          "Tegyél"
+        ],
+        [
+          2.345,
+          2.625,
+          "hozzá"
+        ],
+        [
+          2.665,
+          2.878,
+          "még"
+        ],
+        [
+          2.905,
+          3.025,
+          "egy"
+        ],
+        [
+          3.065,
+          3.625,
+          "almát"
+        ]
+      ],
+      "duration": 3.784989,
+      "characterCost": 29.0
+    },
+    "mese_memory_2": {
+      "fingerprint": "7326bb6968c99b51ec40e0a4fd9f8f711d15eee960c51545489be8f9fb875b10",
+      "sha256": "737b206ff52b8243391f8a3e093e2b2d6a3253eded380b003484539fbe1df2cb",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Két"
+        ],
+        [
+          0.36,
+          0.8,
+          "baráttal"
+        ],
+        [
+          0.84,
+          1.76,
+          "piknikeztünk"
+        ],
+        [
+          2.08,
+          2.48,
+          "Almát"
+        ],
+        [
+          2.6,
+          3.04,
+          "szedtünk"
+        ],
+        [
+          3.2,
+          3.28,
+          "és"
+        ],
+        [
+          3.4,
+          4.16,
+          "megterítettünk"
+        ],
+        [
+          4.28,
+          4.8,
+          "együtt"
+        ]
+      ],
+      "duration": 4.96,
+      "characterCost": 27.0
+    },
+    "mese_sort_3": {
+      "fingerprint": "fabe55cad1e4711b611131cfea609c3430663a22b5ef95d32de47f725eddc9d0",
+      "sha256": "ff0e8340f26f33eec491cafb6d1214327434034309998e8f43ddb5d26ad12005",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.8,
+          "három"
+        ],
+        [
+          0.88,
+          1.2,
+          "almát"
+        ],
+        [
+          1.24,
+          1.28,
+          "a"
+        ],
+        [
+          1.4,
+          2.0,
+          "kosárba"
+        ],
+        [
+          2.4,
+          2.48,
+          "A"
+        ],
+        [
+          2.56,
+          3.2,
+          "körtéket"
+        ],
+        [
+          3.253,
+          3.44,
+          "hagyd"
+        ],
+        [
+          3.48,
+          3.52,
+          "a"
+        ],
+        [
+          3.6,
+          4.16,
+          "kertben"
+        ]
+      ],
+      "duration": 4.4,
+      "characterCost": 23.0
+    },
+    "mese_remove_3": {
+      "fingerprint": "3859bef319e090fa6affd8025b2db7bd6bbec719ab6210eabe5218fa1f3913a9",
+      "sha256": "2f358f25819833b72e91a4378e1573ba66d45c3301ce7246d429e621005ba335",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.64,
+          "négy"
+        ],
+        [
+          0.72,
+          0.96,
+          "alma"
+        ],
+        [
+          1.04,
+          1.12,
+          "a"
+        ],
+        [
+          1.24,
+          1.84,
+          "kosárban"
+        ],
+        [
+          2.24,
+          2.56,
+          "Tegyél"
+        ],
+        [
+          2.64,
+          2.88,
+          "vissza"
+        ],
+        [
+          2.92,
+          3.0,
+          "egy"
+        ],
+        [
+          3.04,
+          3.6,
+          "almát"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "mese_add_3": {
+      "fingerprint": "0f49800b8480ef9640014a57f655e5497c36d8e21a0726b19f5c58106d129db1",
+      "sha256": "26c96982abbea4398d474378853416f282597723bde52319a88c3e9f7793caa8",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Van"
+        ],
+        [
+          0.345,
+          0.585,
+          "két"
+        ],
+        [
+          0.665,
+          0.825,
+          "alma"
+        ],
+        [
+          0.905,
+          0.985,
+          "a"
+        ],
+        [
+          1.105,
+          1.785,
+          "kosárban"
+        ],
+        [
+          2.185,
+          2.505,
+          "Tegyél"
+        ],
+        [
+          2.585,
+          2.825,
+          "hozzá"
+        ],
+        [
+          2.905,
+          3.065,
+          "még"
+        ],
+        [
+          3.145,
+          3.265,
+          "egy"
+        ],
+        [
+          3.305,
+          3.865,
+          "almát"
+        ]
+      ],
+      "duration": 4.024989,
+      "characterCost": 29.0
+    },
+    "mese_sort_4": {
+      "fingerprint": "94ae73304453d7bcb6471e06f01278fd9e0a95eb0f9b533442b229b91e36541f",
+      "sha256": "722cc1c3c5aaedc46ddb252c12ff34ca5013b1896073bf48bb8ff5043a451208",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.72,
+          "négy"
+        ],
+        [
+          0.8,
+          1.2,
+          "almát"
+        ],
+        [
+          1.227,
+          1.253,
+          "a"
+        ],
+        [
+          1.28,
+          1.92,
+          "kosárba"
+        ],
+        [
+          2.32,
+          2.36,
+          "A"
+        ],
+        [
+          2.4,
+          3.04,
+          "körtéket"
+        ],
+        [
+          3.08,
+          3.28,
+          "hagyd"
+        ],
+        [
+          3.36,
+          3.44,
+          "a"
+        ],
+        [
+          3.48,
+          4.08,
+          "kertben"
+        ]
+      ],
+      "duration": 4.32,
+      "characterCost": 22.0
+    },
+    "mese_memory_3": {
+      "fingerprint": "08a14e89f5f090409aa285cc63b953332a13e4a552017eade2bc69951468ac92",
+      "sha256": "0aeb0cbd144012827c168571be0bcdc215e0929443438fe763f3491d6fb526ff",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Három"
+        ],
+        [
+          0.52,
+          0.88,
+          "baráttal"
+        ],
+        [
+          0.96,
+          1.92,
+          "piknikeztünk"
+        ],
+        [
+          2.32,
+          2.72,
+          "Almát"
+        ],
+        [
+          2.84,
+          3.28,
+          "szedtünk"
+        ],
+        [
+          3.44,
+          3.52,
+          "és"
+        ],
+        [
+          3.64,
+          4.4,
+          "megterítettünk"
+        ],
+        [
+          4.48,
+          5.04,
+          "együtt"
+        ]
+      ],
+      "duration": 5.2,
+      "characterCost": 28.0
+    },
+    "mese_remove_4": {
+      "fingerprint": "cde0b0e125e0d05878be5be74c74902f057da6d7a5323f3aff9843600a47db57",
+      "sha256": "3428e611b1c499858a19a096ccf7d9d25f73d5f6b6b470747d3e3b76c020bd84",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.56,
+          "öt"
+        ],
+        [
+          0.64,
+          0.88,
+          "alma"
+        ],
+        [
+          0.96,
+          1.0,
+          "a"
+        ],
+        [
+          1.04,
+          1.76,
+          "kosárban"
+        ],
+        [
+          2.16,
+          2.4,
+          "Tegyél"
+        ],
+        [
+          2.48,
+          2.72,
+          "vissza"
+        ],
+        [
+          2.8,
+          2.92,
+          "egy"
+        ],
+        [
+          2.96,
+          3.52,
+          "almát"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 19.0
+    },
+    "mese_add_4": {
+      "fingerprint": "e4c292af1c7e6759d8727a89527e9d0967dd181a480c032334095b05524d8bfe",
+      "sha256": "3e593b5f6236cd4e434b47bda6347beca66eb4913c11682df24708501d3413a8",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Van"
+        ],
+        [
+          0.345,
+          0.665,
+          "három"
+        ],
+        [
+          0.745,
+          0.985,
+          "alma"
+        ],
+        [
+          1.065,
+          1.145,
+          "a"
+        ],
+        [
+          1.265,
+          1.865,
+          "kosárban"
+        ],
+        [
+          2.265,
+          2.505,
+          "Tegyél"
+        ],
+        [
+          2.585,
+          2.905,
+          "hozzá"
+        ],
+        [
+          2.945,
+          3.145,
+          "még"
+        ],
+        [
+          3.185,
+          3.305,
+          "egy"
+        ],
+        [
+          3.465,
+          3.945,
+          "almát"
+        ]
+      ],
+      "duration": 4.104989,
+      "characterCost": 30.0
+    },
+    "mese_memory_4": {
+      "fingerprint": "b97101d8da07750f4b3aa1a31c643f83141439938d7b94b7c0684acf82093233",
+      "sha256": "362afba876ee45981b20dbf46f23f87752f8209a204612e5f19223214cdc88bf",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Négy"
+        ],
+        [
+          0.44,
+          0.88,
+          "baráttal"
+        ],
+        [
+          0.92,
+          1.84,
+          "piknikeztünk"
+        ],
+        [
+          2.16,
+          2.56,
+          "Almát"
+        ],
+        [
+          2.72,
+          3.12,
+          "szedtünk"
+        ],
+        [
+          3.28,
+          3.36,
+          "és"
+        ],
+        [
+          3.48,
+          4.24,
+          "megterítettünk"
+        ],
+        [
+          4.36,
+          4.8,
+          "együtt"
+        ]
+      ],
+      "duration": 4.96,
+      "characterCost": 28.0
+    },
+    "mese_sort_5": {
+      "fingerprint": "b79cbe4be06f7b9534daa0fe565daff86b888dac34ab223564e8cb827c47dd60",
+      "sha256": "237a8e4738d118568e55264329b393367d9b913d32a3534f637c8c338eb86088",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.64,
+          "öt"
+        ],
+        [
+          0.72,
+          1.04,
+          "almát"
+        ],
+        [
+          1.12,
+          1.16,
+          "a"
+        ],
+        [
+          1.2,
+          1.84,
+          "kosárba"
+        ],
+        [
+          2.24,
+          2.32,
+          "A"
+        ],
+        [
+          2.4,
+          2.96,
+          "körtéket"
+        ],
+        [
+          3.013,
+          3.2,
+          "hagyd"
+        ],
+        [
+          3.24,
+          3.28,
+          "a"
+        ],
+        [
+          3.36,
+          3.92,
+          "kertben"
+        ]
+      ],
+      "duration": 4.16,
+      "characterCost": 22.0
+    },
+    "mese_remove_5": {
+      "fingerprint": "c90fcb83679ebfd7f9e2153ca76c0e623f2215fdde0b299fc68458a936609227",
+      "sha256": "f7cce6321f0e7bcea8c69e13c397c124071270e9fe505b88d42244ea9c2a8735",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.44,
+          0.56,
+          "hat"
+        ],
+        [
+          0.64,
+          0.88,
+          "alma"
+        ],
+        [
+          0.92,
+          0.96,
+          "a"
+        ],
+        [
+          1.12,
+          1.76,
+          "kosárban"
+        ],
+        [
+          2.08,
+          2.4,
+          "Tegyél"
+        ],
+        [
+          2.48,
+          2.72,
+          "vissza"
+        ],
+        [
+          2.76,
+          2.88,
+          "egy"
+        ],
+        [
+          3.04,
+          3.52,
+          "almát"
+        ]
+      ],
+      "duration": 3.68,
+      "characterCost": 20.0
+    },
+    "mese_add_5": {
+      "fingerprint": "47bc38b1b33778ccd8a974b66dc7594a5dc05bcf2ca156b44ad31131c147e027",
+      "sha256": "ee6d9789603f7129905cd2f6a804be7f0eee65b0a7f6ca95836924498f26f4f8",
+      "words": [
+        [
+          0.025,
+          0.185,
+          "Van"
+        ],
+        [
+          0.265,
+          0.505,
+          "négy"
+        ],
+        [
+          0.585,
+          0.825,
+          "alma"
+        ],
+        [
+          0.865,
+          0.905,
+          "a"
+        ],
+        [
+          1.065,
+          1.705,
+          "kosárban"
+        ],
+        [
+          2.105,
+          2.345,
+          "Tegyél"
+        ],
+        [
+          2.425,
+          2.705,
+          "hozzá"
+        ],
+        [
+          2.745,
+          2.945,
+          "még"
+        ],
+        [
+          2.985,
+          3.105,
+          "egy"
+        ],
+        [
+          3.145,
+          3.705,
+          "almát"
+        ]
+      ],
+      "duration": 3.864989,
+      "characterCost": 29.0
+    },
+    "mese_sort_6": {
+      "fingerprint": "8e9b843d644c1c1be430a6913bcc80cd54fa5e470cc3ea9693e8c2e5984d5c74",
+      "sha256": "f17e1f004728b7dd86f97d21de93036171e0ad45307b6884eae9a8639e46d484",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.52,
+          0.64,
+          "hat"
+        ],
+        [
+          0.72,
+          1.12,
+          "almát"
+        ],
+        [
+          1.16,
+          1.2,
+          "a"
+        ],
+        [
+          1.32,
+          1.92,
+          "kosárba"
+        ],
+        [
+          2.32,
+          2.4,
+          "A"
+        ],
+        [
+          2.48,
+          3.12,
+          "körtéket"
+        ],
+        [
+          3.173,
+          3.36,
+          "hagyd"
+        ],
+        [
+          3.4,
+          3.44,
+          "a"
+        ],
+        [
+          3.52,
+          4.16,
+          "kertben"
+        ]
+      ],
+      "duration": 4.32,
+      "characterCost": 22.0
+    },
+    "mese_memory_5": {
+      "fingerprint": "63d20b67f5d49bbce97e83895e36f8ec05d643896a18ee00cd2a7f6c89a86871",
+      "sha256": "720c3796094a34f4afce5582be7f1f1fa870d5d0f581b9c8ee5a865fda651aa5",
+      "words": [
+        [
+          0.0,
+          0.16,
+          "Öt"
+        ],
+        [
+          0.24,
+          0.72,
+          "baráttal"
+        ],
+        [
+          0.8,
+          1.76,
+          "piknikeztünk"
+        ],
+        [
+          2.08,
+          2.48,
+          "Almát"
+        ],
+        [
+          2.6,
+          3.04,
+          "szedtünk"
+        ],
+        [
+          3.2,
+          3.28,
+          "és"
+        ],
+        [
+          3.4,
+          4.16,
+          "megterítettünk"
+        ],
+        [
+          4.28,
+          4.8,
+          "együtt"
+        ]
+      ],
+      "duration": 4.96,
+      "characterCost": 27.0
+    },
+    "mese_remove_6": {
+      "fingerprint": "75e5883047dcecc56106205305a0d8e8298c2ce94de177a41d48e66ee695b31b",
+      "sha256": "fc3b575f2c80667aa575c755bc20fc110fae5beb5fca30bdcbfaca8f6491f68a",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.64,
+          "hét"
+        ],
+        [
+          0.72,
+          0.88,
+          "alma"
+        ],
+        [
+          0.96,
+          1.0,
+          "a"
+        ],
+        [
+          1.04,
+          1.76,
+          "kosárban"
+        ],
+        [
+          2.16,
+          2.48,
+          "Tegyél"
+        ],
+        [
+          2.56,
+          2.8,
+          "vissza"
+        ],
+        [
+          2.84,
+          2.96,
+          "egy"
+        ],
+        [
+          3.12,
+          3.6,
+          "almát"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "mese_add_6": {
+      "fingerprint": "e90743823c291d57d32012eda169b90edc309a491967ec3d2fb7c8b81f4ac2bc",
+      "sha256": "eb0005b9b394ca0a7041e5189dcf514c6ba93b877462acf6af35915525a6cac0",
+      "words": [
+        [
+          0.025,
+          0.185,
+          "Van"
+        ],
+        [
+          0.265,
+          0.425,
+          "öt"
+        ],
+        [
+          0.505,
+          0.745,
+          "alma"
+        ],
+        [
+          0.825,
+          0.865,
+          "a"
+        ],
+        [
+          0.905,
+          1.625,
+          "kosárban"
+        ],
+        [
+          2.025,
+          2.345,
+          "Tegyél"
+        ],
+        [
+          2.425,
+          2.665,
+          "hozzá"
+        ],
+        [
+          2.745,
+          2.905,
+          "még"
+        ],
+        [
+          2.945,
+          3.065,
+          "egy"
+        ],
+        [
+          3.145,
+          3.705,
+          "almát"
+        ]
+      ],
+      "duration": 3.864989,
+      "characterCost": 28.0
+    },
+    "mese_memory_6": {
+      "fingerprint": "e1f94158ab986133fd1599dae969cbbbde9f1514509e49c295357a8d324b38ca",
+      "sha256": "91046137df5b182422b8d04e89b23748583c2e80323086163b1fb0cf4d08635b",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Hat"
+        ],
+        [
+          0.32,
+          0.8,
+          "baráttal"
+        ],
+        [
+          0.84,
+          1.76,
+          "piknikeztünk"
+        ],
+        [
+          2.16,
+          2.56,
+          "Almát"
+        ],
+        [
+          2.68,
+          3.12,
+          "szedtünk"
+        ],
+        [
+          3.28,
+          3.36,
+          "és"
+        ],
+        [
+          3.48,
+          4.24,
+          "megterítettünk"
+        ],
+        [
+          4.36,
+          4.8,
+          "együtt"
+        ]
+      ],
+      "duration": 5.04,
+      "characterCost": 27.0
+    },
+    "mese_sort_7": {
+      "fingerprint": "6fd81862a125d69622552f237c60f3a17f52d04d1776ab87757fc332895e0368",
+      "sha256": "56121b34bdc84ccb0d511a228b0c8b99c16e3513e8db1db9363bdd5a5a5d23e6",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.72,
+          "hét"
+        ],
+        [
+          0.8,
+          1.2,
+          "almát"
+        ],
+        [
+          1.227,
+          1.253,
+          "a"
+        ],
+        [
+          1.28,
+          1.92,
+          "kosárba"
+        ],
+        [
+          2.32,
+          2.36,
+          "A"
+        ],
+        [
+          2.4,
+          3.04,
+          "körtéket"
+        ],
+        [
+          3.093,
+          3.28,
+          "hagyd"
+        ],
+        [
+          3.36,
+          3.4,
+          "a"
+        ],
+        [
+          3.44,
+          4.08,
+          "kertben"
+        ]
+      ],
+      "duration": 4.24,
+      "characterCost": 22.0
+    },
+    "mese_remove_7": {
+      "fingerprint": "7e705179188a0c5d09cc7d2f4b15c2a8ec0725fd2d01a943500da3618ea37df3",
+      "sha256": "8c1ab118e5062cd981878aaf83cf2090100b46b1a402ea275336d2fcc56afa21",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.64,
+          "nyolc"
+        ],
+        [
+          0.72,
+          0.96,
+          "alma"
+        ],
+        [
+          1.0,
+          1.04,
+          "a"
+        ],
+        [
+          1.2,
+          1.84,
+          "kosárban"
+        ],
+        [
+          2.24,
+          2.56,
+          "Tegyél"
+        ],
+        [
+          2.64,
+          2.88,
+          "vissza"
+        ],
+        [
+          2.92,
+          3.04,
+          "egy"
+        ],
+        [
+          3.16,
+          3.6,
+          "almát"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "mese_add_7": {
+      "fingerprint": "ec75e98d00434fac1e8071720d1ce51928c40dc256c30c141d64d70db1958014",
+      "sha256": "54896cd8f38e71b23618d37793da605c75caba67e054a37d1df37eeae7c367cf",
+      "words": [
+        [
+          0.025,
+          0.185,
+          "Van"
+        ],
+        [
+          0.265,
+          0.425,
+          "hat"
+        ],
+        [
+          0.505,
+          0.665,
+          "alma"
+        ],
+        [
+          0.745,
+          0.825,
+          "a"
+        ],
+        [
+          0.945,
+          1.545,
+          "kosárban"
+        ],
+        [
+          1.945,
+          2.265,
+          "Tegyél"
+        ],
+        [
+          2.345,
+          2.585,
+          "hozzá"
+        ],
+        [
+          2.625,
+          2.798,
+          "még"
+        ],
+        [
+          2.825,
+          2.945,
+          "egy"
+        ],
+        [
+          2.985,
+          3.545,
+          "almát"
+        ]
+      ],
+      "duration": 3.704989,
+      "characterCost": 29.0
+    },
+    "mese_sort_8": {
+      "fingerprint": "6eb3296c4b9c3d52d935a9780a42a37d36b93a6460577a1ebd8f39d473692214",
+      "sha256": "a3e5a61f8b323b1c4c31794baa5b5fb1f2af36fbf606f7b327d3683170ab9006",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.72,
+          "nyolc"
+        ],
+        [
+          0.8,
+          1.12,
+          "almát"
+        ],
+        [
+          1.16,
+          1.2,
+          "a"
+        ],
+        [
+          1.36,
+          1.92,
+          "kosárba"
+        ],
+        [
+          2.32,
+          2.4,
+          "A"
+        ],
+        [
+          2.48,
+          3.04,
+          "körtéket"
+        ],
+        [
+          3.08,
+          3.28,
+          "hagyd"
+        ],
+        [
+          3.36,
+          3.4,
+          "a"
+        ],
+        [
+          3.44,
+          4.08,
+          "kertben"
+        ]
+      ],
+      "duration": 4.32,
+      "characterCost": 23.0
+    },
+    "mese_memory_7": {
+      "fingerprint": "80d2e7f5ee4d1960858f5590e574ec6c519af675e883bea11ebed16a57f2714e",
+      "sha256": "39e1dcf13de69a99ed7322344080225e4da59b67e99ab5574982bad344352378",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Hét"
+        ],
+        [
+          0.32,
+          0.8,
+          "baráttal"
+        ],
+        [
+          0.88,
+          1.84,
+          "piknikeztünk"
+        ],
+        [
+          2.16,
+          2.56,
+          "Almát"
+        ],
+        [
+          2.68,
+          3.12,
+          "szedtünk"
+        ],
+        [
+          3.28,
+          3.36,
+          "és"
+        ],
+        [
+          3.48,
+          4.24,
+          "megterítettünk"
+        ],
+        [
+          4.36,
+          4.88,
+          "együtt"
+        ]
+      ],
+      "duration": 5.04,
+      "characterCost": 27.0
+    },
+    "mese_remove_8": {
+      "fingerprint": "24fcbf33503c1cb5bcbbebddc8f5ad86a402d8553bdccc6662e1f709fbec404a",
+      "sha256": "3b0ca3888f8b6c906017de89a6abf1851867129f24a84b74fa505b1078636798",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.72,
+          "kilenc"
+        ],
+        [
+          0.88,
+          1.12,
+          "alma"
+        ],
+        [
+          1.16,
+          1.2,
+          "a"
+        ],
+        [
+          1.28,
+          2.0,
+          "kosárban"
+        ],
+        [
+          2.4,
+          2.72,
+          "Tegyél"
+        ],
+        [
+          2.8,
+          3.04,
+          "vissza"
+        ],
+        [
+          3.08,
+          3.2,
+          "egy"
+        ],
+        [
+          3.36,
+          3.76,
+          "almát"
+        ]
+      ],
+      "duration": 3.92,
+      "characterCost": 21.0
+    },
+    "mese_memory_8": {
+      "fingerprint": "44c20dca79b8df03d2fba0690d5ad8401e219d1d8510b9588103e423f4781e64",
+      "sha256": "a969b5ed1ee8bd340e4400783d7e902516f20289f31e18e9a56f3d3acb458af0",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Nyolc"
+        ],
+        [
+          0.48,
+          0.96,
+          "baráttal"
+        ],
+        [
+          1.0,
+          1.92,
+          "piknikeztünk"
+        ],
+        [
+          2.36,
+          2.64,
+          "Almát"
+        ],
+        [
+          2.72,
+          3.28,
+          "szedtünk"
+        ],
+        [
+          3.44,
+          3.52,
+          "és"
+        ],
+        [
+          3.64,
+          4.4,
+          "megterítettünk"
+        ],
+        [
+          4.52,
+          4.96,
+          "együtt"
+        ]
+      ],
+      "duration": 5.12,
+      "characterCost": 28.0
+    },
+    "mese_add_8": {
+      "fingerprint": "3a78b8db96de28113c604af89da5734b4714957909cc55fbe5917b21ca826b6b",
+      "sha256": "88df2245fe1fbc9734eb99f1fe291f9647b167d888f6098e203175c6d1cdd7d5",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Van"
+        ],
+        [
+          0.345,
+          0.585,
+          "hét"
+        ],
+        [
+          0.665,
+          0.905,
+          "alma"
+        ],
+        [
+          0.985,
+          1.065,
+          "a"
+        ],
+        [
+          1.185,
+          1.785,
+          "kosárban"
+        ],
+        [
+          2.185,
+          2.505,
+          "Tegyél"
+        ],
+        [
+          2.585,
+          2.825,
+          "hozzá"
+        ],
+        [
+          2.865,
+          3.065,
+          "még"
+        ],
+        [
+          3.145,
+          3.265,
+          "egy"
+        ],
+        [
+          3.305,
+          3.865,
+          "almát"
+        ]
+      ],
+      "duration": 4.024989,
+      "characterCost": 29.0
+    },
+    "mese_sort_9": {
+      "fingerprint": "4ef1582c30b55f6be3e18943816a1f9335ee55f7479335788be232d04fb915c2",
+      "sha256": "5f6deb06a54858a673a8c1b4bf313b304ec3dce00109f08cd58f99e682d3794e",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.8,
+          "kilenc"
+        ],
+        [
+          0.88,
+          1.28,
+          "almát"
+        ],
+        [
+          1.307,
+          1.333,
+          "a"
+        ],
+        [
+          1.36,
+          2.0,
+          "kosárba"
+        ],
+        [
+          2.4,
+          2.48,
+          "A"
+        ],
+        [
+          2.56,
+          3.12,
+          "körtéket"
+        ],
+        [
+          3.2,
+          3.44,
+          "hagyd"
+        ],
+        [
+          3.48,
+          3.52,
+          "a"
+        ],
+        [
+          3.56,
+          4.16,
+          "kertben"
+        ]
+      ],
+      "duration": 4.48,
+      "characterCost": 23.0
+    },
+    "mese_add_9": {
+      "fingerprint": "732142d286c463807f6dcfaf1691738af803c0849022c10a4a325de2c9073ac8",
+      "sha256": "c3b40c08e52f464c13411faf25592dbdb59dbcbbb089bdacc4459d979ca88fdd",
+      "words": [
+        [
+          0.025,
+          0.185,
+          "Van"
+        ],
+        [
+          0.265,
+          0.585,
+          "nyolc"
+        ],
+        [
+          0.665,
+          0.825,
+          "alma"
+        ],
+        [
+          0.905,
+          0.945,
+          "a"
+        ],
+        [
+          0.985,
+          1.705,
+          "kosárban"
+        ],
+        [
+          2.105,
+          2.425,
+          "Tegyél"
+        ],
+        [
+          2.505,
+          2.745,
+          "hozzá"
+        ],
+        [
+          2.785,
+          2.985,
+          "még"
+        ],
+        [
+          3.065,
+          3.185,
+          "egy"
+        ],
+        [
+          3.225,
+          3.705,
+          "almát"
+        ]
+      ],
+      "duration": 3.945556,
+      "characterCost": 30.0
+    },
+    "mese_remove_9": {
+      "fingerprint": "0e1708accdbe5e542bb55784aa6ffb885e30b9aaa64544257ae7a465054b7f98",
+      "sha256": "5ef0791c228b4dfd31fff7233eb7375185dacdfa366f16dad45853fb06447bd2",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.4,
+          0.64,
+          "tíz"
+        ],
+        [
+          0.72,
+          0.96,
+          "alma"
+        ],
+        [
+          1.04,
+          1.12,
+          "a"
+        ],
+        [
+          1.24,
+          1.84,
+          "kosárban"
+        ],
+        [
+          2.16,
+          2.48,
+          "Tegyél"
+        ],
+        [
+          2.52,
+          2.8,
+          "vissza"
+        ],
+        [
+          2.84,
+          2.96,
+          "egy"
+        ],
+        [
+          3.12,
+          3.6,
+          "almát"
+        ]
+      ],
+      "duration": 3.76,
+      "characterCost": 20.0
+    },
+    "mese_memory_9": {
+      "fingerprint": "d30ded4a6de2ddaccc0cf4564731d325dadbb4739905ccdf68a876d122989c92",
+      "sha256": "77ead9b697923da877d04cc9793e6dc196aaed649cccfe057a1035f0b1c7b605",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Kilenc"
+        ],
+        [
+          0.52,
+          0.96,
+          "baráttal"
+        ],
+        [
+          1.0,
+          1.92,
+          "piknikeztünk"
+        ],
+        [
+          2.36,
+          2.72,
+          "Almát"
+        ],
+        [
+          2.84,
+          3.28,
+          "szedtünk"
+        ],
+        [
+          3.44,
+          3.52,
+          "és"
+        ],
+        [
+          3.64,
+          4.4,
+          "megterítettünk"
+        ],
+        [
+          4.48,
+          5.04,
+          "együtt"
+        ]
+      ],
+      "duration": 5.2,
+      "characterCost": 28.0
+    },
+    "mese_sort_10": {
+      "fingerprint": "da37d12280efee32ede8937904e113c19f582d3c647782f372e048b5c25bd753",
+      "sha256": "e824ec8438db60038bc01c71f82810d5a7dd647efeabdf2fa0f22314dc291b6b",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Tegyél"
+        ],
+        [
+          0.48,
+          0.72,
+          "tíz"
+        ],
+        [
+          0.8,
+          1.12,
+          "almát"
+        ],
+        [
+          1.16,
+          1.2,
+          "a"
+        ],
+        [
+          1.32,
+          1.84,
+          "kosárba"
+        ],
+        [
+          2.24,
+          2.32,
+          "A"
+        ],
+        [
+          2.4,
+          2.96,
+          "körtéket"
+        ],
+        [
+          3.04,
+          3.28,
+          "hagyd"
+        ],
+        [
+          3.32,
+          3.36,
+          "a"
+        ],
+        [
+          3.44,
+          4.0,
+          "kertben"
+        ]
+      ],
+      "duration": 4.24,
+      "characterCost": 22.0
+    },
+    "mese_add_10": {
+      "fingerprint": "9e4bf105579f0becf0e61377c845a96749966d1cab7bcdc13823e47f84cff1d4",
+      "sha256": "0270adbb661111be8a18045cb988c978883d8a338cba275317f04b4eb53df77b",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Van"
+        ],
+        [
+          0.345,
+          0.665,
+          "kilenc"
+        ],
+        [
+          0.745,
+          0.985,
+          "alma"
+        ],
+        [
+          1.025,
+          1.065,
+          "a"
+        ],
+        [
+          1.225,
+          1.865,
+          "kosárban"
+        ],
+        [
+          2.265,
+          2.585,
+          "Tegyél"
+        ],
+        [
+          2.665,
+          2.905,
+          "hozzá"
+        ],
+        [
+          2.945,
+          3.145,
+          "még"
+        ],
+        [
+          3.225,
+          3.345,
+          "egy"
+        ],
+        [
+          3.385,
+          3.945,
+          "almát"
+        ]
+      ],
+      "duration": 4.104989,
+      "characterCost": 30.0
+    },
+    "mese_remove_10": {
+      "fingerprint": "ef74ab1d22dfb63b78da3d770194caee3de1f5bbd52bf9462e9bf047ade2ba57",
+      "sha256": "01be4b7f059e463ba8f18c3dfe0acad05eba9e72db979389e0f5d13398428e4e",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Van"
+        ],
+        [
+          0.36,
+          0.8,
+          "tizenegy"
+        ],
+        [
+          0.88,
+          1.12,
+          "alma"
+        ],
+        [
+          1.2,
+          1.24,
+          "a"
+        ],
+        [
+          1.28,
+          2.0,
+          "kosárban"
+        ],
+        [
+          2.4,
+          2.72,
+          "Tegyél"
+        ],
+        [
+          2.8,
+          3.04,
+          "vissza"
+        ],
+        [
+          3.08,
+          3.2,
+          "egy"
+        ],
+        [
+          3.36,
+          3.84,
+          "almát"
+        ]
+      ],
+      "duration": 4.0,
+      "characterCost": 22.0
+    },
+    "mese_memory_10": {
+      "fingerprint": "fcc8834bafcc083fc41dcae75a0f1972cc6190e37a37f50508f7f80e2e5dbcbd",
+      "sha256": "f91c7f97285c0355eb20198e4e6d1edb07e11ca62536e75da80c45c2f1314b4d",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Tíz"
+        ],
+        [
+          0.32,
+          0.8,
+          "baráttal"
+        ],
+        [
+          0.88,
+          1.84,
+          "piknikeztünk"
+        ],
+        [
+          2.16,
+          2.48,
+          "Almát"
+        ],
+        [
+          2.56,
+          3.12,
+          "szedtünk"
+        ],
+        [
+          3.28,
+          3.36,
+          "és"
+        ],
+        [
+          3.48,
+          4.24,
+          "megterítettünk"
+        ],
+        [
+          4.32,
+          4.88,
+          "együtt"
+        ]
+      ],
+      "duration": 5.04,
+      "characterCost": 27.0
+    },
+    "mese_guest_nyuszi_cup": {
+      "fingerprint": "c540290135d699aa109d32578fa16197ded92d1e9b884eb3855bcff7c32ed811",
+      "sha256": "937ad25ba3d2f66f8edec8b334606ca40ace066a8039581b940629492ab5bb19",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.8,
+          "nyuszinak"
+        ],
+        [
+          0.84,
+          0.92,
+          "egy"
+        ],
+        [
+          0.96,
+          1.6,
+          "poharat"
+        ]
+      ],
+      "duration": 1.76,
+      "characterCost": 11.0
+    },
+    "mese_guest_cica_plate": {
+      "fingerprint": "69515a58204d7952f4e3b4135d0fe0469c0fff7d0548ff111232fe060fdd62d8",
+      "sha256": "bd0251f93525c679a4c8b04ce3f958b6f94c87ab217c9d9705ef9a6097fa84d3",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.88,
+          "cicának"
+        ],
+        [
+          0.96,
+          1.04,
+          "egy"
+        ],
+        [
+          1.12,
+          1.76,
+          "tányért"
+        ]
+      ],
+      "duration": 2.0,
+      "characterCost": 10.0
+    },
+    "mese_guest_cica_cup": {
+      "fingerprint": "75e66fae79fcac767f78cc8fc450b790d434349f17a2b14311861bc9bd4f1962",
+      "sha256": "61701cda2f8b0036536e856354c40d5ba57a134c3b8befb2d0afc61985396c7b",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.88,
+          "cicának"
+        ],
+        [
+          0.96,
+          1.04,
+          "egy"
+        ],
+        [
+          1.12,
+          1.68,
+          "poharat"
+        ]
+      ],
+      "duration": 1.92,
+      "characterCost": 10.0
+    },
+    "mese_guest_kutya_plate": {
+      "fingerprint": "d310ed33887eb547b04839f5bef218407c79d0a20924283a331fad8e77c2ae31",
+      "sha256": "64a0ba2fb4414005912b382a7c9b3f5b931e27737d41a60fbd6d22ad69188360",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.48,
+          0.56,
+          "a"
+        ],
+        [
+          0.6,
+          1.12,
+          "kutyának"
+        ],
+        [
+          1.16,
+          1.28,
+          "egy"
+        ],
+        [
+          1.32,
+          2.0,
+          "tányért"
+        ]
+      ],
+      "duration": 2.16,
+      "characterCost": 11.0
+    },
+    "mese_guest_kutya_cup": {
+      "fingerprint": "986fa42a07a6ab52f2f5e16caa2ff08dc8ac4344264d0eb31ac53a4e88489a0f",
+      "sha256": "ea4124a136edb479ae0248e74937b4abe0a44c2da570383c153f02fdfaff6b16",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.48,
+          0.56,
+          "a"
+        ],
+        [
+          0.6,
+          1.12,
+          "kutyának"
+        ],
+        [
+          1.16,
+          1.24,
+          "egy"
+        ],
+        [
+          1.28,
+          1.84,
+          "poharat"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "mese_guest_panda_plate": {
+      "fingerprint": "92c0ba42329a5091023fd0639fe4e1e51a7bae2d816d832d69a7612d65125a42",
+      "sha256": "599a9b20aca8d68cda95394c55f389f28a54c2b76f26a466ccedb61bce4dffe8",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.96,
+          "pandának"
+        ],
+        [
+          1.0,
+          1.12,
+          "egy"
+        ],
+        [
+          1.16,
+          1.84,
+          "tányért"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "mese_guest_panda_cup": {
+      "fingerprint": "8a2aec4e8e8e3f0c8b36f84bec572db8239c062283378ead4805aa32312cf829",
+      "sha256": "59e88e3ebc58cc3a6d2eeea5861ecdf893ed9c98afb3be0ffc8cc653a2c57e6b",
+      "words": [
+        [
+          0.0,
+          0.24,
+          "Adj"
+        ],
+        [
+          0.28,
+          0.32,
+          "a"
+        ],
+        [
+          0.36,
+          0.88,
+          "pandának"
+        ],
+        [
+          0.92,
+          1.04,
+          "egy"
+        ],
+        [
+          1.08,
+          1.68,
+          "poharat"
+        ]
+      ],
+      "duration": 1.84,
+      "characterCost": 11.0
+    },
+    "mese_guest_roka_plate": {
+      "fingerprint": "19a493bf5ba56d9942d73a7f5729888d2efbad35b359ba436c59c1663625083b",
+      "sha256": "9fee2a8df7f2d3c71069d32c80f4e2a9d4ee346963dc3ad43d4924a9af3b5b71",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.88,
+          "rókának"
+        ],
+        [
+          0.92,
+          1.04,
+          "egy"
+        ],
+        [
+          1.12,
+          1.76,
+          "tányért"
+        ]
+      ],
+      "duration": 1.92,
+      "characterCost": 10.0
+    },
+    "mese_guest_roka_cup": {
+      "fingerprint": "fcf7b5d2e1a2058c316bc9e1cc57fbd06c049b8a31db7aa4c0e12b2591024fa7",
+      "sha256": "3b0ce8818b499d29b17e04f32eda5cb81b29a730681cd6e903a414069b6595d7",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.48,
+          0.88,
+          "rókának"
+        ],
+        [
+          0.92,
+          1.0,
+          "egy"
+        ],
+        [
+          1.04,
+          1.68,
+          "poharat"
+        ]
+      ],
+      "duration": 1.84,
+      "characterCost": 10.0
+    },
+    "mese_guest_koala_plate": {
+      "fingerprint": "5e6fccf6551acc113bb5cd508a1361c22934875d03d709d94acebaf8b61de4af",
+      "sha256": "624a0711c04dcec40d268cc26bc9336aded38d487ae8bf89a45307410fd00e2e",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.96,
+          "koalának"
+        ],
+        [
+          1.0,
+          1.12,
+          "egy"
+        ],
+        [
+          1.2,
+          1.84,
+          "tányért"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "mese_guest_koala_cup": {
+      "fingerprint": "1b9cb4a6c071024c6645067ccf164984f39acb91d8497951e184756542c953c5",
+      "sha256": "e55adaed63d8a2c3770cc88664a43df337967b9ebffad5e0fdd7a87e78fc0475",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.96,
+          "koalának"
+        ],
+        [
+          1.0,
+          1.08,
+          "egy"
+        ],
+        [
+          1.12,
+          1.76,
+          "poharat"
+        ]
+      ],
+      "duration": 1.92,
+      "characterCost": 11.0
+    },
+    "mese_guest_beka_plate": {
+      "fingerprint": "75992b70699b4cf1837d44bafffde97916e88ac9497bded96b83cd5874f320d2",
+      "sha256": "e0151a555f46f71381221ea4e8c06fa2e111022416734886c49ad59fa6a3a7af",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Adj"
+        ],
+        [
+          0.64,
+          0.72,
+          "a"
+        ],
+        [
+          0.76,
+          1.2,
+          "békának"
+        ],
+        [
+          1.28,
+          1.36,
+          "egy"
+        ],
+        [
+          1.44,
+          2.08,
+          "tányért"
+        ]
+      ],
+      "duration": 2.24,
+      "characterCost": 10.0
+    },
+    "mese_guest_beka_cup": {
+      "fingerprint": "7f769feba82a7c2c6ada76afb62d948bfaea27a736c980a2cbc7a98019036501",
+      "sha256": "ec6afacfed9cfaf0d6209a0144eaa833f13b6faf7e13c3b26d700d9675437a3f",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Adj"
+        ],
+        [
+          0.64,
+          0.72,
+          "a"
+        ],
+        [
+          0.76,
+          1.2,
+          "békának"
+        ],
+        [
+          1.24,
+          1.36,
+          "egy"
+        ],
+        [
+          1.4,
+          2.0,
+          "poharat"
+        ]
+      ],
+      "duration": 2.16,
+      "characterCost": 10.0
+    },
+    "mese_guest_tigris_cup": {
+      "fingerprint": "4071e410a9e76d1134be5641c757c3816e1d71891ebd5540028ca44c7d09b000",
+      "sha256": "2a0ba6adbe284c35b4334076f7bf145d3ea6986218f8a6ae2988956b7385f683",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.96,
+          "tigrisnek"
+        ],
+        [
+          1.0,
+          1.08,
+          "egy"
+        ],
+        [
+          1.12,
+          1.76,
+          "poharat"
+        ]
+      ],
+      "duration": 1.92,
+      "characterCost": 11.0
+    },
+    "mese_guest_tigris_plate": {
+      "fingerprint": "4ab1e061c4dacc9c8efa5abe9a8702267637765b0db6581a5c26a2f713d8d3a3",
+      "sha256": "915bc5e29c70449cb7c8b5ef10e5e5ce31cc2a0e59e303dece392e24c3688f2d",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.48,
+          1.04,
+          "tigrisnek"
+        ],
+        [
+          1.08,
+          1.2,
+          "egy"
+        ],
+        [
+          1.28,
+          2.0,
+          "tányért"
+        ]
+      ],
+      "duration": 2.16,
+      "characterCost": 11.0
+    },
+    "mese_guest_malac_plate": {
+      "fingerprint": "2fa20562ba11ebd308d7b9f4650e5b4ce71e295a6ecd6379b5b2bcd94580c56c",
+      "sha256": "8fc127949423891a7ce8592e5739e57d85216701c397d5ca07d77587831858fd",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.56,
+          0.64,
+          "a"
+        ],
+        [
+          0.72,
+          1.12,
+          "malacnak"
+        ],
+        [
+          1.16,
+          1.28,
+          "egy"
+        ],
+        [
+          1.32,
+          1.92,
+          "tányért"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "mese_guest_malac_cup": {
+      "fingerprint": "cbf0e655b6586fefc7e6908660c46628bf1a6e2921694daa8fee74f3c79e31dc",
+      "sha256": "2f1a322fadb9dd23b59887931097bc945891e687524ccd45567b1da6536547c9",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.347,
+          0.373,
+          "a"
+        ],
+        [
+          0.4,
+          0.88,
+          "malacnak"
+        ],
+        [
+          0.92,
+          1.0,
+          "egy"
+        ],
+        [
+          1.04,
+          1.6,
+          "poharat"
+        ]
+      ],
+      "duration": 1.84,
+      "characterCost": 11.0
+    },
+    "mese_guest_majom_cup": {
+      "fingerprint": "e6e2b43691194a64716469f90baa655bdc62a1af9540421d826c1547585a04d2",
+      "sha256": "16bf8e61a16f991330b2046abcc3dfcda2a45c8416bb3fda5b4f16b7ffd88c2a",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.36,
+          0.4,
+          "a"
+        ],
+        [
+          0.52,
+          0.88,
+          "majomnak"
+        ],
+        [
+          0.92,
+          1.0,
+          "egy"
+        ],
+        [
+          1.04,
+          1.68,
+          "poharat"
+        ]
+      ],
+      "duration": 1.84,
+      "characterCost": 11.0
+    },
+    "mese_guest_majom_plate": {
+      "fingerprint": "b865c9cb0a5e0f7a52dfbcc7b6f735d0a56050cfef906ac62723ec0b50a99d24",
+      "sha256": "276ebce1fcd57e1c2adb31151cf73f27e61eea30394dabbe4338888172c3e329",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "Adj"
+        ],
+        [
+          0.56,
+          0.64,
+          "a"
+        ],
+        [
+          0.76,
+          1.12,
+          "majomnak"
+        ],
+        [
+          1.16,
+          1.28,
+          "egy"
+        ],
+        [
+          1.32,
+          1.92,
+          "tányért"
+        ]
+      ],
+      "duration": 2.08,
+      "characterCost": 11.0
+    },
+    "dress_name_sapka": {
+      "fingerprint": "3faa4ff6bed68b24c2c3abb4aae1b4d4e65be551383afd070d863e8b2dd267dc",
+      "sha256": "b051d7cc06a3cd531c30b943a98b8c75dff7e29f0c054e5d4636d9e051b970e6",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "sapka"
+        ]
+      ],
+      "duration": 1.04,
+      "characterCost": 1.0
+    },
+    "dress_name_cipo": {
+      "fingerprint": "096b54dc43bbfe3e1f255fbd8d3df756a1a746ba321bca3d5911beab4baadeec",
+      "sha256": "e824291387cee550e35613bb5c70b36d07a114f0c9de39875bbd4109fb490910",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "cipő"
+        ]
+      ],
+      "duration": 1.04,
+      "characterCost": 1.0
+    },
+    "phrase_part_kerek_vizet_0": {
+      "fingerprint": "54c7795fa6a7af1d1c5ea7d98b5810af86068d923a27301ae13be92009044b8d",
+      "sha256": "e4a0484d9970544faa43a4ea8fe92869c28c45be56aeb5a885a0b97165789fb6",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "kérek"
+        ]
+      ],
+      "duration": 0.544989,
+      "characterCost": 3.0
+    },
+    "phrase_part_kerek_vizet_1": {
+      "fingerprint": "8f80eb09526bcf582e958dc33ee30f67c1364bc81e1192d9c56d568d0c96850a",
+      "sha256": "dcdbc82330ce69b4efcbf1ecc23d83b723bf4638016f8f4417d5a0605540b28a",
+      "words": [
+        [
+          0.025,
+          0.545,
+          "vizet"
+        ]
+      ],
+      "duration": 0.665011,
+      "characterCost": 3.0
+    },
+    "phrase_part_meg_alma_0": {
+      "fingerprint": "db4a8a153b9ab212511fa6955ae2e70df4654266beaca569b504133b07f3d2d8",
+      "sha256": "fcc77d64169096a9e3140840847bf612c85606f6a1fc381d344fbaa8d4e4993e",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "még"
+        ]
+      ],
+      "duration": 0.465011,
+      "characterCost": 3.0
+    },
+    "phrase_part_meg_alma_1": {
+      "fingerprint": "391474d8a06233ccece194babf9810832eb855a8109e81b76f205fd9d7c2dd8b",
+      "sha256": "03e4144618f5aa55865f9ef3d29abad36dc97b6dff3862a8bef96a01e5e3d31c",
+      "words": [
+        [
+          0.025,
+          0.385,
+          "alma"
+        ]
+      ],
+      "duration": 0.504989,
+      "characterCost": 3.0
+    },
+    "phrase_part_anya_gyere_0": {
+      "fingerprint": "90a8d26f46112d25a4416395cd44452f8538bdecbfc995913c69323a417542e6",
+      "sha256": "9c68dd6e2a5bd2c6c61d4d2fef73585fc6c57f6ae26deb4fdfce4242ce86ad10",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "anya"
+        ]
+      ],
+      "duration": 0.52,
+      "characterCost": 1.0
+    },
+    "phrase_part_anya_gyere_1": {
+      "fingerprint": "d32cc20d5ff0bd5486ee729096c9b3c4bbb8ab9f80d779af3a40e9c176df85fa",
+      "sha256": "e17c5a3bbaf392cf3d3b15aa3b8ef695528c40b6587950e8a649d3ebac2f8ca4",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "gyere"
+        ]
+      ],
+      "duration": 0.544989,
+      "characterCost": 1.0
+    },
+    "phrase_part_apa_auto_0": {
+      "fingerprint": "8eb9fba783bf7baf8de314193564143e886a90647382fe02552a1fd12f908cfa",
+      "sha256": "c5a551f70c58bf478752793ab7c813dc838c1b8f74b04c673ba80db58e44b209",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "apa"
+        ]
+      ],
+      "duration": 0.6,
+      "characterCost": 1.0
+    },
+    "phrase_part_apa_auto_1": {
+      "fingerprint": "75586b757f4e74156bcb94c316f639845d0adc3fb73a3e4aef71bd3321746696",
+      "sha256": "89b25aa60a200c0039aa38140b6eeff86f506a901a00dbb6758776d2649061ce",
+      "words": [
+        [
+          0.025,
+          0.745,
+          "autó"
+        ]
+      ],
+      "duration": 0.744989,
+      "characterCost": 1.0
+    },
+    "phrase_part_nagy_labda_0": {
+      "fingerprint": "60257d206fb592381a3e42293ba72f30dec78fcce9ee7c0cb83be67549fd5024",
+      "sha256": "369f4872319975cf2e8fcd1443a3a393ae5c0d6b63ee000a6a7dc215732ce4d1",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "nagy"
+        ]
+      ],
+      "duration": 0.52,
+      "characterCost": 1.0
+    },
+    "phrase_part_nagy_labda_1": {
+      "fingerprint": "4c44e0dfa02d0d5dea2c10125d123a5994a4f44f8cb925c8f9cd50353d08c9ae",
+      "sha256": "a263fc97f2a93a2c910319f982395c6f732e20cda2dc9c491706362821faaddd",
+      "words": [
+        [
+          0.025,
+          0.465,
+          "labda"
+        ]
+      ],
+      "duration": 0.585011,
+      "characterCost": 1.0
+    },
+    "phrase_part_nem_kerem_0": {
+      "fingerprint": "ec84a68ccddb3551b681e2eee25a5e2d4fba55ff7f1ab387259b2a9fec3d9fbc",
+      "sha256": "92e0257f2f7873d93e81cbc8bd956edc338bdcfcab72bd720985b7d1d6c8b6da",
+      "words": [
+        [
+          0.0,
+          0.32,
+          "nem"
+        ]
+      ],
+      "duration": 0.44,
+      "characterCost": 1.0
+    },
+    "phrase_part_nem_kerem_1": {
+      "fingerprint": "9d3967232dce4e9433a601dc967a3887031aa72f61bca7eb39c180de9d6a5fce",
+      "sha256": "d8a1597ac0e567bd3b74ac56dc0d0ce3de910414958da223e8bc88ff6d5e30ec",
+      "words": [
+        [
+          0.025,
+          0.585,
+          "kérem"
+        ]
+      ],
+      "duration": 0.705011,
+      "characterCost": 1.0
+    },
+    "r_rhyme_part_roka_0_0": {
+      "fingerprint": "a271bc73bad03b8804f83ce52388cd711668a56207099f6dd453345fd4b16570",
+      "sha256": "1d1fdb1d5c7f792d6e9b67b078b65e03b3acbe685dafcba8c76addb3e65110d5",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Róka"
+        ],
+        [
+          0.52,
+          0.72,
+          "fut"
+        ]
+      ],
+      "duration": 0.84,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_roka_0_1": {
+      "fingerprint": "ca843ce82ec617533ae8ceb00514780bc415fcb56f4f775b765334db29c8f9ca",
+      "sha256": "4a93e9e6d2ab48af14f53bc72717c1edee08b2cb13cceaeb6b69a497dadcbddb",
+      "words": [
+        [
+          0.025,
+          0.105,
+          "a"
+        ],
+        [
+          0.225,
+          0.585,
+          "réten"
+        ],
+        [
+          0.785,
+          0.985,
+          "át"
+        ]
+      ],
+      "duration": 1.105011,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_roka_1_0": {
+      "fingerprint": "629a2860a6070f97fe55834acec21884ad233acb3e88e5586c12ee3665d99feb",
+      "sha256": "43ada055c536a7effcd74faa82dc39c43847e1840db2c05bf7cbf0b0fa4c10d3",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Robot"
+        ],
+        [
+          0.505,
+          0.825,
+          "őrzi"
+        ]
+      ],
+      "duration": 0.944989,
+      "characterCost": 4.0
+    },
+    "r_rhyme_part_roka_1_1": {
+      "fingerprint": "9c86cf1bde08c9783b6f5ebdcd603f100c2c3026fa9def7d0eaf84b25641fbdd",
+      "sha256": "8065802897abfbd06b2f9dd1113f02992c0e516e34bb7074aebc974c51b5375e",
+      "words": [
+        [
+          0.025,
+          0.065,
+          "a"
+        ],
+        [
+          0.185,
+          0.785,
+          "répát"
+        ]
+      ],
+      "duration": 0.905011,
+      "characterCost": 4.0
+    },
+    "r_rhyme_part_roka_2_0": {
+      "fingerprint": "08d523553081fdfb74fab46ab22ac6147c9e6e2ae926969c37c17859bb89debb",
+      "sha256": "ff42ad19f86c9be6a667051d3b433e51490512979a00baac05e8879f2f48337c",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Ropi"
+        ],
+        [
+          0.545,
+          0.905,
+          "roppan"
+        ]
+      ],
+      "duration": 1.025011,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_roka_2_1": {
+      "fingerprint": "05a86b40aae349e04efd25f5279e2da4cfe4198dcaa57e4216f681a51036ea1d",
+      "sha256": "2a02cf347f6f66e3fc62ac98bce53a24bbaadbf4378140e358288f93103d3a31",
+      "words": [
+        [
+          0.025,
+          0.465,
+          "perec"
+        ],
+        [
+          0.505,
+          0.985,
+          "kerek"
+        ]
+      ],
+      "duration": 1.105011,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_roka_3_0": {
+      "fingerprint": "d29bf276dd7d253c85bb92cecf34be3ff4ac688c58c5f6b6559d5b7f60d02cd5",
+      "sha256": "68fdcfbafa596fa64372fae8b86cd022f816a908a3651be10370477bea562e6b",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Velük"
+        ],
+        [
+          0.44,
+          0.88,
+          "játszik"
+        ]
+      ],
+      "duration": 1.0,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_roka_3_1": {
+      "fingerprint": "b3fd4d5e68ddd4d0b78aa47f4bc4bb0e3e8e3ec71ae2d2fb9cdba45c1893e440",
+      "sha256": "ed84b8c3e79334992eb432aede7c38d587981fdb91f067681d1251afc1228156",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "minden"
+        ],
+        [
+          0.465,
+          0.905,
+          "gyerek"
+        ]
+      ],
+      "duration": 1.025011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_0_0": {
+      "fingerprint": "72d8844f137b6b95f655ffa7182f776f3e1583ffabf4e79a4345fc3eb17ed218",
+      "sha256": "43bc930772920629673bd3580224749bd76480431f9475ce0521b230f297a493",
+      "words": [
+        [
+          0.0,
+          0.56,
+          "Piros"
+        ],
+        [
+          0.72,
+          1.04,
+          "rózsa"
+        ]
+      ],
+      "duration": 1.16,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_0_1": {
+      "fingerprint": "e1da74f30420cdb056f24e3658be05082205542672c1036f23c1a4cf82401702",
+      "sha256": "c8de6f86d2367a566f49ca44c32a4bb7df0dae24eaebf79da162a58679ecda26",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "nyílik"
+        ],
+        [
+          0.425,
+          0.985,
+          "reggel"
+        ]
+      ],
+      "duration": 1.105011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_1_0": {
+      "fingerprint": "cafe81cb2517eedc004da40f41215e9a2c0fd0d0dc0dcd1ef965a03da70f4c8e",
+      "sha256": "4fa90bdb6db743acf10a620f7f78952233cc85ea0e1910d444fef87e9c644642",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Robot"
+        ],
+        [
+          0.465,
+          0.745,
+          "locsol"
+        ]
+      ],
+      "duration": 0.865011,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_kert_1_1": {
+      "fingerprint": "ac694fc55b1ce40add6bc63bc926ea9b83ed0d922b965731ee63e3f3dcec9005",
+      "sha256": "7f473084d714de24a24580a2be0a61f7dde780b1c6547cb7148cda702411fce6",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "friss"
+        ],
+        [
+          0.425,
+          1.225,
+          "vízcseppel"
+        ]
+      ],
+      "duration": 1.345011,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_kert_2_0": {
+      "fingerprint": "46f90b9e27df8c14b57cf686e95840f498b6fe12e860e51ee4f81b523221c629",
+      "sha256": "15f412e3515dd21f92792b6a7a2b7c710ffb72568682a1571b0d247a592b5810",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Róka"
+        ],
+        [
+          0.48,
+          0.96,
+          "körben"
+        ]
+      ],
+      "duration": 1.08,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_2_1": {
+      "fingerprint": "98f686897f43d3d26f3b94d313c4c53a8939534b863454ac57fd4b7cc4488065",
+      "sha256": "0efe5c6e245b6e2d031443f9ea570ee78b346758fd5010a7254071eeb5617abf",
+      "words": [
+        [
+          0.025,
+          0.585,
+          "táncot"
+        ],
+        [
+          0.665,
+          0.985,
+          "jár"
+        ]
+      ],
+      "duration": 1.105011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_sator_0_0": {
+      "fingerprint": "7e0c2fdc5b327843935ea9553eff11656f02019c71911f2a590f5e56949a6ac0",
+      "sha256": "ff62cf0e271888cb73477bcf9114e9d6fe1fba3e7359a6f55d1401a678c00f85",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Erre"
+        ],
+        [
+          0.48,
+          0.8,
+          "gyere"
+        ]
+      ],
+      "duration": 0.92,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_sator_0_1": {
+      "fingerprint": "f6e77aeaf8927b6a2e151aea62fee892193043c799ee8707fa9b1c95939f550f",
+      "sha256": "58be107ea4fa72a9c9d3f131d1f8ef3809abb68bbd08f609da704e11162167f9",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "erre"
+        ],
+        [
+          0.385,
+          0.985,
+          "várunk"
+        ]
+      ],
+      "duration": 1.105011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_3_0": {
+      "fingerprint": "536764bca93d4c96fdacd9a7defd3fc0035513b3f660d6ef3a8cdf2af40b9bf7",
+      "sha256": "844988c82080a89d74c4b704d7f9a7b9f318b15fe976a4a3d77ae4e3b6bfd6a1",
+      "words": [
+        [
+          0.0,
+          0.36,
+          "Ránk"
+        ],
+        [
+          0.4,
+          0.56,
+          "egy"
+        ],
+        [
+          0.64,
+          0.96,
+          "szép"
+        ]
+      ],
+      "duration": 1.08,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_kert_3_1": {
+      "fingerprint": "188e4eae4f47393552b05c39281c7fe961a6f528190a08d75148cf91eadc6784",
+      "sha256": "27b153b95a5f71640560a76dc83b0ba7ebe9b63caa63f8404dce7baebd67a37c",
+      "words": [
+        [
+          0.025,
+          0.745,
+          "virágkert"
+        ],
+        [
+          0.785,
+          1.145,
+          "vár"
+        ]
+      ],
+      "duration": 1.265011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_sator_1_0": {
+      "fingerprint": "3e965127ddb8bf60fb39213a986882b93179db97320650fc23935bb1829f9ef3",
+      "sha256": "d05ab89b8328716247609d1f5d4a3ad61796c66f14d937102840734e1621dde1",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Erdő"
+        ],
+        [
+          0.52,
+          0.96,
+          "mellett"
+        ]
+      ],
+      "duration": 1.08,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_sator_1_1": {
+      "fingerprint": "6e14bf863b8e8ef8c4883286f7c94b3686bae3b71a7e2f902898671f8bb36835",
+      "sha256": "37bb52ec0390629f7ecbba11e8733ebc9894e634d246cdc4211f8c776ffcb7d2",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "sátrat"
+        ],
+        [
+          0.585,
+          1.145,
+          "állunk"
+        ]
+      ],
+      "duration": 1.265011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_sator_2_0": {
+      "fingerprint": "7d27a0bdd71c98a29d3c8ac6fafe2b3fffc1a13546684126091968347fe1137b",
+      "sha256": "6b18fbb367cba41c337816c22f58dace336095b91c85ac5e3dcc9e95cf041fab",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Körte"
+        ],
+        [
+          0.52,
+          0.72,
+          "kerül"
+        ]
+      ],
+      "duration": 0.84,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_sator_2_1": {
+      "fingerprint": "8b685f20bfec3fc70ad1ae0075cb2f5f3e6daacb8756f84c3175e953cfca2152",
+      "sha256": "e11f819088d1bf1733e5323327f4dfaf5fa51f658335e46d3ad72a5ce092e143",
+      "words": [
+        [
+          0.025,
+          0.065,
+          "a"
+        ],
+        [
+          0.145,
+          0.865,
+          "kosárba"
+        ]
+      ],
+      "duration": 0.985011,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_sator_3_0": {
+      "fingerprint": "ba5d9e9f5c23dd41fc71520a9a21441318edfd1b577cd274c6db685f444d674c",
+      "sha256": "ade66b3f8fef5194261436288f53a3eba1e18b9491e9e0fcda951522f5aaafe8",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Róka"
+        ],
+        [
+          0.72,
+          1.04,
+          "indul"
+        ]
+      ],
+      "duration": 1.16,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_sator_3_1": {
+      "fingerprint": "d22a585ff6f7a4280607541ac093c597e10e7b255fd857e99bdb1c33fadb1839",
+      "sha256": "c2d6993b51fbaa4178bcca3edc951b46e99b3d9d78d9ccba4c11df778fe48bd7",
+      "words": [
+        [
+          0.025,
+          0.745,
+          "vacsorára"
+        ]
+      ],
+      "duration": 0.864989,
+      "characterCost": 2.0
+    },
+    "r_rhyme_part_robot_0_0": {
+      "fingerprint": "889ee1c701de0706030dfeca737519648de1ae848124d2dbf5d081fccc9cee99",
+      "sha256": "d9d8e61bc641f2a9ce642d1f4b3b246a23673fed4afd66f214706e54978598aa",
+      "words": [
+        [
+          0.025,
+          0.425,
+          "Rajzol"
+        ],
+        [
+          0.505,
+          0.545,
+          "a"
+        ],
+        [
+          0.585,
+          1.065,
+          "robot"
+        ]
+      ],
+      "duration": 1.185011,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_robot_0_1": {
+      "fingerprint": "34a8b77bb464c730ea082e60389a90b39b98f24b6712c1dd4567d6981b47880b",
+      "sha256": "68dbe8428ac027faed48869902e342d378f9a6dbeb6c3ecbf6753374e0305439",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "kerek"
+        ],
+        [
+          0.385,
+          0.425,
+          "a"
+        ],
+        [
+          0.505,
+          0.825,
+          "nap"
+        ]
+      ],
+      "duration": 0.944989,
+      "characterCost": 5.0
+    },
+    "r_rhyme_part_robot_1_0": {
+      "fingerprint": "01c8d61ac1b3bfaee7e1e0dbafa5bc0e213eb05dabb6be4477f61c5ed9c03ae4",
+      "sha256": "01519fb07471060f047a810dfcc618f16e6226f53cb5c5203e3f87e38d85c901",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Piros"
+        ],
+        [
+          0.64,
+          1.2,
+          "ceruzát"
+        ]
+      ],
+      "duration": 1.32,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_robot_1_1": {
+      "fingerprint": "26bcc779fe60804f92de320f83b5e96fa9f8283d42c14ede6a1ebd7c310df53f",
+      "sha256": "92ab46141c0ecd9ebd5fb948a69b6752e70726c90351f7a5e3dba904660e638f",
+      "words": [
+        [
+          0.025,
+          0.065,
+          "a"
+        ],
+        [
+          0.145,
+          0.625,
+          "kezébe"
+        ],
+        [
+          0.825,
+          1.025,
+          "kap"
+        ]
+      ],
+      "duration": 1.145011,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_robot_2_0": {
+      "fingerprint": "2b47e864c62310e16eeb84ad887ca8b225ef3b2c989cfb445b2bfd797a9d04e7",
+      "sha256": "82a2615279aaf64a7494e4a5733551da869ea1192a6b4a00f7c87d698cfa57aa",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Rajzol"
+        ],
+        [
+          0.56,
+          0.68,
+          "egy"
+        ],
+        [
+          0.72,
+          1.36,
+          "rókát"
+        ]
+      ],
+      "duration": 1.48,
+      "characterCost": 4.0
+    },
+    "r_rhyme_part_robot_2_1": {
+      "fingerprint": "3f2b09e63af73405a50c7da1404488bb0534d9c51073eaed77f2ca8ce942fd5b",
+      "sha256": "f8667df884e34fea4251d0b3ac6a4a58f8581a6dccfdd4c292dc8788a260f986",
+      "words": [
+        [
+          0.025,
+          0.505,
+          "rajzol"
+        ],
+        [
+          0.585,
+          0.705,
+          "egy"
+        ],
+        [
+          0.745,
+          1.385,
+          "várat"
+        ]
+      ],
+      "duration": 1.505011,
+      "characterCost": 4.0
+    },
+    "r_rhyme_part_robot_3_0": {
+      "fingerprint": "a88ff63682c7abb83af4f60df88fec99f29935c9d55ab73cfab040c6da1728bc",
+      "sha256": "0c7caf7093491749621b70be82931b382f43c90e671fcd2466953601d432931b",
+      "words": [
+        [
+          0.0,
+          0.64,
+          "Rajzol"
+        ],
+        [
+          0.8,
+          0.96,
+          "az"
+        ],
+        [
+          1.04,
+          1.36,
+          "égre"
+        ]
+      ],
+      "duration": 1.48,
+      "characterCost": 3.0
+    },
+    "r_rhyme_part_robot_3_1": {
+      "fingerprint": "515271565e48a9b86d045adbec97ea3b5b98081b116bd31dec3e12dd7c05f9ea",
+      "sha256": "4bbb90e8a31dc7317fc5168d30ae8a1e1793bd83f3a7b1e985e845b5123ea363",
+      "words": [
+        [
+          0.025,
+          0.385,
+          "repülő"
+        ],
+        [
+          0.505,
+          1.025,
+          "madarat"
+        ]
+      ],
+      "duration": 1.145011,
+      "characterCost": 3.0
     }
   }
 }

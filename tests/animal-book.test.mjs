@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ANIMAL_BOOK_PAGES, ANIMAL_BOOK_ANIMALS, ANIMAL_BOOK_AUDIO, ANIMAL_BOOK_STORAGE_KEY, animalBookPageIndex, normalizeAnimalBookPreferences, loadAnimalBookPreferences, saveAnimalBookPreferences } from '../animal-book-data.js';
+import { ANIMAL_BOOK_PAGES, ANIMAL_BOOK_ANIMALS, ANIMAL_BOOK_AUDIO, ANIMAL_BOOK_CLIPS, ANIMAL_BOOK_STORAGE_KEY, animalBookPageIndex, normalizeAnimalBookPreferences, loadAnimalBookPreferences, saveAnimalBookPreferences } from '../animal-book-data.js';
 import { createAnimalBookPlayback } from '../animal-book-game.js';
 
 function deferred() {
@@ -19,6 +19,8 @@ function controlledPlayback() {
 }
 
 test('the illustrated book has four ordered places, three animals each and twelve unique sound files', () => {
+  for (const animal of ANIMAL_BOOK_ANIMALS) assert.equal(ANIMAL_BOOK_CLIPS[`abk_name_${animal.id}`], animal.label);
+  assert.ok(ANIMAL_BOOK_CLIPS.abk_sound_guide && ANIMAL_BOOK_CLIPS.abk_scene_guide);
   assert.deepEqual(ANIMAL_BOOK_PAGES.map(page => page.id), ['farm', 'garden', 'pond', 'forest']);
   assert.deepEqual(ANIMAL_BOOK_PAGES.map(page => page.animals.map(animal => animal.id)), [['cow', 'horse', 'sheep'], ['dog', 'cat', 'chicken'], ['duck', 'frog', 'goose'], ['owl', 'cuckoo', 'wolf']]);
   assert.equal(ANIMAL_BOOK_ANIMALS.length, 12);

@@ -5,8 +5,12 @@ export async function runFurfangPolishChecks(page, baseURL) {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  // A controller fixture must not retain the full app's play-time interval.
+  const skipApp = route => route.fulfill({ contentType: 'text/javascript', body: '' });
+  await page.route('**/app.js', skipApp);
   await page.goto(baseURL);
-  await page.setContent(`<html lang="hu"><head><base href="${baseURL}/"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="child-ui.css"><link rel="stylesheet" href="logic.css"></head><body><main class="app"><section id="furfangliget" class="logic-panel"></section></main></body></html>`);
+  await page.unroute('**/app.js', skipApp);
+  await page.setContent(`<!doctype html><html lang="hu"><head><base href="${baseURL}/"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="child-ui.css"><link rel="stylesheet" href="logic.css"></head><body><main class="app"><section id="furfangliget" class="logic-panel"></section></main></body></html>`);
   await page.evaluate(async url => {
     const { setupLogic } = await import(`${url}/logic-game.js`);
     const data = await import(`${url}/logic-data.js`);
@@ -28,7 +32,7 @@ export async function runFurfangPolishChecks(page, baseURL) {
   const assertLayout = async label => {
     const result = await page.evaluate(() => ({
       overflow: document.documentElement.scrollWidth > innerWidth,
-      small: [...document.querySelectorAll('#furfangliget button, #furfangliget input, #furfangliget select')].filter(el => !el.disabled && el.getBoundingClientRect().height < 44).map(el => el.id || el.textContent),
+      small: [...document.querySelectorAll('#furfangliget button, #furfangliget input, #furfangliget select')].filter(el => !el.disabled && el.getClientRects().length && el.getBoundingClientRect().height < 44).map(el => el.id || el.textContent),
     }));
     ensure(!result.overflow, `${label}: horizontal overflow`); ensure(!result.small.length, `${label}: small controls ${result.small}`);
   };
@@ -68,7 +72,7 @@ export async function runFurfangPolishChecks(page, baseURL) {
   await page.locator('#logic-counters').click(); ensure(await page.locator('.logic-input .logic-dots').count() > 0, 'higher-level counters are optional');
   const answers = await page.evaluate(t => t.questions.map(n => window.furfangFixture.data.applyRule(n, t.program)), task);
   for (let i = 0; i < 2; i++) { await page.locator(`#logic-value-${i}`).fill(String(answers[i])); await page.locator(`#logic-value-${i}`).press('Tab'); }
-  await page.locator('#logic-check').click(); ensure(await page.locator('#logic-next').count() === 1, 'correct machine completes');
+  await page.locator('#logic-check').click(); await page.locator('#logic-next').waitFor(); ensure(await page.locator('#logic-next').count() === 1, 'correct machine completes after its viewing interval');
   await page.locator('#logic-back').click(); await page.locator('[data-game="route"]').click();
   await assertLayout('route mobile'); task = await taskFor('route');
   const path = await page.evaluate(t => window.furfangFixture.data.routeSolution(t), task);

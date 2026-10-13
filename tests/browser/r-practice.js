@@ -66,7 +66,7 @@ async page => {
   let sawRetry=false;
   for(let i=0;i<3;i++){
     for(const choice of await page.locator('[data-choice]').all()){
-      await choice.click();if(await page.locator('.is-found').count())break;
+      await choice.click();await idle();if(await page.locator('.is-found').count())break;
       sawRetry=true;ok((await status()).includes('újra'),'Wrong picture gives another listening opportunity');
     }
     await idle();ok(await page.locator('.is-found').count()===1,`Hunter picture ${i+1} completes`);
@@ -80,16 +80,16 @@ async page => {
   await page.locator('[data-choice]').nth(rIndex).click();await idle();ok(await page.locator('.is-found').count()===1,'Sound hunting accepts the R word');
   await hub();await prefs('position','all');await prefs('roundLength',3);await enter('post');
   ok(await page.locator('[data-action="listen"]').count()===0,'Together mode requests no microphone');
-  for(let i=0;i<3;i++){await page.locator('[data-action="advance"]').click();await idle();}
-  ok(await page.locator('.rp-finish').count()===1,'Robotpostás delivers all parcels');
+  for(let i=0;i<2;i++){await page.locator('[data-action="advance"]').click();await idle();await page.locator('[data-deliver="fox"]').click();await idle();}
+  ok(await page.locator('.rp-finish').count()===1,'Robotpostás delivers both linked parcels to the chosen house');
   await hub();await enter('workshop');
   for(const position of ['initial','medial','final']){
     await page.locator(`[data-position="${position}"]`).click();await idle();
     const id=await page.locator('.rp-target').getAttribute('data-word');
     ok(words.find(word=>word.id===id).position===position,`Workshop uses the selected ${position} word group`);
   }
-  for(let i=0;i<3;i++){await page.locator('[data-action="advance"]').click();await idle();}
-  ok(await page.locator('.rp-decoration.is-decorated').count()===3,'Workshop visibly keeps all three decorations');
+  for(let i=0;i<3;i++){await page.locator('[data-action="advance"]').click();await idle();await page.locator('[data-decoration="flower"]').click();await page.locator(`[data-place="${i}"]`).click();await idle();}
+  ok(await page.locator('.rp-decoration-place.is-decorated').count()===3,'Workshop visibly keeps all three decorations');
   ok(await page.locator('.rp-finish').count()===1,'Perecműhely completes');
   await hub();await enter('rhyme');
   ok(await page.locator('[data-rhyme]').count()===4&&await page.locator('[data-line]').count()===4,'Four original rhymes have four selectable lines');
@@ -107,10 +107,11 @@ async page => {
   await page.locator('[data-action="listen"]').click();await page.locator('#r-practice[data-phase="listening"]').waitFor();await idle();
   ok((await status()).includes('felismerte')&&await page.locator('[data-action="advance"]').isEnabled(),'Recognized full phrase enables the next step without an articulation score');
   ok((await page.locator('.rp-transcript').innerText()).includes(target),'Transcript is displayed');
-  await page.locator('[data-action="advance"]').click();await idle();
+  await page.locator('[data-action="advance"]').click();await idle();await page.locator('[data-deliver="fox"]').click();await idle();
   await page.evaluate(()=>{rQA.speech='banán';});await page.locator('[data-action="listen"]').click();await idle();
   ok(!await page.locator('[data-action="advance"]').isEnabled()&&(await status()).includes('Más szót'),'Unrelated recognized word does not automatically advance');
-  await page.locator('[data-action="confirm"]').click();await idle();ok(await page.locator('.rp-parcel').count()===2,'Adult can continue after uncertain recognition');
+  await page.locator('[data-action="confirm"]').click();await idle();await page.locator('[data-deliver="rabbit"]').click();await idle();ok(await page.locator('.rp-parcel').count()===2,'Adult can deliver after uncertain recognition');
+  await page.locator('[data-action="restart"]').click();await idle();
   await page.evaluate(()=>{rQA.scenario='network';});await page.locator('[data-action="listen"]').click();await idle();
   ok((await status()).includes('internetkapcsolat')&&await page.locator('[data-action="confirm"]').isEnabled(),'Recognition network error has a together-mode recovery');
   await page.evaluate(()=>{rQA.scenario='pending';});await page.locator('[data-action="listen"]').click();await page.locator('#r-practice[data-phase="listening"]').waitFor();

@@ -4,6 +4,7 @@ import { words } from '../game-data.js';
 import { VOICE_CLIPS } from '../voice-library.js';
 import { ANIMAL_BOOK_PAGES } from '../animal-book-data.js';
 import { AUDIOBOOKS } from '../audiobook-data.js';
+import { PUZZLE_IMAGES } from '../puzzle-data.js';
 
 const root = new URL('../', import.meta.url);
 // Publish only character requirements from the generated collection plans.
@@ -35,6 +36,7 @@ const files = [
   'animal-book-audio.json',
   'voice-config.json', 'audio/voice/manifest.json', 'audio/voice/generated.json',
   ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),
+  ...PUZZLE_IMAGES.map(picture => picture.image.replace(/^\.\//, '')),
   'app.webmanifest', 'icons/icon.svg', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
   ...words.map(word => `audio/${word.id}.mp3`),
   ...Object.values(VOICE_CLIPS).map(clip => clip.file),
