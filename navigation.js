@@ -6,7 +6,7 @@ export const GROUPS = Object.freeze([
   { screen: 'practice-menu', title: 'Mondd utánam', screens: ['imitate', 'two-word', 'r-practice'] },
   { screen: 'number-menu', title: 'Számok és logika', screens: ['numbers', 'furfangliget', 'workshop', 'chess'] },
   { screen: 'play-menu', title: 'Mesék és Maci', screens: ['audiobooks', 'teddy-game', 'dress-game', 'meseliget'] },
-  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'montessori', 'pour', 'flip'] },
+  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'differences', 'montessori', 'pour', 'flip'] },
 ].map(group => Object.freeze({ ...group, screens: Object.freeze(group.screens) })));
 
 const screens = new Set(['home', 'parent', 'play-break', 'cards', ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);

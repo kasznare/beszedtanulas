@@ -4,6 +4,16 @@ Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és 
 
 Éles oldal: [Beszédtanulás a GitHub Pagesen](https://kasznare.github.io/beszedtanulas/). Nincs szükség ChatGPT-bejelentkezésre. A `main` ágra küldött commitot a meglévő GitHub Pages **pages build and deployment** folyamata automatikusan kitelepíti. Közzététel előtt `npm run build` és `git diff --check`, utána commit és push; külön Sites-kitelepítés nem kell.
 
+### Találd meg a különbségeket!
+
+A **Kirakók és ügyesség** menüből nyíló játék négy saját, részletes SVG-jelenetet használ: **Kerti piknik**, **Vidám kikötő**, **Játékműhely**, **Titkos télikert**. Jelenetenként 12 megtervezett részletből készülnek a képpárok. A **Felfedező** 5 látványosabb, a **Megfigyelő** 7, a **Nyomozó** 10 eltérést kér; alapból a Megfigyelő indul. A két kép ugyanabból a rajzból készül, csak a körben kiválasztott részletek változnak. Új körben a jelenet és a nehézség megmarad, az eltéréskészlet változik.
+
+Bármelyik képen lehet találni, a megtalált részletek mindkettőn számozott zöld jelölést kapnak. A segítség előbb szöveges támpontot, majd tágabb, végül szűkebb környéket mutat; nem találja meg helyettünk a különbséget. Közös nagyító segít a kisebb kijelzőn, billentyűzettel mozgatható célkereszt és Enter/Space használható. Nincs hibapont vagy gyorsasági verseny. A közös portál játékideje, hangbeállításai, visszalépése és körvégi **Még egy ilyen / Kapcsolódó játék** lehetősége itt is működik.
+
+A kör, a jelenet- és nehézségválasztás csak a megnyitott oldal memóriájában él. A játék nem ír eredménytörténetet, játszásszámlálót, jutalmat vagy új profiladatot. A meglévő játékmentésekhez nem nyúl. A rajzok, a vezérlés és a rövid magyar hangok a kötelező offline csomag részei. A hangok a meglévő Jessa-felvételek pontos időadatokkal kivágott részletei; elkészítésük nem használt új szolgáltatói kreditet.
+
+Megvalósítás: `differences-data.js`, `differences-art.js`, `differences-game.js`, `differences.css`, `differences-voice.js`. Az adat- és renderinvariánsokat a `tests/differences.test.mjs`, a tényleges képpárok pixelkülönbségeit, a találati területeket, a játékmenetet és a mobilos/offline integrációt a `tests/browser/differences.js` ellenőrzi.
+
 
 ### Több változat ugyanazon a szinten – 2026. október 15.
 
@@ -61,7 +71,7 @@ Az első játék vagy mese indításakor közös **30 perces, folyamatos visszas
 | **Mondd utánam** | Egy szó, Két szó együtt, Róka R-kalandja |
 | **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget, Sakkliget |
 | **Mesék és Maci** | Mesetár, Etesd meg a macit!, Maci öltözik, Meseliget |
-| **Kirakók és ügyesség** | Képpárok, Képkirakó, Töltsünk a barátainknak!, Mi bújt el? |
+| **Kirakók és ügyesség** | Találd meg a különbségeket!, Képpárok, Képkirakó, Montessori műhely, Töltsünk a barátainknak!, Mi bújt el? |
 
 Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl megnevezi a célját. A többjátékos ligetekben és az R-kalandban először a saját választó nyílik meg, majd a csoport. A kör végi ablakból is vissza lehet lépni a csoporthoz. A böngésző vissza/előre gombja megtartja a kiválasztott képes témát és a számolási módot. A mentett ligetfeladatok és eredmények kilépés után is megmaradnak; az új körrel induló játékok visszatéréskor új kört kezdenek.
 

@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="./r-practice.css" />
   <link rel="stylesheet" href="./navigation.css" />
   <link rel="stylesheet" href="./play-time.css" />
+  <link rel="stylesheet" href="./differences.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -85,6 +86,7 @@
     <section id="activity-menu" class="panel menu-panel" aria-label="Kirakók és ügyesség">
       <p class="menu-intro">Figyelj, rakd össze, próbáld ki!</p>
       <div class="game-menu-grid">
+        <button class="game-menu-card" data-open="differences" aria-label="Találd meg a különbségeket!"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Találd meg a különbségeket!</strong><small>Négy jelenet · 5, 7 vagy 10 eltérés</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="memory" aria-label="Képpárok"><span class="game-menu-icon" aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Fordíts · jegyezd meg · keresd a párját</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="puzzle" aria-label="Képkirakó"><span class="game-menu-icon" aria-hidden="true">🧩</span><span><strong>Képkirakó</strong><small>Négy kép · 6, 8 vagy 10 darab</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="montessori" aria-label="Montessori műhely"><span class="game-menu-icon" aria-hidden="true">🪵</span><span><strong>Montessori műhely</strong><small>5 játék · 26 szint · formák, minták és szabályok</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
@@ -98,6 +100,7 @@
     <section id="furfangliget" class="panel logic-panel" aria-label="Furfangliget gondolkodtató játékok"></section>
     <section id="memory" class="panel memory-panel" aria-label="Képpárok memóriajáték"></section>
     <section id="puzzle" class="panel puzzle-panel" aria-label="Képkirakó puzzle játék"></section>
+    <section id="differences" class="panel differences-panel" aria-label="Találd meg a különbségeket! Képes megfigyelőjáték"></section>
     <section id="montessori" class="panel montessori-panel" aria-label="Montessori műhely, formák, színek és méretek"></section>
     <section id="chess" class="panel chess-panel" aria-label="Sakkliget sakkoktató játék"></section>
     <section id="workshop" class="panel workshop-panel" aria-label="Műhelyliget képes gondolkodtató játékok"></section>

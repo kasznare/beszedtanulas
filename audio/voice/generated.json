@@ -32198,6 +32198,108 @@
       ],
       "duration": 3.6,
       "characterCost": 19.0
+    },
+    "differences_start": {
+      "fingerprint": "de592efc150d074bacd716b2e19fb1424a2915f38a04610733f3507a544c5c23",
+      "sha256": "cf67abc5b77d692e69456c16cda48d46d84e6705accfc8ecad77adfa1f4a4e90",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Nézd"
+        ],
+        [
+          0.345,
+          0.425,
+          "meg"
+        ],
+        [
+          0.505,
+          0.545,
+          "a"
+        ],
+        [
+          0.585,
+          1.305,
+          "képeket"
+        ]
+      ],
+      "duration": 1.425011,
+      "characterCost": 30.0
+    },
+    "differences_hint": {
+      "fingerprint": "665f56de59dad6b42aa81c3d4559967cf5700a1ae5869845d0b5b739afb9447f",
+      "sha256": "871ec7078731e0c2633908791b2ea98cbfaacc55a911b640391b80615de85514",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Figyeld"
+        ],
+        [
+          0.425,
+          0.505,
+          "meg"
+        ],
+        [
+          0.585,
+          0.625,
+          "a"
+        ],
+        [
+          0.665,
+          1.225,
+          "képet"
+        ]
+      ],
+      "duration": 1.345011,
+      "characterCost": 32.0
+    },
+    "differences_closer": {
+      "fingerprint": "665f56de59dad6b42aa81c3d4559967cf5700a1ae5869845d0b5b739afb9447f",
+      "sha256": "871ec7078731e0c2633908791b2ea98cbfaacc55a911b640391b80615de85514",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Figyeld"
+        ],
+        [
+          0.425,
+          0.505,
+          "meg"
+        ],
+        [
+          0.585,
+          0.625,
+          "a"
+        ],
+        [
+          0.665,
+          1.225,
+          "képet"
+        ]
+      ],
+      "duration": 1.345011,
+      "characterCost": 32.0
+    },
+    "differences_done": {
+      "fingerprint": "146d3bc59ad3d7fe9752d40ee01d00bce6aa21df0fb9f1d8fdeb12ccc8855a85",
+      "sha256": "8ea3c93c08a8a05f3e92ac282aecf834959712372aab796c57eea93c775a2221",
+      "words": [
+        [
+          0.025,
+          0.265,
+          "Szép"
+        ],
+        [
+          0.345,
+          0.825,
+          "munka"
+        ]
+      ],
+      "duration": 0.945011,
+      "characterCost": 3.0
     }
   }
 }

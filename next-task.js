@@ -9,6 +9,8 @@ const destinations = {
   'numbers-count': { screen: 'numbers', numberMode: 'quiz', title: 'Keresd meg!', reason: 'Mutasd meg a kért mennyiséget!' },
   'numbers-quiz': { screen: 'numbers', numberMode: 'count', title: 'Számoljuk meg!', reason: 'Számoljuk meg együtt a tárgyakat!' },
   puzzle: { screen: 'memory', mode: 'classic', title: 'Képpárok', reason: 'Most képek párját keressük!' },
+  differences: { screen: 'puzzle', title: 'Képkirakó', reason: 'A részletek után rakjunk össze egy egész képet!' },
+  flip: { screen: 'differences', title: 'Találd meg a különbségeket!', reason: 'Nézzünk meg két képet! Vajon mi változott?' },
   'dress-game': { screen: 'teddy-game', mode: 'single', title: 'Macietetés', reason: 'Öltözés után kínáljuk meg Macit!' },
   pour: { screen: 'numbers', numberMode: 'count', title: 'Számoljuk meg!', reason: 'Nézzük meg, hány tárgy van előttünk!' },
   'furfangliget:shop': { screen: 'numbers', numberMode: 'quiz', title: 'Keresd meg!', reason: 'A bolt után keressük meg a kért mennyiséget!' },

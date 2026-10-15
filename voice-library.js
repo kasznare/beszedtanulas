@@ -1080,6 +1080,22 @@ export const VOICE_CLIPS = {
     "text": "Elkészült a kép! Szép munka!",
     "file": "audio/voice/puzzle_done.mp3"
   },
+  "differences_start": {
+    "text": "Nézd meg a képeket!",
+    "file": "audio/voice/differences_start.mp3"
+  },
+  "differences_hint": {
+    "text": "Figyeld meg a képet!",
+    "file": "audio/voice/differences_hint.mp3"
+  },
+  "differences_closer": {
+    "text": "Figyeld meg a képet!",
+    "file": "audio/voice/differences_closer.mp3"
+  },
+  "differences_done": {
+    "text": "Szép munka!",
+    "file": "audio/voice/differences_done.mp3"
+  },
   "montessori_menu": {
     "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
     "file": "audio/voice/montessori_menu.mp3"

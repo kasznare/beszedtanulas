@@ -1,6 +1,9 @@
 // Selectors are scoped to the current game. Answer choices are never singled out before a solution.
 const part = (at, target, motion) => ({at, target, motion});
 const map = {
+ differences_start: {target:'.differences-picture'},
+ differences_hint: {target:'#differences-status'},
+ differences_closer: {target:'#differences-status'},
  guide_welcome: {parts:[part('Válassz', '.home-tile')]},
  guide_picture_menu: {parts:[part('képeket', '[data-open="topics"]'),part('szavakat', '[data-open="listening-game"]')]},
  guide_practice: {parts:[part('Egy szóval','[data-open="imitate"]'),part('két szóval','[data-open="two-word"]')]},

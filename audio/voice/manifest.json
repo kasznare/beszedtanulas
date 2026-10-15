@@ -2597,6 +2597,66 @@
       "file": "audio/voice/puzzle_done.mp3"
     },
     {
+      "id": "differences_start",
+      "text": "Nézd meg a képeket!",
+      "group": "differences",
+      "file": "audio/voice/differences_start.mp3",
+      "spokenText": "Mondjuk együtt: Nézd meg a /ˈkeːpɛkɛt/! Azután egy elbújik. Melyik hiányzik?",
+      "extract": {
+        "from": 16,
+        "to": 38,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Nézd meg a képeket!"
+      },
+      "spokenTarget": "Nézd meg a /ˈkeːpɛkɛt/"
+    },
+    {
+      "id": "differences_hint",
+      "text": "Figyeld meg a képet!",
+      "group": "differences",
+      "file": "audio/voice/differences_hint.mp3",
+      "spokenText": "Mondjuk együtt: Próbáld újra! Figyeld meg a /ˈkeːpɛt/ vagy hallgasd meg a hangot!",
+      "extract": {
+        "from": 30,
+        "to": 53,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Figyeld meg a képet!"
+      },
+      "spokenTarget": "Figyeld meg a /ˈkeːpɛt/"
+    },
+    {
+      "id": "differences_closer",
+      "text": "Figyeld meg a képet!",
+      "group": "differences",
+      "file": "audio/voice/differences_closer.mp3",
+      "spokenText": "Mondjuk együtt: Próbáld újra! Figyeld meg a /ˈkeːpɛt/ vagy hallgasd meg a hangot!",
+      "extract": {
+        "from": 30,
+        "to": 53,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Figyeld meg a képet!"
+      },
+      "spokenTarget": "Figyeld meg a /ˈkeːpɛt/"
+    },
+    {
+      "id": "differences_done",
+      "text": "Szép munka!",
+      "group": "differences",
+      "file": "audio/voice/differences_done.mp3",
+      "spokenText": "Minden pár megvan! Szép munka!",
+      "spokenTarget": "Szép munka",
+      "extract": {
+        "from": 19,
+        "to": 29,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Szép munka!"
+      }
+    },
+    {
       "id": "montessori_menu",
       "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
       "group": "montessori",

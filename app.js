@@ -26,6 +26,7 @@ import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
 import { setupPuzzleGame } from "./puzzle-game.js";
+import { setupDifferencesGame } from "./differences-game.js";
 import { setupChessGame } from "./chess-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupMontessoriGame } from "./montessori-game.js";
@@ -74,7 +75,7 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
@@ -88,6 +89,7 @@ const screenInfo = {
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
   puzzle: { title: "Képkirakó" },
+  differences: { title: "Találd meg a különbségeket!" },
   montessori: { title: "Montessori műhely" },
   chess: { title: "Sakkliget" },
   workshop: { title: "Műhelyliget" },
@@ -138,6 +140,7 @@ let meadowGame;
 let logicGame;
 let memoryGame;
 let puzzleGame;
+let differencesGame;
 let montessoriGame;
 let chessGame;
 let workshopGame;
@@ -442,6 +445,13 @@ puzzleGame = setupPuzzleGame({
     saveProgress(); refreshStats(); celebrateRound('puzzle', count);
   },
 });
+differencesGame = setupDifferencesGame({
+  effect: playEffect,
+  stopPlayback,
+  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id); },
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: ({ count }) => celebrateRound('differences', count),
+});
 chessGame = setupChessGame({
   effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
@@ -597,7 +607,7 @@ applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 setupPlayTime();
-setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
+setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
 document.addEventListener("visibilitychange", () => { if (document.hidden) effects.stop(); else effects.sync(); });
 window.addEventListener("pagehide", () => effects.stop());
 
@@ -2129,6 +2139,7 @@ function setupNavigation() {
     else if (currentScreen === "memory") memoryGame.repeat();
     else if (currentScreen === "pour") pourGame.repeat();
     else if (currentScreen === "puzzle") puzzleGame.repeat();
+    else if (currentScreen === "differences") differencesGame.repeat();
     else if (currentScreen === "montessori") montessoriGame.repeat();
     else if (currentScreen === "chess") chessGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
@@ -2164,6 +2175,7 @@ function setupNavigation() {
     else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
     else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
+    else if (completedRoundKind === "differences") showScreen("differences", { gameOptions: differencesGame.getContext() });
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
     else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
@@ -2222,6 +2234,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   logicGame?.stop();
   memoryGame?.stop();
   puzzleGame?.stop();
+  differencesGame?.stop();
   montessoriGame?.stop();
   chessGame?.stop();
   workshopGame?.stop();
@@ -2266,6 +2279,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "furfangliget") logicGame.start(gameOptions);
   if (screen === "memory") memoryGame.start(gameOptions);
   if (screen === "puzzle") puzzleGame.start();
+  if (screen === "differences") differencesGame.start(gameOptions);
   if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
   if (screen === "workshop") workshopGame.start(gameOptions);
@@ -2386,7 +2400,7 @@ function celebrateRound(kind, count) {
     playSuccessSound();
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
-    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
+    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
     const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
     const continueButton = document.querySelector('#round-replay');
     continueButton.classList.add('round-next');
@@ -2403,8 +2417,10 @@ function celebrateRound(kind, count) {
     if (kind === "pour") speakVoice('pour_done');
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');
+    else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
     else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(count === 3 ? 'chess_done' : 'chess_solved');
     else if (kind === "chess") return;
+    else if (kind === "differences" && !state.settings.spokenGuidance) return;
     else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
   });
 }

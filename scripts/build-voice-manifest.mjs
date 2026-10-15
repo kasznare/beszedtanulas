@@ -9,6 +9,7 @@ import { MESE_CLIPS } from '../meseliget-data.js';
 import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
+import { DIFFERENCE_CLIPS } from '../differences-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
@@ -67,6 +68,7 @@ for (const [group, source] of Object.entries({dress:DRESS_CLIPS,teddy:TEDDY_CLIP
 for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) add(id, text, 'puzzle');
+for (const [id, text] of Object.entries(DIFFERENCE_CLIPS)) add(id, text, 'differences');
 for (const [id, text] of Object.entries(MONTESSORI_CLIPS)) add(id, text, 'montessori');
 for (const [id, text] of Object.entries(CHESS_CLIPS)) add(id, text, 'chess');
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop');
@@ -158,6 +160,10 @@ function excerptFrom(clip, source) {
   clip.spokenText = source.spokenText || source.text;
   clip.spokenTarget = spoken.slice(first.index, last.index + last[0].length);
   clip.extract = {from:offset+first.index,to:offset+last.index+last[0].length,before:0.025,after:0.12,text:clip.text};
+}
+// New visual-game cues reuse already recorded phrases; no new paid speech.
+for (const [id, sourceId] of Object.entries({ differences_start: 'flip_missing', differences_hint: 'abk_try_again', differences_closer: 'abk_try_again', differences_done: 'memory_done' })) {
+  excerptFrom(clips.find(clip => clip.id === id), clips.find(clip => clip.id === sourceId));
 }
 for (const clip of clips) {
   const rhyme = /^r_rhyme_part_(.+)_(\d+)_(\d+)$/.exec(clip.id);
