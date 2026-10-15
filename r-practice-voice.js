@@ -1,4 +1,4 @@
-import { R_WORDS, R_DISTRACTORS, R_RHYMES, R_RHYME_EXTRA_WORDS, R_POST_MISSIONS, R_RHYME_PARTS } from './r-practice-data.js';
+import { R_PHRASE_VARIANTS, R_WORDS, R_DISTRACTORS, R_RHYMES, R_RHYME_EXTRA_WORDS, R_POST_MISSIONS, R_RHYME_PARTS } from './r-practice-data.js';
 
 export const R_CLIPS = {
   r_hub:'Róka és robot vár rád! Hallgassunk szavakat, mondjunk mondókát, és játsszunk együtt!',
@@ -37,3 +37,5 @@ for (const rhyme of R_RHYMES) rhyme.lines.forEach(([text],i)=>{R_CLIPS[`r_rhyme_
 
 for (const mission of R_POST_MISSIONS) R_CLIPS[`r_mission_${mission.id}`]=mission.text;
 for (const [id,lines] of Object.entries(R_RHYME_PARTS)) lines.forEach((parts,line)=>parts.forEach((text,part)=>{R_CLIPS[`r_rhyme_part_${id}_${line}_${part}`]=text;}));
+
+for (const variant of R_PHRASE_VARIANTS) R_CLIPS[variant.clip]=variant.text;

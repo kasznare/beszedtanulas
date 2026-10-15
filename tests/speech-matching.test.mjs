@@ -5,7 +5,7 @@ import { matchTwoWordPhrase } from '../speech-matching.js';
 
 const phrase = id => twoWordPhrases.find(item => item.id === id).targets;
 
-test('all six taught phrases are accepted with Hungarian accents', () => {
+test('all taught phrases are accepted with Hungarian accents', () => {
   for (const item of twoWordPhrases) {
     assert.equal(matchTwoWordPhrase(item.targets, [item.text]).success, true, item.text);
   }
@@ -24,7 +24,7 @@ test('one shared alias cannot count as two spoken words', () => {
 
 test('aliases, punctuation and flexible word order still work', () => {
   assert.equal(matchTwoWordPhrase(phrase('kerek_vizet'), ['víz, kérem!']).success, true);
-  assert.equal(matchTwoWordPhrase(phrase('apa_auto'), ['aba,otu']).success, true);
+  assert.equal(matchTwoWordPhrase(phrase('apa_auto'), ['aba,autózik']).success, true);
   assert.equal(matchTwoWordPhrase(phrase('anya_gyere'), ['ana gye']).success, true);
 });
 

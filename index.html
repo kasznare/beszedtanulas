@@ -32,6 +32,7 @@
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="./listening-bingo.css">
 </head>
 <body data-screen="home">
 <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol><symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5z"/><path d="M15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol><symbol id="i-next" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7M4 12h13"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7M20 12H7"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="13" rx="4"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"/></symbol><symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M19 11a7 7 0 0 0-12-5L4 9m1 4a7 7 0 0 0 12 5l3-3"/></symbol><symbol id="i-gear" viewBox="0 0 24 24"><path d="m9 3 1-2h4l1 2 3 2 2-.1 2 4-1 2v3l1 2-2 4-2-.1-3 2-1 2h-4l-1-2-3-2-2 .1-2-4 1-2v-3l-1-2 2-4L6 5z" transform="translate(0 0) scale(1 .92)"/><circle cx="12" cy="11" r="3"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></symbol></svg>
@@ -264,6 +265,7 @@
 
     <section id="two-word" class="panel practice-panel" aria-label="Két szó">
       <div class="phrase-wrap">
+        <div class="phrase-filters"><label>Milyen kifejezések?<select id="phrase-group"></select></label><label>Téma<select id="phrase-topic"></select></label></div><p id="phrase-content-count" class="upgrade-note"></p>
         <div id="phrase-mode" class="upgrade-options" role="group" aria-label="Kifejezésgyakorlás módja"><button data-phrase-mode="together">Együtt · mikrofon nélkül</button><button data-phrase-mode="microphone">Mikrofonnal</button></div>
         <div class="upgrade-options"><button id="phrase-parts-toggle" aria-pressed="false">Külön, aztán együtt</button><button id="phrase-round-start">▶ Rövid gyakorlókör</button></div>
         <p id="phrase-round-status" class="upgrade-note" role="status"></p>
@@ -444,6 +446,7 @@
     <span class="complete-sun" aria-hidden="true">🌟</span>
     <h2 id="round-complete-title">De jó volt együtt!</h2>
     <div id="complete-stars" class="complete-stars" aria-hidden="true"></div>
+    <div id="round-related"></div>
     <div class="actions"><button id="round-back" class="secondary icon-btn" aria-label="Vissza a játékokhoz"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg></button><button id="round-home" class="secondary icon-btn" aria-label="Vissza a főképernyőre"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></button><button id="round-replay" class="primary icon-btn" aria-label="Még egy kör"><svg class="icon" aria-hidden="true"><use href="#i-repeat"></use></svg></button></div>
   </dialog>
   <dialog id="progress-dialog" class="progress-dialog" aria-labelledby="progress-dialog-title" aria-describedby="progress-dialog-description progress-dialog-note">

@@ -36,60 +36,34 @@ export const wordCategories = [
 ];
 
 export const twoWordPhrases = [
-  {
-    id: "kerek_vizet",
-    text: "kérek vizet",
-    emojis: ["🙏", "💧"],
-    targets: [
-      { base: "kerek", aliases: ["kerek", "kerem", "ker"] },
-      { base: "vizet", aliases: ["viz", "vizet", "vizet"] },
-    ],
-  },
-  {
-    id: "meg_alma",
-    text: "még alma",
-    emojis: ["➕", "🍎"],
-    targets: [
-      { base: "meg", aliases: ["meg", "meg"] },
-      { base: "alma", aliases: ["ama", "alma", "amma"] },
-    ],
-  },
-  {
-    id: "anya_gyere",
-    text: "anya gyere",
-    emojis: ["👩", "👉"],
-    targets: [
-      { base: "anya", aliases: ["anya", "ana", "aja"] },
-      { base: "gyere", aliases: ["gyere", "gyere", "gye"] },
-    ],
-  },
-  {
-    id: "apa_auto",
-    text: "apa autó",
-    emojis: ["👨", "🚗"],
-    targets: [
-      { base: "apa", aliases: ["apa", "aba", "appa"] },
-      { base: "auto", aliases: ["ato", "otu", "auto"] },
-    ],
-  },
-  {
-    id: "nagy_labda",
-    text: "nagy labda",
-    emojis: ["📏", "⚽"],
-    targets: [
-      { base: "nagy", aliases: ["nagy", "nagyi", "nagi"] },
-      { base: "labda", aliases: ["aba", "laba", "bada"] },
-    ],
-  },
-  {
-    id: "nem_kerem",
-    text: "nem kérem",
-    emojis: ["🚫", "🙏"],
-    targets: [
-      { base: "nem", aliases: ["nem", "neeem"] },
-      { base: "kerem", aliases: ["kerem", "kerek", "kerem"] },
-    ],
-  },
+  // Each cue illustrates one spoken part; topic and group support short, coherent rounds.
+  { id: "kerek_vizet", text: "kérek vizet", group: "request", topic: "food", emojis: ["🙋", "💧"], targets: [{ base: "kérek", aliases: ["kerek", "kerem", "ker"] }, { base: "vizet", aliases: ["viz", "vizet", "bi"] }] },
+  { id: "meg_alma", text: "még almát", group: "more_stop", topic: "food", emojis: ["➕", "🍎"], targets: [{ base: "még", aliases: ["meg"] }, { base: "almát", aliases: ["almat", "alma", "ama"] }] },
+  { id: "anya_gyere", text: "anya gyere", group: "person_action", topic: "family", emojis: ["👩", "👋"], targets: [{ base: "anya", aliases: ["ana", "aja"] }, { base: "gyere", aliases: ["gye"] }] },
+  { id: "apa_auto", text: "apa autózik", group: "person_action", topic: "play", emojis: ["👨", "🚗💨"], targets: [{ base: "apa", aliases: ["aba", "appa"] }, { base: "autózik", aliases: ["autozik", "atozik"] }] },
+  { id: "nagy_labda", text: "nagy labda", group: "attribute_object", topic: "play", emojis: ["📏", "⚽"], targets: [{ base: "nagy", aliases: ["nagi"] }, { base: "labda", aliases: ["laba", "bada"] }] },
+  { id: "nem_kerem", text: "nem kérem", group: "more_stop", topic: "food", emojis: ["🚫", "🙅"], targets: [{ base: "nem", aliases: ["neem"] }, { base: "kérem", aliases: ["kerem", "kerek"] }] },
+  { id: "kerek_almat", text: "kérek almát", group: "request", topic: "food", emojis: ["🙋", "🍎"], targets: [{ base: "kérek", aliases: ["kerek", "kerem"] }, { base: "almát", aliases: ["almat", "alma", "ama"] }] },
+  { id: "kerek_tejet", text: "kérek tejet", group: "request", topic: "food", emojis: ["🙋", "🥛"], targets: [{ base: "kérek", aliases: ["kerek", "kerem"] }, { base: "tejet", aliases: ["tejet", "tej"] }] },
+  { id: "kerek_kiflit", text: "kérek kiflit", group: "request", topic: "food", emojis: ["🙋", "🥐"], targets: [{ base: "kérek", aliases: ["kerek", "kerem"] }, { base: "kiflit", aliases: ["kiflit", "kifli", "kifi"] }] },
+  { id: "kerek_kenyeret", text: "kérek kenyeret", group: "request", topic: "food", emojis: ["🙋", "🍞"], targets: [{ base: "kérek", aliases: ["kerek", "kerem"] }, { base: "kenyeret", aliases: ["kenyeret", "kenyer", "kener"] }] },
+  { id: "adj_vizet", text: "adj vizet", group: "request", topic: "food", emojis: ["🤲", "💧"], targets: [{ base: "adj", aliases: ["agy", "ad"] }, { base: "vizet", aliases: ["vizet", "viz"] }] },
+  { id: "anya_foz", text: "anya főz", group: "person_action", topic: "family", emojis: ["👩", "🍲"], targets: [{ base: "anya", aliases: ["ana", "aja"] }, { base: "főz", aliases: ["foz"] }] },
+  { id: "apa_integet", text: "apa integet", group: "person_action", topic: "family", emojis: ["👨", "👋"], targets: [{ base: "apa", aliases: ["aba", "appa"] }, { base: "integet", aliases: ["integet"] }] },
+  { id: "baba_alszik", text: "baba alszik", group: "person_action", topic: "family", emojis: ["👶", "💤"], targets: [{ base: "baba", aliases: ["aba"] }, { base: "alszik", aliases: ["alsik"] }] },
+  { id: "cica_alszik", text: "cica alszik", group: "person_action", topic: "animals", emojis: ["🐱", "💤"], targets: [{ base: "cica", aliases: ["sica", "tica"] }, { base: "alszik", aliases: ["alsik"] }] },
+  { id: "kutya_fut", text: "kutya fut", group: "person_action", topic: "animals", emojis: ["🐶", "🏃"], targets: [{ base: "kutya", aliases: ["kuya"] }, { base: "fut", aliases: ["fut"] }] },
+  { id: "maci_eszik", text: "maci eszik", group: "person_action", topic: "play", emojis: ["🧸", "😋"], targets: [{ base: "maci", aliases: ["maci"] }, { base: "eszik", aliases: ["esik"] }] },
+  { id: "piros_alma", text: "piros alma", group: "attribute_object", topic: "food", emojis: ["🔴", "🍎"], targets: [{ base: "piros", aliases: ["piros"] }, { base: "alma", aliases: ["ama", "amma"] }] },
+  { id: "kicsi_cica", text: "kicsi cica", group: "attribute_object", topic: "animals", emojis: ["🤏", "🐱"], targets: [{ base: "kicsi", aliases: ["kici"] }, { base: "cica", aliases: ["sica", "tica"] }] },
+  { id: "nagy_auto", text: "nagy autó", group: "attribute_object", topic: "play", emojis: ["📏", "🚗"], targets: [{ base: "nagy", aliases: ["nagi"] }, { base: "autó", aliases: ["auto", "ato", "otu"] }] },
+  { id: "meleg_tej", text: "meleg tej", group: "attribute_object", topic: "food", emojis: ["♨️", "🥛"], targets: [{ base: "meleg", aliases: ["meleg"] }, { base: "tej", aliases: ["te", "dej"] }] },
+  { id: "puha_maci", text: "puha maci", group: "attribute_object", topic: "play", emojis: ["☁️", "🧸"], targets: [{ base: "puha", aliases: ["puha"] }, { base: "maci", aliases: ["maci"] }] },
+  { id: "szep_virag", text: "szép virág", group: "attribute_object", topic: "nature", emojis: ["✨", "🌷"], targets: [{ base: "szép", aliases: ["szep"] }, { base: "virág", aliases: ["virag", "vira"] }] },
+  { id: "meg_kerek", text: "még kérek", group: "more_stop", topic: "food", emojis: ["➕", "🙋"], targets: [{ base: "még", aliases: ["meg"] }, { base: "kérek", aliases: ["kerek", "kerem"] }] },
+  { id: "eleg_volt", text: "elég volt", group: "more_stop", topic: "food", emojis: ["🛑", "✅"], targets: [{ base: "elég", aliases: ["eleg"] }, { base: "volt", aliases: ["vot"] }] },
+  { id: "allj_meg", text: "állj meg", group: "more_stop", topic: "play", emojis: ["✋", "🛑"], targets: [{ base: "állj", aliases: ["allj", "aj"] }, { base: "meg", aliases: ["meg"] }] },
+  { id: "meg_jatszunk", text: "még játszunk", group: "more_stop", topic: "play", emojis: ["➕", "🧸"], targets: [{ base: "még", aliases: ["meg"] }, { base: "játszunk", aliases: ["jatszunk", "jatsunk"] }] },
 ];
 
 export const TODDLER_ALIASES = {

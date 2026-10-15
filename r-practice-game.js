@@ -1,4 +1,5 @@
-import { R_GAMES, R_WORDS, R_RHYMES, R_POSITIONS, R_HUNTER_MODES, R_STAMPS, rhymeGap, buildRhymeChoices, rSoundPositions, pickRGame, buildRPracticeDeck, loadRPreferences, saveRPreferences, normalizeRPreferences, normalizeRProgress, recordRProgress, rWordPool, shuffleR, buildRHunterRound, R_RECIPIENTS, R_DECORATIONS, buildRPostMission, rRhymeUnits, buildRRhymeStory, isRRhymeStoryComplete } from './r-practice-data.js';
+import { relatedTaskMarkup } from './next-task.js';
+import { withRPhraseVariant, R_GAMES, R_WORDS, R_RHYMES, R_POSITIONS, R_HUNTER_MODES, R_STAMPS, rhymeGap, buildRhymeChoices, rSoundPositions, pickRGame, buildRPracticeDeck, loadRPreferences, saveRPreferences, normalizeRPreferences, normalizeRProgress, recordRProgress, rWordPool, shuffleR, buildRHunterRound, R_RECIPIENTS, R_DECORATIONS, buildRPostMission, rRhymeUnits, buildRRhymeStory, isRRhymeStoryComplete } from './r-practice-data.js';
 import { createRRecorder } from './r-practice-media.js';
 import { createSuccessDelay } from './success-delay.js';
 
@@ -18,6 +19,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   let readyToAdvance=false, transcript='';
   let rhymeIndex=0, rhymeDone=new Set(), rhymeRoundReported=false;
   let hunterErrors=0, mission=null, deliveries=[], interactionReady=false;
+  const previousPhrases=new Map();
   let decorations=Array(9).fill(null), selectedDecoration='';
   let storyOpen=false, storyCards=[], storyOrder=[], storyDone=false;
   let suspendedFocus='', modelTarget='';
@@ -81,7 +83,8 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   const rhymeUnits=()=>rRhymeUnits(currentRhyme(),prefs.rhymeMode!=='missing'&&prefs.rhymeShort);
   const currentUnit=()=>rhymeUnits()[step];
   const targetText=()=>game==='rhyme'?currentUnit().text:prefs.target==='phrase'?currentWord().phrase:currentWord().text;
-  const targetClip=()=>game==='rhyme'?currentUnit().clip:`r_${prefs.target==='phrase'?'phrase':'word'}_${currentWord().id}`;
+  const targetClip=()=>game==='rhyme'?currentUnit().clip:prefs.target==='phrase'?(currentWord().phraseClip||`r_phrase_${currentWord().id}`):`r_word_${currentWord().id}`;
+  const targetPicture=word=>prefs.target==='phrase'&&word.phraseIcons?word.phraseIcons.map(icon=>`<span>${icon}</span>`).join(' '):word.icon;
   const stopButton=()=>phase!=='idle'?'<button class="rp-stop" data-action="stop">■ Megállítás</button>':'';
   function speechControls(advanceLabel) {
     const busy=phase!=='idle'||completed, together=prefs.speechMode==='together';
@@ -98,9 +101,9 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   }
   function renderPost() {
     const parcels=`<div class="rp-parcels" aria-label="${deliveries.length} kézbesített csomag">${deliveries.map((item,i)=>`<span class="rp-parcel ${i===deliveries.length-1?'is-arriving':''}" aria-label="${html(item.word.text)}, ${html(item.recipient.name)} csomagja">📦<small>${item.word.icon}</small><span class="rp-parcel-recipient">${item.recipient.icon}</span></span>`).join('')}</div>`;
-    if(completed&&!successPending)return `<div class="rp-post-mission"><h3>${mission.icon} ${mission.title}</h3>${parcels}</div>${renderRecipients()}${finishCard('Mindkét csomag megérkezett!','🤖 📦 🌼')}`;
+    if(completed&&!successPending)return `<div class="rp-post-mission"><h3>${mission.icon} ${mission.title}</h3>${parcels}${mission.ending?`<p class="rp-mission-ending"><span aria-hidden="true">${mission.scene}</span>${mission.ending}</p>`:''}</div>${renderRecipients()}${finishCard('Mindkét csomag megérkezett!','🤖 📦 🌼')}`;
     const word=currentWord();
-    return `<div class="rp-post-mission"><h3>${mission.icon} ${mission.title}</h3><p>Két összetartozó csomag · válassz, kinek küldöd!</p><div class="rp-mission-items">${deck.map((item,i)=>`<span class="${i<step?'is-delivered':''}">${item.icon} ${html(item.text)} ${i<step?'✓':''}</span>`).join('')}</div></div>${progressDots()}<div class="rp-post-scene"><span class="rp-post-cloud" aria-hidden="true">☁</span><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3></div><div class="rp-post-robot ${phase==='listening'?'is-listening':''}" aria-hidden="true">🤖<span class="rp-robot-bubble">${interactionReady?'Kész a csomag!':'Ezt küldjük!'}</span></div>${parcels}</div>
+    return `<div class="rp-post-mission"><h3>${mission.icon} ${mission.title}</h3><p>Két összetartozó csomag · válassz, kinek küldöd!</p><div class="rp-mission-items">${deck.map((item,i)=>`<span class="${i<step?'is-delivered':''}">${item.icon} ${html(item.text)} ${i<step?'✓':''}</span>`).join('')}</div></div>${progressDots()}<div class="rp-post-scene"><span class="rp-post-cloud" aria-hidden="true">☁</span><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${targetPicture(word)}</span><h3>${marked(targetText())}</h3></div><div class="rp-post-robot ${phase==='listening'?'is-listening':''}" aria-hidden="true">🤖<span class="rp-robot-bubble">${interactionReady?'Kész a csomag!':'Ezt küldjük!'}</span></div>${parcels}</div>
       ${interactionReady?`<p class="rp-help">Kész a csomag! Koppints egy házra!</p>${renderRecipients(true)}<div class="rp-actions">${stopButton()}<button data-action="model" ${phase!=='idle'||completed?'disabled':''}>🔊 Szó újra</button></div>`:renderRecipients()+speechControls('Csomag előkészítése')}`;
   }
   function bakery() {
@@ -110,7 +113,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
     const picker=`<div class="rp-position-picker" role="group" aria-label="Az R helye a szóban">${Object.entries(R_POSITIONS).map(([id,label])=>`<button data-position="${id}" aria-pressed="${prefs.position===id}"><b aria-hidden="true">${{all:'R',initial:'R…',medial:'…R…',final:'…R'}[id]}</b><small>${label}</small></button>`).join('')}</div><p class="rp-mode-note">Másik szócsoportnál új kör indul, a díszeid megmaradnak.</p>`;
     if(completed&&!successPending)return `${picker}${bakery()}${finishCard('Elkészültek az új díszeink!','🥨 🌷')}`;
     const word=currentWord();
-    return `${picker}${progressDots()}<div class="rp-workshop-layout">${bakery()}<div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3><p>${R_POSITIONS[word.position]}</p></div></div><div class="rp-stamp-picker" role="group" aria-label="Milyen díszt készítsünk?">${R_STAMPS.map(style=>`<button data-stamp="${style.id}" aria-pressed="${stamp===style.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${style.icon}</span>${style.name}</button>`).join('')}</div>${interactionReady?`<p class="rp-help">Válassz egy díszt, aztán koppints egy helyre a műhelyben! A régi díszt is lecserélheted.</p><div class="rp-decoration-picker" role="group" aria-label="Válassz díszt">${R_DECORATIONS.map(item=>`<button data-decoration="${item.id}" aria-pressed="${selectedDecoration===item.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${item.icon}</span>${item.name}</button>`).join('')}</div><div class="rp-actions">${stopButton()}</div>`:speechControls('Díszt választok')}`;
+    return `${picker}${progressDots()}<div class="rp-workshop-layout">${bakery()}<div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${targetPicture(word)}</span><h3>${marked(targetText())}</h3><p>${R_POSITIONS[word.position]}</p></div></div><div class="rp-stamp-picker" role="group" aria-label="Milyen díszt készítsünk?">${R_STAMPS.map(style=>`<button data-stamp="${style.id}" aria-pressed="${stamp===style.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${style.icon}</span>${style.name}</button>`).join('')}</div>${interactionReady?`<p class="rp-help">Válassz egy díszt, aztán koppints egy helyre a műhelyben! A régi díszt is lecserélheted.</p><div class="rp-decoration-picker" role="group" aria-label="Válassz díszt">${R_DECORATIONS.map(item=>`<button data-decoration="${item.id}" aria-pressed="${selectedDecoration===item.id}" ${phase!=='idle'||completed?'disabled':''}><span aria-hidden="true">${item.icon}</span>${item.name}</button>`).join('')}</div><div class="rp-actions">${stopButton()}</div>`:speechControls('Díszt választok')}`;
   }
   function renderStory() {
     const rhyme=currentRhyme();
@@ -135,7 +138,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   }
   function renderEcho() {
     const word=currentWord(), busy=phase!=='idle', supported=recorder.isSupported();
-    return `<label class="rp-echo-picker">Válassz mintát<select data-echo-word>${deck.map((item,i)=>`<option value="${i}" ${i===step?'selected':''}>${html(item.text)}</option>`).join('')}</select></label><div class="rp-echo-stage"><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${word.icon}</span><h3>${marked(targetText())}</h3></div><span class="rp-echo-rings ${phase==='recording'||phase==='replay'?'is-active':''}" aria-hidden="true">${phase==='recording'?'🎙️':phase==='replay'?'🔊':'🎧'}</span></div>
+    return `<label class="rp-echo-picker">Válassz mintát<select data-echo-word>${deck.map((item,i)=>`<option value="${i}" ${i===step?'selected':''}>${html(item.text)}</option>`).join('')}</select></label><div class="rp-echo-stage"><div class="rp-target" data-word="${word.id}"><span class="rp-target-picture" aria-hidden="true">${targetPicture(word)}</span><h3>${marked(targetText())}</h3></div><span class="rp-echo-rings ${phase==='recording'||phase==='replay'?'is-active':''}" aria-hidden="true">${phase==='recording'?'🎙️':phase==='replay'?'🔊':'🎧'}</span></div>
       <div class="rp-record-timer" aria-live="off">${phase==='recording'?`Felvétel: ${recordingSeconds} / 8 másodperc`:recording?`Saját felvétel: ${(recordingDuration/1000).toFixed(1).replace('.',',')} másodperc`:'Egy rövid szó vagy kifejezés fér a felvételbe.'}</div>
       <div class="rp-actions"><button class="rp-primary" data-action="model" ${busy?'disabled':''}>🔊 Mintahang</button>${phase==='recording'?'<button class="rp-primary" data-action="record-finish">■ Felvétel befejezése</button>':`<button data-action="record" ${busy||!supported?'disabled':''}>🎙️ ${recording?'Újra felveszem':'Felveszem a hangom'}</button>`}${busy?'<button data-action="stop">■ Megállítás</button>':''}</div>
       <div class="rp-actions"><button class="rp-primary" data-action="replay" ${busy||!recording?'disabled':''}>▶ Saját hangom</button><button data-action="compare" ${busy||!recording?'disabled':''}>🔊 Minta, aztán saját hangom</button><button data-action="record-delete" ${busy||!recording?'disabled':''}>Felvétel elengedése</button><button data-action="echo-next" ${busy?'disabled':''}>Másik szó →</button></div><div class="rp-actions"><button data-action="echo-confirm" ${busy||echoRoundReported?'disabled':''}>Együtt gyakoroltuk 🌼</button></div>
@@ -150,7 +153,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
       <div class="rp-choice-grid" style="--rp-choices:${prefs.choices}">${current.choices.map(word=>`<div class="rp-option ${solved&&word.id===current.target.id?'is-found':''} ${wrongId===word.id?'is-try':''}" data-id="${word.id}">${sound?`<button class="rp-choice-sound" data-sound="${word.id}" aria-label="${html(word.text)} meghallgatása" ${completed||phase!=='idle'?'disabled':''}>🔊</button>`:''}<button class="rp-picture-choice" data-choice="${word.id}" aria-label="${html(word.text)} kiválasztása" ${solved||phase!=='idle'?'disabled':''}><span aria-hidden="true">${word.icon}</span><small>${html(word.text)}</small>${solved&&word.id===current.target.id?'<b aria-hidden="true">✓</b>':''}</button></div>`).join('')}</div>
       <div class="rp-actions">${stopButton()}<button data-action="hunter-next" class="rp-primary" ${completed||!solved||phase!=='idle'?'disabled':''}>${step===deck.length-1?'Kör befejezése':'Következő kép'} →</button><button data-action="restart">↻ Új képek</button></div>`;
   }
-  function finishCard(title,icons) { return `<div class="rp-finish"><span aria-hidden="true">${icons}</span><h3>${title}</h3><p>Köszönöm a közös játékot!</p><div class="rp-actions"><button data-action="restart" class="rp-primary">↻ Új kör</button><button data-action="hub">Másik kaland</button></div></div>`; }
+  function finishCard(title,icons) { return `<div class="rp-finish"><span aria-hidden="true">${icons}</span><h3>${title}</h3><p>Köszönöm a közös játékot!</p><div class="rp-actions"><button data-action="restart" class="rp-primary">↻ Még egy ilyen</button><button data-action="hub">Másik kaland</button></div>${relatedTaskMarkup('r-practice',game)}</div>`; }
   function finishRound(cue) {
     successPending=true; message=''; render();
     const completedGame=game;
@@ -169,6 +172,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
     const previous=previousDecks.get(id)||[];
     deck=id==='hunter'?buildRHunterRound(prefs,Math.random,previous):buildRPracticeDeck(prefs,previous,Math.random,id==='echo'?R_WORDS.length:prefs.roundLength);
     if(id==='post'){mission=buildRPostMission(prefs.position,Math.random,lastMission);lastMission=mission.id;deck=mission.deck;}
+    if(['post','workshop','echo'].includes(id)&&prefs.target==='phrase')deck=deck.map(word=>{const item=withRPhraseVariant(word,previousPhrases.get(word.id));previousPhrases.set(word.id,item.phraseClip);return item;});
     if(id!=='rhyme')previousDecks.set(id,deck.map(word=>word.target?.id||word.id));
     render('h2');
     if(['hunter','post','workshop','rhyme','echo'].includes(id))void playCurrent({intro:true});
@@ -273,7 +277,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   function finishAction() {
     cancel();interactionReady=false;selectedDecoration='';step++;readyToAdvance=false;transcript='';message='';
     if(step===deck.length){completed=true;report('round');finishRound({target:'.rp-finish'});}
-    else{render('[data-action="model"]');void playClips([game==='post'?'r_delivered':'r_decorated',targetClip()],id=>({target:id.startsWith('r_word_')||id.startsWith('r_phrase_')?'.rp-target':game==='post'?'.rp-parcels':'.rp-decoration-board'}));}
+    else{render('[data-action="model"]');void playClips([game==='post'?'r_delivered':'r_decorated',targetClip()],id=>({target:id===targetClip()?'.rp-target':game==='post'?'.rp-parcels':'.rp-decoration-board'}));}
   }
   function advancePractice(manual=false) {
     if(!allowed()||!['post','workshop','rhyme'].includes(game)||completed||interactionReady||phase!=='idle'||(!manual&&prefs.speechMode!=='together'&&!readyToAdvance))return;
@@ -408,5 +412,5 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
   window.addEventListener('pagehide',()=>{if(active)stop();});
   function start(){cancel();active=true;game='hub';message='';render();}
   function stop(){active=false;cancel();clearRecording();}
-  return {start,stop,repeat:playCurrent,isCapturing:()=>active&&['preparing','listening','recording'].includes(phase),isReplaying:()=>active&&phase==='replay'};
+  return { open: id => { if(active) beginGame(id); },start,stop,repeat:playCurrent,isCapturing:()=>active&&['preparing','listening','recording'].includes(phase),isReplaying:()=>active&&phase==='replay'};
 }

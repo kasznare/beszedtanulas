@@ -1,3 +1,5 @@
+import { nextTask, relatedTaskMarkup } from './next-task.js';
+import { PHRASE_GROUPS, phraseIndexes, buildPhraseDeck } from './phrase-practice.js';
 import { wordPicture, setWordPicture } from "./word-art.js";
 import { normalizePracticeSettings } from "./portal-practice-data.js";
 import { normalizeNumberSettings, normalizeNumberProgress } from "./number-data.js";
@@ -150,6 +152,7 @@ const wordAudioBufferCache = new Map();
 let currentPhrase = 0;
 let togetherWordRound=null, togetherWordStep=0, wordConfirmed=false;
 let phraseStep=0, phraseConfirmed=false, phraseRound=null, phraseRoundStep=0;
+let phraseGroup='all', phraseTopic='all', phraseQueue=[];
 let numberMode = "count";
 
 const panels = [...document.querySelectorAll(".panel")];
@@ -230,7 +233,7 @@ nextPhraseBtn.addEventListener("click", () => {
   stopAutoImitateSession();
   primeSfx();
   phraseStep=0;phraseConfirmed=false;phraseRound=null;
-  currentPhrase = (currentPhrase + 1) % twoWordPhrases.length;
+  currentPhrase = nextPhraseIndex();
   renderTwoWordMode();
 });
 
@@ -346,10 +349,8 @@ listeningGame = setupListeningGame({
   playPrompt: playListeningPrompt,
   playCorrect: () => { stopPlayback(); playSuccessSound(); speakGuide("good"); },
   stopPlayback,
-  onComplete: count => {
-    state.rewards += 1;
-    saveProgress();
-    refreshStats();
+  onComplete: (count, context = {}) => {
+    if(context.mode!=="bingo"){state.rewards += 1;saveProgress();refreshStats();}
     celebrateRound("listening-game", count);
   },
 });
@@ -361,10 +362,8 @@ teddyGame = setupTeddyGame({
   speak: id => speakVoice(id),
   playThanks: () => speakVoice("guide_teddy_thanks"),
   stopPlayback,
-  onComplete: count => {
-    state.rewards += 1;
-    saveProgress();
-    refreshStats();
+  onComplete: (count, context = {}) => {
+    if(context.mode!=="expressive"){state.rewards += 1;saveProgress();refreshStats();}
     celebrateRound("teddy-game", count);
   },
 });
@@ -425,9 +424,9 @@ memoryGame = setupMemoryGame({
     document.querySelector('#memory-pairs').value = pairs;
     saveProgress();
   },
-  onComplete: count => {
-    state.rewards += 1;
-    saveProgress(); refreshStats(); celebrateRound('memory', count);
+  onComplete: (count, context = {}) => {
+    if(context.mode!=='sound'){state.rewards += 1;saveProgress();refreshStats();}
+    celebrateRound('memory', count);
   },
 });
 puzzleGame = setupPuzzleGame({
@@ -722,6 +721,22 @@ function setupBasicPractice() {
     stopAutoImitateSession(false);state.settings.phraseParts=!state.settings.phraseParts;phraseStep=0;phraseConfirmed=false;saveProgress();renderTwoWordMode();
   });
   document.querySelector('#phrase-round-start').addEventListener('click',startPhraseRound);
+  const groups=document.querySelector('#phrase-group'), topics=document.querySelector('#phrase-topic');
+  groups.replaceChildren(...Object.entries(PHRASE_GROUPS).map(([id,label])=>new Option(label,id)));
+  topics.replaceChildren(...wordCategories.filter(c=>c.id==='all'||twoWordPhrases.some(p=>p.topic===c.id)).map(c=>new Option(c.label,c.id)));
+  groups.addEventListener('change',()=>changePhraseFilter('group',groups.value));
+  topics.addEventListener('change',()=>changePhraseFilter('topic',topics.value));
+}
+function nextPhraseIndex() {
+  const pool=phraseIndexes({group:phraseGroup,topic:phraseTopic});
+  if(!phraseQueue.length)phraseQueue=buildPhraseDeck(pool,pool.length,pool.find(i=>i!==currentPhrase)??pool[0]);
+  return phraseQueue.shift();
+}
+function changePhraseFilter(key,value) {
+  roundSuccess.cancel();stopAutoImitateSession(false);stopPlayback();
+  if(key==='group')phraseGroup=value;else phraseTopic=value;
+  if(!phraseIndexes({group:phraseGroup,topic:phraseTopic}).length){if(key==='group')phraseTopic='all';else phraseGroup='all';}
+  phraseQueue=[];currentPhrase=nextPhraseIndex();phraseStep=0;phraseConfirmed=false;phraseRound=null;renderTwoWordMode();
 }
 function launchCardPractice(screen) {
   const word=words.find(w=>w.id===practiceLaunchWordId);if(!word)return;
@@ -771,7 +786,7 @@ function playCurrentPhrase() {
 }
 function startPhraseRound() {
   roundSuccess.cancel();
-  stopAutoImitateSession(false);phraseRound=Array.from({length:state.settings.roundLength},(_,i)=>(currentPhrase+i)%twoWordPhrases.length);phraseRoundStep=0;phraseStep=0;phraseConfirmed=false;
+  stopAutoImitateSession(false);phraseRound=buildPhraseDeck(phraseIndexes({group:phraseGroup,topic:phraseTopic}),state.settings.roundLength,currentPhrase);phraseQueue=[];phraseRoundStep=0;phraseStep=0;phraseConfirmed=false;
   renderTwoWordMode();playCurrentPhrase();
 }
 function completePhraseStep() {
@@ -834,6 +849,10 @@ function renderImitate() {
 }
 
 function renderTwoWordMode() {
+  const pool=phraseIndexes({group:phraseGroup,topic:phraseTopic});
+  if(!pool.includes(currentPhrase))currentPhrase=pool[0];
+  document.querySelector('#phrase-group').value=phraseGroup;document.querySelector('#phrase-topic').value=phraseTopic;
+  document.querySelector('#phrase-content-count').textContent=`${pool.length} kifejezés ebben a válogatásban`;
   const phrase = twoWordPhrases[currentPhrase];
   phraseEmoji.replaceChildren(...phrase.emojis.map((emoji, i) => {
     const picture = document.createElement('span'); picture.className = 'phrase-picture';
@@ -1985,6 +2004,7 @@ function childStatus(kind) {
 }
 
 function registerPlay() {
+  if(currentScreen==='listening-game'&&listeningGame?.getContext?.().mode==='bingo'||currentScreen==='memory'&&memoryGame?.getContext?.().mode==='sound'||currentScreen==='teddy-game'&&teddyGame?.getContext?.().mode==='expressive')return;
   state.plays += 1;
   saveProgress();
   refreshStats();
@@ -2122,19 +2142,30 @@ function setupNavigation() {
   });
   document.querySelector("#parent-button").addEventListener("click", showParentGate);
   document.querySelector("#close-parent-gate").addEventListener("click", () => document.querySelector("#parent-gate").close());
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('[data-related-source]');
+    if(!button||document.hidden)return;
+    const source=button.dataset.relatedSource;
+    if((source.startsWith('numbers-')?'numbers':source)!==currentScreen)return;
+    const task=nextTask(source,button.dataset.relatedKind);if(!task)return;
+    if(source==='two-word'&&task.screen==='teddy-game')task.phraseId=twoWordPhrases[currentPhrase].id;
+    if(task.numberMode)numberMode=task.numberMode;
+    if(task.screen==='two-word'){phraseTopic=task.topic||'all';phraseGroup='all';phraseQueue=[];currentPhrase=nextPhraseIndex();}
+    showScreen(task.screen,{announce:task.screen==='listening-game',gameOptions:task});
+  });
   document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
   document.querySelector('#round-back').addEventListener('click', goBack);
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
     if (completedRoundKind === "flip") showScreen("flip");
     else if (completedRoundKind === "dress-game") showScreen("dress-game");
-    else if (completedRoundKind === "teddy-game") showScreen("teddy-game");
-    else if (completedRoundKind === "listening-game") showScreen("listening-game");
-    else if (completedRoundKind === "memory") showScreen("memory");
+    else if (completedRoundKind === "teddy-game") showScreen("teddy-game",{gameOptions:teddyGame.getContext?.()||{}});
+    else if (completedRoundKind === "listening-game") showScreen("listening-game",{gameOptions:listeningGame.getContext?.()||{}});
+    else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
     else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
-    else if(completedRoundKind==='two-word'){showScreen('two-word');startPhraseRound();}
+    else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
     else startAutoImitateSession();
   });
@@ -2172,7 +2203,7 @@ function setupNavigation() {
   });
 }
 
-function showScreen(screen, { announce = true, pushHistory = true, allowParent = false } = {}) {
+function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = true, allowParent = false } = {}) {
   if (!screenInfo[screen]) return;
   roundSuccess.cancel();
   if (screen === "parent" && !allowParent) {
@@ -2228,20 +2259,20 @@ function showScreen(screen, { announce = true, pushHistory = true, allowParent =
   if (screen === "imitate") { const pool=getSpeechWords();if(!pool.some(w=>w.id===words[currentImitate].id))currentImitate=words.findIndex(w=>w.id===pool[0].id);renderImitate(); renderRoundProgress(); }
   if (screen === "two-word") {phraseRound=null;phraseStep=0;phraseConfirmed=false;renderTwoWordMode();}
   if (screen === "flip") renderFlipGame();
-  if (screen === "listening-game") listeningGame.start({ announce });
-  if (screen === "teddy-game") teddyGame.start({ announce });
+  if (screen === "listening-game") listeningGame.start({ ...gameOptions, announce });
+  if (screen === "teddy-game") teddyGame.start({ ...gameOptions, announce });
   if (screen === "dress-game") dressGame.start({ announce });
   if (screen === "meseliget") meadowGame.start({ announce });
-  if (screen === "furfangliget") logicGame.start();
-  if (screen === "memory") memoryGame.start();
+  if (screen === "furfangliget") logicGame.start(gameOptions);
+  if (screen === "memory") memoryGame.start(gameOptions);
   if (screen === "puzzle") puzzleGame.start();
   if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
-  if (screen === "workshop") workshopGame.start();
+  if (screen === "workshop") workshopGame.start(gameOptions);
   if (screen === "animal-book") animalBook.start();
   if (screen === "audiobooks") audiobooks.start();
   if (screen === "pour") pourGame.start();
-  if (screen === "r-practice") rPractice.start();
+  if (screen === "r-practice") {rPractice.start();if(gameOptions.kind)rPractice.open(gameOptions.kind);}
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (screen === 'numbers' && numberMode === 'quiz') renderNumberQuiz();
   title.tabIndex = -1;
@@ -2358,14 +2389,15 @@ function celebrateRound(kind, count) {
     document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
     const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
     const continueButton = document.querySelector('#round-replay');
-    continueButton.classList.toggle('round-next', nextPuzzle);
-    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy kör');
+    continueButton.classList.add('round-next');
+    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy ilyen');
     setButtonIcon(continueButton, nextPuzzle ? 'next' : 'repeat');
-    if (nextPuzzle) {
+    {
       const label = document.createElement('span');
-      label.textContent = 'Következő feladat';
+      label.textContent = nextPuzzle?'Következő feladat':'Még egy ilyen';
       continueButton.append(label);
     }
+    document.querySelector("#round-related").innerHTML=relatedTaskMarkup(kind);
     document.querySelector("#round-complete").showModal();
     if (nextPuzzle) continueButton.focus({ preventScroll: true });
     if (kind === "pour") speakVoice('pour_done');

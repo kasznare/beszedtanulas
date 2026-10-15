@@ -1,6 +1,7 @@
 import { words, twoWordPhrases } from './game-data.js';
 
 export const PORTAL_CLIPS = {
+  listening_bingo_start: 'Hallgasd a szavakat, és gyűjtsd össze a képeket!',
   practice_together: 'Hallgassuk meg, és mondjuk együtt! Ha kimondtátok, koppints a pipára!',
   practice_parts: 'Először külön a szavakat, aztán együtt a kifejezést!',
   practice_part_done: 'Ez a szó megvan. Most jöhet a következő!',

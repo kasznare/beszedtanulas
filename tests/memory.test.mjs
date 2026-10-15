@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildMemoryDeck, normalizeMemoryTiming } from '../memory-data.js';
+import { buildMemoryDeck, buildSoundMemoryDeck, normalizeMemoryTiming } from '../memory-data.js';
 import { words, wordCategories } from '../game-data.js';
 
 test('memory decks contain exactly two of every selected image at every supported size/topic', () => {
@@ -22,4 +22,18 @@ test('duplicate content cannot create extra pairs or an ambiguous deck', () => {
   const deck = buildMemoryDeck([words[0], words[0], words[1]], 6, () => 0);
   assert.equal(deck.length, 4);
   assert.equal(new Set(deck.map(card => card.key)).size, 4);
+});
+test('sound-picture decks have one opaque sound tile and one picture per chosen word', () => {
+  for(const category of wordCategories)for(const pairs of [2,3,4,6]){
+    const pool=words.filter(word=>category.words.includes(word.id));
+    const original=JSON.stringify(pool),deck=buildSoundMemoryDeck(pool,pairs,()=>.4);
+    const count=Math.min(pool.length,pairs);
+    assert.equal(deck.sounds.length,count);
+    assert.equal(deck.pictures.length,count);
+    assert.equal(new Set(deck.sounds.map(card=>card.word.id)).size,count);
+    assert.deepEqual(new Set(deck.sounds.map(card=>card.word.id)),new Set(deck.pictures.map(card=>card.word.id)));
+    assert.ok(deck.sounds.every(card=>card.kind==='sound'&&!card.key.includes(card.word.id)));
+    assert.ok(deck.pictures.every(card=>card.kind==='picture'));
+    assert.equal(JSON.stringify(pool),original);
+  }
 });

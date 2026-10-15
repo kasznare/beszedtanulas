@@ -844,6 +844,21 @@
       "file": "audio/voice/abk_name_wolf.mp3"
     },
     {
+      "id": "listening_bingo_start",
+      "text": "Hallgasd a szavakat, és gyűjtsd össze a képeket!",
+      "group": "portal",
+      "file": "audio/voice/listening_bingo_start.mp3",
+      "spokenText": "Mondjuk együtt: Hallgasd a szavakat, és gyűjtsd össze a /ˈkeːpɛkɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 68,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgasd a szavakat, és gyűjtsd össze a képeket!"
+      },
+      "spokenTarget": "Hallgasd a szavakat, és gyűjtsd össze a /ˈkeːpɛkɛt/!"
+    },
+    {
       "id": "practice_together",
       "text": "Hallgassuk meg, és mondjuk együtt! Ha kimondtátok, koppints a pipára!",
       "group": "portal",
@@ -1000,7 +1015,7 @@
     {
       "id": "phrase_part_meg_alma_0",
       "text": "még",
-      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ alma.",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ almát.",
       "group": "portal",
       "file": "audio/voice/phrase_part_meg_alma_0.mp3",
       "extract": {
@@ -1014,17 +1029,17 @@
     },
     {
       "id": "phrase_part_meg_alma_1",
-      "text": "alma",
-      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ alma.",
+      "text": "almát",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ almát.",
       "group": "portal",
       "file": "audio/voice/phrase_part_meg_alma_1.mp3",
-      "spokenTarget": "alma",
+      "spokenTarget": "almát",
       "extract": {
         "from": 24,
-        "to": 28,
+        "to": 29,
         "before": 0.025,
         "after": 0.12,
-        "text": "alma"
+        "text": "almát"
       }
     },
     {
@@ -1060,7 +1075,7 @@
     {
       "id": "phrase_part_apa_auto_0",
       "text": "apa",
-      "spokenText": "apa autó.",
+      "spokenText": "apa autózik.",
       "group": "portal",
       "file": "audio/voice/phrase_part_apa_auto_0.mp3",
       "spokenTarget": "apa",
@@ -1074,17 +1089,17 @@
     },
     {
       "id": "phrase_part_apa_auto_1",
-      "text": "autó",
-      "spokenText": "apa autó.",
+      "text": "autózik",
+      "spokenText": "apa autózik.",
       "group": "portal",
       "file": "audio/voice/phrase_part_apa_auto_1.mp3",
-      "spokenTarget": "autó",
+      "spokenTarget": "autózik",
       "extract": {
         "from": 4,
-        "to": 8,
+        "to": 11,
         "before": 0.025,
         "after": 0.12,
-        "text": "autó"
+        "text": "autózik"
       }
     },
     {
@@ -1145,6 +1160,636 @@
         "before": 0.025,
         "after": 0.12,
         "text": "kérem"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_almat_0",
+      "text": "kérek",
+      "spokenText": "Kérek almát.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_almat_0.mp3",
+      "spokenTarget": "Kérek",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kérek"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_almat_1",
+      "text": "almát",
+      "spokenText": "Kérek almát.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_almat_1.mp3",
+      "spokenTarget": "almát",
+      "extract": {
+        "from": 6,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "almát"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_tejet_0",
+      "text": "kérek",
+      "spokenText": "Kérek tejet.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_tejet_0.mp3",
+      "spokenTarget": "Kérek",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kérek"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_tejet_1",
+      "text": "tejet",
+      "spokenText": "Kérek tejet.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_tejet_1.mp3",
+      "spokenTarget": "tejet",
+      "extract": {
+        "from": 6,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "tejet"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_kiflit_0",
+      "text": "kérek",
+      "spokenText": "Kérek kiflit.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_kiflit_0.mp3",
+      "spokenTarget": "Kérek",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kérek"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_kiflit_1",
+      "text": "kiflit",
+      "spokenText": "Kérek kiflit.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_kiflit_1.mp3",
+      "spokenTarget": "kiflit",
+      "extract": {
+        "from": 6,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kiflit"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_kenyeret_0",
+      "text": "kérek",
+      "spokenText": "Kérek kenyeret.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_kenyeret_0.mp3",
+      "spokenTarget": "Kérek",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kérek"
+      }
+    },
+    {
+      "id": "phrase_part_kerek_kenyeret_1",
+      "text": "kenyeret",
+      "spokenText": "Kérek kenyeret.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kerek_kenyeret_1.mp3",
+      "spokenTarget": "kenyeret",
+      "extract": {
+        "from": 6,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kenyeret"
+      }
+    },
+    {
+      "id": "phrase_part_adj_vizet_0",
+      "text": "adj",
+      "spokenText": "Mondjuk együtt: adj /ˈvizɛt/.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_adj_vizet_0.mp3",
+      "spokenTarget": "adj",
+      "extract": {
+        "from": 16,
+        "to": 19,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "adj"
+      }
+    },
+    {
+      "id": "phrase_part_adj_vizet_1",
+      "text": "vizet",
+      "spokenText": "Mondjuk együtt: adj /ˈvizɛt/.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_adj_vizet_1.mp3",
+      "extract": {
+        "from": 20,
+        "to": 28,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "vizet"
+      },
+      "spokenTarget": "/ˈvizɛt/"
+    },
+    {
+      "id": "phrase_part_anya_foz_0",
+      "text": "anya",
+      "spokenText": "anya főz.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_anya_foz_0.mp3",
+      "spokenTarget": "anya",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "anya"
+      }
+    },
+    {
+      "id": "phrase_part_anya_foz_1",
+      "text": "főz",
+      "spokenText": "anya főz.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_anya_foz_1.mp3",
+      "spokenTarget": "főz",
+      "extract": {
+        "from": 5,
+        "to": 8,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "főz"
+      }
+    },
+    {
+      "id": "phrase_part_apa_integet_0",
+      "text": "apa",
+      "spokenText": "apa integet.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_apa_integet_0.mp3",
+      "spokenTarget": "apa",
+      "extract": {
+        "from": 0,
+        "to": 3,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "apa"
+      }
+    },
+    {
+      "id": "phrase_part_apa_integet_1",
+      "text": "integet",
+      "spokenText": "apa integet.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_apa_integet_1.mp3",
+      "spokenTarget": "integet",
+      "extract": {
+        "from": 4,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "integet"
+      }
+    },
+    {
+      "id": "phrase_part_baba_alszik_0",
+      "text": "baba",
+      "spokenText": "baba alszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_baba_alszik_0.mp3",
+      "spokenTarget": "baba",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "baba"
+      }
+    },
+    {
+      "id": "phrase_part_baba_alszik_1",
+      "text": "alszik",
+      "spokenText": "baba alszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_baba_alszik_1.mp3",
+      "spokenTarget": "alszik",
+      "extract": {
+        "from": 5,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "alszik"
+      }
+    },
+    {
+      "id": "phrase_part_cica_alszik_0",
+      "text": "cica",
+      "spokenText": "cica alszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_cica_alszik_0.mp3",
+      "spokenTarget": "cica",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "cica"
+      }
+    },
+    {
+      "id": "phrase_part_cica_alszik_1",
+      "text": "alszik",
+      "spokenText": "cica alszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_cica_alszik_1.mp3",
+      "spokenTarget": "alszik",
+      "extract": {
+        "from": 5,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "alszik"
+      }
+    },
+    {
+      "id": "phrase_part_kutya_fut_0",
+      "text": "kutya",
+      "spokenText": "kutya fut.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kutya_fut_0.mp3",
+      "spokenTarget": "kutya",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kutya"
+      }
+    },
+    {
+      "id": "phrase_part_kutya_fut_1",
+      "text": "fut",
+      "spokenText": "kutya fut.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kutya_fut_1.mp3",
+      "spokenTarget": "fut",
+      "extract": {
+        "from": 6,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "fut"
+      }
+    },
+    {
+      "id": "phrase_part_maci_eszik_0",
+      "text": "maci",
+      "spokenText": "maci eszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_maci_eszik_0.mp3",
+      "spokenTarget": "maci",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "maci"
+      }
+    },
+    {
+      "id": "phrase_part_maci_eszik_1",
+      "text": "eszik",
+      "spokenText": "maci eszik.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_maci_eszik_1.mp3",
+      "spokenTarget": "eszik",
+      "extract": {
+        "from": 5,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "eszik"
+      }
+    },
+    {
+      "id": "phrase_part_piros_alma_0",
+      "text": "piros",
+      "spokenText": "piros alma.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_piros_alma_0.mp3",
+      "spokenTarget": "piros",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "piros"
+      }
+    },
+    {
+      "id": "phrase_part_piros_alma_1",
+      "text": "alma",
+      "spokenText": "piros alma.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_piros_alma_1.mp3",
+      "spokenTarget": "alma",
+      "extract": {
+        "from": 6,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "alma"
+      }
+    },
+    {
+      "id": "phrase_part_kicsi_cica_0",
+      "text": "kicsi",
+      "spokenText": "kicsi cica.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kicsi_cica_0.mp3",
+      "spokenTarget": "kicsi",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kicsi"
+      }
+    },
+    {
+      "id": "phrase_part_kicsi_cica_1",
+      "text": "cica",
+      "spokenText": "kicsi cica.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_kicsi_cica_1.mp3",
+      "spokenTarget": "cica",
+      "extract": {
+        "from": 6,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "cica"
+      }
+    },
+    {
+      "id": "phrase_part_nagy_auto_0",
+      "text": "nagy",
+      "spokenText": "nagy autó.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_nagy_auto_0.mp3",
+      "spokenTarget": "nagy",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "nagy"
+      }
+    },
+    {
+      "id": "phrase_part_nagy_auto_1",
+      "text": "autó",
+      "spokenText": "nagy autó.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_nagy_auto_1.mp3",
+      "spokenTarget": "autó",
+      "extract": {
+        "from": 5,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "autó"
+      }
+    },
+    {
+      "id": "phrase_part_meleg_tej_0",
+      "text": "meleg",
+      "spokenText": "meleg tej.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meleg_tej_0.mp3",
+      "spokenTarget": "meleg",
+      "extract": {
+        "from": 0,
+        "to": 5,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "meleg"
+      }
+    },
+    {
+      "id": "phrase_part_meleg_tej_1",
+      "text": "tej",
+      "spokenText": "meleg tej.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meleg_tej_1.mp3",
+      "spokenTarget": "tej",
+      "extract": {
+        "from": 6,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "tej"
+      }
+    },
+    {
+      "id": "phrase_part_puha_maci_0",
+      "text": "puha",
+      "spokenText": "puha maci.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_puha_maci_0.mp3",
+      "spokenTarget": "puha",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "puha"
+      }
+    },
+    {
+      "id": "phrase_part_puha_maci_1",
+      "text": "maci",
+      "spokenText": "puha maci.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_puha_maci_1.mp3",
+      "spokenTarget": "maci",
+      "extract": {
+        "from": 5,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "maci"
+      }
+    },
+    {
+      "id": "phrase_part_szep_virag_0",
+      "text": "szép",
+      "spokenText": "szép virág.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_szep_virag_0.mp3",
+      "spokenTarget": "szép",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "szép"
+      }
+    },
+    {
+      "id": "phrase_part_szep_virag_1",
+      "text": "virág",
+      "spokenText": "szép virág.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_szep_virag_1.mp3",
+      "spokenTarget": "virág",
+      "extract": {
+        "from": 5,
+        "to": 10,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "virág"
+      }
+    },
+    {
+      "id": "phrase_part_meg_kerek_0",
+      "text": "még",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ kérek.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meg_kerek_0.mp3",
+      "extract": {
+        "from": 16,
+        "to": 23,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "még"
+      },
+      "spokenTarget": "/ˈmeːɡ/"
+    },
+    {
+      "id": "phrase_part_meg_kerek_1",
+      "text": "kérek",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ kérek.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meg_kerek_1.mp3",
+      "spokenTarget": "kérek",
+      "extract": {
+        "from": 24,
+        "to": 29,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "kérek"
+      }
+    },
+    {
+      "id": "phrase_part_eleg_volt_0",
+      "text": "elég",
+      "spokenText": "elég volt.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_eleg_volt_0.mp3",
+      "spokenTarget": "elég",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "elég"
+      }
+    },
+    {
+      "id": "phrase_part_eleg_volt_1",
+      "text": "volt",
+      "spokenText": "elég volt.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_eleg_volt_1.mp3",
+      "spokenTarget": "volt",
+      "extract": {
+        "from": 5,
+        "to": 9,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "volt"
+      }
+    },
+    {
+      "id": "phrase_part_allj_meg_0",
+      "text": "állj",
+      "spokenText": "állj meg.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_allj_meg_0.mp3",
+      "spokenTarget": "állj",
+      "extract": {
+        "from": 0,
+        "to": 4,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "állj"
+      }
+    },
+    {
+      "id": "phrase_part_allj_meg_1",
+      "text": "meg",
+      "spokenText": "állj meg.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_allj_meg_1.mp3",
+      "spokenTarget": "meg",
+      "extract": {
+        "from": 5,
+        "to": 8,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "meg"
+      }
+    },
+    {
+      "id": "phrase_part_meg_jatszunk_0",
+      "text": "még",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ játszunk.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meg_jatszunk_0.mp3",
+      "extract": {
+        "from": 16,
+        "to": 23,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "még"
+      },
+      "spokenTarget": "/ˈmeːɡ/"
+    },
+    {
+      "id": "phrase_part_meg_jatszunk_1",
+      "text": "játszunk",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ játszunk.",
+      "group": "portal",
+      "file": "audio/voice/phrase_part_meg_jatszunk_1.mp3",
+      "spokenTarget": "játszunk",
+      "extract": {
+        "from": 24,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "játszunk"
       }
     },
     {
@@ -1862,6 +2507,21 @@
       "spokenTarget": "Keress egyforma /ˈkeːpɛkɛt/! Fordíts fel két kártyát!"
     },
     {
+      "id": "memory_sound_start",
+      "text": "Hallgass meg egy hangot, és keresd meg a képét!",
+      "group": "memory",
+      "file": "audio/voice/memory_sound_start.mp3",
+      "spokenText": "Mondjuk együtt: Hallgass meg egy hangot, és keresd meg a /ˈkeːpeːt/!",
+      "extract": {
+        "from": 16,
+        "to": 68,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgass meg egy hangot, és keresd meg a képét!"
+      },
+      "spokenTarget": "Hallgass meg egy hangot, és keresd meg a /ˈkeːpeːt/!"
+    },
+    {
       "id": "memory_hint",
       "text": "Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!",
       "group": "memory",
@@ -2049,6 +2709,12 @@
       "text": "Nézd meg az alakját és a színét is! Keress egy ugyanilyen színű kerettel jelölt, hozzá illő lyukat!",
       "group": "montessori",
       "file": "audio/voice/montessori_shape_retry.mp3"
+    },
+    {
+      "id": "montessori_shape_turn_retry",
+      "text": "Jó formát választottál. Fordítsd el a nyilakkal!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_shape_turn_retry.mp3"
     },
     {
       "id": "montessori_color_retry",
@@ -2589,6 +3255,78 @@
       "text": "A napocskás tárggyal folytasd! Figyeld a mostani szabályt és a tálcák jeleit, majd válassz neki helyet!",
       "group": "workshop",
       "file": "audio/voice/workshop_sort_again_hint2.mp3"
+    },
+    {
+      "id": "workshop_sort_new",
+      "text": "Válogass a tálcák jelei szerint!",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_new.mp3"
+    },
+    {
+      "id": "workshop_sort_again_new",
+      "text": "Most rendezd át az új szabály szerint!",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_again_new.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_color",
+      "text": "Most a szín mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_color.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_shape",
+      "text": "Most a forma mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_shape.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_size",
+      "text": "Most a méret mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_size.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_color_shape",
+      "text": "A szín és a forma együtt mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_color_shape.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_color_size",
+      "text": "A szín és a méret együtt mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_color_size.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_shape_size",
+      "text": "A forma és a méret együtt mutatja a helyet.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_shape_size.mp3"
+    },
+    {
+      "id": "workshop_sort_rule_hint",
+      "text": "Nézd meg a tálcák jeleit!",
+      "group": "workshop",
+      "file": "audio/voice/workshop_sort_rule_hint.mp3"
+    },
+    {
+      "id": "workshop_only_circle",
+      "text": "Csak a körök. A többi a levélre kerül.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_only_circle.mp3"
+    },
+    {
+      "id": "workshop_only_square",
+      "text": "Csak a négyzetek. A többi a levélre kerül.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_only_square.mp3"
+    },
+    {
+      "id": "workshop_only_triangle",
+      "text": "Csak a háromszögek. A többi a levélre kerül.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_only_triangle.mp3"
     },
     {
       "id": "workshop_pattern_gap",
@@ -4312,6 +5050,42 @@
       "file": "audio/voice/r_mission_tabor.mp3"
     },
     {
+      "id": "r_mission_kert",
+      "text": "Robot kertészkedik. Küldj robotot és répát!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_kert.mp3"
+    },
+    {
+      "id": "r_mission_zene",
+      "text": "Zenés ünnep lesz. Küldj rádiót és rózsát!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_zene.mp3"
+    },
+    {
+      "id": "r_mission_rajz",
+      "text": "Virágot rajzolunk. Küldj ceruzát és virágot!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_rajz.mp3"
+    },
+    {
+      "id": "r_mission_suti",
+      "text": "Nyit a sütöde. Küldj perecet és tortát!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_suti.mp3"
+    },
+    {
+      "id": "r_mission_gyujtes",
+      "text": "Gyűjtögetni indulunk. Küldj kosarat és vödröt!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_gyujtes.mp3"
+    },
+    {
+      "id": "r_mission_vacsora",
+      "text": "Vacsora a sátornál. Küldj sátrat és poharat!",
+      "group": "r-practice",
+      "file": "audio/voice/r_mission_vacsora.mp3"
+    },
+    {
       "id": "r_rhyme_part_roka_0_0",
       "text": "Róka fut",
       "spokenText": "Róka fut a réten át.",
@@ -4790,6 +5564,132 @@
         "after": 0.12,
         "text": "repülő madarat."
       }
+    },
+    {
+      "id": "r_variant_roka_fut",
+      "text": "róka fut",
+      "spokenText": "róka fut.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_roka_fut.mp3"
+    },
+    {
+      "id": "r_variant_robot_rajzol",
+      "text": "robot rajzol",
+      "spokenText": "robot rajzol.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_robot_rajzol.mp3"
+    },
+    {
+      "id": "r_variant_repa_no",
+      "text": "répa nő",
+      "spokenText": "répa nő.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_repa_no.mp3"
+    },
+    {
+      "id": "r_variant_puha_ruha",
+      "text": "puha ruha",
+      "spokenText": "puha ruha.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_puha_ruha.mp3"
+    },
+    {
+      "id": "r_variant_sarga_rozsa",
+      "text": "sárga rózsa",
+      "spokenText": "sárga rózsa.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_sarga_rozsa.mp3"
+    },
+    {
+      "id": "r_variant_radio_szol",
+      "text": "rádió szól",
+      "spokenText": "rádió szól.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_radio_szol.mp3"
+    },
+    {
+      "id": "r_variant_virag_nyilik",
+      "text": "virág nyílik",
+      "spokenText": "virág nyílik.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_virag_nyilik.mp3"
+    },
+    {
+      "id": "r_variant_sarga_korte",
+      "text": "sárga körte",
+      "spokenText": "sárga körte.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_sarga_korte.mp3"
+    },
+    {
+      "id": "r_variant_ropogos_perec",
+      "text": "ropogós perec",
+      "spokenText": "ropogós perec.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_ropogos_perec.mp3"
+    },
+    {
+      "id": "r_variant_kek_ceruza",
+      "text": "kék ceruza",
+      "spokenText": "kék ceruza.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_kek_ceruza.mp3"
+    },
+    {
+      "id": "r_variant_zold_erdo",
+      "text": "zöld erdő",
+      "spokenText": "zöld erdő.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_zold_erdo.mp3"
+    },
+    {
+      "id": "r_variant_finom_torta",
+      "text": "finom torta",
+      "spokenText": "finom torta.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_finom_torta.mp3"
+    },
+    {
+      "id": "r_variant_madar_repul",
+      "text": "madár repül",
+      "spokenText": "madár repül.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_madar_repul.mp3"
+    },
+    {
+      "id": "r_variant_eger_szalad",
+      "text": "egér szalad",
+      "spokenText": "egér szalad.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_eger_szalad.mp3"
+    },
+    {
+      "id": "r_variant_teli_pohar",
+      "text": "teli pohár",
+      "spokenText": "teli pohár.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_teli_pohar.mp3"
+    },
+    {
+      "id": "r_variant_teli_kosar",
+      "text": "teli kosár",
+      "spokenText": "teli kosár.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_teli_kosar.mp3"
+    },
+    {
+      "id": "r_variant_kek_sator",
+      "text": "kék sátor",
+      "spokenText": "kék sátor.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_kek_sator.mp3"
+    },
+    {
+      "id": "r_variant_teli_vodor",
+      "text": "teli vödör",
+      "spokenText": "teli vödör.",
+      "group": "r-practice",
+      "file": "audio/voice/r_variant_teli_vodor.mp3"
     },
     {
       "id": "mese_map",
@@ -5899,18 +6799,18 @@
     },
     {
       "id": "phrase_meg_alma",
-      "text": "még alma",
-      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ alma.",
+      "text": "még almát",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ almát.",
       "group": "phrase",
       "file": "audio/voice/phrase_meg_alma.mp3",
       "extract": {
         "from": 16,
-        "to": 28,
+        "to": 29,
         "before": 0.025,
         "after": 0.15,
-        "text": "még alma"
+        "text": "még almát"
       },
-      "spokenTarget": "/ˈmeːɡ/ alma"
+      "spokenTarget": "/ˈmeːɡ/ almát"
     },
     {
       "id": "phrase_anya_gyere",
@@ -5921,8 +6821,8 @@
     },
     {
       "id": "phrase_apa_auto",
-      "text": "apa autó",
-      "spokenText": "apa autó.",
+      "text": "apa autózik",
+      "spokenText": "apa autózik.",
       "group": "phrase",
       "file": "audio/voice/phrase_apa_auto.mp3"
     },
@@ -5939,6 +6839,209 @@
       "spokenText": "nem kérem.",
       "group": "phrase",
       "file": "audio/voice/phrase_nem_kerem.mp3"
+    },
+    {
+      "id": "phrase_kerek_almat",
+      "text": "kérek almát",
+      "spokenText": "Kérek almát.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kerek_almat.mp3",
+      "spokenTarget": "Kérek almát",
+      "extract": {
+        "from": 0,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kérek almát"
+      }
+    },
+    {
+      "id": "phrase_kerek_tejet",
+      "text": "kérek tejet",
+      "spokenText": "Kérek tejet.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kerek_tejet.mp3",
+      "spokenTarget": "Kérek tejet",
+      "extract": {
+        "from": 0,
+        "to": 11,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kérek tejet"
+      }
+    },
+    {
+      "id": "phrase_kerek_kiflit",
+      "text": "kérek kiflit",
+      "spokenText": "Kérek kiflit.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kerek_kiflit.mp3",
+      "spokenTarget": "Kérek kiflit",
+      "extract": {
+        "from": 0,
+        "to": 12,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kérek kiflit"
+      }
+    },
+    {
+      "id": "phrase_kerek_kenyeret",
+      "text": "kérek kenyeret",
+      "spokenText": "Kérek kenyeret.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kerek_kenyeret.mp3",
+      "spokenTarget": "Kérek kenyeret",
+      "extract": {
+        "from": 0,
+        "to": 14,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kérek kenyeret"
+      }
+    },
+    {
+      "id": "phrase_adj_vizet",
+      "text": "adj vizet",
+      "spokenText": "Mondjuk együtt: adj /ˈvizɛt/.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_adj_vizet.mp3",
+      "extract": {
+        "from": 16,
+        "to": 28,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "adj vizet"
+      },
+      "spokenTarget": "adj /ˈvizɛt/"
+    },
+    {
+      "id": "phrase_anya_foz",
+      "text": "anya főz",
+      "spokenText": "anya főz.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_anya_foz.mp3"
+    },
+    {
+      "id": "phrase_apa_integet",
+      "text": "apa integet",
+      "spokenText": "apa integet.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_apa_integet.mp3"
+    },
+    {
+      "id": "phrase_baba_alszik",
+      "text": "baba alszik",
+      "spokenText": "baba alszik.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_baba_alszik.mp3"
+    },
+    {
+      "id": "phrase_cica_alszik",
+      "text": "cica alszik",
+      "spokenText": "cica alszik.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_cica_alszik.mp3"
+    },
+    {
+      "id": "phrase_kutya_fut",
+      "text": "kutya fut",
+      "spokenText": "kutya fut.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kutya_fut.mp3"
+    },
+    {
+      "id": "phrase_maci_eszik",
+      "text": "maci eszik",
+      "spokenText": "maci eszik.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_maci_eszik.mp3"
+    },
+    {
+      "id": "phrase_piros_alma",
+      "text": "piros alma",
+      "spokenText": "piros alma.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_piros_alma.mp3"
+    },
+    {
+      "id": "phrase_kicsi_cica",
+      "text": "kicsi cica",
+      "spokenText": "kicsi cica.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_kicsi_cica.mp3"
+    },
+    {
+      "id": "phrase_nagy_auto",
+      "text": "nagy autó",
+      "spokenText": "nagy autó.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_nagy_auto.mp3"
+    },
+    {
+      "id": "phrase_meleg_tej",
+      "text": "meleg tej",
+      "spokenText": "meleg tej.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_meleg_tej.mp3"
+    },
+    {
+      "id": "phrase_puha_maci",
+      "text": "puha maci",
+      "spokenText": "puha maci.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_puha_maci.mp3"
+    },
+    {
+      "id": "phrase_szep_virag",
+      "text": "szép virág",
+      "spokenText": "szép virág.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_szep_virag.mp3"
+    },
+    {
+      "id": "phrase_meg_kerek",
+      "text": "még kérek",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ kérek.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_meg_kerek.mp3",
+      "extract": {
+        "from": 16,
+        "to": 29,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "még kérek"
+      },
+      "spokenTarget": "/ˈmeːɡ/ kérek"
+    },
+    {
+      "id": "phrase_eleg_volt",
+      "text": "elég volt",
+      "spokenText": "elég volt.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_eleg_volt.mp3"
+    },
+    {
+      "id": "phrase_allj_meg",
+      "text": "állj meg",
+      "spokenText": "állj meg.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_allj_meg.mp3"
+    },
+    {
+      "id": "phrase_meg_jatszunk",
+      "text": "még játszunk",
+      "spokenText": "Mondjuk együtt: /ˈmeːɡ/ játszunk.",
+      "group": "phrase",
+      "file": "audio/voice/phrase_meg_jatszunk.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "még játszunk"
+      },
+      "spokenTarget": "/ˈmeːɡ/ játszunk"
     },
     {
       "id": "number_1",

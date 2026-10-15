@@ -32,6 +32,7 @@ export const MONTESSORI_CLIPS = {
   montessori_colors: 'Tedd a golyókat az azonos színű tálkákba! Húzd oda, vagy koppints a golyóra, majd a tálkára!',
   montessori_tower: 'Építs tornyot! A legnagyobb korong kerüljön alulra, aztán mindig a következő legnagyobb. Tedd a korongot a toronyra!',
   montessori_shape_retry: 'Nézd meg az alakját és a színét is! Keress egy ugyanilyen színű kerettel jelölt, hozzá illő lyukat!',
+  montessori_shape_turn_retry: 'Jó formát választottál. Fordítsd el a nyilakkal!',
   montessori_color_retry: 'Keress egy ugyanilyen színű tálkát!',
   montessori_tower_retry: 'Előbb egy nagyobb korong következik. Nézd meg a tálcát!',
   montessori_blocked: 'Ezt a lyukat még akadály takarja. Csúsztasd félre az akadályt!',

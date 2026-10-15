@@ -1,5 +1,6 @@
-import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, generateTask, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove, logicSessionForLevel, storeLogicSession } from './logic-data.js';
+import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, logicTaskForSession, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove, logicSessionForLevel, storeLogicSession } from './logic-data.js';
 import { createSuccessDelay } from './success-delay.js';
+import { relatedTaskMarkup } from './next-task.js';
 
 export function setupLogic({ effect = () => {}, getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
   const root = document.querySelector('#furfangliget');
@@ -56,7 +57,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
     cancelSuccess(); cancelAnimation(); stopPlayback(); kind = game;
     const level = levelFor(kind), limit = getOptions().mathLimit || 5, previous = logicSessionForLevel(normalizeLogic(getProgress()), kind, level);
     session = !fresh && previous && previous.level === level && (kind !== 'shop' || previous.limit === limit) ? previous : newSession(kind, level, limit);
-    task = generateTask(kind, session.level, session.limit, session.seed);
+    task = logicTaskForSession(session);
     slot = 0; trial = false; predictionChecked = false; predictionHelp = [0, 0]; experimentInput = 2; experimentShown = false; ghost = []; fox = session.done && kind === 'route' ? task.end : null; status = ''; counters = session.level === 1;
     save(); render(); $('h2').focus({ preventScroll: true }); repeat();
   }
@@ -86,7 +87,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
   function render(focus) {
     const hadFocus = focus || (root.contains(document.activeElement) ? document.activeElement.id : '');
     root.dataset.game = kind; root.dataset.done = finished(); root.dataset.successPending = successPending; root.dataset.level = session.level; root.dataset.busy = busy;
-    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back">↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><span class="logic-scene-label">${{ shop: 'ERDEI PIAC', machine: 'FURFANG MŰHELYE', route: 'RÓKAPOSTA' }[kind]}</span><h2 tabindex="-1">${LOGIC_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${finished() ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${session.done || busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>`;
+    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back">↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><span class="logic-scene-label">${{ shop: 'ERDEI PIAC', machine: 'FURFANG MŰHELYE', route: 'RÓKAPOSTA' }[kind]}</span><h2 tabindex="-1">${LOGIC_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${finished() ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${session.done || busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>${finished()?relatedTaskMarkup('furfangliget',kind):''}`;
     bind('#logic-back', menu); bind('#logic-repeat', repeat);
     $('#logic-level').addEventListener('change', event => {
       if (busy) return;
@@ -455,5 +456,11 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
     if (document.hidden && active) { cancelAnimation(); stopPlayback(); }
     else if (active && kind) { status = ''; render(); }
   });
-  return { start() { active = true; menu(); }, stop, repeat };
+  return { start({kind:requestedKind}={}) {
+    active = true;
+    if(LOGIC_GAMES.includes(requestedKind)) {
+      const saved=logicSessionForLevel(normalizeLogic(getProgress()),requestedKind,levelFor(requestedKind));
+      startGame(requestedKind,Boolean(saved?.done));
+    } else menu();
+  }, stop, repeat };
 }

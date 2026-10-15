@@ -8,7 +8,7 @@ async page => {
   await context.setOffline(true);await page.reload();
   ok(await page.locator('#home').isVisible(),'Portal reloads fully offline');
   const files=await page.evaluate(async()=>{const manifest=await (await fetch('./audio/voice/manifest.json')).json();const missing=[];for(const c of manifest.clips){const r=await caches.match(new URL(c.file,location.href));if(!r||!r.ok)missing.push(c.id);}return{count:manifest.clips.length,missing};});
-  ok(files.count===743&&!files.missing.length,'All 743 Jessa clips are available offline');
+  ok(files.count>=743&&!files.missing.length,`All ${files.count} Jessa clips are available offline`);
   const audio=await page.evaluate(async()=>{
     const ids=['practice_together','counting_compare','flip_find','teddy_sequence_alma_viz','dress_weather_rain','abk_sound_guide','logic_machine_experiment','workshop_sort_again_2','r_mission_piknik','r_rhyme_part_roka_2_1','phrase_part_kerek_vizet_1','mese_guest_roka_cup','mese_sort_10'];
     const ctx=new (window.AudioContext||window.webkitAudioContext)(),durations=[];

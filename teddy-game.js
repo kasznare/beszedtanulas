@@ -1,4 +1,4 @@
-import { buildTeddyRound } from "./teddy-data.js";
+import { buildTeddyRound, buildExpressiveTeddyRound, teddyFoodForPhrase, teddyAccusative } from "./teddy-data.js";
 import { setWordPicture } from "./word-art.js";
 
 export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, playThanks, stopPlayback, onComplete, speak, onRestart = () => {} }) {
@@ -16,12 +16,32 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
   let misses = 0;
   let generation = 0;
   let requestMode = "single", step = 0, active = false;
+  let expressionLength = 2, selectedFood = null, expressivePhase = "choose";
+  let launchPhraseId = null, launchFoodId = null;
   const modeControls = document.createElement("div");
   modeControls.className = "teddy-modes";
   modeControls.setAttribute("role", "group");
-  modeControls.setAttribute("aria-label", "Etetős játék nehézsége");
-  modeControls.innerHTML = '<button type="button" data-teddy-mode="single" aria-pressed="true">Egy finomság</button><button type="button" data-teddy-mode="sequence" aria-pressed="false">Először… aztán…</button>';
+  modeControls.setAttribute("aria-label", "Etetős játék módja");
+  modeControls.innerHTML = '<button type="button" data-teddy-mode="single" aria-pressed="true">Egy finomság</button><button type="button" data-teddy-mode="sequence" aria-pressed="false">Először… aztán…</button><button type="button" data-teddy-mode="expressive" aria-pressed="false">Én kérek</button>';
   panel.prepend(modeControls);
+  const expressionControls = document.createElement("div");
+  expressionControls.className = "teddy-expression";
+  expressionControls.hidden = true;
+  expressionControls.innerHTML = '<div class="teddy-expression-length" role="group" aria-label="Hány szót mondunk?"><button type="button" data-expression-length="1" aria-pressed="false">Egy szó</button><button type="button" data-expression-length="2" aria-pressed="true">Két szó</button></div><button type="button" class="teddy-expression-confirm" disabled>Kimondtam ✓</button><button type="button" class="teddy-expression-give" disabled>Add oda Macinak →</button>';
+  answers.after(expressionControls);
+  const confirmExpression = expressionControls.querySelector(".teddy-expression-confirm");
+  const giveExpression = expressionControls.querySelector(".teddy-expression-give");
+  const scene = panel.querySelector(".teddy-scene");
+  const chosenVisual = document.createElement("div");
+  chosenVisual.className = "teddy-chosen-food";
+  chosenVisual.setAttribute("aria-hidden", "true");
+  chosenVisual.hidden = true;
+  scene.append(chosenVisual);
+  const meal = document.createElement("div");
+  meal.className = "teddy-meal";
+  meal.setAttribute("role", "group");
+  meal.setAttribute("aria-label", "Maci megkapta");
+  scene.append(meal);
   const order = document.createElement("ol"); order.className = "teddy-order"; order.setAttribute("aria-label", "Az etetés sorrendje");
   answers.before(order);
   modeControls.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
@@ -30,6 +50,31 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
     modeControls.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
     start({ announce: false });
   }));
+  expressionControls.querySelectorAll("[data-expression-length]").forEach(button => button.addEventListener("click", () => {
+    if (!active || requestMode !== "expressive" || document.hidden) return;
+    expressionLength = Number(button.dataset.expressionLength);
+    expressionControls.querySelectorAll("[data-expression-length]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    if (selectedFood && expressivePhase === "model") { status.textContent = modelText(selectedFood); repeat(); }
+  }));
+  confirmExpression.addEventListener("click", () => {
+    if (!active || requestMode !== "expressive" || expressivePhase !== "model" || !selectedFood || document.hidden) return;
+    expressivePhase = "give";
+    confirmExpression.disabled = true;
+    giveExpression.disabled = false;
+    expressionControls.querySelectorAll("[data-expression-length]").forEach(button => { button.disabled = true; });
+    status.textContent = "Most add oda Macinak!";
+    panel.dataset.mood = "happy";
+    giveExpression.focus({ preventScroll: true });
+  });
+  giveExpression.addEventListener("click", () => {
+    if (!active || requestMode !== "expressive" || expressivePhase !== "give" || !selectedFood || document.hidden) return;
+    const button = answers.querySelector(`[data-word="${selectedFood.id}"]`);
+    if (!button) return;
+    expressivePhase = "feeding";
+    giveExpression.disabled = true;
+    round[index].targets = [selectedFood];
+    feed(button, selectedFood);
+  });
   let flight;
   let morsel;
 
@@ -53,14 +98,33 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
 
   function repeat(options = {}) {
     if (!round.length || complete || document.hidden) return;
+    if (requestMode === "expressive") {
+      if (selectedFood && !solved && expressivePhase !== "feeding") speak?.(`${expressionLength === 1 ? "word" : "teddy"}_${selectedFood.id}`);
+      else if (solved) playThanks();
+      return;
+    }
     if (solved) playThanks();
     else if (requestMode === "sequence" && step === 0 && speak) speak(`teddy_sequence_${round[index].targets.map(food => food.id).join("_")}`);
     else playPrompt(round[index].targets[step], options);
   }
 
+  function modelText(food) {
+    return `Mondd: ${expressionLength === 1 ? food.label : `Kérek ${teddyAccusative[food.id]}`}`;
+  }
+
   function ready() {
     panel.dataset.mood = "happy";
-    status.textContent = "De finom! Köszönöm!";
+    status.textContent = requestMode === "expressive" ? `Maci megkapta ${selectedFood.id === "alma" ? "az" : "a"} ${teddyAccusative[selectedFood.id]}. Köszönöm!` : "De finom! Köszönöm!";
+    if (requestMode === "expressive") {
+      chosenVisual.hidden = true;
+      if (expressivePhase !== "done") {
+        expressivePhase = "done";
+        const icon = document.createElement("span");
+        setWordPicture(icon, selectedFood);
+        icon.setAttribute("aria-hidden", "true");
+        meal.append(icon);
+      }
+    }
     replay.setAttribute("aria-label", "Hallgasd meg újra a macit!");
     next.disabled = false;
     next.classList.add("is-ready");
@@ -126,13 +190,22 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
     solved = false;
     step = 0;
     misses = 0;
+    selectedFood = null;
+    expressivePhase = "choose";
+    chosenVisual.hidden = true;
+    chosenVisual.replaceChildren();
+    expressionControls.hidden = requestMode !== "expressive";
+    confirmExpression.disabled = true;
+    giveExpression.disabled = true;
     panel.dataset.mood = "waiting";
     next.disabled = true;
     next.classList.remove("is-ready");
     next.setAttribute("aria-label", index === round.length - 1 ? "Piknik befejezése" : "Következő finomság");
-    replay.disabled = false;
-    replay.setAttribute("aria-label", "Mit kér a maci? Hallgasd meg újra!");
-    status.textContent = "Mit kér a maci?";
+    replay.disabled = requestMode === "expressive";
+    replay.setAttribute("aria-label", requestMode === "expressive" ? "Hallgasd meg újra a mintát!" : "Mit kér a maci? Hallgasd meg újra!");
+    expressionControls.querySelectorAll("[data-expression-length]").forEach(button => { button.disabled = false; });
+    status.textContent = requestMode === "expressive" ? "Válassz finomságot, amit kérsz!" : "Mit kér a maci?";
+    answers.setAttribute("aria-label", requestMode === "expressive" ? "Melyik finomságot kéred?" : "Mivel kínálod meg a macit?");
     answers.dataset.count = round[index].choices.length;
     answers.replaceChildren(...round[index].choices.map(food => {
       const button = document.createElement("button");
@@ -145,7 +218,22 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
       setWordPicture(picture, food);
       button.append(picture);
       button.addEventListener("click", () => {
-        if (solved || complete || !round.length || document.hidden || replay.disabled) return;
+        if (solved || complete || !round.length || document.hidden || (requestMode !== "expressive" && replay.disabled)) return;
+        if (requestMode === "expressive") {
+          if (expressivePhase !== "choose" && expressivePhase !== "model") return;
+          selectedFood = food;
+          expressivePhase = "model";
+          answers.querySelectorAll(".teddy-plate").forEach(item => item.classList.toggle("is-selected", item === button));
+          setWordPicture(chosenVisual, food);
+          chosenVisual.hidden = false;
+          panel.dataset.mood = "waiting";
+          status.textContent = modelText(food);
+          confirmExpression.disabled = false;
+          giveExpression.disabled = true;
+          replay.disabled = false;
+          repeat();
+          return;
+        }
         if (food.id !== round[index].targets[step].id) {
           effect('retry'); misses += 1;
           status.textContent = "Hallgassuk meg újra!";
@@ -171,7 +259,7 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
     if (index === round.length - 1) {
       complete = true;
       next.disabled = true;
-      onComplete(round.length);
+      onComplete(round.length, { mode: requestMode });
     } else {
       index += 1;
       renderQuestion();
@@ -184,7 +272,7 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
     const interrupted = !!flight || replay.disabled;
     ++generation;
     clearFlight();
-    if (round.length && interrupted && !solved && !complete) {
+    if (requestMode !== "expressive" && round.length && interrupted && !solved && !complete) {
       step += 1; renderOrder();
       for (const choice of answers.children) choice.disabled = choice.dataset.word === round[index].targets[0].id;
       panel.dataset.mood = "waiting"; status.textContent = "Most jöhet a második finomság!"; replay.disabled = false;
@@ -198,15 +286,31 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
   document.addEventListener("visibilitychange", () => { if (document.hidden) suspend(); });
   window.addEventListener("pagehide", suspend);
 
-  function start({ announce = true } = {}) {
+  function start({ announce = true, mode, phraseId, foodId } = {}) {
     onRestart();
     active = true;
+    if (mode) requestMode = mode;
+    launchPhraseId = phraseId || null;
+    launchFoodId = foodId || null;
+    modeControls.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed", String(item.dataset.teddyMode === requestMode)));
     ++generation;
     clearFlight(); stopPlayback();
     const options = getOptions();
-    round = buildTeddyRound(options.length, options.choiceCount, requestMode);
+    const firstFoodId = launchFoodId || teddyFoodForPhrase(launchPhraseId);
+    round = requestMode === "expressive"
+      ? buildExpressiveTeddyRound(options.length, options.choiceCount, firstFoodId)
+      : buildTeddyRound(options.length, options.choiceCount, requestMode);
+    meal.replaceChildren();
     index = 0; complete = false;
-    renderQuestion(); repeat({ intro: announce });
+    renderQuestion();
+    if (requestMode !== "expressive") repeat({ intro: announce });
   }
-  return { start, stop() { active = false; ++generation; round = []; clearFlight(); stopPlayback(); }, repeat };
+  return {
+    start,
+    startExpressive(options = {}) { start({ ...options, mode: "expressive" }); },
+    restart() { start({ mode: requestMode, phraseId: launchPhraseId, foodId: launchFoodId }); },
+    getContext() { return { mode: requestMode, phraseId: launchPhraseId, foodId: launchFoodId, expressionLength }; },
+    stop() { active = false; ++generation; round = []; clearFlight(); stopPlayback(); },
+    repeat,
+  };
 }

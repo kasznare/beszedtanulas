@@ -160,6 +160,10 @@
 
 .ws-rule-card { padding:10px 14px; border-radius:14px; border:2px solid #78957f; background:#edf4e8; text-align:center; line-height:1.4; }
 .ws-color-swatch { display:grid; place-items:center; min-width:42px; height:38px; border-radius:9px; background:var(--object-color); color:#fffdf5; font-size:24px; }
+.ws-size-swatch { display:grid; place-items:center; width:42px; height:38px; border:2px dashed #748b7a; border-radius:9px; color:#426c5c; font-size:30px; line-height:1; }
+.ws-size-swatch.ws-small { font-size:18px; }
+.ws-color-size { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:46px; min-height:38px; border-radius:9px; background:var(--object-color); color:#fffdf5; line-height:1; }
+.ws-color-size>span { font-size:20px; }.ws-color-size small { font-size:10px; font-weight:700; }
 .ws-selected-preview { grid-column:1/-1; display:flex; align-items:center; justify-content:center; gap:10px; padding:8px 12px; background:#edf4e8; border:2px solid #48724d; border-radius:14px; position:sticky; top:8px; z-index:3; box-shadow:0 3px 8px #344d421f; }
 .ws-selected-preview small { display:block; margin-top:3px; }
 #ws-pattern-listen { display:block; margin:0 auto 12px; }

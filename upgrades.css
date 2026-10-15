@@ -33,3 +33,8 @@
 .phrase-parts [aria-pressed="true"] { background:#dcebd8; border-color:#477b5e; }
 .listening-answer.is-hint { box-shadow:0 0 0 5px #b7cfb5; }
 @media(max-height:500px) and (orientation:landscape) { .upgrade-options { margin:4px auto; }.upgrade-note { margin:4px 0; }.upgrade-panel { margin:5px 0; padding:5px; } }
+
+.phrase-filters { display:flex; gap:12px; flex-wrap:wrap; margin:10px 0; }.phrase-filters label { display:grid; gap:5px; flex:1 1 150px; font-size:.85rem; }.phrase-filters select { height:44px; min-height:44px; max-width:100%; padding:8px; border:1px solid #b3c5ad; border-radius:12px; background:#fffdf5; color:inherit; font:inherit; }
+.next-task-card { margin:16px auto 8px; padding:12px; max-width:460px; border-radius:18px; background:#eef4e8; color:#344b37; text-align:center; }.next-task-card p { font-size:.9rem; margin:0 0 8px; }.next-task-button { display:grid; gap:4px; width:100%; min-height:60px; padding:10px; border:1px solid #809f76; border-radius:14px; background:#fffdf5; color:inherit; font:inherit; cursor:pointer; }.next-task-button span { font-size:.8rem; }.next-task-button strong { font-size:1rem; }
+#round-complete { max-height:calc(100dvh - 24px); overflow:auto; }#round-complete .actions { flex-wrap:wrap; }#round-complete .actions .round-next { flex:1 1 100%; width:auto; height:auto; min-height:52px; gap:8px; font-size:1rem; padding:12px; }
+@media(max-height:500px) and (orientation:landscape) { #round-complete .complete-sun { display:none; }#round-complete .next-task-card { margin:6px auto; padding:8px; }#round-complete .next-task-card p { display:none; }#round-complete .actions .round-next { flex:1 1 170px; }#round-complete .complete-stars { font-size:1rem; } }

@@ -30,11 +30,11 @@ test('every game and level regenerates the exact saved task without storing gene
 test('sorting starts with diverse objects and every illustrated tray has an unambiguous destination', () => {
   for (const level of [1, 2, 3]) for (let seed = 0; seed < 200; seed++) {
     const task = generateWorkshopTask('sort', level, seed);
-    assert.equal(task.objects.length, [6, 8, 12][level - 1]); assert.equal(task.bins.length, [2, 4, 5][level - 1]);
+    assert.equal(task.objects.length, [6, 8, 8][level - 1]); assert.ok(task.bins.length >= 2 && task.bins.length <= 5);
     const bins = task.objects.map(object => workshopSortTarget(task, object));
     assert.ok(bins.every(bin => bin >= 0 && bin < task.bins.length)); assert.equal(new Set(bins).size, task.bins.length);
-    if (level === 1) assert.ok(task.bins.every(bin => bin.shape === undefined));
-    if (level > 1) assert.equal(new Set(task.bins.filter(bin => !bin.other).map(bin => `${bin.color}:${bin.shape}`)).size, 4);
+    if (level === 1) assert.equal(task.ruleKeys.length,1);
+    if (level > 1) assert.equal(new Set(task.bins.filter(bin => !bin.other).map(bin => task.ruleKeys.map(key=>bin[key]).join(':'))).size, 4);
     if (level === 3) assert.equal(bins.filter(bin => bin === 4).length, 4);
   }
   assert.equal(new Set(Object.values(WORKSHOP_COLORS).map(color => color.mark)).size, 4, 'color identity is also encoded by a symbol');
@@ -44,15 +44,12 @@ test('patterns preserve the repeated unit, expose a full prefix and grow to simu
   const secondLevelMotifs = new Set();
   for (const level of [1, 2, 3]) for (let seed = 0; seed < 160; seed++) {
     const task = generateWorkshopTask('pattern', level, seed);
-    assert.equal(task.holes.length, [2, 3, 4][level - 1]); assert.equal(task.palette.length, level === 3 ? 6 : level === 1 ? 2 : task.palette.length);
+    assert.equal(task.holes.length, [2, 3, 4][level - 1]); assert.ok(task.palette.length>=2 && task.palette.length<=6);
     assert.ok(task.sequence.every((value, index) => value === task.motif[index % task.motif.length]));
     assert.ok(task.holes.every(index => index >= (level === 3 ? 3 : task.motif.length)));
     assert.equal(new Set(task.holes).size, task.holes.length);
     if (level === 2) secondLevelMotifs.add(task.motif.map(index => task.palette[index].color + ':' + task.palette[index].shape).join(','));
-    if (level === 3) for (let i = 0; i < task.sequence.length - 3; i++) {
-      assert.equal(task.palette[task.sequence[i]].color, task.palette[task.sequence[i + 2]].color);
-      assert.equal(task.palette[task.sequence[i]].shape, task.palette[task.sequence[i + 3]].shape);
-    }
+    if (level === 3) assert.equal(task.motif.length,6);
     const session = newWorkshopSession('pattern', level, seed); solve(task, session);
     session.moves.answers[0] = (session.moves.answers[0] + 1) % task.palette.length; assert.equal(workshopSolved(task, session), false);
   }
@@ -69,7 +66,7 @@ test('balance tasks accept every valid composition and enforce exact count, dist
       const session = newWorkshopSession('balance', level, seed); session.moves.rods = [...rods].reverse(); assert.ok(workshopSolved(task, session));
     }
     const session = newWorkshopSession('balance', level, seed);
-    session.moves.rods = Array(task.target).fill(1); assert.equal(workshopSolved(task, session), level === 1);
+    session.moves.rods = Array(task.target).fill(1); assert.equal(workshopSolved(task, session), level === 1 && task.target<=task.maxPieces);
     session.moves.rods = [100]; assert.equal(workshopSolved(task, session), false);
   }
   const task = generateWorkshopTask('balance', 2, 0), session = newWorkshopSession('balance', 2, 0);

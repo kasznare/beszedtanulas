@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { words, wordCategories } from '../game-data.js';
-import { buildListeningRound } from '../listening-game.js';
+import { buildListeningRound, buildListeningBingo } from '../listening-game.js';
 
 test('every topic and level has distinct choices and exactly one valid target', () => {
   for (const category of wordCategories) {
@@ -41,4 +41,19 @@ test('answer placement varies with the shuffle, not with target identity', () =>
   const first = buildListeningRound(pool, 3, 3, () => 0);
   const last = buildListeningRound(pool, 3, 3, () => .99);
   assert.notEqual(first[0].choices.findIndex(word => word.id === first[0].target.id), last[0].choices.findIndex(word => word.id === last[0].target.id));
+});
+
+test('bingo uses one fixed board and covers every picture once within the selected topic', () => {
+  for(const category of wordCategories){
+    const pool=words.filter(word=>category.words.includes(word.id));
+    for(const count of [2,3])for(const difficulty of ['different','similar']){
+      const chosen=pool[0];
+      const {board,targets}=buildListeningBingo(pool,count,()=>.42,difficulty,chosen.id);
+      assert.equal(board.length,Math.min(pool.length,count));
+      assert.equal(new Set(board.map(word=>word.id)).size,board.length);
+      assert.deepEqual(new Set(targets.map(word=>word.id)),new Set(board.map(word=>word.id)));
+      assert.equal(targets[0].id,chosen.id);
+      assert.ok(board.every(word=>pool.includes(word)));
+    }
+  }
 });

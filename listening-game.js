@@ -31,7 +31,15 @@ export function buildListeningRound(pool, length = 5, choiceCount = 2, random = 
   });
 }
 
+export function buildListeningBingo(pool, choiceCount = 2, random = Math.random, difficulty = 'different', firstWordId = null) {
+  const first = buildListeningRound(pool, 3, choiceCount, random, difficulty, firstWordId)[0];
+  const board = first.choices;
+  const targets = [first.target, ...shuffled(board.filter(word => word.id !== first.target.id), random)];
+  return { board, targets };
+}
+
 export function setupListeningGame({ effect = () => {}, getOptions, setDifficulty, speak, playPrompt, playCorrect, stopPlayback, onComplete, onRestart = () => {} }) {
+  const panel = document.querySelector('#listening-game');
   const answers = document.querySelector("#listening-answers");
   const progress = document.querySelector("#listening-progress");
   const status = document.querySelector("#listening-status");
@@ -41,7 +49,11 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
   let index = 0;
   let solved = false;
   let complete = false;
-  let misses=0,generation=0;
+  let misses=0,generation=0,mode='classic';
+  const modes=document.createElement('div');modes.className='listening-modes';modes.setAttribute('role','group');modes.setAttribute('aria-label','Keresős játék módja');
+  modes.innerHTML='<button type="button" data-listening-mode="classic" aria-pressed="true">Hol van?</button><button type="button" data-listening-mode="bingo" aria-pressed="false">Hangos bingó</button>';
+  panel.prepend(modes);
+  modes.addEventListener('click',event=>{const button=event.target.closest('[data-listening-mode]');if(!button||document.hidden)return;start({mode:button.dataset.listeningMode,announce:button.dataset.listeningMode==='bingo'});button.focus({preventScroll:true});});
   const settings=document.createElement('div');settings.className='upgrade-options';settings.setAttribute('role','group');settings.setAttribute('aria-label','Képek hasonlósága');
   settings.innerHTML='<button data-listening-difficulty="different">Különböző képek</button><button data-listening-difficulty="similar">Hasonló képek</button>';
   answers.before(settings);
@@ -59,10 +71,20 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
   }
 
   function repeat(options = {}) {
-    if (round.length && !complete && !document.hidden) playPrompt(round[index].target, options);
+    if (!round.length || complete || document.hidden) return;
+    if (mode === 'bingo' && options.intro) {
+      const token = generation;
+      Promise.resolve(speak?.('listening_bingo_start')).catch(() => {}).then(() => {
+        if (token === generation && round.length && !complete && !document.hidden)
+          playPrompt(round[index].target, { ...options, intro: false });
+      });
+      return;
+    }
+    playPrompt(round[index].target, options);
   }
 
   function renderQuestion() {
+    if(mode==='bingo'){renderBingoQuestion();return;}
     generation++;
     solved = false;
     misses=0;
@@ -120,6 +142,40 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
     renderProgress();
   }
 
+  function renderBingoBoard(board) {
+    answers.replaceChildren(...board.map(word=>{
+      const button=document.createElement('button');button.type='button';button.className='listening-answer listening-bingo-tile';button.dataset.word=word.id;button.setAttribute('aria-label',word.label);
+      const picture=document.createElement('span');picture.className='listening-picture';picture.setAttribute('aria-hidden','true');setWordPicture(picture,word);
+      const cover=document.createElement('span');cover.className='listening-bingo-cover';cover.setAttribute('aria-hidden','true');cover.textContent='✓';
+      button.append(picture,cover);button.addEventListener('click',()=>chooseBingo(word,button));return button;
+    }));
+    answers.dataset.count=board.length;
+    answers.classList.add('is-bingo');
+    answers.setAttribute('aria-label','Hangos bingó képei');
+  }
+  function renderBingoQuestion() {
+    generation++;solved=false;misses=0;
+    next.disabled=true;next.classList.remove('is-ready');
+    next.setAttribute('aria-label',index===round.length-1?'Bingó befejezése':'Következő bingóhang');
+    status.textContent='Hallgasd meg, és jelöld meg a képet!';
+    answers.querySelectorAll('.is-retry,.is-hint').forEach(button=>button.classList.remove('is-retry','is-hint'));
+    renderProgress();
+  }
+  function chooseBingo(word,button) {
+    if(mode!=='bingo'||!round.length||complete||solved||document.hidden||button.disabled)return;
+    if(word.id!==round[index].target.id){
+      effect('retry');misses++;button.classList.add('is-retry');status.textContent='Hallgasd meg újra!';
+      if(misses>=2)answers.querySelector(`[data-word="${round[index].target.id}"]`)?.classList.add('is-hint');
+      repeat({retry:true});return;
+    }
+    solved=true;generation++;stopPlayback();
+    button.classList.remove('is-retry','is-hint');button.classList.add('is-covered');button.disabled=true;
+    button.setAttribute('aria-label',`${word.label}, megjelölve`);
+    status.textContent=index===round.length-1?'Bingó! Minden kép megvan.':'Megvan! Jöhet a következő hang.';
+    next.disabled=false;next.classList.add('is-ready');renderProgress();playCorrect();
+    next.focus({preventScroll:true});
+  }
+
   replay.addEventListener("click", () => repeat());
   next.addEventListener("click", () => {
     if (!solved || complete || !round.length) return;
@@ -127,7 +183,7 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
     if (index === round.length - 1) {
       complete = true;
       next.disabled = true;
-      onComplete(round.length);
+      onComplete(round.length,{mode});
       return;
     }
     index += 1;
@@ -136,21 +192,34 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
     repeat();
   });
 
-  function start({ announce = true } = {}) {
+  function start({ announce = true, mode: requestedMode } = {}) {
       generation++;
       onRestart();
       stopPlayback();
+      if(requestedMode)mode=requestedMode;
       const options = getOptions();
-      round = buildListeningRound(options.words, options.length, options.choiceCount, Math.random, options.difficulty, options.firstWordId);
+      if(mode==='bingo'){
+        const bingo=buildListeningBingo(options.words,options.choiceCount,Math.random,options.difficulty,options.firstWordId);
+        round=bingo.targets.map(target=>({target,choices:bingo.board}));
+        renderBingoBoard(bingo.board);
+      }else{
+        round=buildListeningRound(options.words, options.length, options.choiceCount, Math.random, options.difficulty, options.firstWordId);
+        answers.classList.remove('is-bingo');answers.setAttribute('aria-label','Válassz képet');
+      }
+      modes.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.listeningMode===mode)));
       settings.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.listeningDifficulty===(options.difficulty||'different'))));
       index = 0;
       complete = false;
       renderQuestion();
       repeat({ intro: announce });
     }
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){generation++;stopPlayback();}});
+  const suspend=()=>{generation++;stopPlayback();};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();});
+  window.addEventListener('pagehide',suspend);
   return {
     start,
+    restart(){start({mode});},
+    getContext(){return {mode};},
     stop() { generation++;round = []; stopPlayback(); },
     repeat,
   };

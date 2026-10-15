@@ -125,3 +125,5 @@
 #r-practice .rp-decoration-place.rp-stamp-flower {border-radius:40% 55% 40% 55%;background:#fff1d1;border-color:#b6b97c;}
 #r-practice .rp-decoration-place.rp-stamp-star {border-radius:8px;background:#f5e6c2;border-color:#c1ad77;}
 #r-practice .rp-decoration-place.rp-stamp-leaf {border-radius:50% 8% 50% 8%;background:#e1efd5;border-color:#91aa80;}
+
+.rp-mission-ending { display:grid; gap:12px; text-align:center; font-weight:700; }.rp-mission-ending > span { font-size:2.5rem; }.rp-target-picture > span { display:inline-block; font-size:.72em; }

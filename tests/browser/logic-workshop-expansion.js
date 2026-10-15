@@ -70,10 +70,11 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   ok(await page.locator('#furfangliget[data-success-pending="true"]').count()===1&&await page.locator('#logic-next').count()===0,'route saves immediately while its completed map stays visible');
   ok(await page.evaluate(()=>expansionFixture.effects.includes('step')),'route playback retains step sounds');
   const reward=(await state()).rewards;await page.locator('#logic-back').click();await page.locator('[data-game="route"]').click();ok((await state()).rewards===reward,'reopening completed route never rewards twice');
+  ok(await page.locator('#furfangliget .next-task-card').count()===1,'completed logic task offers the related activity');
   await layout('#furfangliget','route');
   await page.evaluate(()=>{const f=window.expansionFixture;f.logicController.stop();document.querySelector('#furfangliget').hidden=true;document.querySelector('#workshop').hidden=false;f.workshopController.start();});
   const workshopTask=()=>page.evaluate(()=>{const f=window.expansionFixture,kind=document.querySelector('#workshop').dataset.game,level=Number(document.querySelector('#workshop').dataset.level),s=f.workshop.sessions[kind][level-1],t=f.wd.workshopTaskForSession(s);return {...t,destinations:kind==='sort'?t.objects.map(o=>f.wd.workshopSortTarget(t,o)):[],solutions:kind==='balance'?f.wd.workshopBalanceSolutions(t):[]};});
-  await page.locator('#ws-place-sort').click();ok(await page.locator('.ws-color-swatch').count()===2,'color-only trays use neutral swatches');
+  await page.locator('#ws-place-sort').click();ok(await page.locator('[data-bin]').count()>=2,'new sorting rule renders usable trays');
   const beforeSort=(await state()).rewards;task=await workshopTask();const objects=task.objects;
   for(let round=0;round<2;round++){
     task=await workshopTask();ok(JSON.stringify(task.objects)===JSON.stringify(objects),'sorting rounds retain the same objects');
@@ -113,6 +114,36 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   await layout('#workshop','balance');
   await page.setViewportSize({width:320,height:740});await layout('#workshop','balance small phone');
   await page.locator('#ws-back').click();await page.locator('#ws-place-pattern').click();await layout('#workshop','pattern small phone');
+  await page.evaluate(()=>{
+    const f=window.expansionFixture;f.options.workshopLevel=1;
+    const seed=Array.from({length:100},(_,i)=>i).find(i=>f.wd.generateWorkshopTask('sort',1,i).ruleKeys[0]==='size');
+    f.workshop.sessions.sort[0]=f.wd.newWorkshopSession('sort',1,seed);f.workshopController.start({kind:'sort'});
+  });
+  ok(await page.locator('.ws-size-swatch').count()===2&&await page.locator('.ws-token .ws-small').count()>0,'size sorting has visible size cues on tokens and trays');
+  await layout('#workshop','size sorting small phone');
+  await page.evaluate(()=>{
+    const f=window.expansionFixture;f.options.workshopLevel=3;
+    const seed=Array.from({length:100},(_,i)=>i).find(i=>f.wd.generateWorkshopTask('sort',3,i).filter.key==='shape');
+    f.workshop.sessions.sort[2]=f.wd.newWorkshopSession('sort',3,seed);f.workshopController.start({kind:'sort'});
+  });
+  ok(await page.locator('.ws-color-size').count()===4&&await page.locator('.ws-heading').innerText().then(text=>text.includes('formájú')||text.includes('alakú')||text.includes('négyzet')||text.includes('kör')),'shape-filter sorting shows color and size trays with an accurate rule');
+  await layout('#workshop','shape sorting small phone');
+  const destinationCheck=await page.evaluate(()=>{
+    const f=window.expansionFixture,unfinishedSort=JSON.stringify(f.workshop.sessions.sort[2]);
+    f.workshopController.start({kind:'sort'});
+    const workshopResumed=JSON.stringify(f.workshop.sessions.sort[2])===unfinishedSort;
+    f.options.workshopLevel=1;const workshopWasDone=f.workshop.sessions.pattern[0].done;
+    f.workshopController.start({kind:'pattern'});
+    const workshopFresh=workshopWasDone&&!f.workshop.sessions.pattern[0].done;
+    const unfinishedMachine=JSON.stringify(f.logic.sessions.machine);
+    f.logicController.start({kind:'machine'});
+    const logicResumed=JSON.stringify(f.logic.sessions.machine)===unfinishedMachine;
+    const logicWasDone=f.logic.sessions.route.done;
+    f.logicController.start({kind:'route'});
+    const logicFresh=logicWasDone&&!f.logic.sessions.route.done;
+    return {workshopResumed,workshopFresh,logicResumed,logicFresh};
+  });
+  ok(Object.values(destinationCheck).every(Boolean),'related destinations resume unfinished boards and replace completed boards with fresh tasks');
   ok(!errors.length,`no runtime errors: ${errors.join('; ')}`);
   return {count:checks.length,checks};
 }

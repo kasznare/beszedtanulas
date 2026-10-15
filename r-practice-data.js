@@ -34,6 +34,36 @@ export const R_DISTRACTORS = [
   {id:'banan',text:'banán',icon:'🍌'},
 ];
 
+// Authored two-word scenes keep the known target word and add a meaningful
+// action or property. These are content choices, not pronunciation grades.
+export const R_PHRASE_VARIANTS = [
+  ['roka_fut','roka','róka fut',['🦊','🐾']],
+  ['robot_rajzol','robot','robot rajzol',['🤖','✏️']],
+  ['repa_no','repa','répa nő',['🥕','🌱']],
+  ['puha_ruha','ruha','puha ruha',['🪶','👕']],
+  ['sarga_rozsa','rozsa','sárga rózsa',['🟡','🌹']],
+  ['radio_szol','radio','rádió szól',['📻','🎵']],
+  ['virag_nyilik','virag','virág nyílik',['🌷','🌼']],
+  ['sarga_korte','korte','sárga körte',['🟡','🍐']],
+  ['ropogos_perec','perec','ropogós perec',['✨','🥨']],
+  ['kek_ceruza','ceruza','kék ceruza',['🔵','✏️']],
+  ['zold_erdo','erdo','zöld erdő',['🟢','🌲']],
+  ['finom_torta','torta','finom torta',['😋','🎂']],
+  ['madar_repul','madar','madár repül',['🐦','🪽']],
+  ['eger_szalad','eger','egér szalad',['🐭','🐾']],
+  ['teli_pohar','pohar','teli pohár',['💧','🥛']],
+  ['teli_kosar','kosar','teli kosár',['🍐','🧺']],
+  ['kek_sator','sator','kék sátor',['🔵','⛺']],
+  ['teli_vodor','vodor','teli vödör',['💧','🪣']],
+].map(([id,wordId,text,icons])=>({id,wordId,text,icons,clip:`r_variant_${id}`}));
+
+export function withRPhraseVariant(word, previousClip='', random=Math.random) {
+  const choices = [{text:word.phrase,icons:[word.icon],clip:`r_phrase_${word.id}`}, ...R_PHRASE_VARIANTS.filter(item=>item.wordId===word.id)];
+  const fresh=choices.filter(item=>item.clip!==previousClip), pool=fresh.length?fresh:choices;
+  const selected=shuffleR(pool,random)[0];
+  return {...word, phrase:selected.text, phraseClip:selected.clip, phraseIcons:[...selected.icons]};
+}
+
 export const R_RHYMES = [
   {id:'roka', title:'Róka és robot', icon:'🦊', lines:[
     ['Róka fut a réten át.', '🦊 🌿'], ['Robot őrzi a répát.', '🤖 🥕'],
@@ -172,6 +202,12 @@ export const R_POST_MISSIONS = [
   {id:'unnep',title:'Ünnepi asztal',icon:'🎂',words:['torta','virag'],text:'Ünnepi asztalt készítünk. Küldj tortát és virágot!'},
   {id:'piknik',title:'Piknikre készülünk',icon:'🧺',words:['pohar','kosar'],text:'Piknikre készülünk. Küldj poharat és kosarat!'},
   {id:'tabor',title:'Tábort építünk',icon:'⛺',words:['vodor','sator'],text:'Tábort építünk. Küldj vödröt és sátrat!'},
+  {id:'kert',title:'Robot kertje',icon:'🌱',words:['robot','repa'],text:'Robot kertészkedik. Küldj robotot és répát!',ending:'Robot elültette a répát.',scene:'🤖 🌱 🥕'},
+  {id:'zene',title:'Zenés ünnep',icon:'🎵',words:['radio','rozsa'],text:'Zenés ünnep lesz. Küldj rádiót és rózsát!',ending:'Szól a zene, virág került az asztalra.',scene:'📻 🎵 🌹'},
+  {id:'rajz',title:'Virágot rajzolunk',icon:'✏️',words:['ceruza','virag'],text:'Virágot rajzolunk. Küldj ceruzát és virágot!',ending:'Elkészült a virágrajz.',scene:'✏️ 🖼️ 🌷'},
+  {id:'suti',title:'Sütödei csomag',icon:'🥨',words:['perec','torta'],text:'Nyit a sütöde. Küldj perecet és tortát!',ending:'Tele lett a sütöde pultja.',scene:'🥨 🏠 🎂'},
+  {id:'gyujtes',title:'Erdei gyűjtögetés',icon:'🧺',words:['kosar','vodor'],text:'Gyűjtögetni indulunk. Küldj kosarat és vödröt!',ending:'Minden edény készen áll a gyűjtögetéshez.',scene:'🌲 🧺 🪣'},
+  {id:'vacsora',title:'Vacsora a sátornál',icon:'🌙',words:['sator','pohar'],text:'Vacsora a sátornál. Küldj sátrat és poharat!',ending:'Megterítettünk a sátor előtt.',scene:'🌙 ⛺ 🥛'},
 ];
 export const R_DECORATIONS = [
   {id:'flower',name:'virág',icon:'🌼'}, {id:'star',name:'csillag',icon:'⭐'},

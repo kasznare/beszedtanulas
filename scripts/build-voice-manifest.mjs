@@ -135,6 +135,14 @@ for (const clip of clips) {
   });
   if (target !== original) contextual(clip.id, 'Mondjuk együtt: ', target);
 }
+// These new requests already exist as Maci's correctly inflected full models.
+// Reuse the paid recordings, including their character timings, for both modes.
+for (const [phraseId, food] of [['kerek_almat','alma'],['kerek_tejet','tej'],['kerek_kiflit','kifli'],['kerek_kenyeret','kenyer']]) {
+  const clip=clips.find(c=>c.id===`phrase_${phraseId}`), source=clips.find(c=>c.id===`teddy_${food}`);
+  clip.spokenText=source.spokenText||source.text;
+  clip.spokenTarget=(source.spokenTarget||source.text).replace(/[.!?]$/, '');
+  clip.extract={from:source.extract?.from||0,to:(source.extract?.from||0)+clip.spokenTarget.length,before:.025,after:.15,text:clip.text};
+}
 // Short practice parts use the same audited pronunciation as their full model.
 // The generator cuts them at the provider's character timings, without a new request.
 const displayTokens = text => [...text.matchAll(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu)];

@@ -1,0 +1,9 @@
+.listening-modes { display: flex; justify-content: center; gap: 10px; margin: 4px 0 14px; }
+.listening-modes button { min-height: 44px; padding: 8px 16px; border: 2px solid #b8cbaa; border-radius: 14px; background: #fffdf5; color: #3d634d; font: inherit; cursor: pointer; touch-action: manipulation; }
+.listening-modes button[aria-pressed="true"] { background: #e4f0dc; border-color: #378254; font-weight: 750; }
+.listening-answers.is-bingo .listening-bingo-tile { position: relative; overflow: hidden; }
+.listening-bingo-cover { position: absolute; inset: 0; display: none; place-items: center; color: #174e38; background: #acd797aa; font-size: clamp(2rem, 7vw, 4.2rem); font-weight: 900; text-shadow: 0 2px #fff9; }
+.listening-bingo-tile.is-covered .listening-bingo-cover { display: grid; }
+.listening-bingo-tile.is-covered { border-color: #378254; background: #dcefd5; opacity: 1; }
+.listening-bingo-tile.is-covered .listening-picture { opacity: .8; }
+@media (max-width: 520px) { .listening-modes { margin-bottom: 8px; } .listening-modes button { padding: 6px 12px; } }

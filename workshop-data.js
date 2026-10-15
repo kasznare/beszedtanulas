@@ -25,10 +25,24 @@ function shuffle(items, random) {
 export function workshopObjectName(object) {
   return [object.size === 0 ? 'kis' : object.size === 1 ? 'nagy' : '', WORKSHOP_COLORS[object.color].name, WORKSHOP_SHAPES[object.shape]].filter(Boolean).join(' ');
 }
-export function generateWorkshopTask(kind, level, seed, version = 2, round = 0) {
+export function generateWorkshopTask(kind, level, seed, version = 3, round = 0) {
   if (!WORKSHOP_GAMES.includes(kind) || !integer(level, 1, 3) || !integer(seed, 0, 0xffffffff)) throw new Error('Érvénytelen műhelyfeladat.');
   const random = randomSource(seed), colors = shuffle(Object.keys(WORKSHOP_COLORS), random).slice(0, 2);
   const shapes = shuffle(Object.keys(WORKSHOP_SHAPES), random);
+  if (kind === 'sort' && version >= 3) {
+    const wantedSize = Math.floor(random()*2);
+    const objects = shuffle(level===1
+      ? colors.flatMap(color=>shapes.map((shape,i)=>({color,shape,size:i%2})))
+      : colors.flatMap(color=>shapes.slice(0,2).flatMap(shape=>[0,1].map(size=>({color,shape,size})))),random);
+    const families = level===1 ? [['color'],['shape'],['size']] : [['color','shape'],['color','size'],['shape','size']];
+    const family = Math.floor(random()*(level===3?2:families.length)), keys = families[level===3?family:(family+round)%families.length];
+    const values = {color:colors,shape:level===1?shapes:shapes.slice(0,2),size:[0,1]};
+    const filterKey = level===3 ? ['size','shape'][family] : null;
+    const filter = filterKey ? {key:filterKey,value:values[filterKey][round?1-wantedSize:wantedSize]} : null;
+    const bins = keys.reduce((acc,key)=>acc.flatMap(bin=>values[key].map(value=>({...bin,[key]:value}))),[{}]);
+    if(filter)bins.push({other:true});
+    return {kind,level,colors,objects,bins,wantedSize:filter?.value??wantedSize,filter,ruleKeys:keys,version,round};
+  }
   if (kind === 'sort') {
     let wantedSize = Math.floor(random() * 2), bins = level === 1 ? colors.map(color => ({ color })) : colors.flatMap(color => shapes.slice(0, 2).map(shape => ({ color, shape })));
     if (level === 3) bins.push({ other: true });
@@ -45,7 +59,22 @@ export function generateWorkshopTask(kind, level, seed, version = 2, round = 0) 
   if (kind === 'pattern') {
     const a = { color: colors[0], shape: shapes[0] }, b = { color: colors[1], shape: shapes[1] }, c = { color: colors[0], shape: shapes[2] };
     const motifs = [[a, a, b], [a, b, b], [a, b, c]];
-    const motif = level === 1 ? [a, b] : level === 2 ? motifs[Math.floor(random() * motifs.length)] : Array.from({ length: 6 }, (_, i) => ({ color: colors[i % 2], shape: shapes[i % 3] }));
+    let motif = level === 1 ? [a, b] : level === 2 ? motifs[Math.floor(random() * motifs.length)] : Array.from({ length: 6 }, (_, i) => ({ color: colors[i % 2], shape: shapes[i % 3] }));
+    if(version>=3) {
+      if(level===1) motif = [
+        [a,b], [{color:colors[0],shape:shapes[0]},{color:colors[0],shape:shapes[1]}],
+        [{color:colors[0],shape:shapes[0]},{color:colors[1],shape:shapes[0]}]
+      ][Math.floor(random()*3)];
+      if(level===2) motif = [
+        [a,a,b],[a,b,b],[a,b,c],[a,b,{color:colors[1],shape:shapes[0]}]
+      ][Math.floor(random()*4)];
+      if(level===3) {
+        const family=Math.floor(random()*3);
+        motif=Array.from({length:6},(_,i)=>family===0 ? {color:colors[i%2],shape:shapes[i%3]}
+          : family===1 ? {color:colors[[0,1,1][i%3]],shape:shapes[i%2]}
+          : {color:colors[Math.floor(i%3/2)],shape:shapes[i%2]});
+      }
+    }
     const palette = shuffle(motif.filter((o, i) => motif.findIndex(p => p.color === o.color && p.shape === o.shape) === i), random);
     const sequence = Array.from({ length: level === 1 ? 8 : level === 2 ? 9 : 12 }, (_, i) => palette.findIndex(o => o.color === motif[i % motif.length].color && o.shape === motif[i % motif.length].shape));
     // Preserve old seed meanings. New tasks keep a full visible repeating unit,
@@ -53,13 +82,15 @@ export function generateWorkshopTask(kind, level, seed, version = 2, round = 0) 
     const holes = version < 2 ? (level === 1 ? [6, 7] : level === 2 ? [4, 7, 8] : [3, 7, 10, 11]) : shuffle(Array.from({length:sequence.length-motif.length},(_,i)=>i+motif.length),random).slice(0,[2,3,4][level-1]).sort((a,b)=>a-b);
     return { kind, level, palette, motif: motif.map(o => palette.findIndex(p => p.color === o.color && p.shape === o.shape)), sequence, holes };
   }
-  const choices = Array.from({ length: level === 1 ? 3 : level === 2 ? 5 : 6 }, (_, i) => i + 1);
+  const choices = Array.from({ length: level === 1 ? 3 : level === 2 ? 5 : version>=3?7:6 }, (_, i) => i + 1);
   const countRequired = level === 1 ? null : level, distinct = level > 1;
-  const possibleTargets = level === 1 ? [3, 4, 5, 6] : level === 2 ? [6, 7, 8, 9] : [9, 10, 11, 12, 13, 14, 15];
+  const possibleTargets = version>=3 ? level===1?[4,5,6,7,8,9,10]:level===2?[4,5,6,7,8,9]:[9,10,11,12,13,14,15]
+    : level === 1 ? [3, 4, 5, 6] : level === 2 ? [6, 7, 8, 9] : [9, 10, 11, 12, 13, 14, 15];
   return { kind, level, choices, target: possibleTargets[Math.floor(random() * possibleTargets.length)], countRequired, distinct, stock: level === 1 ? 6 : level === 2 ? 2 : 1, maxPieces: level === 1 ? 6 : 4 };
 }
 export function workshopSortTarget(task, object) {
-  if (task.level === 3 && object.size !== task.wantedSize) return task.bins.length - 1;
+  if (task.filter && object[task.filter.key]!==task.filter.value) return task.bins.length-1;
+  if (!task.filter && task.level === 3 && object.size !== task.wantedSize) return task.bins.length - 1;
   return task.bins.findIndex(bin => !bin.other && (!bin.color || bin.color === object.color) && (!bin.shape || bin.shape === object.shape) && (bin.size === undefined || bin.size === object.size));
 }
 export function workshopTaskForSession(session) {
@@ -67,7 +98,7 @@ export function workshopTaskForSession(session) {
 }
 export function newWorkshopSession(kind, level = 1, seed = workshopSeed()) {
   const task = generateWorkshopTask(kind, level, seed);
-  return { kind, level, seed, taskVersion: 2, round: 0, rewarded: false, found: [], help: 0, misses: 0, done: false, moves: { placements: kind === 'sort' ? task.objects.map(() => -1) : [], answers: kind === 'pattern' ? task.holes.map(() => null) : [], rods: [] }, history: [] };
+  return { kind, level, seed, taskVersion: 3, round: 0, rewarded: false, found: [], help: 0, misses: 0, done: false, moves: { placements: kind === 'sort' ? task.objects.map(() => -1) : [], answers: kind === 'pattern' ? task.holes.map(() => null) : [], rods: [] }, history: [] };
 }
 function validMoves(task, moves) {
   return record(moves) && Array.isArray(moves.placements) && Array.isArray(moves.answers) && Array.isArray(moves.rods)
@@ -143,11 +174,11 @@ export function workshopHint(task, session) {
 function validSession(session, kind, level) {
   if (!record(session) || session.kind !== kind || session.level !== level || !integer(session.seed, 0, 0xffffffff) || !integer(session.help, 0, 3) || !integer(session.misses, 0, 9999) || typeof session.done !== 'boolean') return false;
   const version = session.taskVersion ?? 1, round = session.round ?? 0;
-  if (![1,2].includes(version) || !integer(round,0,version===2&&kind==='sort'?1:0) || (session.rewarded!==undefined&&typeof session.rewarded!=='boolean')) return false;
+  if (![1,2,3].includes(version) || !integer(round,0,version>=2&&kind==='sort'?1:0) || (session.rewarded!==undefined&&typeof session.rewarded!=='boolean')) return false;
   const task = workshopTaskForSession(session), found = session.found ?? [];
   if (!Array.isArray(found) || (kind!=='balance' && found.length) || found.length>30 || found.some(rods=>!Array.isArray(rods)||!workshopSolved(task,{moves:{placements:[],answers:[],rods}})) || new Set(found.map(workshopSolutionKey)).size!==found.length) return false;
   if (kind==='balance' && (found.length>0 && !session.rewarded || session.rewarded && !found.length)) return false;
-  if (session.done && version===2 && kind==='sort' && round!==1) return false;
+  if (session.done && version>=2 && kind==='sort' && round!==1) return false;
   if (session.done && kind==='balance' && session.rewarded===true && !found.some(rods=>workshopSolutionKey(rods)===workshopSolutionKey(session.moves.rods))) return false;
   return validMoves(task, session.moves) && Array.isArray(session.history) && session.history.length <= 60 && session.history.every(moves => validMoves(task, moves)) && (!session.done || workshopSolved(task, session));
 }
@@ -168,7 +199,7 @@ export function validateWorkshop(value) {
 export function completeWorkshop(value, kind, level) {
   const next = normalizeWorkshop(value), session = next.sessions[kind]?.[level - 1];
   if (!session || session.done || !workshopSolved(workshopTaskForSession(session), session)) return { progress: next, reward: false, changed: false };
-  if (kind==='sort' && session.taskVersion===2 && session.round===0) {
+  if (kind==='sort' && session.taskVersion>=2 && session.round===0) {
     session.round=1; session.moves.placements.fill(-1); session.history=[];
     return {progress:next,reward:false,changed:true};
   }

@@ -27,7 +27,7 @@ export function routeSolution(task, prefix = [task.start]) {
   }
   return null;
 }
-export function generateTask(kind, level, limit, seed) {
+export function generateTask(kind, level, limit, seed, version = 2) {
   const random = rng(seed), range = n => Math.floor(random() * n);
   if (kind === 'shop') {
     // Both requests are nonempty; at level 3 their SUM remains in the selected number range.
@@ -44,9 +44,41 @@ export function generateTask(kind, level, limit, seed) {
   if (kind === 'machine') {
     const max = [5,10,20][level-1];
     const choices = level === 1 ? ['add1','sub1'] : level === 2 ? ['add1','sub1','add2','sub2','double'] : Object.keys(OPS);
-    const program = level < 3 ? [pick(choices,random)] : pick([['double','add1'],['add1','double'],['double','sub1'],['sub1','double'],['add2','double'],['double','sub3']],random);
-    const inputs = shuffled(Array.from({length:max+1},(_,i)=>i).filter(n => { let a=n; return program.every(op => { a=applyRule(a,[op]); return integer(a,0,max); }); }),random);
+    const oldPrograms = [['double','add1'],['add1','double'],['double','sub1'],['sub1','double'],['add2','double'],['double','sub3']];
+    // Two-operation families span different offsets while staying inside the same number range.
+    const programs = version < 2 ? oldPrograms : [
+      ...['add1','add2','add3','sub1','sub2','sub3'].map(op=>['double',op]),
+      ['add3','double'],['sub3','double'],['add1','sub1'],['add2','sub1'],['sub2','add1'],['sub3','add1']
+    ];
+    const program = level < 3 ? [pick(choices,random)] : pick(programs,random);
+    const valid = n => { let a=n; return program.every(op => { a=applyRule(a,[op]); return integer(a,0,max); }); };
+    const pool = Array.from({length:max+1},(_,i)=>i).filter(valid);
+    // Spread the examples across the range so a doubling rule cannot masquerade as addition.
+    const cuts=[0,Math.ceil(pool.length/3),Math.ceil(pool.length*2/3),pool.length];
+    const examples = version<2 ? [] : [0,1,2].map(i=>pick(pool.slice(cuts[i],cuts[i+1]),random));
+    const inputs = version < 2 ? shuffled(pool,random) : [...examples,...shuffled(pool.filter(n=>!examples.includes(n)),random)];
     return {kind,level,limit:max,program,choices,slots:program.length,examples:inputs.slice(0,3).map(n=>[n,applyRule(n,program)]),questions:inputs.slice(3,5)};
+  }
+  if (version >= 2) {
+    const size = level+2, perimeter = Array.from({length:size*size},(_,i)=>i).filter(c=>c<size||c>=size*(size-1)||c%size===0||c%size===size-1);
+    const distance = (a,b)=>Math.abs(a%size-b%size)+Math.abs(Math.floor(a/size)-Math.floor(b/size));
+    const minSteps = [2,5,8][level-1], maxRoute = [6,10,15][level-1];
+    for (let attempt=0;attempt<160;attempt++) {
+      const start=pick(perimeter,random), end=pick(perimeter.filter(c=>c!==start&&distance(c,start)>=[2,3,4][level-1]),random);
+      const cells=shuffled(Array.from({length:size*size},(_,i)=>i).filter(c=>c!==start&&c!==end),random);
+      const parcels=cells.slice(0,level===3?2:1), blocked=[];
+      const task={kind:'route',level,size,start,end,parcels,blocked};
+      const targetBlocks=[0,2,4][level-1]+(level>1?Math.floor(random()*2):0);
+      for(const c of cells.slice(parcels.length)) {
+        if(blocked.length>=targetBlocks)break;
+        blocked.push(c);
+        if(!routeSolution(task))blocked.pop();
+      }
+      const solution=routeSolution(task), steps=solution?.length-1;
+      if(steps>=minSteps&&steps<=maxRoute) {task.maxSteps=steps+[2,3,4][level-1];return task;}
+    }
+    // A deterministic fallback keeps even an unfortunate seed playable.
+    return generateTask(kind,level,limit,seed,1);
   }
   const size = level+2, start = 0, end = size*size-1;
   const cells = shuffled(Array.from({length:size*size-2},(_,i)=>i+1),random);
@@ -61,8 +93,9 @@ export function generateTask(kind, level, limit, seed) {
 }
 export function newSession(kind, level=1, limit=5, seed=randomSeed()) {
   const task = generateTask(kind,level,limit,seed);
-  return {kind,level,limit,seed,stage:0,help:0,misses:0,done:false,values:kind==='shop'?[...task.initial]:[0,0],program:kind==='machine'?Array(task.slots).fill(null):[],path:kind==='route'?[task.start]:[],history:[]};
+  return {kind,level,limit,seed,taskVersion:2,stage:0,help:0,misses:0,done:false,values:kind==='shop'?[...task.initial]:[0,0],program:kind==='machine'?Array(task.slots).fill(null):[],path:kind==='route'?[task.start]:[],history:[]};
 }
+export const logicTaskForSession = session => generateTask(session.kind,session.level,session.limit,session.seed,session.taskVersion??1);
 export function taskSolved(task, session) {
   if (task.kind === 'shop') return session.values.every((n,i)=>n === task.orders[session.stage][i]);
   if (task.kind === 'machine') return session.program.length===task.slots && session.program.every(op=>task.choices.includes(op)) && task.examples.every(([a,b])=>applyRule(a,session.program)===b) && task.questions.every((n,i)=>session.values[i]===applyRule(n,task.program));
@@ -71,8 +104,8 @@ export function taskSolved(task, session) {
 export function remember(session) { session.history.push({values:[...session.values],program:[...session.program],path:[...session.path]}); if (session.history.length>60) session.history.shift(); }
 export function undoMove(session) { const last=session.history.pop(); if (last && !session.done) Object.assign(session,last); return !!last; }
 function validSession(s, kind) {
-  if (!s || s.kind!==kind || !integer(s.level,1,3)||![5,10,20].includes(s.limit)||!integer(s.seed,0,0xffffffff)||!integer(s.stage,0,kind==='shop'?1:0)||!integer(s.help,0,3)||!integer(s.misses,0,9999)||typeof s.done!=='boolean') return false;
-  const task=generateTask(kind,s.level,s.limit,s.seed);
+  if (!s || s.kind!==kind || !integer(s.level,1,3)||![5,10,20].includes(s.limit)||!integer(s.seed,0,0xffffffff)||![1,2].includes(s.taskVersion??1)||!integer(s.stage,0,kind==='shop'?1:0)||!integer(s.help,0,3)||!integer(s.misses,0,9999)||typeof s.done!=='boolean') return false;
+  const task=logicTaskForSession(s);
   const validMove = m => m && Array.isArray(m.values)&&m.values.length===2&&m.values.every(n=>integer(n,0,task.limit??20))&&Array.isArray(m.program)&&m.program.length===(kind==='machine'?task.slots:0)&&m.program.every(op=>op===null||task.choices?.includes(op))&&Array.isArray(m.path)&&m.path.length<50&&(kind==='route'?m.path.length>0&&m.path[0]===task.start&&m.path.length<=task.maxSteps+1&&m.path.every((c,i)=>integer(c,0,task.size**2-1)&&!task.blocked.includes(c)&&(!i||neighbours(m.path[i-1],task.size).includes(c))):m.path.length===0);
   return validMove(s)&&Array.isArray(s.history)&&s.history.length<=60&&s.history.every(validMove)&&(!s.done || ((kind!=='shop'||s.stage===1)&&taskSolved(task,s)));
 }
@@ -110,7 +143,7 @@ export function storeLogicSession(progress, session) {
 }
 export function completeLogic(value,kind) {
   const next=normalizeLogic(value), s=next.sessions[kind];
-  if(!s||s.done||!taskSolved(generateTask(kind,s.level,s.limit,s.seed),s))return {progress:next,reward:false,changed:false};
+  if(!s||s.done||!taskSolved(logicTaskForSession(s),s))return {progress:next,reward:false,changed:false};
   if(kind==='shop'&&s.stage===0){s.stage=1;s.history=[];return {progress:next,reward:false,changed:true};}
   s.done=true;s.history=[];const bucket=next.games[kind][s.level-1], key=s.help||s.misses?'assisted':'independent';bucket[key]=Math.min(Number.MAX_SAFE_INTEGER,bucket[key]+1);
   return {progress:next,reward:true,changed:true};
