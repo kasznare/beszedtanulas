@@ -28,6 +28,7 @@ import { setupMemoryGame } from "./memory-game.js";
 import { setupPuzzleGame } from "./puzzle-game.js";
 import { setupCityStoryGame } from "./city-story-game.js";
 import { setupDifferencesGame } from "./differences-game.js";
+import { setupPatternsGame } from "./patterns-game.js";
 import { setupChessGame } from "./chess-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupMontessoriGame } from "./montessori-game.js";
@@ -76,7 +77,7 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'city-story', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
@@ -92,6 +93,7 @@ const screenInfo = {
   puzzle: { title: "Képkirakó" },
   "city-story": { title: "A film utolsó jelenete" },
   differences: { title: "Találd meg a különbségeket!" },
+  patterns: { title: "Folytasd a mintát!" },
   montessori: { title: "Montessori műhely" },
   chess: { title: "Sakkliget" },
   workshop: { title: "Műhelyliget" },
@@ -144,6 +146,7 @@ let memoryGame;
 let puzzleGame;
 let differencesGame;
 let cityStoryGame;
+let patternsGame;
 let montessoriGame;
 let chessGame;
 let workshopGame;
@@ -461,6 +464,13 @@ differencesGame = setupDifferencesGame({
   onRestart: () => roundSuccess.cancel(),
   onComplete: ({ count }) => celebrateRound('differences', count),
 });
+patternsGame = setupPatternsGame({
+  effect: playEffect,
+  stopPlayback,
+  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id); },
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: ({ count }) => celebrateRound('patterns', count),
+});
 chessGame = setupChessGame({
   effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
@@ -616,7 +626,7 @@ applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 setupPlayTime();
-setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
+setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, [data-pattern-choice], #patterns-undo, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
 document.addEventListener("visibilitychange", () => { if (document.hidden) effects.stop(); else effects.sync(); });
 window.addEventListener("pagehide", () => effects.stop());
 
@@ -2150,6 +2160,7 @@ function setupNavigation() {
     else if (currentScreen === "puzzle") puzzleGame.repeat();
     else if (currentScreen === "city-story") cityStoryGame.repeat();
     else if (currentScreen === "differences") differencesGame.repeat();
+    else if (currentScreen === "patterns") patternsGame.repeat();
     else if (currentScreen === "montessori") montessoriGame.repeat();
     else if (currentScreen === "chess") chessGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
@@ -2186,6 +2197,7 @@ function setupNavigation() {
     else if (completedRoundKind === "pour") showScreen("pour");
     else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
     else if (completedRoundKind === "differences") showScreen("differences", { gameOptions: differencesGame.getContext() });
+    else if (completedRoundKind === "patterns") showScreen("patterns", { gameOptions: patternsGame.getContext() });
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
     else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
@@ -2246,6 +2258,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   puzzleGame?.stop();
   differencesGame?.stop();
   cityStoryGame?.stop();
+  patternsGame?.stop();
   montessoriGame?.stop();
   chessGame?.stop();
   workshopGame?.stop();
@@ -2292,6 +2305,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "puzzle") puzzleGame.start();
   if (screen === "city-story") cityStoryGame.start({ announce });
   if (screen === "differences") differencesGame.start(gameOptions);
+  if (screen === "patterns") patternsGame.start({ ...gameOptions, announce });
   if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
   if (screen === "workshop") workshopGame.start(gameOptions);
@@ -2412,7 +2426,7 @@ function celebrateRound(kind, count) {
     playSuccessSound();
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
-    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
+    document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "patterns" ? "Sikerült folytatnod a mintát!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
     const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
     const continueButton = document.querySelector('#round-replay');
     continueButton.classList.add('round-next');
@@ -2430,9 +2444,10 @@ function celebrateRound(kind, count) {
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');
     else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
+    else if (kind === "patterns" && state.settings.spokenGuidance) speakVoice('patterns_done');
     else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(count === 3 ? 'chess_done' : 'chess_solved');
     else if (kind === "chess") return;
-    else if (kind === "differences" && !state.settings.spokenGuidance) return;
+    else if ((kind === "differences" || kind === "patterns") && !state.settings.spokenGuidance) return;
     else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
   });
 }

@@ -2657,6 +2657,66 @@
       }
     },
     {
+      "id": "patterns_start",
+      "text": "Figyeld az ismétlődő mintát!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_start.mp3",
+      "spokenText": "Figyeld az ismétlődő mintát! Koppints egy üres helyre, majd válassz rá egy formát a készletből! A kitöltött helyet később át is cserélheted.",
+      "spokenTarget": "Figyeld az ismétlődő mintát",
+      "extract": {
+        "from": 0,
+        "to": 27,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Figyeld az ismétlődő mintát!"
+      }
+    },
+    {
+      "id": "patterns_hint",
+      "text": "Kövesd a sorrendjüket a következő helyeken is!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_hint.mp3",
+      "spokenText": "A minta elején kiemeltem az ismétlődő elemeket. Kövesd a sorrendjüket a következő helyeken is!",
+      "spokenTarget": "Kövesd a sorrendjüket a következő helyeken is",
+      "extract": {
+        "from": 48,
+        "to": 93,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Kövesd a sorrendjüket a következő helyeken is!"
+      }
+    },
+    {
+      "id": "patterns_retry",
+      "text": "Figyeld az ismétlődést!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_retry.mp3",
+      "spokenText": "Mondjuk együtt: Néhány elem /ˈmeːɡ/ hiányzik, vagy másként folytatja a mintát. Figyeld az ismétlődést, és cseréld át, amit szeretnél!",
+      "spokenTarget": "Figyeld az ismétlődést",
+      "extract": {
+        "from": 79,
+        "to": 101,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Figyeld az ismétlődést!"
+      }
+    },
+    {
+      "id": "patterns_done",
+      "text": "Minden elem illeszkedik!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_done.mp3",
+      "spokenText": "Minden elem illeszkedik! Végigfut a színes minta a műhelyen. Szép munka!",
+      "spokenTarget": "Minden elem illeszkedik",
+      "extract": {
+        "from": 0,
+        "to": 23,
+        "before": 0.025,
+        "after": 0.12,
+        "text": "Minden elem illeszkedik!"
+      }
+    },
+    {
       "id": "montessori_menu",
       "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
       "group": "montessori",

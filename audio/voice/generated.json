@@ -49759,6 +49759,123 @@
       ],
       "duration": 4.24,
       "characterCost": 23.0
+    },
+    "patterns_start": {
+      "fingerprint": "45c85bd7caaf78c71d1fe25d77d24e768c0bd4a10062fa42f6e98aa9026a5ebf",
+      "sha256": "519e4f5f44ebe98e39c5980f59eabe14374e65dc1a60d7aca698d84e97580d58",
+      "words": [
+        [
+          0.0,
+          0.4,
+          "Figyeld"
+        ],
+        [
+          0.44,
+          0.48,
+          "az"
+        ],
+        [
+          0.56,
+          1.2,
+          "ismétlődő"
+        ],
+        [
+          1.36,
+          1.76,
+          "mintát"
+        ]
+      ],
+      "duration": 1.88,
+      "characterCost": 15.0
+    },
+    "patterns_hint": {
+      "fingerprint": "763ceaf2b3b2972b270235292b047cddd979876ffde6a47f2eddd91d6288e0fc",
+      "sha256": "8372aec2ceeac6ed5b7782178ca18c80a5761c52446a6197d8f7f61053202eb9",
+      "words": [
+        [
+          0.025,
+          0.385,
+          "Kövesd"
+        ],
+        [
+          0.425,
+          0.465,
+          "a"
+        ],
+        [
+          0.505,
+          1.225,
+          "sorrendjüket"
+        ],
+        [
+          1.265,
+          1.305,
+          "a"
+        ],
+        [
+          1.385,
+          1.945,
+          "következő"
+        ],
+        [
+          1.985,
+          2.425,
+          "helyeken"
+        ],
+        [
+          2.585,
+          2.745,
+          "is"
+        ]
+      ],
+      "duration": 2.865011,
+      "characterCost": 10.0
+    },
+    "patterns_retry": {
+      "fingerprint": "58695f7055e371e9171591eb5a7644127c4cd5dfb5aaa20a3ab8e23c8aa89b68",
+      "sha256": "b049485f4472654db984a7aade004d201e95c9a953e4897f2fccc1515cc1cca8",
+      "words": [
+        [
+          0.025,
+          0.345,
+          "Figyeld"
+        ],
+        [
+          0.425,
+          0.505,
+          "az"
+        ],
+        [
+          0.625,
+          1.385,
+          "ismétlődést"
+        ]
+      ],
+      "duration": 1.505011,
+      "characterCost": 15.0
+    },
+    "patterns_done": {
+      "fingerprint": "96968aedf4243b3b760e7ae5b9b906afd7e5376e952582b8156ebe266e29898f",
+      "sha256": "d2a1f69eca924da74aa6771e9134f4a15ff450bff7dce7ea0ad54c8e7feb9967",
+      "words": [
+        [
+          0.0,
+          0.48,
+          "Minden"
+        ],
+        [
+          0.6,
+          0.72,
+          "elem"
+        ],
+        [
+          0.8,
+          1.6,
+          "illeszkedik"
+        ]
+      ],
+      "duration": 1.72,
+      "characterCost": 8.0
     }
   }
 }

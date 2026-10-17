@@ -1,6 +1,9 @@
 // Selectors are scoped to the current game. Answer choices are never singled out before a solution.
 const part = (at, target, motion) => ({at, target, motion});
 const map = {
+ patterns_start: {target:'.patterns-preview'},
+ patterns_hint: {target:'.patterns-preview'},
+ patterns_retry: {target:'#patterns-status'},
  differences_start: {target:'.differences-picture'},
  differences_hint: {target:'#differences-status'},
  differences_closer: {target:'#differences-status'},

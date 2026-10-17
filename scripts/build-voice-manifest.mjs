@@ -10,6 +10,7 @@ import { LOGIC_CLIPS } from '../logic-voice.js';
 import { MEMORY_CLIPS } from '../memory-data.js';
 import { PUZZLE_CLIPS } from '../puzzle-data.js';
 import { DIFFERENCE_CLIPS } from '../differences-voice.js';
+import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
@@ -70,6 +71,7 @@ for (const [id, text] of Object.entries(LOGIC_CLIPS)) add(id, text, 'logic');
 for (const [id, text] of Object.entries(MEMORY_CLIPS)) add(id, text, 'memory');
 for (const [id, text] of Object.entries(PUZZLE_CLIPS)) add(id, text, 'puzzle');
 for (const [id, text] of Object.entries(DIFFERENCE_CLIPS)) add(id, text, 'differences');
+for (const [id, text] of Object.entries(PATTERN_CLIPS)) add(id, text, 'patterns');
 for (const [id, text] of Object.entries(MONTESSORI_CLIPS)) add(id, text, 'montessori');
 for (const [id, text] of Object.entries(CHESS_CLIPS)) add(id, text, 'chess');
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop');
@@ -164,7 +166,7 @@ function excerptFrom(clip, source) {
   clip.extract = {from:offset+first.index,to:offset+last.index+last[0].length,before:0.025,after:0.12,text:clip.text};
 }
 // New visual-game cues reuse already recorded phrases; no new paid speech.
-for (const [id, sourceId] of Object.entries({ differences_start: 'flip_missing', differences_hint: 'abk_try_again', differences_closer: 'abk_try_again', differences_done: 'memory_done' })) {
+for (const [id, sourceId] of Object.entries({ patterns_start: 'workshop_pattern_1', patterns_hint: 'workshop_pattern_hint1', patterns_retry: 'workshop_pattern_retry', patterns_done: 'workshop_pattern_done', differences_start: 'flip_missing', differences_hint: 'abk_try_again', differences_closer: 'abk_try_again', differences_done: 'memory_done' })) {
   excerptFrom(clips.find(clip => clip.id === id), clips.find(clip => clip.id === sourceId));
 }
 for (const clip of clips) {

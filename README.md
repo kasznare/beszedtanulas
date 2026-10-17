@@ -14,6 +14,16 @@ A kilenc SVG-helyszín, a három bizonyítékfotó, a szöveg, a játékvezérl�
 
 Megvalósítás: `city-story-data.js`, `city-story-engine.js`, `city-story-game.js`, `city-story-art.js`, `city-story.css`. Az elfogadott történeti alap a `docs/city-story-approved.md` fájlban van. Ellenőrzések: `tests/city-story.test.mjs`, `tests/city-story-art.test.mjs`, `tests/browser/city-story.js`, `tests/browser/city-story-lifecycle.js`, `tests/browser/city-story-offline.js`, `tests/browser/city-story-audio.js`.
 
+### Folytasd a mintát!
+
+A **Számok és logika** menüből közvetlenül nyíló játékban egy végig látható mintasort kell három új elemmel folytatni. Öt család választható: **Vegyes**, **Formák**, **Színek**, **Méretek**, **Irányok**. A **Kezdő** két- és háromelemű ismétlődésekkel indul; a **Felfedező** páros és ismételt elemeket kever; a **Gondolkodó** visszatérő elemeket, vegyes módban külön ismétlődő szín- és formasort is ad. Alapból a Felfedező vegyes mintája indul.
+
+Legalább két teljes ismétlődés látszik, és három következő helyet kell egymás után kitölteni. A helyes választás a sor végére kerül, a téves próbát nyugodtan újra lehet gondolni. A segítség előbb az ismétlődő egységet és az aktuális hely előzményét mutatja, majd kérésre a hozzá illő választást emeli ki. A visszavonás, az új kör és a körvégi **Még egy ilyen** is használható; a nehézség és család az aktuális megnyitásban megmarad. Az új kör változatos mintát ad ugyanazon a szinten. A méretes feladat három, a többi négy különböző választást kínál.
+
+A játék csak a memóriában tartja az aktuális kört. Nem ír eredményt, játszásszámlálót vagy jutalmat; a régi mentések megmaradnak. A közös játékidő, navigáció, hangbeállítások és offline használat része. A saját SVG-formák külső képfájl nélkül jelennek meg, a négy rövid magyar hang a meglévő Jessa-felvételekből, helyben készült kivágás. A Szabálygép után kapcsolódó játékként ajánlható; innen a Mintaszövő hiányzóelemes feladataira lehet továbblépni.
+
+Forrás: `patterns-data.js`, `patterns-art.js`, `patterns-game.js`, `patterns.css`, `patterns-voice.js`. Generátorteszt: `tests/patterns.test.mjs`; böngészős ellenőrzés: `tests/browser/patterns.js`.
+
 ### Találd meg a különbségeket!
 
 A **Kirakók és ügyesség** menüből nyíló játék négy saját, részletes SVG-jelenetet használ: **Kerti piknik**, **Vidám kikötő**, **Játékműhely**, **Titkos télikert**. Jelenetenként 12 megtervezett részletből készülnek a képpárok. A **Felfedező** 5 látványosabb, a **Megfigyelő** 7, a **Nyomozó** 10 eltérést kér; alapból a Megfigyelő indul. A két kép ugyanabból a rajzból készül, csak a körben kiválasztott részletek változnak. Új körben a jelenet és a nehézség megmarad, az eltéréskészlet változik.

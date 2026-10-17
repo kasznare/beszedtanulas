@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="./play-time.css" />
   <link rel="stylesheet" href="./differences.css" />
   <link rel="stylesheet" href="./city-story.css" />
+  <link rel="stylesheet" href="./patterns.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -210,6 +211,7 @@
       <div class="game-menu-grid">
         <button class="game-menu-card number-mode" data-mode="count" aria-pressed="true" aria-label="Számoljuk meg!"><span class="game-menu-icon" aria-hidden="true">🍎</span><span><strong>Számoljuk meg!</strong><small>Érints meg minden tárgyat</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card number-mode" data-mode="quiz" aria-pressed="false" aria-label="Keresd meg!"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Keresd meg!</strong><small>Melyik képen van annyi?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="patterns" aria-label="Folytasd a mintát!"><span class="game-menu-icon" aria-hidden="true">🔴 🔷</span><span><strong>Folytasd a mintát!</strong><small>Formák · színek · méretek · irányok</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="furfangliget" aria-label="Furfangliget"><span class="game-menu-icon" aria-hidden="true">🦊</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="chess" aria-label="Sakkliget"><span class="game-menu-icon" aria-hidden="true">♟️</span><span><strong>Sakkliget</strong><small>Figurák lépései · csillagok · sakkfejtörők</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="workshop" aria-label="Műhelyliget"><span class="game-menu-icon" aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Formák · minták · egyensúly</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
@@ -222,6 +224,8 @@
       <div id="cards-grid" class="cards-grid"></div>
       <div id="card-followup" class="card-followup" hidden><p id="card-selected"></p><button id="card-find" class="upgrade-action">🔎 Keressük meg!</button><button id="card-say" class="upgrade-action">💬 Mondjuk együtt!</button></div>
     </section>
+
+    <section id="patterns" class="panel patterns-panel" aria-label="Folytasd a mintát! Formák, színek, méretek és irányok"></section>
 
     <section id="numbers" class="panel" aria-labelledby="numbers-title">
       <div class="numbers-wrap">

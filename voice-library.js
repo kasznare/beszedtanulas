@@ -1096,6 +1096,22 @@ export const VOICE_CLIPS = {
     "text": "Szép munka!",
     "file": "audio/voice/differences_done.mp3"
   },
+  "patterns_start": {
+    "text": "Figyeld az ismétlődő mintát!",
+    "file": "audio/voice/patterns_start.mp3"
+  },
+  "patterns_hint": {
+    "text": "Kövesd a sorrendjüket a következő helyeken is!",
+    "file": "audio/voice/patterns_hint.mp3"
+  },
+  "patterns_retry": {
+    "text": "Figyeld az ismétlődést!",
+    "file": "audio/voice/patterns_retry.mp3"
+  },
+  "patterns_done": {
+    "text": "Minden elem illeszkedik!",
+    "file": "audio/voice/patterns_done.mp3"
+  },
   "montessori_menu": {
     "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
     "file": "audio/voice/montessori_menu.mp3"
