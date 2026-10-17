@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="./navigation.css" />
   <link rel="stylesheet" href="./play-time.css" />
   <link rel="stylesheet" href="./differences.css" />
+  <link rel="stylesheet" href="./city-story.css" />
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
@@ -76,6 +77,7 @@
     <section id="play-menu" class="panel menu-panel" aria-label="Mesék és Maci">
       <p class="menu-intro">Hallgassunk mesét, vagy játsszunk együtt a macival!</p>
       <div class="game-menu-grid">
+        <button class="game-menu-card" data-open="city-story" aria-label="A film utolsó jelenete"><span class="game-menu-icon" aria-hidden="true">🎬</span><span><strong>A film utolsó jelenete</strong><small>Városi nyomozás · te alakítod a történetet</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="audiobooks" aria-label="Mesetár"><span class="game-menu-icon" aria-hidden="true">🎧 📖</span><span><strong>Mesetár</strong><small>Mesék és versek · bekuckózáshoz</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="teddy-game" aria-label="Etesd meg a macit!"><span class="game-menu-icon" aria-hidden="true">🧸 🍎</span><span><strong>Etesd meg a macit!</strong><small>Hallgasd meg, mit kér</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card" data-open="dress-game" aria-label="Maci öltözik"><span class="game-menu-icon" aria-hidden="true">🧸 👟</span><span><strong>Maci öltözik</strong><small>Készüljünk fel a sétára</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
@@ -94,6 +96,8 @@
         <button class="game-menu-card" data-open="flip" aria-label="Mi bújt el?"><span class="game-menu-icon" aria-hidden="true">🎁</span><span><strong>Mi bújt el?</strong><small>Fordítsd fel a beszélő képeket</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
+
+    <section id="city-story" class="panel city-story-panel" aria-label="A film utolsó jelenete, választható városi kaland"></section>
 
     <section id="audiobooks" class="panel audiobook-panel" aria-label="Mesetár"></section>
 

@@ -1,6 +1,7 @@
 // Recommendations depend only on the activity on screen. No player history,
 // scores, storage, network calls, or automatic difficulty changes are involved.
 const destinations = {
+  'city-story': { screen: 'differences', title: 'Találd meg a különbségeket!', reason: 'A nyomozás után keressünk még rejtett részleteket!' },
   'listening-game': { screen: 'memory', mode: 'sound', title: 'Hang–kép párok', reason: 'Keresd meg a hallott szó képét a kártyák között!' },
   memory: { screen: 'listening-game', mode: 'bingo', title: 'Hangos bingó', reason: 'Hallgasd meg a szavakat, és gyűjtsd össze a képeket!' },
   'two-word': { screen: 'teddy-game', mode: 'expressive', title: 'Én kérek', reason: 'Válassz ennivalót, mondd ki, és add oda Macinak!' },

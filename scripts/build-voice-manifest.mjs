@@ -15,6 +15,7 @@ import { CHESS_CLIPS } from '../chess-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
+import { STORY_CLIPS } from '../city-story-data.js';
 
 const clips = [];
 // A terminal period gives isolated words/numbers a complete spoken ending.
@@ -75,6 +76,7 @@ for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop
 for (const [id, text] of Object.entries(POUR_CLIPS)) add(id, text, 'pour');
 for (const [id, text] of Object.entries(R_CLIPS)) add(id, text, 'r-practice');
 for (const [id, text] of Object.entries(MESE_CLIPS)) add(id, text, 'meseliget');
+for (const [id, text] of Object.entries(STORY_CLIPS)) add(id, text, 'city-story');
 for (const [id, text] of Object.entries(teddyRequests)) add(`teddy_${id}`, text, 'teddy');
 for (const word of words) add(`word_${word.id}`, word.label, 'word');
 for (const phrase of twoWordPhrases) add(`phrase_${phrase.id}`, phrase.text, 'phrase');

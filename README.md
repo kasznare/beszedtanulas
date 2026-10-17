@@ -4,6 +4,16 @@ Magyar képes és hangos játék kisgyerekeknek, elsősorban iPhone Pro Max és 
 
 Éles oldal: [Beszédtanulás a GitHub Pagesen](https://kasznare.github.io/beszedtanulas/). Nincs szükség ChatGPT-bejelentkezésre. A `main` ágra küldött commitot a meglévő GitHub Pages **pages build and deployment** folyamata automatikusan kitelepíti. Közzététel előtt `npm run build` és `git diff --check`, utána commit és push; külön Sites-kitelepítés nem kell.
 
+### A film utolsó jelenete
+
+A **Mesék és Maci** menü új, választásokra épülő városi nyomozása 34 megírt jelenetből áll. A gyerek Mirával egy befejezetlen régi videó történetét fejti meg. Három nyomozási út — az utca, Dani műhelye, a könyvtári iratok — bármelyikéről elérhető a három folytatás: mai film, élő előadás, történetséta. A korábbi döntések későbbi szövegeket, segítőket, előkészületeket és képi részleteket változtatnak meg.
+
+A feladatokban nyomokat vizsgálunk, fényképeket rendezünk időrendbe, a kocsi fordulójának megfelelő udvart próbálunk ki, és három kelléket választunk a mai filmhez. A hibás próbák után lehet javítani. A **Nyomok** füzet csak a valóban megszerzett ismereteket mutatja; a **Visszalépek** az előző döntést annak következményeivel együtt vonja vissza. Az újrakezdés külön megerősítést kér. Kilépés és visszatérés ugyanabban a megnyitásban folytatja a kalandot; újratöltés új történetet indít. Nincs új tartós haladás-, jutalom- vagy profilmentés. A közös pihenőidő-korlát itt is érvényes.
+
+A kilenc SVG-helyszín, a három bizonyítékfotó, a szöveg, a játékvezérlés és a 243 új Jessa-hangklip az alap offline csomag része. A jelenetek, a választások és a feladatok hangjai a meglévő hangrendszerben játszhatók le; a korábbi döntésekre utaló szöveg több rögzített részletből áll össze. A játék nem vált automatikusan más felolvasóhangra.
+
+Megvalósítás: `city-story-data.js`, `city-story-engine.js`, `city-story-game.js`, `city-story-art.js`, `city-story.css`. Az elfogadott történeti alap a `docs/city-story-approved.md` fájlban van. Ellenőrzések: `tests/city-story.test.mjs`, `tests/city-story-art.test.mjs`, `tests/browser/city-story.js`, `tests/browser/city-story-lifecycle.js`, `tests/browser/city-story-offline.js`, `tests/browser/city-story-audio.js`.
+
 ### Találd meg a különbségeket!
 
 A **Kirakók és ügyesség** menüből nyíló játék négy saját, részletes SVG-jelenetet használ: **Kerti piknik**, **Vidám kikötő**, **Játékműhely**, **Titkos télikert**. Jelenetenként 12 megtervezett részletből készülnek a képpárok. A **Felfedező** 5 látványosabb, a **Megfigyelő** 7, a **Nyomozó** 10 eltérést kér; alapból a Megfigyelő indul. A két kép ugyanabból a rajzból készül, csak a körben kiválasztott részletek változnak. Új körben a jelenet és a nehézség megmarad, az eltéréskészlet változik.
@@ -70,7 +80,7 @@ Az első játék vagy mese indításakor közös **30 perces, folyamatos visszas
 | **Képek és hangok** | Képes témák, Hol van?, Hangos állatkönyv |
 | **Mondd utánam** | Egy szó, Két szó együtt, Róka R-kalandja |
 | **Számok és logika** | Számoljuk meg!, Keresd meg!, Furfangliget, Műhelyliget, Sakkliget |
-| **Mesék és Maci** | Mesetár, Etesd meg a macit!, Maci öltözik, Meseliget |
+| **Mesék és Maci** | Mesetár, Etesd meg a macit!, Maci öltözik, Meseliget, A film utolsó jelenete |
 | **Kirakók és ügyesség** | Találd meg a különbségeket!, Képpárok, Képkirakó, Montessori műhely, Töltsünk a barátainknak!, Mi bújt el? |
 
 Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl megnevezi a célját. A többjátékos ligetekben és az R-kalandban először a saját választó nyílik meg, majd a csoport. A kör végi ablakból is vissza lehet lépni a csoporthoz. A böngésző vissza/előre gombja megtartja a kiválasztott képes témát és a számolási módot. A mentett ligetfeladatok és eredmények kilépés után is megmaradnak; az új körrel induló játékok visszatéréskor új kört kezdenek.

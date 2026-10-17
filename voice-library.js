@@ -2892,6 +2892,978 @@ export const VOICE_CLIPS = {
     "text": "Adj a majomnak egy poharat!",
     "file": "audio/voice/mese_guest_majom_cup.mp3"
   },
+  "city_story_film_stop_p1": {
+    "text": "Zsófi kifeszíti a vásznat a könyvtár udvarán. Mira a vetítő elé tartja a kezét, és óriási nyúlfület rajzol az árnyékával.",
+    "file": "audio/voice/city_story_film_stop_p1.mp3"
+  },
+  "city_story_film_stop_p2": {
+    "text": "A régi filmen két gyerek kék padot visz a 12-es, kék kapuhoz. Három vaslevél hajlik a kapu fölé. „Holnap itt találkozunk. Mindenki hozzon valamit!” A kép elsötétül.",
+    "file": "audio/voice/city_story_film_stop_p2.mp3"
+  },
+  "city_story_film_stop_p3": {
+    "text": "„Ennyi van a felvételen” – mondja Zsófi. „A másik másolat is itt ér véget.” Állítsd meg a képkockát, és nézz meg egy részletet közelebbről.",
+    "file": "audio/voice/city_story_film_stop_p3.mp3"
+  },
+  "city_story_film_stop_choice_begin_investigation": {
+    "text": "Nézzük meg, merre indulhatunk.",
+    "file": "audio/voice/city_story_film_stop_choice_begin_investigation.mp3"
+  },
+  "city_story_film_stop_activity_prompt": {
+    "text": "Mit vizsgálsz meg először?",
+    "file": "audio/voice/city_story_film_stop_activity_prompt.mp3"
+  },
+  "city_story_film_stop_activity_item_gate": {
+    "text": "A kapu vasleveleit és házszámát",
+    "file": "audio/voice/city_story_film_stop_activity_item_gate.mp3"
+  },
+  "city_story_film_stop_activity_detail_gate": {
+    "text": "A kék kapun tizenkettő áll, fölötte három kovácsoltvas levél. A mellette lévő félköríves ablak sarka csorbult.",
+    "file": "audio/voice/city_story_film_stop_activity_detail_gate.mp3"
+  },
+  "city_story_film_stop_activity_item_bench": {
+    "text": "A pad javított lábát",
+    "file": "audio/voice/city_story_film_stop_activity_item_bench.mp3"
+  },
+  "city_story_film_stop_activity_detail_bench": {
+    "text": "A kék pad egyik lába fecskefarkú illesztéssel javított. A szín később változhatott, a fa illesztése felismerhető.",
+    "file": "audio/voice/city_story_film_stop_activity_detail_bench.mp3"
+  },
+  "city_story_film_stop_activity_item_notebook": {
+    "text": "A filmklub füzetét",
+    "file": "audio/voice/city_story_film_stop_activity_item_notebook.mp3"
+  },
+  "city_story_film_stop_activity_detail_notebook": {
+    "text": "A kopott füzet címe „A mi helyünk”. Az utolsó jelenet terve szerepel benne, de a felvételen nem látszik.",
+    "file": "audio/voice/city_story_film_stop_activity_detail_notebook.mp3"
+  },
+  "city_story_route_choice_p1": {
+    "text": "Zsófi a kapu képét, a pad közelképét és az „A mi helyünk” című füzetet teszi eléd. Mindhárom másféle nyomot ígér.",
+    "file": "audio/voice/city_story_route_choice_p1.mp3"
+  },
+  "city_story_route_choice_p2": {
+    "text": "„A mai utcafotókon nincs kék tizenkettős kapu. Dani műhelyében láttam egy hasonló padot. A füzet többi lapja pedig talán a helytörténeti polcon van.”",
+    "file": "audio/voice/city_story_route_choice_p2.mp3"
+  },
+  "city_story_route_choice_p3": {
+    "text": "Mira az ajtó felé lép, aztán megáll. „Melyikkel kezdjük?”",
+    "file": "audio/voice/city_story_route_choice_p3.mp3"
+  },
+  "city_story_route_choice_choice_route_street": {
+    "text": "Keressük meg a kaput az utcán.",
+    "file": "audio/voice/city_story_route_choice_choice_route_street.mp3"
+  },
+  "city_story_route_choice_choice_route_workshop": {
+    "text": "Vigyük el a pad képét Danihoz.",
+    "file": "audio/voice/city_story_route_choice_choice_route_workshop.mp3"
+  },
+  "city_story_route_choice_choice_route_archive": {
+    "text": "Rakjuk össze a füzet történetét.",
+    "file": "audio/voice/city_story_route_choice_choice_route_archive.mp3"
+  },
+  "city_story_street_number_p1": {
+    "text": "A mai 12-es házon barna ajtó van, egyenes rács és szögletes ablak. „A szám jó, minden más rossz” – mondja Mira.",
+    "file": "audio/voice/city_story_street_number_p1.mp3"
+  },
+  "city_story_street_number_p2": {
+    "text": "Eszter, a pék, egy üres ládával lép ki. „Az utcát újraszámozták. A képen látható telket ma 18-asnak hívják.”",
+    "file": "audio/voice/city_story_street_number_p2.mp3"
+  },
+  "city_story_street_number_p3": {
+    "text": "A régi képen három kovácsoltvas levél és egy csorbult félköríves ablak látszik. A mai zöld kapun mindkettő megvan.",
+    "file": "audio/voice/city_story_street_number_p3.mp3"
+  },
+  "city_story_street_number_choice_street_pattern": {
+    "text": "Állítsuk helyre a régi kameraállást.",
+    "file": "audio/voice/city_story_street_number_choice_street_pattern.mp3"
+  },
+  "city_story_street_number_choice_street_map": {
+    "text": "Nézzük meg az átszámozás rajzát.",
+    "file": "audio/voice/city_story_street_number_choice_street_map.mp3"
+  },
+  "city_story_street_view_p1": {
+    "text": "Eszter felismeri magát a képen. „Dani fogta a pad nehezebb végét. Arra emlékszem, hogy Juli később bezárta a kaput.”",
+    "file": "audio/voice/city_story_street_view_p1.mp3"
+  },
+  "city_story_street_view_p2": {
+    "text": "A pékség üres kocsija éppen azon a kövön zörren át, ahol a filmen a pad állt. A kapuból a belső kanyar még nem látszik.",
+    "file": "audio/voice/city_story_street_view_p2.mp3"
+  },
+  "city_story_street_view_choice_street_cart": {
+    "text": "Kísérjük végig a kocsit a teljes fordulón.",
+    "file": "audio/voice/city_story_street_view_choice_street_cart.mp3"
+  },
+  "city_story_street_view_choice_street_frame": {
+    "text": "Jelöljük krétával, mi maradt ki a képből.",
+    "file": "audio/voice/city_story_street_view_choice_street_frame.mp3"
+  },
+  "city_story_street_view_variant1_1": {
+    "text": "Az eredeti kamerahelyről látod: a régi kép széle pontosan levágta a kocsi fordulóját.",
+    "file": "audio/voice/city_story_street_view_variant1_1.mp3"
+  },
+  "city_story_street_view_variant2_1": {
+    "text": "Az átszámozási rajz oldalsó átjárója a szállításhoz és a későbbi sétához is használható.",
+    "file": "audio/voice/city_story_street_view_variant2_1.mp3"
+  },
+  "city_story_street_eszter_p1": {
+    "text": "„Fél hétig pakolunk, utána tudok segíteni” – mondja Eszter. „Csak tudnom kell, mit készítsetek elő.”",
+    "file": "audio/voice/city_story_street_eszter_p1.mp3"
+  },
+  "city_story_street_eszter_p2": {
+    "text": "A régi szereplő emléke fontos, de egyedül még nem bizonyítja, miért maradt el a jelenet.",
+    "file": "audio/voice/city_story_street_eszter_p2.mp3"
+  },
+  "city_story_street_eszter_choice_eszter_actor": {
+    "text": "Állj újra a kapu elé a mai felvételen.",
+    "file": "audio/voice/city_story_street_eszter_choice_eszter_actor.mp3"
+  },
+  "city_story_street_eszter_choice_eszter_schedule": {
+    "text": "Tervezzünk a rakodás utánra, és hozd át a székeket.",
+    "file": "audio/voice/city_story_street_eszter_choice_eszter_schedule.mp3"
+  },
+  "city_story_street_arrive_p1": {
+    "text": "Átléptek a zöld kapun. Ugyanaz a félköríves ablak néz az udvarra, amely a kék kapus filmen látszott. Juli a másik kapuszárnyat is kitárja.",
+    "file": "audio/voice/city_story_street_arrive_p1.mp3"
+  },
+  "city_story_street_arrive_choice_street_to_court": {
+    "text": "Kérdezzük meg, mi történt a próbán.",
+    "file": "audio/voice/city_story_street_arrive_choice_street_to_court.mp3"
+  },
+  "city_story_workshop_red_p1": {
+    "text": "Dani műhelyében csengők, küllők és pumpák lógnak. A sarokban egy piros padon biciklikerekek sorakoznak.",
+    "file": "audio/voice/city_story_workshop_red_p1.mp3"
+  },
+  "city_story_workshop_red_p2": {
+    "text": "„Kék pad? Olyanom nincs.” Mira már fordulna, amikor észreveszed a piros pad lábán a régi képről ismert fecskefarkú javítást.",
+    "file": "audio/voice/city_story_workshop_red_p2.mp3"
+  },
+  "city_story_workshop_red_p3": {
+    "text": "Dani megfordítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette.",
+    "file": "audio/voice/city_story_workshop_red_p3.mp3"
+  },
+  "city_story_workshop_red_choice_bench_under": {
+    "text": "Nézzük meg a pad alá tűzött rajzot.",
+    "file": "audio/voice/city_story_workshop_red_choice_bench_under.mp3"
+  },
+  "city_story_workshop_red_choice_bench_rehearse": {
+    "text": "Próbáljuk ki a régi felállást a műhelyben.",
+    "file": "audio/voice/city_story_workshop_red_choice_bench_rehearse.mp3"
+  },
+  "city_story_workshop_use_p1": {
+    "text": "„Mi vittük vissza a padot. Akkor már elpakoltunk” – mondja Dani. „Juli csak később zárta a kaput.”",
+    "file": "audio/voice/city_story_workshop_use_p1.mp3"
+  },
+  "city_story_workshop_use_p2": {
+    "text": "A pad háttámlája levehető. Mellette keskeny bábkeret is állhat, de annak külön nézőtér kell.",
+    "file": "audio/voice/city_story_workshop_use_p2.mp3"
+  },
+  "city_story_workshop_use_choice_bench_seat": {
+    "text": "Rögzítsük a háttámlát, legyen biztonságos ülőhely.",
+    "file": "audio/voice/city_story_workshop_use_choice_bench_seat.mp3"
+  },
+  "city_story_workshop_use_choice_bench_puppet": {
+    "text": "Próbáljuk ki a keskeny bábkeretet.",
+    "file": "audio/voice/city_story_workshop_use_choice_bench_puppet.mp3"
+  },
+  "city_story_workshop_carry_p1": {
+    "text": "A pad a szűk járdán kettesben vihető. Dani most elkísérhet, vagy Eszter a rakodás után áthozhatja a kocsin.",
+    "file": "audio/voice/city_story_workshop_carry_p1.mp3"
+  },
+  "city_story_workshop_carry_p2": {
+    "text": "Dani a mai utcarajzon megmutatja a 18-as házat. A régi 12-es szám és a kék festés megváltozott; a vaslevelek és az ablak a helyükön maradtak.",
+    "file": "audio/voice/city_story_workshop_carry_p2.mp3"
+  },
+  "city_story_workshop_carry_choice_carry_now": {
+    "text": "Vigyük ketten, és próbáljuk ki rögtön.",
+    "file": "audio/voice/city_story_workshop_carry_choice_carry_now.mp3"
+  },
+  "city_story_workshop_carry_choice_carry_cart": {
+    "text": "Kérjük Eszter kocsiját, addig készítsünk jelenetrajzot.",
+    "file": "audio/voice/city_story_workshop_carry_choice_carry_cart.mp3"
+  },
+  "city_story_workshop_arrive_p1": {
+    "text": "A zöld kapu vaslevelei egyeznek a régi képpel. A piros pad javított lába ugyanaz, amelyet a filmen láttatok.",
+    "file": "audio/voice/city_story_workshop_arrive_p1.mp3"
+  },
+  "city_story_workshop_arrive_choice_workshop_to_court": {
+    "text": "Hallgassuk meg a többieket is.",
+    "file": "audio/voice/city_story_workshop_arrive_choice_workshop_to_court.mp3"
+  },
+  "city_story_workshop_arrive_variant1_1": {
+    "text": "Dani leteszi a padot, és megmutatja, hogyan pakolták el régen.",
+    "file": "audio/voice/city_story_workshop_arrive_variant1_1.mp3"
+  },
+  "city_story_workshop_arrive_variant2_1": {
+    "text": "Előbb a jelenetrajzot fektetitek a földre. Eszter később hozza a padot; Dani az emlékegyeztetésre ér ide.",
+    "file": "audio/voice/city_story_workshop_arrive_variant2_1.mp3"
+  },
+  "city_story_archive_envelope_p1": {
+    "text": "A nagy borítékban három kép, udvarrajz és néhány füzetlap van. A képeken a keresztben álló dobogó, a padot hazavivő gyerekek és Juli kapuzárása látszik.",
+    "file": "audio/voice/city_story_archive_envelope_p1.mp3"
+  },
+  "city_story_archive_envelope_p2": {
+    "text": "A képeken a téri óra és a pékség redőnye is látszik. Ezekből ellenőrizheted, mikor készült egy-egy felvétel.",
+    "file": "audio/voice/city_story_archive_envelope_p2.mp3"
+  },
+  "city_story_archive_envelope_p3": {
+    "text": "Mira az asztalra teszi a képeket. „Eszter a bezárt kapura, Dani az elvitt padra emlékszik. Melyik történt előbb?”",
+    "file": "audio/voice/city_story_archive_envelope_p3.mp3"
+  },
+  "city_story_archive_envelope_choice_archive_details": {
+    "text": "A képek óráját és a pékség redőnyét kövessük.",
+    "file": "audio/voice/city_story_archive_envelope_choice_archive_details.mp3"
+  },
+  "city_story_archive_envelope_choice_archive_note": {
+    "text": "Keressük meg ugyanezt a füzetben.",
+    "file": "audio/voice/city_story_archive_envelope_choice_archive_note.mp3"
+  },
+  "city_story_archive_envelope_activity_prompt": {
+    "text": "Mi volt a képek valódi sorrendje?",
+    "file": "audio/voice/city_story_archive_envelope_activity_prompt.mp3"
+  },
+  "city_story_archive_envelope_activity_item_closing": {
+    "text": "Juli becsukja a kaput; az óra hetet mutat, a pékség redőnye lent",
+    "file": "audio/voice/city_story_archive_envelope_activity_item_closing.mp3"
+  },
+  "city_story_archive_envelope_activity_item_setup": {
+    "text": "A dobogó elállja az átjárót a berendezési próbán",
+    "file": "audio/voice/city_story_archive_envelope_activity_item_setup.mp3"
+  },
+  "city_story_archive_envelope_activity_item_packing": {
+    "text": "A gyerekek a padot viszik; az óra negyed ötöt mutat, a pékség nyitva",
+    "file": "audio/voice/city_story_archive_envelope_activity_item_packing.mp3"
+  },
+  "city_story_archive_last_p1": {
+    "text": "Zsófi kisimítja a zárójelenet tervét: „Kinyílik a kapu. Mindenki behoz valamit.” A sor mellett nincs pipa.",
+    "file": "audio/voice/city_story_archive_last_p1.mp3"
+  },
+  "city_story_archive_last_p2": {
+    "text": "Alatta más ceruzával ez áll: „Nem vettük fel. Nem fért el minden úgy, hogy közben át lehessen menni.”",
+    "file": "audio/voice/city_story_archive_last_p2.mp3"
+  },
+  "city_story_archive_last_p3": {
+    "text": "A meghívást egy nappal korábban forgatták. Másnap, még az érkezők előtt próbáltak berendezni; a nagy dobogó elállta az átjárót.",
+    "file": "audio/voice/city_story_archive_last_p3.mp3"
+  },
+  "city_story_archive_last_choice_archive_plan": {
+    "text": "Illesszük össze a régi és mai udvarrajzot.",
+    "file": "audio/voice/city_story_archive_last_choice_archive_plan.mp3"
+  },
+  "city_story_archive_last_choice_archive_juli": {
+    "text": "Kérdezzük meg Julit, pontosan mit kért.",
+    "file": "audio/voice/city_story_archive_last_choice_archive_juli.mp3"
+  },
+  "city_story_archive_share_p1": {
+    "text": "Mira két üres kartont hoz. „Ha egyszerre mindent mondunk el, senki sem látja majd, mi volt a fontos.”",
+    "file": "audio/voice/city_story_archive_share_p1.mp3"
+  },
+  "city_story_archive_share_choice_archive_map": {
+    "text": "Rajzoljunk bejárható térképet.",
+    "file": "audio/voice/city_story_archive_share_choice_archive_map.mp3"
+  },
+  "city_story_archive_share_choice_archive_strip": {
+    "text": "Készítsünk képsort a három eseményről.",
+    "file": "audio/voice/city_story_archive_share_choice_archive_strip.mp3"
+  },
+  "city_story_archive_arrive_p1": {
+    "text": "A 18-as zöld kapun felismered a vasleveleket és a félköríves ablakot. A képek most már valódi helyekhez tartoznak.",
+    "file": "audio/voice/city_story_archive_arrive_p1.mp3"
+  },
+  "city_story_archive_arrive_choice_archive_to_court": {
+    "text": "Rakjuk össze közösen a történetet.",
+    "file": "audio/voice/city_story_archive_arrive_choice_archive_to_court.mp3"
+  },
+  "city_story_archive_arrive_variant1_1": {
+    "text": "Juli vár a kapuban. „Itt tudjuk kipróbálni, mennyi hely kell valójában.”",
+    "file": "audio/voice/city_story_archive_arrive_variant1_1.mp3"
+  },
+  "city_story_court_arrival_p1": {
+    "text": "A kapu mögött virágládák, biciklik és egy falnak támasztott seprű áll. Mira a félköríves ablakra néz. „Innen még sosem láttam.”",
+    "file": "audio/voice/city_story_court_arrival_p1.mp3"
+  },
+  "city_story_court_arrival_p2": {
+    "text": "Zsófi idehozza a füzet záróbejegyzését és a három fotó másolatát. Ezeket most mindenki ellenőrizheti; a külön nyomozások kész tervei csak annál vannak, aki utánuk járt.",
+    "file": "audio/voice/city_story_court_arrival_p2.mp3"
+  },
+  "city_story_court_arrival_choice_court_discuss": {
+    "text": "Hasonlítsuk össze az emlékeket.",
+    "file": "audio/voice/city_story_court_arrival_choice_court_discuss.mp3"
+  },
+  "city_story_court_arrival_variant1_1": {
+    "text": "Eszter rámutat a régi kamera helyére. „A képen tényleg nem látszott a forduló.”",
+    "file": "audio/voice/city_story_court_arrival_variant1_1.mp3"
+  },
+  "city_story_court_arrival_variant2_1": {
+    "text": "Dani a piros pad javított lábát mutatja. „A dobogó volt az akadály, nem ez a pad magában.”",
+    "file": "audio/voice/city_story_court_arrival_variant2_1.mp3"
+  },
+  "city_story_court_arrival_variant3_1": {
+    "text": "Te teszed sorba a három fotót; a füzet feljegyzése megerősíti, hogy a tervezett befejezést soha nem forgatták le.",
+    "file": "audio/voice/city_story_court_arrival_variant3_1.mp3"
+  },
+  "city_story_court_memory_p1": {
+    "text": "„Én arra emlékeztem, hogy Juli bezárta” – mondja Eszter. „Mi meg hazavittük a padot” – teszi hozzá Dani. Mindkettő igaz, de az egyik nem okozta a másikat.",
+    "file": "audio/voice/city_story_court_memory_p1.mp3"
+  },
+  "city_story_court_memory_p2": {
+    "text": "Zsófi kiteszi a három fotót és a füzetlapot. A padot vivő képen a téri óra negyed ötöt mutat, a pékség nyitva van. A kapuzárós képen hét óra látszik, a redőny lent van.",
+    "file": "audio/voice/city_story_court_memory_p2.mp3"
+  },
+  "city_story_court_memory_p3": {
+    "text": "Mira rád néz. „Mutassuk meg mindenkinek, melyik pillanat mikor történt.”",
+    "file": "audio/voice/city_story_court_memory_p3.mp3"
+  },
+  "city_story_court_memory_choice_memory_enact": {
+    "text": "Játsszuk el sorban a három pillanatot.",
+    "file": "audio/voice/city_story_court_memory_choice_memory_enact.mp3"
+  },
+  "city_story_court_memory_choice_memory_frame": {
+    "text": "Mutassuk meg a képen kívül maradt fordulót.",
+    "file": "audio/voice/city_story_court_memory_choice_memory_frame.mp3"
+  },
+  "city_story_court_memory_variant1_1": {
+    "text": "Ezt a sorrendet a könyvtárban már ellenőrizted; most te teheted a többiek elé a képeket.",
+    "file": "audio/voice/city_story_court_memory_variant1_1.mp3"
+  },
+  "city_story_court_memory_variant2_1": {
+    "text": "A próba idején a dobogó elállta a lakók és a kocsi útját. Délután elpakoltak, Juli csak a szokásos esti időben zárta be a kaput.",
+    "file": "audio/voice/city_story_court_memory_variant2_1.mp3"
+  },
+  "city_story_court_memory_activity_prompt": {
+    "text": "Milyen sorrendben történt a három esemény?",
+    "file": "audio/voice/city_story_court_memory_activity_prompt.mp3"
+  },
+  "city_story_court_memory_activity_item_closing": {
+    "text": "Juli becsukja a kaput; este hét, lehúzott redőny",
+    "file": "audio/voice/city_story_court_memory_activity_item_closing.mp3"
+  },
+  "city_story_court_memory_activity_item_setup": {
+    "text": "A dobogó elállja az átjárót a berendezési próbán",
+    "file": "audio/voice/city_story_court_memory_activity_item_setup.mp3"
+  },
+  "city_story_court_memory_activity_item_packing": {
+    "text": "A padot hazaviszik; negyed öt, nyitott pékség",
+    "file": "audio/voice/city_story_court_memory_activity_item_packing.mp3"
+  },
+  "city_story_court_practice_p1": {
+    "text": "Mira egyenes krétavonalat húz a kaputól az udvar végéig. Eszter üres kocsija az egyenes szakaszon elfér, a belső fordulónál megakad.",
+    "file": "audio/voice/city_story_court_practice_p1.mp3"
+  },
+  "city_story_court_practice_p2": {
+    "text": "Próbáld ki, melyik elrendezés hagyja szabadon a lakók kijáratát és a kocsi kanyarját is. Az elrontott próba megmutatja, melyik hely maradt ki a tervből.",
+    "file": "audio/voice/city_story_court_practice_p2.mp3"
+  },
+  "city_story_court_practice_choice_practice_plan": {
+    "text": "Válasszuk ki az esti berendezés módját.",
+    "file": "audio/voice/city_story_court_practice_choice_practice_plan.mp3"
+  },
+  "city_story_court_practice_activity_prompt": {
+    "text": "Melyik próba működik az udvarban?",
+    "file": "audio/voice/city_story_court_practice_activity_prompt.mp3"
+  },
+  "city_story_court_practice_activity_item_straight": {
+    "text": "Csak egy egyenes sávot hagyunk szabadon",
+    "file": "audio/voice/city_story_court_practice_activity_item_straight.mp3"
+  },
+  "city_story_court_practice_activity_item_crosswise": {
+    "text": "A nagy dobogót keresztbe tesszük",
+    "file": "audio/voice/city_story_court_practice_activity_item_crosswise.mp3"
+  },
+  "city_story_court_practice_activity_item_turn_clear": {
+    "text": "A padot a fal mellé fordítjuk, a kanyart is szabadon hagyjuk",
+    "file": "audio/voice/city_story_court_practice_activity_item_turn_clear.mp3"
+  },
+  "city_story_court_layout_choice_p1": {
+    "text": "A kocsi most befordul, a lakók kijárata szabad. Juli és Eszter a kipróbált feltételekkel vállalják az esti alkalmat. Milyen formát adsz neki?",
+    "file": "audio/voice/city_story_court_layout_choice_p1.mp3"
+  },
+  "city_story_court_layout_choice_choice_layout_wall": {
+    "text": "Pad a fal mellett, kicsi nézőtér az udvarban.",
+    "file": "audio/voice/city_story_court_layout_choice_choice_layout_wall.mp3"
+  },
+  "city_story_court_layout_choice_choice_layout_later": {
+    "text": "Rakodás után rendezzük be, addig jelöljük a helyeket.",
+    "file": "audio/voice/city_story_court_layout_choice_choice_layout_later.mp3"
+  },
+  "city_story_court_layout_choice_choice_layout_library": {
+    "text": "A hosszabb program a könyvtárnál lesz; itt rövid jelenet.",
+    "file": "audio/voice/city_story_court_layout_choice_choice_layout_library.mp3"
+  },
+  "city_story_ending_choice_p1": {
+    "text": "„A régi utolsó jelenetet soha nem forgatták le” – mondja Zsófi. Mira három lapot tesz eléd: kamerát, függönyt és lábnyomokat rajzolt rájuk.",
+    "file": "audio/voice/city_story_ending_choice_p1.mp3"
+  },
+  "city_story_ending_choice_p2": {
+    "text": "Mindhárom tervhez megvan a szabad átjáró. A választott nyomozóút valamelyiket előkészítette; ami hiányzik, azt az esti esemény előtt megoldhatod.",
+    "file": "audio/voice/city_story_ending_choice_p2.mp3"
+  },
+  "city_story_ending_choice_choice_ending_film": {
+    "text": "Forgassunk egy mai befejezést.",
+    "file": "audio/voice/city_story_ending_choice_choice_ending_film.mp3"
+  },
+  "city_story_ending_choice_choice_ending_theatre": {
+    "text": "Legyen élő előadás.",
+    "file": "audio/voice/city_story_ending_choice_choice_ending_theatre.mp3"
+  },
+  "city_story_ending_choice_choice_ending_walk": {
+    "text": "Vezessük végig a többieket a helyszíneken.",
+    "file": "audio/voice/city_story_ending_choice_choice_ending_walk.mp3"
+  },
+  "city_story_ending_choice_variant1_1": {
+    "text": "A régi kameraállást már kipróbáltad a pékség felől.",
+    "file": "audio/voice/city_story_ending_choice_variant1_1.mp3"
+  },
+  "city_story_ending_choice_variant2_1": {
+    "text": "A műhelyben a keskeny bábkeretet már elpróbáltad.",
+    "file": "audio/voice/city_story_ending_choice_variant2_1.mp3"
+  },
+  "city_story_ending_choice_variant3_1": {
+    "text": "A könyvtári útvonaltérkép készen áll a próbasétára.",
+    "file": "audio/voice/city_story_ending_choice_variant3_1.mp3"
+  },
+  "city_story_film_prep_p1": {
+    "text": "A mai felvételen a zöld kapu nyílik ki. Zsófi belenéz a kamerába: a régi állásból a kapu szép, de a pad mögött az érkező emberek eltűnnek.",
+    "file": "audio/voice/city_story_film_prep_p1.mp3"
+  },
+  "city_story_film_prep_p2": {
+    "text": "Döntsd el, hogyan mutatod meg egyszerre a régi nézőpontot és a mai, használható udvart.",
+    "file": "audio/voice/city_story_film_prep_p2.mp3"
+  },
+  "city_story_film_prep_choice_film_angle_shift": {
+    "text": "Induljunk a régi képből, aztán tárjuk fel az egész udvart.",
+    "file": "audio/voice/city_story_film_prep_choice_film_angle_shift.mp3"
+  },
+  "city_story_film_prep_choice_film_angle_inside": {
+    "text": "Az udvarból vegyük fel az érkezőket és a kaput.",
+    "file": "audio/voice/city_story_film_prep_choice_film_angle_inside.mp3"
+  },
+  "city_story_film_prep_variant1_1": {
+    "text": "Ismered az eredeti állást. Onnan indulhat a kép, majd a kamera oldalra mozdulhat a szabad forduló felé.",
+    "file": "audio/voice/city_story_film_prep_variant1_1.mp3"
+  },
+  "city_story_film_prep_variant2_1": {
+    "text": "Két helyet próbáltok ki most: az utca felől jól látszik a nyíló kapu, az udvarból a megérkező emberek.",
+    "file": "audio/voice/city_story_film_prep_variant2_1.mp3"
+  },
+  "city_story_film_eszter_p1": {
+    "text": "Eszter fél hétig a pékségnél dolgozik. A régi film gyerekszereplője szívesen segít, ha a jelenet a rakodás után készül vagy a mondatát előbb rögzítitek.",
+    "file": "audio/voice/city_story_film_eszter_p1.mp3"
+  },
+  "city_story_film_eszter_choice_film_eszter_live": {
+    "text": "Várjuk meg a rakodás végét, Eszter lépjen be a kapun.",
+    "file": "audio/voice/city_story_film_eszter_choice_film_eszter_live.mp3"
+  },
+  "city_story_film_eszter_choice_film_eszter_voice": {
+    "text": "Vegyük fel a mondatát a pékségnél; Mira álljon a régi helyére.",
+    "file": "audio/voice/city_story_film_eszter_choice_film_eszter_voice.mp3"
+  },
+  "city_story_film_eszter_variant1_1": {
+    "text": "Már megbeszéltétek: Eszter a munka után a régi helyére áll a kapunál.",
+    "file": "audio/voice/city_story_film_eszter_variant1_1.mp3"
+  },
+  "city_story_film_eszter_variant2_1": {
+    "text": "A szereplést még nem egyeztettétek. Most kell eldönteni, hogyan kerül Eszter hangja vagy személyes jelenléte a mai történetbe.",
+    "file": "audio/voice/city_story_film_eszter_variant2_1.mp3"
+  },
+  "city_story_film_direct_p1": {
+    "text": "A pad a kipróbált helyén áll, az átjáró szabad. A régi film meghívása után világos felirat kerül majd a vászonra: „Ezt a folytatást ma készítettük.”",
+    "file": "audio/voice/city_story_film_direct_p1.mp3"
+  },
+  "city_story_film_direct_p2": {
+    "text": "Milyen ritmusban érkezzenek a szomszédok?",
+    "file": "audio/voice/city_story_film_direct_p2.mp3"
+  },
+  "city_story_film_direct_choice_film_sequence": {
+    "text": "Egymás után érkezzenek, mindenki tegyen le valamit.",
+    "file": "audio/voice/city_story_film_direct_choice_film_sequence.mp3"
+  },
+  "city_story_film_direct_choice_film_together": {
+    "text": "Előbb nyissunk helyet, aztán együtt nézzünk be.",
+    "file": "audio/voice/city_story_film_direct_choice_film_together.mp3"
+  },
+  "city_story_film_props_p1": {
+    "text": "Válassz pontosan három felajánlott tárgyat. Ezek látszanak majd a záróképen; a kocsi útját továbbra is szabadon hagyják.",
+    "file": "audio/voice/city_story_film_props_p1.mp3"
+  },
+  "city_story_film_props_choice_film_show": {
+    "text": "Vetítsük le a régi filmet és a mai folytatást.",
+    "file": "audio/voice/city_story_film_props_choice_film_show.mp3"
+  },
+  "city_story_film_props_activity_prompt": {
+    "text": "Melyik három tárgy kerüljön a mai filmbe?",
+    "file": "audio/voice/city_story_film_props_activity_prompt.mp3"
+  },
+  "city_story_film_props_activity_item_pillow": {
+    "text": "Ülőpárna",
+    "file": "audio/voice/city_story_film_props_activity_item_pillow.mp3"
+  },
+  "city_story_film_props_activity_item_board": {
+    "text": "Rajztábla",
+    "file": "audio/voice/city_story_film_props_activity_item_board.mp3"
+  },
+  "city_story_film_props_activity_item_puppet": {
+    "text": "Báb",
+    "file": "audio/voice/city_story_film_props_activity_item_puppet.mp3"
+  },
+  "city_story_film_props_activity_item_pump": {
+    "text": "Biciklipumpa",
+    "file": "audio/voice/city_story_film_props_activity_item_pump.mp3"
+  },
+  "city_story_film_props_activity_item_book": {
+    "text": "Könyv",
+    "file": "audio/voice/city_story_film_props_activity_item_book.mp3"
+  },
+  "city_story_film_props_activity_item_bread": {
+    "text": "Kenyérkosár",
+    "file": "audio/voice/city_story_film_props_activity_item_bread.mp3"
+  },
+  "city_story_film_ending_p1": {
+    "text": "A vásznon a régi kék kapu előtt elhangzik: „Holnap itt találkozunk.” A régi film ugyanott ér véget. Utána új felirat jelenik meg: „Ezt a folytatást ma készítettük.”",
+    "file": "audio/voice/city_story_film_ending_p1.mp3"
+  },
+  "city_story_film_ending_p2": {
+    "text": "A zöld kapu kinyílik. Mira a szabadon hagyott kanyarnál áll, Juli mellett a kocsi is befér. A három választott tárgyból közös, használható hely alakul.",
+    "file": "audio/voice/city_story_film_ending_p2.mp3"
+  },
+  "city_story_film_ending_p3": {
+    "text": "„Szerintem most van vége” – mondja Mira. „A filmnek” – feleli Zsófi. A lakók a későbbi alkalmakról együtt dönthetnek.",
+    "file": "audio/voice/city_story_film_ending_p3.mp3"
+  },
+  "city_story_film_ending_choice_film_epilogue": {
+    "text": "Nézzük meg, mi maradt velünk.",
+    "file": "audio/voice/city_story_film_ending_choice_film_epilogue.mp3"
+  },
+  "city_story_film_ending_variant1_1": {
+    "text": "A pad a fal mellett marad; a közel ülő nézők a valódi udvar apró részleteit is felismerik.",
+    "file": "audio/voice/city_story_film_ending_variant1_1.mp3"
+  },
+  "city_story_film_ending_variant2_1": {
+    "text": "A jelenetet a rakodás után vették fel. A krétajelek alapján gyorsan berendezték a helyet, és a kijárat szabad maradt.",
+    "file": "audio/voice/city_story_film_ending_variant2_1.mp3"
+  },
+  "city_story_film_ending_variant3_1": {
+    "text": "A kapunál rövid jelenet készült. A hosszabb vetítésnek a könyvtár udvara ad helyet.",
+    "file": "audio/voice/city_story_film_ending_variant3_1.mp3"
+  },
+  "city_story_film_ending_variant4_1": {
+    "text": "A vetítés előtt Mira eljátssza a három régi pillanatot, hogy senki se tévessze össze az esti kapuzárást a délutáni próbával.",
+    "file": "audio/voice/city_story_film_ending_variant4_1.mp3"
+  },
+  "city_story_film_ending_variant5_1": {
+    "text": "A régi állókép mellé odateszitek az egész udvar képét: a nézők látják, mi maradt a képen kívül.",
+    "file": "audio/voice/city_story_film_ending_variant5_1.mp3"
+  },
+  "city_story_film_ending_variant6_1": {
+    "text": "A műhelyben előkészített piros padon most kényelmesen ülnek.",
+    "file": "audio/voice/city_story_film_ending_variant6_1.mp3"
+  },
+  "city_story_film_ending_variant7_1": {
+    "text": "A könyvtárban készített képsor a vetítés előtt tisztázza a próba, elpakolás és kapuzárás sorrendjét.",
+    "file": "audio/voice/city_story_film_ending_variant7_1.mp3"
+  },
+  "city_story_film_ending_variant8_1": {
+    "text": "Eszter a megbeszélt időben a kocsival székeket is áthozott a vetítésre.",
+    "file": "audio/voice/city_story_film_ending_variant8_1.mp3"
+  },
+  "city_story_film_ending_variant9_1": {
+    "text": "A kamera a régi képkivágásból indul, majd oldalra mozdul: látszik a szabad forduló és minden érkező.",
+    "file": "audio/voice/city_story_film_ending_variant9_1.mp3"
+  },
+  "city_story_film_ending_variant10_1": {
+    "text": "Az udvar felől a kapu nyílása, az érkezők és a kocsi fordulója egyszerre kerül a képbe.",
+    "file": "audio/voice/city_story_film_ending_variant10_1.mp3"
+  },
+  "city_story_film_ending_variant11_1": {
+    "text": "Eszter ugyanoda áll, ahol gyerekként a régi filmen. Most maga lép be a kapun.",
+    "file": "audio/voice/city_story_film_ending_variant11_1.mp3"
+  },
+  "city_story_film_ending_variant12_1": {
+    "text": "Eszter felvett mondata a pékségből szól; Mira a régi helyére áll a kapunál. Eszter a vetítésre érkezik.",
+    "file": "audio/voice/city_story_film_ending_variant12_1.mp3"
+  },
+  "city_story_film_ending_variant13_1": {
+    "text": "A szomszédok egymás után érkeznek, és a végére áll össze a közös tér.",
+    "file": "audio/voice/city_story_film_ending_variant13_1.mp3"
+  },
+  "city_story_film_ending_variant14_1": {
+    "text": "Előbb helyet nyitnak egymásnak, aztán együtt néznek be az udvarba.",
+    "file": "audio/voice/city_story_film_ending_variant14_1.mp3"
+  },
+  "city_story_film_ending_variant15_1": {
+    "text": "Valaki a választott ülőpárnát a padra teszi.",
+    "file": "audio/voice/city_story_film_ending_variant15_1.mp3"
+  },
+  "city_story_film_ending_variant16_1": {
+    "text": "A rajztáblán elkezdődik egy új udvarrajz.",
+    "file": "audio/voice/city_story_film_ending_variant16_1.mp3"
+  },
+  "city_story_film_ending_variant17_1": {
+    "text": "Egy papírbáb integet a kapuból.",
+    "file": "audio/voice/city_story_film_ending_variant17_1.mp3"
+  },
+  "city_story_film_ending_variant18_1": {
+    "text": "Dani a biciklipumpát a fal mellé állítja.",
+    "file": "audio/voice/city_story_film_ending_variant18_1.mp3"
+  },
+  "city_story_film_ending_variant19_1": {
+    "text": "Zsófi egy könyvet nyit ki a padon.",
+    "file": "audio/voice/city_story_film_ending_variant19_1.mp3"
+  },
+  "city_story_film_ending_variant20_1": {
+    "text": "A kenyérkosár a közös asztalra kerül.",
+    "file": "audio/voice/city_story_film_ending_variant20_1.mp3"
+  },
+  "city_story_theatre_prep_p1": {
+    "text": "Mira két figurát tart fel. Az egyik padot, a másik kulcsot fog. „Ha a kulcsos becsukja, a pados elmegy…” Eszter megrázza a fejét. „Éppen ezt értettük félre.”",
+    "file": "audio/voice/city_story_theatre_prep_p1.mp3"
+  },
+  "city_story_theatre_prep_p2": {
+    "text": "A kelléknek el kell férnie a szabad átjáró mellett. Válassz egy valóban felállítható formát.",
+    "file": "audio/voice/city_story_theatre_prep_p2.mp3"
+  },
+  "city_story_theatre_prep_choice_theatre_puppets": {
+    "text": "Állítsuk fel a keskeny bábkeretet és jelöljük ki a nézőteret.",
+    "file": "audio/voice/city_story_theatre_prep_choice_theatre_puppets.mp3"
+  },
+  "city_story_theatre_prep_choice_theatre_boards": {
+    "text": "Mozgatható képtartókkal mutassuk meg a három képet.",
+    "file": "audio/voice/city_story_theatre_prep_choice_theatre_boards.mp3"
+  },
+  "city_story_theatre_prep_variant1_1": {
+    "text": "A műhelyben kipróbált bábkeret készen áll; most a nézők helyét kell mellé jelölni.",
+    "file": "audio/voice/city_story_theatre_prep_variant1_1.mp3"
+  },
+  "city_story_theatre_prep_variant2_1": {
+    "text": "A könyvtárban elkészült háromképes történet már segít az előadás sorrendjében.",
+    "file": "audio/voice/city_story_theatre_prep_variant2_1.mp3"
+  },
+  "city_story_theatre_prep_variant3_1": {
+    "text": "A bábkeretet még nem próbáltátok. A keskeny keret vagy a könyvtár mozgatható képtartója közül választhatsz.",
+    "file": "audio/voice/city_story_theatre_prep_variant3_1.mp3"
+  },
+  "city_story_theatre_direct_p1": {
+    "text": "A régi három kép sorrendje biztos. Az előadás azt is megmutathatja, hogyan lett két igaz emlékből téves következtetés.",
+    "file": "audio/voice/city_story_theatre_direct_p1.mp3"
+  },
+  "city_story_theatre_direct_choice_theatre_rethink": {
+    "text": "Játsszuk el előbb Mira tévedését, aztán nézzük újra.",
+    "file": "audio/voice/city_story_theatre_direct_choice_theatre_rethink.mp3"
+  },
+  "city_story_theatre_direct_choice_theatre_voices": {
+    "text": "Eszter, Dani és Juli mondjon el egy-egy pillanatot.",
+    "file": "audio/voice/city_story_theatre_direct_choice_theatre_voices.mp3"
+  },
+  "city_story_theatre_ending_p1": {
+    "text": "A képzeletbeli nagy kocsi megakad a túl szűk kanyarnál. Egy kisgyerek az első sorból megszólal: „Fordítsátok el a padot!” A kipróbált mai elrendezésben már szabad az út.",
+    "file": "audio/voice/city_story_theatre_ending_p1.mp3"
+  },
+  "city_story_theatre_ending_p2": {
+    "text": "Juli feláll: „A kaput csak este csuktam be.” Dani hozzáteszi: „Mi délután vittük el a padot.” Eszter ránéz a három képre. „Sokáig egyetlen pillanatnak láttam.”",
+    "file": "audio/voice/city_story_theatre_ending_p2.mp3"
+  },
+  "city_story_theatre_ending_p3": {
+    "text": "A függöny vagy a képtartó félrekerül. Mögötte a valódi udvar és a szabad átjáró látszik. A nézők tovább beszélgetnek arról, hogyan használhatják közösen a helyet.",
+    "file": "audio/voice/city_story_theatre_ending_p3.mp3"
+  },
+  "city_story_theatre_ending_choice_theatre_epilogue": {
+    "text": "Nézzük meg, mi maradt velünk.",
+    "file": "audio/voice/city_story_theatre_ending_choice_theatre_epilogue.mp3"
+  },
+  "city_story_theatre_ending_variant1_1": {
+    "text": "A nézők a fal mellé fordított pad előtt ülnek; a belső forduló szabad.",
+    "file": "audio/voice/city_story_theatre_ending_variant1_1.mp3"
+  },
+  "city_story_theatre_ending_variant2_1": {
+    "text": "A bábokat és képeket csak a rakodás után tették ki; a krétával jelölt út addig is szabad maradt.",
+    "file": "audio/voice/city_story_theatre_ending_variant2_1.mp3"
+  },
+  "city_story_theatre_ending_variant3_1": {
+    "text": "A kapunál rövid jelenetet adnak elő, a hosszabb beszélgetés a könyvtár udvarán folytatódik.",
+    "file": "audio/voice/city_story_theatre_ending_variant3_1.mp3"
+  },
+  "city_story_theatre_ending_variant4_1": {
+    "text": "A délutáni közös próbán kiválasztott hárommozdulatos eljátszás most az előadásba is bekerül.",
+    "file": "audio/voice/city_story_theatre_ending_variant4_1.mp3"
+  },
+  "city_story_theatre_ending_variant5_1": {
+    "text": "A régi képkivágás mellé a teljes udvar képe kerül; a nézők egyszerre látják a hiányzó fordulót.",
+    "file": "audio/voice/city_story_theatre_ending_variant5_1.mp3"
+  },
+  "city_story_theatre_ending_variant6_1": {
+    "text": "Mira a műhelyben begyakorolt mozdulattal fordítja el a kis bábkocsit.",
+    "file": "audio/voice/city_story_theatre_ending_variant6_1.mp3"
+  },
+  "city_story_theatre_ending_variant7_1": {
+    "text": "A könyvtárban készített képsor feliratai most a nézőknek is segítenek elkülöníteni a három pillanatot.",
+    "file": "audio/voice/city_story_theatre_ending_variant7_1.mp3"
+  },
+  "city_story_theatre_ending_variant8_1": {
+    "text": "Eszter a korábban egyeztetett rakodás után érkezik a kocsival és a nézők székeivel.",
+    "file": "audio/voice/city_story_theatre_ending_variant8_1.mp3"
+  },
+  "city_story_theatre_ending_variant9_1": {
+    "text": "A keskeny bábkeretben a papírkocsi újra megpróbál befordulni, ezúttal sikerül.",
+    "file": "audio/voice/city_story_theatre_ending_variant9_1.mp3"
+  },
+  "city_story_theatre_ending_variant10_1": {
+    "text": "A nagy képtáblák egymás után fordulnak meg: próba, elpakolás, esti zárás.",
+    "file": "audio/voice/city_story_theatre_ending_variant10_1.mp3"
+  },
+  "city_story_theatre_ending_variant11_1": {
+    "text": "Mira első változatánál a nézők elhiszik, hogy a kapuzárás állította meg a próbát. A második játékban maguk javítják ki a sorrendet.",
+    "file": "audio/voice/city_story_theatre_ending_variant11_1.mp3"
+  },
+  "city_story_theatre_ending_variant12_1": {
+    "text": "Eszter, Dani és Juli külön mondatot kapnak. Egyiküket sem kell kinevetni ahhoz, hogy a teljes történet összeálljon.",
+    "file": "audio/voice/city_story_theatre_ending_variant12_1.mp3"
+  },
+  "city_story_walk_prep_p1": {
+    "text": "„A vásznon csak egy kép. Itt át lehet nézni rajta” – mondja Mira. Zsófi a könyvtárnál várja majd a csoportot a régi film vetítésére.",
+    "file": "audio/voice/city_story_walk_prep_p1.mp3"
+  },
+  "city_story_walk_prep_p2": {
+    "text": "A pékség bejáratát és a ház átjáróját szabadon kell hagyni. A sétának csak olyan állomása lehet, amelyet ma ellenőrizni tudtok.",
+    "file": "audio/voice/city_story_walk_prep_p2.mp3"
+  },
+  "city_story_walk_prep_choice_walk_short": {
+    "text": "Három állomás: régi nézőpont, zöld kapu, könyvtár.",
+    "file": "audio/voice/city_story_walk_prep_choice_walk_short.mp3"
+  },
+  "city_story_walk_prep_choice_walk_long": {
+    "text": "Tegyük bele Dani műhelyét és egy mozgatható képtáblát.",
+    "file": "audio/voice/city_story_walk_prep_choice_walk_long.mp3"
+  },
+  "city_story_walk_prep_variant1_1": {
+    "text": "A könyvtári térképed kész. Most bejárjátok, hogy a rajzon kijelölt megállók valóban működnek-e.",
+    "file": "audio/voice/city_story_walk_prep_variant1_1.mp3"
+  },
+  "city_story_walk_prep_variant2_1": {
+    "text": "Térkép még nincs. A régi képet, a kaput és a könyvtárat most kötitek össze bejárható útvonallá.",
+    "file": "audio/voice/city_story_walk_prep_variant2_1.mp3"
+  },
+  "city_story_walk_prep_variant3_1": {
+    "text": "Az átszámozási rajzon talált oldalsó átjáró a kisebb csoportnak jó kerülőút lehet.",
+    "file": "audio/voice/city_story_walk_prep_variant3_1.mp3"
+  },
+  "city_story_walk_workshop_p1": {
+    "text": "Dani felemeli a piros pad egyik végét. A fecskefarkú javítás és a két kezdőbetű ugyanaz, mint a régi filmen. A szín változott, a tárgy nem.",
+    "file": "audio/voice/city_story_walk_workshop_p1.mp3"
+  },
+  "city_story_walk_workshop_p2": {
+    "text": "A mozgatható képtáblán a próba, az elpakolás és az esti kapuzárás külön képet kap. A csoport továbbindulhat, a műhely bejárata szabad marad.",
+    "file": "audio/voice/city_story_walk_workshop_p2.mp3"
+  },
+  "city_story_walk_workshop_choice_walk_from_workshop": {
+    "text": "Próbáljuk ki a következő megállót.",
+    "file": "audio/voice/city_story_walk_workshop_choice_walk_from_workshop.mp3"
+  },
+  "city_story_walk_workshop_variant1_1": {
+    "text": "Ezt a javítást te ismerted fel először; most megmutathatod a többieknek.",
+    "file": "audio/voice/city_story_walk_workshop_variant1_1.mp3"
+  },
+  "city_story_walk_door_p1": {
+    "text": "A próbajáráson észreveszed, hogy a tervezett megálló éppen a pékség ajtaját takarja. Eszter kocsija akkor sem férne ki, ha az udvarban jó a rend.",
+    "file": "audio/voice/city_story_walk_door_p1.mp3"
+  },
+  "city_story_walk_door_p2": {
+    "text": "Hová álljon a csoport, hogy a nyomot jól lássa, és a bejárat is szabad maradjon?",
+    "file": "audio/voice/city_story_walk_door_p2.mp3"
+  },
+  "city_story_walk_door_choice_walk_wide": {
+    "text": "Álljunk az utca szélesebb részére.",
+    "file": "audio/voice/city_story_walk_door_choice_walk_wide.mp3"
+  },
+  "city_story_walk_door_choice_walk_small": {
+    "text": "Előbb mutassuk a képtáblát, majd kisebb csoportban lépjünk közelebb.",
+    "file": "audio/voice/city_story_walk_door_choice_walk_small.mp3"
+  },
+  "city_story_walk_ending_p1": {
+    "text": "Mira felemeli a régi képet a tér szélén. Valaki a számot, más a színt keresi. Te a három vaslevélre és a félköríves ablakra mutatsz: a kék 12-es ma zöld 18-as.",
+    "file": "audio/voice/city_story_walk_ending_p1.mp3"
+  },
+  "city_story_walk_ending_p2": {
+    "text": "A kapunál Eszter a régi helyére áll, majd odébb lép, hogy a kocsi elférjen. „Ez a rész nem látszott a filmen.”",
+    "file": "audio/voice/city_story_walk_ending_p2.mp3"
+  },
+  "city_story_walk_ending_p3": {
+    "text": "A könyvtárban újra levetítik a régi felvételt. Ugyanott ér véget, mint délután. Most már mindenki tudja, hol volt az az „itt”, és miért nem készült el az utolsó jelenet.",
+    "file": "audio/voice/city_story_walk_ending_p3.mp3"
+  },
+  "city_story_walk_ending_choice_walk_epilogue": {
+    "text": "Nézzük meg, mi maradt velünk.",
+    "file": "audio/voice/city_story_walk_ending_choice_walk_epilogue.mp3"
+  },
+  "city_story_walk_ending_variant1_1": {
+    "text": "Az udvarban a fal mellé fordított pad mellett megmutatod a kocsi szabad kanyarját.",
+    "file": "audio/voice/city_story_walk_ending_variant1_1.mp3"
+  },
+  "city_story_walk_ending_variant2_1": {
+    "text": "A séta a rakodás után ér a kapuhoz; a krétával jelölt átjáró végig szabad.",
+    "file": "audio/voice/city_story_walk_ending_variant2_1.mp3"
+  },
+  "city_story_walk_ending_variant3_1": {
+    "text": "A kapunál csak rövid ideig álltok meg. A hosszabb elmesélés a könyvtár udvarában kap helyet.",
+    "file": "audio/voice/city_story_walk_ending_variant3_1.mp3"
+  },
+  "city_story_walk_ending_variant4_1": {
+    "text": "A kapunál három egyszerű mozdulattal mutatjátok meg a próbát, az elpakolást és az esti zárást.",
+    "file": "audio/voice/city_story_walk_ending_variant4_1.mp3"
+  },
+  "city_story_walk_ending_variant5_1": {
+    "text": "A régi kép után félrelépsz, és az egész udvarra mutatsz: a forduló is a történet része.",
+    "file": "audio/voice/city_story_walk_ending_variant5_1.mp3"
+  },
+  "city_story_walk_ending_variant6_1": {
+    "text": "A könyvtári térképet a bejárt állomások alapján pontosítottad, mielőtt a csoport elindult.",
+    "file": "audio/voice/city_story_walk_ending_variant6_1.mp3"
+  },
+  "city_story_walk_ending_variant7_1": {
+    "text": "Az átszámozási rajzon megtalált oldalsó átjárót is megmutatod, de a csoport csak a szabad, kipróbált úton halad.",
+    "file": "audio/voice/city_story_walk_ending_variant7_1.mp3"
+  },
+  "city_story_walk_ending_variant8_1": {
+    "text": "A három rövid megállóban egy-egy erős nyomra marad idő.",
+    "file": "audio/voice/city_story_walk_ending_variant8_1.mp3"
+  },
+  "city_story_walk_ending_variant9_1": {
+    "text": "A műhelyben Dani a pad javított lábát is megmutatja; a képtáblán együtt rakjátok sorba a napot.",
+    "file": "audio/voice/city_story_walk_ending_variant9_1.mp3"
+  },
+  "city_story_walk_ending_variant10_1": {
+    "text": "A csoport a tér szélesebb részéről nézi a kaput, a pékség ajtaja szabad.",
+    "file": "audio/voice/city_story_walk_ending_variant10_1.mp3"
+  },
+  "city_story_walk_ending_variant11_1": {
+    "text": "Előbb a képtáblát nézik, majd néhányan lépnek közelebb; Eszter kocsija szabadon kijut.",
+    "file": "audio/voice/city_story_walk_ending_variant11_1.mp3"
+  },
+  "city_story_epilogue_p1": {
+    "text": "Mira maga elé teszi a kapu képét, a pad rajzát és a füzetet. A közelebbről megismert nyomra mutat.",
+    "file": "audio/voice/city_story_epilogue_p1.mp3"
+  },
+  "city_story_epilogue_p2": {
+    "text": "„Én az elején azt hittem, valaki eldugta a film végét. Végül nekünk kellett kitalálni, mi legyen utána.”",
+    "file": "audio/voice/city_story_epilogue_p2.mp3"
+  },
+  "city_story_epilogue_choice_recall_clue": {
+    "text": "A legjobb nyomot nézzük meg még egyszer.",
+    "file": "audio/voice/city_story_epilogue_choice_recall_clue.mp3"
+  },
+  "city_story_epilogue_choice_recall_help": {
+    "text": "Mutasd meg, mi lett azzal, amiben segítettünk.",
+    "file": "audio/voice/city_story_epilogue_choice_recall_help.mp3"
+  },
+  "city_story_epilogue_recap1": {
+    "text": "A kaput a régi vaslevelek és az ablak alapján találtad meg.",
+    "file": "audio/voice/city_story_epilogue_recap1.mp3"
+  },
+  "city_story_epilogue_recap2": {
+    "text": "A padot a javított láb és a kezdőbetűk alapján azonosítottad.",
+    "file": "audio/voice/city_story_epilogue_recap2.mp3"
+  },
+  "city_story_epilogue_recap3": {
+    "text": "A három kép és a füzet megmutatta az események valódi sorrendjét.",
+    "file": "audio/voice/city_story_epilogue_recap3.mp3"
+  },
+  "city_story_epilogue_recap4": {
+    "text": "A mai filmen új jelenet készült, világosan elkülönítve a régi felvételtől.",
+    "file": "audio/voice/city_story_epilogue_recap4.mp3"
+  },
+  "city_story_epilogue_recap5": {
+    "text": "Az élő előadásban a nézők együtt rakták össze a három emléket.",
+    "file": "audio/voice/city_story_epilogue_recap5.mp3"
+  },
+  "city_story_epilogue_recap6": {
+    "text": "A sétán a régi képekhez valódi, bejárható helyek társultak.",
+    "file": "audio/voice/city_story_epilogue_recap6.mp3"
+  },
+  "city_story_recall_clue_p1": {
+    "text": "A régi film utolsó képe nem rejtett befejezés. Egy kérdés volt, amelyre a helyek, a tárgyak és az emberek együtt adtak választ.",
+    "file": "audio/voice/city_story_recall_clue_p1.mp3"
+  },
+  "city_story_recall_clue_choice_clue_back": {
+    "text": "Vissza Mirához.",
+    "file": "audio/voice/city_story_recall_clue_choice_clue_back.mp3"
+  },
+  "city_story_recall_clue_variant1_1": {
+    "text": "A 12-es kék kapu ma 18-as és zöld. A vaslevelek és az ablak régi helyükön maradtak.",
+    "file": "audio/voice/city_story_recall_clue_variant1_1.mp3"
+  },
+  "city_story_recall_clue_variant2_1": {
+    "text": "A kék pad piros lett, de a fecskefarkú javítás és a két kezdőbetű megmaradt.",
+    "file": "audio/voice/city_story_recall_clue_variant2_1.mp3"
+  },
+  "city_story_recall_clue_variant3_1": {
+    "text": "Előbb a próba, utána a délutáni elpakolás, végül az esti kapuzárás történt. Az utolsó jelenetet soha nem forgatták le.",
+    "file": "audio/voice/city_story_recall_clue_variant3_1.mp3"
+  },
+  "city_story_recall_help_p1": {
+    "text": "Az esti esemény után az emberek elpakolnak, de a kipróbált ötleteket megtartják a következő közös alkalomra.",
+    "file": "audio/voice/city_story_recall_help_p1.mp3"
+  },
+  "city_story_recall_help_choice_help_back": {
+    "text": "Vissza Mirához.",
+    "file": "audio/voice/city_story_recall_help_choice_help_back.mp3"
+  },
+  "city_story_recall_help_variant1_1": {
+    "text": "Valaki a mai filmet nézi újra, és felismeri, hol maradt szabad a kocsi kanyarja.",
+    "file": "audio/voice/city_story_recall_help_variant1_1.mp3"
+  },
+  "city_story_recall_help_variant2_1": {
+    "text": "Mira félreteszi a bábokat vagy képtáblákat. Juli és Dani még a képek előtt beszélgetnek.",
+    "file": "audio/voice/city_story_recall_help_variant2_1.mp3"
+  },
+  "city_story_recall_help_variant3_1": {
+    "text": "Egy új néző a térképet követve a három vaslevél alapján maga találja meg a zöld kaput.",
+    "file": "audio/voice/city_story_recall_help_variant3_1.mp3"
+  },
+  "city_story_feedback_inspectInvalid": {
+    "text": "Válassz egy látható részletet a képkockán; utána indulhatunk tovább.",
+    "file": "audio/voice/city_story_feedback_inspectInvalid.mp3"
+  },
+  "city_story_feedback_orderInvalid": {
+    "text": "Mindhárom képet tedd sorba. Nézd meg újra az órát és a pékség redőnyét.",
+    "file": "audio/voice/city_story_feedback_orderInvalid.mp3"
+  },
+  "city_story_feedback_orderWrong": {
+    "text": "Mira megáll: a kapuzárós képen már este hét van. A padot negyed ötkor vitték el. Próbáld újra!",
+    "file": "audio/voice/city_story_feedback_orderWrong.mp3"
+  },
+  "city_story_feedback_layoutInvalid": {
+    "text": "Válassz egy elrendezést, és próbáljuk ki a kocsi útját.",
+    "file": "audio/voice/city_story_feedback_layoutInvalid.mp3"
+  },
+  "city_story_feedback_layoutWrongStraight": {
+    "text": "Az egyenes sávon elfér a kocsi, de a belső kanyarnál megakad. Hagyj helyet a fordulónak is!",
+    "file": "audio/voice/city_story_feedback_layoutWrongStraight.mp3"
+  },
+  "city_story_feedback_layoutWrongCrosswise": {
+    "text": "A keresztbe állított dobogó elzárja az átjárót. Keress más helyet a padnak!",
+    "file": "audio/voice/city_story_feedback_layoutWrongCrosswise.mp3"
+  },
+  "city_story_feedback_propsInvalid": {
+    "text": "Pontosan három különböző felajánlott tárgyat válassz a mai filmhez.",
+    "file": "audio/voice/city_story_feedback_propsInvalid.mp3"
+  },
+  "city_story_feedback_propsDone": {
+    "text": "Megvan a három tárgy. A szabad átjárót meghagyva kezdődhet a mai jelenet.",
+    "file": "audio/voice/city_story_feedback_propsDone.mp3"
+  },
+  "city_story_feedback_orderDone": {
+    "text": "Így történt: próba, délutáni elpakolás, majd esti kapuzárás.",
+    "file": "audio/voice/city_story_feedback_orderDone.mp3"
+  },
+  "city_story_feedback_layoutDone": {
+    "text": "Most a kocsi be tud fordulni, és a lakók kijárata is szabad.",
+    "file": "audio/voice/city_story_feedback_layoutDone.mp3"
+  },
+  "city_story_feedback_alreadyDone": {
+    "text": "Ezt a nyomot már ellenőrizted. Válaszd a következő lépést.",
+    "file": "audio/voice/city_story_feedback_alreadyDone.mp3"
+  },
+  "city_story_feedback_noActivity": {
+    "text": "Itt nincs megoldandó feladat. Válassz egy történetlépést.",
+    "file": "audio/voice/city_story_feedback_noActivity.mp3"
+  },
   "teddy_alma": {
     "text": "Kérek almát.",
     "file": "audio/voice/teddy_alma.mp3"

@@ -26,6 +26,7 @@ import { setupMeadow } from "./meseliget-game.js";
 import { setupLogic } from "./logic-game.js";
 import { setupMemoryGame } from "./memory-game.js";
 import { setupPuzzleGame } from "./puzzle-game.js";
+import { setupCityStoryGame } from "./city-story-game.js";
 import { setupDifferencesGame } from "./differences-game.js";
 import { setupChessGame } from "./chess-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
@@ -75,7 +76,7 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'city-story', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
@@ -89,6 +90,7 @@ const screenInfo = {
   furfangliget: { title: "Furfangliget" },
   memory: { title: "Képpárok" },
   puzzle: { title: "Képkirakó" },
+  "city-story": { title: "A film utolsó jelenete" },
   differences: { title: "Találd meg a különbségeket!" },
   montessori: { title: "Montessori műhely" },
   chess: { title: "Sakkliget" },
@@ -141,6 +143,7 @@ let logicGame;
 let memoryGame;
 let puzzleGame;
 let differencesGame;
+let cityStoryGame;
 let montessoriGame;
 let chessGame;
 let workshopGame;
@@ -444,6 +447,12 @@ puzzleGame = setupPuzzleGame({
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound('puzzle', count);
   },
+});
+cityStoryGame = setupCityStoryGame({
+  effect: playEffect, stopPlayback,
+  hasVoice: id => Boolean(VOICE_CLIPS[id]),
+  speak: (ids, force = false) => { if (force || state.settings.spokenGuidance) return speakVoiceSequence(ids); },
+  onHome: () => showScreen("play-menu"),
 });
 differencesGame = setupDifferencesGame({
   effect: playEffect,
@@ -2139,6 +2148,7 @@ function setupNavigation() {
     else if (currentScreen === "memory") memoryGame.repeat();
     else if (currentScreen === "pour") pourGame.repeat();
     else if (currentScreen === "puzzle") puzzleGame.repeat();
+    else if (currentScreen === "city-story") cityStoryGame.repeat();
     else if (currentScreen === "differences") differencesGame.repeat();
     else if (currentScreen === "montessori") montessoriGame.repeat();
     else if (currentScreen === "chess") chessGame.repeat();
@@ -2235,6 +2245,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   memoryGame?.stop();
   puzzleGame?.stop();
   differencesGame?.stop();
+  cityStoryGame?.stop();
   montessoriGame?.stop();
   chessGame?.stop();
   workshopGame?.stop();
@@ -2279,6 +2290,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "furfangliget") logicGame.start(gameOptions);
   if (screen === "memory") memoryGame.start(gameOptions);
   if (screen === "puzzle") puzzleGame.start();
+  if (screen === "city-story") cityStoryGame.start({ announce });
   if (screen === "differences") differencesGame.start(gameOptions);
   if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
