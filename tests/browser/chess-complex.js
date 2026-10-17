@@ -64,7 +64,7 @@ async page => {
       await page.locator(`[data-chess-level="${level}"]`).click();
       for (let index = 0; index < positions.length; index++) {
         const route = positions[index], before = await saved();
-        ok((await page.locator('.chess-puzzle-nav').innerText()).includes(`${index+1} / 6`), `${level}/${index}: correct navigation`);
+        ok((await page.locator('.chess-puzzle-nav').innerText()).includes(`${index+1} / 12`), `${level}/${index}: correct navigation`);
         if (level === 'planning' && index === 4) {
           await move('c2','c3'); ok(await cell('c2').locator('.chess-piece').count() === 1, 'King avoids a pawn attack');
         }
@@ -90,15 +90,17 @@ async page => {
         }
         await page.waitForSelector('#round-complete[open]');
         ok((await saved()).rewards === before.rewards + 1 && (await saved()).attempts === before.attempts, `${level}/${index}: complete task rewards once without speech attempts`);
-        await page.keyboard.press('Escape'); await page.locator('#chess-listen').click();
+        await page.keyboard.press('Escape'); await page.locator('#help-button').click();
         ok((await saved()).rewards === before.rewards + 1 && await page.locator('#chess-undo').isDisabled(), `${level}/${index}: completed task cannot reward again`);
         if (index < positions.length-1) await page.locator('#chess-another').click();
       }
     }
+    await page.locator('.chess-jump > summary').click();
+    await page.locator('#chess-jump-select').selectOption('11');
     await page.locator('#chess-next').click();
-    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('1 / 6'), 'Next wraps within the selected level');
+    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('1 / 12'), 'Next wraps within the selected level');
     await page.locator('#chess-prev').click();
-    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('6 / 6'), 'Previous wraps within the selected level');
+    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('12 / 12'), 'Previous wraps within the selected level');
     // Complete a task, then switch level during the one-second celebration delay.
     await page.locator('[data-chess-level="planning"]').click();
     for (const [from,to] of routes.planning[0]) await move(from,to);
@@ -123,7 +125,7 @@ async page => {
     ok(await page.locator('[data-chess-level="challenge"]').getAttribute('aria-pressed') === 'true' && await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 2', 'Difficulty survives reload with a fresh task');
     await context.setOffline(true); await page.reload(); await enter();
     await page.evaluate(() => { window.chessNarrations=[]; document.addEventListener('narrationstart',event => window.chessNarrations.push(event.detail.id)); });
-    await page.locator('#chess-listen').click();
+    await page.locator('#help-button').click();
     await page.waitForFunction(() => window.chessNarrations.includes('chess_rook_team'));
     ok(true, 'New Hungarian task narration actually starts offline');
     const audioCached = await page.evaluate(async () => {
@@ -137,7 +139,7 @@ async page => {
     await page.waitForSelector('#round-complete[open]');
     ok((await saved()).rewards === beforeOffline.rewards+1, 'Cooperative task finishes completely offline');
     await page.locator('#round-replay').click();
-    ok(await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 2' && await cell('c1').locator('.chess-piece-bishop').count() === 1 && (await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 6'), 'Celebration continues to the next cooperative task');
+    ok(await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 2' && await cell('c1').locator('.chess-piece-bishop').count() === 1 && (await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 12'), 'Celebration continues to the next cooperative task');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
     return { count:checks.length, engine:context.browser().browserType().name(), checks };
   } finally { await context.setOffline(false); page.off('pageerror',listener); }

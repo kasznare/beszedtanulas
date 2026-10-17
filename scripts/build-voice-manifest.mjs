@@ -13,6 +13,7 @@ import { DIFFERENCE_CLIPS } from '../differences-voice.js';
 import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
+import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -140,6 +141,15 @@ for (const clip of clips) {
     return ipa ? `/${ipa}/` : word;
   });
   if (target !== original) contextual(clip.id, 'Mondjuk együtt: ', target);
+}
+// Scope new chess pronunciation to new IDs. Never change old paid inputs.
+if (config.model_id !== 'eleven_v4') throw Error('Chess IPA requires Eleven v4');
+for (const id of CHESS_PHONETIC_IDS) {
+  const clip = clips.find(clip => clip.id === id);
+  if (!clip || clip.group !== 'chess') throw Error(`Missing new chess clip: ${id}`);
+  const target = phoneticChessText(id, clip.text, pronunciation.words);
+  if (target === clip.text || !target?.includes('/')) throw Error(`Missing chess IPA: ${id}`);
+  contextual(id, 'Mondjuk együtt: ', target);
 }
 // These new requests already exist as Maci's correctly inflected full models.
 // Reuse the paid recordings, including their character timings, for both modes.

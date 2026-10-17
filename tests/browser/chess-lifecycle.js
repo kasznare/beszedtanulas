@@ -58,7 +58,7 @@ async page => {
   ok(after.rewards===child.rewards && after.attempts===child.attempts, 'Child results remain unchanged by parent trial');
   await enter(); await page.locator('[data-chess-mode="explore"]').click(); await page.locator('[data-chess-piece="rook"]').click();
   await page.evaluate(() => { window.chessNarrations=[]; document.addEventListener('narrationstart',event=>window.chessNarrations.push(event.detail.id)); });
-  await context.setOffline(true); await page.locator('#chess-listen').click();
+  await context.setOffline(true); await page.locator('#help-button').click();
   await page.waitForFunction(()=>window.chessNarrations.includes('chess_rook'));
   ok(true, 'Hungarian rook narration actually starts offline');
   await page.locator('#home-button').click();

@@ -11,8 +11,8 @@ async page => {
   const finish = async route => { for (const [from,to] of route) await move(from,to); await page.waitForSelector('#round-complete[open]'); };
   const routes = {
     easy: { count:10, first:[['b2','b6']], last:[['d4','b6']] },
-    planning: { count:6, first:[['d4','d5'],['d5','g5'],['g5','g4']], last:[['d4','e5'],['e5','f6'],['f6','f7']] },
-    challenge: { count:6, first:[['a2','b3'],['a1','a4']], last:[['a1','a8'],['a8','d8'],['c2','d3'],['d3','e4']] },
+    planning: { count:12, first:[['d4','d5'],['d5','g5'],['g5','g4']], last:[['e2','e8'],['e8','h8'],['h8','h5']] },
+    challenge: { count:12, first:[['a2','b3'],['a1','a4']], last:[['a1','d1'],['d1','d8'],['b2','c3'],['c3','d4'],['d4','e5']] },
   };
   try {
     await context.setOffline(false);
@@ -59,20 +59,20 @@ async page => {
     }
     await page.locator('[data-chess-mode="stars"]').click(); await page.locator('[data-chess-piece="rook"]').click();
     await finish([['d4','a4'],['a4','a7'],['a7','g7']]);
-    ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy kör' && await page.locator('#round-replay use').getAttribute('href') === '#i-repeat' && !(await page.locator('#round-replay').getAttribute('class')).includes('round-next'), 'Star rounds retain their repeat action');
+    ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy ilyen' && await page.locator('#round-replay').innerText() === 'Még egy ilyen' && await page.locator('#round-replay use').getAttribute('href') === '#i-repeat', 'Star rounds retain their repeat action');
     await page.locator('#round-replay').click();
     ok(await cell('d4').locator('.chess-piece-rook').count() === 1 && await page.locator('.chess-stars .is-earned').count() === 0, 'Star repeat starts a fresh collection round');
     await page.locator('#home-button').click(); await page.locator('#home [data-open="activity-menu"]').click(); await page.locator('#activity-menu [data-open="flip"]').click();
     for (const button of await page.locator('#flip-grid button').all()) await button.click();
     await page.waitForSelector('#round-complete[open]');
-    ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy kör' && await page.locator('#round-replay span').count() === 0 && !(await page.locator('#round-replay').getAttribute('class')).includes('round-next'), 'The shared dialog resets its label and layout for another game');
+    ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy ilyen' && await page.locator('#round-replay').innerText() === 'Még egy ilyen' && await page.locator('#round-replay use').getAttribute('href') === '#i-repeat', 'The shared dialog resets its label and icon for another game');
     await page.locator('#round-home').click(); await enter();
     await page.locator('[data-chess-mode="puzzles"]').click(); await page.locator('[data-chess-level="planning"]').click();
     await page.locator('#home-button').click(); await context.setOffline(true); await page.reload(); await enter();
     await finish(routes.planning.first);
     await page.evaluate(() => { window.chessNextNarrations=[]; document.addEventListener('narrationstart', event => window.chessNextNarrations.push(event.detail.id)); });
     await page.locator('#round-replay').click();
-    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 6') && await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 3', 'Next-task action works entirely offline');
+    ok((await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 12') && await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 3', 'Next-task action works entirely offline');
     await page.waitForFunction(() => window.chessNextNarrations.includes('chess_bishop_detour'));
     ok(true, 'The next task plays its own Hungarian narration offline');
     await page.locator('#back-button').click(); ok(await page.locator('#number-menu').isVisible(), 'Continuing preserves the normal back destination');

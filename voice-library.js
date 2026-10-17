@@ -1372,6 +1372,102 @@ export const VOICE_CLIPS = {
     "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
     "file": "audio/voice/chess_king_team.mp3"
   },
+  "chess_rook_three": {
+    "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből.",
+    "file": "audio/voice/chess_rook_three.mp3"
+  },
+  "chess_bishop_three": {
+    "text": "Üsd le a három megjelölt figurát a futóval! A végén állj a csillagra, legfeljebb három lépésből.",
+    "file": "audio/voice/chess_bishop_three.mp3"
+  },
+  "chess_knight_three": {
+    "text": "Három huszárugrással üsd le a megjelölt figurákat, és érj a csillagra!",
+    "file": "audio/voice/chess_knight_three.mp3"
+  },
+  "chess_queen_open": {
+    "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!",
+    "file": "audio/voice/chess_queen_open.mp3"
+  },
+  "chess_pawn_three": {
+    "text": "A gyaloggal üsd le a három megjelölt figurát, és érj a csillagra három lépésből!",
+    "file": "audio/voice/chess_pawn_three.mp3"
+  },
+  "chess_rook_pin_three": {
+    "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!",
+    "file": "audio/voice/chess_rook_pin_three.mp3"
+  },
+  "chess_rook_knight_open": {
+    "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
+    "file": "audio/voice/chess_rook_knight_open.mp3"
+  },
+  "chess_bishop_pawn_open": {
+    "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
+    "file": "audio/voice/chess_bishop_pawn_open.mp3"
+  },
+  "chess_queen_four": {
+    "text": "A vezérrel üsd le a három megjelölt figurát, majd érj a csillagra négy lépésből!",
+    "file": "audio/voice/chess_queen_four.mp3"
+  },
+  "chess_knight_four": {
+    "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!",
+    "file": "audio/voice/chess_knight_four.mp3"
+  },
+  "chess_promotion_four": {
+    "text": "Változtasd vezérré a gyalogot! Üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
+    "file": "audio/voice/chess_promotion_four.mp3"
+  },
+  "chess_king_five": {
+    "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!",
+    "file": "audio/voice/chess_king_five.mp3"
+  },
+  "chess_rook_master": {
+    "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!",
+    "file": "audio/voice/chess_rook_master.mp3"
+  },
+  "chess_bishop_master": {
+    "text": "Négy lépésből üsd le a négy megjelölt figurát a futóval, és érj a csillagra!",
+    "file": "audio/voice/chess_bishop_master.mp3"
+  },
+  "chess_knight_master": {
+    "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!",
+    "file": "audio/voice/chess_knight_master.mp3"
+  },
+  "chess_queen_master": {
+    "text": "Öt lépésből üsd le az öt megjelölt figurát a vezérrel, és érj a csillagra!",
+    "file": "audio/voice/chess_queen_master.mp3"
+  },
+  "chess_pawn_master": {
+    "text": "Juss el az utolsó sorig a gyaloggal, majd vezérként érj a csillagra! Üsd le a megjelölt figurákat hat lépésből!",
+    "file": "audio/voice/chess_pawn_master.mp3"
+  },
+  "chess_rook_pawn_master": {
+    "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+    "file": "audio/voice/chess_rook_pawn_master.mp3"
+  },
+  "chess_rook_knight_master": {
+    "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
+    "file": "audio/voice/chess_rook_knight_master.mp3"
+  },
+  "chess_rook_pin_master": {
+    "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!",
+    "file": "audio/voice/chess_rook_pin_master.mp3"
+  },
+  "chess_king_master": {
+    "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!",
+    "file": "audio/voice/chess_king_master.mp3"
+  },
+  "chess_queen_pawn_master": {
+    "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+    "file": "audio/voice/chess_queen_pawn_master.mp3"
+  },
+  "chess_bishop_knight_master": {
+    "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+    "file": "audio/voice/chess_bishop_knight_master.mp3"
+  },
+  "chess_promotion_master": {
+    "text": "Változtasd vezérré a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a csillagra hat lépésből!",
+    "file": "audio/voice/chess_promotion_master.mp3"
+  },
   "chess_steps_used": {
     "text": "Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!",
     "file": "audio/voice/chess_steps_used.mp3"

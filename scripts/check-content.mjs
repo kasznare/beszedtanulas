@@ -17,6 +17,7 @@ import { DIFFERENCE_CLIPS } from '../differences-voice.js';
 import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
+import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -59,6 +60,17 @@ for (const [id, text] of Object.entries(DIFFERENCE_CLIPS)) assert.equal(VOICE_CL
 for (const [id, text] of Object.entries(PATTERN_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(MONTESSORI_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(CHESS_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
+assert.equal(new Set(CHESS_PHONETIC_IDS).size, CHESS_PHONETIC_IDS.length, 'Repeated new chess voice ID');
+for (const id of CHESS_PHONETIC_IDS) {
+  const clip = manifest.clips.find(clip => clip.id === id);
+  assert.equal(clip?.text, CHESS_CLIPS[id], `Missing new chess voice: ${id}`);
+  assert.equal(clip.spokenTarget, phoneticChessText(id, clip.text, pronunciation.words), `Stale chess IPA: ${id}`);
+  assert.ok(clip.spokenTarget.includes('/'), `Missing chess IPA: ${id}`);
+  assert.equal(clip.spokenText.slice(clip.extract.from, clip.extract.to), clip.spokenTarget, `Wrong chess speech excerpt: ${id}`);
+  const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  assert.equal(spoken.length, displayed.length, `Chess IPA changed word positions: ${id}`);
+}
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(POUR_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(R_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);

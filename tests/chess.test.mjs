@@ -106,10 +106,10 @@ test('settings recover safely and board coordinates match standard orientation',
   assert.equal(squareName(0), 'a8'); assert.equal(squareName(63), 'h1');
 });
 
-test('all twelve harder positions need exactly their advertised move budget', () => {
-  assert.deepEqual(CHESS_LEVELS.map(({ id }) => chessPuzzlesForLevel(id).length), [10, 6, 6]);
-  for (const { id: level } of CHESS_LEVELS.slice(1)) {
-    for (let index = 0; index < chessPuzzlesForLevel(level).length; index++) {
+test('the original twelve harder positions still need exactly their advertised move budget', () => {
+  assert.deepEqual(CHESS_LEVELS.map(({ id }) => chessPuzzlesForLevel(id).length), [10, 12, 12, 12]);
+  for (const { id: level } of CHESS_LEVELS.slice(1, 3)) {
+    for (let index = 0; index < 6; index++) {
       const puzzle = buildChessPuzzle(index, level), snapshot = structuredClone(puzzle.board);
       assert.ok(CHESS_CLIPS[puzzle.voice]); assert.ok(puzzle.tip);
       assert.equal(new Set(puzzle.board.map(piece => piece.square)).size, puzzle.board.length, puzzle.id);
@@ -177,6 +177,7 @@ test('promotion retains the pawn identity so its new queen can finish the object
   assert.equal(board.find(piece => piece.id === puzzle.from).type, 'queen');
   assert.ok(evaluateChessPuzzle(puzzle, board, 3).solved);
   assert.equal(evaluateChessPuzzle(puzzle, board, 4).solved, false);
-  assert.equal(buildChessPuzzle(-1, 'planning').id, 'pawn-route');
-  assert.equal(buildChessPuzzle(6, 'challenge').id, 'rook-team');
+  assert.equal(buildChessPuzzle(5, 'planning').id, 'pawn-route');
+  assert.equal(buildChessPuzzle(0, 'challenge').id, 'rook-team');
+  assert.equal(buildChessPuzzle(6, 'challenge').id, 'rook-knight-open');
 });
