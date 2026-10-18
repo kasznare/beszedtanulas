@@ -3,10 +3,8 @@ node_modules
 package-lock.json
 rawaudio
 .playwright-cli/
-output/playwright/
-output/audio-preview/
-output/audiobooks/
-output/elevenlabs-audiobooks/
+# Local previews, test captures and generated audio/video exports.
+/output/
 content/stories/import-*.json
 content/stories/catalog.txt
 __pycache__/
