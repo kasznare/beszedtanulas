@@ -1472,6 +1472,34 @@ export const VOICE_CLIPS = {
     "text": "Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!",
     "file": "audio/voice/chess_steps_used.mp3"
   },
+  "engineering_hub": {
+    "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
+    "file": "audio/voice/engineering_hub.mp3"
+  },
+  "engineering_drop": {
+    "text": "Az elem ide-oda mozog. Koppints, és leesik! Építs a szigetre! A vízbe ne essen!",
+    "file": "audio/voice/engineering_drop.mp3"
+  },
+  "engineering_build": {
+    "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!",
+    "file": "audio/voice/engineering_build.mp3"
+  },
+  "engineering_bridge": {
+    "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!",
+    "file": "audio/voice/engineering_bridge.mp3"
+  },
+  "engineering_water": {
+    "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
+    "file": "audio/voice/engineering_water.mp3"
+  },
+  "engineering_success": {
+    "text": "Átért az autó! A híd megtartotta a rakományt!",
+    "file": "audio/voice/engineering_success.mp3"
+  },
+  "engineering_retry": {
+    "text": "A híd meghajlott. Próbáld átlós rudakkal megerősíteni!",
+    "file": "audio/voice/engineering_retry.mp3"
+  },
   "workshop_menu": {
     "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
     "file": "audio/voice/workshop_menu.mp3"

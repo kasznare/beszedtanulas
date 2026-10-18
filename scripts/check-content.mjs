@@ -18,6 +18,8 @@ import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
 import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
+import { ENGINEERING_CLIPS } from '../engineering-data.js';
+import { ENGINEERING_PHONETIC_IDS, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -70,6 +72,19 @@ for (const id of CHESS_PHONETIC_IDS) {
   const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
   const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
   assert.equal(spoken.length, displayed.length, `Chess IPA changed word positions: ${id}`);
+}
+assert.equal(Object.keys(ENGINEERING_CLIPS).length, ENGINEERING_PHONETIC_IDS.length, 'Engineering voice input missing phonetic review');
+assert.equal(new Set(ENGINEERING_PHONETIC_IDS).size, ENGINEERING_PHONETIC_IDS.length, 'Repeated engineering voice ID');
+for (const id of ENGINEERING_PHONETIC_IDS) {
+  const clip = manifest.clips.find(clip => clip.id === id);
+  assert.equal(clip?.text, ENGINEERING_CLIPS[id], `Missing engineering voice: ${id}`);
+  assert.equal(VOICE_CLIPS[id]?.text, clip.text, `Missing registered engineering voice: ${id}`);
+  assert.equal(clip.spokenTarget, phoneticEngineeringText(id, clip.text, pronunciation.words), `Stale engineering IPA: ${id}`);
+  assert.ok(clip.spokenTarget.includes('/'), `Missing engineering IPA: ${id}`);
+  assert.equal(clip.spokenText.slice(clip.extract.from, clip.extract.to), clip.spokenTarget, `Wrong engineering speech excerpt: ${id}`);
+  const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  assert.equal(spoken.length, displayed.length, `Engineering IPA changed word positions: ${id}`);
 }
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);
 for (const [id, text] of Object.entries(POUR_CLIPS)) assert.equal(VOICE_CLIPS[id]?.text, text);

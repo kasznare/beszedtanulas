@@ -14,6 +14,8 @@ import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
 import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
+import { ENGINEERING_CLIPS } from '../engineering-data.js';
+import { ENGINEERING_PHONETIC_IDS, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -75,6 +77,7 @@ for (const [id, text] of Object.entries(DIFFERENCE_CLIPS)) add(id, text, 'differ
 for (const [id, text] of Object.entries(PATTERN_CLIPS)) add(id, text, 'patterns');
 for (const [id, text] of Object.entries(MONTESSORI_CLIPS)) add(id, text, 'montessori');
 for (const [id, text] of Object.entries(CHESS_CLIPS)) add(id, text, 'chess');
+for (const [id, text] of Object.entries(ENGINEERING_CLIPS)) add(id, text, 'engineering');
 for (const [id, text] of Object.entries(WORKSHOP_CLIPS)) add(id, text, 'workshop');
 for (const [id, text] of Object.entries(POUR_CLIPS)) add(id, text, 'pour');
 for (const [id, text] of Object.entries(R_CLIPS)) add(id, text, 'r-practice');
@@ -149,6 +152,15 @@ for (const id of CHESS_PHONETIC_IDS) {
   if (!clip || clip.group !== 'chess') throw Error(`Missing new chess clip: ${id}`);
   const target = phoneticChessText(id, clip.text, pronunciation.words);
   if (target === clip.text || !target?.includes('/')) throw Error(`Missing chess IPA: ${id}`);
+  contextual(id, 'Mondjuk együtt: ', target);
+}
+// New engineering recordings use their own phonetic targets; existing voices
+// and the global pronunciation list stay byte-for-byte unchanged.
+for (const id of ENGINEERING_PHONETIC_IDS) {
+  const clip = clips.find(clip => clip.id === id);
+  if (!clip || clip.group !== 'engineering') throw Error(`Missing engineering clip: ${id}`);
+  const target = phoneticEngineeringText(id, clip.text, pronunciation.words);
+  if (target === clip.text || !target?.includes('/')) throw Error(`Missing engineering IPA: ${id}`);
   contextual(id, 'Mondjuk együtt: ', target);
 }
 // These new requests already exist as Maci's correctly inflected full models.

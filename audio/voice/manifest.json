@@ -3482,6 +3482,111 @@
       "file": "audio/voice/chess_steps_used.mp3"
     },
     {
+      "id": "engineering_hub",
+      "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_hub.mp3",
+      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, tervezz saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!",
+      "extract": {
+        "from": 16,
+        "to": 120,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!"
+      },
+      "spokenTarget": "/ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, tervezz saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!"
+    },
+    {
+      "id": "engineering_drop",
+      "text": "Az elem ide-oda mozog. Koppints, és leesik! Építs a szigetre! A vízbe ne essen!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_drop.mp3",
+      "spokenText": "Mondjuk együtt: Az elem ide-oda mozog. /ˈkopːint͡ʃ/, és leesik! /ˈeːpiːt͡ʃ/ a /ˈsiɡɛtrɛ/! A /ˈviːzbɛ/ ne essen!",
+      "extract": {
+        "from": 16,
+        "to": 111,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Az elem ide-oda mozog. Koppints, és leesik! Építs a szigetre! A vízbe ne essen!"
+      },
+      "spokenTarget": "Az elem ide-oda mozog. /ˈkopːint͡ʃ/, és leesik! /ˈeːpiːt͡ʃ/ a /ˈsiɡɛtrɛ/! A /ˈviːzbɛ/ ne essen!"
+    },
+    {
+      "id": "engineering_build",
+      "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_build.mp3",
+      "spokenText": "Mondjuk együtt: Válassz egy elemet, és /ˈkopːint͡ʃ/ oda, ahová tennéd! El is forgathatod. Próbálj /ˈseːlɛʃ/ alapot építeni!",
+      "extract": {
+        "from": 16,
+        "to": 123,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!"
+      },
+      "spokenTarget": "Válassz egy elemet, és /ˈkopːint͡ʃ/ oda, ahová tennéd! El is forgathatod. Próbálj /ˈseːlɛʃ/ alapot építeni!"
+    },
+    {
+      "id": "engineering_bridge",
+      "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_bridge.mp3",
+      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃ/ hidat! /ˈkopːint͡ʃ/ két pontra, és összekötjük egy /ˈruːdːɒl/. A végén engedd át az autót!",
+      "extract": {
+        "from": 16,
+        "to": 118,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!"
+      },
+      "spokenTarget": "/ˈeːpiːt͡ʃ/ hidat! /ˈkopːint͡ʃ/ két pontra, és összekötjük egy /ˈruːdːɒl/. A végén engedd át az autót!"
+    },
+    {
+      "id": "engineering_water",
+      "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
+      "group": "engineering",
+      "file": "audio/voice/engineering_water.mp3",
+      "spokenText": "Mondjuk együtt: /ˈt͡ʃobːɒnt/! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
+      "extract": {
+        "from": 16,
+        "to": 89,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést."
+      },
+      "spokenTarget": "/ˈt͡ʃobːɒnt/! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést."
+    },
+    {
+      "id": "engineering_success",
+      "text": "Átért az autó! A híd megtartotta a rakományt!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_success.mp3",
+      "spokenText": "Mondjuk együtt: /ˈaːteːrt/ az autó! A /ˈhiːd/ megtartotta a /ˈrɒkomaːɲt/!",
+      "extract": {
+        "from": 16,
+        "to": 73,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Átért az autó! A híd megtartotta a rakományt!"
+      },
+      "spokenTarget": "/ˈaːteːrt/ az autó! A /ˈhiːd/ megtartotta a /ˈrɒkomaːɲt/!"
+    },
+    {
+      "id": "engineering_retry",
+      "text": "A híd meghajlott. Próbáld átlós rudakkal megerősíteni!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_retry.mp3",
+      "spokenText": "Mondjuk együtt: A /ˈhiːd/ meghajlott. Próbáld /ˈaːtloːʃ/ /ˈrudɒkːɒl/ megerősíteni!",
+      "extract": {
+        "from": 16,
+        "to": 82,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A híd meghajlott. Próbáld átlós rudakkal megerősíteni!"
+      },
+      "spokenTarget": "A /ˈhiːd/ meghajlott. Próbáld /ˈaːtloːʃ/ /ˈrudɒkːɒl/ megerősíteni!"
+    },
+    {
       "id": "workshop_menu",
       "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
       "group": "workshop",

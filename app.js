@@ -30,6 +30,7 @@ import { setupCityStoryGame } from "./city-story-game.js";
 import { setupDifferencesGame } from "./differences-game.js";
 import { setupPatternsGame } from "./patterns-game.js";
 import { setupChessGame } from "./chess-game.js";
+import { setupEngineering } from "./engineering-game.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupMontessoriGame } from "./montessori-game.js";
 import { normalizeMontessoriOptions } from "./montessori-data.js";
@@ -77,8 +78,8 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
-const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', 'r-practice': '[data-action="hub"]' };
+const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'engineering', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', engineering: '#en-back', 'r-practice': '[data-action="hub"]' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
 const screenInfo = {
@@ -96,6 +97,7 @@ const screenInfo = {
   patterns: { title: "Folytasd a mintát!" },
   montessori: { title: "Montessori műhely" },
   chess: { title: "Sakkliget" },
+  engineering: { title: "Építőliget" },
   workshop: { title: "Műhelyliget" },
   "animal-book": { title: "Állathangos könyv" },
   audiobooks: { title: "Mesetár" },
@@ -149,6 +151,10 @@ let cityStoryGame;
 let patternsGame;
 let montessoriGame;
 let chessGame;
+let engineeringGame;
+// Keep experiments only for this page session, separated by the active profile.
+const engineeringSessions = new Map();
+const engineeringScope = () => state.profileStore?.activeKey || profileKey(state.supabase);
 let workshopGame;
 let animalBook;
 let audiobooks;
@@ -479,6 +485,12 @@ chessGame = setupChessGame({
     state.rewards += 1;
     saveProgress(); refreshStats(); celebrateRound("chess", count);
   },
+});
+engineeringGame = setupEngineering({
+  getProgress: () => engineeringSessions.get(engineeringScope()),
+  setProgress: progress => engineeringSessions.set(engineeringScope(), progress),
+  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id); },
+  stopPlayback,
 });
 montessoriGame = setupMontessoriGame({
   getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
@@ -2163,6 +2175,7 @@ function setupNavigation() {
     else if (currentScreen === "patterns") patternsGame.repeat();
     else if (currentScreen === "montessori") montessoriGame.repeat();
     else if (currentScreen === "chess") chessGame.repeat();
+    else if (currentScreen === "engineering") engineeringGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
     else if (currentScreen === "audiobooks") audiobooks.repeat();
@@ -2261,6 +2274,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   patternsGame?.stop();
   montessoriGame?.stop();
   chessGame?.stop();
+  engineeringGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
   audiobooks?.stop();
@@ -2308,6 +2322,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "patterns") patternsGame.start({ ...gameOptions, announce });
   if (screen === "montessori") montessoriGame.start();
   if (screen === "chess") chessGame.start();
+  if (screen === "engineering") engineeringGame.start();
   if (screen === "workshop") workshopGame.start(gameOptions);
   if (screen === "animal-book") animalBook.start();
   if (screen === "audiobooks") audiobooks.start();

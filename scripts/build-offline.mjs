@@ -33,6 +33,7 @@ const storyFiles = (await Promise.all(['story-art','story-scenes'].map(async dir
 const files = [
   'index.html', 'refresh.html', ...frontendFiles, ...storyFiles,
   'assets/furfang-fox.png',
+  'vendor/matter.js', 'vendor/matter-LICENSE.txt',
   'animal-book-audio.json',
   'voice-config.json', 'audio/voice/manifest.json', 'audio/voice/generated.json',
   ...ANIMAL_BOOK_PAGES.flatMap(page => [page.image.replace(/^\.\//, ''), ...page.animals.map(animal => `audio/animals/${animal.id}.mp3`)]),

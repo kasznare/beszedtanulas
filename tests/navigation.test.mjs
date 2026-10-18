@@ -12,7 +12,8 @@ test('the five menu groups contain every game exactly once and cards stay below 
   assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu']);
   const games = GROUPS.flatMap(group => group.screens);
   assert.equal(new Set(games).size, games.length);
-  assert.equal(games.length, 22);
+  assert.equal(games.length, 23);
+  assert.equal(parentScreen('engineering'), 'activity-menu');
   assert.equal(parentScreen('city-story'), 'play-menu');
   for (const group of GROUPS) {
     assert.equal(parentScreen(group.screen), 'home');
