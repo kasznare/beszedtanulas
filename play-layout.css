@@ -36,7 +36,33 @@
   .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .6; }
   .home-tile-copy small { display: none; }
   .game-menu-grid { grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); gap: 10px; }
+  /* In-game choosers become one row of small cards. */
+  .mo-menu { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .mo-menu .mo-card { display: flex; flex-direction: column; align-items: center; padding: 6px 6px 10px; }
+  .mo-menu .mo-card-art { height: 96px; transform: scale(.55); }
+  .mo-menu .mo-card > span:not(.mo-card-art), .mo-menu .mo-card small { display: none; }
+  .mo-menu .mo-card strong { margin: 0; font-size: .95rem; }
+  .rp-hub-scene { display: none; }
+  .rp-game-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  #r-practice .rp-game-card { display: flex; flex-direction: column; justify-content: center; text-align: center; min-height: 110px; padding: 8px 4px; }
+  .rp-game-card small, .rp-game-card .rp-saved { display: none; }
   .game-menu-grid > .game-menu-card { padding: 12px 8px; }
+}
+
+/* Phones (portrait): menus inside games use two columns, and practice pictures shrink a little. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .mo-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .mo-menu .mo-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 8px 12px; }
+  .mo-menu .mo-card-art { height: 92px; transform: scale(.55); }
+  .mo-menu .mo-card > span:not(.mo-card-art), .mo-menu .mo-card small { display: none; }
+  .mo-menu .mo-card strong { margin: 2px 0 0; font-size: 1rem; }
+  .rp-hub-scene { display: none; }
+  .rp-game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  #r-practice .rp-game-card { display: flex; flex-direction: column; justify-content: center; text-align: center; min-height: 104px; padding: 10px 6px; }
+  .rp-game-card small, .rp-game-card .rp-saved { display: none; }
+  .imitate-emoji { font-size: 96px; padding: 0; }
+  .phrase-emoji { font-size: 60px; padding: 8px 0 4px; }
+  #imitate-word, #phrase-text { margin: 6px 0 10px; }
 }
 
 /* Parent gate: six answers in a tidy grid. */
