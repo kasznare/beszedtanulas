@@ -17,8 +17,22 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
   try { storage = localStorage; } catch { storage = null; }
   let active = false, saving = new Set(), downloaded = new Set(), notices = new Map(), session = 0, bookmarkWarning = false, visual, collectionSearch;
   const publicStories = mergeStoryLibrary(AUDIOBOOKS, REQUESTED_CLASSICS, KRIZA_REQUESTED, RADO_STORIES);
-  let stories = [...publicStories], player, importMessage = '', importing = false, search = '';
+  let stories = [...publicStories], player, importMessage = '', importing = false, search = '', view = 'library';
   const $ = selector => root.querySelector(selector);
+  // Two views: the list (with a small player bar) and the full player. The hidden #story-back is the
+  // target of the shared back arrow while the full player is open (see innerBackSelectors in app.js).
+  function setView(next) {
+    view = next; root.dataset.view = next;
+    let back = $('#story-back');
+    if (next === 'player' && !back) {
+      back = document.createElement('button');
+      back.id = 'story-back'; back.hidden = true; back.textContent = 'Vissza a mesékhez';
+      back.addEventListener('click', () => setView('library'));
+      root.append(back);
+    }
+    if (next === 'library') back?.remove();
+    window.scrollTo(0, 0);
+  }
   const makePlayer = () => createAudiobookPlayer({
     stories, preferences: loadAudiobookPreferences(storage, stories),
     resolveSource: story => story.local ? resolveLocalAudiobookSource(story) : resolveAudiobookSource(story),
@@ -107,14 +121,18 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
   }
   function render() {
     visual?.destroy();
-    root.innerHTML = `<div class="story-library"><p class="story-intro">Válassz egy mesét, és kuckózzunk be!</p><article class="story-player" aria-labelledby="story-title"><div id="story-cover" class="story-cover" aria-hidden="true"></div><div class="story-player-main"><span class="story-eyebrow">HANGOS MESE</span><h2 id="story-title"></h2><p id="story-byline" class="story-byline" hidden></p><div class="story-actions"><button id="story-toggle" class="story-toggle"></button><button id="story-restart" class="story-restart" aria-label="Mese újrakezdése"><span aria-hidden="true">↺</span><span>Elölről</span></button></div><label class="sr-only" for="story-seek">Hol tartunk a mesében?</label><input id="story-seek" class="story-seek" type="range" min="0" step="1" value="0"><div class="story-times" aria-hidden="true"><span id="story-elapsed"></span><span id="story-duration"></span></div><p id="story-status" class="story-status" role="status"></p></div><div class="story-download-row"><button id="story-download" class="story-download"></button><button id="story-remove" class="story-download" hidden>Eltávolítás</button><p id="story-offline" role="status"></p></div><p id="story-bookmark-warning" class="story-status" role="status" hidden>A böngésző most nem tudja megjegyezni, hol tartunk.</p><details id="story-transcript" class="story-transcript"><summary>Mese szövege</summary><div id="story-text"></div><p id="story-source" class="story-source" hidden></p></details></article><h3 class="story-list-title">Melyiket hallgassuk?</h3><div class="story-search"><label for="story-search">Keresés cím vagy szerző alapján</label><div class="story-search-row"><input id="story-search" type="search" autocomplete="off" placeholder="Például: Petőfi vagy Gyöngyvirág" aria-describedby="story-search-count"><button id="story-search-clear" type="button" aria-label="Keresés törlése">Törlés</button></div><p id="story-search-count" role="status" aria-live="polite" aria-atomic="true"></p></div><p id="story-search-empty" hidden>Nincs találat. Próbálj másik címet vagy szerzőt, vagy töröld a keresést!</p><div class="story-grid" role="group" aria-label="Mesék">${stories.map(story => `<button class="story-card" data-story="${escape(story.id)}" aria-label="${escape(story.title)} kiválasztása"><span class="story-card-cover" aria-hidden="true">${story.emoji}</span><strong>${escape(story.title)}</strong>${story.author ? `<small class="story-card-author">${escape(story.author)} · ${escape(story.kind)}</small>` : ''}<small class="story-card-note">${Math.ceil(story.duration / 60)} perc</small></button>`).join('')}</div><section class="story-local-import" aria-labelledby="story-local-title"><h3 id="story-local-title">Saját mesék</h3><p>A hozzáadott mesék ezen a böngészőn maradnak. Másik eszközön ugyanebből a fájlból adhatod hozzá őket.</p><button id="story-import" class="story-download">Saját mese hozzáadása</button><input id="story-import-file" type="file" accept=".json,.mese.json,application/json" hidden aria-label="Saját mesefájl kiválasztása"><p id="story-import-status" role="status"></p></section></div>`;
+    root.innerHTML = `<div class="story-library"><article class="story-player" aria-labelledby="story-title"><div id="story-cover" class="story-cover" aria-hidden="true"></div><div class="story-player-main"><h2 id="story-title"></h2><p id="story-byline" class="story-byline" hidden></p><div class="story-actions"><button id="story-toggle" class="story-toggle"></button><button id="story-restart" class="story-restart" aria-label="Mese újrakezdése"><span aria-hidden="true">↺</span><span>Elölről</span></button></div><label class="sr-only" for="story-seek">Hol tartunk a mesében?</label><input id="story-seek" class="story-seek" type="range" min="0" step="1" value="0"><div class="story-times" aria-hidden="true"><span id="story-elapsed"></span><span id="story-duration"></span></div><p id="story-status" class="story-status" role="status"></p></div><div class="story-download-row"><button id="story-download" class="story-download"></button><button id="story-remove" class="story-download" hidden>Eltávolítás</button><p id="story-offline" role="status"></p></div><p id="story-bookmark-warning" class="story-status" role="status" hidden>A böngésző most nem tudja megjegyezni, hol tartunk.</p><details id="story-transcript" class="story-transcript"><summary>Mese szövege</summary><div id="story-text"></div><p id="story-source" class="story-source" hidden></p></details></article><h3 class="story-list-title">Melyiket hallgassuk?</h3><div class="story-search"><label for="story-search">Keresés cím vagy szerző alapján</label><div class="story-search-row"><input id="story-search" type="search" autocomplete="off" placeholder="Például: Petőfi vagy Gyöngyvirág" aria-describedby="story-search-count"><button id="story-search-clear" type="button" aria-label="Keresés törlése">Törlés</button></div><p id="story-search-count" role="status" aria-live="polite" aria-atomic="true"></p></div><p id="story-search-empty" hidden>Nincs találat. Próbálj másik címet vagy szerzőt, vagy töröld a keresést!</p><div class="story-grid" role="group" aria-label="Mesék">${stories.map(story => `<button class="story-card" data-story="${escape(story.id)}" aria-label="${escape(story.title)} kiválasztása"><span class="story-card-cover" aria-hidden="true">${story.emoji}</span><strong>${escape(story.title)}</strong>${story.author ? `<small class="story-card-author">${escape(story.author)} · ${escape(story.kind)}</small>` : ''}<small class="story-card-note">${Math.ceil(story.duration / 60)} perc</small></button>`).join('')}</div><section class="story-local-import" aria-labelledby="story-local-title"><h3 id="story-local-title">Saját mesék</h3><p>A hozzáadott mesék ezen a böngészőn maradnak. Másik eszközön ugyanebből a fájlból adhatod hozzá őket.</p><button id="story-import" class="story-download">Saját mese hozzáadása</button><input id="story-import-file" type="file" accept=".json,.mese.json,application/json" hidden aria-label="Saját mesefájl kiválasztása"><p id="story-import-status" role="status"></p></section></div>`;
     $('#story-search').value = search;
     $('#story-search').addEventListener('input', event => { search = event.target.value; filterStories(); });
     const clearSearch = () => { search = ''; $('#story-search').value = ''; filterStories(); $('#story-search').focus({ preventScroll: true }); };
     $('#story-search-clear').addEventListener('click', clearSearch);
     $('#story-search').addEventListener('keydown', event => { if (event.key === 'Escape' && search) { event.preventDefault(); clearSearch(); } });
     filterStories();
-    $('#story-toggle').addEventListener('click', () => ['playing', 'buffering'].includes(player.getState().phase) ? player.pause() : void player.play());
+    $('#story-toggle').addEventListener('click', () => {
+      if (['playing', 'buffering'].includes(player.getState().phase)) { player.pause(); return; }
+      if (view === 'library') setView('player');
+      void player.play();
+    });
     const visualWrap = document.createElement('div');
     visualWrap.id = 'story-visual-wrap'; visualWrap.className = 'story-visual-wrap';
     visualWrap.innerHTML = '<div id="story-visual" class="story-visual"></div><div class="story-visual-footer"><p id="story-scene-title"></p><label class="story-motion-label"><input id="story-motion" type="checkbox"> Mozgás</label></div>';
@@ -128,7 +146,7 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
     collectionSearch = setupRadoLibrary(collection, { readyStories: stories.filter(story => !story.audioStatus || story.audioStatus === 'ready'), onRead: () => player.pause(), onPlay: async id => {
       await player.select(id);
       if (active && player.getState().storyId === id) {
-        $('#story-toggle').focus({ preventScroll: true }); $('#story-title').scrollIntoView({ block: 'start', behavior: 'auto' });
+        setView('player'); $('#story-toggle').focus({ preventScroll: true });
         await player.play();
       }
     } });
@@ -139,9 +157,10 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
     $('#story-restart').addEventListener('click', () => void player.restart());
     $('#story-seek').addEventListener('input', event => { player.seek(Number(event.target.value)); });
     root.querySelectorAll('.story-card[data-story]').forEach(button => button.addEventListener('click', () => {
+      setView('player');
       void player.select(button.dataset.story).then(selected => { if (selected && active && player.getState().storyId === button.dataset.story) ($('#story-toggle').disabled ? $('#story-transcript summary') : $('#story-toggle')).focus({ preventScroll: true }); });
-      $('#story-title').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     }));
+    setView(view);
     $('#story-download').addEventListener('click', async () => {
       const story = stories.find(s => s.id === player.getState().storyId);
       if (!story || saving.has(story.id) || downloaded.has(story.id)) return;
@@ -223,7 +242,7 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
       catch (error) { importMessage = error.message; }
       if (!active || token !== session) return;
       stories = [...publicStories, ...local];
-      player = makePlayer(); render();
+      view = 'library'; player = makePlayer(); render();
       void player.select(player.getPreferences().selected);
       for (const story of stories) {
         const exists = story.local || ((!story.audioStatus || story.audioStatus === 'ready') && await isAudiobookSaved(story));
