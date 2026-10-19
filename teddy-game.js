@@ -236,6 +236,7 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
         }
         if (food.id !== round[index].targets[step].id) {
           effect('retry'); misses += 1;
+          button.classList.remove("is-wrong"); void button.offsetWidth; button.classList.add("is-wrong");
           status.textContent = "Hallgassuk meg újra!";
           panel.dataset.mood = "thinking";
           if (misses >= 2) answers.querySelector(`[data-word="${round[index].targets[step].id}"]`).classList.add("is-hint");
