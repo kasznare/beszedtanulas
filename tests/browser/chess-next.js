@@ -7,7 +7,7 @@ async page => {
   const cell = name => page.locator(`[data-chess-square="${(8-Number(name[1]))*8+'abcdefgh'.indexOf(name[0])}"]`);
   const move = async (from,to) => { await cell(from).click(); await cell(to).click(); };
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
-  const enter = async () => { await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="chess"]').click(); };
+  const enter = async () => { await page.locator('#home [data-open="big-menu"]').click(); await page.locator('#big-menu [data-open="chess"]').click(); };
   const finish = async route => { for (const [from,to] of route) await move(from,to); await page.waitForSelector('#round-complete[open]'); };
   const routes = {
     easy: { count:10, first:[['b2','b6']], last:[['d4','b6']] },
@@ -75,7 +75,7 @@ async page => {
     ok((await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 12') && await page.locator('#chess-move-count').innerText() === 'Lépések: 0 / 3', 'Next-task action works entirely offline');
     await page.waitForFunction(() => window.chessNextNarrations.includes('chess_bishop_detour'));
     ok(true, 'The next task plays its own Hungarian narration offline');
-    await page.locator('#back-button').click(); ok(await page.locator('#number-menu').isVisible(), 'Continuing preserves the normal back destination');
+    await page.locator('#back-button').click(); ok(await page.locator('#big-menu').isVisible(), 'Continuing preserves the normal back destination');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
     return { count:checks.length, engine:context.browser().browserType().name(), checks };
   } finally { await context.setOffline(false); page.off('pageerror',listener); }

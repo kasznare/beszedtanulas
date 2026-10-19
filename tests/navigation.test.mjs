@@ -8,12 +8,13 @@ import {
 const route = (screen, category = 'all', numberMode = 'count') => ({ screen, category, numberMode });
 const screenPath = trail => trail.map(entry => entry.screen);
 
-test('the five menu groups contain every game exactly once and cards stay below topics', () => {
-  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu']);
+test('the six menu groups contain every game exactly once and cards stay below topics', () => {
+  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu', 'big-menu']);
   const games = GROUPS.flatMap(group => group.screens);
   assert.equal(new Set(games).size, games.length);
   assert.equal(games.length, 22);
-  assert.equal(parentScreen('city-story'), 'play-menu');
+  assert.equal(parentScreen('city-story'), 'big-menu');
+  assert.deepEqual(GROUPS.at(-1).screens, ['city-story', 'chess', 'furfangliget', 'workshop']);
   for (const group of GROUPS) {
     assert.equal(parentScreen(group.screen), 'home');
     for (const screen of group.screens) assert.equal(parentScreen(screen), group.screen);

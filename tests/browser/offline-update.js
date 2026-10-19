@@ -27,7 +27,7 @@ async page=>{
  await version('E',['audio/voice/guide_menu_activity.mp3']);await update();await page.waitForFunction(()=>document.querySelector('#home-update-status').textContent.includes('nem sikerült'),{},{timeout:120000});
  ok(await page.locator('body').getAttribute('data-update-test')==='D','A failed asset download leaves the previous version active');
  const cached=await page.evaluate(()=>caches.keys());ok(!cached.some(key=>key.endsWith('qa-E'))&&cached.some(key=>key.endsWith('qa-D')),'An incomplete update cache is removed; the valid old cache remains');
- await context.setOffline(true);await page.reload();await at('D');ok(await page.locator('#home [data-open]').count()===5,'The old version remains usable offline after a failed update');
+ await context.setOffline(true);await page.reload();await at('D');ok(await page.locator('#home [data-open]').count()===6,'The old version remains usable offline after a failed update');
  ok(JSON.stringify(await snapshot())===JSON.stringify(saved),'Failed update and offline reload preserve progress');
  await context.setOffline(false);await version('E');await update();await at('E');ok(true,'A retry with complete files updates successfully');
  ok(JSON.stringify(await snapshot())===JSON.stringify(saved),'Retry also preserves progress');

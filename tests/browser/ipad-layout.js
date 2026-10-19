@@ -15,8 +15,8 @@ async page => {
     const click = async selector => p.locator(selector).click();
     const enter = async () => {
       if (await p.locator('body').getAttribute('data-screen') !== 'home') await click('#home-button');
-      await click('#home [data-open="number-menu"]');
-      await click('#number-menu [data-open="chess"]');
+      await click('#home [data-open="big-menu"]');
+      await click('#big-menu [data-open="chess"]');
     };
     const measure = async (name, tablet) => {
       const result = await p.evaluate(name => {
@@ -78,7 +78,7 @@ async page => {
       await measure(`${width}x${height}:success`, tablet);
       if (tablet && width === 1024) await p.screenshot({ path: 'output/playwright/chess-ipad-layout.png', animations: 'disabled' });
       await click('#back-button');
-      if (await p.locator('#screen-title').innerText() !== 'Számok és logika') throw Error('Back title did not restore');
+      if (await p.locator('#screen-title').innerText() !== 'Nagyoknak') throw Error('Back title did not restore');
     }
     await enter();
     const touch = await p.evaluate(() => ({
@@ -116,7 +116,7 @@ async page => {
       await click(`#home [data-open="${menu}"]`);
       if (game) await click(`#${menu} [data-open="${game}"]`);
     };
-    const menus = ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu'];
+    const menus = ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu', 'big-menu'];
     for (const [width, height] of [[768, 900], [1024, 680]]) {
       await p.setViewportSize({ width, height });
       const size = `${width}x${height}`;

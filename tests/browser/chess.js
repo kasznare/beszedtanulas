@@ -9,7 +9,7 @@ async page => {
     if (await page.locator('#round-complete').isVisible()) await page.locator('#round-home').click();
     else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
   };
-  const enter = async () => { await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="chess"]').click(); };
+  const enter = async () => { await home(); await page.locator('#home [data-open="big-menu"]').click(); await page.locator('#big-menu [data-open="chess"]').click(); };
   const square = name => (8 - Number(name[1])) * 8 + 'abcdefgh'.indexOf(name[0]);
   const cell = name => page.locator(`[data-chess-square="${square(name)}"]`);
   const move = async (from, to) => { await cell(from).click(); await cell(to).click(); };
@@ -25,9 +25,9 @@ async page => {
     await enter();
     ok(await page.locator('[data-chess-square]').count() === 64, 'Authentic 8×8 board');
     ok(await page.locator('[data-chess-piece]').count() === 6, 'All six pieces');
-    ok(await page.locator('#screen-kicker').innerText() === 'Számok és logika', 'Correct menu group');
-    await page.locator('#back-button').click(); ok(await page.locator('#number-menu').isVisible(), 'Back returns to group');
-    await page.locator('#number-menu [data-open="chess"]').click();
+    ok(await page.locator('#screen-kicker').innerText() === 'Nagyoknak', 'Correct menu group');
+    await page.locator('#back-button').click(); ok(await page.locator('#big-menu').isVisible(), 'Back returns to group');
+    await page.locator('#big-menu [data-open="chess"]').click();
     for (const [piece, count] of [['rook',14],['bishop',13],['knight',8],['queen',27],['king',8],['pawn',2]]) {
       await page.locator(`[data-chess-piece="${piece}"]`).click();
       ok(await page.locator('.is-possible').count() === count, `${piece}: correct teaching dots`);
@@ -118,8 +118,8 @@ async page => {
     ok(cacheState.every(Boolean), 'Game and Hungarian audio are cached offline');
     await page.locator('[data-chess-mode="puzzles"]').click(); await move('b2','b6'); await page.waitForSelector('#round-complete[open]');
     ok(true, 'Puzzle completes entirely offline');
-    await page.locator('#round-back').click(); ok(await page.locator('#number-menu').isVisible(), 'Celebration back returns to group');
-    await page.locator('#number-menu [data-open="chess"]').click();
+    await page.locator('#round-back').click(); ok(await page.locator('#big-menu').isVisible(), 'Celebration back returns to group');
+    await page.locator('#big-menu [data-open="chess"]').click();
     await move('b2','b6'); await page.waitForSelector('#round-complete[open]'); await page.locator('#round-replay').click();
     ok(await cell('c2').locator('.chess-piece-bishop').count() === 1 && (await page.locator('.chess-puzzle-nav').innerText()).includes('2 / 10'), 'Celebration continues with the next chess task');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);

@@ -13,12 +13,43 @@
   .app input, .app textarea, .app select, .app [contenteditable="true"] { -webkit-user-select: auto; user-select: auto; -webkit-touch-callout: default; }
 }
 
+/* Top bar: back and home are equal, quiet buttons, so leaving is never the loudest choice on the screen. */
+.app-bar .back-button, .app-bar .home-button { width: 52px; height: 52px; border-radius: 18px; background: #efe7d6; color: #355246; box-shadow: none; }
+.app-bar .back-button .icon, .app-bar .home-button .icon { width: 28px; height: 28px; }
+.app-bar .back-button:active, .app-bar .home-button:active { background: #e3d9c3; transform: translateY(1px); }
+/* Updates stay one tap away for parents, as a small icon beside the settings. */
+.app-bar .home-refresh { width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #758275; }
+.app-bar .home-refresh span { display: none; }
+
+/* Home: six equal category tiles. */
+.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 980px; margin: 0 auto; }
+.home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { grid-column: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 6px; min-height: min(210px, calc((100dvh - 170px) / 3)); padding: 14px 16px; }
+.home-grid .home-art, .home-grid .art-activity { flex: 1; width: auto; min-height: 96px; margin: 0; }
+.home-tile-copy { padding-right: 0; }
+.tone-teal { background: #dbece8; }
+.art-big { gap: 10px; }
+.big-chip { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 24px; background: #fffaf2; font-size: 50px; box-shadow: 0 6px 0 #29413812; transform: rotate(-6deg); }
+.big-chip + .big-chip { transform: rotate(7deg) translateY(8px); background: #f6efe0; }
+@media (orientation: landscape) and (max-height: 600px) {
+  .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: calc((100dvh - 160px) / 2); padding: 8px 12px; }
+  .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .6; }
+  .home-tile-copy small { display: none; }
+  .game-menu-grid { grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); gap: 10px; }
+  .game-menu-grid > .game-menu-card { padding: 12px 8px; }
+}
+
+/* Parent gate: six answers in a tidy grid. */
+.gate-answers { display: grid; grid-template-columns: repeat(3, minmax(62px, 1fr)); gap: 10px; }
+
 /* Menus: no permanent intro paragraph; the tiles carry the choice. */
 .menu-intro { display: none; }
 
 /* Tablets: home and every category menu fit the visible height in both orientations. */
 @media (min-width: 700px) and (min-height: 600px) {
   .menu-panel { margin-top: 0; }
+  .menu-panel.is-active:has(> .game-menu-grid), .home-panel.is-active { display: flex; flex-direction: column; justify-content: center; min-height: calc(100dvh - 110px); }
+  .home-panel.is-active > .home-grid { width: 100%; }
   .game-menu-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
   .game-menu-grid > .game-menu-card, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) {
     flex: 0 1 calc((100% - 32px) / 3); flex-direction: column; justify-content: center; text-align: center;
@@ -33,17 +64,18 @@
   .app-bar { min-height: 72px; margin-bottom: 8px; }
 }
 @media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
-  .home-grid > .home-tile { min-height: 0; padding: 18px 20px; }
-  .home-art { min-height: 140px; margin-bottom: 8px; }
-  .home-grid > .home-tile[data-open="activity-menu"] { min-height: 130px; }
+  .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(300px, calc((100dvh - 260px) / 2)); }
+  .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 76px; }
+  .home-grid { gap: 16px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(260px, calc((100dvh - 190px) / 3)); padding: 16px 20px; }
 }
 @media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
   .game-menu-grid:has(> :nth-child(4):last-child) > .game-menu-card { flex-basis: calc((100% - 48px) / 4); }
-  .home-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .home-grid > .home-tile { grid-column: span 2; min-height: min(250px, calc((100dvh - 210px) / 2)); }
-  .home-grid > .home-tile:nth-child(n + 4) { grid-column: span 3; }
-  .home-grid > .home-tile[data-open="activity-menu"] { display: block; min-height: min(250px, calc((100dvh - 210px) / 2)); }
-  .home-art, .art-activity { min-height: 120px; width: auto; margin: 0 0 8px; }
+  /* A single row of games grows into the free height instead of leaving it empty. */
+  .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(330px, calc(100dvh - 240px)); }
+  .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 84px; }
+  .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(270px, calc((100dvh - 180px) / 2)); }
 
   /* Word and phrase practice: the picture on the left, every control on the right. */
   .practice-panel { max-width: 960px; }

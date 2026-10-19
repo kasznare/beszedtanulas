@@ -28,8 +28,8 @@ async page => {
   await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();
   await page.locator('#machine-level').selectOption('2');
   await page.locator('#home-button').click();
-  await page.locator('#home [data-open="number-menu"]').click();
-  await page.locator('#number-menu [data-open="furfangliget"]').click();
+  await page.locator('#home [data-open="big-menu"]').click();
+  await page.locator('#big-menu [data-open="furfangliget"]').click();
   await page.locator('[data-game="machine"]').click();
   await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1));
   await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1 && a.ended), undefined, {timeout:20000});

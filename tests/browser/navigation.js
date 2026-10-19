@@ -12,7 +12,7 @@ async page => {
  const enter=async(groupId,screen)=>{await group(groupId);await page.locator(`#${groupId} [data-open="${screen}"]`).click();await at(screen);};
  const back=async screen=>{await page.locator('#back-button').click();await at(screen);};
  const data=await page.evaluate(async()=>{const {GROUPS}=await import('./navigation.js');return GROUPS;});
- ok(await page.locator('#home [data-open]').count()===5,'Home has five clear groups');
+ ok(await page.locator('#home [data-open]').count()===6,'Home has six clear groups');
  const targets=[];
  for(const {screen,screens} of data){
   await group(screen);const destinations=await page.locator(`#${screen} .game-menu-card`).evaluateAll(buttons=>buttons.map(button=>button.dataset.open||'numbers'));
@@ -39,7 +39,7 @@ async page => {
  await group('number-menu');await page.locator('[data-mode="quiz"]').click();await at('numbers');ok(await page.locator('#number-quiz-view').isVisible(),'Number quiz opens the quiz view');await back('number-menu');await page.goForward();await at('numbers');
  ok(await page.locator('#number-quiz-view').isVisible()&&await page.locator('[data-mode="quiz"]').getAttribute('aria-pressed')==='true','Browser forward restores the number mode');
  await enter('practice-menu','imitate');await page.locator('#word-recovery').evaluate(node=>node.hidden=false);await page.locator('#word-recovery [data-open="listening-game"]').click();await at('listening-game');await back('imitate');ok(true,'Recovery game returns to the actual speech screen it came from');
- const nested=[['practice-menu','r-practice','[data-game="hunter"]','[data-game="hub"]'],['number-menu','furfangliget','[data-game="shop"]','[data-game="menu"]'],['number-menu','workshop','[data-game="pattern"]','[data-game="menu"]'],['play-menu','meseliget','#meadow-start','[data-mode="map"]']];
+ const nested=[['practice-menu','r-practice','[data-game="hunter"]','[data-game="hub"]'],['big-menu','furfangliget','[data-game="shop"]','[data-game="menu"]'],['big-menu','workshop','[data-game="pattern"]','[data-game="menu"]'],['play-menu','meseliget','#meadow-start','[data-mode="map"]']];
  for(const [parent,screen,selector,hub] of nested){
   await enter(parent,screen);await page.locator(`#${screen} ${selector}`).click();
   const savedBefore=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
@@ -61,7 +61,7 @@ async page => {
  await page.waitForFunction(async()=>Boolean((await navigator.serviceWorker.ready).active));
  await page.waitForFunction(async()=>{for(const key of await caches.keys())if((await(await caches.open(key)).keys()).some(r=>r.url.endsWith('/navigation.css')))return true;return false;});
  const saved=await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'));await context.setOffline(true);await page.reload();
- ok(await page.locator('#home [data-open]').count()===5,'Five groups survive an offline reload');
+ ok(await page.locator('#home [data-open]').count()===6,'Six groups survive an offline reload');
  for(const {screen} of data){await group(screen);ok(await page.locator(`#${screen} .game-menu-card`).count()>0,`${screen} works offline`);}
  ok(await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'))===saved,'Offline navigation preserves the progress backup');
  await context.setOffline(false);ok(!errors.length,'No page errors: '+errors.join('; '));

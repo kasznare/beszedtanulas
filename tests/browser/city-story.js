@@ -25,8 +25,8 @@ async page => {
   };
   const enter = async () => {
     if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
-    await page.locator('#home [data-open="play-menu"]').click();
-    await page.locator('#play-menu [data-open="city-story"]').click();
+    await page.locator('#home [data-open="big-menu"]').click();
+    await page.locator('#big-menu [data-open="city-story"]').click();
     await page.waitForFunction(() => document.body.dataset.screen === 'city-story');
   };
   const choose = async (id, destination) => {
@@ -184,8 +184,8 @@ async page => {
   await item('gate'); await check();
   await choose('begin-investigation', 'route-choice');
   await page.locator('#back-button').click();
-  ok(await page.evaluate(() => document.body.dataset.screen === 'play-menu'), 'Back leaves the story for its menu');
-  await page.locator('#play-menu [data-open="city-story"]').click();
+  ok(await page.evaluate(() => document.body.dataset.screen === 'big-menu'), 'Back leaves the story for its menu');
+  await page.locator('#big-menu [data-open="city-story"]').click();
   await at('route-choice');
   ok(await root.locator('#city-story-journal b').innerText() === '1', 'Returning from the menu resumes this page session');
   await page.reload();

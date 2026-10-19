@@ -41,9 +41,9 @@ async page => {
   ok(registration.entries.every(entry => entry.recorded?.text === entry.authored && entry.recorded?.file?.includes('/city_story_')), 'Authored city story lines are registered to their own MP3 files');
   ok(registration.fileOk && registration.bytes > 1000, 'A registered city story MP3 contains real audio bytes');
 
-  await page.locator('#home [data-open="play-menu"]').click();
+  await page.locator('#home [data-open="big-menu"]').click();
   const beforeEnter = await count();
-  await page.locator('#play-menu [data-open="city-story"]').click();
+  await page.locator('#big-menu [data-open="city-story"]').click();
   await page.waitForFunction(() => document.body.dataset.screen === 'city-story');
   await waitEvent('narrationstart', first, beforeEnter);
   ok(await root.locator('#city-story-listen').isVisible(), 'The opening scene offers real recorded narration');
@@ -92,12 +92,12 @@ async page => {
   at = await count();
   const beforeLeave = at;
   await page.locator('#back-button').click();
-  await page.waitForFunction(() => document.body.dataset.screen === 'play-menu');
+  await page.waitForFunction(() => document.body.dataset.screen === 'big-menu');
   const afterLeave = (await events()).slice(at);
   ok(afterLeave.some(event => event.type === 'narrationend' && event.id === streetView), 'Leaving the story stops active speech');
   ok(!await root.locator('.is-narrated').count() && !await page.evaluate(() => document.querySelector('#city-story')?.contains(document.activeElement)), 'Leaving clears story highlight and keyboard focus');
 
-  await page.locator('#play-menu [data-open="city-story"]').click();
+  await page.locator('#big-menu [data-open="city-story"]').click();
   await page.waitForFunction(() => document.querySelector('#city-story')?.dataset.nodeId === 'street-view');
   await root.locator('[data-story-choice="street-cart"]').click();
   await page.waitForFunction(() => document.querySelector('#city-story')?.dataset.nodeId === 'street-eszter');

@@ -109,7 +109,7 @@ async page => {
     await clear(); await page.locator('#mo-hide-pattern').click(); ok(await heard(400), 'Hiding the Montessori memory pattern has a paper cue');
     await clear(); await page.locator('#mo-show-pattern').click(); ok(await heard(400), 'Revisiting the Montessori memory pattern also has a paper cue');
 
-    await enter('number-menu','chess'); await page.locator('[data-chess-mode="explore"]').click(); await page.locator('[data-chess-piece="rook"]').click();
+    await enter('big-menu','chess'); await page.locator('[data-chess-mode="explore"]').click(); await page.locator('[data-chess-piece="rook"]').click();
     await clear(); await page.locator('.chess-square.is-possible').first().click(); ok(await heard(380) && !await heard(820), 'A legal chess move has one wooden move sound');
     await clear(); await page.locator('#chess-undo').click(); ok(await heard(780), 'Chess undo uses the shared return cue');
     await page.locator('[data-chess-mode="puzzles"]').click();
@@ -123,8 +123,8 @@ async page => {
     await enter('activity-menu','memory'); await clear(); await page.locator('[data-card]').first().click(); ok(await heard(400), 'Memory cards have a paper flip cue');
     await page.waitForFunction(()=>fxQA.sources.some(source=>source.duration>.3&&source.gainAtStart<=.18));
     ok(true, 'Effects are quieter when an existing spoken word starts');
-    await enter('number-menu','workshop'); await page.locator('[data-game="balance"]').click(); await clear(); await page.locator('[data-add]').first().click(); ok(await heard(440), 'Workshop rods land with a wooden sound');
-    await enter('number-menu','furfangliget'); await page.locator('[data-game="shop"]').click(); await clear(); await page.locator('[data-delta]:enabled').first().click(); ok(await heard(440), 'Changing the shop basket has a material sound');
+    await enter('big-menu','workshop'); await page.locator('[data-game="balance"]').click(); await clear(); await page.locator('[data-add]').first().click(); ok(await heard(440), 'Workshop rods land with a wooden sound');
+    await enter('big-menu','furfangliget'); await page.locator('[data-game="shop"]').click(); await clear(); await page.locator('[data-delta]:enabled').first().click(); ok(await heard(440), 'Changing the shop basket has a material sound');
     await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-mode="count"]').click();
     await clear(); await page.locator('.counting-object').first().click(); ok(await heard(610), 'Counting a new object has a collect cue');
     await enter('activity-menu','flip'); await clear(); await page.locator('.flip-card').first().click(); ok(await heard(400), 'Surprise cards also have a paper cue');

@@ -21,8 +21,8 @@ async page => {
   });
   const root = page.locator('#chess');
   const enter = async () => {
-    await page.locator('#home [data-open="number-menu"]').click();
-    await page.locator('#number-menu [data-open="chess"]').click();
+    await page.locator('#home [data-open="big-menu"]').click();
+    await page.locator('#big-menu [data-open="chess"]').click();
   };
   const square = name => (8 - Number(name[1])) * 8 + 'abcdefgh'.indexOf(name[0]);
   const cell = name => root.locator(`[data-chess-square="${square(name)}"]`);

@@ -9,8 +9,8 @@ async page => {
   const move = async (from, to) => { await cell(from).click(); await cell(to).click(); };
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const enter = async () => {
-    await page.locator('#home [data-open="number-menu"]').click();
-    await page.locator('#number-menu [data-open="chess"]').click();
+    await page.locator('#home [data-open="big-menu"]').click();
+    await page.locator('#big-menu [data-open="chess"]').click();
   };
   const routes = {
     planning: [

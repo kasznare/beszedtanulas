@@ -13,8 +13,8 @@ async page => {
   });
   await page.goto('about:blank');
   await page.goto(url);
-  await page.locator('#home [data-open="play-menu"]').click();
-  await page.locator('#play-menu [data-open="city-story"]').click();
+  await page.locator('#home [data-open="big-menu"]').click();
+  await page.locator('#big-menu [data-open="city-story"]').click();
   const root = page.locator('#city-story');
   const node = () => root.getAttribute('data-node-id');
   const at = value => page.waitForFunction(expected => document.body.dataset.screen === expected, value);
