@@ -32,7 +32,7 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, get
   }
 
   function render(focusSelector) {
-    root.innerHTML = `<div class="puzzle-heading"><h2>${picture.name}</h2><p id="puzzle-instructions">Koppints egy darabra, majd egy mezőre — vagy húzd oda! Később is átteheted.</p></div>
+    root.innerHTML = `<div class="puzzle-heading"><p id="puzzle-instructions">Koppints egy darabra, majd egy mezőre — vagy húzd oda! Később is átteheted.</p></div>
       <div class="puzzle-chooser"><button id="puzzle-choose" aria-expanded="${chooserOpen}" aria-controls="puzzle-choices">🖼️ Kép és darabszám: ${picture.name}, ${puzzle.pieces.length} darab</button><div id="puzzle-choices" ${chooserOpen ? '' : 'hidden'}><div class="puzzle-pictures" role="group" aria-label="Válassz puzzle képet">${PUZZLE_IMAGES.map(image => `<button data-puzzle-image="${image.id}" aria-pressed="${image.id === picture.id}" aria-label="${image.name} kirakó"><img src="${image.image}" alt="" draggable="false" width="600" height="400"><span>${image.name}</span></button>`).join('')}</div><div class="puzzle-sizes" role="group" aria-label="Képdarabok száma">${PUZZLE_SIZES.map(count => `<button data-puzzle-size="${count}" aria-pressed="${count === puzzle.pieces.length}">${count} darab</button>`).join('')}</div></div></div>
       <div class="puzzle-toolbar"><span class="puzzle-progress" role="status">${placed.size} / ${puzzle.pieces.length} lerakva</span></div>
       <div class="puzzle-workspace" style="--puzzle-cols:${puzzle.columns};--puzzle-rows:${puzzle.rows};--piece-ratio:${3 * puzzle.rows / (2 * puzzle.columns)}">

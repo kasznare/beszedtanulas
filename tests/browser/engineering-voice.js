@@ -35,8 +35,8 @@ async page => {
     });
     ok(hash === expected.sha256, 'offline cache serves the verified Jessa recording');
     stage = 'playing the cached introduction';
-    await p.locator('#home [data-open="activity-menu"]').click();
-    await p.locator('#activity-menu [data-open="engineering"]').click();
+    await p.locator('#home [data-open="big-menu"]').click();
+    await p.locator('#big-menu [data-open="engineering"]').click();
     await p.waitForFunction(duration => voiceQA.played.some(a => Math.abs(a.duration - duration) < .1 && a.ended), expected.duration);
     const result = await p.evaluate(duration => ({
       audio: voiceQA.played.find(a => Math.abs(a.duration - duration) < .1 && a.ended),

@@ -79,7 +79,7 @@ let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
 const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'engineering', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
-const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', engineering: '#en-back', 'r-practice': '[data-action="hub"]' };
+const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', engineering: '#en-back', 'r-practice': '[data-action="hub"]', audiobooks: '#story-back' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
 const screenInfo = {
@@ -108,9 +108,10 @@ const screenInfo = {
   cards: { title: "Beszélő képek", guide: "cards" },
   "listening-game": { title: "Hol van?", guide: "listening_game" },
   "practice-menu": { title: "Mondd utánam", guide: "menu_speech" },
-  imitate: { title: "Mondd utánam", guide: "imitate" },
+  imitate: { title: "Egy szó", guide: "imitate" },
   "two-word": { title: "Két szó", guide: "phrase" },
-  "number-menu": { title: "Számok és logika", guide: "menu_thinking" },
+  "number-menu": { title: "Számok és minták", guide: "menu_thinking" },
+  "big-menu": { title: "Nagyoknak", guide: "menu_thinking" },
   numbers: { title: "Számoljunk!", guide: "count" },
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
@@ -322,7 +323,10 @@ function syncProfileControls() {
     ? "Kipróbálhatod a játékokat: a próba eredményei külön maradnak. Ha végeztél, a Vissza a gyerekhez gombbal add át a játékot."
     : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
   const group = GROUPS.find(value => value.screen === currentScreen || value.screens.includes(currentScreen) || (currentScreen === 'cards' && value.screen === 'picture-menu'));
-  document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
+  const kicker = document.querySelector("#screen-kicker");
+  kicker.textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
+  // A category screen already shows its name as the title; repeating it above adds nothing.
+  kicker.hidden = kicker.textContent === document.querySelector("#screen-title").textContent;
   playTime?.tick();
 }
 
@@ -346,6 +350,10 @@ supabaseSyncNowBtn.addEventListener("click", () => {
 
 setupNavigation();
 setupParentSettings();
+// A long press during play opens no copy or image menu; fields and the parent page keep it.
+document.addEventListener("contextmenu", event => {
+  if (currentScreen !== "parent" && matchMedia("(pointer: coarse)").matches && !event.target.closest("input, textarea, select, [contenteditable='true']")) event.preventDefault();
+});
 effects = createInteractionAudio({
   getContext: getSfxContext, getOptions: () => state.settings,
   isHidden: () => document.hidden,
@@ -461,7 +469,7 @@ cityStoryGame = setupCityStoryGame({
   effect: playEffect, stopPlayback,
   hasVoice: id => Boolean(VOICE_CLIPS[id]),
   speak: (ids, force = false) => { if (force || state.settings.spokenGuidance) return speakVoiceSequence(ids); },
-  onHome: () => showScreen("play-menu"),
+  onHome: () => showScreen("big-menu"),
 });
 differencesGame = setupDifferencesGame({
   effect: playEffect,
@@ -2344,28 +2352,34 @@ function showParentGate({ unlockTime = false } = {}) {
   stopPlayback();
   parentGateUnlocksTime = unlockTime;
   const dialog = document.querySelector("#parent-gate");
-  const a = 6 + Math.floor(Math.random() * 5);
-  const b = 3 + Math.floor(Math.random() * 5);
-  const correct = a + b;
-  document.querySelector("#parent-gate-question").textContent = `Mennyi ${a} + ${b}?`;
-  document.querySelector("#parent-gate-status").textContent = "";
-  const answers = document.querySelector("#parent-gate-answers");
-  answers.replaceChildren();
-  shuffleNumbers([correct, correct - 2, correct + 3]).forEach(value => {
-    const button = document.createElement("button");
-    button.textContent = value;
-    button.addEventListener("click", () => {
-      if (value === correct) {
-        if (parentGateUnlocksTime) {
-          dialog.close();
-          playTime.renew();
-          showScreen('home', { announce: false });
-        } else showScreen("parent", { announce: false, allowParent: true });
-      }
-      else document.querySelector("#parent-gate-status").textContent = "Próbáld újra!";
+  // Two-digit sums and six choices; a wrong tap draws a new question, so guessing does not open it.
+  const ask = () => {
+    const a = 14 + Math.floor(Math.random() * 25);
+    const b = 12 + Math.floor(Math.random() * 25);
+    const correct = a + b;
+    document.querySelector("#parent-gate-question").textContent = `Mennyi ${a} + ${b}?`;
+    const answers = document.querySelector("#parent-gate-answers");
+    answers.replaceChildren();
+    shuffleNumbers([correct, correct - 10, correct + 10, correct - 1, correct + 1, correct + 2]).forEach(value => {
+      const button = document.createElement("button");
+      button.textContent = value;
+      button.addEventListener("click", () => {
+        if (value === correct) {
+          if (parentGateUnlocksTime) {
+            dialog.close();
+            playTime.renew();
+            showScreen('home', { announce: false });
+          } else showScreen("parent", { announce: false, allowParent: true });
+          return;
+        }
+        document.querySelector("#parent-gate-status").textContent = "Ez nem jó. Itt egy új kérdés.";
+        ask();
+      });
+      answers.appendChild(button);
     });
-    answers.appendChild(button);
-  });
+  };
+  document.querySelector("#parent-gate-status").textContent = "";
+  ask();
   dialog.showModal();
 }
 

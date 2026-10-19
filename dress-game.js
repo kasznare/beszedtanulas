@@ -67,6 +67,7 @@ export function setupDressGame({ effect = () => {}, getChoiceCount, playPrompt, 
         if (!round.length || solved || complete || document.hidden) return;
         if (item.id !== round[index].target.id) {
           effect('retry'); misses++;
+          button.classList.remove("is-wrong"); void button.offsetWidth; button.classList.add("is-wrong");
           status.textContent = "Hallgassuk meg újra!";
           panel.dataset.mood = "thinking";
           if (misses >= 2) answers.querySelector(`[data-item="${round[index].target.id}"]`).classList.add("is-hint");

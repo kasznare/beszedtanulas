@@ -5,6 +5,7 @@ import {
 } from './meseliget-data.js';
 import { createDressBear, createDressIcon } from './dress-art.js';
 import { createSuccessDelay } from './success-delay.js';
+import { setGameTitle, focusGameTitle } from './game-heading.js';
 
 const animal = id => MESE_ANIMALS.find(item => item.id === id);
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -21,7 +22,8 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
   const alive = () => active && !document.hidden;
   function say(id) { lastClip = id; if (alive()) speak(id); }
   function bind(id, fn) { root.querySelector(`#${id}`)?.addEventListener('click', fn); }
-  function focusTitle() { root.querySelector('h2')?.focus({ preventScroll: true }); }
+  // Views with a task or result heading focus it; the others focus the shared title.
+  function focusTitle() { const heading = root.querySelector('h2'); if (heading) heading.focus({ preventScroll: true }); else focusGameTitle(root); }
   function rememberPrefs() { const p = progress(); p.practice = clone(prefs); updateProgress(p, false); }
   function saveTask() {
     if (!task || !['dress', 'collect', 'serve'].includes(mode)) return;
@@ -84,8 +86,9 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     root.dataset.mode = mode; root.dataset.mood = 'waiting';
     prefs = clone(progress().practice); prefs.target = Math.min(prefs.target, numberLimit());
     const p = progress();
+    setGameTitle(root, 'Meseliget');
     root.innerHTML = `<div class="meadow-map">
-      <div class="meadow-map-heading"><span class="meadow-eyebrow">EGYÜTT A MACIVAL</span><h2 tabindex="-1">Irány a piknik!</h2><p>Merre menjünk ma?</p></div>
+      <div class="meadow-map-heading"><p>Merre menjünk ma?</p></div>
       <div class="meadow-places">
         <button class="meadow-place meadow-house" id="meadow-house"><span aria-hidden="true">🏡</span><strong>Maciház</strong><small>Öltözzünk fel!</small></button>
         <button class="meadow-place meadow-garden" id="meadow-garden"><span aria-hidden="true">🍎</span><strong>Almáskert</strong><small>Új almaszedés</small></button>
@@ -136,7 +139,8 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
   }
   function shell() {
     root.dataset.mode = mode; root.dataset.mood = 'waiting'; root.dataset.target = target;
-    root.innerHTML = `<div class="meadow-toolbar"><button id="meadow-back" class="meadow-quiet" aria-label="Vissza Meseliget térképére">↶ Térkép</button><div class="meadow-steps" aria-label="${round + 1}. állomás, összesen ${length}">${Array.from({ length }, (_, i) => `<span class="${i < round ? 'done' : i === round ? 'current' : ''}" aria-hidden="true"></span>`).join('')}</div><button id="meadow-repeat" class="meadow-quiet" aria-label="Kérés újrahallgatása">🔊 Újra</button></div>
+    setGameTitle(root, 'Meseliget');
+    root.innerHTML = `<div class="meadow-toolbar"><button id="meadow-back" class="meadow-quiet" aria-label="Vissza Meseliget térképére" hidden>↶ Térkép</button><div class="meadow-steps" aria-label="${round + 1}. állomás, összesen ${length}">${Array.from({ length }, (_, i) => `<span class="${i < round ? 'done' : i === round ? 'current' : ''}" aria-hidden="true"></span>`).join('')}</div><button id="meadow-repeat" class="meadow-quiet" aria-label="Kérés újrahallgatása">🔊 Újra</button></div>
       <h2 class="meadow-task-title" tabindex="-1">${title()}</h2>
       ${story || mode === 'dress' ? '' : `<details class="meadow-practice-options"><summary>${mode === 'collect' ? '🍎' : '🍽️'} ${target} · Új feladat más mennyiséggel</summary>${quantityButtons(target)}</details>`}
       <div class="meadow-stage"><div class="meadow-companion"><div id="meadow-bear" aria-hidden="true"></div><p>${story ? 'Maci piknikezni indul' : 'Segítsünk a barátainknak!'}</p></div><div id="meadow-work"></div></div>
@@ -310,14 +314,16 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     if (!wasStory) { const p = progress(); p.free = null; updateProgress(p, false); }
     const memory = wasStory ? lastMemory || progress().memories.at(-1) : { target, guests: guestIds, serveMode: options.serveMode };
     mode = 'finish'; task = null; root.dataset.mode = mode; root.dataset.mood = 'happy';
-    root.innerHTML = `<div class="meadow-ending"><span class="meadow-eyebrow">DE JÓ VOLT EGYÜTT!</span><h2 tabindex="-1">${wasStory ? 'Elkészült a piknik!' : 'Köszönöm a segítséget!'}</h2>${memoryScene(memory)}<p>${wasStory ? 'Egy új emlék került az albumodba.' : 'Mára szépen megdolgoztunk.'}</p><div class="meadow-actions"><button id="meadow-home" class="meadow-quiet">⌂ Mára vége</button><button id="meadow-map" class="meadow-primary">Vissza a ligetbe ▶</button>${wasStory ? '<button id="meadow-album-open" class="meadow-quiet">📖 Megnézem az emléket</button>' : ''}</div></div>`;
+    setGameTitle(root, 'Meseliget');
+    root.innerHTML = `<div class="meadow-ending"><h2 tabindex="-1">${wasStory ? 'Elkészült a piknik!' : 'Köszönöm a segítséget!'}</h2>${memoryScene(memory)}<p>${wasStory ? 'Egy új emlék került az albumodba.' : 'Mára szépen megdolgoztunk.'}</p><div class="meadow-actions"><button id="meadow-home" class="meadow-quiet">⌂ Mára vége</button><button id="meadow-map" class="meadow-primary">Vissza a ligetbe ▶</button>${wasStory ? '<button id="meadow-album-open" class="meadow-quiet">📖 Megnézem az emléket</button>' : ''}</div></div>`;
     dressMemory(); bind('meadow-home', () => openScreen('home')); bind('meadow-map', () => map()); bind('meadow-album-open', () => album()); focusTitle(); say(wasStory ? 'mese_finish' : 'mese_free_finish');
   }
   function album(page = 0) {
     cancelSuccess(); stopPlayback(); mode = 'album'; task = null; root.dataset.mode = mode;
     const p = progress(), total = p.memories.length, index = Math.max(0, Math.min(page, Math.max(0, total - 1))), memory = p.memories.at(-(index + 1)), oldCount = Math.max(0, p.journeys - total);
     const date = memory ? new Intl.DateTimeFormat('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(memory.date)) : '';
-    root.innerHTML = `<div class="meadow-ending"><button id="meadow-back" class="meadow-quiet">↶ Térkép</button><h2 tabindex="-1">A mi emlékalbumunk</h2>${memory ? `<p class="meadow-memory-date">${date} · ${memory.target} barát</p>${memoryScene(memory)}<div class="meadow-album-pages"><button id="meadow-album-newer" class="meadow-quiet" ${index === 0 ? 'disabled' : ''}>← Újabb</button><span>${total - index}. emlék / ${total}</span><button id="meadow-album-older" class="meadow-quiet" ${index === total - 1 ? 'disabled' : ''}>Régebbi →</button></div><button id="meadow-retell" class="meadow-quiet">🔊 Meséld el!</button>` : '<div class="meadow-album-empty" aria-hidden="true">📖</div><p>Az első emlékképünk még ránk vár.</p>'}<p>${p.journeys} közös piknik${oldCount ? ` · ${oldCount} régi piknikhez még nem készült emlékkép.` : ''}</p><button id="meadow-start" class="meadow-primary">${p.adventure ? 'Folytassuk!' : 'Induljunk piknikezni!'} ▶</button></div>`;
+    setGameTitle(root, 'A mi emlékalbumunk');
+    root.innerHTML = `<div class="meadow-ending"><button id="meadow-back" class="meadow-quiet" hidden>↶ Térkép</button>${memory ? `<p class="meadow-memory-date">${date} · ${memory.target} barát</p>${memoryScene(memory)}<div class="meadow-album-pages"><button id="meadow-album-newer" class="meadow-quiet" ${index === 0 ? 'disabled' : ''}>← Újabb</button><span>${total - index}. emlék / ${total}</span><button id="meadow-album-older" class="meadow-quiet" ${index === total - 1 ? 'disabled' : ''}>Régebbi →</button></div><button id="meadow-retell" class="meadow-quiet">🔊 Meséld el!</button>` : '<div class="meadow-album-empty" aria-hidden="true">📖</div><p>Az első emlékképünk még ránk vár.</p>'}<p>${p.journeys} közös piknik${oldCount ? ` · ${oldCount} régi piknikhez még nem készült emlékkép.` : ''}</p><button id="meadow-start" class="meadow-primary">${p.adventure ? 'Folytassuk!' : 'Induljunk piknikezni!'} ▶</button></div>`;
     if (memory) dressMemory();
     bind('meadow-back', () => map()); bind('meadow-start', startStory); bind('meadow-album-newer', () => album(index - 1)); bind('meadow-album-older', () => album(index + 1)); bind('meadow-retell', () => say(`mese_memory_${memory.target}`));
     focusTitle(); say(memory ? `mese_memory_${memory.target}` : 'mese_empty_album');

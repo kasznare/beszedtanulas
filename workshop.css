@@ -7,11 +7,8 @@
 .workshop-panel button:hover:not(:disabled) { border-color:#688d73; background:#f2f6e9; }
 .workshop-panel .ws-primary { background:var(--ws-green); border-color:var(--ws-green); color:white; box-shadow:0 3px 0 #2c4c3c; }
 .workshop-panel .ws-primary:hover:not(:disabled) { background:#345b49; border-color:#345b49; }
-.ws-intro,.ws-heading { text-align:center; }
-.ws-intro { margin:12px 0 20px; }
-.ws-eyebrow { font-size:.8rem; letter-spacing:.08em; font-weight:800; color:#6f6854; }
-.ws-intro h2 { margin:8px 0; font-size:clamp(2rem,5vw,2.8rem); line-height:1.1; }
-.ws-intro p,.ws-heading p { margin:8px auto 0; font-size:1rem; line-height:1.45; max-width:660px; }
+.ws-heading { text-align:center; }
+.ws-heading p { margin:8px auto 0; font-size:1rem; line-height:1.45; max-width:660px; }
 .ws-levels { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0 22px; }
 .workshop-panel .ws-levels button { display:flex; align-items:center; gap:7px; background:#edeedc; font-size:.92rem; }
 .ws-levels button>span { font-size:.6rem; letter-spacing:2px; }

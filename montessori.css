@@ -2,11 +2,7 @@
 .montessori-panel button { font: inherit; color: inherit; cursor: pointer; -webkit-user-select: none; user-select: none; }
 .montessori-panel button:disabled { cursor: default; opacity: 1; }
 .montessori-panel button:focus-visible { outline: 3px solid #397b72; outline-offset: 5px; }
-.mo-intro, .mo-heading { text-align: center; }
-.mo-intro { padding: 24px 0 28px; }
-.mo-eyebrow { font-size: 10px; letter-spacing: .15em; font-weight: 750; color: #8b795e; }
-.mo-intro h2, .mo-heading h2 { font-size: clamp(1.7rem, 5vw, 2.3rem); letter-spacing: -.04em; margin: 9px 0; }
-.mo-intro p, .mo-heading p { color: #81715f; margin: 0; font-size: 1rem; line-height: 1.6; }
+.mo-instructions { max-width: 600px; min-height: 24px; margin: 0 auto; text-align: center; color: #81715f; font-size: 1rem; line-height: 1.5; }
 .mo-menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .mo-card { display: flex; align-items: center; flex-direction: column; text-align: center; min-width: 0; padding: 24px 17px 20px; border: 1px solid #e3d6c1; border-radius: 27px; background: #faf3e7; box-shadow: 0 5px 0 #c6b69924; transition: transform 160ms; }
 .mo-card-colors { background: #eff2e8; }
@@ -34,14 +30,12 @@
 .mo-mini-tower { display: flex; align-items: center; flex-direction: column; justify-content: flex-end; height: 145px; padding-bottom: 9px; border-bottom: 8px solid #d7b28c; }
 .mo-mini-tower i { width: 48px; height: 30px; border-radius: 50% / 25%; background: linear-gradient(#d28d72 10%, #bc735a 17%, #c7836b 82%, #ac614c); box-shadow: inset 0 5px 0 #e6ac8a; }
 .mo-mini-tower i:nth-child(2) { width: 81px; }.mo-mini-tower i:nth-child(3) { width: 119px; }.mo-mini-tower i:nth-child(4) { width: 163px; }
-.mo-menu-note { text-align: center; font-size: .8rem; color: #948269; margin: 26px 0; line-height: 1.7; }
-.mo-game-top { display: flex; align-items: center; justify-content: space-between; margin: 0 0 12px; gap: 16px; }
+.mo-game-top { display: flex; align-items: center; justify-content: center; margin: 0 0 6px; gap: 16px; }
 .mo-soft-button { border: 1px solid #e4d8c5; background: #f6efe3; border-radius: 15px; min-height: 48px; padding: 10px 17px; font-weight: 650 !important; }
 .mo-soft-button:disabled { opacity: .4 !important; }
 .mo-progress { display: flex; gap: 7px; }
 .mo-progress i { width: 11px; height: 11px; background: #e4dbc9; border-radius: 50%; transition: background 200ms; }
 .mo-progress i.is-filled { background: #809872; }
-.mo-heading p { max-width: 600px; margin: auto; min-height: 26px; }
 .mo-levels { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 14px 0 20px; }
 .mo-levels button { display: flex; align-items: center; gap: 8px; border: 1px solid #e0d7c8; border-radius: 14px; background: #faf6ee; padding: 9px 13px; min-height: 48px; font-size: .78rem; }
 .mo-levels button > span { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #e7dfcf; font-size: .72rem; font-weight: 700; }
@@ -129,7 +123,7 @@
 .mo-surface-box .mo-blocker { top: 28px; z-index: 3; }
 @media (max-width: 650px) {
   .mo-menu { grid-template-columns: 1fr; gap: 13px; }.mo-card { display: grid; grid-template-columns: 145px 1fr; grid-template-rows: auto auto auto; text-align: left; padding: 12px 19px 12px 5px; border-radius: 23px; }.mo-card-art { grid-row: 1 / 4; height: 145px; transform: scale(.78); }.mo-card strong { margin: 10px 0 4px; font-size: 1.13rem; }.mo-card small { margin-top: 10px; padding-top: 9px; }.mo-card > span:not(.mo-card-art) { font-size: .8rem; }
-  .mo-workspace { display: block; padding: 14px 12px; border-radius: 24px; }.mo-workspace > .mo-box, .mo-workspace > .mo-color-board, .mo-workspace > .mo-tower-board { margin-bottom: 16px; }.mo-heading h2 { font-size: 1.6rem; margin: 5px 0; }.mo-heading p { font-size: .82rem; }.mo-levels { gap: 7px; margin: 12px 0 14px; }.mo-levels button { font-size: .7rem; padding: 8px 9px; min-height: 44px; }.mo-levels button > span { width: 19px; height: 19px; }
+  .mo-workspace { display: block; padding: 14px 12px; border-radius: 24px; }.mo-workspace > .mo-box, .mo-workspace > .mo-color-board, .mo-workspace > .mo-tower-board { margin-bottom: 16px; }.mo-instructions { font-size: .82rem; }.mo-levels { gap: 7px; margin: 12px 0 14px; }.mo-levels button { font-size: .7rem; padding: 8px 9px; min-height: 44px; }.mo-levels button > span { width: 19px; height: 19px; }
   .mo-box-lid { padding: 12px 9px; }.mo-holes { gap: 9px 7px; }.mo-hole { width: 86px; height: 97px; }.mo-hole svg.mo-shape-art { width: 73px; height: 73px; }.mo-hole-cell { min-height: 97px; }
   .mo-blocker { --mo-slide-distance: 80px; width: 72px; height: 44px; top: 28px; left: calc(50% - 36px); font-size: 15px; }.mo-blocker span { font-size: 15px; }
   .mo-box-front { padding: 10px 14px 12px; }.mo-piece { width: 84px; height: 88px; }.mo-piece svg { width: 70px; height: 70px; }.mo-tray { gap: 6px; min-height: 86px; }.mo-tray-wrap { padding: 12px 7px; }.mo-tray-label { font-size: .69rem; }
@@ -149,7 +143,7 @@
   .mo-surface-box .mo-blocker { top: 18px; }
 }
 @media (max-width: 370px) { .mo-card { grid-template-columns: 125px 1fr; padding-right: 12px; }.mo-card-art { transform: scale(.66); }.mo-levels { display: grid; grid-template-columns: 1fr 1fr; }.mo-workspace { padding-inline: 8px; }.mo-bowl { width: 104px; } }
-@media (max-height: 500px) and (orientation: landscape) { .mo-heading h2 { font-size: 1.4rem; margin: 5px 0; }.mo-game-top { margin: 0 0 10px; }.mo-levels { margin: 12px 0; }.mo-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 15px; align-items: center; }.mo-box, .mo-color-board, .mo-tower-board { margin-bottom: 0; }.mo-tray-label { font-size: .7rem; }.mo-holes { gap: 0 8px; }.mo-hole-cell { min-height: 91px; }.mo-box-single .mo-hole-cell { min-height: 110px; }.mo-box-single .mo-hole svg { width: 88px; height: 88px; }.mo-box-single .mo-hole { height: 105px; }.mo-status { margin: 11px 0; } }
+@media (max-height: 500px) and (orientation: landscape) { .mo-game-top { margin: 0 0 10px; }.mo-levels { margin: 12px 0; }.mo-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 15px; align-items: center; }.mo-box, .mo-color-board, .mo-tower-board { margin-bottom: 0; }.mo-tray-label { font-size: .7rem; }.mo-holes { gap: 0 8px; }.mo-hole-cell { min-height: 91px; }.mo-box-single .mo-hole-cell { min-height: 110px; }.mo-box-single .mo-hole svg { width: 88px; height: 88px; }.mo-box-single .mo-hole { height: 105px; }.mo-status { margin: 11px 0; } }
 @media (prefers-reduced-motion: reduce) { .montessori-panel *, .mo-drag-preview, .mo-flying-piece { animation: none !important; transition: none !important; }.mo-card:hover { transform: none; } }
 /* Larger exercises keep each symbol readable and each move reversible. */
 .mo-card-grid { background: #eaf0eb; }.mo-card-memory { background: #f0ebf4; }
@@ -212,3 +206,56 @@
 .mo-row-label svg { fill: #88785f; stroke: #b3a185; }
 
 .mo-piece.is-dragging { pointer-events: none; }
+
+/* Tablets: compact boards so the whole exercise fits the visible height. */
+@media (min-width: 700px) and (min-height: 600px) {
+  .montessori-panel .mo-status { margin: 10px 0; }
+  .montessori-panel.is-active { margin-top: 0; margin-bottom: 0; }
+  .mo-card { padding: 14px 14px 12px; }
+  .mo-card-art { height: 112px; transform: scale(.8); }
+  .mo-card small { margin-top: 10px; padding-top: 8px; }
+  .montessori-panel .mo-workspace { gap: 14px; padding: 14px; }
+  .montessori-panel .mo-tray-wrap { padding: 8px 10px 10px; }
+  .montessori-panel .mo-tray-label { margin: 0 0 6px; }
+  .montessori-panel .mo-tray { gap: 8px; min-height: 72px; }
+  .montessori-panel .mo-color-board { gap: 8px; margin: 0 auto 10px; }
+  .montessori-panel .mo-bowl-target { min-height: 104px; padding: 4px; gap: 4px; }
+  .montessori-panel .mo-bowl { width: 122px; height: 80px; }
+  .montessori-panel .mo-bowl-inside { height: 52px; }
+  .montessori-panel .mo-bowl .mo-ball { width: 32px; height: 32px; }
+  .montessori-panel [data-game="colors"] .mo-piece, [data-game="colors"].montessori-panel .mo-piece { width: 64px; height: 64px; }
+  .montessori-panel .mo-ball { width: 46px; height: 46px; }
+  .montessori-panel .mo-grid-board { gap: 6px; margin: 0 auto 10px; }
+  .montessori-panel .mo-column-label { min-height: 44px; }
+  .montessori-panel .mo-slot, .montessori-panel .mo-slot.mo-piece { height: 72px; }
+  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 72px; height: 72px; }
+  .montessori-panel .mo-bowl-target { min-height: 90px; }
+}
+@media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  /* Only the chosen level shows its name; the others show their number and keep the name as their label. */
+  .montessori-panel .mo-levels { flex-wrap: nowrap; gap: 6px; margin: 8px 0 10px; }
+  .montessori-panel .mo-levels button { min-width: 48px; padding: 6px 10px; justify-content: center; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) { font-size: 0; gap: 0; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) > span { font-size: .78rem; width: 26px; height: 26px; }
+  .montessori-panel .mo-slot, .montessori-panel .mo-slot.mo-piece { height: 60px; }
+  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 60px; height: 60px; }
+  [data-game="grid"].montessori-panel .mo-tray-wrap { padding-bottom: 6px; }
+  .montessori-panel .mo-progress { max-width: none; }
+  .montessori-panel .mo-status { margin: 6px 0; }
+  .montessori-panel .mo-workspace { padding: 10px; gap: 10px; }
+  .montessori-panel .mo-surface-box { --mo-aspect: 1.65; max-width: calc((100dvh - 500px) * var(--mo-aspect)); margin-inline: auto; }
+  [data-level="1"] .mo-surface-box { --mo-aspect: 2.25; }
+  [data-level="2"] .mo-surface-box { --mo-aspect: 1.9; }
+  [data-game="shapes"][data-level="7"] .mo-surface-box, [data-game="shapes"][data-level="8"] .mo-surface-box { --mo-aspect: 1.1; }
+}
+/* Tablet landscape: the workspace on the left, instructions, levels and actions beside it. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .montessori-panel.is-active:not([data-game="menu"]) { display: grid; grid-template-columns: minmax(0, 1fr) 280px; column-gap: 22px; align-items: start; align-content: start; max-width: 1040px; }
+  .montessori-panel.is-active:not([data-game="menu"]) > * { grid-column: 2; }
+  .montessori-panel.is-active:not([data-game="menu"]) > .mo-workspace { grid-column: 1; grid-row: 1 / span 6; }
+  .montessori-panel .mo-levels { margin: 10px 0; gap: 6px; }
+  .montessori-panel .mo-levels button { flex: 1 1 120px; padding: 6px 9px; }
+  [data-game="grid"].montessori-panel .mo-workspace { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; }
+  [data-game="grid"].montessori-panel .mo-grid-board { margin: 0; }
+  [data-game="shapes"][data-level="7"] .mo-surface-box, [data-game="shapes"][data-level="8"] .mo-surface-box { max-width: calc((100dvh - 270px) * 1.1); margin-inline: auto; }
+}

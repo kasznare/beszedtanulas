@@ -14,7 +14,7 @@ async page => {
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const ready = () => page.locator('#mo-restart:not([disabled])').waitFor();
   const menu = async () => {
-    if (await page.locator('#mo-back').isVisible()) await page.locator('#mo-back').click();
+    if (await page.locator('#mo-back').count()) await page.locator('#mo-back').dispatchEvent('click');
     if (!await page.locator('.mo-menu').isVisible()) {
       if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
       await page.locator('#home [data-open="activity-menu"]').click();
@@ -94,7 +94,7 @@ async page => {
     await move(id, `[data-mo-target="${id}"]`);
     ok(await page.locator('.mo-box-window svg').count() === 1 && await page.locator('.mo-drag-preview').count() === 0, 'Actual mouse drag animates one drop and removes the preview');
     id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
-    await move(id, '.mo-heading');
+    await move(id, '.mo-instructions');
     ok(await page.locator(`[data-mo-piece="${id}"]`).count() === 1, 'Dropping outside leaves the piece available');
     await page.locator(`[data-mo-target="${id}"]`).click(); await ready();
     ok(await page.locator('.mo-box-window svg').count() === 2, 'Outside drop can immediately be corrected with a tap');

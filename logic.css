@@ -4,10 +4,8 @@
 .logic-panel button:focus-visible { outline:4px solid #48724d; outline-offset:3px; }
 .logic-panel button:disabled { cursor:default; opacity:.48; }
 .logic-panel button.logic-primary { background:var(--logic-blue); color:white; border-color:var(--logic-blue); box-shadow:0 3px 0 #18465c; }
-.logic-intro { text-align:center; margin:12px 0 24px; }
-.logic-eyebrow { font-size:.875rem; letter-spacing:.08em; font-weight:800; }
-.logic-intro h2 { font-size:clamp(2rem,5vw,3rem); margin:8px 0; }
-.logic-intro p,.logic-heading p { margin:6px 0; font-size:1rem; }
+.logic-intro { text-align:center; margin:4px 0 16px; font-size:1rem; }
+.logic-heading p { margin:6px 0; font-size:1rem; }
 .logic-places { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
 .logic-panel .logic-place { display:flex; flex-direction:column; align-items:center; gap:15px; padding:28px 16px; background:#e1edf2; border-color:#a8c6d3; }
 .logic-panel .logic-place:nth-child(2) { background:#edf4e8; border-color:#dfc77d; }

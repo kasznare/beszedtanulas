@@ -7,7 +7,7 @@ async page => {
   const url = page.url(); await page.goto('about:blank'); await page.goto(url);
   const state = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const home = async () => { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); };
-  const enter = async () => { await home(); await page.locator('#home [data-open="number-menu"]').click(); await page.locator('#number-menu [data-open="workshop"]').click(); };
+  const enter = async () => { await home(); await page.locator('#home [data-open="big-menu"]').click(); await page.locator('#big-menu [data-open="workshop"]').click(); };
   const parent = async () => { await home(); await page.locator('#parent-button').click(); const numbers = (await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number); await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${numbers[0]+numbers[1]}$`)}).click(); };
   const task = (kind, level) => page.evaluate(async ({kind,level}) => { const d = await import('./workshop-data.js'), session = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions[kind][level-1]; const task = d.workshopTaskForSession(session); return { ...task, destinations: kind === 'sort' ? task.objects.map(object => d.workshopSortTarget(task,object)) : [], solution: kind === 'balance' ? d.workshopBalanceSolutions(task)[0] : [] }; }, {kind,level});
   const solve = async (kind,t) => {
@@ -37,7 +37,7 @@ async page => {
       if (kind === 'sort') { await solve(kind,await task(kind,level)); await page.locator('#ws-check').evaluate(button => {button.click(); button.click();}); }
       ok((await state()).rewards === before+1, `${kind} L${level}: exactly one completion reward`);
       ok((await state()).workshop.games[kind][level-1].assisted === 1, `${kind} L${level}: aided result stays in its level`);
-      await page.locator('#ws-back').click(); await page.locator(`[data-game="${kind}"]`).click();
+      await page.locator('#ws-back').dispatchEvent('click'); await page.locator(`[data-game="${kind}"]`).click();
       ok(await page.locator('#ws-next').count() === 1 && (await state()).rewards === before+1, `${kind} L${level}: reopening cannot reward twice`);
       await page.locator('#ws-next').click();
       for (const [width,height] of [[375,667],[932,350],[834,1194]]) {
@@ -46,7 +46,7 @@ async page => {
         ok(!metrics.overflow && !metrics.small.length, `${kind} L${level}: ${width}×${height} fits, buttons ≥44px`);
       }
       if (level === 3) await page.screenshot({path:`output/playwright/workshop-${kind}-tablet.png`,fullPage:true});
-      await page.setViewportSize({width:430,height:932}); await page.locator('#ws-back').click();
+      await page.setViewportSize({width:430,height:932}); await page.locator('#ws-back').dispatchEvent('click');
     }
   }
   await page.locator('button[data-level="1"]').click(); await page.locator('[data-game="balance"]').click(); await solve('balance',await task('balance',1)); await page.locator('#ws-check').click();

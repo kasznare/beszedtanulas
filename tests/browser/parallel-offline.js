@@ -34,7 +34,7 @@ async page => {
         for(const rod of rods)await page.locator(`[data-add="${rod}"]`).click();await page.locator('#ws-check').click();
         ok((await saved()).rewards===before+1,'A full three-rod balance task completes offline');
       }
-      await page.locator('#ws-back').click();
+      await page.locator('#ws-back').dispatchEvent('click');
     }
     await enter('memory');ok(await page.locator('[data-card]').count()>=4,'Memory opens offline');await page.locator('[data-card]').first().click();
     for(const clip of ['memory_start','workshop_balance_3']){

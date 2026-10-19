@@ -1,11 +1,5 @@
 #r-practice { color:#304f47; }
 .rp-shell { padding:clamp(16px,3vw,30px); border:2px solid #c9d8be; border-radius:28px; background:#fffdf4; box-shadow:0 7px 0 #d6dcc8; }
-.rp-heading { display:flex; justify-content:space-between; gap:14px; align-items:center; }
-.rp-heading h2 { margin:6px 0; font-size:clamp(1.6rem,4vw,2.2rem); }
-.rp-heading p { margin:0; line-height:1.5; color:#60766b; }
-.rp-eyebrow { font-size:.7rem; letter-spacing:.13em; font-weight:900; }
-.rp-letter { display:flex; align-items:baseline; gap:3px; font-family:Georgia,serif; font-weight:bold; color:#ac623d; font-size:3.8rem; line-height:1; padding:10px 16px; background:#fbe8cb; border-radius:20px; }
-.rp-letter span {font-size:2.4rem;}
 #r-practice button,#r-practice select,#r-practice summary { min-height:48px; touch-action:manipulation; }
 #r-practice button {border:2px solid #c6d3b9; border-radius:16px; background:#f3f5e8; color:#304f47; padding:12px 16px; font:inherit; font-weight:800; cursor:pointer; box-shadow:0 3px 0 #d3d9c5; transition:transform .16s,background .16s;}
 #r-practice button:disabled {opacity:.5;cursor:default;}
@@ -65,7 +59,6 @@
 @media(max-width:480px) {.rp-rhyme-picker button {padding:10px!important;font-size:.75rem!important;gap:5px;}.rp-rhyme-heading {flex-direction:column;align-items:stretch;text-align:center;}.rp-line-art {font-size:3.6rem;}#r-practice .rp-rhyme-line {font-size:.9rem;}}
 @media(max-width:540px) {.rp-workshop-layout {grid-template-columns:1fr;gap:14px;}.rp-bakery {min-height:235px;}.rp-bakery-fox {font-size:3rem;}.rp-bakery-pretzel {font-size:3.4rem;}.rp-bakery-rack {top:108px;}.rp-workshop-layout .rp-target {display:grid;grid-template-columns:75px 1fr;align-items:center;gap:0 10px;}.rp-workshop-layout .rp-target-picture {grid-row:span 2;font-size:4rem;}.rp-workshop-layout .rp-target h3 {margin:0;}.rp-workshop-layout .rp-target p {margin:6px 0 0;}}
 @media(max-width:480px) {.rp-post-scene {gap:8px;padding:16px 10px 60px;min-height:220px;}.rp-post-robot {font-size:4.8rem;}.rp-target {padding:14px 8px;}}
-#r-practice[data-phase="model"] .rp-letter {color:#287c66;}
 @keyframes rp-listen {50% {transform:translateY(-3px);}}
 @media(min-width:900px) {.rp-game-grid {grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(max-width:480px) {.rp-game-grid {grid-template-columns:1fr;}.rp-hub-scene {height:185px;}.rp-fox {left:4%;width:125px;height:125px;}.rp-robot {right:9%;font-size:5rem;}.rp-hub-bubble {font-size:.8rem;right:4%;top:16px;padding:10px;}.rp-sun {left:16px;font-size:2.1rem;}.rp-letter {font-size:3rem;padding:10px;}.rp-letter span {font-size:1.8rem;}.rp-choice-grid {gap:8px;}#r-practice .rp-picture-choice {min-height:145px;padding:12px 5px;}.rp-picture-choice small {font-size:.85rem;}.rp-settings-grid {grid-template-columns:1fr;}}
@@ -126,4 +119,57 @@
 #r-practice .rp-decoration-place.rp-stamp-star {border-radius:8px;background:#f5e6c2;border-color:#c1ad77;}
 #r-practice .rp-decoration-place.rp-stamp-leaf {border-radius:50% 8% 50% 8%;background:#e1efd5;border-color:#91aa80;}
 
+/* Tablets: each adventure fits the visible height; the settings stay folded at the bottom. */
+@media(min-width:700px) and (min-height:600px) {
+  .rp-shell {padding:14px 18px;}
+  .rp-hub-scene {height:150px;margin:0 0 10px;}.rp-fox {width:115px;height:115px;}.rp-robot {font-size:4.6rem;bottom:18px;}
+  .rp-surprise {margin:10px 0;}
+  .rp-game-grid {grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}#r-practice .rp-game-card {min-height:96px;}
+  .rp-status {margin:10px 0 0;padding:8px 12px;min-height:40px;}
+  .rp-settings {margin-top:8px;padding-top:0;}.rp-settings summary {padding:10px 4px;}
+  .rp-mode-picker {margin:0 0 8px;}
+  .rp-dots {margin:6px 0;}
+  .rp-actions {margin:10px 0 4px;gap:8px;}#r-practice .rp-actions button {padding:9px 14px;}
+  .rp-game-instruction {margin:6px 0 10px;}.rp-game-instruction h3 {margin:4px 0 8px;}
+  #r-practice .rp-picture-choice {min-height:150px;}
+  .rp-target {padding:12px;}.rp-target-picture {font-size:4rem;}.rp-target h3 {margin-top:6px;}.rp-target p {margin-top:6px;}
+  .rp-post-scene {min-height:0;padding:14px 16px 56px;}.rp-post-robot {font-size:4.6rem;}.rp-post-mission {padding:8px;margin:6px 0;}.rp-post-mission .rp-parcels {margin-top:8px;}
+  .rp-recipient-picker, .rp-stamp-picker, .rp-decoration-picker, .rp-position-train, .rp-gap-choices {margin:8px 0;}
+  .rp-delivery-grid button {min-height:110px;}
+  .rp-bakery {min-height:230px;}.rp-bakery-sign {margin:8px auto;padding:6px 12px;}.rp-bakery-rack {top:96px;}
+  .rp-rhyme-picker {grid-template-columns:repeat(4,minmax(0,1fr));margin:0 0 8px;gap:8px;}#r-practice .rp-rhyme-picker button {padding:8px;}
+  .rp-rhyme-options {margin:4px 0 8px;gap:6px 16px;flex-wrap:nowrap;}.rp-rhyme-options label:first-child {display:flex;align-items:center;gap:8px;white-space:nowrap;}.rp-rhyme-options select {margin-top:0;width:auto;}
+  .rp-rhyme-stage {height:96px;}.rp-line-art {font-size:3rem;}.rp-rhyme-sun {font-size:1.6rem;}.rp-rhyme-grass {font-size:1.5rem;}
+  .rp-rhyme-heading {margin:8px 0 6px;}.rp-rhyme-lines {gap:6px;}#r-practice .rp-rhyme-line {padding:7px 12px;}
+  .rp-rhyme-current {margin-top:8px;padding:6px 8px;}.rp-rhyme-current p {margin:0 0 2px;}.rp-rhyme-current h3 {font-size:1.15rem;}.rp-rhyme-complete {margin:10px 0;}
+  .rp-echo-picker {margin:0 0 8px;}.rp-echo-stage {padding:12px;}.rp-echo-rings {width:96px;height:96px;font-size:2.6rem;}.rp-record-timer {margin:8px 0;}
+  .rp-mode-note {margin:6px 0;}
+  .rp-position-picker {margin:0 0 6px;}
+  .rp-decoration-board {padding:0 18px 50px;gap:6px;}#r-practice .rp-decoration-place {min-height:46px;padding:4px;}
+  #r-practice .rp-stamp-picker button, #r-practice .rp-decoration-picker button {padding:6px;}
+  /* Mondókaliget: the picture of the current line sits beside the lines. */
+  #r-practice[data-game="rhyme"] .rp-shell {display:grid;grid-template-columns:180px minmax(0,1fr);column-gap:14px;grid-auto-flow:row dense;}
+  #r-practice[data-game="rhyme"] .rp-shell > * {grid-column:1 / -1;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-stage {grid-column:1;grid-row:span 2;height:auto;min-height:120px;align-self:stretch;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-heading, #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-lines {grid-column:2;}
+}
+/* Tablet landscape: each adventure's stage on the left, its choices and actions on the right. */
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+  #r-practice:not([data-game="hub"]) .rp-shell, #r-practice[data-game="rhyme"] .rp-shell {display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:20px;align-items:start;align-content:start;grid-auto-flow:row;}
+  #r-practice:not([data-game="hub"]) .rp-shell > * {grid-column:2;}
+  #r-practice .rp-shell > .rp-choice-grid, #r-practice .rp-shell > .rp-post-scene, #r-practice .rp-shell > .rp-workshop-layout, #r-practice .rp-shell > .rp-echo-stage, #r-practice .rp-shell > .rp-finish {grid-column:1;grid-row:1 / span 12;align-self:center;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-stage {grid-column:1;grid-row:1 / span 3;min-height:110px;height:auto;align-self:stretch;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-heading {grid-column:1;grid-row:4;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-lines {grid-column:1;grid-row:5 / span 2;}
+  #r-practice[data-game="rhyme"] .rp-shell > .rp-rhyme-current {grid-column:1;grid-row:7 / span 2;align-self:start;padding:4px 8px;}
+  .rp-rhyme-lines {gap:4px;}#r-practice .rp-rhyme-line {padding:4px 12px;}.rp-rhyme-current h3 {font-size:1.05rem;line-height:1.3;}
+  #r-practice[data-game="post"] .rp-shell > .rp-post-scene {grid-row:1 / span 4;align-self:start;}
+  #r-practice[data-game="post"] .rp-shell > .rp-recipient-picker {grid-column:1;grid-row:5 / span 8;margin-top:10px;}
+  #r-practice[data-game="echo"] .rp-shell {grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);}
+  #r-practice .rp-rhyme-picker button {flex-direction:column;justify-content:center;gap:2px;padding:6px 4px;text-align:center;font-size:.74rem!important;line-height:1.2;}.rp-rhyme-picker span {font-size:1.3rem;}
+  .rp-rhyme-options {flex-wrap:wrap;gap:4px 12px;}.rp-rhyme-options label {flex:1 1 100%;min-height:44px;}.rp-rhyme-options label:first-child select {flex:1;}
+  .rp-workshop-layout {grid-template-columns:1fr;gap:8px;}.rp-bakery {min-height:210px;}
+  #r-practice .rp-picture-choice {min-height:130px;}
+  .rp-post-scene {grid-template-columns:1fr 1fr;}
+}
 .rp-mission-ending { display:grid; gap:12px; text-align:center; font-weight:700; }.rp-mission-ending > span { font-size:2.5rem; }.rp-target-picture > span { display:inline-block; font-size:.72em; }

@@ -8,8 +8,8 @@ async page => {
     else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
   };
   const enter = async () => {
-    await home(); await page.locator('#home [data-open="number-menu"]').click();
-    await page.locator('#number-menu [data-open="chess"]').click();
+    await home(); await page.locator('#home [data-open="big-menu"]').click();
+    await page.locator('#big-menu [data-open="chess"]').click();
     await page.locator('[data-chess-mode="puzzles"]').click();
     await page.locator('[data-chess-level="easy"]').click();
   };
@@ -67,7 +67,7 @@ async page => {
   const touchContext = await context.browser().newContext({viewport:{width:430,height:932},hasTouch:true,isMobile:true,serviceWorkers:'block'});
   try {
     const touch = await touchContext.newPage(); await touch.goto(base);
-    await touch.locator('#home [data-open="number-menu"]').tap(); await touch.locator('#number-menu [data-open="chess"]').tap();
+    await touch.locator('#home [data-open="big-menu"]').tap(); await touch.locator('#big-menu [data-open="chess"]').tap();
     await touch.locator('[data-chess-mode="stars"]').tap();
     await touch.locator('[data-chess-square="35"]').tap(); await touch.locator('[data-chess-square="32"]').tap();
     ok(await touch.locator('[data-chess-square="32"] .chess-piece').count()===1, 'Touchscreen taps select and move to a star');

@@ -38,3 +38,36 @@
 .rado-caption{grid-column:1/-1;border-top:1px solid #e8dcc8;padding-top:12px}.rado-caption summary{cursor:pointer;min-height:44px;font-weight:700}.rado-caption p{white-space:pre-wrap;line-height:1.7;background:#eaf0e4;padding:12px;border-radius:12px;margin:0}
 .rado-library [hidden],.rado-caption[hidden]{display:none!important}
 @media(max-width:650px){.rado-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rado-library{padding:14px}.rado-reader{padding:12px}}
+
+/* Two views. The list comes first; the chosen story waits in a small bar at the bottom.
+   Tapping a story or its play button opens the full player; the shared back arrow returns to the list. */
+#audiobooks[data-view="library"] .story-library{display:flex;flex-direction:column}
+#audiobooks[data-view="library"] .story-player{order:99;position:sticky;bottom:max(8px,env(safe-area-inset-bottom));z-index:5;display:flex;align-items:center;gap:12px;margin-top:16px;padding:10px 12px;border-radius:22px;box-shadow:0 8px 24px #51423133}
+#audiobooks[data-view="library"] .story-cover{width:52px;flex:none;font-size:1.8rem;border-radius:14px}
+#audiobooks[data-view="library"] .story-player-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+#audiobooks[data-view="library"] .story-player h2{flex:1;min-width:0;margin:0;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#audiobooks[data-view="library"] .story-actions{margin:0;flex:none}
+#audiobooks[data-view="library"] .story-toggle{min-height:52px;padding:8px 16px}
+#audiobooks[data-view="library"] :is(.story-byline,.story-restart,.story-seek,.story-times,.story-status,.story-download-row,.story-visual-wrap,.rado-caption,.story-transcript,#story-bookmark-warning){display:none!important}
+#audiobooks[data-view="library"] .story-list-title{margin-top:0}
+#audiobooks[data-view="player"] :is(.story-list-title,.story-search,#story-search-empty,.story-grid,.rado-library,.story-local-import){display:none!important}
+#story-back{display:none!important}
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape){
+  #audiobooks[data-view="player"] .story-player{grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);align-items:start;padding:18px;gap:14px 22px}
+  #audiobooks[data-view="player"][data-illustrated="true"] .story-cover{display:none}
+  #audiobooks[data-view="player"] .story-player>*{grid-column:2}
+  #audiobooks[data-view="player"] .story-player>.story-cover,#audiobooks[data-view="player"] .story-player>.story-visual-wrap{grid-column:1;grid-row:1/span 6}
+  #audiobooks[data-view="player"] .story-player h2{margin:0 0 12px}
+  #audiobooks[data-view="player"] .story-download-row{flex-wrap:wrap;padding-top:10px;gap:8px 14px}
+  #audiobooks[data-view="player"] .story-actions{margin-bottom:8px}
+  #audiobooks[data-view="player"] .story-toggle{min-height:60px}
+  #audiobooks[data-view="player"] .story-transcript summary{padding:4px 0}
+  #audiobooks[data-view="player"] #story-offline{font-size:.8rem;line-height:1.4}
+  #audiobooks[data-view="player"]:not([data-illustrated="true"]) .story-player>.story-cover{grid-row:1/span 2;aspect-ratio:auto;height:min(220px,30dvh);font-size:6rem}
+  #audiobooks[data-view="player"]:not([data-illustrated="true"]) .story-player>.rado-caption{grid-column:1;grid-row:3/span 4;border-top:0;padding-top:0}
+}
+@media(min-width:700px) and (min-height:600px) and (orientation:portrait){
+  #audiobooks[data-view="player"] .story-visual-wrap{width:min(100%,calc((100dvh - 660px) * 1.75));margin-inline:auto}
+  #audiobooks[data-view="player"] .story-player{padding:18px;gap:12px 20px}
+  #audiobooks[data-view="player"] .story-player h2{margin:0 0 10px}
+}

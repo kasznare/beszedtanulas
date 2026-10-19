@@ -37,6 +37,7 @@
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="./listening-bingo.css">
+  <link rel="stylesheet" href="./play-layout.css" />
 </head>
 <body data-screen="home">
 <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol><symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5z"/><path d="M15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol><symbol id="i-next" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7M4 12h13"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7M20 12H7"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="13" rx="4"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"/></symbol><symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M19 11a7 7 0 0 0-12-5L4 9m1 4a7 7 0 0 0 12 5l3-3"/></symbol><symbol id="i-gear" viewBox="0 0 24 24"><path d="m9 3 1-2h4l1 2 3 2 2-.1 2 4-1 2v3l1 2-2 4-2-.1-3 2-1 2h-4l-1-2-3-2-2 .1-2-4 1-2v-3l-1-2 2-4L6 5z" transform="translate(0 0) scale(1 .92)"/><circle cx="12" cy="11" r="3"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></symbol></svg>
@@ -56,15 +57,15 @@
         <p id="preview-profile-status" class="parent-note" role="status" hidden></p>
       </div>
       <div class="home-grid">
-        <button class="home-tile tone-mint" data-open="picture-menu" aria-label="Képek és hangok"><span class="home-art art-topics" aria-hidden="true"><span class="little-card">🐱</span><span class="little-card">🔊</span></span><span class="home-tile-copy"><span class="tile-title">Képek és hangok</span><small>Nézegess · hallgass · keress</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
-        <button class="home-tile tone-peach" data-open="practice-menu" aria-label="Mondd utánam"><span class="home-art art-practice-menu" aria-hidden="true"><span class="speech-bubble">🐻</span><span class="small-bubble">♪</span></span><span class="home-tile-copy"><span class="tile-title">Mondd utánam</span><small>Szavak · mondókák · saját hang</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
-        <button class="home-tile tone-blue" data-open="number-menu" aria-label="Számok és logika"><span class="home-art art-number-menu" aria-hidden="true"><span class="number-block">1</span><span class="number-block">2</span><span class="number-block">3</span></span><span class="home-tile-copy"><span class="tile-title">Számok és logika</span><small>Számolj · figyelj · gondolkodj</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
-        <button class="home-tile tone-yellow" data-open="play-menu" aria-label="Mesék és Maci"><span class="home-art art-stories" aria-hidden="true"><span class="surprise-box">🧸</span><span class="surprise-star">📖</span></span><span class="home-tile-copy"><span class="tile-title">Mesék és Maci</span><small>Hallgass · etess · kalandozz</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
-        <button class="home-tile tone-lilac" data-open="activity-menu" aria-label="Kirakók és ügyesség"><span class="home-art art-activity" aria-hidden="true"><span class="activity-puzzle">🧩</span><span class="activity-drop">💧</span></span><span class="home-tile-copy"><span class="tile-title">Kirakók és ügyesség</span><small>Párok · kirakók · játék a vízzel</small></span><span class="tile-arrow" aria-hidden="true"><svg class="icon"><use href="#i-next"></use></svg></span></button>
+        <button class="home-tile tone-mint" data-open="picture-menu" aria-label="Képek és hangok"><span class="home-art art-topics" aria-hidden="true"><span class="little-card">🐱</span><span class="little-card">🔊</span></span><span class="home-tile-copy"><span class="tile-title">Képek és hangok</span><small>Nézz · hallgass · keress</small></span></button>
+        <button class="home-tile tone-peach" data-open="practice-menu" aria-label="Mondd utánam"><span class="home-art art-practice-menu" aria-hidden="true"><span class="speech-bubble">🐻</span><span class="small-bubble">♪</span></span><span class="home-tile-copy"><span class="tile-title">Mondd utánam</span><small>Szavak és mondókák</small></span></button>
+        <button class="home-tile tone-blue" data-open="number-menu" aria-label="Számok és minták"><span class="home-art art-number-menu" aria-hidden="true"><span class="number-block">1</span><span class="number-block">2</span><span class="number-block">3</span></span><span class="home-tile-copy"><span class="tile-title">Számok és minták</span><small>Számolj · folytasd a sort</small></span></button>
+        <button class="home-tile tone-yellow" data-open="play-menu" aria-label="Mesék és Maci"><span class="home-art art-stories" aria-hidden="true"><span class="surprise-box">🧸</span><span class="surprise-star">📖</span></span><span class="home-tile-copy"><span class="tile-title">Mesék és Maci</span><small>Mesék · Maci játékai</small></span></button>
+        <button class="home-tile tone-lilac" data-open="activity-menu" aria-label="Kirakók és ügyesség"><span class="home-art art-activity" aria-hidden="true"><span class="activity-puzzle">🧩</span><span class="activity-drop">💧</span></span><span class="home-tile-copy"><span class="tile-title">Kirakók és ügyesség</span><small>Párok · kirakók · víz</small></span></button>
+        <button class="home-tile tone-teal" data-open="big-menu" aria-label="Nagyoknak"><span class="home-art art-big" aria-hidden="true"><span class="big-chip">♟️</span><span class="big-chip">🎬</span></span><span class="home-tile-copy"><span class="tile-title">Nagyoknak</span><small>Történet · sakk · fejtörők</small></span></button>
       </div>
       <p id="home-update-status" class="home-update-status" role="status" hidden></p>
       <p id="home-play-time" class="play-time-note"></p>
-      <p class="home-footer"><span aria-hidden="true">♡</span> Egy kis játék. Együtt.</p>
     </section>
 
     <section id="play-break" class="panel play-break" aria-labelledby="break-title">
@@ -77,26 +78,32 @@
     </section>
 
     <section id="play-menu" class="panel menu-panel" aria-label="Mesék és Maci">
-      <p class="menu-intro">Hallgassunk mesét, vagy játsszunk együtt a macival!</p>
       <div class="game-menu-grid">
-        <button class="game-menu-card" data-open="city-story" aria-label="A film utolsó jelenete"><span class="game-menu-icon" aria-hidden="true">🎬</span><span><strong>A film utolsó jelenete</strong><small>Városi nyomozás · te alakítod a történetet</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="audiobooks" aria-label="Mesetár"><span class="game-menu-icon" aria-hidden="true">🎧 📖</span><span><strong>Mesetár</strong><small>Mesék és versek · bekuckózáshoz</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="teddy-game" aria-label="Etesd meg a macit!"><span class="game-menu-icon" aria-hidden="true">🧸 🍎</span><span><strong>Etesd meg a macit!</strong><small>Hallgasd meg, mit kér</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="dress-game" aria-label="Maci öltözik"><span class="game-menu-icon" aria-hidden="true">🧸 👟</span><span><strong>Maci öltözik</strong><small>Készüljünk fel a sétára</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="meseliget" aria-label="Meseliget"><span class="game-menu-icon" aria-hidden="true">🌳</span><span><strong>Meseliget</strong><small>Öltözés · almaszedés · közös piknik</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="audiobooks" aria-label="Mesetár"><span class="game-menu-icon" aria-hidden="true">🎧 📖</span><span><strong>Mesetár</strong><small>Mesék és versek</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="teddy-game" aria-label="Etesd meg a macit!"><span class="game-menu-icon" aria-hidden="true">🧸 🍎</span><span><strong>Etesd meg a macit!</strong><small>Mit kér a maci?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="dress-game" aria-label="Maci öltözik"><span class="game-menu-icon" aria-hidden="true">🧸 👟</span><span><strong>Maci öltözik</strong><small>Indulunk sétálni</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="meseliget" aria-label="Meseliget"><span class="game-menu-icon" aria-hidden="true">🌳</span><span><strong>Meseliget</strong><small>Piknik a macival</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section id="big-menu" class="panel menu-panel" aria-label="Nagyoknak">
+      <div class="game-menu-grid">
+        <button class="game-menu-card" data-open="city-story" aria-label="A film utolsó jelenete"><span class="game-menu-icon" aria-hidden="true">🎬</span><span><strong>A film utolsó jelenete</strong><small>Te alakítod a történetet</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="chess" aria-label="Sakkliget"><span class="game-menu-icon" aria-hidden="true">♟️</span><span><strong>Sakkliget</strong><small>Lépések és fejtörők</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="furfangliget" aria-label="Furfangliget"><span class="game-menu-icon" aria-hidden="true">🦊</span><span><strong>Furfangliget</strong><small>Bolt · gép · ösvény</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="workshop" aria-label="Műhelyliget"><span class="game-menu-icon" aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Rendezd · fűzd · mérd</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="engineering" aria-label="Építőliget"><span class="game-menu-icon" aria-hidden="true">🏗️</span><span><strong>Építőliget</strong><small>Tornyok és hidak</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
 
     <section id="activity-menu" class="panel menu-panel" aria-label="Kirakók és ügyesség">
-      <p class="menu-intro">Figyelj, rakd össze, próbáld ki!</p>
       <div class="game-menu-grid">
-        <button class="game-menu-card" data-open="differences" aria-label="Találd meg a különbségeket!"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Találd meg a különbségeket!</strong><small>Négy jelenet · 5, 7 vagy 10 eltérés</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="memory" aria-label="Képpárok"><span class="game-menu-icon" aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Fordíts · jegyezd meg · keresd a párját</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="puzzle" aria-label="Képkirakó"><span class="game-menu-icon" aria-hidden="true">🧩</span><span><strong>Képkirakó</strong><small>Négy kép · 6, 8 vagy 10 darab</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="montessori" aria-label="Montessori műhely"><span class="game-menu-icon" aria-hidden="true">🪵</span><span><strong>Montessori műhely</strong><small>5 játék · 26 szint · formák, minták és szabályok</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="engineering" aria-label="Építőliget"><span class="game-menu-icon" aria-hidden="true">🏗️</span><span><strong>Építőliget</strong><small>Pottyanó torony · szabad építés · hídműhely</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="pour" aria-label="Töltsünk a barátainknak!"><span class="game-menu-icon" aria-hidden="true">💧</span><span><strong>Töltsünk a barátainknak!</strong><small>Dönts vagy nyomd · adagolj · kínáld meg őket</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="flip" aria-label="Mi bújt el?"><span class="game-menu-icon" aria-hidden="true">🎁</span><span><strong>Mi bújt el?</strong><small>Fordítsd fel a beszélő képeket</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="differences" aria-label="Találd meg a különbségeket!"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Találd meg a különbségeket!</strong><small>Mi más a két képen?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="memory" aria-label="Képpárok"><span class="game-menu-icon" aria-hidden="true">🌼</span><span><strong>Képpárok</strong><small>Keresd a párját</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="puzzle" aria-label="Képkirakó"><span class="game-menu-icon" aria-hidden="true">🧩</span><span><strong>Képkirakó</strong><small>Rakd össze a képet</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="montessori" aria-label="Montessori műhely"><span class="game-menu-icon" aria-hidden="true">🪵</span><span><strong>Montessori műhely</strong><small>Formák, színek, tornyok</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="pour" aria-label="Töltsünk a barátainknak!"><span class="game-menu-icon" aria-hidden="true">💧</span><span><strong>Töltsünk a barátainknak!</strong><small>Önts annyit, amennyi kell</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="flip" aria-label="Mi bújt el?"><span class="game-menu-icon" aria-hidden="true">🎁</span><span><strong>Mi bújt el?</strong><small>Fordítsd fel a képeket</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
 
@@ -177,11 +184,10 @@
     <section id="meseliget" class="panel meadow-panel" aria-label="Meseliget kaland"></section>
 
     <section id="picture-menu" class="panel menu-panel" aria-label="Képek és hangok">
-      <p class="menu-intro">Nézegessünk, hallgassunk, keressünk!</p>
       <div class="game-menu-grid">
-        <button class="game-menu-card" data-open="topics" aria-label="Nézegessünk!"><span class="game-menu-icon" aria-hidden="true">🐱</span><span><strong>Nézegessünk!</strong><small>Képek hat témában</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="listening-game" aria-label="Hol van?"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Hol van?</strong><small>Hallgasd meg, és keresd meg a képét</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="animal-book" aria-label="Hangos állatkönyv"><span class="game-menu-icon" aria-hidden="true">📖</span><span><strong>Hangos állatkönyv</strong><small>Négy képes lap · tizenkét állathang</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="topics" aria-label="Nézegessünk!"><span class="game-menu-icon" aria-hidden="true">🐱</span><span><strong>Nézegessünk!</strong><small>Beszélő képek</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="listening-game" aria-label="Hol van?"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Hol van?</strong><small>Hallgasd meg, keresd meg</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="animal-book" aria-label="Hangos állatkönyv"><span class="game-menu-icon" aria-hidden="true">📖</span><span><strong>Hangos állatkönyv</strong><small>Ki hogyan szól?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
 
@@ -201,23 +207,18 @@
     </section>
 
     <section id="practice-menu" class="panel menu-panel" aria-label="Mondd utánam">
-      <p class="menu-intro">Hallgassuk meg, és mondjuk együtt!</p>
       <div class="game-menu-grid">
-        <button class="game-menu-card" data-open="imitate" aria-label="Egy szó"><span class="game-menu-icon" aria-hidden="true">🍎</span><span><strong>Egy szó</strong><small>Rövid szavak közös gyakorlása</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="two-word" aria-label="Két szó"><span class="game-menu-icon" aria-hidden="true">🙏 💧</span><span><strong>Két szó</strong><small>Kis kifejezések utánmondása</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="r-practice" aria-label="Róka R-kalandja"><span class="game-menu-icon" aria-hidden="true">🦊</span><span><strong>Róka R-kalandja</strong><small>Öt játék · szavak · mondókák · saját hang</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="imitate" aria-label="Egy szó"><span class="game-menu-icon" aria-hidden="true">🍎</span><span><strong>Egy szó</strong><small>Mondjuk együtt</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="two-word" aria-label="Két szó"><span class="game-menu-icon" aria-hidden="true">🙏 💧</span><span><strong>Két szó</strong><small>Kérek vizet!</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="r-practice" aria-label="Róka R-kalandja"><span class="game-menu-icon" aria-hidden="true">🦊</span><span><strong>Róka R-kalandja</strong><small>Gyakoroljuk az R-t</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
 
-    <section id="number-menu" class="panel menu-panel" aria-label="Számok és logika">
-      <p class="menu-intro">Számok, minták és kis fejtörők.</p>
+    <section id="number-menu" class="panel menu-panel" aria-label="Számok és minták">
       <div class="game-menu-grid">
         <button class="game-menu-card number-mode" data-mode="count" aria-pressed="true" aria-label="Számoljuk meg!"><span class="game-menu-icon" aria-hidden="true">🍎</span><span><strong>Számoljuk meg!</strong><small>Érints meg minden tárgyat</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
         <button class="game-menu-card number-mode" data-mode="quiz" aria-pressed="false" aria-label="Keresd meg!"><span class="game-menu-icon" aria-hidden="true">🔎</span><span><strong>Keresd meg!</strong><small>Melyik képen van annyi?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="patterns" aria-label="Folytasd a mintát!"><span class="game-menu-icon" aria-hidden="true">🔴 🔷</span><span><strong>Folytasd a mintát!</strong><small>Formák · színek · méretek · irányok</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="furfangliget" aria-label="Furfangliget"><span class="game-menu-icon" aria-hidden="true">🦊</span><span><strong>Furfangliget</strong><small>Erdei bolt · Szabálygép · Csomagösvény</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="chess" aria-label="Sakkliget"><span class="game-menu-icon" aria-hidden="true">♟️</span><span><strong>Sakkliget</strong><small>Figurák lépései · csillagok · sakkfejtörők</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
-        <button class="game-menu-card" data-open="workshop" aria-label="Műhelyliget"><span class="game-menu-icon" aria-hidden="true">🌈</span><span><strong>Műhelyliget</strong><small>Formák · minták · egyensúly</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
+        <button class="game-menu-card" data-open="patterns" aria-label="Folytasd a mintát!"><span class="game-menu-icon" aria-hidden="true">🔴 🔷</span><span><strong>Folytasd a mintát!</strong><small>Mi jön ezután?</small></span><span class="game-menu-arrow" aria-hidden="true">→</span></button>
       </div>
     </section>
 

@@ -9,7 +9,7 @@ async page => {
     const cached=await p.evaluate(async()=>{const cache=await caches.open((await caches.keys()).find(k=>k.startsWith('beszedtanulas:')));return (await cache.keys()).map(r=>new URL(r.url).pathname);});
     ok(cached.some(x=>x.endsWith('/vendor/matter.js'))&&cached.some(x=>x.endsWith('/audio/voice/engineering_build.mp3')),'physics engine and spoken guidance are in the offline cache');
     await context.setOffline(true);await p.reload();
-    await p.locator('#home [data-open="activity-menu"]').tap();await p.locator('#activity-menu [data-open="engineering"]').tap();
+    await p.locator('#home [data-open="big-menu"]').tap();await p.locator('#big-menu [data-open="engineering"]').tap();
     await p.locator('[data-en-mode="build"]').tap();
     await p.locator('[data-en-piece="block"]').tap();
     const stage=p.locator('#en-stage'),r=await stage.boundingBox();

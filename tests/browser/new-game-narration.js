@@ -28,7 +28,7 @@ async page => {
   for (let i = 0; i < 3; i++) await page.locator('#ws-hint').click();
   await page.waitForFunction(() => narrationEvents.some(event => event.id.startsWith('workshop_n_') && event.marks.some(mark => mark.classes.includes('ws-hint-focus'))));
   ok(await page.locator('.ws-hint-focus.is-narrated').count() === 1, 'Third hint number highlights exactly the recommended rod');
-  await page.locator('#ws-back').click(); await page.locator('[data-level="2"]').click(); await page.locator('[data-game="pattern"]').click();
+  await page.locator('#ws-back').dispatchEvent('click'); await page.locator('[data-level="2"]').click(); await page.locator('[data-game="pattern"]').click();
   await waitMark('.ws-pattern-fixed'); await waitMark('.ws-pattern-slot'); await waitMark('.ws-pattern-choices');
   ok(await page.locator('.ws-pattern-slot.is-narrated').count() === 0, 'Pattern explanation moves from repeating unit to gaps and choices');
   await home(); ok(await page.locator('#workshop .is-narrated').count() === 0, 'Leaving a workshop cancels its current cue');

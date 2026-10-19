@@ -4,9 +4,11 @@ import { wordCategories } from './game-data.js';
 export const GROUPS = Object.freeze([
   { screen: 'picture-menu', title: 'Képek és hangok', screens: ['topics', 'listening-game', 'animal-book'] },
   { screen: 'practice-menu', title: 'Mondd utánam', screens: ['imitate', 'two-word', 'r-practice'] },
-  { screen: 'number-menu', title: 'Számok és logika', screens: ['numbers', 'patterns', 'furfangliget', 'workshop', 'chess'] },
-  { screen: 'play-menu', title: 'Mesék és Maci', screens: ['audiobooks', 'city-story', 'teddy-game', 'dress-game', 'meseliget'] },
-  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'differences', 'montessori', 'engineering', 'pour', 'flip'] },
+  { screen: 'number-menu', title: 'Számok és minták', screens: ['numbers', 'patterns'] },
+  { screen: 'play-menu', title: 'Mesék és Maci', screens: ['audiobooks', 'teddy-game', 'dress-game', 'meseliget'] },
+  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'differences', 'montessori', 'pour', 'flip'] },
+  // Reading, planning and longer puzzles live apart from the toddler games.
+  { screen: 'big-menu', title: 'Nagyoknak', screens: ['city-story', 'chess', 'furfangliget', 'workshop', 'engineering'] },
 ].map(group => Object.freeze({ ...group, screens: Object.freeze(group.screens) })));
 
 const screens = new Set(['home', 'parent', 'play-break', 'cards', ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);

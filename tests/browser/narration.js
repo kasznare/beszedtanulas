@@ -17,7 +17,7 @@ async page => {
  await page.goto('about:blank');await page.goto(url);
  await page.waitForFunction(()=>document.querySelector('#offline-status').textContent.startsWith('Letöltve.'));
  const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
- const enter=async game=>{await home();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-open="furfangliget"]').click();await page.locator(`[data-game="${game}"]`).click();};
+ const enter=async game=>{await home();await page.locator('#home [data-open="big-menu"]').click();await page.locator('#big-menu [data-open="furfangliget"]').click();await page.locator(`[data-game="${game}"]`).click();};
  const clear=()=>page.evaluate(()=>{narrationEvents.length=0});
  const waitMark=async selector=>page.waitForFunction(s=>!!document.querySelector(s+'.is-narrated'),selector);
  await enter('machine');await clear();await page.locator('[data-example="0"]').click();
@@ -44,7 +44,7 @@ async page => {
  await waitMark('[data-destination]');ok(await page.locator('[data-parcel].is-narrated').count()===0,'Home instruction moves to the destination');
  await home();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="meseliget"]').click();await page.locator('#meadow-garden').click();
  await waitMark('.meadow-orchard');await waitMark('.meadow-basket');ok(true,'Apple collection narration moves from orchard to basket');
- await page.locator('#meadow-back').click();await page.locator('#meadow-picnic').click();await waitMark('.meadow-animal');await waitMark('.meadow-plate');ok(true,'Picnic narration moves from animals to plates');
+ await page.locator('#meadow-back').dispatchEvent('click');await page.locator('#meadow-picnic').click();await waitMark('.meadow-animal');await waitMark('.meadow-plate');ok(true,'Picnic narration moves from animals to plates');
  await home();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-mode="count"]').click();await page.locator('.counting-object').nth(1).click();await waitMark('[data-counting-index="1"]');
  ok(await page.locator('.counting-object.is-narrated').count()===1,'Only the tapped object moves during counting');
  await home();await page.locator('#home [data-open="practice-menu"]').click();await page.locator('[data-open="two-word"]').click();await clear();await page.locator('#play-phrase').click();

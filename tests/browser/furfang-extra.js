@@ -7,7 +7,7 @@ async(page)=>{
  await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
  const state=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
  const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
- const enter=async()=>{await home();await page.locator('#home [data-open="number-menu"]').click();await page.locator('#number-menu [data-open="furfangliget"]').click();};
+ const enter=async()=>{await home();await page.locator('#home [data-open="big-menu"]').click();await page.locator('#big-menu [data-open="furfangliget"]').click();};
  const parent=async()=>{await home();await page.locator('#parent-button').click();const n=(await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  await parent();await page.locator('#route-level').selectOption('1');await enter();await page.locator('[data-game="route"]').click();if(await page.locator('#logic-next').count())await page.locator('#logic-next').click();
  await page.setViewportSize({width:834,height:1194});
@@ -32,7 +32,7 @@ async(page)=>{
  await page.context().setOffline(true);
  try{
   await page.reload();await enter();
-  for(const kind of ['shop','machine','route']){await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-work').isVisible(),`${kind} opens offline after reload`);await page.locator('#logic-hint').click();await page.locator('#logic-back').click();}
+  for(const kind of ['shop','machine','route']){await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-work').isVisible(),`${kind} opens offline after reload`);await page.locator('#logic-hint').click();await page.locator('#logic-back').dispatchEvent('click');}
   const duration=await page.evaluate(async()=>{const ctx=new AudioContext();try{const a=await ctx.decodeAudioData(await (await fetch('./audio/voice/logic_shop_3.mp3')).arrayBuffer());return a.duration;}finally{await ctx.close();}});ok(duration>1,'New Hungarian audio decodes offline');
   await page.locator('[data-game="route"]').click();const path=await page.evaluate(async()=>{const d=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions.route;return d.routeSolution(d.generateTask('route',s.level,s.limit,s.seed));});
   if(await page.locator('#logic-clear').isEnabled())await page.locator('#logic-clear').click();for(const c of path.slice(1))await page.locator(`[data-cell="${c}"]`).click();await page.locator('#logic-check').click();await page.waitForSelector('#logic-next');ok((await state()).logic.sessions.route.done,'Full route can finish offline');

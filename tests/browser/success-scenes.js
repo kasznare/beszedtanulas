@@ -113,7 +113,7 @@ async page => {
   ok(await page.locator('[data-take]').first().isDisabled(), 'Workshop: the balanced rods are locked while still visible');
   await checkQuietInterval('#workshop', '.ws-celebration', 'Balanced rods');
   await enterBalance(); await page.locator('#ws-check').click();
-  const leaveBefore = narration(await snapshot(), 'workshop_balance_done'); await page.locator('#ws-back').click();
+  const leaveBefore = narration(await snapshot(), 'workshop_balance_done'); await page.locator('#ws-back').dispatchEvent('click');
   await page.locator('#workshop [data-game="pattern"]').click(); await page.waitForTimeout(1100);
   ok(await page.locator('.ws-celebration').count() === 0 && narration(await snapshot(), 'workshop_balance_done') === leaveBefore, 'Workshop: leave plus another task cancels late celebration and narration');
 

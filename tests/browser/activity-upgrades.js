@@ -14,6 +14,7 @@ async page => {
   const activity = async id => { await home(); await page.locator('#home [data-open="activity-menu"]').click(); await page.locator(`#activity-menu [data-open="${id}"]`).click(); };
 
   await activity('memory');
+  await page.locator('.memory-timing summary').click();
   await page.locator('#memory-preview').selectOption('0');
   await page.locator('#memory-hint').click();
   await page.waitForTimeout(3800);

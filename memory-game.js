@@ -1,11 +1,12 @@
 import { buildMemoryDeck, buildSoundMemoryDeck, MEMORY_TIMING_KEY, normalizeMemoryTiming } from './memory-data.js';
 import { wordPicture } from './word-art.js';
+import { setGameTitle, focusGameTitle } from './game-heading.js';
 
 export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak, stopPlayback, onComplete, setPairs, onRestart = () => {} }) {
   const root = document.querySelector('#memory');
   let active = false, deck = [], open = [], matched = new Set(), preview = false, busy = false, finished = false;
   let mode = 'classic', soundDeck = { sounds: [], pictures: [] }, selectedSound = null, selectedPicture = null, soundStatus = '';
-  let generation = 0, timer;
+  let generation = 0, timer, timingOpen = false;
   let timing;
   try { timing = normalizeMemoryTiming(JSON.parse(window.localStorage.getItem(MEMORY_TIMING_KEY))); }
   catch { timing = normalizeMemoryTiming(); }
@@ -26,18 +27,20 @@ export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak
   }
   function render(focusKey) {
     if (mode === 'sound') { renderSound(focusKey); return; }
-    root.innerHTML = `<div class="memory-heading"><span class="memory-eyebrow">FIGYELJ · EMLÉKEZZ · TALÁLJ PÁRT</span><h2 tabindex="-1">Képpárok</h2><p>Fordíts fel két kártyát!</p></div>
+    setGameTitle(root, 'Képpárok');
+    root.innerHTML = `<p class="memory-instructions">Fordíts fel két kártyát!</p>
       ${modeMarkup()}
       <div class="memory-options" role="group" aria-label="Párok száma">${[2, 3, 4, 6].map(n => `<button data-pairs="${n}" aria-pressed="${getOptions().memoryPairs === n}" ${busy ? 'disabled' : ''}>${n} pár</button>`).join('')}</div>
-      <div class="memory-timing"><label>Második pillantás <select id="memory-mismatch">${[[1100,'Rövid'],[2000,'Közepes'],[3500,'Hosszú']].map(([ms,label]) => `<option value="${ms}" ${timing.mismatchMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label><label>Képek megjegyzése <select id="memory-preview">${[[3500,'Rövid'],[7000,'Hosszú'],[0,'Amíg folytatom']].map(([ms,label]) => `<option value="${ms}" ${timing.previewMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label></div>
+      <details class="memory-timing" ${timingOpen ? 'open' : ''}><summary>Időzítés</summary><label>Második pillantás <select id="memory-mismatch">${[[1100,'Rövid'],[2000,'Közepes'],[3500,'Hosszú']].map(([ms,label]) => `<option value="${ms}" ${timing.mismatchMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label><label>Képek megjegyzése <select id="memory-preview">${[[3500,'Rövid'],[7000,'Hosszú'],[0,'Amíg folytatom']].map(([ms,label]) => `<option value="${ms}" ${timing.previewMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label></details>
       <div class="memory-progress" role="status">${matched.size} / ${deck.length / 2} pár megvan <span aria-hidden="true">${'🌼'.repeat(matched.size)}</span></div>
-      <div class="memory-board" style="--memory-cols:${deck.length <= 6 ? 2 : 3}" role="group" aria-label="Képes memóriakártyák">${deck.map((card, i) => {
+      <div class="memory-board" style="--memory-cols:${deck.length <= 6 ? 2 : 3}" data-count="${deck.length}" role="group" aria-label="Képes memóriakártyák">${deck.map((card, i) => {
         const found = matched.has(card.word.id), revealed = found || preview || open.includes(card.key);
         return `<button class="memory-card ${revealed ? 'is-open' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${i + 1}. kártya, ${revealed ? card.word.label + (found ? ', a párja megvan' : '') : 'lefordítva'}" aria-pressed="${revealed}" ${found || busy || preview || finished ? 'disabled' : ''}><span class="memory-card-back" aria-hidden="true">✿</span><span class="memory-card-face" aria-hidden="true">${wordPicture(card.word)}<small>${found ? '✓' : ''}</small></span></button>`;
       }).join('')}</div>
       <p id="memory-status" class="memory-status" role="status">${finished ? 'Minden kép megtalálta a párját!' : preview ? 'Jegyezd meg a képek helyét!' : open.length === 2 ? 'Nézd meg a két képet! Próbálhatod újra.' : open.length ? 'Most keresd meg a párját!' : 'Válassz egy kártyát!'}</p>
       <div class="memory-actions"><button id="memory-hint" ${finished || busy ? 'disabled' : ''}>${preview ? 'Folytatom ▶' : '💡 Nézzük meg!'}</button><button id="memory-restart">↻ Új képek</button></div>`;
     bindModeButtons();
+    root.querySelector('.memory-timing').addEventListener('toggle', event => { timingOpen = event.target.open; });
     root.querySelectorAll('[data-card]').forEach(button => button.addEventListener('click', () => flip(button.dataset.card)));
     root.querySelectorAll('[data-pairs]').forEach(button => button.addEventListener('click', () => {
       if (!active || busy || !setPairs) return;
@@ -59,7 +62,8 @@ export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak
       if (card.kind === 'sound') return `<button type="button" class="memory-sound-card ${selected ? 'is-selected' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${index + 1}. hangkártya${found ? ', párja megvan' : ', hallgasd meg'}" aria-pressed="${selected}" ${found || finished ? 'disabled' : ''}><span aria-hidden="true" class="memory-sound-symbol">🔊</span><span aria-hidden="true">${index + 1}</span><span class="memory-sound-check" aria-hidden="true">${found ? '✓' : ''}</span></button>`;
       return `<button type="button" class="memory-picture-card ${selected ? 'is-selected' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${card.word.label}${found ? ', párja megvan' : ''}" aria-pressed="${selected}" ${found || finished ? 'disabled' : ''}>${wordPicture(card.word)}<span class="memory-sound-check" aria-hidden="true">${found ? '✓' : ''}</span></button>`;
     };
-    root.innerHTML = `<div class="memory-heading"><span class="memory-eyebrow">HALLGASD · KERESD · PÁROSÍTSD</span><h2 tabindex="-1">Hang–kép párok</h2><p>Hallgass meg egy hangot, majd keresd meg a képét!</p></div>
+    setGameTitle(root, 'Hang–kép párok');
+    root.innerHTML = `<p class="memory-instructions">Hallgass meg egy hangot, majd keresd meg a képét!</p>
       ${modeMarkup()}
       <div class="memory-options" role="group" aria-label="Párok száma">${[2,3,4,6].map(n=>`<button data-pairs="${n}" aria-pressed="${options.memoryPairs === n}">${n} pár</button>`).join('')}</div>
       <div class="memory-progress" role="status">${matched.size} / ${soundDeck.sounds.length} pár megvan <span aria-hidden="true">${'🌼'.repeat(matched.size)}</span></div>
@@ -110,8 +114,8 @@ export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak
     if(requestedMode)mode=requestedMode;
     selectedSound=null;selectedPicture=null;soundStatus='';
     const options = getOptions();
-    if(mode==='sound'){soundDeck=buildSoundMemoryDeck(options.words,options.memoryPairs);deck=[];render();root.querySelector('h2').focus({preventScroll:true});say('memory_sound_start');}
-    else{deck=buildMemoryDeck(options.words, options.memoryPairs);soundDeck={sounds:[],pictures:[]};render();root.querySelector('h2').focus({ preventScroll: true }); say('memory_start');}
+    if(mode==='sound'){soundDeck=buildSoundMemoryDeck(options.words,options.memoryPairs);deck=[];render();focusGameTitle(root);say('memory_sound_start');}
+    else{deck=buildMemoryDeck(options.words, options.memoryPairs);soundDeck={sounds:[],pictures:[]};render();focusGameTitle(root); say('memory_start');}
   }
   function flip(key) {
     if (!active || busy || preview || finished || document.hidden || open.includes(key)) return;

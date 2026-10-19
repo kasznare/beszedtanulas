@@ -32,8 +32,8 @@ async page => {
       window.__offlineStoryNarration = [];
       document.addEventListener('narrationstart', event => window.__offlineStoryNarration.push(event.detail.id));
     });
-    await page.locator('#home [data-open="play-menu"]').click();
-    await page.locator('#play-menu [data-open="city-story"]').click();
+    await page.locator('#home [data-open="big-menu"]').click();
+    await page.locator('#big-menu [data-open="city-story"]').click();
     const root = page.locator('#city-story');
     ok(await root.getAttribute('data-node-id') === 'film-stop', 'Offline story starts on the first frame');
     await page.waitForFunction(() => window.__offlineStoryNarration.includes('city_story_film_stop_p1'), undefined, { timeout: 10000 });

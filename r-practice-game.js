@@ -2,6 +2,7 @@ import { relatedTaskMarkup } from './next-task.js';
 import { withRPhraseVariant, R_GAMES, R_WORDS, R_RHYMES, R_POSITIONS, R_HUNTER_MODES, R_STAMPS, rhymeGap, buildRhymeChoices, rSoundPositions, pickRGame, buildRPracticeDeck, loadRPreferences, saveRPreferences, normalizeRPreferences, normalizeRProgress, recordRProgress, rWordPool, shuffleR, buildRHunterRound, R_RECIPIENTS, R_DECORATIONS, buildRPostMission, rRhymeUnits, buildRRhymeStory, isRRhymeStoryComplete } from './r-practice-data.js';
 import { createRRecorder } from './r-practice-media.js';
 import { createSuccessDelay } from './success-delay.js';
+import { setGameTitle, focusGameTitle } from './game-heading.js';
 
 const html = value => String(value ?? '').replace(/[&<>"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const marked = text => [...text].map(letter=>letter.toLocaleLowerCase('hu')==='r'?`<strong class="rp-r">${letter}</strong>`:html(letter)).join('');
@@ -57,8 +58,9 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
     const settingsOpen=$('.rp-settings')?.open;
     root.dataset.game=game; root.dataset.phase=phase;root.dataset.successPending=successPending;
     const info=R_GAMES.find(value=>value.id===game), stats=normalizeRProgress(getProgress());
-    root.innerHTML=`<div class="rp-shell"><header class="rp-heading"><div><span class="rp-eyebrow">HALLGASD · MONDD · JÁTSSZ</span><h2 tabindex="-1">${info?info.name:'Róka R-kalandja'}</h2><p>${info?info.detail:'Öt kis kaland rókával és robottal.'}</p></div><span class="rp-letter" aria-hidden="true">R<span>r</span></span></header>
-      ${game!=='hub'?'<button class="rp-back" data-action="hub">← Az öt játékhoz</button>':''}
+    setGameTitle(root,info?info.name:'Róka R-kalandja');
+    root.innerHTML=`<div class="rp-shell">
+      ${game!=='hub'?'<button class="rp-back" data-action="hub" hidden>← Az öt játékhoz</button>':''}
       ${game==='hub'?`<div class="rp-hub-scene" aria-hidden="true"><span class="rp-sun">☀</span><img class="rp-fox" src="./assets/furfang-fox.png" alt=""><span class="rp-robot">🤖</span><span class="rp-flowers">🌼 🌷 🌿</span><span class="rp-hub-bubble">Róka és robot vár rád!</span></div><div class="rp-surprise"><button class="rp-primary" data-action="surprise">🎲 Lepj meg!</button><span>Válasszunk egy másik kis kalandot!</span></div><div class="rp-game-grid">${R_GAMES.map(value=>`<button class="rp-game-card" data-game="${value.id}"><span aria-hidden="true">${value.icon}</span><strong>${value.name}</strong><small>${value.detail}</small>${stats.games[value.id].rounds?`<span class="rp-saved">${stats.games[value.id].rounds} közös kör</span>`:''}</button>`).join('')}</div>`:renderGame()}
       <p id="rp-status" class="rp-status" role="status" aria-live="polite">${html(message||defaultMessage())}</p>${settings()}</div>`;
     if(settingsOpen)$('.rp-settings').open=true;
@@ -66,7 +68,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
     if(focus||previous) {
       const target=$(restore);
       if(target&&!target.disabled){target.focus({preventScroll:true});suspendedFocus='';}
-      else{ suspendedFocus=target?.disabled?restore:'';($('[data-action="stop"]')||$('h2'))?.focus({preventScroll:true}); }
+      else{ suspendedFocus=target?.disabled?restore:'';const stop=$('[data-action="stop"]');if(stop)stop.focus({preventScroll:true});else focusGameTitle(root); }
     }
   }
   function defaultMessage() { return game==='hub'?'Válassz egy kalandot!':game==='hunter'?'Koppints a hanggombra, és keresd meg a képet!':'Hallgassuk meg, és gyakoroljunk együtt!'; }

@@ -6,7 +6,7 @@ async page => {
   await page.evaluate(async () => { for (const registration of await navigator.serviceWorker.getRegistrations()) await registration.unregister(); for (const key of await caches.keys()) await caches.delete(key); });
   await page.goto('about:blank'); await page.goto(url);
   const menu = async () => {
-    if (await page.locator('#mo-back').isVisible()) await page.locator('#mo-back').click();
+    if (await page.locator('#mo-back').count()) await page.locator('#mo-back').dispatchEvent('click');
     if (!await page.locator('.mo-menu').isVisible()) {
       if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
       await page.locator('#home [data-open="activity-menu"]').click();
