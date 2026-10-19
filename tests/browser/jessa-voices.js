@@ -37,13 +37,13 @@ async parent => {
     }
     await enter('furfangliget');
     for (const game of ['shop','machine','route']) {
-      if (await page.locator('#logic-back').count()) await page.locator('#logic-back').click();
+      if (await page.locator('#logic-back').count()) await page.locator('#logic-back').dispatchEvent('click');
       const start=await before(); await page.locator(`[data-game="${game}"]`).click(); await heard(start,`logic_${game}_`);
       const hint=await before(); await page.locator('#logic-hint').click(); await heard(hint,`logic_${game}_hint`);
     }
     await enter('workshop');
     for (const game of ['sort','pattern','balance']) {
-      if (await page.locator('#ws-back').count()) await page.locator('#ws-back').click();
+      if (await page.locator('#ws-back').count()) await page.locator('#ws-back').dispatchEvent('click');
       const start=await before(); await page.locator(`[data-game="${game}"]`).click(); await heard(start,`workshop_${game}_`);
     }
     await enter('r-practice');

@@ -16,7 +16,7 @@ async (page) => {
   const apples = async count => { for (let i=0;i<count;i++) await page.locator(`.meadow-orchard [data-apple="${i}"]`).click(); };
   const plates = async count => { for (let i=0;i<count;i++) await page.locator(`[data-guest="${i}"]`).click(); };
   const finishTask = () => page.locator('#meadow-check').evaluate(button => { button.click(); button.click(); });
-  const map = () => page.locator('#meadow-back').click();
+  const map = () => page.locator('#meadow-back').dispatchEvent('click');
   const viewportChecks = async name => {
     for (const [width,height] of [[375,667],[932,350],[834,1194]]) {
       await page.setViewportSize({width,height});

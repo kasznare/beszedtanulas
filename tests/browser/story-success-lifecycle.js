@@ -60,11 +60,11 @@ async page => {
 
   await page.evaluate(() => storySuccess.api.meadow.start()); await page.locator('#meadow-garden').click(); await collect(); await page.locator('#meadow-check').click();
   const beforeLeave = await narration('mese_collected_3');
-  await page.locator('#meadow-back').click(); await page.waitForTimeout(1100);
+  await page.locator('#meadow-back').dispatchEvent('click'); await page.waitForTimeout(1100);
   ok(await page.locator('.meadow-map').count() === 1 && await narration('mese_collected_3') === beforeLeave, 'Leaving a completed task cancels its stale ending and voice');
   await page.locator('#meadow-free-resume').click();
   ok(await page.locator('#meadow-next').isVisible() && (await snapshot()).meadow.collect.independent === 2, 'Resuming an already saved completion does not record it twice');
-  await page.locator('#meadow-back').click();
+  await page.locator('#meadow-back').dispatchEvent('click');
   await page.locator('.meadow-mode-options summary').click(); await page.locator('#meadow-serve-mode').selectOption('full');
   await page.locator('#meadow-picnic').click();
   for (const guest of (await snapshot()).meadow.free.task.requestOrder) {
@@ -75,7 +75,7 @@ async page => {
   await page.evaluate(() => document.querySelector('#parent-gate').showModal()); await page.waitForTimeout(1100);
   ok(await page.locator('#meadow-next').isVisible() && await narration('mese_served_full') === 0, 'A parent dialog suppresses delayed table narration');
   await page.evaluate(() => document.querySelector('#parent-gate').close());
-  await page.locator('#meadow-back').click(); await page.locator('#meadow-house').click();
+  await page.locator('#meadow-back').dispatchEvent('click'); await page.locator('#meadow-house').click();
   await page.locator('[data-item="cipo"]').click(); await page.locator('#meadow-hint').click();
   ok(await page.locator('[data-item="cipo"].meadow-retry').count() === 1 && await page.locator('[data-item="sapka"].meadow-hint').count() === 1, 'Dressing retry and requested help remain distinct static cues');
   await page.locator('[data-item="sapka"]').click(); await page.locator('[data-item="cipo"]').click();
@@ -83,7 +83,7 @@ async page => {
   await page.locator('#meadow-next').waitFor({ state: 'visible' });
   ok(await narration('mese_house_done') === 1, 'Standalone dressing uses its own delayed ending voice');
 
-  await page.locator('#meadow-back').click(); await page.locator('#meadow-garden').click(); await collect(); await page.locator('#meadow-check').click();
+  await page.locator('#meadow-back').dispatchEvent('click'); await page.locator('#meadow-garden').click(); await collect(); await page.locator('#meadow-check').click();
   const beforeSnapshot = await narration('mese_collected_3');
   const freshSnapshot = await page.evaluate(async () => {
     const { normalizeMeadow } = await import('/meseliget-data.js');

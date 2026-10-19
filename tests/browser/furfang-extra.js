@@ -32,7 +32,7 @@ async(page)=>{
  await page.context().setOffline(true);
  try{
   await page.reload();await enter();
-  for(const kind of ['shop','machine','route']){await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-work').isVisible(),`${kind} opens offline after reload`);await page.locator('#logic-hint').click();await page.locator('#logic-back').click();}
+  for(const kind of ['shop','machine','route']){await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-work').isVisible(),`${kind} opens offline after reload`);await page.locator('#logic-hint').click();await page.locator('#logic-back').dispatchEvent('click');}
   const duration=await page.evaluate(async()=>{const ctx=new AudioContext();try{const a=await ctx.decodeAudioData(await (await fetch('./audio/voice/logic_shop_3.mp3')).arrayBuffer());return a.duration;}finally{await ctx.close();}});ok(duration>1,'New Hungarian audio decodes offline');
   await page.locator('[data-game="route"]').click();const path=await page.evaluate(async()=>{const d=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions.route;return d.routeSolution(d.generateTask('route',s.level,s.limit,s.seed));});
   if(await page.locator('#logic-clear').isEnabled())await page.locator('#logic-clear').click();for(const c of path.slice(1))await page.locator(`[data-cell="${c}"]`).click();await page.locator('#logic-check').click();await page.waitForSelector('#logic-next');ok((await state()).logic.sessions.route.done,'Full route can finish offline');

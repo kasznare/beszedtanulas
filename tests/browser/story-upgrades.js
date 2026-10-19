@@ -10,7 +10,7 @@ async (page) => {
     else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
   };
   const enter = async id => { await home(); await page.locator('#home [data-open="play-menu"]').click(); await page.locator(`#play-menu [data-open="${id}"]`).click(); };
-  const map = () => page.locator('#meadow-back').click();
+  const map = () => page.locator('#meadow-back').dispatchEvent('click');
   const pick = value => page.locator(`[data-quantity="${value}"]`).click();
   const settings = async (collectMode, serveMode = 'all', showCount = true) => {
     if (!await page.locator('#meadow-collect-mode').isVisible()) await page.locator('.meadow-mode-options summary').click();

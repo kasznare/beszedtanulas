@@ -191,4 +191,20 @@
   #patterns .patterns-actions button { padding:8px 12px; font-size:.8rem; }
   .patterns-status { margin:9px auto 0; font-size:.76rem; text-align:center; }
 }
+/* Tablet landscape: the next slots and the choices share one row under the pattern. */
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+  #patterns.is-active { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); column-gap:20px; align-content:start; }
+  #patterns > * { grid-column:1 / -1; }
+  #patterns > .patterns-continuation { grid-column:1; max-width:none; margin:12px 0 0; }
+  #patterns > .patterns-choice-section { grid-column:2; max-width:none; margin:12px 0 0; }
+  #patterns > .patterns-chooser { grid-column:auto; }
+  .patterns-instruction { margin-bottom:8px; }
+  .patterns-observation { padding:10px 14px; }
+  .patterns-section-heading { margin-bottom:6px; }
+  .patterns-token { max-width:72px; }
+  #patterns[data-preview-count="12"] .patterns-preview .patterns-token { max-width:54px; }
+  #patterns[data-preview-count="12"] .patterns-preview { gap:6px; }
+  .patterns-actions { margin-top:10px; }
+  .patterns-status { margin-top:6px; min-height:1.4em; }
+}
 @media(prefers-reduced-motion:reduce) { #patterns * { scroll-behavior:auto; } }

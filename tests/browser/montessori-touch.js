@@ -23,7 +23,7 @@ async page => {
       await page.locator(`[data-mo-level="${kind === 'shapes' ? 4 : 3}"]`).click(); await page.locator('#mo-restart').click();
       ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), `${kind}: final layout has no overflow at ${size.width}×${size.height}`);
       await page.screenshot({ path: `output/playwright/montessori-final-${kind}-${size.width}.png`, fullPage: true, animations: 'disabled' });
-      await page.locator('#mo-back').click();
+      await page.locator('#mo-back').dispatchEvent('click');
     }
   }
   await page.setViewportSize({ width: 390, height: 844 });
@@ -48,7 +48,7 @@ async page => {
   await dragTouch(center(await page.locator(`[data-mo-piece="${parkedId}"]`).boundingBox()), { x: board.x + board.width * .4, y: board.y + board.height * .4 });
   const parked = await page.evaluate(id => { const key = Object.keys(localStorage).find(k => k.startsWith('beszedtanulas.montessori.v2:') && k.endsWith(':shapes:3')); return JSON.parse(localStorage.getItem(key)).positions[id]; }, parkedId);
   ok(parked && Math.abs(parked[0] - 40) < 1 && Math.abs(parked[1] - 40) < 1, 'Native touch can park a piece freely on the wooden surface');
-  await page.locator('#mo-back').click(); await page.locator('[data-mo-game="shapes"]').click();
+  await page.locator('#mo-back').dispatchEvent('click'); await page.locator('[data-mo-game="shapes"]').click();
   const location = await page.locator(`[data-mo-piece="${parkedId}"]`).getAttribute('style');
   ok(location.includes('--mo-x:40') && location.includes('--mo-y:40'), 'A touch-parked piece retains its location after returning');
   await page.locator('[data-mo-level="4"]').click(); await page.locator('#mo-restart').click();

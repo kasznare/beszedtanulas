@@ -1,0 +1,62 @@
+/* Shared play layout. Loaded last: one title in the app bar, and the play area fits the visible tablet viewport. */
+
+/* The top bar stays reachable on long pages such as Mesetár. */
+.app-bar { position: sticky; top: 0; background: var(--bg); }
+#screen-kicker[hidden] { display: none; }
+/* Inner back buttons stay in the DOM as targets of the shared back arrow (see innerBackSelectors in app.js). */
+#mo-back[hidden], #ws-back[hidden], #logic-back[hidden], #meadow-back[hidden], .rp-back[hidden] { display: none !important; }
+
+/* Touch devices: game text and pictures are not selectable and do not open callouts. Fields keep native editing. */
+@media (pointer: coarse) {
+  body:not([data-screen="parent"]) .app { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  body:not([data-screen="parent"]) .app img, body:not([data-screen="parent"]) .app svg { -webkit-user-drag: none; }
+  .app input, .app textarea, .app select, .app [contenteditable="true"] { -webkit-user-select: auto; user-select: auto; -webkit-touch-callout: default; }
+}
+
+/* Menus: no permanent intro paragraph; the tiles carry the choice. */
+.menu-intro { display: none; }
+
+/* Tablets: home and every category menu fit the visible height in both orientations. */
+@media (min-width: 700px) and (min-height: 600px) {
+  .menu-panel { margin-top: 0; }
+  .game-menu-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .game-menu-grid > .game-menu-card, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) {
+    flex: 0 1 calc((100% - 32px) / 3); flex-direction: column; justify-content: center; text-align: center;
+    min-height: min(240px, calc((100dvh - 200px) / 2)); padding: 18px 14px; gap: 12px;
+  }
+  .game-menu-grid:has(> :nth-child(4):last-child) > .game-menu-card { flex-basis: calc((100% - 16px) / 2); }
+  .game-menu-grid > .game-menu-card:last-child:nth-child(odd) .game-menu-icon, .game-menu-icon { font-size: 64px; }
+  .home-footer { display: none; }
+  .home-grid { max-width: none; }
+  .practice-panel { margin-top: 0; padding: 12px 28px; }
+  .app { padding-bottom: max(6px, env(safe-area-inset-bottom)); }
+  .app-bar { min-height: 72px; margin-bottom: 8px; }
+}
+@media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  .home-grid > .home-tile { min-height: 0; padding: 18px 20px; }
+  .home-art { min-height: 140px; margin-bottom: 8px; }
+  .home-grid > .home-tile[data-open="activity-menu"] { min-height: 130px; }
+}
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .game-menu-grid:has(> :nth-child(4):last-child) > .game-menu-card { flex-basis: calc((100% - 48px) / 4); }
+  .home-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .home-grid > .home-tile { grid-column: span 2; min-height: min(250px, calc((100dvh - 210px) / 2)); }
+  .home-grid > .home-tile:nth-child(n + 4) { grid-column: span 3; }
+  .home-grid > .home-tile[data-open="activity-menu"] { display: block; min-height: min(250px, calc((100dvh - 210px) / 2)); }
+  .home-art, .art-activity { min-height: 120px; width: auto; margin: 0 0 8px; }
+
+  /* Word and phrase practice: the picture on the left, every control on the right. */
+  .practice-panel { max-width: 960px; }
+  .imitate-wrap, .phrase-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 28px; align-items: center; align-content: center; }
+  .imitate-wrap > *, .phrase-wrap > * { grid-column: 2; }
+  .imitate-wrap > .imitate-emoji, .phrase-wrap > .phrase-emoji { grid-column: 1; grid-row: 1 / span 6; align-self: end; padding: 0; }
+  .imitate-wrap > #imitate-word, .phrase-wrap > #phrase-text { grid-column: 1; grid-row: 7 / span 3; align-self: start; margin: 6px 0 0; }
+  .imitate-wrap > .reward, .phrase-wrap > .reward { grid-column: 1; grid-row: 1; }
+  .imitate-wrap > .actions, .phrase-wrap > .actions { margin: 8px 0; }
+
+  /* Hol van?: the prompt and choices on the left, the pictures on the right. */
+  .listening-panel.is-active { display: grid; grid-template-columns: 260px minmax(0, 1fr); column-gap: 24px; align-items: center; align-content: center; max-width: 1000px; margin-inline: auto; }
+  .listening-panel > * { grid-column: 1; margin-block: 6px; }
+  .listening-panel > .listening-answers { grid-column: 2; grid-row: 1 / span 6; margin: 0; }
+  .listening-panel > .listen-status { grid-column: 2; grid-row: 7; }
+}

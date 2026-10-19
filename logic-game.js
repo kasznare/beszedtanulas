@@ -1,6 +1,7 @@
 import { LOGIC_GAMES, LOGIC_NAMES, LEVEL_NAMES, OPS, logicTaskForSession, newSession, normalizeLogic, completeLogic, taskSolved, applyRule, neighbours, routeSolution, remember, undoMove, logicSessionForLevel, storeLogicSession } from './logic-data.js';
 import { createSuccessDelay } from './success-delay.js';
 import { relatedTaskMarkup } from './next-task.js';
+import { setGameTitle, focusGameTitle } from './game-heading.js';
 
 export function setupLogic({ effect = () => {}, getProgress, updateProgress, getOptions, speak, stopPlayback, setLevel, setRouteView }) {
   const root = document.querySelector('#furfangliget');
@@ -45,13 +46,14 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
   function menu() {
     cancelSuccess(); cancelAnimation(); stopPlayback(); kind = null; root.dataset.game = 'menu'; delete root.dataset.done; delete root.dataset.successPending;
     const p = normalizeLogic(getProgress());
-    root.innerHTML = `<div class="logic-intro"><span class="logic-eyebrow">GONDOLKODJ · PRÓBÁLD KI · ALAKÍTSD ÁT</span><h2 tabindex="-1">Furfangliget</h2><p>Ma melyik fejtörőt választod?</p></div><div class="logic-places">${LOGIC_GAMES.map((game, i) => {
+    setGameTitle(root, 'Furfangliget');
+    root.innerHTML = `<p class="logic-intro">Ma melyik fejtörőt választod?</p><div class="logic-places">${LOGIC_GAMES.map((game, i) => {
       const level = levelFor(game), saved = logicSessionForLevel(p, game, level), resume = saved && !saved.done && saved.level === level && (game !== 'shop' || saved.limit === getOptions().mathLimit);
       const completed = p.games[game].reduce((n, v) => n + v.independent + v.assisted, 0);
       return `<button class="logic-place" data-game="${game}"><span class="logic-place-icon" aria-hidden="true">${i === 2 ? foxArt : ['🧺', '⚙️'][i]}</span><strong>${LOGIC_NAMES[game]}</strong><span>${['Két rendelés, két kosár', 'Találd ki, építsd meg!', 'Előbb tervezz, aztán indulj!'][i]}</span><small>${LEVEL_NAMES[level - 1]}${resume ? ' · Folytatható' : ''}${completed ? ` · ${completed} kész` : ''}</small></button>`;
     }).join('')}</div><p class="logic-footer">Minden játékban három nehézséget próbálhatsz ki. A megkezdett feladatot elmentjük.</p>`;
     root.querySelectorAll('[data-game]').forEach(button => button.addEventListener('click', () => startGame(button.dataset.game)));
-    $('h2').focus({ preventScroll: true }); say('logic_menu');
+    focusGameTitle(root); say('logic_menu');
   }
   function startGame(game, fresh = false) {
     cancelSuccess(); cancelAnimation(); stopPlayback(); kind = game;
@@ -59,7 +61,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
     session = !fresh && previous && previous.level === level && (kind !== 'shop' || previous.limit === limit) ? previous : newSession(kind, level, limit);
     task = logicTaskForSession(session);
     slot = 0; trial = false; predictionChecked = false; predictionHelp = [0, 0]; experimentInput = 2; experimentShown = false; ghost = []; fox = session.done && kind === 'route' ? task.end : null; status = ''; counters = session.level === 1;
-    save(); render(); $('h2').focus({ preventScroll: true }); repeat();
+    save(); render(); focusGameTitle(root); repeat();
   }
   function repeat() {
     if (successPending) return;
@@ -87,7 +89,8 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
   function render(focus) {
     const hadFocus = focus || (root.contains(document.activeElement) ? document.activeElement.id : '');
     root.dataset.game = kind; root.dataset.done = finished(); root.dataset.successPending = successPending; root.dataset.level = session.level; root.dataset.busy = busy;
-    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back">↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><span class="logic-scene-label">${{ shop: 'ERDEI PIAC', machine: 'FURFANG MŰHELYE', route: 'RÓKAPOSTA' }[kind]}</span><h2 tabindex="-1">${LOGIC_NAMES[kind]}</h2><p>${finished() ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${finished() ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${session.done || busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>${finished()?relatedTaskMarkup('furfangliget',kind):''}`;
+    setGameTitle(root, LOGIC_NAMES[kind]);
+    root.innerHTML = `<div class="logic-toolbar"><button id="logic-back" hidden>↶ Liget</button><label class="logic-level-control"><span>Nehézség</span><select id="logic-level" ${busy ? 'disabled' : ''}>${LEVEL_NAMES.map((name, index) => `<option value="${index + 1}" ${session.level === index + 1 ? 'selected' : ''}>${index + 1}. ${name}</option>`).join('')}</select></label><button id="logic-repeat" aria-label="Feladat meghallgatása">🔊 Újra</button></div><div class="logic-heading"><p>${finished() ? 'Elkészült! Új fejtörő vár rád.' : kind === 'shop' ? (session.stage ? 'Változott a rendelés. Rendezd át a kosarakat!' : 'Tedd a terméseket a két kosárba!') : kind === 'machine' ? 'Figyeld meg, rakd össze, majd számolj!' : 'Csomagok felvétele, aztán irány a ház!'}</p></div><div id="logic-work"></div><p id="logic-status" class="logic-status" role="status" aria-live="polite">${status}</p><div class="logic-actions"><button id="logic-undo" ${session.done || busy || !session.history.length ? 'disabled' : ''}>↶ Visszavonás</button><button id="logic-hint" ${session.done || busy ? 'disabled' : ''}>💡 Segíts! <small>${session.help}/3</small></button>${finished() ? '<button id="logic-next" class="logic-primary">Új feladat</button>' : `<button id="logic-check" class="logic-primary" ${session.done || busy ? 'disabled' : ''}>${busy ? (kind === 'shop' ? 'Szállítás…' : 'Próba…') : kind === 'route' ? '▶ Kipróbálom' : 'Kész! ✓'}</button>`}</div>${finished()?relatedTaskMarkup('furfangliget',kind):''}`;
     bind('#logic-back', menu); bind('#logic-repeat', repeat);
     $('#logic-level').addEventListener('change', event => {
       if (busy) return;

@@ -45,7 +45,7 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   await page.locator('#logic-check').click();await page.waitForFunction(()=>window.expansionFixture.logic.sessions.shop.stage===1);
   ok((await page.locator('.logic-order-change').innerText()).includes('→'),'changed order shows before and after');
   await layout('#furfangliget','shop');
-  await page.locator('#logic-back').click();await page.locator('[data-game="machine"]').click();task=await logicTask('machine');
+  await page.locator('#logic-back').dispatchEvent('click');await page.locator('[data-game="machine"]').click();task=await logicTask('machine');
   for(let i=0;i<task.program.length;i++){await page.locator(`#logic-slot-${i}`).click();await page.locator(`#logic-op-${task.program[i]}`).click();}
   const answers=await page.evaluate(t=>t.questions.map(n=>window.expansionFixture.ld.applyRule(n,t.program)),task);
   await fill(0,answers[0]);await fill(1,(answers[1]+1)%(task.limit+1));await page.locator('#logic-check').click();
@@ -54,7 +54,7 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   await page.locator('.logic-experiment summary').click();await page.locator('#logic-experiment-input').fill('4');await page.locator('#logic-experiment-run').click();
   ok(await page.locator('.logic-experiment-trace').count()===2,'experiment compares both operation orders');
   await layout('#furfangliget','machine');
-  await page.locator('#logic-back').click();await page.locator('[data-game="route"]').click();task=await logicTask('route');
+  await page.locator('#logic-back').dispatchEvent('click');await page.locator('[data-game="route"]').click();task=await logicTask('route');
   const path=await page.evaluate(t=>window.expansionFixture.ld.routeSolution(t),task);
   for(const cell of path.slice(1))await page.locator(`#logic-cell-${cell}`).click();
   await page.locator('#logic-plan-1').click();await page.locator('#logic-replan-confirm').click();
@@ -69,7 +69,7 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   ok((await state()).logic.sessions.route.done,'single-step playback can complete a route');
   ok(await page.locator('#furfangliget[data-success-pending="true"]').count()===1&&await page.locator('#logic-next').count()===0,'route saves immediately while its completed map stays visible');
   ok(await page.evaluate(()=>expansionFixture.effects.includes('step')),'route playback retains step sounds');
-  const reward=(await state()).rewards;await page.locator('#logic-back').click();await page.locator('[data-game="route"]').click();ok((await state()).rewards===reward,'reopening completed route never rewards twice');
+  const reward=(await state()).rewards;await page.locator('#logic-back').dispatchEvent('click');await page.locator('[data-game="route"]').click();ok((await state()).rewards===reward,'reopening completed route never rewards twice');
   ok(await page.locator('#furfangliget .next-task-card').count()===1,'completed logic task offers the related activity');
   await layout('#furfangliget','route');
   await page.evaluate(()=>{const f=window.expansionFixture;f.logicController.stop();document.querySelector('#furfangliget').hidden=true;document.querySelector('#workshop').hidden=false;f.workshopController.start();});
@@ -83,7 +83,7 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
     ok((await state()).rewards===beforeSort+round,`sorting round ${round+1} rewards at the correct point`);
   }
   await layout('#workshop','sorting');
-  await page.locator('#ws-back').click();await page.locator('#ws-place-pattern').click();task=await workshopTask();
+  await page.locator('#ws-back').dispatchEvent('click');await page.locator('#ws-place-pattern').click();task=await workshopTask();
   const fixedLabels=await page.locator('.ws-pattern-fixed').evaluateAll(elements=>elements.every(el=>el.getAttribute('role')==='img'&&/kör|négyzet|háromszög/.test(el.getAttribute('aria-label'))));ok(fixedLabels,'every fixed pattern example names its shape');
   await page.locator('#ws-pattern-listen').click();
   const spoken=await page.evaluate(()=>window.expansionFixture.spoken.at(-1));
@@ -94,7 +94,7 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   await page.locator('#ws-check').click();
   ok(await page.locator('#ws-pattern-listen').isDisabled()&&await page.locator('.ws-celebration').count()===0,'completed pattern keeps the viewing interval quiet');
   await page.locator('.ws-celebration').waitFor();
-  await page.locator('#ws-back').click();await page.locator('#ws-place-balance').click();task=await workshopTask();
+  await page.locator('#ws-back').dispatchEvent('click');await page.locator('#ws-place-balance').click();task=await workshopTask();
   const beforeBalance=(await state()).rewards;
   for(const rod of task.solutions[0])await page.locator(`#ws-add-${rod}`).click();await page.locator('#ws-check').click();
   ok((await state()).rewards===beforeBalance+1,'first balance solution rewards once');
@@ -109,11 +109,11 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
     ok(await page.locator('.ws-celebration').count()===0,'alternative solution also preserves the completed scene before celebration');
     await page.locator('.ws-celebration').waitFor();
   }
-  await page.locator('#ws-back').click();await page.locator('#ws-level-2').click();await page.locator('#ws-place-balance').click();
+  await page.locator('#ws-back').dispatchEvent('click');await page.locator('#ws-level-2').click();await page.locator('#ws-place-balance').click();
   ok(await page.locator('[data-criterion]').count()===3,'balance displays sum, piece count and distinctness separately');
   await layout('#workshop','balance');
   await page.setViewportSize({width:320,height:740});await layout('#workshop','balance small phone');
-  await page.locator('#ws-back').click();await page.locator('#ws-place-pattern').click();await layout('#workshop','pattern small phone');
+  await page.locator('#ws-back').dispatchEvent('click');await page.locator('#ws-place-pattern').click();await layout('#workshop','pattern small phone');
   await page.evaluate(()=>{
     const f=window.expansionFixture;f.options.workshopLevel=1;
     const seed=Array.from({length:100},(_,i)=>i).find(i=>f.wd.generateWorkshopTask('sort',1,i).ruleKeys[0]==='size');

@@ -35,13 +35,13 @@ async (page) => {
    const resume=(await saved()).logic.sessions[kind];await page.reload();await enter();await page.locator(`[data-game="${kind}"]`).click();ok(JSON.stringify((await saved()).logic.sessions[kind])===JSON.stringify(resume),`${kind} ${level}: reload restores complete attempt`);
    await page.locator('#logic-check').evaluate(b=>{b.click();b.click()});await page.waitForSelector('#logic-next');
    ok((await saved()).rewards===before+1,`${kind} ${level}: exactly one reward`);ok((await saved()).logic.games[kind][level-1].assisted===1,`${kind} ${level}: assisted result separated`);
-   await page.locator('#logic-back').click();await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-next').count()===1,`${kind} ${level}: solved task stays solved`);
+   await page.locator('#logic-back').dispatchEvent('click');await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-next').count()===1,`${kind} ${level}: solved task stays solved`);
    await page.locator('#logic-next').click();ok(!(await saved()).logic.sessions[kind].done,`${kind} ${level}: new replayable task`);
    for(const [width,height] of [[430,932],[932,430],[834,1194],[1194,834],[430,740],[932,350],[375,667]]){
     await page.setViewportSize({width,height});const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,small:[...document.querySelectorAll('#furfangliget button')].filter(b=>{const r=b.getBoundingClientRect();return r.width<43||r.height<43}).map(b=>b.id)}));ok(!metrics.overflow,`${kind} ${level}: width ${width}×${height}`);
     if((width===430&&height===932)||(width===1194&&height===834))await page.screenshot({path:`output/playwright/logic-${kind}-L${level}-${width}.png`,fullPage:true});
    }
-   await page.setViewportSize({width:430,height:932});await page.locator('#logic-back').click();
+   await page.setViewportSize({width:430,height:932});await page.locator('#logic-back').dispatchEvent('click');
   }
  }
  ok((await saved()).attempts===original,'Math leaves speech attempts untouched');ok(errors.length===0,'No page errors');

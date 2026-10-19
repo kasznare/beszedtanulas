@@ -53,11 +53,11 @@ export async function runFurfangPolishChecks(page, baseURL) {
     ensure(await page.evaluate(() => window.furfangFixture.rewards) === stage, 'shop reward only after both orders');
   }
   ensure(await page.locator('.is-delivered').count() === 1, 'completed delivery remains visible');
-  await page.locator('#logic-back').click(); await page.locator('[data-game="shop"]').click();
+  await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="shop"]').click();
   ensure(await page.evaluate(() => window.furfangFixture.rewards) === 1, 'reopening does not duplicate reward');
   await page.locator('#logic-level').selectOption('2');
   ensure(await page.evaluate(() => window.furfangFixture.levelChanges.at(-1).join()) === 'shop,2', 'difficulty callback persists');
-  await page.locator('#logic-back').click(); await page.locator('[data-game="machine"]').click();
+  await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="machine"]').click();
   await assertLayout('machine mobile'); task = await taskFor('machine');
   await page.locator('#logic-trial').click();
   ensure((await page.locator('#logic-status').textContent()).includes('üres'), 'machine needs all slots');
@@ -73,7 +73,7 @@ export async function runFurfangPolishChecks(page, baseURL) {
   const answers = await page.evaluate(t => t.questions.map(n => window.furfangFixture.data.applyRule(n, t.program)), task);
   for (let i = 0; i < 2; i++) { await page.locator(`#logic-value-${i}`).fill(String(answers[i])); await page.locator(`#logic-value-${i}`).press('Tab'); }
   await page.locator('#logic-check').click(); await page.locator('#logic-next').waitFor(); ensure(await page.locator('#logic-next').count() === 1, 'correct machine completes after its viewing interval');
-  await page.locator('#logic-back').click(); await page.locator('[data-game="route"]').click();
+  await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="route"]').click();
   await assertLayout('route mobile'); task = await taskFor('route');
   const path = await page.evaluate(t => window.furfangFixture.data.routeSolution(t), task);
   for (const cell of path.slice(1)) await page.locator(`#logic-cell-${cell}`).click();
@@ -105,7 +105,7 @@ export async function runFurfangPolishChecks(page, baseURL) {
   ensure(await page.evaluate(() => window.furfangFixture.rewards) === 3, 'stopping cancels completion');
   await page.evaluate(() => window.furfangFixture.controller.start());
   await page.locator('[data-game="shop"]').click(); await assertLayout('shop landscape');
-  await page.locator('#logic-back').click(); await page.locator('[data-game="machine"]').click(); await assertLayout('machine landscape');
+  await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="machine"]').click(); await assertLayout('machine landscape');
   if (await page.locator('#logic-next').count()) await page.locator('#logic-next').click();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   task = await taskFor('machine'); for (const op of task.program) await page.locator(`#logic-op-${op}`).click();

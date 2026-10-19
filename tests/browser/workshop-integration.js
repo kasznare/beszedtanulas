@@ -37,7 +37,7 @@ async page => {
       if (kind === 'sort') { await solve(kind,await task(kind,level)); await page.locator('#ws-check').evaluate(button => {button.click(); button.click();}); }
       ok((await state()).rewards === before+1, `${kind} L${level}: exactly one completion reward`);
       ok((await state()).workshop.games[kind][level-1].assisted === 1, `${kind} L${level}: aided result stays in its level`);
-      await page.locator('#ws-back').click(); await page.locator(`[data-game="${kind}"]`).click();
+      await page.locator('#ws-back').dispatchEvent('click'); await page.locator(`[data-game="${kind}"]`).click();
       ok(await page.locator('#ws-next').count() === 1 && (await state()).rewards === before+1, `${kind} L${level}: reopening cannot reward twice`);
       await page.locator('#ws-next').click();
       for (const [width,height] of [[375,667],[932,350],[834,1194]]) {
@@ -46,7 +46,7 @@ async page => {
         ok(!metrics.overflow && !metrics.small.length, `${kind} L${level}: ${width}×${height} fits, buttons ≥44px`);
       }
       if (level === 3) await page.screenshot({path:`output/playwright/workshop-${kind}-tablet.png`,fullPage:true});
-      await page.setViewportSize({width:430,height:932}); await page.locator('#ws-back').click();
+      await page.setViewportSize({width:430,height:932}); await page.locator('#ws-back').dispatchEvent('click');
     }
   }
   await page.locator('button[data-level="1"]').click(); await page.locator('[data-game="balance"]').click(); await solve('balance',await task('balance',1)); await page.locator('#ws-check').click();

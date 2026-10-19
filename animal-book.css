@@ -10,7 +10,6 @@
 .abk-paper[data-turn=forward] { animation:abk-turn-forward .2s ease-out; transform-origin:left center; }
 .abk-paper[data-turn=backward] { animation:abk-turn-backward .2s ease-out; transform-origin:left center; }
 .abk-heading { text-align:center; margin:0 0 14px; }
-.abk-eyebrow { display:block; font-size:.72rem; font-weight:800; letter-spacing:.1em; color:var(--abk-accent); }
 .abk-heading h2 { margin:5px 0 4px; font-size:clamp(1.6rem,4vw,2.15rem); line-height:1.12; font-family:Georgia,"Times New Roman",serif; font-weight:700; }
 .abk-heading p { margin:0; font-size:.96rem; line-height:1.4; }
 .abk-modes { display:flex; justify-content:center; flex-wrap:wrap; gap:7px; margin:0 0 9px; }
@@ -75,6 +74,26 @@
  .abk-scene { grid-area:scene; }.abk-animals { grid-area:animals; gap:8px; margin:0; }.animal-book-panel .abk-animal { min-height:77px; padding:7px 4px; }.abk-animal-symbol { font-size:2.1rem; }.abk-animal-name { font-size:.83rem; }.abk-animal-speaker { font-size:.7rem; top:5px; right:5px; }
  .abk-status { grid-area:status; min-height:2.8em; margin:0; font-size:.79rem; }.abk-page-controls { grid-area:controls; gap:16px; }.animal-book-panel .abk-page-arrow { min-height:44px; }.abk-page-index { grid-area:index; margin:0; gap:2px; }.animal-book-panel .abk-page-index button { padding:5px; font-size:.76rem; }.abk-page-index small { font-size:.73rem; }
  .abk-footer { grid-area:footer; margin-top:2px; padding-top:3px; gap:4px 12px; }.animal-book-panel .abk-footer button { font-size:.75rem; }.abk-footer>span { font-size:.74rem; }
+}
+/* Tablets: the open page fits the visible height. */
+@media(min-width:700px) and (min-height:600px) {
+ .abk-paper { display:grid; gap:8px 18px; padding:12px 16px 8px; align-items:center; align-content:start; }
+ .abk-heading { grid-area:heading; display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center; gap:4px 14px; margin:0; }.abk-heading h2 { margin:0; font-size:1.6rem; }
+ .abk-modes { grid-area:modes; flex-wrap:nowrap; margin:0; }.animal-book-panel .abk-modes button { padding:6px 10px; font-size:.92rem; }
+ .abk-task, .animal-book-panel #abk-name-sound { grid-area:task; margin:0 auto; }
+ .abk-scene { grid-area:scene; }.abk-animals { grid-area:animals; margin:0; gap:10px; }.animal-book-panel .abk-animal { min-height:82px; padding:6px; }.abk-animal-symbol { font-size:2.3rem; }
+ .abk-status { grid-area:status; margin:0 auto; min-height:1.4em; }
+ .abk-page-controls { grid-area:controls; gap:14px; }.abk-page-index { grid-area:index; margin:0; gap:4px; }.animal-book-panel .abk-page-index button { padding:5px 8px; }
+ .abk-footer { grid-area:footer; margin:0; padding-top:4px; }
+}
+@media(min-width:700px) and (min-height:600px) and (orientation:portrait) {
+ .abk-paper { grid-template-columns:auto minmax(0,1fr); grid-template-areas:'heading heading' 'modes modes' 'task task' 'scene scene' 'animals animals' 'status status' 'controls index' 'footer footer'; }
+ .abk-scene { max-width:calc((100dvh - 590px) * 1.5); }
+}
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+ .abk-paper { grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr); grid-template-areas:'heading heading' 'scene modes' 'scene task' 'scene animals' 'scene status' 'scene controls' 'scene index' 'footer footer'; }
+ .abk-modes { flex-wrap:wrap; }
+ .abk-scene { align-self:start; max-width:calc((100dvh - 290px) * 1.5); }
 }
 @media(prefers-reduced-motion:reduce) { .animal-book-panel *, .animal-book-panel *::before, .animal-book-panel *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
 .animal-credits-dialog { width:min(650px,calc(100% - 32px)); max-height:85svh; padding:28px; border:2px solid #d5c6ae; border-radius:20px; background:#fffdf4; color:#454436; overflow:auto; }

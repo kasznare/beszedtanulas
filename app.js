@@ -106,7 +106,7 @@ const screenInfo = {
   cards: { title: "Beszélő képek", guide: "cards" },
   "listening-game": { title: "Hol van?", guide: "listening_game" },
   "practice-menu": { title: "Mondd utánam", guide: "menu_speech" },
-  imitate: { title: "Mondd utánam", guide: "imitate" },
+  imitate: { title: "Egy szó", guide: "imitate" },
   "two-word": { title: "Két szó", guide: "phrase" },
   "number-menu": { title: "Számok és logika", guide: "menu_thinking" },
   numbers: { title: "Számoljunk!", guide: "count" },
@@ -316,7 +316,10 @@ function syncProfileControls() {
     ? "Kipróbálhatod a játékokat: a próba eredményei külön maradnak. Ha végeztél, a Vissza a gyerekhez gombbal add át a játékot."
     : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
   const group = GROUPS.find(value => value.screen === currentScreen || value.screens.includes(currentScreen) || (currentScreen === 'cards' && value.screen === 'picture-menu'));
-  document.querySelector("#screen-kicker").textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
+  const kicker = document.querySelector("#screen-kicker");
+  kicker.textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
+  // A category screen already shows its name as the title; repeating it above adds nothing.
+  kicker.hidden = kicker.textContent === document.querySelector("#screen-title").textContent;
   playTime?.tick();
 }
 
@@ -340,6 +343,10 @@ supabaseSyncNowBtn.addEventListener("click", () => {
 
 setupNavigation();
 setupParentSettings();
+// A long press during play opens no copy or image menu; fields and the parent page keep it.
+document.addEventListener("contextmenu", event => {
+  if (currentScreen !== "parent" && matchMedia("(pointer: coarse)").matches && !event.target.closest("input, textarea, select, [contenteditable='true']")) event.preventDefault();
+});
 effects = createInteractionAudio({
   getContext: getSfxContext, getOptions: () => state.settings,
   isHidden: () => document.hidden,

@@ -76,7 +76,7 @@ async page => {
     await page.locator('[data-mo-level="4"]').click();
     await clear(); await page.locator('[data-mo-blocker]').first().click(); ok(await heard(340), 'Opening a blocker has a sliding sound');
     await page.locator('[data-mo-level="3"]').click(); id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
-    await clear(); await move(`[data-mo-piece="${id}"]`, '.mo-heading');
+    await clear(); await move(`[data-mo-piece="${id}"]`, '.mo-instructions');
     ok(await heard(510) && await heard(440) && !await heard(480), 'Dragging outside has pickup and return sounds, and no false fall sound');
     await clear(); await move(`[data-mo-piece="${id}"]`, `[data-mo-target="${id}"]`, false); await page.locator('#montessori').dispatchEvent('pointercancel'); await page.mouse.up();
     ok(!await heard(480) && await page.locator(`[data-mo-piece="${id}"]`).count()===1, 'Pointer cancellation does not sound like a successful drop');
@@ -95,7 +95,7 @@ async page => {
       const { createMontessoriSession } = await import('./montessori-session.js');
       return createMontessoriSession(game, +level, saved.seed);
     });
-    await page.locator('#mo-back').click(); await page.locator('[data-mo-game="grid"]').click(); await page.locator('#mo-restart').click();
+    await page.locator('#mo-back').dispatchEvent('click'); await page.locator('[data-mo-game="grid"]').click(); await page.locator('#mo-restart').click();
     const grid = await exercise();
     await clear(); await page.locator('#mo-check').click(); ok(await heard(370) && !await heard(660), 'Checking an incomplete grid gives only a retry cue');
     const used = new Set();
@@ -105,7 +105,7 @@ async page => {
     }
     ok(await heard(510) && await heard(580), 'Grid tiles have pickup and placement cues');
     await clear(); await page.locator('#mo-check').click(); ok(await heard(660) && await page.locator('#montessori').getAttribute('data-done')==='true', 'A correctly checked grid has a completion cue');
-    await page.locator('#mo-back').click(); await page.locator('[data-mo-game="memory"]').click(); await page.locator('#mo-restart').click();
+    await page.locator('#mo-back').dispatchEvent('click'); await page.locator('[data-mo-game="memory"]').click(); await page.locator('#mo-restart').click();
     await clear(); await page.locator('#mo-hide-pattern').click(); ok(await heard(400), 'Hiding the Montessori memory pattern has a paper cue');
     await clear(); await page.locator('#mo-show-pattern').click(); ok(await heard(400), 'Revisiting the Montessori memory pattern also has a paper cue');
 
