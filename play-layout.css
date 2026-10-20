@@ -63,6 +63,12 @@
 /* Phones (portrait): menus inside games use two columns, and practice pictures shrink a little. */
 @media (max-width: 600px) and (orientation: portrait) {
   .home-grid { gap: 10px; }
+  .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card, .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card:last-child:nth-child(odd),
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { min-height: 120px; padding: 28px 6px 8px; gap: 4px; flex-direction: column; text-align: center; grid-column: auto; }
+  .menu-panel[data-cards="7"] .game-menu-icon, .menu-panel[data-sections="2"] .game-menu-icon { font-size: 34px; }
+  .menu-panel[data-cards="7"] .game-menu-card small, .menu-panel[data-sections="2"] .game-menu-card small,
+  .menu-panel[data-cards="7"] .game-menu-arrow, .menu-panel[data-sections="2"] .game-menu-arrow { display: none; }
+  .menu-section-title { margin: 2px 0 6px; }
   .mo-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .mo-menu .mo-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 8px 12px; }
   .mo-menu .mo-card-art { height: 92px; transform: scale(.55); }
@@ -132,6 +138,20 @@
   .imitate-wrap > #imitate-word, .phrase-wrap > #phrase-text { grid-column: 1; grid-row: 7 / span 3; align-self: start; margin: 6px 0 0; }
   .imitate-wrap > .reward, .phrase-wrap > .reward { grid-column: 1; grid-row: 1; }
   .imitate-wrap > .actions, .phrase-wrap > .actions { margin: 8px 0; }
+
+  /* Counting: both option groups on one line, the object choices in a column beside the board. */
+  .numbers-wrap { position: relative; padding-right: 76px; text-align: center; }
+  .numbers-wrap > .upgrade-options { display: inline-flex; margin: 0 4px 2px; vertical-align: top; }
+  .numbers-wrap > .round-progress { margin: 0 0 2px; }
+  .numbers-wrap > .number-object-picker { position: absolute; right: 0; top: 0; flex-direction: column; gap: 6px; margin: 0; }
+  .numbers-wrap .number-model { margin-top: 0; margin-bottom: 0; }
+  .numbers-wrap #number-status { margin: 2px 0; }
+  .numbers-wrap .actions { margin: 4px 0; }
+  /* Műhelyliget and the teddy request game: tighter spacing around the work area. */
+  .workshop-panel .ws-heading { margin: 2px 0 4px; }
+  .workshop-panel .ws-status { margin: 4px 0; }
+  .workshop-panel .ws-actions { padding-bottom: 0; }
+  .teddy-expression { margin-top: 8px; gap: 8px; }
 
   /* Hol van?: the prompt and choices on the left, the pictures on the right. */
   .listening-panel.is-active { display: grid; grid-template-columns: 260px minmax(0, 1fr); column-gap: 24px; align-items: center; align-content: center; max-width: 1000px; margin-inline: auto; }
