@@ -172,4 +172,6 @@
   .logic-panel > .next-task-card p { margin: 0; max-width: 170px; font-size: .8rem; line-height: 1.25; text-align: left; }
   .workshop-panel > .next-task-card .next-task-button,
   .logic-panel > .next-task-card .next-task-button { width: auto; min-height: 48px; padding: 4px 12px; gap: 0; }
+  .workshop-panel > .next-task-card .next-task-button strong,
+  .logic-panel > .next-task-card .next-task-button strong { white-space: nowrap; }
 }

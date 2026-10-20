@@ -199,6 +199,13 @@
  .ws-balance-scene>.ws-found-solutions { grid-column:2; grid-row:6; align-self:start; }
  .ws-balance-reference i { width:13px; height:13px; }.ws-unit-comparison i { width:12px; height:12px; }
  .ws-count-rule { gap:2px; }
+ /* Válogatókert: the "other shapes" bin becomes a third column beside the colour/size bins. */
+ .ws-heading p { max-width:none; }.ws-rule-card { padding:4px 12px; margin:0 0 8px; }
+ .ws-sort-layout { gap:12px; }.ws-table { padding:10px; }.ws-token-pool { min-height:120px; }.ws-selection { margin:6px 0; }
+ .ws-bins { gap:8px; }.ws-bin { padding:6px; }.ws-bin-tokens { min-height:60px; padding-top:6px; }
+ .ws-bins:has(> .ws-leaf-bin) { grid-template-columns:repeat(2,minmax(0,1fr)) minmax(110px,.6fr); }
+ .ws-bins>.ws-leaf-bin { grid-column:3; grid-row:1/span 2; grid-template-columns:1fr; align-content:start; }
+ .ws-leaf-bin .ws-bin-target { flex-direction:column; gap:0; }.ws-leaf-bin .ws-bin-target>span:last-child { text-align:center; }
  /* The win banner fills the empty middle of the toolbar row instead of pushing the work down. */
  .workshop-panel { position:relative; }
  .ws-celebration { position:absolute; top:0; left:0; right:0; z-index:1; width:fit-content; height:48px; box-sizing:border-box; margin:0 auto; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
