@@ -176,3 +176,32 @@
 .ws-unit-rod { display:flex; }.ws-unit-rod i { background:var(--rod-tone); }
 @media(max-width:375px) { .ws-pattern-thread { grid-template-columns:repeat(4,minmax(0,1fr)); }.ws-bins { grid-template-columns:minmax(0,1fr); }.ws-leaf-bin { grid-template-columns:100px minmax(0,1fr); } }
 @media(min-width:650px) and (max-width:760px) and (max-height:540px) { .ws-pattern-thread { grid-template-columns:repeat(6,minmax(0,1fr)); } }
+
+/* Landscape tablets: Mintaszövő keeps the thread on one row; Egyensúlyműhely splits its scene into two columns. */
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+ .ws-heading { margin:4px 0 8px; }.ws-heading p { margin-top:0; }.ws-status { margin:6px 0; }.ws-actions { padding-bottom:4px; }
+ .ws-pattern-panel { padding:10px 12px; }#ws-pattern-listen { margin:0 auto 8px; }.ws-slot-label { margin-top:8px; }
+ .ws-pattern-thread { grid-template-columns:repeat(12,minmax(0,1fr)); gap:6px; max-width:none; }
+ .ws-pattern-toolbox { margin-top:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; }.ws-pattern-toolbox h3 { margin:0; }.ws-pattern-choices { margin:0; }
+ /* Left: counts, scale, sentence, checks. Right: the target beads, the rule, your beads, the tray and found solutions. */
+ .ws-balance-scene { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-rows:auto auto auto auto auto auto; gap:6px 14px; align-items:center; padding:10px; }
+ .ws-balance-scene>* { margin-top:0; margin-bottom:0; min-width:0; }
+ .ws-balance-scene>.ws-balance-heading { grid-column:1; grid-row:1; }.ws-balance-heading span { flex-direction:row; gap:6px; }
+ .ws-balance-scene>.ws-scale { grid-column:1; grid-row:2/span 3; width:min(100%,250px); }
+ .ws-balance-scene>.ws-balance-description { grid-column:1; grid-row:5; }
+ .ws-balance-scene>.ws-balance-checks { grid-column:1; grid-row:6; justify-content:center; gap:4px; align-self:start; }
+ .ws-balance-checks li { padding:3px 7px; font-size:.78rem; }
+ .ws-balance-scene>.ws-balance-reference { grid-column:2; grid-row:1; }
+ .ws-balance-scene>.ws-count-rule { grid-column:2; grid-row:2; }
+ .ws-balance-scene>.ws-unit-comparison { grid-column:2; grid-row:3; }
+ .ws-balance-scene>.ws-balance-tray { grid-column:2; grid-row:4; }
+ .ws-balance-scene>.ws-footnote { grid-column:2; grid-row:5; }
+ .ws-balance-scene>.ws-found-solutions { grid-column:2; grid-row:6; align-self:start; }
+ .ws-balance-reference i { width:13px; height:13px; }.ws-unit-comparison i { width:12px; height:12px; }
+ .ws-count-rule { gap:2px; }
+ /* The win banner fills the empty middle of the toolbar row instead of pushing the work down. */
+ .workshop-panel { position:relative; }
+ .ws-celebration { position:absolute; top:0; left:0; right:0; z-index:1; width:fit-content; height:48px; box-sizing:border-box; margin:0 auto; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
+ .ws-found-solutions { padding:6px 8px; gap:4px 6px; }.ws-found-solutions strong { flex-basis:auto; font-size:.85rem; }.ws-found-solutions span { font-size:.85rem; }
+ .ws-balance-tray { min-height:64px; padding:8px; }.ws-rods-toolbox { padding:10px 12px; }.ws-rods { margin-top:8px; gap:7px; }.workshop-panel .ws-rod-choice { min-height:68px; padding:6px 4px; gap:5px; }
+}
