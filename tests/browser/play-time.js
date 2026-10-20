@@ -17,12 +17,12 @@ export default async function runPlayTimeQA(page) {
   await page.reload();
   const at = screen => page.waitForFunction(value => document.body.dataset.screen === value, screen);
   const remaining = () => page.evaluate(() => { const r = JSON.parse(localStorage.getItem('beszedtanulas.playTime.v1')); return r.startedAt === null ? 1800000 : Math.max(0, r.startedAt + 1800000 - Date.now()); });
-  const enter = async (group, screen) => { if (await page.locator('body').getAttribute('data-screen') !== 'home') await page.locator('#home-button').click(); await page.locator(`#home [data-open="${group}"]`).click(); await page.locator(`#${group} [data-open="${screen}"]`).click(); await at(screen); };
+  const enter = async (group, screen) => { if (await page.locator('body').getAttribute('data-screen') !== 'home') await page.locator('#home-button').click(); if (group) await page.locator(`#home [data-open="${group}"]`).click(); await page.locator(group ? `#${group} [data-open="${screen}"]` : `#home [data-open="${screen}"]`).click(); await at(screen); };
   const seed = async remainingMs => { await page.evaluate(ms => localStorage.setItem('beszedtanulas.playTime.v1', JSON.stringify({ version: 1, cycle: `qa-${Date.now()}-${Math.random()}`, startedAt: Date.now() - 1800000 + ms })), remainingMs); await page.reload(); };
   const solveGate = async () => { const question = await page.locator('#parent-gate-question').innerText(); const sum = question.match(/\d+/g).map(Number).reduce((a,b)=>a+b); await page.locator('#parent-gate-answers button').filter({ hasText: new RegExp(`^${sum}$`) }).click(); };
 
   await page.clock.fastForward(60000); ok(await remaining() === 1800000, 'Initial menu waits for the first game');
-  await enter('play-menu', 'audiobooks'); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
+  await enter(null, 'audiobooks'); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   ok(await remaining() === 1800000, 'Browsing the story library waits for the first playback');
   await page.locator('#story-toggle').click(); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
   ok(await remaining() < 1800000 && await remaining() > 1795000, 'First actual story playback starts the deadline');
@@ -53,7 +53,7 @@ export default async function runPlayTimeQA(page) {
   await page.locator('#home [data-open="number-menu"]').click(); await page.locator('[data-mode="count"]').click(); await at('numbers'); await page.locator('#home-button').click();
   ok(true, 'All game entrances still work with the shared timer');
 
-  await seed(5000); await enter('play-menu', 'audiobooks');
+  await seed(5000); await enter(null, 'audiobooks');
   await page.locator('#story-toggle').waitFor(); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   await page.locator('#story-toggle').click(); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'playing');
   ok(await page.evaluate(() => timeQA.audio.some(audio => !audio.paused)), 'Real story playback starts');
@@ -82,7 +82,7 @@ export default async function runPlayTimeQA(page) {
   ok(await remaining() === 1800000, '15-minute break automatically restores a fresh budget');
 
   // A paused story still uses its running budget, and a second tab adopts it.
-  await seed(120000); await enter('play-menu', 'audiobooks'); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
+  await seed(120000); await enter(null, 'audiobooks'); await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   const pausedBefore = await remaining(); await page.clock.fastForward(30000); ok(await remaining() <= pausedBefore - 30000, 'A paused or unplayed story cannot pause an already running budget');
   const second = await context.newPage(); await second.clock.install({ time: new Date(await page.evaluate(() => Date.now())) }); await second.goto(url);
   await second.waitForFunction(() => document.querySelector('#home-play-time').textContent.includes('Játékidő:'));

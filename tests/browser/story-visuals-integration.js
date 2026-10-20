@@ -11,7 +11,7 @@ async page => {
     window.storyIntegrationTiming = timing;
     return { crane: timing.storyPlaybackTime('story-01', 139) };
   });
-  await page.locator('[data-open="play-menu"]').click();await page.locator('[data-open="audiobooks"]').click();
+  await page.locator('[data-open="audiobooks"]').click();
   await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
   ok(await page.locator('#story-visual-wrap').isVisible(),'The full animation is shown with the first audiobook');
@@ -43,7 +43,7 @@ async page => {
     await page.setViewportSize({width,height:950});
     ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`Mesetár has no overflow at ${width}px`);
   }
-  await page.locator('#back-button').click();await page.locator('[data-open="audiobooks"]').click();
+  await page.locator('#home-button').click();await page.locator('[data-open="audiobooks"]').click();
   await page.waitForFunction(()=>document.querySelector('#story-visual').dataset.scene==='crane');
   ok(true,'Leaving and reopening restores a single working animation');
   ok(errors.length===0,'No application JavaScript errors');

@@ -16,8 +16,7 @@ async page => {
   };
   const at = version => page.waitForFunction(version => document.body.dataset.storageTest === version && Boolean(navigator.serviceWorker.controller), version, { timeout: 120000 });
   const open = async () => {
-    await page.locator('#home [data-open="play-menu"]').click();
-    await page.locator('#play-menu [data-open="audiobooks"]').click();
+    await page.locator('#home [data-open="audiobooks"]').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
     await page.locator('.story-card[data-story="classic-arany-lacinak"]').click();
     await page.waitForFunction(() => document.querySelector('#story-title').textContent.startsWith('Arany Lacinak') && document.querySelector('#audiobooks').dataset.phase === 'ready');

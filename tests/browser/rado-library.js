@@ -24,7 +24,6 @@ async page => {
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller, { timeout: 60000 });
   const open = async () => {
-    await page.locator('[data-open="play-menu"]').click();
     await page.locator('[data-open="audiobooks"]').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks')?.dataset.phase === 'ready');
   };

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  GROUPS, parentScreen, normalizeRoute, canonicalTrail, normalizeTrail,
+  GROUPS, HOME_SCREENS, parentScreen, normalizeRoute, canonicalTrail, normalizeTrail,
   transitionTrail, createHistoryState, restoreHistoryState,
 } from '../navigation.js';
 
@@ -9,14 +9,18 @@ const route = (screen, category = 'all', numberMode = 'count') => ({ screen, cat
 const screenPath = trail => trail.map(entry => entry.screen);
 
 test('the six menu groups contain every game exactly once and cards stay below topics', () => {
-  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu', 'big-menu']);
+  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'play-menu', 'activity-menu', 'number-menu', 'big-menu']);
   const games = GROUPS.flatMap(group => group.screens);
   assert.equal(new Set(games).size, games.length);
-  assert.equal(games.length, 23);
+  assert.equal(games.length, 22);
+  // Mesetár opens straight from home; "Mi bújt el?" is a picture-word game.
+  assert.deepEqual(HOME_SCREENS, ['audiobooks']);
+  assert.equal(parentScreen('audiobooks'), 'home');
+  assert.equal(parentScreen('flip'), 'picture-menu');
+  for (const group of GROUPS) assert.ok(group.screens.length >= 2 && group.screens.length <= 5, `${group.screen} stays small`);
   assert.equal(parentScreen('engineering'), 'big-menu');
   assert.equal(parentScreen('city-story'), 'big-menu');
-  assert.deepEqual(GROUPS.at(-1).screens, ['city-story', 'chess', 'furfangliget', 'workshop', 'engineering']);
-  for (const group of GROUPS) {
+  assert.deepEqual(GROUPS.at(-1).screens, ['city-story', 'chess', 'furfangliget', 'workshop', 'engineering']);  for (const group of GROUPS) {
     assert.equal(parentScreen(group.screen), 'home');
     for (const screen of group.screens) assert.equal(parentScreen(screen), group.screen);
   }

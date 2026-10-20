@@ -85,7 +85,7 @@ let completedRoundKind = "imitate";
 const screenInfo = {
   home: { title: "Játsszunk együtt!", guide: "welcome" },
   "picture-menu": { title: "Képek és hangok", guide: "menu_pictures" },
-  "play-menu": { title: "Mesék és Maci", guide: "menu_stories" },
+  "play-menu": { title: "Játék Macival" },
   "activity-menu": { title: "Kirakók és ügyesség", guide: "menu_activity" },
   "dress-game": { title: "Maci öltözik", guide: "dress" },
   meseliget: { title: "Meseliget" },
@@ -326,7 +326,8 @@ function syncProfileControls() {
   const kicker = document.querySelector("#screen-kicker");
   kicker.textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
   // A category screen already shows its name as the title; repeating it above adds nothing.
-  kicker.hidden = kicker.textContent === document.querySelector("#screen-title").textContent;
+  // Screens that open straight from home (Mesetár) have no group to name.
+  kicker.hidden = kicker.textContent === document.querySelector("#screen-title").textContent || (!group && !preview && !["home", "parent"].includes(currentScreen));
   playTime?.tick();
 }
 

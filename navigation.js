@@ -1,17 +1,20 @@
 import { wordCategories } from './game-data.js';
 
 // Each game has one home in the menu. A trail can still cross between groups.
+// Every group is one kind of activity, listed from the easiest game to the hardest.
 export const GROUPS = Object.freeze([
-  { screen: 'picture-menu', title: 'Képek és hangok', screens: ['topics', 'listening-game', 'animal-book'] },
+  { screen: 'picture-menu', title: 'Képek és hangok', screens: ['topics', 'animal-book', 'listening-game', 'flip'] },
   { screen: 'practice-menu', title: 'Mondd utánam', screens: ['imitate', 'two-word', 'r-practice'] },
+  { screen: 'play-menu', title: 'Játék Macival', screens: ['teddy-game', 'dress-game', 'meseliget'] },
+  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'pour', 'montessori', 'differences'] },
   { screen: 'number-menu', title: 'Számok és minták', screens: ['numbers', 'patterns'] },
-  { screen: 'play-menu', title: 'Mesék és Maci', screens: ['audiobooks', 'teddy-game', 'dress-game', 'meseliget'] },
-  { screen: 'activity-menu', title: 'Kirakók és ügyesség', screens: ['memory', 'puzzle', 'differences', 'montessori', 'pour', 'flip'] },
   // Reading, planning and longer puzzles live apart from the toddler games.
   { screen: 'big-menu', title: 'Nagyoknak', screens: ['city-story', 'chess', 'furfangliget', 'workshop', 'engineering'] },
 ].map(group => Object.freeze({ ...group, screens: Object.freeze(group.screens) })));
+// Stories are not a game: Mesetár opens straight from home, next to the game groups.
+export const HOME_SCREENS = Object.freeze(['audiobooks']);
 
-const screens = new Set(['home', 'parent', 'play-break', 'cards', ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);
+const screens = new Set(['home', 'parent', 'play-break', 'cards', ...HOME_SCREENS, ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);
 const categories = new Set(wordCategories.map(category => category.id));
 const modes = new Set(['count', 'quiz']);
 const parents = new Map(GROUPS.flatMap(group => [

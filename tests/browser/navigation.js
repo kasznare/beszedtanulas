@@ -12,7 +12,7 @@ async page => {
  const enter=async(groupId,screen)=>{await group(groupId);await page.locator(`#${groupId} [data-open="${screen}"]`).click();await at(screen);};
  const back=async screen=>{await page.locator('#back-button').click();await at(screen);};
  const data=await page.evaluate(async()=>{const {GROUPS}=await import('./navigation.js');return GROUPS;});
- ok(await page.locator('#home [data-open]').count()===6,'Home has six clear groups');
+ ok(await page.locator('#home [data-open]').count()===7,'Home has six clear groups and the Mesetár strip');
  const targets=[];
  for(const {screen,screens} of data){
   await group(screen);const destinations=await page.locator(`#${screen} .game-menu-card`).evaluateAll(buttons=>buttons.map(button=>button.dataset.open||'numbers'));
@@ -61,7 +61,7 @@ async page => {
  await page.waitForFunction(async()=>Boolean((await navigator.serviceWorker.ready).active));
  await page.waitForFunction(async()=>{for(const key of await caches.keys())if((await(await caches.open(key)).keys()).some(r=>r.url.endsWith('/navigation.css')))return true;return false;});
  const saved=await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'));await context.setOffline(true);await page.reload();
- ok(await page.locator('#home [data-open]').count()===6,'Six groups survive an offline reload');
+ ok(await page.locator('#home [data-open]').count()===7,'Six groups and Mesetár survive an offline reload');
  for(const {screen} of data){await group(screen);ok(await page.locator(`#${screen} .game-menu-card`).count()>0,`${screen} works offline`);}
  ok(await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'))===saved,'Offline navigation preserves the progress backup');
  await context.setOffline(false);ok(!errors.length,'No page errors: '+errors.join('; '));

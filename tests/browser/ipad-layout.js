@@ -197,6 +197,7 @@ async page => {
     };
     const open = async (menu, game) => {
       if (await p.locator('body').getAttribute('data-screen') !== 'home') await click('#home-button');
+      if (!menu) return;
       await click(`#home [data-open="${menu}"]`);
       if (game) await click(`#${menu} [data-open="${game}"]`);
     };
@@ -204,7 +205,8 @@ async page => {
     for (const [width, height] of [[768, 900], [1024, 680]]) {
       await p.setViewportSize({ width, height });
       const size = `${width}x${height}`;
-      await open(); await click('#home-button'); await check(`${size}:home`);
+      await open(); await check(`${size}:home`);
+      await click('#home [data-open="audiobooks"]'); await check(`${size}:audiobooks`, { allowY: Infinity });
       for (const menu of menus) {
         await open(menu); await check(`${size}:${menu}`);
         for (const game of await p.locator(`#${menu} [data-open]`).evaluateAll(buttons => buttons.map(button => button.dataset.open))) {

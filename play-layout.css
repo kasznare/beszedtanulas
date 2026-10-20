@@ -23,7 +23,15 @@
 
 /* Home: six equal category tiles. */
 .home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 980px; margin: 0 auto; }
-.home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { grid-column: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 6px; min-height: min(210px, calc((100dvh - 170px) / 3)); padding: 14px 16px; }
+.home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { grid-column: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 6px; min-height: min(210px, calc((100dvh - 250px) / 3)); padding: 14px 16px; }
+/* Mesetár: stories are not a game, so they get their own strip under the six game doors. */
+.home-story { display: flex; align-items: center; gap: 14px; width: 100%; max-width: 980px; min-height: 60px; margin: 14px auto 0; padding: 8px 18px; border: 2px solid #ead9b8; border-radius: 22px; background: #f8ecd6; color: var(--ink); font: inherit; text-align: left; cursor: pointer; box-shadow: 0 4px 0 #29413810; }
+.home-story-icon { font-size: 30px; flex: none; }
+.home-story-copy { flex: 1; min-width: 0; }
+.home-story-copy strong { display: block; font-size: 1.1rem; }
+.home-story-copy small { display: block; color: #6b6248; font-size: .82rem; }
+.home-story-arrow { opacity: .4; font-size: 1.3rem; }
+.home-story:active { transform: translateY(2px); box-shadow: none; }
 .home-grid .home-art, .home-grid .art-activity { flex: 1; width: auto; min-height: 96px; margin: 0; }
 .home-tile-copy { padding-right: 0; }
 .tone-teal { background: #dbece8; }
@@ -32,7 +40,10 @@
 .big-chip + .big-chip { transform: rotate(7deg) translateY(8px); background: #f6efe0; }
 @media (orientation: landscape) and (max-height: 600px) {
   .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: calc((100dvh - 160px) / 2); padding: 8px 12px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: calc((100dvh - 240px) / 2); padding: 8px 12px; }
+  .home-story { min-height: 44px; margin-top: 6px; padding: 2px 14px; }
+  .home-panel .play-time-note { margin: 2px 0 0; font-size: .72rem; }
+  .home-story-copy small { display: none; }
   .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .6; }
   .home-tile-copy small { display: none; }
   .game-menu-grid { grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); gap: 10px; }
@@ -51,6 +62,10 @@
 
 /* Phones (portrait): menus inside games use two columns, and practice pictures shrink a little. */
 @media (max-width: 600px) and (orientation: portrait) {
+  .home-grid { gap: 10px; }
+  .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .82; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { padding: 10px 12px; }
+  .home-story { margin-top: 10px; }
   .mo-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .mo-menu .mo-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 8px 12px; }
   .mo-menu .mo-card-art { height: 92px; transform: scale(.55); }
@@ -93,7 +108,7 @@
   .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(300px, calc((100dvh - 260px) / 2)); }
   .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 76px; }
   .home-grid { gap: 16px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(260px, calc((100dvh - 190px) / 3)); padding: 16px 20px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(250px, calc((100dvh - 300px) / 3)); padding: 16px 20px; }
 }
 @media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
   .game-menu-grid:has(> :nth-child(4):last-child) > .game-menu-card { flex-basis: calc((100% - 48px) / 4); }
@@ -101,7 +116,7 @@
   .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(330px, calc(100dvh - 240px)); }
   .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 84px; }
   .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(270px, calc((100dvh - 180px) / 2)); }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(260px, calc((100dvh - 260px) / 2)); }
 
   /* Word and phrase practice: the picture on the left, every control on the right. */
   .practice-panel { max-width: 960px; }

@@ -11,7 +11,7 @@ async page => {
   page.on('pageerror',error=>errors.push(error.message));
   page.on('request',request=>{if((request.postData()||'').includes('QA_PRIVATE_STORY_TEXT')||request.url().includes('QA_PRIVATE_STORY_TEXT'))leaks.push(request.url());});
   await page.reload();await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>navigator.serviceWorker.controller,{timeout:60000});
-  const open=async()=>{await page.locator('[data-open="play-menu"]').click();await page.locator('[data-open="audiobooks"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');};
+  const open=async()=>{await page.locator('[data-open="audiobooks"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');};
   const search=async query=>page.getByLabel('Keresés cím vagy szerző alapján',{exact:true}).fill(query);
   const visible=()=>page.locator('.story-card:visible');
   await open();

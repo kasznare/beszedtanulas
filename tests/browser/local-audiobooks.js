@@ -26,7 +26,6 @@ async page => {
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller, { timeout: 60000 });
   const open = async () => {
-    await page.locator('[data-open="play-menu"]').click();
     await page.locator('[data-open="audiobooks"]').click();
     await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   };
@@ -56,7 +55,7 @@ async page => {
   ok(await page.evaluate(() => localStoryQA.audios.some(audio => audio.src.startsWith('blob:') && !audio.paused)), 'The local MP3 plays from a blob');
   await page.locator('#story-seek').evaluate(element => { element.value = 65; element.dispatchEvent(new Event('input', { bubbles: true })); });
   await page.locator('#story-toggle').click();
-  await page.locator('#back-button').click();
+  await page.locator('#home-button').click();
   await page.locator('[data-open="audiobooks"]').click();
   await page.waitForFunction(() => document.querySelector('#story-seek')?.disabled === false);
   ok((await page.locator('#story-title').innerText()).startsWith('Saját tesztmese'), 'Reopening restores the local selection');

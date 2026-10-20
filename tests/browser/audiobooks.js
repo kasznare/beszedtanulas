@@ -21,7 +21,6 @@ async page => {
   await page.evaluate(()=>navigator.serviceWorker.ready);
   await page.waitForFunction(()=>navigator.serviceWorker.controller,{timeout:60000});
   const open=async()=>{
-    await page.locator('[data-open="play-menu"]').click();
     await page.locator('[data-open="audiobooks"]').click();
     await page.waitForFunction(()=>document.querySelector('#audiobooks')?.dataset.phase==='ready');
   };
@@ -51,7 +50,7 @@ async page => {
   await page.locator('[data-story="story-02"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok(await page.evaluate(()=>storyQA.audios.filter(a=>a.src.includes('story-01')).every(a=>a.paused)),'Choosing another story stops the old audio');
   await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
-  await page.locator('#back-button').click();ok(await page.locator('#play-menu').isVisible(),'Back returns to the stories menu');
+  await page.locator('#home-button').click();ok(await page.locator('#home').isVisible(),'Home leaves Mesetár');
   ok(await page.evaluate(()=>storyQA.audios.every(a=>a.paused)),'Leaving the library stops playback');
   await page.locator('[data-open="audiobooks"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');
   ok((await page.locator('#story-title').innerText()).includes('munkagépek'),'The last selected story is restored');

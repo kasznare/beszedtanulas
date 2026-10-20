@@ -28,7 +28,7 @@ async parent => {
       await page.locator(`#home [data-open="${group}"]`).click();
       await page.locator(`#${group} [data-open="${name}"]`).click();
     };
-    for (const [menu,id] of [['picture-menu','guide_menu_pictures'],['practice-menu','guide_menu_speech'],['number-menu','guide_menu_thinking'],['play-menu','guide_menu_stories'],['activity-menu','guide_menu_activity']]) {
+    for (const [menu,id] of [['picture-menu','guide_menu_pictures'],['practice-menu','guide_menu_speech'],['number-menu','guide_menu_thinking'],['play-menu','guide_welcome'],['activity-menu','guide_menu_activity']]) {
       await home(); const start=await before(); await page.locator(`#home [data-open="${menu}"]`).click(); await heard(start,id);
     }
     for (const [screen,prefix] of [['listening-game','word_'],['teddy-game','teddy_'],['dress-game','dress_request_'],['memory','memory_start'],['puzzle','puzzle_start'],['pour','pour_start'],['chess','chess_'],['meseliget','mese_map']]) {

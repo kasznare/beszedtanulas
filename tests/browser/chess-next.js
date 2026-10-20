@@ -62,7 +62,7 @@ async page => {
     ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy ilyen' && await page.locator('#round-replay').innerText() === 'Még egy ilyen' && await page.locator('#round-replay use').getAttribute('href') === '#i-repeat', 'Star rounds retain their repeat action');
     await page.locator('#round-replay').click();
     ok(await cell('d4').locator('.chess-piece-rook').count() === 1 && await page.locator('.chess-stars .is-earned').count() === 0, 'Star repeat starts a fresh collection round');
-    await page.locator('#home-button').click(); await page.locator('#home [data-open="activity-menu"]').click(); await page.locator('#activity-menu [data-open="flip"]').click();
+    await page.locator('#home-button').click(); await page.locator('#home [data-open="picture-menu"]').click(); await page.locator('#picture-menu [data-open="flip"]').click();
     for (const button of await page.locator('#flip-grid button').all()) await button.click();
     await page.waitForSelector('#round-complete[open]');
     ok(await page.locator('#round-replay').getAttribute('aria-label') === 'Még egy ilyen' && await page.locator('#round-replay').innerText() === 'Még egy ilyen' && await page.locator('#round-replay use').getAttribute('href') === '#i-repeat', 'The shared dialog resets its label and icon for another game');
