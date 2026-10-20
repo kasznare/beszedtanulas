@@ -34,8 +34,8 @@ async page => {
   };
   const enter = async () => {
     await home();
-    await page.locator('#home [data-open="number-menu"]').click();
-    await page.locator('#number-menu [data-open="patterns"]').click(); await at('patterns');
+    await page.locator('#home [data-open="shape-menu"]').click();
+    await page.locator('#shape-menu [data-open="patterns"]').click(); await at('patterns');
   };
   const choose = async (levelId, familyId) => {
     await page.locator('#patterns-change').click();
@@ -166,9 +166,9 @@ async page => {
   await page.locator('#round-related [data-related-source="patterns"]').click(); await at('workshop');
   ok(true, 'The related activity opens the existing pattern workshop');
   const progressAfterRelated = await saved();
-  await enter(); await page.locator('#back-button').click(); await at('number-menu');
-  ok(true, 'Back returns to the numbers and logic menu');
-  await page.locator('#number-menu [data-open="patterns"]').click(); await page.locator('#home-button').click(); await at('home');
+  await enter(); await page.locator('#back-button').click(); await at('shape-menu');
+  ok(true, 'Back returns to the shapes and patterns menu');
+  await page.locator('#shape-menu [data-open="patterns"]').click(); await page.locator('#home-button').click(); await at('home');
   ok(true, 'Home leaves the new game immediately');
   await enter();
 

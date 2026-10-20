@@ -7,7 +7,7 @@ async page => {
   await page.reload();
   const menu = async () => {
     if (await page.locator('#mo-back').count()) await page.locator('#mo-back').dispatchEvent('click');
-    if (!await page.locator('.mo-menu').isVisible()) { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); await page.locator('#home [data-open="activity-menu"]').click(); await page.locator('#activity-menu [data-open="montessori"]').click(); }
+    if (!await page.locator('.mo-menu').isVisible()) { if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click(); await page.locator('#home [data-open="shape-menu"]').click(); await page.locator('#shape-menu [data-kind="shapes"]').click(); await page.locator('#mo-back').dispatchEvent('click'); }
   };
   const choose = async id => { const piece = page.locator(`[data-mo-piece="${id}"]`); if (await piece.getAttribute('aria-pressed') !== 'true') await piece.click(); };
   const ready = () => page.locator('#mo-restart:not([disabled])').waitFor();

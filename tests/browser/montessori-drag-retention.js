@@ -5,7 +5,7 @@ async page => {
   await page.context().setOffline(false); await page.emulateMedia({ reducedMotion: 'reduce' });
   const url = page.url();
   await page.evaluate(async () => { localStorage.clear(); for (const registration of await navigator.serviceWorker.getRegistrations()) await registration.unregister(); for (const key of await caches.keys()) await caches.delete(key); }); await page.goto('about:blank'); await page.goto(url);
-  await page.locator('#home [data-open="activity-menu"]').click(); await page.locator('#activity-menu [data-open="montessori"]').click(); await page.locator('[data-mo-game="shapes"]').click();
+  await page.locator('#home [data-open="shape-menu"]').click(); await page.locator('#shape-menu [data-kind="shapes"]').click();
   await page.setViewportSize({ width: 1194, height: 834 }); await page.locator('[data-mo-level="6"]').click(); await page.locator('#mo-restart').click();
   const id = await page.locator('[data-mo-piece][data-mo-shape="triangle"]').first().getAttribute('data-mo-piece');
   await page.locator('[data-mo-surface]').scrollIntoViewIfNeeded();

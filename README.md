@@ -85,17 +85,18 @@ Nyisd meg: <http://localhost:5173>. Python 3 és Node.js/npm szükséges. Nincs 
 
 Az első játék vagy mese indításakor közös **30 perces, folyamatos visszaszámlálás** indul. Sem tétlenség, sem menüben várakozás, szüneteltetett mese, szülői próba, háttérbe váltás vagy az oldal bezárása nem állítja meg. A határidőnél a hang és a mikrofon leáll, és **15 perces pihenőképernyő** jelenik meg. A pihenő végén automatikusan új 30 perces keret nyílik, amely a következő játék vagy mese indításával kezdődik. A **Szülői feloldás** a meglévő felnőtt belépőn keresztül hamarabb is új időkeretet ad; a szülői beállítások **Játékidő és pihenő** részében is indítható új 30 perc. Az abszolút határidő ugyanazon böngésző/eszköz helyi tárolójában megmarad frissítés és újranyitás után is; a párhuzamos ablakok közös keretet használnak. Ez nem eszközök közötti felhős korlát. Az eredmények visszaállítása és nullázása nem nullázza az időkeretet.
 
-A főképernyőn hat játékcsoport van, a legkisebbeknek szólóktól a nagyobbakig, alattuk külön sávban a **Mesetár**. Minden csoport egyféle tevékenység, a játékok a könnyebbtől a nehezebb felé sorakoznak.
+A főképernyőn hét készségcsoport és a **Mesetár** van. A csoportok készség szerint rendeznek, nem játék szerint: a több játékot tartalmazó ligetek (Montessori műhely, Műhelyliget, Furfangliget, Építőliget) egyes feladatai külön kártyaként abban a csoportban jelennek meg, amelyhez illenek, és közvetlenül a feladatot nyitják meg; a vissza nyíl a csoporthoz visz. A kártyák a könnyebbtől a nehezebb felé sorakoznak, és mindegyiken látszik, nagyjából milyen korosztálynak szól a szintjeivel együtt. A menük adatai a `navigation.js` `GROUPS` listájában vannak.
 
-| Csoport | Játékok |
+| Csoport | Feladatok |
 | --- | --- |
-| **Képek és hangok** | Nézegessünk!, Hangos állatkönyv, Hol van?, Mi bújt el? |
-| **Mondd utánam** | Egy szó, Két szó, Róka R-kalandja |
+| **Képek és hangok** | Nézegessünk!, Hangos állatkönyv, Hol van?, Mi bújt el?, Hang–kép párok |
+| **Mondd utánam** | Egy szó, Két szó, Én kérek, Róka R-kalandja |
 | **Játék Macival** | Etesd meg a macit!, Maci öltözik, Meseliget |
-| **Kirakók és ügyesség** | Képpárok, Képkirakó, Töltsünk a barátainknak!, Montessori műhely, Találd meg a különbségeket! |
-| **Számok és minták** | Számoljuk meg!, Keresd meg!, Folytasd a mintát! |
-| **Nagyoknak** | Műhelyliget, Építőliget, Furfangliget, Sakkliget, A film utolsó jelenete |
-| **Mesetár** (külön sáv) | Mesék és versek |
+| **Formák és minták** | *Válogass:* Építs tornyot!, Formadoboz, Színtálcák, Válogatókert · *Folytasd a sort:* Először… aztán…, Folytasd a mintát!, Mintaemlék, Mintaszövő |
+| **Számok** | Számoljuk meg!, Keresd meg!, Erdei bolt, Egyensúlyműhely |
+| **Kirakók és építés** | Töltsünk a barátainknak!, Képpárok, Képkirakó, Pottyanó torony, Találd meg a különbségeket!, Szabad építés, Hídműhely |
+| **Fejtörők** | Rendezőrács, Szabálygép, Csomagösvény, Sakkliget, A film utolsó jelenete |
+| **Mesetár** | Mesék és versek |
 
 Minden játéknak egy helye van. A fejléc mutatja a csoportot; a visszanyíl megnevezi a célját. A többjátékos ligetekben és az R-kalandban először a saját választó nyílik meg, majd a csoport. A kör végi ablakból is vissza lehet lépni a csoporthoz. A böngésző vissza/előre gombja megtartja a kiválasztott képes témát és a számolási módot. A mentett ligetfeladatok és eredmények kilépés után is megmaradnak; az új körrel induló játékok visszatéréskor új kört kezdenek.
 

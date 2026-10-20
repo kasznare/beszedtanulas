@@ -230,7 +230,7 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
     const button=event.target.closest('button');
     if(button?.disabled)return;
     if(button?.dataset.enMode) {enter(button.dataset.enMode);return;}
-    if(button?.id==='en-back') {stopPlayback();hub();return;}
+    if(button?.id==='en-back') {stopPlayback();hub();say('engineering_hub');return;}
     if(button?.id==='en-pause') {paused=!paused;stopPlayback();releaseDrag();syncControls();return;}
     if(!playable())return;
     if(button?.dataset.enLevel!==undefined) {level=Number(button.dataset.enLevel);enter('bridge');return;}
@@ -312,7 +312,7 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
     paused=true;syncControls();startLoop();
   });
   return {
-    start(){active=true;progress=normalizeEngineering(getProgress());hub();say('engineering_hub');},
+    start({kind}={}){active=true;progress=normalizeEngineering(getProgress());if(['drop','build','bridge'].includes(kind)){hub();enter(kind);}else{hub();say('engineering_hub');}},
     stop(){active=false;cleanup();stopPlayback();},
     repeat(){say(`engineering_${mode||'hub'}`,true);if(mode)status(instructions[mode]);},
   };

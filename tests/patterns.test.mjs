@@ -26,8 +26,8 @@ const seeds = Array.from({ length: 128 }, (_, index) => Math.imul(index + 1, 0x9
 test('the direct game exposes three levels and five distinct pattern families', () => {
   assert.deepEqual(PATTERN_LEVELS.map(level => level.id), levels);
   assert.deepEqual(PATTERN_FAMILIES.map(family => family.id), families);
-  assert.deepEqual(GROUPS.filter(group => group.screens.includes('patterns')).map(group => group.screen), ['number-menu']);
-  assert.deepEqual(canonicalTrail({ screen: 'patterns' }).map(route => route.screen), ['home', 'number-menu', 'patterns']);
+  assert.deepEqual(GROUPS.filter(group => group.screens.includes('patterns')).map(group => group.screen), ['shape-menu']);
+  assert.deepEqual(canonicalTrail({ screen: 'patterns' }).map(route => route.screen), ['home', 'shape-menu', 'patterns']);
 });
 
 test('every generated sequence repeats a complete motif and continues at the exact next position', () => {

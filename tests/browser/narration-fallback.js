@@ -17,7 +17,7 @@ async page => {
       }, mode);
       const p = await context.newPage(); await p.goto(page.url());
       await p.locator('#home [data-open="big-menu"]').click();
-      await p.locator('#big-menu [data-open="furfangliget"]').click();
+      await p.locator('#big-menu [data-kind="machine"]').click();await p.locator('#logic-back').dispatchEvent('click');
       await p.locator('[data-game="machine"]').click();
       if (mode === 'element') {
         await p.locator('[data-example="0"]').click();

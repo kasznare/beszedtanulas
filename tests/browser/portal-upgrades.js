@@ -107,7 +107,7 @@ async page => {
   ok((await saved()).numbers.stats.quiz[task.amount].helped===1,'Quiz retry is recorded as assisted');
   await layout('Quantity comparison');await page.screenshot({path:'output/playwright/portal-number-tablet.png',fullPage:true});
 
-  await enter('activity-menu','flip');await page.locator('[data-flip-mode="find"]').click();
+  await enter('picture-menu','flip');await page.locator('[data-flip-mode="find"]').click();
   ok(await page.locator('#flip-grid .is-open').count()===await page.locator('#flip-grid button').count(),'Find mode starts with a full picture preview');
   await page.locator('#flip-hide').click();
   const deck=await page.locator('[data-flip-index]').evaluateAll(bs=>bs.map(b=>({index:b.dataset.flipIndex,label:b.querySelector('.card-word').textContent})));
@@ -119,7 +119,7 @@ async page => {
   }
   await page.waitForSelector('#round-complete[open]');
   ok(await page.locator('#round-complete').isVisible(),'Find mode completes after finding each requested picture');
-  await enter('activity-menu','flip');await page.locator('[data-flip-mode="missing"]').click();await page.locator('#flip-hide').click();
+  await enter('picture-menu','flip');await page.locator('[data-flip-mode="missing"]').click();await page.locator('#flip-hide').click();
   const hidden=await page.locator('#flip-grid button:not(.is-open)').getAttribute('data-word');
   await layout('Missing picture');await page.locator(`[data-missing-answer="${hidden}"]`).click();
   await page.waitForSelector('#round-complete[open]');

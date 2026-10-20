@@ -17,7 +17,7 @@ async page => {
  await page.goto('about:blank');await page.goto(url);
  await page.waitForFunction(()=>document.querySelector('#offline-status').textContent.startsWith('Letöltve.'));
  const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
- const enter=async game=>{await home();await page.locator('#home [data-open="big-menu"]').click();await page.locator('#big-menu [data-open="furfangliget"]').click();await page.locator(`[data-game="${game}"]`).click();};
+ const enter=async game=>{await home();await page.locator('#home [data-open="big-menu"]').click();await page.locator('#big-menu [data-kind="machine"]').click();await page.locator('#logic-back').dispatchEvent('click');await page.locator(`[data-game="${game}"]`).click();};
  const clear=()=>page.evaluate(()=>{narrationEvents.length=0});
  const waitMark=async selector=>page.waitForFunction(s=>!!document.querySelector(s+'.is-narrated'),selector);
  await enter('machine');await clear();await page.locator('[data-example="0"]').click();
@@ -51,7 +51,7 @@ async page => {
  await waitMark('[data-phrase-part="0"]');await waitMark('[data-phrase-part="1"]');ok(true,'The two phrase pictures are highlighted in spoken order');
  await home();await page.locator('#home [data-open="picture-menu"]').click();await page.locator('#picture-menu [data-open="listening-game"]').click();await page.locator('#listening-replay').click();await waitMark('#listening-replay');
  ok(await page.locator('#listening-answers .is-narrated').count()===0,'Listening game keeps the correct choice hidden');
- await home();await page.locator('#home [data-open="play-menu"]').click();await page.locator('[data-open="teddy-game"]').click();await page.locator('#teddy-replay').click();await waitMark('.teddy-illustration');
+ await home();await page.locator('#home [data-open="play-menu"]').click();await page.locator('#play-menu [data-open="teddy-game"]').click();await page.locator('#teddy-replay').click();await waitMark('.teddy-illustration');
  ok(await page.locator('#teddy-answers .is-narrated').count()===0,'Teddy speaks without revealing the requested plate');
  ok(await page.locator('#teddy-game .teddy-hamm').evaluate(n=>getComputedStyle(n).display)!=='none','Teddy mouth visibly moves while speaking');
  await page.screenshot({path:'output/playwright/narration-teddy-speaking.png'});

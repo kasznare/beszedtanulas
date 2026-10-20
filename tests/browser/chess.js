@@ -25,7 +25,7 @@ async page => {
     await enter();
     ok(await page.locator('[data-chess-square]').count() === 64, 'Authentic 8×8 board');
     ok(await page.locator('[data-chess-piece]').count() === 6, 'All six pieces');
-    ok(await page.locator('#screen-kicker').innerText() === 'Nagyoknak', 'Correct menu group');
+    ok(await page.locator('#screen-kicker').innerText() === 'Fejtörők', 'Correct menu group');
     await page.locator('#back-button').click(); ok(await page.locator('#big-menu').isVisible(), 'Back returns to group');
     await page.locator('#big-menu [data-open="chess"]').click();
     for (const [piece, count] of [['rook',14],['bishop',13],['knight',8],['queen',27],['king',8],['pawn',2]]) {

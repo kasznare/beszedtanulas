@@ -331,7 +331,11 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
   window.addEventListener('resize', scheduleTurnToolbar);
   window.addEventListener('scroll', scheduleTurnToolbar, { passive: true });
   return {
-    start() { active = true; root.classList.remove('has-selection'); menu(); say('montessori_menu'); },
+    start({ kind } = {}) {
+      active = true; root.classList.remove('has-selection');
+      // A skill menu can open one exercise directly; without a kind the workshop chooser opens.
+      if (Object.hasOwn(MONTESSORI_GAMES, kind)) { menu(); startGame(kind); } else { menu(); say('montessori_menu'); }
+    },
     stop() { save(); active = false; cleanupDrag(); cleanupAnimation(); stopPlayback(); root.classList.remove('has-selection'); },
     repeat() { repeat(true); },
   };

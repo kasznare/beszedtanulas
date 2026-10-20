@@ -17,8 +17,9 @@ async page => {
     if (await page.locator('#mo-back').count()) await page.locator('#mo-back').dispatchEvent('click');
     if (!await page.locator('.mo-menu').isVisible()) {
       if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
-      await page.locator('#home [data-open="activity-menu"]').click();
-      await page.locator('#activity-menu [data-open="montessori"]').click();
+      await page.locator('#home [data-open="shape-menu"]').click();
+      await page.locator('#shape-menu [data-kind="shapes"]').click();
+      await page.locator('#mo-back').dispatchEvent('click');
     }
   };
   const choose = async id => {
@@ -158,7 +159,7 @@ async page => {
     ok(await page.locator('.mo-flying-piece,.mo-arriving-piece,.mo-drag-preview').count() === 0, 'Leaving during animation removes pending visuals');
     await menu();
     await page.locator('#back-button').click();
-    await page.waitForFunction(() => document.body.dataset.screen === 'activity-menu');
+    await page.waitForFunction(() => document.body.dataset.screen === 'shape-menu');
     ok(true, 'App back leaves the workshop for its parent menu');
 
     if (context._options?.hasTouch) {

@@ -78,7 +78,7 @@ async page => {
       await measure(`${width}x${height}:success`, tablet);
       if (tablet && width === 1024) await p.screenshot({ path: 'output/playwright/chess-ipad-layout.png', animations: 'disabled' });
       await click('#back-button');
-      if (await p.locator('#screen-title').innerText() !== 'Nagyoknak') throw Error('Back title did not restore');
+      if (await p.locator('#screen-title').innerText() !== 'Fejtörők') throw Error('Back title did not restore');
     }
     await enter();
     const touch = await p.evaluate(() => ({
@@ -118,8 +118,9 @@ async page => {
       const tablet = width===768 || width===1024;
       await p.setViewportSize({ width,height });
       await click('#home-button');
-      await click('#home [data-open="big-menu"]');
-      await click('#big-menu [data-open="engineering"]');
+      await click('#home [data-open="activity-menu"]');
+      await click('#activity-menu [data-kind="drop"]');
+      await p.locator('#en-back').dispatchEvent('click');
       await measureEngineering(`${width}x${height}:hub`,'hub',tablet);
       for (const mode of ['drop','build']) {
         await click(`[data-en-mode="${mode}"]`);
@@ -164,7 +165,7 @@ async page => {
       await titleFocused();
       await measureEngineering(`${width}x${height}:hub-return`,'hub',tablet);
       await click('#back-button');
-      if (await p.locator('#screen-title').innerText()!=='Nagyoknak') throw Error('Engineering menu title did not restore');
+      if (await p.locator('#screen-title').innerText()!=='Kirakók és építés') throw Error('Engineering menu title did not restore');
     }
     const engineeringTouch = await p.evaluate(() => ({
       selection:getComputedStyle(document.querySelector('#engineering')).userSelect,
@@ -201,7 +202,7 @@ async page => {
       await click(`#home [data-open="${menu}"]`);
       if (game) await click(`#${menu} [data-open="${game}"]`);
     };
-    const menus = ['picture-menu', 'practice-menu', 'number-menu', 'play-menu', 'activity-menu', 'big-menu'];
+    const menus = ['picture-menu', 'practice-menu', 'play-menu', 'shape-menu', 'number-menu', 'activity-menu', 'big-menu'];
     for (const [width, height] of [[768, 900], [1024, 680]]) {
       await p.setViewportSize({ width, height });
       const size = `${width}x${height}`;
@@ -209,9 +210,16 @@ async page => {
       await click('#home [data-open="audiobooks"]'); await check(`${size}:audiobooks`, { allowY: Infinity });
       for (const menu of menus) {
         await open(menu); await check(`${size}:${menu}`);
-        for (const game of await p.locator(`#${menu} [data-open]`).evaluateAll(buttons => buttons.map(button => button.dataset.open))) {
-          await open(menu, game);
-          await check(`${size}:${game}`, { allowY: game === 'audiobooks' ? Infinity : 0 });
+        // One game can have several cards (one per exercise), so cards are opened by position.
+        const count = await p.locator(`#${menu} .game-menu-card`).count();
+        for (let index = 0; index < count; index++) {
+          await open(menu);
+          const cardButton = p.locator(`#${menu} .game-menu-card`).nth(index);
+          const label = await cardButton.getAttribute('aria-label');
+          await cardButton.click();
+          await check(`${size}:${menu}:${label}`);
+          await click('#back-button');
+          if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`${label}: back did not return to ${menu}`);
         }
       }
       await open('activity-menu', 'memory');
@@ -225,20 +233,21 @@ async page => {
       await check(`${size}:memory-mismatch`);
       await click('[data-pairs="3"]');
       for (const game of ['shapes', 'colors', 'tower', 'grid', 'memory']) {
-        await open('activity-menu', 'montessori');
-        await click(`[data-mo-game="${game}"]`); await titleFocused();
+        const menu = game === 'grid' ? 'big-menu' : 'shape-menu';
+        await open(menu);
+        await click(`#${menu} [data-kind="${game}"]`);
         const levels = await p.locator('[data-mo-level]').count();
         for (let level = 1; level <= levels; level++) { await click(`[data-mo-level="${level}"]`); await check(`${size}:montessori-${game}-${level}`); }
         await click('[data-mo-level="1"]');
         await click('#back-button');
-        if (await p.locator('#screen-title').innerText() !== 'Montessori műhely') throw Error('Montessori back did not restore its menu title');
+        if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);
       }
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {
         await open('practice-menu', 'r-practice'); await click(`[data-game="${game}"]`); await check(`${size}:r-${game}`);
       }
-      await open('number-menu', 'patterns');
+      await open('shape-menu', 'patterns');
       await click('#patterns-change'); await click('[data-pattern-level="thinker"]'); await click('#patterns-apply');
       await check(`${size}:patterns-thinker`);
       await click('#patterns-change'); await click('[data-pattern-level="explorer"]'); await click('#patterns-apply');

@@ -86,7 +86,9 @@ const screenInfo = {
   home: { title: "Játsszunk együtt!", guide: "welcome" },
   "picture-menu": { title: "Képek és hangok", guide: "menu_pictures" },
   "play-menu": { title: "Játék Macival" },
-  "activity-menu": { title: "Kirakók és ügyesség", guide: "menu_activity" },
+  // Menus whose recorded guide no longer matches their games fall back to the general welcome.
+  "activity-menu": { title: "Kirakók és építés" },
+  "shape-menu": { title: "Formák és minták" },
   "dress-game": { title: "Maci öltözik", guide: "dress" },
   meseliget: { title: "Meseliget" },
   furfangliget: { title: "Furfangliget" },
@@ -110,8 +112,8 @@ const screenInfo = {
   "practice-menu": { title: "Mondd utánam", guide: "menu_speech" },
   imitate: { title: "Egy szó", guide: "imitate" },
   "two-word": { title: "Két szó", guide: "phrase" },
-  "number-menu": { title: "Számok és minták", guide: "menu_thinking" },
-  "big-menu": { title: "Nagyoknak", guide: "menu_thinking" },
+  "number-menu": { title: "Számok" },
+  "big-menu": { title: "Fejtörők" },
   numbers: { title: "Számoljunk!", guide: "count" },
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
@@ -170,6 +172,8 @@ let togetherWordRound=null, togetherWordStep=0, wordConfirmed=false;
 let phraseStep=0, phraseConfirmed=false, phraseRound=null, phraseRoundStep=0;
 let phraseGroup='all', phraseTopic='all', phraseQueue=[];
 let numberMode = "count";
+// True while the current game was opened straight into one exercise (a card with a kind).
+let directEntry = false;
 
 const panels = [...document.querySelectorAll(".panel")];
 const cardsGrid = document.querySelector("#cards-grid");
@@ -322,7 +326,12 @@ function syncProfileControls() {
   document.querySelector("#profile-explainer").textContent = preview
     ? "Kipróbálhatod a játékokat: a próba eredményei külön maradnak. Ha végeztél, a Vissza a gyerekhez gombbal add át a játékot."
     : "A játék a gyerek eredményeit gyűjti. Saját kipróbáláshoz válaszd a Szülői próba profilt.";
-  const group = GROUPS.find(value => value.screen === currentScreen || value.screens.includes(currentScreen) || (currentScreen === 'cards' && value.screen === 'picture-menu'));
+  // A game offered in several groups is labelled with the group it was opened from.
+  const from = appNavigation?.trail?.at(-2)?.screen;
+  const group = GROUPS.find(value => value.screen === currentScreen)
+    || GROUPS.find(value => value.screen === from && value.screens.includes(currentScreen))
+    || GROUPS.find(value => value.screen === parentScreen(currentScreen))
+    || (currentScreen === 'cards' ? GROUPS.find(value => value.screen === 'picture-menu') : null);
   const kicker = document.querySelector("#screen-kicker");
   kicker.textContent = currentScreen === "parent" ? "FELNŐTTEKNEK" : preview ? "SZÜLŐI PRÓBA" : group?.title || "BESZÉDTANULÁS";
   // A category screen already shows its name as the title; repeating it above adds nothing.
@@ -2132,9 +2141,13 @@ async function showAnimalBookCredits() {
 }
 
 function innerBackButton() {
+  // An exercise opened straight from a skill menu goes back to that menu, not to its game's own chooser.
+  if (directEntry) return null;
   return innerBackSelectors[currentScreen] && document.getElementById(currentScreen)?.querySelector(innerBackSelectors[currentScreen]);
 }
 function updateBackButton() {
+  // Once a directly opened game shows its own chooser, its exercises go back to that chooser again.
+  if (directEntry && document.getElementById(currentScreen)?.matches('[data-game="menu"], [data-game="hub"], [data-mode="hub"]')) directEntry = false;
   const button = document.querySelector('#back-button');
   button.hidden = currentScreen === 'home';
   const destination = innerBackButton() ? screenInfo[currentScreen].title : screenInfo[appNavigation.trail.at(-2)?.screen || parentScreen(currentScreen)]?.title;
@@ -2159,9 +2172,25 @@ function syncNumberMode() {
   document.querySelector('#number-quiz-view').hidden = numberMode !== 'quiz';
 }
 
+// The skill menus come from GROUPS. A card opens its game, straight into one exercise when it names a kind.
+function renderMenus() {
+  for (const group of GROUPS) {
+    const panel = document.getElementById(group.screen);
+    panel.dataset.cards = String(group.cards.length);
+    panel.dataset.sections = String(group.sections.length);
+    panel.innerHTML = group.sections.map(entry => `${entry.title ? `<h2 class="menu-section-title">${entry.title}</h2>` : ''}<div class="game-menu-grid">${entry.cards.map(item => {
+      const target = item.mode
+        ? `class="game-menu-card number-mode" data-mode="${item.mode}" aria-pressed="false"`
+        : `class="game-menu-card" data-open="${item.screen}"${item.kind ? ` data-kind="${item.kind}"` : ''}`;
+      return `<button ${target} aria-label="${item.title}"><span class="game-menu-icon" aria-hidden="true">${item.icon}</span><span><strong>${item.title}</strong><small>${item.note}</small></span><span class="game-age" aria-hidden="true">${item.ages} év</span><span class="game-menu-arrow" aria-hidden="true">→</span></button>`;
+    }).join('')}</div>`).join('');
+  }
+}
+
 function setupNavigation() {
+  renderMenus();
   document.querySelectorAll("[data-open]").forEach(button => {
-    button.addEventListener("click", () => showScreen(button.dataset.open));
+    button.addEventListener("click", () => showScreen(button.dataset.open, button.dataset.kind ? { gameOptions: { kind: button.dataset.kind, mode: button.dataset.kind } } : {}));
   });
   document.querySelector("#home-button").addEventListener("click", () => showScreen("home"));
   document.querySelector('#back-button').addEventListener('click', goBack);
@@ -2297,6 +2326,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   primeSfx();
   const previousScreen = currentScreen;
   currentScreen = screen;
+  directEntry = Boolean(gameOptions.kind);
   if (pushHistory) {
     const trail = transitionTrail(appNavigation.trail, { screen, category: selectedCategory, numberMode });
     const depth = screen === 'home' ? 0 : previousScreen === screen ? appNavigation.ownedDepth : appNavigation.ownedDepth + 1;
@@ -2329,9 +2359,9 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "city-story") cityStoryGame.start({ announce });
   if (screen === "differences") differencesGame.start(gameOptions);
   if (screen === "patterns") patternsGame.start({ ...gameOptions, announce });
-  if (screen === "montessori") montessoriGame.start();
+  if (screen === "montessori") montessoriGame.start(gameOptions);
   if (screen === "chess") chessGame.start();
-  if (screen === "engineering") engineeringGame.start();
+  if (screen === "engineering") engineeringGame.start(gameOptions);
   if (screen === "workshop") workshopGame.start(gameOptions);
   if (screen === "animal-book") animalBook.start();
   if (screen === "audiobooks") audiobooks.start();

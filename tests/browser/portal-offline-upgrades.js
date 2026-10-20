@@ -18,7 +18,7 @@ async page => {
   const home=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();};
   const enter=async(group,screen)=>{await home();await page.locator(`#home [data-open="${group}"]`).click();await page.locator(`#${group} [data-open="${screen}"]`).click();};
   await page.evaluate(()=>{window.offlineVoices=[];document.addEventListener('narrationstart',e=>offlineVoices.push(e.detail.id));});
-  await enter('activity-menu','flip');await page.locator('[data-flip-mode="find"]').click();await page.locator('#flip-hide').click();
+  await enter('picture-menu','flip');await page.locator('[data-flip-mode="find"]').click();await page.locator('#flip-hide').click();
   await page.waitForFunction(()=>offlineVoices.includes('flip_find')&&offlineVoices.some(id=>id.startsWith('word_')),undefined,{timeout:15000});
   ok(true,'Offline picture search really plays its guide followed by its requested word');
   await enter('picture-menu','topics');await page.locator('[data-topic="food"]').click();ok(await page.locator('#cards svg.word-picture').count()===5,'Shared word drawings load offline');

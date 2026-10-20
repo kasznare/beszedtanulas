@@ -21,30 +21,30 @@
 .app-bar .home-refresh { width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #758275; }
 .app-bar .home-refresh span { display: none; }
 
-/* Home: six equal category tiles. */
-.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 980px; margin: 0 auto; }
-.home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { grid-column: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 6px; min-height: min(210px, calc((100dvh - 250px) / 3)); padding: 14px 16px; }
-/* Mesetár: stories are not a game, so they get their own strip under the six game doors. */
-.home-story { display: flex; align-items: center; gap: 14px; width: 100%; max-width: 980px; min-height: 60px; margin: 14px auto 0; padding: 8px 18px; border: 2px solid #ead9b8; border-radius: 22px; background: #f8ecd6; color: var(--ink); font: inherit; text-align: left; cursor: pointer; box-shadow: 0 4px 0 #29413810; }
-.home-story-icon { font-size: 30px; flex: none; }
-.home-story-copy { flex: 1; min-width: 0; }
-.home-story-copy strong { display: block; font-size: 1.1rem; }
-.home-story-copy small { display: block; color: #6b6248; font-size: .82rem; }
-.home-story-arrow { opacity: .4; font-size: 1.3rem; }
-.home-story:active { transform: translateY(2px); box-shadow: none; }
-.home-grid .home-art, .home-grid .art-activity { flex: 1; width: auto; min-height: 96px; margin: 0; }
+/* Home: seven skill doors and Mesetár, as eight equal tiles (2 × 4, or 4 × 2 on wide screens). */
+.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 1040px; margin: 0 auto; }
+.home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { grid-column: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 4px; min-height: min(200px, calc((100dvh - 200px) / 4)); padding: 10px 14px; border-radius: 26px; }
+.home-grid .home-art, .home-grid .art-activity { flex: 1; width: auto; min-height: 0; margin: 0; zoom: .72; }
 .home-tile-copy { padding-right: 0; }
+.home-tile-copy .tile-title { font-size: 1.12rem; }
 .tone-teal { background: #dbece8; }
+.tone-rose { background: #f6e1e4; }
+.tone-cream { background: #f8ecd6; }
 .art-big { gap: 10px; }
 .big-chip { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 24px; background: #fffaf2; font-size: 50px; box-shadow: 0 6px 0 #29413812; transform: rotate(-6deg); }
 .big-chip + .big-chip { transform: rotate(7deg) translateY(8px); background: #f6efe0; }
+
+/* Skill menus: an age range on every card, and short headings where a menu has two kinds of play. */
+.game-menu-card { position: relative; }
+.game-menu-icon { white-space: nowrap; }
+.game-age { position: absolute; top: 10px; left: 12px; padding: 2px 8px; border-radius: 999px; background: #ffffffb8; color: #4d6157; font-size: .72rem; font-weight: 750; line-height: 1.5; }
+.menu-section-title { width: 100%; margin: 4px 0 8px; color: #5c7166; font-size: .82rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.menu-section-title + .game-menu-grid { margin-bottom: 10px; }
 @media (orientation: landscape) and (max-height: 600px) {
-  .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: calc((100dvh - 240px) / 2); padding: 8px 12px; }
-  .home-story { min-height: 44px; margin-top: 6px; padding: 2px 14px; }
+  .home-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: calc((100dvh - 150px) / 2); padding: 8px 12px; }
   .home-panel .play-time-note { margin: 2px 0 0; font-size: .72rem; }
-  .home-story-copy small { display: none; }
-  .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .6; }
+  .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .55; }
   .home-tile-copy small { display: none; }
   .game-menu-grid { grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); gap: 10px; }
   /* In-game choosers become one row of small cards. */
@@ -63,9 +63,6 @@
 /* Phones (portrait): menus inside games use two columns, and practice pictures shrink a little. */
 @media (max-width: 600px) and (orientation: portrait) {
   .home-grid { gap: 10px; }
-  .home-grid .home-art, .home-grid .art-activity { min-height: 0; zoom: .82; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { padding: 10px 12px; }
-  .home-story { margin-top: 10px; }
   .mo-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .mo-menu .mo-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 8px 12px; }
   .mo-menu .mo-card-art { height: 92px; transform: scale(.55); }
@@ -100,6 +97,14 @@
   .game-menu-grid > .game-menu-card:last-child:nth-child(odd) .game-menu-icon, .game-menu-icon { font-size: 64px; }
   .home-footer { display: none; }
   .home-grid { max-width: none; }
+  /* Larger skill menus (seven cards, or two sections of four) use four columns and two rows. */
+  .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card, .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card:last-child:nth-child(odd),
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card {
+    flex-basis: calc((100% - 48px) / 4); min-height: min(210px, calc((100dvh - 250px) / 2)); padding: 30px 10px 12px; gap: 6px;
+  }
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { min-height: min(190px, calc((100dvh - 320px) / 2)); }
+  .menu-panel[data-cards="7"] .game-menu-icon, .menu-panel[data-sections="2"] .game-menu-icon { font-size: 44px; }
+  .menu-panel[data-sections="2"] .game-menu-grid { justify-content: flex-start; }
   .practice-panel { margin-top: 0; padding: 12px 28px; }
   .app { padding-bottom: max(6px, env(safe-area-inset-bottom)); }
   .app-bar { min-height: 72px; margin-bottom: 8px; }
@@ -107,16 +112,17 @@
 @media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
   .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(300px, calc((100dvh - 260px) / 2)); }
   .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 76px; }
-  .home-grid { gap: 16px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(250px, calc((100dvh - 300px) / 3)); padding: 16px 20px; }
+  .home-grid { gap: 14px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(220px, calc((100dvh - 240px) / 4)); padding: 12px 18px; }
 }
 @media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
   .game-menu-grid:has(> :nth-child(4):last-child) > .game-menu-card { flex-basis: calc((100% - 48px) / 4); }
   /* A single row of games grows into the free height instead of leaving it empty. */
   .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(330px, calc(100dvh - 240px)); }
   .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 84px; }
-  .home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(260px, calc((100dvh - 260px) / 2)); }
+  .home-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(270px, calc((100dvh - 220px) / 2)); }
+  .home-grid .home-art, .home-grid .art-activity { zoom: .8; }
 
   /* Word and phrase practice: the picture on the left, every control on the right. */
   .practice-panel { max-width: 960px; }

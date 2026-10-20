@@ -12,25 +12,26 @@ async page => {
  const enter=async(groupId,screen)=>{await group(groupId);await page.locator(`#${groupId} [data-open="${screen}"]`).click();await at(screen);};
  const back=async screen=>{await page.locator('#back-button').click();await at(screen);};
  const data=await page.evaluate(async()=>{const {GROUPS}=await import('./navigation.js');return GROUPS;});
- ok(await page.locator('#home [data-open]').count()===7,'Home has six clear groups and the Mesetár strip');
+ ok(await page.locator('#home [data-open]').count()===8,'Home has seven skill groups and Mesetár');
  const targets=[];
  for(const {screen,screens} of data){
-  await group(screen);const destinations=await page.locator(`#${screen} .game-menu-card`).evaluateAll(buttons=>buttons.map(button=>button.dataset.open||'numbers'));
-  ok(screens.every(value=>destinations.includes(value)),`${screen}: every assigned game is present`);targets.push(...new Set(destinations));
+  await group(screen);const destinations=await page.locator(`#${screen} .game-menu-card`).evaluateAll(buttons=>buttons.map(button=>`${button.dataset.open||'numbers'}:${button.dataset.kind||button.dataset.mode||''}`));
+  ok(screens.every(value=>destinations.some(key=>key.startsWith(`${value}:`))),`${screen}: every assigned game is present`);targets.push(...destinations);
   for(const viewport of [{width:375,height:667},{width:932,height:350},{width:834,height:1194}]){
    await page.setViewportSize(viewport);const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+2,small:[...document.querySelectorAll('.app-bar button,.panel.is-active .game-menu-card')].filter(button=>button.getClientRects().length&&(button.getBoundingClientRect().width<43||button.getBoundingClientRect().height<43)).map(button=>button.getAttribute('aria-label'))}));
    ok(!metrics.overflow&&!metrics.small.length,`${screen}: ${viewport.width}×${viewport.height} fits with ≥44px controls`);
   }
   await back('home');ok(await page.locator('#back-button').isHidden(),`${screen}: back reaches home and hides there`);
  }
- ok(new Set(targets).size===targets.length,'Games have one menu location');
+ ok(new Set(targets).size===targets.length,'Each exercise has one card');
  for(const viewport of [{width:375,height:667},{width:932,height:350},{width:834,height:1194}]){
   await page.setViewportSize(viewport);ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),`Home fits ${viewport.width}×${viewport.height}`);await page.screenshot({path:`output/playwright/navigation-home-${context.browser().browserType().name()}-${viewport.width}.png`,fullPage:viewport.height>400,animations:'disabled'});
  }
  await page.setViewportSize({width:390,height:844});
- for(const {screen,screens} of data){for(const game of screens.filter(value=>value!=='numbers')){
-  await enter(screen,game);ok((await page.locator('#screen-kicker').innerText())===(data.find(value=>value.screen===screen).title),`${game}: header identifies its group`);
-  const backLabel=await page.locator('#back-button').getAttribute('aria-label');ok(backLabel.includes(data.find(value=>value.screen===screen).title),`${game}: back names the destination`);
+ for(const {screen,title} of data){await group(screen);const count=await page.locator(`#${screen} .game-menu-card[data-open]`).count();for(let index=0;index<count;index++){
+  await group(screen);const cardButton=page.locator(`#${screen} .game-menu-card[data-open]`).nth(index);const game=await cardButton.getAttribute('data-open');const label=await cardButton.getAttribute('aria-label');
+  await cardButton.click();await at(game);ok((await page.locator('#screen-kicker').innerText())===title,`${label}: header names the group it was opened from`);
+  const backLabel=await page.locator('#back-button').getAttribute('aria-label');ok(backLabel.includes(title),`${label}: back names the destination`);
   await back(screen);await back('home');
  }}
  await group('picture-menu');await page.locator('#picture-menu [data-open="topics"]').click();await at('topics');await page.locator('[data-topic="food"]').click();await at('cards');
@@ -39,7 +40,15 @@ async page => {
  await group('number-menu');await page.locator('[data-mode="quiz"]').click();await at('numbers');ok(await page.locator('#number-quiz-view').isVisible(),'Number quiz opens the quiz view');await back('number-menu');await page.goForward();await at('numbers');
  ok(await page.locator('#number-quiz-view').isVisible()&&await page.locator('[data-mode="quiz"]').getAttribute('aria-pressed')==='true','Browser forward restores the number mode');
  await enter('practice-menu','imitate');await page.locator('#word-recovery').evaluate(node=>node.hidden=false);await page.locator('#word-recovery [data-open="listening-game"]').click();await at('listening-game');await back('imitate');ok(true,'Recovery game returns to the actual speech screen it came from');
- const nested=[['practice-menu','r-practice','[data-game="hunter"]','[data-game="hub"]'],['big-menu','furfangliget','[data-game="shop"]','[data-game="menu"]'],['big-menu','workshop','[data-game="pattern"]','[data-game="menu"]'],['play-menu','meseliget','#meadow-start','[data-mode="map"]']];
+ // A card that opens one exercise goes straight back to its skill group and keeps saved work.
+ for(const [parent,screen,kind] of [['big-menu','furfangliget','machine'],['shape-menu','workshop','pattern'],['shape-menu','montessori','shapes']]){
+  await group(parent);await page.locator(`#${parent} [data-kind="${kind}"]`).click();await at(screen);
+  const savedBefore=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
+  await back(parent);ok(true,`${screen}:${kind}: back returns to ${parent}`);
+  const savedAfter=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
+  ok(JSON.stringify(savedBefore.logic?.sessions)===JSON.stringify(savedAfter.logic?.sessions)&&JSON.stringify(savedBefore.workshop?.sessions)===JSON.stringify(savedAfter.workshop?.sessions),`${screen}:${kind}: back preserves saved work`);
+ }
+ const nested=[['practice-menu','r-practice','[data-game="hunter"]','[data-game="hub"]'],['play-menu','meseliget','#meadow-start','[data-mode="map"]']];
  for(const [parent,screen,selector,hub] of nested){
   await enter(parent,screen);await page.locator(`#${screen} ${selector}`).click();
   const savedBefore=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
@@ -61,7 +70,7 @@ async page => {
  await page.waitForFunction(async()=>Boolean((await navigator.serviceWorker.ready).active));
  await page.waitForFunction(async()=>{for(const key of await caches.keys())if((await(await caches.open(key)).keys()).some(r=>r.url.endsWith('/navigation.css')))return true;return false;});
  const saved=await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'));await context.setOffline(true);await page.reload();
- ok(await page.locator('#home [data-open]').count()===7,'Six groups and Mesetár survive an offline reload');
+ ok(await page.locator('#home [data-open]').count()===8,'Seven skill groups and Mesetár survive an offline reload');
  for(const {screen} of data){await group(screen);ok(await page.locator(`#${screen} .game-menu-card`).count()>0,`${screen} works offline`);}
  ok(await page.evaluate(()=>localStorage.getItem('speech_game_progress_v1'))===saved,'Offline navigation preserves the progress backup');
  await context.setOffline(false);ok(!errors.length,'No page errors: '+errors.join('; '));

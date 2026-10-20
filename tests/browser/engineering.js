@@ -7,8 +7,9 @@ async page => {
   await page.evaluate(async()=>{for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();for(const k of await caches.keys())await caches.delete(k);localStorage.clear();});
   await page.reload();
   const enter=async()=>{
-    await page.locator('#home [data-open="big-menu"]').click();
-    await page.locator('#big-menu [data-open="engineering"]').click();
+    await page.locator('#home [data-open="activity-menu"]').click();
+    await page.locator('#activity-menu [data-kind="drop"]').click();
+    await page.locator('#en-back').dispatchEvent('click');
   };
   await enter();
   await page.locator('[data-en-mode="drop"]').click();

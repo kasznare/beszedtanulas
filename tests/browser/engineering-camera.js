@@ -5,7 +5,7 @@ async page => {
   const ok=(value,message)=>{if(!value)throw Error(message);checks.push(message);};
   try {
     await p.goto(new URL('/',page.url()).href);
-    await p.locator('#home [data-open="big-menu"]').click();await p.locator('#big-menu [data-open="engineering"]').click();
+    await p.locator('#home [data-open="activity-menu"]').click();await p.locator('#activity-menu [data-kind="drop"]').click();await p.locator('#en-back').dispatchEvent('click');
     const observe=()=>p.evaluate(()=>{
       window.cameraChanges=[];
       const world=document.querySelector('#en-world');let previous=world.getAttribute('viewBox');

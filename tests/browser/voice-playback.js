@@ -29,7 +29,7 @@ async page => {
   await page.locator('#machine-level').selectOption('2');
   await page.locator('#home-button').click();
   await page.locator('#home [data-open="big-menu"]').click();
-  await page.locator('#big-menu [data-open="furfangliget"]').click();
+  await page.locator('#big-menu [data-kind="machine"]').click();await page.locator('#logic-back').dispatchEvent('click');
   await page.locator('[data-game="machine"]').click();
   await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1));
   await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1 && a.ended), undefined, {timeout:20000});

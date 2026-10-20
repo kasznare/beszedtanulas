@@ -12,8 +12,9 @@ async page => {
     localStorage.setItem('speech_game_progress_v1', JSON.stringify(saved));
   });
   await page.goto('about:blank'); await page.goto(url);
-  await page.locator('#home [data-open="activity-menu"]').click();
-  await page.locator('#activity-menu [data-open="montessori"]').click();
+  await page.locator('#home [data-open="shape-menu"]').click();
+  await page.locator('#shape-menu [data-kind="shapes"]').click();
+  await page.locator('#mo-back').dispatchEvent('click');
   ok(await page.evaluate(() => JSON.parse(localStorage.getItem('beszedtanulas.playTime.v1')).startedAt !== null), 'Montessori starts the shared play-time budget');
   const ready = () => page.locator('#mo-restart:not([disabled])').waitFor();
   for (const size of [{ width: 1194, height: 834 }, { width: 320, height: 740 }, { width: 390, height: 844 }, { width: 932, height: 430 }]) {

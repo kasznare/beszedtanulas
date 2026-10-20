@@ -1,5 +1,8 @@
 import { buildTeddyRound, buildExpressiveTeddyRound, teddyFoodForPhrase, teddyAccusative } from "./teddy-data.js";
 import { setWordPicture } from "./word-art.js";
+import { setGameTitle } from "./game-heading.js";
+
+const TEDDY_TITLES = { single: "Etesd meg a macit!", sequence: "Először… aztán…", expressive: "Én kérek" };
 
 export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, playThanks, stopPlayback, onComplete, speak, onRestart = () => {} }) {
   const panel = document.querySelector("#teddy-game");
@@ -290,7 +293,8 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
   function start({ announce = true, mode, phraseId, foodId } = {}) {
     onRestart();
     active = true;
-    if (mode) requestMode = mode;
+    if (mode && TEDDY_TITLES[mode]) requestMode = mode;
+    setGameTitle(panel, TEDDY_TITLES[requestMode]);
     launchPhraseId = phraseId || null;
     launchFoodId = foodId || null;
     modeControls.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed", String(item.dataset.teddyMode === requestMode)));

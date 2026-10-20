@@ -8,21 +8,33 @@ import {
 const route = (screen, category = 'all', numberMode = 'count') => ({ screen, category, numberMode });
 const screenPath = trail => trail.map(entry => entry.screen);
 
-test('the six menu groups contain every game exactly once and cards stay below topics', () => {
-  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'play-menu', 'activity-menu', 'number-menu', 'big-menu']);
-  const games = GROUPS.flatMap(group => group.screens);
-  assert.equal(new Set(games).size, games.length);
-  assert.equal(games.length, 22);
-  // Mesetár opens straight from home; "Mi bújt el?" is a picture-word game.
+test('skill groups reach every game, each exercise once, and every game has one main group', () => {
+  assert.deepEqual(GROUPS.map(group => group.screen), ['picture-menu', 'practice-menu', 'play-menu', 'shape-menu', 'number-menu', 'activity-menu', 'big-menu']);
+  const cards = GROUPS.flatMap(group => group.cards);
+  // A card is a game plus, optionally, the exercise it opens; no exercise appears twice.
+  const keys = cards.map(item => `${item.screen}:${item.kind || item.mode || ''}`);
+  assert.equal(new Set(keys).size, keys.length);
+  assert.equal(new Set(cards.map(item => item.screen)).size, 22);
+  for (const item of cards) assert.match(item.ages, /^\d+–\d+$/, `${item.title} names an age range`);
+  // Pattern exercises from four games sit together.
+  assert.deepEqual(GROUPS.find(group => group.screen === 'shape-menu').sections.at(-1).cards.map(item => `${item.screen}:${item.kind || ''}`),
+    ['teddy-game:sequence', 'patterns:', 'montessori:memory', 'workshop:pattern']);
+  // Each section lists its cards from the youngest age up.
+  for (const group of GROUPS) for (const entry of group.sections) {
+    const starts = entry.cards.map(item => Number(item.ages.split('–')[0]));
+    assert.deepEqual(starts, [...starts].sort((a, b) => a - b), `${group.screen} ${entry.title} runs easy to hard`);
+  }
+  // Mesetár opens straight from home; a game offered in several groups returns to its main group.
   assert.deepEqual(HOME_SCREENS, ['audiobooks']);
   assert.equal(parentScreen('audiobooks'), 'home');
   assert.equal(parentScreen('flip'), 'picture-menu');
-  for (const group of GROUPS) assert.ok(group.screens.length >= 2 && group.screens.length <= 5, `${group.screen} stays small`);
-  assert.equal(parentScreen('engineering'), 'big-menu');
+  assert.equal(parentScreen('montessori'), 'shape-menu');
+  assert.equal(parentScreen('memory'), 'activity-menu');
+  assert.equal(parentScreen('teddy-game'), 'play-menu');
   assert.equal(parentScreen('city-story'), 'big-menu');
-  assert.deepEqual(GROUPS.at(-1).screens, ['city-story', 'chess', 'furfangliget', 'workshop', 'engineering']);  for (const group of GROUPS) {
+  for (const group of GROUPS) {
     assert.equal(parentScreen(group.screen), 'home');
-    for (const screen of group.screens) assert.equal(parentScreen(screen), group.screen);
+    for (const screen of group.screens) assert.ok(GROUPS.some(value => value.screen === parentScreen(screen) && value.screens.includes(screen)), `${screen} has a main group that lists it`);
   }
   assert.equal(parentScreen('cards'), 'topics');
   assert.equal(parentScreen('parent'), 'home');
