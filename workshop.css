@@ -177,12 +177,12 @@
 @media(max-width:375px) { .ws-pattern-thread { grid-template-columns:repeat(4,minmax(0,1fr)); }.ws-bins { grid-template-columns:minmax(0,1fr); }.ws-leaf-bin { grid-template-columns:100px minmax(0,1fr); } }
 @media(min-width:650px) and (max-width:760px) and (max-height:540px) { .ws-pattern-thread { grid-template-columns:repeat(6,minmax(0,1fr)); } }
 
-/* Landscape tablets: Mintaszövő keeps the thread on one row; Egyensúlyműhely splits its scene into two columns. */
-@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+/* Tablets: the win banner fills the empty middle of the toolbar row instead of pushing the work down. */
+@media(min-width:700px) and (min-height:600px) {
  .ws-heading { margin:4px 0 8px; }.ws-heading p { margin-top:0; }.ws-status { margin:6px 0; }.ws-actions { padding-bottom:4px; }
- .ws-pattern-panel { padding:10px 12px; }#ws-pattern-listen { margin:0 auto 8px; }.ws-slot-label { margin-top:8px; }
- .ws-pattern-thread { grid-template-columns:repeat(12,minmax(0,1fr)); gap:6px; max-width:none; }
- .ws-pattern-toolbox { margin-top:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; }.ws-pattern-toolbox h3 { margin:0; }.ws-pattern-choices { margin:0; }
+ .workshop-panel { position:relative; }
+ .ws-celebration { position:absolute; top:0; left:0; right:0; z-index:1; width:fit-content; height:48px; box-sizing:border-box; margin:0 auto; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
+ .ws-found-solutions { padding:6px 8px; gap:4px 6px; }.ws-found-solutions strong { flex-basis:auto; font-size:.85rem; }.ws-found-solutions span { font-size:.85rem; }
  /* Left: counts, scale, sentence, checks. Right: the target beads, the rule, your beads, the tray and found solutions. */
  .ws-balance-scene { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-rows:auto auto auto auto auto auto; gap:6px 14px; align-items:center; padding:10px; }
  .ws-balance-scene>* { margin-top:0; margin-bottom:0; min-width:0; }
@@ -199,6 +199,13 @@
  .ws-balance-scene>.ws-found-solutions { grid-column:2; grid-row:6; align-self:start; }
  .ws-balance-reference i { width:13px; height:13px; }.ws-unit-comparison i { width:12px; height:12px; }
  .ws-count-rule { gap:2px; }
+}
+/* Landscape tablets: Mintaszövő keeps the thread on one row; Egyensúlyműhely splits its scene into two columns. */
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+ .ws-heading { margin:4px 0 8px; }.ws-heading p { margin-top:0; }.ws-status { margin:6px 0; }.ws-actions { padding-bottom:4px; }
+ .ws-pattern-panel { padding:10px 12px; }#ws-pattern-listen { margin:0 auto 8px; }.ws-slot-label { margin-top:8px; }
+ .ws-pattern-thread { grid-template-columns:repeat(12,minmax(0,1fr)); gap:6px; max-width:none; }
+ .ws-pattern-toolbox { margin-top:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; }.ws-pattern-toolbox h3 { margin:0; }.ws-pattern-choices { margin:0; }
  /* Válogatókert: the "other shapes" bin becomes a third column beside the colour/size bins. */
  .ws-heading p { max-width:none; }.ws-rule-card { padding:4px 12px; margin:0 0 8px; }
  .ws-sort-layout { gap:12px; }.ws-table { padding:10px; }.ws-token-pool { min-height:120px; }.ws-selection { margin:6px 0; }
@@ -206,9 +213,11 @@
  .ws-bins:has(> .ws-leaf-bin) { grid-template-columns:repeat(2,minmax(0,1fr)) minmax(110px,.6fr); }
  .ws-bins>.ws-leaf-bin { grid-column:3; grid-row:1/span 2; grid-template-columns:1fr; align-content:start; }
  .ws-leaf-bin .ws-bin-target { flex-direction:column; gap:0; }.ws-leaf-bin .ws-bin-target>span:last-child { text-align:center; }
- /* The win banner fills the empty middle of the toolbar row instead of pushing the work down. */
- .workshop-panel { position:relative; }
- .ws-celebration { position:absolute; top:0; left:0; right:0; z-index:1; width:fit-content; height:48px; box-sizing:border-box; margin:0 auto; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
- .ws-found-solutions { padding:6px 8px; gap:4px 6px; }.ws-found-solutions strong { flex-basis:auto; font-size:.85rem; }.ws-found-solutions span { font-size:.85rem; }
  .ws-balance-tray { min-height:64px; padding:8px; }.ws-rods-toolbox { padding:10px 12px; }.ws-rods { margin-top:8px; gap:7px; }.workshop-panel .ws-rod-choice { min-height:68px; padding:6px 4px; gap:5px; }
+}
+/* Portrait tablets: the balance scene uses the full width with the rods underneath; buttons share a row with the related-game card. */
+@media(min-width:700px) and (min-height:600px) and (orientation:portrait) {
+ .ws-balance-layout { grid-template-columns:1fr; gap:10px; }.ws-balance-scene { padding:10px; }
+ .ws-rods-toolbox { padding:8px 12px; }.ws-rods { grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-top:6px; }.workshop-panel .ws-rod-choice { min-height:64px; padding:5px 4px; gap:4px; }
+ .workshop-panel:has(> .next-task-card) .ws-actions button { padding-inline:12px; font-size:.92rem; }
 }

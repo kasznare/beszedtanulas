@@ -114,8 +114,26 @@
   .practice-panel { margin-top: 0; padding: 12px 28px; }
   .app { padding-bottom: max(6px, env(safe-area-inset-bottom)); }
   .app-bar { min-height: 72px; margin-bottom: 8px; }
+  /* After a win, the "related game" card sits beside the action buttons instead of below them. */
+  .workshop-panel.is-active:has(> .next-task-card),
+  .logic-panel.is-active:has(> .next-task-card) { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; align-items: center; }
+  .workshop-panel.is-active:has(> .next-task-card) > *,
+  .logic-panel.is-active:has(> .next-task-card) > * { grid-column: 1 / -1; min-width: 0; }
+  .workshop-panel > .ws-actions:has(+ .next-task-card),
+  .logic-panel > .logic-actions:has(+ .next-task-card) { grid-column: 1; justify-content: flex-end; padding-bottom: 0; }
+  .workshop-panel.is-active > .next-task-card,
+  .logic-panel.is-active > .next-task-card { grid-column: 2; display: flex; align-items: center; gap: 10px; max-width: 390px; margin: 0; padding: 4px 4px 4px 12px; }
+  .workshop-panel > .next-task-card p,
+  .logic-panel > .next-task-card p { margin: 0; max-width: 170px; font-size: .8rem; line-height: 1.25; text-align: left; }
+  .workshop-panel > .next-task-card .next-task-button,
+  .logic-panel > .next-task-card .next-task-button { width: auto; min-height: 48px; padding: 4px 12px; gap: 0; }
+  .workshop-panel > .next-task-card .next-task-button strong,
+  .logic-panel > .next-task-card .next-task-button strong { white-space: nowrap; }
 }
 @media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  /* Portrait has less width beside the buttons: the related-game card keeps only its button. */
+  .workshop-panel > .next-task-card p, .logic-panel > .next-task-card p { display: none; }
+  .workshop-panel.is-active > .next-task-card, .logic-panel.is-active > .next-task-card { padding: 4px; }
   .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(300px, calc((100dvh - 260px) / 2)); }
   .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 76px; }
   .home-grid { gap: 14px; }
@@ -158,20 +176,4 @@
   .listening-panel > * { grid-column: 1; margin-block: 6px; }
   .listening-panel > .listening-answers { grid-column: 2; grid-row: 1 / span 6; margin: 0; }
   .listening-panel > .listen-status { grid-column: 2; grid-row: 7; }
-
-  /* After a win, the "related game" card sits beside the action buttons instead of below them. */
-  .workshop-panel.is-active:has(> .next-task-card),
-  .logic-panel.is-active:has(> .next-task-card) { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; align-items: center; }
-  .workshop-panel.is-active:has(> .next-task-card) > *,
-  .logic-panel.is-active:has(> .next-task-card) > * { grid-column: 1 / -1; min-width: 0; }
-  .workshop-panel > .ws-actions:has(+ .next-task-card),
-  .logic-panel > .logic-actions:has(+ .next-task-card) { grid-column: 1; justify-content: flex-end; padding-bottom: 0; }
-  .workshop-panel.is-active > .next-task-card,
-  .logic-panel.is-active > .next-task-card { grid-column: 2; display: flex; align-items: center; gap: 10px; max-width: 390px; margin: 0; padding: 4px 4px 4px 12px; }
-  .workshop-panel > .next-task-card p,
-  .logic-panel > .next-task-card p { margin: 0; max-width: 170px; font-size: .8rem; line-height: 1.25; text-align: left; }
-  .workshop-panel > .next-task-card .next-task-button,
-  .logic-panel > .next-task-card .next-task-button { width: auto; min-height: 48px; padding: 4px 12px; gap: 0; }
-  .workshop-panel > .next-task-card .next-task-button strong,
-  .logic-panel > .next-task-card .next-task-button strong { white-space: nowrap; }
 }
