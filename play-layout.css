@@ -58,6 +58,15 @@
   #r-practice .rp-game-card { display: flex; flex-direction: column; justify-content: center; text-align: center; min-height: 110px; padding: 8px 4px; }
   .rp-game-card small, .rp-game-card .rp-saved { display: none; }
   .game-menu-grid > .game-menu-card { padding: 12px 8px; }
+  /* The larger skill menus (seven or eight games) keep two rows of four on the short screen. */
+  .menu-panel[data-cards="7"] .game-menu-grid, .menu-panel[data-sections="2"] .game-menu-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card, .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card:last-child:nth-child(odd),
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { grid-column: auto; flex-direction: column; justify-content: center; text-align: center; min-height: 0; padding: 26px 6px 8px; gap: 2px; }
+  .menu-panel[data-cards="7"] .game-menu-icon, .menu-panel[data-sections="2"] .game-menu-icon { font-size: 40px; }
+  .menu-panel[data-cards="7"] .game-menu-card small, .menu-panel[data-sections="2"] .game-menu-card small { display: none; }
+  .menu-panel[data-cards="7"] .game-menu-card strong, .menu-panel[data-sections="2"] .game-menu-card strong { font-size: 1rem; }
+  .menu-panel[data-sections="2"] .menu-section-title { margin: 2px 0 4px; }
+  .menu-panel[data-sections="2"] .menu-section-title + .game-menu-grid { margin-bottom: 4px; }
 }
 
 /* Phones (portrait): menus inside games use two columns, and practice pictures shrink a little. */
