@@ -63,3 +63,13 @@
 .dress-choice[aria-pressed="true"] { border-color: #43815b; background: #e1efda; }
 .dress-choice[aria-pressed="true"]::after { content: '✓'; position: absolute; top: 4px; right: 7px; color: #387b56; font-weight: 800; }
 @media (max-width: 649px) { .dress-weather { font-size: .9rem; } .dress-answers[data-count="free"] .dress-choice { min-height: 96px; } .dress-answers[data-count="free"] .dress-icon { height: 60px; } }
+/* Free wardrobe: the weather cards light up when the outfit fits; a tap replays that weather. */
+.dress-weather-cards { display: flex; justify-content: center; gap: 10px; margin: -4px 0 10px; }
+.dress-weather-cards[hidden] { display: none; }
+.dress-weather-card { min-width: 56px; min-height: 48px; border: 2px solid #d7dfd0; border-radius: 16px; background: #fffdf5; font-size: 26px; line-height: 1; cursor: pointer; touch-action: manipulation; }
+.dress-weather-card.is-match { border-color: #387b56; background: #e1efda; box-shadow: 0 0 0 4px #b9d8bf; }
+@media (orientation: landscape) and (min-width: 650px) {
+  .dress-answers[data-count="free"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .dress-answers[data-count="free"] .dress-choice { min-height: 78px; }
+  .dress-answers[data-count="free"] .dress-icon { height: 50px; }
+}

@@ -99,16 +99,18 @@ async page => {
   ok(await page.evaluate(() => storySuccess.pendingVoice === null), 'Stopping a profile releases its pending narration callback');
 
   await page.evaluate(() => storySuccess.open('teddy')); await page.locator('[data-teddy-mode="sequence"]').click();
-  const foods = (await page.locator('.teddy-order li > span:last-child').allTextContents()).map(text => text.replace(/^\d\. /, ''));
-  await page.locator(`#teddy-answers [aria-label="${foods[1]}"]`).click();
-  await page.locator(`#teddy-answers [aria-label="${foods[0]}"]`).click();
-  await page.locator(`#teddy-answers [aria-label="${foods[1]}"]`).click();
+  // The order is secret on screen; it is read back from the spoken request.
+  const heardFoods = async () => [...(await snapshot()).voice].reverse().flat().find(id => /^teddy_sequence_[a-z]+_[a-z]+$/.test(id)).split('_').slice(2);
+  const foods = await heardFoods();
+  await page.locator(`#teddy-answers [data-word="${foods[1]}"]`).click();
+  await page.locator(`#teddy-answers [data-word="${foods[0]}"]`).click();
+  await page.locator(`#teddy-answers [data-word="${foods[1]}"]`).click();
   ok(await page.locator('.teddy-order .is-done').count() === 2, 'Teddy ordered requests still complete both distinct steps');
   ok((await snapshot()).restarts.filter(game => game === 'teddy').length === 2, 'Teddy start and mode switch notify the root to cancel a stale round ending');
   await page.locator('#teddy-next').click(); await page.emulateMedia({ reducedMotion: 'no-preference' });
-  const firstFood = (await page.locator('.teddy-order li > span:last-child').first().innerText()).replace(/^\d\. /, '');
+  const [firstFood] = await heardFoods();
   const thanksBeforeRestart = await narration('teddy-thanks');
-  await page.locator(`#teddy-answers [aria-label="${firstFood}"]`).click();
+  await page.locator(`#teddy-answers [data-word="${firstFood}"]`).click();
   ok(await page.locator('.teddy-morsel').count() === 1, 'A real feeding flight is pending before the restart test');
   await page.evaluate(() => { storySuccess.api.teddy.stop(); storySuccess.api.teddy.start(); });
   await page.waitForTimeout(750);
@@ -121,14 +123,18 @@ async page => {
     const id = await page.evaluate(() => storySuccess.garment);
     await page.locator(`#dress-answers [data-item="${id}"]`).click(); await page.locator('#dress-next').click();
   }
-  ok((await snapshot()).completions.some(value => value.game === 'dress' && value.count === 3), 'The rain outfit completes through the root completion callback');
+  ok((await snapshot()).completions.some(value => value.game === 'dress' && value.count === 5), 'A clean rain outfit completes through the root completion callback with full stars');
   await page.locator('[data-dress-mode="free"]').click();
   await page.locator('#dress-answers [data-item="esokabat"]').click(); await page.locator('#dress-answers [data-item="esokabat"]').click();
   state = await snapshot();
   ok(state.voice.filter(id => id === 'dress_name_esokabat').length === 2, 'Adding and removing a new wardrobe garment both speak its name');
   ok(state.restarts.filter(game => game === 'dress').length === 3, 'Every wardrobe or outfit restart cancels any pending root completion');
   await page.evaluate(() => { storySuccess.holdVoice = true; });
-  await page.locator('#dress-answers [data-item="napkalap"]').click(); await page.locator('#dress-next').click();
+  for (const id of ['polo', 'napkalap', 'rovidnadrag']) await page.locator(`#dress-answers [data-item="${id}"]`).click();
+  ok(await page.locator('#dress-next').isDisabled(), 'An outfit that fits no weather card earns no star yet');
+  await page.locator('#dress-answers [data-item="szandal"]').click();
+  ok(await page.locator('.dress-weather-card.is-match').getAttribute('data-weather') === 'summer', 'A complete summer outfit lights up its weather card');
+  await page.locator('#dress-next').click();
   ok(await page.locator('#dress-answers button:enabled').count() === 0 && await page.evaluate(() => storySuccess.pendingVoice === null), 'Completing a free outfit locks its garments and cancels pending garment narration');
   for (const effect of ['collect', 'serve', 'fabric', 'retry', 'undo']) ok(state.effects.includes(effect), `Preserved interaction audio callback: ${effect}`);
   ok(errors.length === 0, `No uncaught errors: ${errors.join('; ')}`);

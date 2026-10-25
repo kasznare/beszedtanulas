@@ -2241,7 +2241,7 @@ function setupNavigation() {
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
     if (completedRoundKind === "flip") showScreen("flip");
-    else if (completedRoundKind === "dress-game") showScreen("dress-game");
+    else if (completedRoundKind === "dress-game") showScreen("dress-game",{gameOptions:{rotate:true}});
     else if (completedRoundKind === "teddy-game") showScreen("teddy-game",{gameOptions:teddyGame.getContext?.()||{}});
     else if (completedRoundKind === "listening-game") showScreen("listening-game",{gameOptions:listeningGame.getContext?.()||{}});
     else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
@@ -2351,7 +2351,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "flip") renderFlipGame();
   if (screen === "listening-game") listeningGame.start({ ...gameOptions, announce });
   if (screen === "teddy-game") teddyGame.start({ ...gameOptions, announce });
-  if (screen === "dress-game") dressGame.start({ announce });
+  if (screen === "dress-game") dressGame.start({ ...gameOptions, announce });
   if (screen === "meseliget") meadowGame.start({ announce });
   if (screen === "furfangliget") logicGame.start(gameOptions);
   if (screen === "memory") memoryGame.start(gameOptions);

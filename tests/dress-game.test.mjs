@@ -60,3 +60,71 @@ test('every wardrobe item has request, response and spoken-name text', () => {
     assert.equal(DRESS_CLIPS[`dress_name_${item.id}`], item.label);
   }
 });
+
+import { readFileSync } from 'node:fs';
+import { VOICE_CLIPS } from '../voice-library.js';
+import { DRESS_SLOTS, DRESS_BODY_ORDER, DRESS_WEATHERS, buildWeatherRound, pickDressDistractors, matchingWeather, nextDressOutfit, pickWeather, dressStars } from '../dress-data.js';
+const seeded = (seed = 1) => () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+const bodyRank = id => DRESS_BODY_ORDER.indexOf(DRESS_SLOTS[id]);
+
+test('named outfits dress in a fixed body order and never offer a garment Maci already wears', () => {
+  const random = seeded(4);
+  for (const outfit of DRESS_WEATHERS) for (const count of [2, 3]) for (let run = 0; run < 20; run += 1) {
+    const rounds = buildDressRound(count, random, outfit);
+    const order = rounds.map(question => bodyRank(question.target.id));
+    assert.deepEqual(order, [...order].sort((a, b) => a - b));
+    assert.equal(rounds[0].target.id, 'polo');
+    assert.match(rounds.at(-1).target.id, /cipo|gumicsizma|szandal/);
+    const worn = [];
+    for (const question of rounds) {
+      for (const choice of question.choices) assert.ok(!worn.includes(choice.id), `${choice.id} is already worn`);
+      worn.push(question.target.id);
+    }
+  }
+});
+
+test('distractors prefer a garment for the same place from another outfit', () => {
+  const random = seeded(9);
+  for (let run = 0; run < 20; run += 1) {
+    assert.ok(['napkalap'].includes(pickDressDistractors(allDressItems.find(item => item.id === 'sapka'), { count: 1, random })[0].id));
+    assert.ok(['gumicsizma', 'szandal'].includes(pickDressDistractors(allDressItems.find(item => item.id === 'cipo'), { count: 1, random })[0].id));
+  }
+});
+
+test('the weather game offers exactly one fitting garment per place and speaks only the weather', () => {
+  const random = seeded(2);
+  for (const weather of DRESS_WEATHERS) for (const count of [2, 3]) {
+    const plan = buildWeatherRound(weather, count, random);
+    const fitting = new Set(DRESS_OUTFITS[weather].items);
+    assert.deepEqual(plan.preWorn, ['polo']);
+    assert.deepEqual(new Set([...plan.preWorn, ...plan.steps.map(step => step.target.id)]), fitting);
+    const order = plan.steps.map(step => bodyRank(step.target.id));
+    assert.deepEqual(order, [...order].sort((a, b) => a - b));
+    for (const step of plan.steps) {
+      assert.equal(step.choices.length, count);
+      assert.equal(step.choices.filter(item => fitting.has(item.id)).length, 1, `${weather}: one fitting choice`);
+      assert.ok(VOICE_CLIPS[`dress_thanks_${step.target.id}`]);
+    }
+    assert.ok(VOICE_CLIPS[`dress_weather_${weather}`]);
+  }
+  // Weather and outfit rotation never repeat the previous one.
+  for (let run = 0; run < 30; run += 1) assert.notEqual(pickWeather('rain', random), 'rain');
+  assert.deepEqual(['classic', 'rain', 'summer'].map(nextDressOutfit), ['rain', 'summer', 'classic']);
+  assert.equal(nextDressOutfit('free'), 'free');
+});
+
+test('the free wardrobe only counts an outfit that fits a weather card exactly', () => {
+  assert.equal(matchingWeather(['polo']), null);
+  assert.equal(matchingWeather(['polo', 'esokabat', 'gumicsizma']), 'rain');
+  assert.equal(matchingWeather(['sapka', 'polo', 'sal', 'cipo']), 'classic');
+  assert.equal(matchingWeather(['polo', 'napkalap', 'rovidnadrag', 'szandal', 'sal']), null);
+  assert.equal(dressStars(4, 4), 5);
+  assert.equal(dressStars(2, 4), 3);
+  assert.equal(dressStars(0, 3), 1);
+});
+
+test('the dress game speaks only recorded clips and no longer gives a star for one garment', () => {
+  const source = readFileSync(new URL('../dress-game.js', import.meta.url), 'utf8');
+  for (const [, id] of source.matchAll(/'((?:dress|guide)_[a-z_]+)'/g)) assert.ok(VOICE_CLIPS[id], id);
+  assert.doesNotMatch(source, /onComplete\(worn\.size\)/);
+});

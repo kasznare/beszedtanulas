@@ -47,13 +47,67 @@ function shuffle(items, random) {
   return result;
 }
 
-// Every round makes one complete outfit, independent of the speech-round length.
+const byId = id => allDressItems.find(item => item.id === id);
+// Maci dresses from the inside out: póló, then trousers or coat, scarf, hat, and shoes last.
+export const DRESS_BODY_ORDER = ['body', 'legs', 'coat', 'neck', 'head', 'feet'];
+const NEIGHBOUR_SLOTS = { legs: ['coat'], coat: ['legs'], head: ['neck'], neck: ['head'], body: [], feet: [] };
+export const DRESS_WEATHERS = ['classic', 'rain', 'summer'];
+export const DRESS_WEATHER_TITLE = 'Milyen idő van?';
+
+export function sortByBody(items) {
+  return [...items].sort((a, b) => DRESS_BODY_ORDER.indexOf(DRESS_SLOTS[a.id]) - DRESS_BODY_ORDER.indexOf(DRESS_SLOTS[b.id]));
+}
+
+// Distractors are never already on Maci; garments for the same place come first,
+// so the child has to tell a sapka from a napkalap rather than a hat from a shoe.
+export function pickDressDistractors(target, { count = 1, exclude = [], random = Math.random } = {}) {
+  const blocked = new Set([target.id, ...exclude]);
+  const slot = DRESS_SLOTS[target.id];
+  const rank = item => DRESS_SLOTS[item.id] === slot ? 0 : NEIGHBOUR_SLOTS[slot]?.includes(DRESS_SLOTS[item.id]) ? 1 : 2;
+  return shuffle(allDressItems.filter(item => !blocked.has(item.id)), random).sort((a, b) => rank(a) - rank(b)).slice(0, Math.max(0, count));
+}
+
+// Every round makes one complete outfit in body order, independent of the speech-round length.
 export function buildDressRound(choiceCount = 2, random = Math.random, outfit = 'classic') {
   const count = choiceCount === 3 ? 3 : 2;
-  const pool = outfit === 'classic' || !DRESS_OUTFITS[outfit] ? dressItems : allDressItems;
-  const targets = (DRESS_OUTFITS[outfit] || DRESS_OUTFITS.classic).items.map(id => allDressItems.find(item => item.id === id));
-  return shuffle(targets, random).map(target => ({
+  const worn = [];
+  return sortByBody((DRESS_OUTFITS[outfit] || DRESS_OUTFITS.classic).items.map(byId)).map(target => {
+    const choices = shuffle([target, ...pickDressDistractors(target, { count: count - 1, exclude: worn, random })], random);
+    worn.push(target.id);
+    return { target, choices };
+  });
+}
+
+export function nextDressOutfit(outfit) {
+  const index = DRESS_WEATHERS.indexOf(outfit);
+  return index < 0 ? outfit : DRESS_WEATHERS[(index + 1) % DRESS_WEATHERS.length];
+}
+
+export function pickWeather(previous = null, random = Math.random) {
+  const options = DRESS_WEATHERS.filter(id => id !== previous);
+  return options[Math.floor(random() * options.length)];
+}
+
+// "Milyen idő van?": Maci already wears his póló; for every other place only one
+// garment fits the weather that is heard, the others belong to a different day.
+export function buildWeatherRound(weather, choiceCount = 2, random = Math.random) {
+  const outfit = DRESS_OUTFITS[weather] || DRESS_OUTFITS.classic;
+  const count = choiceCount === 3 ? 3 : 2;
+  const preWorn = outfit.items.filter(id => DRESS_SLOTS[id] === 'body');
+  const steps = sortByBody(outfit.items.filter(id => !preWorn.includes(id)).map(byId)).map(target => ({
     target,
-    choices: shuffle([target, ...shuffle(pool.filter(item => item.id !== target.id), random).slice(0, count - 1)], random),
+    choices: shuffle([target, ...pickDressDistractors(target, { count: count - 1, exclude: outfit.items, random })], random),
   }));
+  return { weather: DRESS_OUTFITS[weather] ? weather : 'classic', preWorn, steps };
+}
+
+// The free wardrobe earns a star only for an outfit that exactly fits one of the weather cards.
+export function matchingWeather(worn) {
+  const set = new Set(worn);
+  return DRESS_WEATHERS.find(id => DRESS_OUTFITS[id].items.length === set.size && DRESS_OUTFITS[id].items.every(item => set.has(item))) || null;
+}
+
+export function dressStars(clean, total) {
+  if (!total) return 1;
+  return Math.min(5, Math.max(1, Math.round(5 * Math.min(clean, total) / total)));
 }
