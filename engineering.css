@@ -178,3 +178,11 @@
   #engineering .en-levels { margin-bottom:5px; }
   #engineering .en-levels button { min-height:44px; padding:2px 8px; }
 }
+
+/* Tablets: the score is one row (height left, piece count right), leaving room for the challenge cards. */
+@media(min-width:700px) and (min-height:600px) {
+  #engineering .en-score { display:flex; align-items:baseline; justify-content:space-between; gap:8px; padding:6px 11px; }
+  #engineering .en-score>span:first-child { display:none; }
+  #engineering .en-score>strong { margin:0; font-size:26px; }
+  #engineering .en-score>div { flex-direction:column; align-items:flex-end; gap:0; }
+}
