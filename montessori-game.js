@@ -1,4 +1,4 @@
-import { MONTESSORI_GAMES, MONTESSORI_SHAPES, normalizeMontessoriOptions, montessoriCurrentPiece, moveMontessoriPiece, rotateMontessoriPiece, rotationPeriod, checkMontessoriRound, montessoriColorHex, placeMontessoriPiece, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, montessoriNeedsCheck, montessoriTowerLeaning, montessoriWrongTargets, takeBackMontessoriPiece, pickMontessoriOdd, montessoriLocked, nextMemorySpan, MONTESSORI_MEMORY_START } from './montessori-data.js';
+import { MONTESSORI_GAMES, MONTESSORI_SHAPES, normalizeMontessoriOptions, montessoriCurrentPiece, moveMontessoriPiece, rotateMontessoriPiece, rotationPeriod, checkMontessoriRound, montessoriColorHex, placeMontessoriPiece, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, montessoriNeedsCheck, montessoriTowerLeaning, montessoriWrongTargets, takeBackMontessoriPiece, pickMontessoriOdd, montessoriLocked, nextMemorySpan } from './montessori-data.js';
 
 import { colorOf, shapeArt, pieceArt, pieceName, holeClip, challengeBoard } from './montessori-art.js';
 import { createMontessoriSession, loadResumableMontessoriSession, saveMontessoriSession } from './montessori-session.js';
@@ -189,6 +189,8 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
       const piece = kind === 'shapes' && montessoriCurrentPiece(round, selected), hole = kind === 'shapes' && round.targets.find(target => target.id === targetId);
       const turnToFit = !blocked && round.level >= 6 && piece && hole && piece.shape === hole.shape && piece.color === hole.color && piece.size === hole.size && piece.rotation % rotationPeriod(piece.shape) !== hole.rotation % rotationPeriod(piece.shape);
       if (result.reason === 'wobble') {
+        // The disc slides back to the tray.
+        selected = null; syncSelection();
         setStatus('Lecsúszott! A torony billeg. Koppints a felső korongra, és vedd le!'); say('montessori_tower_retry');
         const stack = $('.mo-tower-stack'); stack?.classList.remove('is-shaking'); if (stack) { void stack.offsetWidth; stack.classList.add('is-shaking'); }
         return;
@@ -364,7 +366,8 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     if (id && id === suppressed && event.detail > 0 && performance.now() < suppressUntil) return;
     if (button.dataset.moGame) startGame(button.dataset.moGame);
     else if (button.dataset.moLevel) startGame(kind, Number(button.dataset.moLevel));
-    else if (button.dataset.moTake) { if (selected) place(button.dataset.moTake); else takeBack(button.dataset.moTake); }
+    // On a leaning tower the top disc always comes off; otherwise a chosen disc goes on top.
+    else if (button.dataset.moTake) { if (selected && !montessoriTowerLeaning(round)) place(button.dataset.moTake); else takeBack(button.dataset.moTake); }
     else if (button.dataset.moCount) { const target = round.targets.find(item => item.id === button.dataset.moCount); if (target) { say('number_' + target.count, true); setStatus(target.count + ' golyó kell ide.'); } }
     else if (round?.mode === 'odd' && round.phase === 'find' && button.dataset.moPiece && button.dataset.moTarget) pickOdd(button.dataset.moPiece);
     else if (kind === 'colors' && round.level === 5 && button.dataset.moTarget && !selected) takeBack(button.dataset.moTarget);
