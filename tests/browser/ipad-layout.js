@@ -377,7 +377,8 @@ async page => {
         await check(`${size}:puzzle-${pieces}`);
       }
       await click('#puzzle-restart');
-      await click('#puzzle-strict'); await click('.puzzle-tray [data-piece="0"]'); await click('[data-slot="1"]');
+      if (await p.locator('#puzzle-strict').getAttribute('aria-pressed') !== 'true') await click('#puzzle-strict');
+      await click('.puzzle-tray [data-piece="0"]'); await click('[data-slot="1"]');
       await check(`${size}:puzzle-bounce`);
       await click('#puzzle-strict');
       for (let id = 0; id < 6; id++) { await click(`.puzzle-tray [data-piece="${id}"]`); await click(`[data-slot="${id}"]`); }

@@ -112,12 +112,12 @@ test('malformed boards, unknown occupants and duplicate pieces are rejected with
 });
 test('saved settings accept all supported pictures/sizes and recover from malformed storage', () => {
   for (const image of PUZZLE_IMAGES) for (const count of PUZZLE_SIZES) {
-    assert.deepEqual(normalizePuzzleOptions({ puzzleImage: image.id, puzzlePieces: count }), { puzzleImage: image.id, puzzlePieces: count, puzzleStrict: false });
+    assert.deepEqual(normalizePuzzleOptions({ puzzleImage: image.id, puzzlePieces: count }), { puzzleImage: image.id, puzzlePieces: count, puzzleStrict: true });
   }
   assert.deepEqual(normalizePuzzleOptions({ puzzlePieces: 8, puzzleStrict: true }), { puzzleImage: 'farm', puzzlePieces: 9, puzzleStrict: true });
   assert.equal(normalizePuzzleOptions({ puzzlePieces: 10 }).puzzlePieces, 12);
   for (const value of [undefined, null, false, 'forest', { puzzleImage: '../bad', puzzlePieces: 500 }]) {
-    assert.deepEqual(normalizePuzzleOptions(value), { puzzleImage: 'farm', puzzlePieces: 6, puzzleStrict: false });
+    assert.deepEqual(normalizePuzzleOptions(value), { puzzleImage: 'farm', puzzlePieces: 6, puzzleStrict: true });
   }
 });
 test('original illustrations and three simple beginner pictures exist', async () => {

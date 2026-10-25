@@ -19,6 +19,8 @@ async page => {
     else if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
     await page.locator('#home [data-open="activity-menu"]').click();
     await page.locator('#activity-menu [data-open="puzzle"]').click();
+    // "Csak a jó helyre" is on by default for small children; this walk starts in free placement.
+    if (await page.locator("#puzzle-strict").getAttribute("aria-pressed") === "true") await page.locator("#puzzle-strict").click();
   };
   const move = async (piece, target, finish = true) => {
     await page.locator(`[data-piece="${piece}"]`).scrollIntoViewIfNeeded();

@@ -27,7 +27,7 @@ export function normalizePuzzleOptions(options = {}) {
   return {
     puzzleImage: PUZZLE_IMAGES.some(image => image.id === options.puzzleImage) ? options.puzzleImage : 'farm',
     puzzlePieces: PUZZLE_SIZES.includes(pieces) ? pieces : 6,
-    puzzleStrict: options.puzzleStrict === true,
+    puzzleStrict: options.puzzleStrict !== false,
   };
 }
 
