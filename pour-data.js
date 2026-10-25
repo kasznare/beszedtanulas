@@ -1,8 +1,14 @@
 export const POUR_LEVELS = [
-  { id: 1, name: 'Felfedező', targets: [.72, .72], rate: .18, tolerance: .11 },
-  { id: 2, name: 'Ügyes öntő', targets: [.72, .72], rate: .25, tolerance: .065 },
-  { id: 3, name: 'Kétféle adag', targets: [.45, .78], rate: .25, tolerance: .05 },
+  { id: 1, name: 'Felfedező', rate: .18, tolerance: .11 },
+  { id: 2, name: 'Ügyes öntő', rate: .25, tolerance: .065 },
+  { id: 3, name: 'Kétféle adag', rate: .25, tolerance: .05 },
+  // The jug holds just enough for both glasses and cannot be refilled: spilled water is gone.
+  { id: 4, name: 'Pont elég víz', rate: .25, tolerance: .05, exact: true },
 ];
+export const POUR_HEIGHTS = [.4, .55, .72, .88];
+export const POUR_PAIR_HEIGHTS = [.35, .45, .55, .65, .75, .85];
+export const POUR_PAIR_GAP = .25;
+export const POUR_EXACT_MARGIN = .08;
 export const JUG_CAPACITY = 2.6;
 export const POUR_CLIPS = {
   pour_start: 'Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.',
@@ -21,11 +27,59 @@ export const POUR_CLIPS = {
   pour_done: 'Mindkét barátunk kapott inni! Kezdődhet a piknik!',
 };
 
-export const POUR_ADVANCED_TARGETS = [[.45, .78], [.78, .45], [.55, .85], [.85, .55]];
-export function newPourRound(level = 1, roundIndex = 0) {
+const pick = (items, random) => items[Math.min(items.length - 1, Math.floor(random() * items.length))];
+// New marks every round: level 1 one shared height, level 2 (and 4) two different heights,
+// level 3 a clearly smaller and larger portion, never the same marks twice in a row.
+export function pourTargets(level = 1, random = Math.random, previous = null) {
+  let targets;
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    if (level === 1) { const height = pick(POUR_HEIGHTS, random); targets = [height, height]; }
+    else if (level === 3) {
+      const pairs = POUR_PAIR_HEIGHTS.flatMap(low => POUR_PAIR_HEIGHTS.filter(high => high - low >= POUR_PAIR_GAP - 1e-9).map(high => [low, high]));
+      const pair = pick(pairs, random);
+      targets = random() < .5 ? pair : [pair[1], pair[0]];
+    } else {
+      const first = pick(POUR_HEIGHTS, random);
+      targets = [first, pick(POUR_HEIGHTS.filter(height => height !== first), random)];
+    }
+    if (!previous || targets.join() !== previous.join()) break;
+  }
+  return targets;
+}
+export function newPourRound(level = 1, options = {}) {
   const rule = POUR_LEVELS.find(item => item.id === level) || POUR_LEVELS[0];
-  const variation = rule.id === 3 ? POUR_ADVANCED_TARGETS[Math.abs(Number.isInteger(roundIndex) ? roundIndex : 0) % POUR_ADVANCED_TARGETS.length] : rule.targets;
-  return { level: rule.id, targets: [...variation], fills: [0, 0], done: [false, false], remaining: JUG_CAPACITY, spills: [0, 0] };
+  const { random = Math.random, previous = null } = options && typeof options === 'object' ? options : {};
+  const targets = pourTargets(rule.id, random, previous);
+  const remaining = rule.exact ? Math.min(JUG_CAPACITY, targets[0] + targets[1] + POUR_EXACT_MARGIN) : JUG_CAPACITY;
+  return { level: rule.id, targets, fills: [0, 0], done: [false, false], remaining, spills: [0, 0] };
+}
+
+// Emptying a glass pours it back into the jug when the jug cannot be refilled.
+export function emptyCup(round, cup) {
+  if (![0, 1].includes(cup)) return round;
+  const exact = POUR_LEVELS[round.level - 1]?.exact;
+  const next = { ...round, fills: [...round.fills], done: [...round.done], spills: [...round.spills] };
+  if (exact) next.remaining = Math.min(JUG_CAPACITY, round.remaining + round.fills[cup]);
+  next.fills[cup] = 0; next.done[cup] = false; next.spills[cup] = 0;
+  return next;
+}
+
+// Can both glasses still reach their marks with the water left in the glasses and the jug?
+export function pourStillPossible(round) {
+  const { tolerance } = POUR_LEVELS[round.level - 1];
+  const needed = [0, 1].reduce((sum, cup) => sum + Math.max(0, round.targets[cup] - tolerance - round.fills[cup]), 0);
+  return round.remaining + 1e-9 >= needed;
+}
+
+export function pourStars({ spilled = false, overs = 0, refills = 0 } = {}) {
+  return Math.max(1, 5 - (spilled ? 2 : 0) - (overs ? 1 : 0) - (refills ? 1 : 0));
+}
+
+// Two clean rounds in a row (no spill, no pouring back) move on to the next level.
+export function nextPourLevel(level, streak, clean) {
+  const next = clean ? streak + 1 : 0;
+  if (next >= 2 && level < POUR_LEVELS.length) return { level: level + 1, streak: 0, raised: true };
+  return { level, streak: next, raised: false };
 }
 
 export function correctPour(round, cup, amount = .08) {
@@ -54,7 +108,7 @@ export function advancePour(round, cup, strength, seconds) {
   return next;
 }
 
-export function refillPour(round) { return { ...round, remaining: JUG_CAPACITY }; }
+export function refillPour(round) { return POUR_LEVELS[round.level - 1]?.exact ? round : { ...round, remaining: JUG_CAPACITY }; }
 
 // Clip the jug interior below a gravity plane. Matching the polygon area keeps
 // the same amount of liquid visible when the jug rotates; its surface stays level.

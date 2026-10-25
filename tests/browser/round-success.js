@@ -126,21 +126,21 @@ async page => {
     const pourBefore = await saved();
     for (const [key, cup] of [['ArrowLeft', 0], ['ArrowRight', 1]]) {
       await page.keyboard.down(key);
-      await page.waitForFunction(cup => Number(document.querySelector(`#pour-water-${cup}`).dataset.fill) >= .7, cup);
+      await page.waitForFunction(cup => Number(document.querySelector(`#pour-water-${cup}`).dataset.fill) >= Number(document.querySelector(`[data-pour-cup="${cup}"]`).dataset.target) - .03, cup);
       await page.keyboard.up(key);
     }
-    ok((await saved()).rewards === pourBefore.rewards, 'pour: two complete glasses wait for the explicit finish action');
-    const immediatePour = await markAndClick('#pour-finish');
-    ok(immediatePour.rewards === pourBefore.rewards + 1 && !immediatePour.modal && !immediatePour.confetti, 'pour: explicit finish saves its reward immediately with both glasses still visible');
+    // Two finished glasses end the round by themselves; the success still waits its visible interval.
+    await page.waitForFunction(before => JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards === before + 1, pourBefore.rewards, { timeout: 8000 });
+    ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('[data-pour-cup="0"]').getAttribute('data-done') === 'true', 'pour: the finished round saves its reward with both glasses still visible');
     await waitCelebration('pour', pourBefore);
     await page.locator('#round-replay').click();
     const pourRestartBefore = await saved();
     for (const [key, cup] of [['ArrowLeft', 0], ['ArrowRight', 1]]) {
       await page.keyboard.down(key);
-      await page.waitForFunction(cup => Number(document.querySelector(`#pour-water-${cup}`).dataset.fill) >= .7, cup);
+      await page.waitForFunction(cup => Number(document.querySelector(`#pour-water-${cup}`).dataset.fill) >= Number(document.querySelector(`[data-pour-cup="${cup}"]`).dataset.target) - .03, cup);
       await page.keyboard.up(key);
     }
-    await markAndClick('#pour-finish');
+    await page.waitForFunction(before => JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards === before + 1, pourRestartBefore.rewards, { timeout: 8000 });
     await page.locator('#pour-restart').click();
     await page.waitForTimeout(1200);
     ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('#pour-water-0').getAttribute('data-fill') === '0', 'pour: new glasses cancel the pending success and open an empty round');

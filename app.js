@@ -1363,7 +1363,7 @@ function normalizeState(input) {
       ...normalizePracticeSettings(input.settings),
       ...normalizeNumberSettings(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
-      pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
+      pourLevel: [1, 2, 3, 4].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
     detection: {
@@ -2500,7 +2500,7 @@ function celebrateRound(kind, count) {
     document.querySelector("#round-related").innerHTML=relatedTaskMarkup(kind);
     document.querySelector("#round-complete").showModal();
     if (nextPuzzle) continueButton.focus({ preventScroll: true });
-    if (kind === "pour") speakVoice('pour_done');
+    if (kind === "pour") { if (state.settings.spokenGuidance) speakVoice("pour_done"); }
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');
     else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
