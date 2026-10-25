@@ -55,8 +55,18 @@ async page => {
           await choose(id); await page.locator(`[data-mo-target="${id}"]`).focus(); await page.keyboard.press('Enter');
           ok((await page.locator('#mo-status').textContent()).includes('akadályt') && await page.locator('.mo-box-window svg').count() === 0, 'Covered holes refuse even a matching shape');
           for (const blocker of await page.locator('[data-mo-blocker]').evaluateAll(buttons => buttons.map(button => button.dataset.moBlocker))) await page.locator(`[data-mo-blocker="${blocker}"]`).click();
+        } else if (kind === 'tower') {
+          // Any disc is accepted; a larger one on a smaller one leans and the next slides off.
+          await place('disc-0', 'tower'); await place('disc-1', 'tower');
+          ok(await page.locator('.mo-tower-stack.is-leaning').count() === 1, `tower/${level}: a larger disc on a smaller one makes the tower lean`);
+          await choose('disc-2'); await page.locator('[data-mo-target="tower"]').first().click();
+          ok(await page.locator('.mo-tray [data-mo-piece="disc-2"]').count() === 1 && (await page.locator('#mo-status').textContent()).includes('billeg'), `tower/${level}: the next disc slides off a leaning tower`);
+          await page.keyboard.press('Escape');
+          await page.locator('[data-mo-take]').click(); await page.locator('[data-mo-take]').click();
+          ok(await page.locator('[data-mo-take]').count() === 0 && (await saved()).rewards === before, `tower/${level}: tapping the top disc lifts it off`);
+          ok(await page.locator('.mo-tower-guide').count() === (level <= 2 ? 1 : 0), `tower/${level}: the outline guide is shown only on the first two levels`);
         } else if (ids.length > 1) {
-          const wrongId = kind === 'shapes' ? ids.find(id => id !== targets[0]) : kind === 'tower' ? 'disc-0' : ids.find(id => !id.startsWith(`${targets[0]}-`));
+          const wrongId = kind === 'shapes' ? ids.find(id => id !== targets[0]) : ids.find(id => !id.startsWith(`${targets[0]}-`));
           await choose(wrongId); await page.locator(`[data-mo-target="${targets[0]}"]`).click();
           ok(await page.locator('[data-mo-piece]').count() === ids.length && (await saved()).rewards === before, `${kind}/${level}: wrong choice stays retryable`);
         }
@@ -148,8 +158,7 @@ async page => {
     await page.setViewportSize({ width: 1194, height: 834 }); await menu();
     await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
-    await place(id, id);
+    for (const piece of await page.locator('[data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece))) await place(piece, piece);
     ok(await page.locator('#montessori').getAttribute('data-done') === 'true', 'Reduced motion completes without a falling animation');
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.locator('#mo-restart').click();
@@ -164,8 +173,7 @@ async page => {
 
     if (context._options?.hasTouch) {
       await menu(); await page.locator('[data-mo-game="shapes"]').click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
-      id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
-      await page.locator(`[data-mo-piece="${id}"]`).tap(); await page.locator(`[data-mo-target="${id}"]`).tap(); await ready();
+      for (id of await page.locator('[data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece))) { await page.locator(`[data-mo-piece="${id}"]`).tap(); await page.locator(`[data-mo-target="${id}"]`).tap(); await ready(); }
       ok(await page.locator('#montessori').getAttribute('data-done') === 'true', 'Native touchscreen taps select and place');
     }
     await page.waitForFunction(() => document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'), undefined, { timeout: 60000 });

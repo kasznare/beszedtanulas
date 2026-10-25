@@ -238,6 +238,36 @@ async page => {
         await click(`#${menu} [data-kind="${game}"]`);
         const levels = await p.locator('[data-mo-level]').count();
         for (let level = 1; level <= levels; level++) { await click(`[data-mo-level="${level}"]`); await check(`${size}:montessori-${game}-${level}`); }
+        // Gameplay states after a mistake: a leaning tower, an overfilled counted bowl,
+        // marked grid/memory cells after a failed check, and the "odd tile" puzzle.
+        if (game === 'tower') {
+          await click('[data-mo-level="5"]'); await click('#mo-restart');
+          for (const disc of ['disc-0', 'disc-1']) { await click(`[data-mo-piece="${disc}"]`); await click('[data-mo-target="tower"]'); await p.locator('#mo-restart:not([disabled])').waitFor(); }
+          await check(`${size}:montessori-tower-leaning`);
+          await click('[data-mo-take]'); await check(`${size}:montessori-tower-take-back`);
+        }
+        if (game === 'colors') {
+          await click('[data-mo-level="5"]'); await click('#mo-restart');
+          const ball = await p.locator('.mo-tray [data-mo-piece]').first().getAttribute('data-mo-piece');
+          await click(`[data-mo-piece="${ball}"]`); await click(`[data-mo-target="${ball.replace(/-\d+$/, '')}"]`); await p.locator('#mo-restart:not([disabled])').waitFor();
+          await click('#mo-check'); await check(`${size}:montessori-colors-count-marked`);
+        }
+        if (game === 'grid') {
+          await click('[data-mo-level="3"]'); await click('#mo-restart');
+          const tiles = await p.locator('.mo-tray [data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
+          const cells = await p.locator('.mo-slot[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
+          for (let i = 0; i < cells.length; i++) { await click(`[data-mo-piece="${tiles[i]}"]`); await click(`.mo-slot[data-mo-target="${cells[i]}"]`); }
+          await click('#mo-check'); await check(`${size}:montessori-grid-marked`);
+          await click('[data-mo-level="6"]'); await click('#mo-restart');
+          await p.locator('.mo-slot[data-mo-piece]').first().click(); await check(`${size}:montessori-grid-odd-find`);
+        }
+        if (game === 'memory') {
+          await click('[data-mo-level="4"]'); await click('#mo-restart'); await click('#mo-hide-pattern');
+          const beads = await p.locator('.mo-tray [data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
+          const slots = await p.locator('.mo-slot[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
+          for (let i = 0; i < slots.length; i++) { await click(`[data-mo-piece="${beads[i]}"]`); await click(`.mo-slot[data-mo-target="${slots[i]}"]`); }
+          await click('#mo-check'); await check(`${size}:montessori-memory-marked`);
+        }
         await click('[data-mo-level="1"]');
         await click('#back-button');
         if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);

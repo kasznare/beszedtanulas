@@ -1,7 +1,7 @@
-import { MONTESSORI_GAMES, MONTESSORI_SHAPES, normalizeMontessoriOptions, montessoriCurrentPiece, moveMontessoriPiece, rotateMontessoriPiece, rotationPeriod, checkMontessoriRound, montessoriColorHex, placeMontessoriPiece, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete } from './montessori-data.js';
+import { MONTESSORI_GAMES, MONTESSORI_SHAPES, normalizeMontessoriOptions, montessoriCurrentPiece, moveMontessoriPiece, rotateMontessoriPiece, rotationPeriod, checkMontessoriRound, montessoriColorHex, placeMontessoriPiece, setMontessoriBlocker, montessoriBoardLayout, montessoriComplete, montessoriNeedsCheck, montessoriTowerLeaning, montessoriWrongTargets, takeBackMontessoriPiece, pickMontessoriOdd, montessoriLocked, nextMemorySpan, MONTESSORI_MEMORY_START } from './montessori-data.js';
 
 import { colorOf, shapeArt, pieceArt, pieceName, holeClip, challengeBoard } from './montessori-art.js';
-import { createMontessoriSession, loadMontessoriSession, saveMontessoriSession } from './montessori-session.js';
+import { createMontessoriSession, loadResumableMontessoriSession, saveMontessoriSession } from './montessori-session.js';
 import { setGameTitle, focusGameTitle } from './game-heading.js';
 
 export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions, speak, stopPlayback, onComplete, getScope = () => 'default' }) {
@@ -17,9 +17,19 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
   const setStatus = message => { if ($('#mo-status')) $('#mo-status').textContent = message; };
   const focus = selector => $(selector)?.focus({ preventScroll: true });
   const levelKey = game => `montessori${game[0].toUpperCase()}${game.slice(1)}Level`;
-  const instructions = () => kind === 'shapes' ? round.level >= 6 ? 'A szín, az alak, a méret és az elfordítás is egyezzen! Jelöld ki a formát, majd fordítsd el a mellette megjelenő nyilakkal.' : round.level === 5 ? 'A kicsi forma a kicsi lyukba illik. A szín és az alak is egyezzen!' : round.level === 4 ? 'Told félre az akadályokat! A forma és a keret színe is egyezzen.' : round.level === 1 ? 'Húzd a formát a színes keretű lyukba!' : 'A forma alakja és a lyuk keretének színe is egyezzen!' : kind === 'colors' ? round.level === 5 ? 'Az árnyalat is egyezzen! Annyi golyót tegyél bele, amennyit a pöttyök mutatnak.' : round.level === 4 ? 'A világos és a sötét golyóknak külön tálkájuk van.' : 'Minden golyót az ugyanolyan színű tálkába!' : kind === 'tower' ? 'A legnagyobbal kezdj, aztán egyre kisebb korongokat tegyél rá!' : kind === 'grid' ? 'A sor alakja és az oszlop színe együtt mutatja a helyet.' + (round.level === 4 ? ' A méret is számít!' : '') : 'Figyeld meg, rejtsd el, majd rakd ki emlékezetből!';
-  const doneMessage = () => ({ shapes: 'Minden forma átpottyant!', colors: 'Minden tálkában pontosan annyi van, amennyi kell!', tower: 'Elkészült a tornyod!', grid: 'Minden sor és oszlop rendben!', memory: 'Kiraktad a megfigyelt mintát!' })[kind];
-  function award() { if (montessoriComplete(round) && !awarded) { awarded = true; save(); onComplete(round.total); } }
+  const instructions = () => kind === 'shapes' ? round.level >= 6 ? 'A szín, az alak, a méret és az elfordítás is egyezzen! Jelöld ki a formát, majd fordítsd el a mellette megjelenő nyilakkal.' : round.level === 5 ? 'A kicsi forma a kicsi lyukba illik. A szín és az alak is egyezzen!' : round.level === 4 ? 'Told félre az akadályokat! A forma és a keret színe is egyezzen.' : round.level === 1 ? 'Melyik forma melyik lyukba illik?' : 'A forma alakja és a lyuk keretének színe is egyezzen!' : kind === 'colors' ? round.level === 5 ? 'Annyi golyót tegyél a tálkába, ahány pötty van alatta! Aztán ✓.' : round.level === 4 ? 'A világos és a sötét golyóknak külön tálkájuk van.' : 'Minden golyót az ugyanolyan színű tálkába!' : kind === 'tower' ? 'Építs egyenes tornyot! Ha billeg, koppints a felső korongra.' : kind === 'grid' ? round.mode === 'missing' ? 'Melyik hiányzik? Tedd a helyére!' : round.mode === 'odd' ? round.phase === 'find' ? 'Melyik nem illik? Koppints rá!' : 'Mi illik a helyére?' : 'A sor alakja és az oszlop színe együtt mutatja a helyet.' + (round.level === 4 ? ' A méret is számít!' : '') : 'Figyeld meg, rejtsd el, majd rakd ki emlékezetből!';
+  const doneMessage = () => ({ shapes: 'Minden forma átpottyant!', colors: 'Minden tálkában pontosan annyi van, amennyi kell!', tower: 'Elkészült a tornyod!', grid: 'Minden sor és oszlop rendben!', memory: round.nextSpan > round.span ? 'Kiraktad! A következő sor hosszabb lesz.' : round.nextSpan < round.span ? 'Kiraktad! A következő sor rövidebb lesz.' : 'Kiraktad a megfigyelt mintát!' })[kind];
+  const memoryOptions = () => normalizeMontessoriOptions(getOptions());
+  function award() {
+    if (!montessoriComplete(round) || awarded) return;
+    awarded = true; save(); onComplete(round.total);
+    if (kind === 'memory') {
+      // The next memory row adapts: longer after two clean rounds, shorter after a miss.
+      const options = memoryOptions(), next = nextMemorySpan(round.span, options.montessoriMemoryStreak, round);
+      setOptions({ ...options, montessoriMemorySpan: next.span, montessoriMemoryStreak: next.streak });
+      round.nextSpan = next.span;
+    }
+  }
 
 
   function cleanupDrag() {
@@ -49,13 +59,20 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     if (!Object.hasOwn(MONTESSORI_GAMES, game)) return;
     save(); cleanupDrag(); cleanupAnimation(); stopPlayback();
     kind = game; scope = getScope();
-    const restored = fresh ? null : loadMontessoriSession(localStorage, scope, kind, level);
-    round = restored?.round || createMontessoriSession(kind, level); selected = null; history = []; awarded = restored?.awarded || false; save();
-    setOptions({ ...normalizeMontessoriOptions(getOptions()), [levelKey(kind)]: round.level });
+    const options = normalizeMontessoriOptions(getOptions());
+    // A finished exercise is never reopened: re-entering starts a new round.
+    const restored = fresh ? null : loadResumableMontessoriSession(localStorage, scope, kind, level);
+    // Choosing another memory level starts from that level's span again.
+    const memoryReset = kind === 'memory' && level !== options.montessoriMemoryLevel;
+    const span = kind === 'memory' && !memoryReset && options.montessoriMemorySpan ? options.montessoriMemorySpan : undefined;
+    round = restored?.round || createMontessoriSession(kind, level, undefined, { span }); selected = null; history = []; awarded = restored?.awarded || false; save();
+    setOptions({ ...options, [levelKey(kind)]: round.level, ...(memoryReset ? { montessoriMemorySpan: 0, montessoriMemoryStreak: 0 } : {}) });
     render('title'); repeat();
   }
   function repeat(force = false) {
     if (!active) return;
+    // The grid puzzles have no own recording yet; the general grid rule is read only on request.
+    if (kind === 'grid' && round.mode && !montessoriComplete(round)) { if (force) say('montessori_grid', true); return; }
     say(!kind ? 'montessori_menu' : montessoriComplete(round) ? `montessori_${kind}_done` : kind === 'shapes' ? round.level >= 6 ? 'montessori_shapes_turn' : round.level === 5 ? 'montessori_shapes_size' : `montessori_shapes_${round.level}` : kind === 'colors' && round.level >= 4 ? round.level === 4 ? 'montessori_colors_shades' : 'montessori_colors_count' : kind === 'grid' && round.level === 4 ? 'montessori_grid_size' : `montessori_${kind}`, force);
   }
   function render(focusSelector, message) {
@@ -63,14 +80,15 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     root.dataset.game = kind; root.dataset.done = String(done); root.dataset.level = round.level;
     root.classList.toggle('has-selection', selected !== null);
     setGameTitle(root, info.name);
-    const remaining = round.pieces.filter(piece => !round.placements.some(placement => placement.piece === piece.id));
+    const remaining = round.pieces.filter(piece => !round.placements.some(placement => placement.piece === piece.id) && !montessoriLocked(round, piece.id));
+    const finding = round.mode === 'odd' && round.phase === 'find';
     root.innerHTML = `<div class="mo-game-top"><button id="mo-back" class="mo-soft-button" aria-label="Vissza a Montessori műhelybe" hidden>← Műhely</button><span class="mo-progress" aria-label="${round.placements.length} a ${round.total} elemből a helyén">${Array.from({ length: round.total }, (_, i) => `<i class="${i < round.placements.length ? 'is-filled' : ''}"></i>`).join('')}</span></div>
       <p id="mo-instructions" class="mo-instructions">${instructions()}</p>
       <div class="mo-levels" role="group" aria-label="${info.name} nehézsége">${info.levels.map((name, i) => `<button data-mo-level="${i + 1}" aria-pressed="${round.level === i + 1}"><span>${i + 1}</span>${name}</button>`).join('')}</div>
       <div class="mo-workspace">${kind === 'shapes' ? shapeBoard() : kind === 'colors' ? colorBoard() : kind === 'tower' ? towerBoard() : challengeBoard(round, selected)}
-        ${kind === 'shapes' || kind === 'memory' && round.phase === 'preview' ? '' : `<div class="mo-tray-wrap"><p class="mo-tray-label">${done ? 'Elkészült a feladat.' : 'Válassz egyet, majd koppints a helyére — vagy húzd oda!'}</p><div class="mo-tray" role="group" aria-label="Mozgatható ${kind === 'colors' ? 'golyók' : kind === 'tower' ? 'korongok' : 'elemek'}">${remaining.map(piece => `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" aria-label="${pieceName(piece, kind)}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, kind)}</button>`).join('')}${!remaining.length ? '<span class="mo-empty-tray" aria-hidden="true">✧</span>' : ''}</div></div>`}
+        ${kind === 'shapes' || kind === 'memory' && round.phase === 'preview' || finding ? '' : `<div class="mo-tray-wrap"><p class="mo-tray-label">${done ? 'Elkészült a feladat.' : round.mode ? 'Melyik illik a helyére?' : 'Válassz egyet, majd koppints a helyére — vagy húzd oda!'}</p><div class="mo-tray" role="group" aria-label="Mozgatható ${kind === 'colors' ? 'golyók' : kind === 'tower' ? 'korongok' : 'elemek'}">${remaining.map(piece => `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" aria-label="${pieceName(piece, kind)}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, kind)}</button>`).join('')}${!remaining.length ? '<span class="mo-empty-tray" aria-hidden="true">✧</span>' : ''}</div></div>`}
       </div><p id="mo-status" class="mo-status ${done ? 'is-done' : ''}" role="status" aria-live="polite">${message || (done ? doneMessage() : 'Itt minden mozdulatot kipróbálhatsz.')}</p>
-      <div class="mo-actions">${['grid', 'memory'].includes(kind) && !done && (kind !== 'memory' || round.phase === 'play') ? '<button id="mo-check" class="mo-next">✓ Ellenőrzés</button>' : ''}<button id="mo-undo" class="mo-soft-button" ${history.length ? '' : 'disabled'}>↶ Visszavonom</button><button id="mo-restart" class="mo-soft-button">↻ Új játék</button>${done && round.level < info.levels.length ? '<button id="mo-next" class="mo-next">Következő szint →</button>' : ''}</div>`;
+      <div class="mo-actions">${montessoriNeedsCheck(round) && !done && (kind !== 'memory' || round.phase === 'play') ? '<button id="mo-check" class="mo-next">✓ Ellenőrzés</button>' : ''}<button id="mo-undo" class="mo-soft-button" ${history.length ? '' : 'disabled'}>↶ Visszavonom</button><button id="mo-restart" class="mo-soft-button">↻ Új játék</button>${done && round.level < info.levels.length ? '<button id="mo-next" class="mo-next">Következő szint →</button>' : ''}</div>`;
     syncTurnToolbar();
     if (focusSelector === 'title') focusGameTitle(root);
     else if (focusSelector) focus(focusSelector);
@@ -84,13 +102,22 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     }).join('')}</div><div class="mo-board-pieces" role="group" aria-label="A deszkán fekvő, mozgatható formák">${round.pieces.filter(piece => !round.placements.some(placement => placement.piece === piece.id)).map(original => { const piece = montessoriCurrentPiece(round, original.id); return `<button class="mo-piece ${selected === piece.id ? 'is-selected' : ''}" data-mo-piece="${piece.id}" data-mo-shape="${piece.shape}" data-mo-color="${piece.color}" data-mo-size="${piece.size}" data-mo-rotation="${piece.rotation}" style="${position(layout.pieces[piece.id])}" aria-label="${pieceName(piece, 'shapes')}" aria-pressed="${selected === piece.id}" ${done ? 'disabled' : ''} draggable="false">${pieceArt(piece, 'shapes')}</button>`; }).join('')}</div>${round.level >= 6 && !done ? '<div class="mo-turn-toolbar" hidden role="group" aria-label="Kijelölt forma forgatása"><button id="mo-turn-left" aria-label="Kijelölt forma forgatása balra, 90 fokkal">↶</button><button id="mo-turn-right" aria-label="Kijelölt forma forgatása jobbra, 90 fokkal">↷</button></div>' : ''}</div></div><div class="mo-box-front"><span class="mo-box-label">FORMADOBOZ</span><div class="mo-box-window" aria-label="A bedobott formák">${round.placements.map(placement => `<span>${pieceArt(montessoriCurrentPiece(round, placement.piece), 'shapes')}</span>`).join('')}</div></div></div>`;
   }
   function colorBoard() {
+    const counting = round.level === 5, done = montessoriComplete(round), wrong = montessoriWrongTargets(round);
     return `<div class="mo-color-board" role="group" aria-label="Színes tálkák">${round.targets.map(target => {
       const color = colorOf(target.color), shade = target.shade === null ? '' : target.shade === 0 ? 'Világos ' : 'Sötét ', placed = round.placements.filter(placement => placement.target === target.id);
-      return `<button class="mo-bowl-target" data-mo-target="${target.id}" aria-label="${shade}${color.name} tálka, ${placed.length} a ${target.count} golyóból" style="--mo-color:${montessoriColorHex(target.color, target.shade)}" ${montessoriComplete(round) ? 'disabled' : ''}><span class="mo-bowl"><span class="mo-bowl-inside">${placed.map(() => '<i class="mo-ball"></i>').join('')}</span></span><span class="mo-color-label">${shade}${color.name}</span><span class="mo-capacity" aria-label="${target.count} golyó helye">${Array.from({ length: target.count }, (_, i) => `<i class="${i < placed.length ? 'is-filled' : ''}"></i>`).join('')}</span></button>`;
+      // Counting level: the dots only show the asked amount; the child compares and counts.
+      const dots = Array.from({ length: target.count }, (_, i) => `<i class="${!counting && i < placed.length ? 'is-filled' : ''}"></i>`).join('');
+      const bowl = `<button class="mo-bowl-target ${wrong.includes(target.id) ? 'is-wrong' : ''}" data-mo-target="${target.id}" aria-label="${shade}${color.name} tálka, ${counting ? `${placed.length} golyó benne, ${target.count} kell` : `${placed.length} a ${target.count} golyóból`}" style="--mo-color:${montessoriColorHex(target.color, target.shade)}" ${done ? 'disabled' : ''}><span class="mo-bowl"><span class="mo-bowl-inside">${placed.map(() => '<i class="mo-ball"></i>').join('')}</span></span>${counting ? "" : `<span class="mo-color-label">${shade}${color.name}</span>`}${counting ? '' : `<span class="mo-capacity" aria-label="${target.count} golyó helye">${dots}</span>`}</button>`;
+      return counting ? `<div class="mo-bowl-cell">${bowl}<button class="mo-capacity mo-count-button" data-mo-count="${target.id}" aria-label="${target.count} golyó kell ide. Koppints, és meghallod!">${dots}</button></div>` : bowl;
     }).join('')}</div>`;
   }
   function towerBoard() {
-    return `<div class="mo-tower-board"><span class="mo-tower-guide" aria-hidden="true">${[...round.pieces].sort((a, b) => a.size - b.size).map(piece => `<i style="--mo-size:${piece.size}"></i>`).join('')}</span><button class="mo-tower-target" data-mo-target="tower" aria-label="Torony helye, ${round.placements.length} korong. Tedd ide a következő legnagyobb korongot!" ${montessoriComplete(round) ? 'disabled' : ''}><span class="mo-tower-stack">${[...round.placements].reverse().map(placement => pieceArt(round.pieces.find(piece => piece.id === placement.piece), 'tower')).join('')}</span><span class="mo-tower-base"><span aria-hidden="true">${round.placements.length ? '' : '↓'}</span></span></button><span class="mo-tower-caption">Nagy alul · kicsi felül</span></div>`;
+    const done = montessoriComplete(round), leaning = montessoriTowerLeaning(round), top = round.placements.at(-1);
+    const disc = placement => round.pieces.find(piece => piece.id === placement.piece);
+    // The guide outline gives the answer away, so it only appears on the first two levels.
+    const guide = round.level <= 2 ? `<span class="mo-tower-guide" aria-hidden="true">${[...round.pieces].sort((a, b) => a.size - b.size).map(piece => `<i style="--mo-size:${piece.size}"></i>`).join('')}</span>` : '';
+    const stack = [...round.placements].reverse().map(placement => placement === top && !done ? `<button class="mo-tower-top" data-mo-take="tower" aria-label="Felső korong: ${pieceName(disc(placement), 'tower')}. Koppints rá, és leveszed!">${pieceArt(disc(placement), 'tower')}</button>` : pieceArt(disc(placement), 'tower')).join('');
+    return `<div class="mo-tower-board">${guide}<div class="mo-tower-area"><button class="mo-tower-target" data-mo-target="tower" aria-label="Torony helye, ${round.placements.length} korong${leaning ? ', billeg' : ''}." ${done ? 'disabled' : ''}><span class="mo-tower-base"><span aria-hidden="true">${round.placements.length ? '' : '↓'}</span></span></button><span class="mo-tower-stack ${leaning ? 'is-leaning' : ''}">${stack}</span></div><span class="mo-tower-caption">Nagy alul · kicsi felül</span></div>`;
   }
   function syncSelection() {
     root.querySelectorAll('[data-mo-piece]').forEach(button => {
@@ -140,7 +167,7 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     toolbarFrame = requestAnimationFrame(() => { toolbarFrame = 0; syncTurnToolbar(); });
   }
   function select(id, audible = true) {
-    if (!playable() || !round.pieces.some(piece => piece.id === id) || !['grid', 'memory'].includes(kind) && round.placements.some(placement => placement.piece === id)) return;
+    if (!playable() || !round.pieces.some(piece => piece.id === id) || montessoriLocked(round, id) || (!['grid', 'memory'].includes(kind) || round.mode) && round.placements.some(placement => placement.piece === id)) return;
     selected = selected === id ? null : id; syncSelection(); if (audible) effect('select');
     setStatus(selected ? 'Hová illik? Koppints a helyére!' : 'Válassz egy elemet a tálcáról!');
   }
@@ -161,13 +188,19 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
       const blocked = result.reason === 'blocked';
       const piece = kind === 'shapes' && montessoriCurrentPiece(round, selected), hole = kind === 'shapes' && round.targets.find(target => target.id === targetId);
       const turnToFit = !blocked && round.level >= 6 && piece && hole && piece.shape === hole.shape && piece.color === hole.color && piece.size === hole.size && piece.rotation % rotationPeriod(piece.shape) !== hole.rotation % rotationPeriod(piece.shape);
-      const text = result.reason === 'full' ? 'Ebben a tálkában már elég golyó van.' : blocked ? 'Előbb csúsztasd félre az akadályt!' : turnToFit ? 'A szín, az alak és a méret jó! Fordítsd el a formát a két nyíllal, majd próbáld újra.' : kind === 'shapes' ? round.level >= 5 ? 'Nézd meg az alakot, a színt, a méretet és az elfordítást!' : 'A forma és a keret színe is egyezzen! Nézd meg mindkettőt.' : kind === 'colors' ? 'Keress ugyanilyen színű tálkát!' : 'Előbb a legnagyobb megmaradt korong következik.';
-      setStatus(text); say(blocked ? 'montessori_blocked' : turnToFit ? 'montessori_shape_turn_retry' : { shapes: 'montessori_shape_retry', colors: 'montessori_color_retry', tower: 'montessori_tower_retry' }[kind]);
+      if (result.reason === 'wobble') {
+        setStatus('Lecsúszott! A torony billeg. Koppints a felső korongra, és vedd le!'); say('montessori_tower_retry');
+        const stack = $('.mo-tower-stack'); stack?.classList.remove('is-shaking'); if (stack) { void stack.offsetWidth; stack.classList.add('is-shaking'); }
+        return;
+      }
+      const text = result.reason === 'full' ? 'Ebben a tálkában már elég golyó van.' : blocked ? 'Előbb csúsztasd félre az akadályt!' : turnToFit ? 'A szín, az alak és a méret jó! Fordítsd el a formát a két nyíllal, majd próbáld újra.' : kind === 'shapes' ? round.level >= 5 ? 'Nézd meg az alakot, a színt, a méretet és az elfordítást!' : 'A forma és a keret színe is egyezzen! Nézd meg mindkettőt.' : kind === 'colors' ? 'Keress ugyanilyen színű tálkát!' : 'Nézd meg újra a sor alakját és az oszlop színét!';
+      setStatus(text); say(blocked ? 'montessori_blocked' : turnToFit ? 'montessori_shape_turn_retry' : { shapes: 'montessori_shape_retry', colors: 'montessori_color_retry', grid: 'montessori_grid_retry' }[kind]);
       const target = $(`[data-mo-target="${targetId}"]`); target?.classList.remove('is-retry'); if (target) { void target.offsetWidth; target.classList.add('is-retry'); }
       return;
     }
     const pieceId = selected, button = $(`[data-mo-piece="${pieceId}"]`), target = $(`[data-mo-target="${targetId}"]`);
     remember(result.round); selected = null;
+    if (kind === 'grid' && round.mode) { award(); effect('success'); render('#mo-restart', doneMessage()); say('montessori_grid_done'); return; }
     if (['grid', 'memory'].includes(kind)) { effect('snap'); render(`[data-mo-target="${targetId}"]`, 'Leraktad. A helyükre tett elemeket is átcserélheted.'); return; }
      busy = true; root.classList.remove('has-selection'); stopPlayback();
     award();
@@ -177,7 +210,13 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
       cleanupAnimation();
       if (!active || document.hidden) return;
       render(montessoriComplete(round) ? '#mo-restart' : '[data-mo-piece]');
-      if (montessoriComplete(round)) { effect('success'); focus(round.level < MONTESSORI_GAMES[kind].levels.length ? '#mo-next' : '#mo-restart'); say(`montessori_${kind}_done`); }
+      if (kind === 'tower' && montessoriTowerLeaning(round)) { effect('retry'); setStatus('Billeg a torony! Nagyobb korong került a kisebbre. Koppints a felső korongra!'); say('montessori_tower_retry'); }
+      else if (kind === 'colors' && round.level === 5) {
+        // Count along: the bowl's new amount is read aloud.
+        const inBowl = round.placements.filter(move => move.target === targetId).length;
+        setStatus(`${inBowl} golyó van a tálkában. Ha minden tálka kész, ✓.`); if (inBowl <= 10) say(`number_${inBowl}`);
+      }
+      else if (montessoriComplete(round)) { effect('success'); focus(round.level < MONTESSORI_GAMES[kind].levels.length ? '#mo-next' : '#mo-restart'); say(`montessori_${kind}_done`); }
       else setStatus(kind === 'shapes' ? 'A forma bent van. Jöhet a következő!' : 'A helyén van. Válassz egy másikat!');
     });
   }
@@ -198,9 +237,29 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
   }
   function check() {
     if (!playable()) return;
-    remember(checkMontessoriRound(round)); award(); render(montessoriComplete(round) ? '#mo-restart' : '#mo-check', montessoriComplete(round) ? doneMessage() : round.placements.length < round.total ? 'Még vannak üres helyek. Próbáld teletenni!' : 'Nézd meg újra a szabályt! Az elemeket átcserélheted.');
-    effect(montessoriComplete(round) ? 'success' : 'retry');
-    say(`montessori_${kind}_${montessoriComplete(round) ? 'done' : 'retry'}`);
+    remember(checkMontessoriRound(round)); award();
+    const done = montessoriComplete(round), counting = kind === 'colors';
+    render(done ? '#mo-restart' : '#mo-check', done ? doneMessage() : counting ? 'A megjelölt tálkákban nem annyi golyó van, amennyi kell. Koppints a tálkára, ha ki akarsz venni egyet!' : round.placements.length < round.total ? 'Még vannak üres helyek. Próbáld teletenni!' : 'A megjelölt helyeken valami nem stimmel. Cseréld ki őket!');
+    effect(done ? 'success' : 'retry');
+    say(counting ? done ? 'montessori_colors_done' : 'montessori_colors_count' : `montessori_${kind}_${done ? 'done' : 'retry'}`);
+  }
+  // Tower: lift the top disc off. Counting bowls: take one ball back out.
+  function takeBack(targetId) {
+    if (!playable()) return;
+    const next = takeBackMontessoriPiece(round, targetId);
+    if (next === round) { setStatus(kind === 'tower' ? 'Válassz egy korongot a tálcáról!' : 'Előbb válassz egy golyót a tálcáról!'); return; }
+    remember(next); selected = null; effect('undo');
+    render(kind === 'tower' ? '[data-mo-take], .mo-tray [data-mo-piece]' : `[data-mo-target="${targetId}"]`, kind === 'tower' ? montessoriTowerLeaning(round) ? 'Még mindig billeg. Vedd le a következőt is!' : 'Levetted. Melyik korong jöjjön?' : 'Kivettél egy golyót.');
+  }
+  function pickOdd(pieceId) {
+    if (!playable()) return;
+    const result = pickMontessoriOdd(round, pieceId);
+    if (!result.accepted) {
+      effect('retry'); setStatus('Ez illik a sorához és az oszlopához. Keresd tovább!'); say('montessori_grid_retry');
+      const cell = $(`[data-mo-piece="${pieceId}"]`); cell?.classList.remove('is-retry'); if (cell) { void cell.offsetWidth; cell.classList.add('is-retry'); }
+      return;
+    }
+    remember(result.round); effect('snap'); render('.mo-tray [data-mo-piece]', 'Megtaláltad! Mi illik a helyére?');
   }
   function animatePlacement(button, target, finish) {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -245,7 +304,7 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
   }
   root.addEventListener('pointerdown', event => {
     const button = event.target.closest('[data-mo-piece], [data-mo-blocker]');
-    if (!button || button.disabled || !playable() || !event.isPrimary || event.button !== 0) return;
+    if (!button || button.disabled || !playable() || !event.isPrimary || event.button !== 0 || montessoriLocked(round, button.dataset.moPiece)) return;
     cleanupDrag();
     const blocker = button.dataset.moBlocker;
     const initialSlide = blocker && round.cleared.includes(blocker) ? 1 : 0;
@@ -274,12 +333,12 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     }
     drag.ghost.style.left = `${event.clientX - drag.width / 2}px`; drag.ghost.style.top = `${event.clientY - drag.height / 2}px`;
     root.querySelectorAll('.is-drop-target').forEach(element => element.classList.remove('is-drop-target'));
-    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target]:not(:disabled)');
+    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target]:not(:disabled), [data-mo-take]');
     if (target && root.contains(target)) target.classList.add('is-drop-target');
   });
   root.addEventListener('pointerup', event => {
     if (!drag || drag.pointerId !== event.pointerId) return;
-    const previous = drag, target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target]');
+    const previous = drag, target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target], [data-mo-take]');
     cleanupDrag(); suppressed = previous.id; suppressUntil = performance.now() + 400;
     if (!playable()) return;
     if (previous.type === 'blocker') {
@@ -288,7 +347,7 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
       else if (previous.slide <= .2) moveBlocker(previous.id, false);
       else setStatus('Csúsztasd az akadályt teljesen félre, vagy koppints rá!');
     } else if (previous.moved) {
-      const targetId = target && root.contains(target) ? target.dataset.moTarget : null;
+      const targetId = target && root.contains(target) ? target.dataset.moTarget || target.dataset.moTake : null;
       if (kind === 'shapes' && (!targetId || !placeMontessoriPiece(round, previous.id, targetId).accepted)) parkPiece(previous.id, event.clientX, event.clientY);
       if (targetId) place(targetId);
       else { effect('wood'); setStatus('Az elem itt vár. Húzd a helyére, vagy koppints oda!'); focus(`[data-mo-piece="${previous.id}"]`); }
@@ -305,6 +364,10 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     if (id && id === suppressed && event.detail > 0 && performance.now() < suppressUntil) return;
     if (button.dataset.moGame) startGame(button.dataset.moGame);
     else if (button.dataset.moLevel) startGame(kind, Number(button.dataset.moLevel));
+    else if (button.dataset.moTake) { if (selected) place(button.dataset.moTake); else takeBack(button.dataset.moTake); }
+    else if (button.dataset.moCount) { const target = round.targets.find(item => item.id === button.dataset.moCount); if (target) { say('number_' + target.count, true); setStatus(target.count + ' golyó kell ide.'); } }
+    else if (round?.mode === 'odd' && round.phase === 'find' && button.dataset.moPiece && button.dataset.moTarget) pickOdd(button.dataset.moPiece);
+    else if (kind === 'colors' && round.level === 5 && button.dataset.moTarget && !selected) takeBack(button.dataset.moTarget);
     else if (button.dataset.moPiece && button.dataset.moTarget && selected && selected !== button.dataset.moPiece) place(button.dataset.moTarget);
     else if (button.dataset.moPiece) select(button.dataset.moPiece);
     else if (button.dataset.moBlocker) moveBlocker(button.dataset.moBlocker);
@@ -314,9 +377,9 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     else if (button.id === 'mo-next') startGame(kind, round.level + 1, true);
     else if (button.id === 'mo-turn-left' || button.id === 'mo-turn-right') turn(button.id === 'mo-turn-left' ? -1 : 1);
     else if (button.id === 'mo-hide-pattern') { remember({ ...round, phase: 'play' }); effect('card'); render('[data-mo-piece]'); }
-    else if (button.id === 'mo-show-pattern') { remember({ ...round, phase: 'preview', assisted: true }); effect('card'); render('#mo-hide-pattern'); }
+    else if (button.id === 'mo-show-pattern' && (round.peekLimit === null || round.peeks < round.peekLimit)) { remember({ ...round, phase: 'preview', assisted: true, peeks: round.peeks + 1 }); effect('card'); render('#mo-hide-pattern'); }
     else if (button.id === 'mo-check') check();
-    else if (button.id === 'mo-undo' && history.length) { cleanupDrag(); stopPlayback(); round = history.pop(); selected = null; save(); effect('undo'); render('#mo-undo', 'Visszatettük. Próbáld ki újra!'); syncSelection(); }
+    else if (button.id === 'mo-undo' && history.length) { cleanupDrag(); stopPlayback(); round = { ...history.pop(), ...(kind === 'memory' ? { peeks: round.peeks, misses: round.misses } : {}) }; selected = null; save(); effect('undo'); render('#mo-undo', 'Visszatettük. Próbáld ki újra!'); syncSelection(); }
   });
   root.addEventListener('keydown', event => {
     if (selected && kind === 'shapes' && playable() && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) { event.preventDefault(); const xy = montessoriBoardLayout(round).pieces[selected]; remember(moveMontessoriPiece(round, selected, xy[0] + (event.key === 'ArrowLeft' ? -5 : event.key === 'ArrowRight' ? 5 : 0), xy[1] + (event.key === 'ArrowUp' ? -5 : event.key === 'ArrowDown' ? 5 : 0))); effect('slide'); render(`[data-mo-piece="${selected}"]`, 'Itt marad a bábu.'); }
