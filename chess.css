@@ -28,7 +28,7 @@
 .chess-ring { background:none; border:2px solid #48724d; width:14px; height:14px; }
 .chess-guide { display:flex; flex-direction:column; min-width:0; gap:8px; }
 .chess-modes,.chess-levels { display:grid; gap:5px; }
-.chess-modes { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.chess-modes { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .chess-levels { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .chess-modes button,.chess-levels button { min-width:0; padding:6px 2px; font-size:.82rem; line-height:1.15; overflow-wrap:anywhere; }
 .chess-picker { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:4px; }
@@ -89,3 +89,13 @@
 }
 @keyframes chess-arrive { from { transform:translateY(-8px); } to { transform:translateY(0); } }
 @media(prefers-reduced-motion:reduce) { .chess-square.is-arrival .chess-piece { animation:none; } }
+
+/* Real positions: the dark answer, check and the verdict. */
+.chess-board .chess-square.is-reply { box-shadow:inset 0 0 0 4px #b0623a; }
+.chess-board .chess-square.is-departure:not(.is-reply) { box-shadow:inset 0 0 0 3px #48724d66; }
+.chess-board .chess-square.is-check { background:radial-gradient(circle,#f4a58a 0 45%,transparent 72%),#e8c7a4; }
+.chess-board.is-waiting { cursor:progress; }
+.chess-reply-key { display:inline-block; width:13px; height:13px; border:3px solid #b0623a; border-radius:3px; }
+.chess-status.is-failed { color:#8a3d1f; font-weight:700; }
+.chess-status.is-solved { color:#2f5d3c; font-weight:800; }
+.chess-battles { grid-template-columns:repeat(2,minmax(0,1fr)); }

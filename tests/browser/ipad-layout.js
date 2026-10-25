@@ -60,9 +60,9 @@ async page => {
         await measure(`${width}x${height}:${level}`, tablet);
       }
       await click('.chess-jump summary');
-      await p.locator('#chess-jump-select').selectOption('11');
+      await p.locator('#chess-jump-select').selectOption('7');
       await titleFocused();
-      if (!(await p.locator('.chess-puzzle-nav').innerText()).includes('12 / 12')) throw Error('Puzzle jump failed');
+      if (!(await p.locator('.chess-puzzle-nav').innerText()).includes('8 / 8')) throw Error('Puzzle jump failed');
       await measure(`${width}x${height}:master-last`, tablet);
       await click('#chess-hint');
       await measure(`${width}x${height}:master-hint`, tablet);
@@ -77,6 +77,9 @@ async page => {
       if (!(await p.locator('.chess-board').getAttribute('class')).includes('is-complete')) throw Error('Success state missing');
       await measure(`${width}x${height}:success`, tablet);
       if (tablet && width === 1024) await p.screenshot({ path: 'output/playwright/chess-ipad-layout.png', animations: 'disabled' });
+      await click('[data-chess-mode="pawns"]');
+      await click('[data-chess-battle="full"]');
+      await measure(`${width}x${height}:pawn-battle`, tablet);
       await click('#back-button');
       if (await p.locator('#screen-title').innerText() !== 'Fejtörők') throw Error('Back title did not restore');
     }

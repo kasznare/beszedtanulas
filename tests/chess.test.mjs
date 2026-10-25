@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CHESS_PIECES, CHESS_PUZZLES, CHESS_LEVELS, CHESS_CLIPS, chessPuzzlesForLevel, chessPuzzleMovers, evaluateChessPuzzle, moveChessPuzzlePiece, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions } from '../chess-data.js';
+import { CHESS_PIECES, CHESS_PUZZLES, CHESS_TACTICS, CHESS_LEVELS, CHESS_CLIPS, PAWN_BATTLES, chessPuzzlesForLevel, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions, allLegalMoves, playChessTactic, chooseChessReply, chessPosition, inCheck, buildPawnBattle, pawnBattleWinner, pawnBattleResult } from '../chess-data.js';
 const at = (type, square, color = 'white') => ({ type, square: squareIndex(square), color });
 const moves = (board, from) => legalMoves(board, squareIndex(from)).map(squareName).sort();
 
@@ -98,86 +98,104 @@ test('every star can be collected in sequence, including the pawn needing two si
 });
 
 test('settings recover safely and board coordinates match standard orientation', () => {
-  assert.deepEqual(normalizeChessOptions(null), { mode: 'explore', piece: 'rook', level: 'easy' });
-  assert.deepEqual(normalizeChessOptions({ mode: 'puzzles', piece: 'knight', extra: 1 }), { mode: 'puzzles', piece: 'knight', level: 'easy' });
-  assert.deepEqual(normalizeChessOptions({ mode: 'bad', piece: 'bad', level: 'bad' }), { mode: 'explore', piece: 'rook', level: 'easy' });
+  assert.deepEqual(normalizeChessOptions(null), { mode: 'explore', piece: 'rook', level: 'easy', battle: 'small' });
+  assert.deepEqual(normalizeChessOptions({ mode: 'puzzles', piece: 'knight', extra: 1 }), { mode: 'puzzles', piece: 'knight', level: 'easy', battle: 'small' });
+  assert.deepEqual(normalizeChessOptions({ mode: 'bad', piece: 'bad', level: 'bad' }), { mode: 'explore', piece: 'rook', level: 'easy', battle: 'small' });
   assert.equal(normalizeChessOptions({ level: 'challenge' }).level, 'challenge');
   for (let square = 0; square < 64; square++) assert.equal(squareIndex(squareName(square)), square);
   assert.equal(squareName(0), 'a8'); assert.equal(squareName(63), 'h1');
 });
 
-test('the original twelve harder positions still need exactly their advertised move budget', () => {
-  assert.deepEqual(CHESS_LEVELS.map(({ id }) => chessPuzzlesForLevel(id).length), [10, 12, 12, 12]);
-  for (const { id: level } of CHESS_LEVELS.slice(1, 3)) {
-    for (let index = 0; index < 6; index++) {
-      const puzzle = buildChessPuzzle(index, level), snapshot = structuredClone(puzzle.board);
-      assert.ok(CHESS_CLIPS[puzzle.voice]); assert.ok(puzzle.tip);
-      assert.equal(new Set(puzzle.board.map(piece => piece.square)).size, puzzle.board.length, puzzle.id);
-      assert.ok(puzzle.requiredCaptures.every(id => puzzle.board.find(piece => piece.id === id)?.color === 'black'));
-      const queue = [{ board: puzzle.board, steps: 0 }], visited = new Set();
-      let shortest;
-      for (let q = 0; q < queue.length; q++) {
-        const { board, steps } = queue[q];
-        if (evaluateChessPuzzle(puzzle, board, steps).solved) { shortest = steps; break; }
-        if (steps === puzzle.maxMoves) continue;
-        for (const piece of chessPuzzleMovers(puzzle, board)) {
-          for (const to of legalMoves(board, piece.square)) {
-            const next = moveChessPuzzlePiece(puzzle, board, piece.square, to, steps);
-            const key = next.map(item => `${item.id}:${item.type}:${item.square}`).sort().join(',');
-            if (!visited.has(key)) { visited.add(key); queue.push({ board: next, steps: steps + 1 }); }
-          }
-        }
-      }
-      assert.equal(shortest, puzzle.maxMoves, puzzle.id);
-      assert.deepEqual(puzzle.board, snapshot, 'Search does not mutate the initial position');
-    }
-  }
+test('the puzzle levels hold the one-move lessons and the real positions', () => {
+  assert.deepEqual(CHESS_LEVELS.map(({ id }) => chessPuzzlesForLevel(id).length), [10, 8, 7, 8]);
+  const ids = [...CHESS_PUZZLES, ...CHESS_TACTICS].map(puzzle => puzzle.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const puzzle of CHESS_PUZZLES) assert.ok(CHESS_CLIPS[puzzle.voice], puzzle.id);
 });
 
-test('detours accept different legal routes and stop at the budget without losing the board', () => {
-  const puzzle = buildChessPuzzle(0, 'planning');
-  for (const route of [['d5', 'g5', 'g4'], ['d3', 'g3', 'g4']]) {
-    let board = puzzle.board, from = puzzle.from;
-    route.forEach((name, index) => {
-      const to = squareIndex(name); board = moveChessPuzzlePiece(puzzle, board, from, to, index); from = to;
-      assert.ok(board); assert.equal(evaluateChessPuzzle(puzzle, board, index + 1).solved, index === 2);
+// Every light move is answered, so solutions are searched through the real replies.
+function solutionLines(puzzle, board = puzzle.board, played = 0) {
+  const lines = [];
+  for (const move of allLegalMoves(board, 'white')) {
+    const turn = playChessTactic(puzzle, board, move.from, move.to, played);
+    if (turn?.outcome === 'solved') lines.push([move]);
+    else if (turn?.outcome === 'continue') for (const rest of solutionLines(puzzle, turn.board, played + 1)) lines.push([move, ...rest]);
+  }
+  return lines;
+}
+
+test('every real position is legal, solvable against the replies, and punishes its trap', () => {
+  for (const { id: level } of CHESS_LEVELS.slice(1)) {
+    chessPuzzlesForLevel(level).forEach((definition, index) => {
+      const puzzle = buildChessPuzzle(index, level), snapshot = structuredClone(puzzle.board);
+      assert.ok(puzzle.tactic && puzzle.task && puzzle.tip && puzzle.title, puzzle.id);
+      assert.equal(new Set(puzzle.board.map(piece => piece.square)).size, puzzle.board.length, puzzle.id);
+      assert.equal(puzzle.board.filter(piece => piece.type === 'king').length, 2, `${puzzle.id}: both kings`);
+      assert.equal(inCheck(puzzle.board, 'black'), false, `${puzzle.id}: dark is not already in check`);
+      assert.equal(inCheck(puzzle.board, 'white'), false, `${puzzle.id}: light is not in check`);
+      assert.ok(puzzle.board.every(piece => piece.type !== 'pawn' || ![0, 7].includes(Math.floor(piece.square / 8))), puzzle.id);
+      assert.ok(puzzle.targets.every(target => puzzle.board.find(piece => piece.id === target)?.color === 'black'), puzzle.id);
+      assert.ok(solutionLines(puzzle).length, `${puzzle.id}: solvable`);
+      if (definition.trap) {
+        const turn = playChessTactic(puzzle, puzzle.board, squareIndex(definition.trap.slice(0, 2)), squareIndex(definition.trap.slice(2)), 0);
+        assert.ok(turn, `${puzzle.id}: the trap is a legal move`);
+        assert.equal(turn.outcome, 'failed', `${puzzle.id}: the trap fails`);
+        assert.ok(turn.reply, `${puzzle.id}: the dark side answers the trap`);
+      }
+      assert.deepEqual(puzzle.board, snapshot, `${puzzle.id}: the search does not change the position`);
     });
   }
-  let board = moveChessPuzzlePiece(puzzle, puzzle.board, puzzle.from, squareIndex('d3'));
-  const undoBoard = board;
-  board = moveChessPuzzlePiece(puzzle, board, squareIndex('d3'), squareIndex('d2'), 1);
-  board = moveChessPuzzlePiece(puzzle, board, squareIndex('d2'), squareIndex('d1'), 2);
-  assert.ok(evaluateChessPuzzle(puzzle, board, 3).exhausted);
-  assert.equal(moveChessPuzzlePiece(puzzle, board, squareIndex('d1'), squareIndex('g1'), 3), null);
-  assert.ok(moveChessPuzzlePiece(puzzle, undoBoard, squareIndex('d3'), squareIndex('g3'), 1));
-  assert.equal(moveChessPuzzlePiece(puzzle, puzzle.board, squareIndex('e4'), squareIndex('e5')), null, 'Static blockers cannot be moved');
 });
 
-test('capture objectives require every marked enemy and the correct final piece', () => {
-  const puzzle = buildChessPuzzle(0, 'challenge');
-  const fakeGoal = puzzle.board.map(piece => piece.id === squareIndex('a2') ? { ...piece, square: puzzle.goal } : piece);
-  assert.equal(evaluateChessPuzzle(puzzle, fakeGoal, 1).solved, false, 'The helper pawn cannot replace the rook');
-  const atGoal = puzzle.board.map(piece => piece.id === puzzle.from ? { ...piece, square: puzzle.goal } : piece);
-  assert.equal(evaluateChessPuzzle(puzzle, atGoal, 1).solved, false, 'Arriving without the required capture is insufficient');
-  let board = moveChessPuzzlePiece(puzzle, puzzle.board, squareIndex('a2'), squareIndex('b3'));
-  assert.equal(evaluateChessPuzzle(puzzle, board, 1).capturesRemaining.length, 0);
-  assert.equal(evaluateChessPuzzle(puzzle, board, 1).solved, false);
-  board = moveChessPuzzlePiece(puzzle, board, squareIndex('a1'), squareIndex('a4'), 1);
-  assert.ok(evaluateChessPuzzle(puzzle, board, 2).solved);
-  assert.equal(moveChessPuzzlePiece(puzzle, board, squareIndex('a4'), squareIndex('a5'), 2), null);
-});
-
-test('promotion retains the pawn identity so its new queen can finish the objective', () => {
-  const puzzle = buildChessPuzzle(4, 'challenge');
-  let board = puzzle.board;
-  for (const [index, [from, to]] of [['d6', 'e7'], ['e7', 'e8'], ['e8', 'h8']].entries()) {
-    board = moveChessPuzzlePiece(puzzle, board, squareIndex(from), squareIndex(to), index);
-    assert.ok(board);
+test('the choice positions have exactly one winning capture and a mate in two has no mate in one', () => {
+  for (const id of ['free-bishop', 'free-rook', 'knight-choice', 'queen-choice', 'pawn-choice']) {
+    const index = chessPuzzlesForLevel('planning').findIndex(puzzle => puzzle.id === id);
+    const firsts = new Set(solutionLines(buildChessPuzzle(index, 'planning')).map(([move]) => `${move.from}-${move.to}`));
+    assert.equal(firsts.size, 1, id);
   }
-  assert.equal(board.find(piece => piece.id === puzzle.from).type, 'queen');
-  assert.ok(evaluateChessPuzzle(puzzle, board, 3).solved);
-  assert.equal(evaluateChessPuzzle(puzzle, board, 4).solved, false);
-  assert.equal(buildChessPuzzle(5, 'planning').id, 'pawn-route');
-  assert.equal(buildChessPuzzle(0, 'challenge').id, 'rook-team');
-  assert.equal(buildChessPuzzle(6, 'challenge').id, 'rook-knight-open');
+  const index = chessPuzzlesForLevel('master').findIndex(puzzle => puzzle.id === 'rook-ladder');
+  const ladder = buildChessPuzzle(index, 'master');
+  assert.equal(ladder.maxMoves, 2);
+  assert.ok(solutionLines(ladder).every(line => line.length === 2));
+});
+
+test('the opponent recaptures, escapes check and saves an attacked piece', () => {
+  const recapture = [at('king', 'g1'), at('rook', 'd6'), at('king', 'g8', 'black'), at('pawn', 'e7', 'black')];
+  assert.deepEqual(chooseChessReply(recapture, 'black'), { from: squareIndex('e7'), to: squareIndex('d6') });
+  const check = [at('king', 'g1'), at('rook', 'e1'), at('king', 'e8', 'black')];
+  const escape = chooseChessReply(check, 'black');
+  assert.ok(!inCheck(moveChessPiece(check, escape.from, escape.to), 'black'));
+  const attacked = [at('king', 'g1'), at('pawn', 'd4'), at('king', 'g8', 'black'), at('knight', 'e5', 'black')];
+  const saved = moveChessPiece(attacked, ...Object.values(chooseChessReply(attacked, 'black')));
+  assert.equal(isSquareAttacked(saved, saved.find(piece => piece.type === 'knight').square, 'white'), false);
+  assert.equal(chessPosition([at('king', 'g6'), at('rook', 'a8'), at('king', 'h8', 'black')], 'black'), 'mate');
+  assert.equal(chessPosition([at('king', 'f7'), at('queen', 'g6'), at('king', 'h8', 'black')], 'black'), 'stalemate');
+});
+
+test('a stalemate in a mate puzzle is a failure, not a win', () => {
+  const index = chessPuzzlesForLevel('master').findIndex(puzzle => puzzle.id === 'queen-king-mate');
+  const puzzle = buildChessPuzzle(index, 'master');
+  const turn = playChessTactic(puzzle, puzzle.board, squareIndex('b1'), squareIndex('b3'), 0);
+  assert.equal(turn.outcome, 'failed');
+  assert.equal(turn.reason, 'stalemate');
+  assert.equal(playChessTactic(puzzle, puzzle.board, squareIndex('b1'), squareIndex('b8'), 0).outcome, 'solved');
+});
+
+test('the pawn battle starts symmetric, the computer always answers, and reaching the end wins', () => {
+  for (const { id, files } of PAWN_BATTLES) {
+    const board = buildPawnBattle(id);
+    assert.equal(board.length, files.length * 2);
+    assert.ok(board.every(piece => piece.type === 'pawn'));
+    assert.equal(pawnBattleWinner(board, 'white'), null);
+    const reply = chooseChessReply(moveChessPiece(board, squareIndex(`${files[0]}2`), squareIndex(`${files[0]}4`)), 'black', { pawnRace: true });
+    assert.ok(reply && legalMoves(moveChessPiece(board, squareIndex(`${files[0]}2`), squareIndex(`${files[0]}4`)), reply.from).includes(reply.to), id);
+  }
+  assert.equal(pawnBattleWinner(moveChessPiece([at('pawn', 'c7')], squareIndex('c7'), squareIndex('c8')), 'black'), 'white');
+  assert.equal(pawnBattleWinner([at('pawn', 'c4'), at('pawn', 'c5', 'black')], 'white'), 'draw');
+  assert.equal(pawnBattleWinner([at('pawn', 'c4')], 'black'), 'white');
+  assert.deepEqual(pawnBattleResult([at('pawn', 'c5'), at('pawn', 'c6', 'black'), at('pawn', 'h7', 'black')], 'black'), null, 'Dark can still move');
+  assert.deepEqual(pawnBattleResult([at('pawn', 'c5'), at('pawn', 'c6', 'black')], 'white'), { winner: 'white', reason: 'blocked' });
+  // A dark pawn takes a free light pawn instead of walking past it.
+  const free = [at('pawn', 'd5'), at('pawn', 'e6', 'black'), at('pawn', 'a7', 'black')];
+  assert.deepEqual(chooseChessReply(free, 'black', { pawnRace: true }), { from: squareIndex('e6'), to: squareIndex('d5') });
 });
