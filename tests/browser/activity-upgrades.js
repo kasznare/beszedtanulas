@@ -34,7 +34,7 @@ async page => {
   await page.waitForSelector('#round-complete[open]');
   ok((await saved()).rewards === rewards + 1, 'First completion gives one reward');
   await page.locator('#round-home').click(); await activity('puzzle');
-  ok(await page.locator('.puzzle-slot.is-placed').count() === 2, 'Finished board stays finished after return');
+  ok(await page.locator('.puzzle-slot.is-placed').count() === 0 && await page.locator('.puzzle-tray [data-piece]').count() === 2, 'A finished picture comes back as a fresh board');
   await page.locator('#puzzle-restart').click();
   for (const id of [0, 1]) { await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${id}"]`).click(); }
   await page.waitForSelector('#round-complete[open]');
@@ -45,7 +45,7 @@ async page => {
   for (const id of [0, 1]) { await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${id}"]`).click(); }
   await page.waitForSelector('#round-complete[open]');
   await page.locator('#round-replay').click();
-  ok(await page.locator('[data-piece]').count() === 2 && await page.locator('.puzzle-slot.is-placed').count() === 0, 'Completion dialog starts a fresh board');
+  ok(await page.locator('[data-piece]').count() === 2 && await page.locator('.puzzle-slot.is-placed').count() === 0, 'Completion dialog continues with the next picture on a fresh board');
 
   await activity('pour');
   await page.locator('[data-pour-level="3"]').click();

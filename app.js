@@ -2242,6 +2242,11 @@ function setupNavigation() {
     showScreen(task.screen,{announce:task.screen==='listening-game',gameOptions:task});
   });
   document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
+  document.querySelector('#round-related').addEventListener('click', event => {
+    if (!event.target.closest('#round-puzzle-more')) return;
+    document.querySelector('#round-complete').close();
+    if (puzzleGame.choose('more')) showScreen('puzzle');
+  });
   document.querySelector('#round-back').addEventListener('click', goBack);
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
@@ -2251,7 +2256,7 @@ function setupNavigation() {
     else if (completedRoundKind === "listening-game") showScreen("listening-game",{gameOptions:listeningGame.getContext?.()||{}});
     else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
     else if (completedRoundKind === "pour") showScreen("pour");
-    else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
+    else if (completedRoundKind === "puzzle") {puzzleGame.choose('image');showScreen("puzzle");}
     else if (completedRoundKind === "differences") showScreen("differences", { gameOptions: differencesGame.getContext() });
     else if (completedRoundKind === "patterns") showScreen("patterns", { gameOptions: patternsGame.getContext() });
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
@@ -2494,19 +2499,19 @@ function celebrateRound(kind, count) {
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
     document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "patterns" ? "Sikerült folytatnod a mintát!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
-    const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
+    const nextPuzzle = kind === 'chess' && chessGame.canAdvance(), nextPicture = kind === 'puzzle';
     const continueButton = document.querySelector('#round-replay');
     continueButton.classList.add('round-next');
-    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy ilyen');
-    setButtonIcon(continueButton, nextPuzzle ? 'next' : 'repeat');
+    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : nextPicture ? 'Következő kép' : 'Még egy ilyen');
+    setButtonIcon(continueButton, nextPuzzle || nextPicture ? 'next' : 'repeat');
     {
       const label = document.createElement('span');
-      label.textContent = nextPuzzle?'Következő feladat':'Még egy ilyen';
+      label.textContent = nextPuzzle?'Következő feladat':nextPicture?'Következő kép':'Még egy ilyen';
       continueButton.append(label);
     }
-    document.querySelector("#round-related").innerHTML=relatedTaskMarkup(kind);
+    document.querySelector("#round-related").innerHTML=(kind==='puzzle'?puzzleGame.moreButton():'')+relatedTaskMarkup(kind);
     document.querySelector("#round-complete").showModal();
-    if (nextPuzzle) continueButton.focus({ preventScroll: true });
+    if (nextPuzzle || nextPicture) continueButton.focus({ preventScroll: true });
     if (kind === "pour") speakVoice('pour_done');
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');

@@ -69,10 +69,18 @@ async page => {
     ok(await page.locator('.puzzle-drag-preview').count() === 0 && await page.locator('.puzzle-tray [data-piece="4"]').count() === 1, 'Interrupted gesture cleans up without moving a piece');
     await page.locator('#puzzle-restart').click();
     ok(await page.locator('.puzzle-slot.is-placed').count() === 0, 'Restart clears placed pieces');
+    ok(await page.locator('.puzzle-slot .puzzle-socket').count() === 6 && await page.locator('.puzzle-tray .puzzle-shape').count() === 6, 'Empty sockets and tray pieces show their jigsaw outlines');
+    await page.locator('#puzzle-strict').click();
+    ok((await saved()).settings.puzzleStrict === true, 'Csak a jó helyre is remembered');
+    await page.locator('.puzzle-tray [data-piece="0"]').click(); await page.locator('[data-slot="1"]').click();
+    ok(await page.locator('.puzzle-slot.is-placed').count() === 0 && await page.locator('.puzzle-tray [data-piece="0"].is-bounced').count() === 1 && (await page.locator('#puzzle-status').innerText()).includes('másik helyre'), 'A wrong drop bounces back in Csak a jó helyre');
+    await page.locator('.puzzle-tray [data-piece="0"]').click(); await page.locator('[data-slot="0"]').click();
+    ok(await page.locator('[data-slot="0"].is-placed').count() === 1 && await page.locator('[data-slot="0"][data-piece]').count() === 0, 'A correct piece locks into place');
+    await page.locator('#puzzle-strict').click(); await page.locator('#puzzle-restart').click();
 
     const boards = [
       ...['sun', 'ball', 'apple'].flatMap(image => [2, 4].map(size => [image, size])),
-      ...['farm', 'garden', 'pond', 'forest'].flatMap(image => [6, 8, 10].map(size => [image, size])),
+      ...['farm', 'garden', 'pond', 'forest'].flatMap(image => [6, 9, 12, 16].map(size => [image, size])),
     ];
     for (const [image, size] of boards) {
       await page.locator(`[data-puzzle-image="${image}"]`).click();
@@ -88,6 +96,7 @@ async page => {
       for (let id = 0; id < size; id++) {
         await page.locator(`[data-piece="${id}"]`).click(); await page.locator(`[data-slot="${(id + 1) % size}"]`).click();
       }
+      ok(await page.locator('.puzzle-slot.is-wrong').count() === size && (await page.locator('#puzzle-status').innerText()).includes('máshová illik'), `${image}/${size}: a full wrong board marks the misplaced pieces`);
       ok(await page.locator('.puzzle-slot.is-placed').count() === size && await page.locator('.puzzle-tray [data-piece]').count() === 0 && !(await page.locator('#round-complete').isVisible()) && (await saved()).rewards === before.rewards, `${image}/${size}: a full incorrectly arranged board stays movable and earns no reward`);
       let completedAt;
       for (let id = 0; id < size; id++) {
@@ -108,6 +117,8 @@ async page => {
       ok(await page.locator('.puzzle-slot.is-placed:disabled').count() === size && await page.locator('[data-piece]').count() === 0, `${image}/${size}: finished image stays complete`);
       await page.locator('#help-button').click();
       ok((await saved()).rewards === before.rewards + 1, `${image}/${size}: revisiting completion cannot reward twice`);
+      await enter();
+      ok(await page.locator('.puzzle-slot.is-placed').count() === 0 && await page.locator('.puzzle-tray [data-piece]').count() === size && (await saved()).rewards === before.rewards + 1, `${image}/${size}: coming back to a finished picture deals a fresh board`);
       await page.locator('#puzzle-restart').click();
     }
 
@@ -124,7 +135,7 @@ async page => {
     await solve(); await page.locator('#home-button').click();
     await page.waitForTimeout(1200);
     ok(!(await page.locator('#round-complete').isVisible()) && await page.locator('#home').isVisible() && (await saved()).rewards === beforeRestart + 2, 'Leaving during success delay cannot open a window on the home screen');
-    await enter(); await page.locator('[data-puzzle-size="10"]').click();
+    await enter(); await page.locator('[data-puzzle-size="12"]').click();
 
     for (const [width, height] of [[320,568],[375,667],[390,844],[932,350],[834,1194],[1194,834]]) {
       await page.setViewportSize({ width, height });
@@ -142,7 +153,7 @@ async page => {
     ok(await page.locator('.puzzle-drag-preview').count() === 0 && await page.locator('#home').isVisible(), 'Leaving during a drag removes its preview');
     await page.reload(); await enter();
     await page.locator('#puzzle-choose').click();
-    ok(await page.locator('[data-piece]').count() === 10 && await page.locator('[data-puzzle-image="forest"]').getAttribute('aria-pressed') === 'true', 'Picture/size survive reload with saved board');
+    ok(await page.locator('[data-piece]').count() === 12 && await page.locator('[data-puzzle-image="forest"]').getAttribute('aria-pressed') === 'true', 'Picture/size survive reload with saved board');
     if (await page.evaluate(() => navigator.maxTouchPoints > 0)) {
       await page.locator('[data-piece="0"]').tap(); await page.locator('[data-slot="0"]').tap();
       ok(await page.locator('.puzzle-slot.is-placed').count() === 1, 'Actual touchscreen taps select and place');
@@ -160,9 +171,9 @@ async page => {
     await page.waitForSelector('#round-complete[open]');
     ok(true, 'A different puzzle loads and finishes entirely offline');
     await page.locator('#round-replay').click();
-    ok(await page.locator('[data-piece]').count() === 6 && await page.locator('.puzzle-slot.is-placed').count() === 0, 'Celebration replay starts a fresh puzzle');
+    ok(await page.locator('[data-piece]').count() === 6 && await page.locator('.puzzle-slot.is-placed').count() === 0 && (await saved()).settings.puzzleImage === 'ball', 'Celebration continues with the next picture on a fresh board');
     ok(errors.length === 0, `No browser errors: ${errors.join(', ')}`);
-    return { count: checks.length, pictures: 7, sizes: [2,4,6,8,10], engine: context.browser().browserType().name(), checks };
+    return { count: checks.length, pictures: 7, sizes: [2,4,6,9,12,16], engine: context.browser().browserType().name(), checks };
   } finally {
     await context.setOffline(false);
     page.off('pageerror', errorListener);

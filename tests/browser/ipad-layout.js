@@ -274,6 +274,26 @@ async page => {
         await click('#back-button');
         if (await p.locator('body').getAttribute('data-screen') !== workshopMenu) throw Error(`Workshop ${game}: back did not return to ${workshopMenu}`);
       }
+      // Képkirakó: the densest grid, a bounced drop in "Csak a jó helyre", a finished picture and the next one.
+      await open('activity-menu', 'puzzle');
+      for (const pieces of [16, 2, 6]) {
+        if (!(await p.locator('#puzzle-choices').isVisible())) await click('#puzzle-choose');
+        await click(`[data-puzzle-size="${pieces}"]`);
+        if (await p.locator('#puzzle-choices').isVisible()) await click('#puzzle-choose');
+        await check(`${size}:puzzle-${pieces}`);
+      }
+      await click('#puzzle-restart');
+      await click('#puzzle-strict'); await click('.puzzle-tray [data-piece="0"]'); await click('[data-slot="1"]');
+      await check(`${size}:puzzle-bounce`);
+      await click('#puzzle-strict');
+      for (let id = 0; id < 6; id++) { await click(`.puzzle-tray [data-piece="${id}"]`); await click(`[data-slot="${id}"]`); }
+      await check(`${size}:puzzle-done`);
+      await p.locator('#round-complete[open]').waitFor();
+      await click('#round-replay');
+      if (await p.locator('#screen-title').innerText() !== 'Képkirakó') throw Error('Puzzle title lost after the next picture');
+      await check(`${size}:puzzle-next`);
+      await click('#back-button');
+      if (await p.locator('body').getAttribute('data-screen') !== 'activity-menu') throw Error('Puzzle: back did not return to activity-menu');
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {
