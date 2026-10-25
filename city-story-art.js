@@ -169,7 +169,8 @@ function workshop(ids,flags) {
     <path d="M54 274h103v21H54Z" fill="#a0795a"/><path d="M68 294v43M143 294v43" stroke="#88674f" stroke-width="7"/>
     ${prop('pump',105,258,.65)}<path d="M42 420h104" stroke="#d7a574" stroke-width="5"/>`;
 }
-function clock(x,y,s=1,late=false) { return group(x,y,`<circle r="31" fill="${C.teal}" stroke="${C.ink}" stroke-width="3"/><circle r="25" fill="${C.paper}"/>${[0,90,180,270].map(a=>`<path d="M0-20v5" transform="rotate(${a})" stroke="${C.ink}" stroke-width="2"/>`).join('')}<path d="${late?'M0 0v-18M0 0l-9 13':'M0 0h18M0 0l10 9'}" stroke="${C.ink}" stroke-width="3" stroke-linecap="round"/><circle r="3" fill="${C.red}"/>`,s); }
+// late: seven in the evening; 'early': two in the afternoon; otherwise quarter past four.
+function clock(x,y,s=1,late=false) { const hands=late==='early'?'M0 0v-18M0 0l11-6':late?'M0 0v-18M0 0l-9 13':'M0 0h18M0 0l10 9'; return group(x,y,`<circle r="31" fill="${C.teal}" stroke="${C.ink}" stroke-width="3"/><circle r="25" fill="${C.paper}"/>${[0,90,180,270].map(a=>`<path d="M0-20v5" transform="rotate(${a})" stroke="${C.ink}" stroke-width="2"/>`).join('')}<path d="${hands}" stroke="${C.ink}" stroke-width="3" stroke-linecap="round"/><circle r="3" fill="${C.red}"/>`,s); }
 function archive(ids,flags) {
   const known=flags.chronologyKnown;
   const order=known?[0,1,2]:[2,0,1];
@@ -314,7 +315,7 @@ export function renderCityStoryClue(id, prefix = 'city-story-clue') {
 // Their clock and bakery details let children infer the order independently.
 export function renderCityStoryPhoto(id, prefix = 'city-story-photo') {
   const kind=['setup','packing','closing'].includes(id)?id:'setup';
-  const label={setup:'A nagy dobogó eltakarja az átjárót',packing:'A kék padot elviszik; a pékség még nyitva, az óra negyed ötöt mutat',closing:'Juli este hétkor becsukja a kaput; a pékség zárva'}[kind];
+  const label={setup:'A nagy dobogó eltakarja az átjárót; az óra két órát mutat',packing:'A kék padot elviszik; a pékség még nyitva, az óra negyed ötöt mutat',closing:'Juli este hétkor becsukja a kaput; a pékség zárva'}[kind];
   const bakeryOpen=kind!=='closing';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-label="${label}" data-art="${safePrefix(prefix)}"><rect width="320" height="220" rx="12" fill="#f4ead5"/>
     <path d="M9 9h302v202H9Z" fill="#e5d3af" stroke="#fff9e8" stroke-width="7"/>
@@ -328,7 +329,7 @@ export function renderCityStoryPhoto(id, prefix = 'city-story-photo') {
     <path d="M239 90h64v67h-64Z" fill="${bakeryOpen?'#acb9a7':'#b0aaa0'}" stroke="#b89976" stroke-width="3"/>
     <path d="M238 81h66v14h-66Z" fill="#d49d72"/><text x="271" y="91" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="${C.ink}">PÉKSÉG</text>
     ${bakeryOpen?`<path d="M245 128h49" stroke="#8d735c" stroke-width="3"/>${bread(258,125,.2)}${bread(282,125,.2)}<path d="M242 100h59" stroke="#fff2d5" stroke-width="3"/>`:`${[99,109,119,129,139,149].map(y=>`<path d="M240 ${y}h62" stroke="#8a8c89" stroke-width="4"/>`).join('')}`}
-    ${kind==='setup'?'':`${clock(270,36,.39,kind==='closing')}<text x="270" y="70" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="11" fill="${C.ink}">${kind==='closing'?'19:00':'16:15'}</text>`}
+    ${clock(270,36,.39,kind==='closing'||(kind==='setup'&&'early'))}<text x="270" y="70" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="11" fill="${C.ink}">${{setup:'14:00',packing:'16:15',closing:'19:00'}[kind]}</text>
     ${kind==='setup'?`<path d="M74 151h166v34H74Z" fill="#ab805f" stroke="${C.ink}" stroke-width="3"/><path d="M82 160h150M82 175h150" stroke="#d9b38a" stroke-width="4"/><path d="M89 185v18M226 185v18" stroke="#7f624f" stroke-width="6"/>${group(139,162,bench('blue'),.22)}${cart(272,183,.22)}<path d="M218 174l31 24m0-24-31 24" stroke="${C.red}" stroke-width="5"/>`:''}
     ${kind==='packing'?`${group(163,173,bench('blue'),.34)}${person('Eszter',87,206,.39,'carry')}${person('Dani',237,206,.39,'carry')}<path d="M83 186h161" stroke="${C.ink}" stroke-width="2" stroke-dasharray="5 4"/>`:''}
     ${kind==='closing'?`<path d="M177 81l-11 80h63V82" fill="${C.blue}" stroke="${C.ink}" stroke-width="4"/><path d="M168 82v78" stroke="#7396a2" stroke-width="2"/><circle cx="194" cy="127" r="4" fill="${C.gold}"/>${person('Juli',243,206,.39,'point')}`:''}

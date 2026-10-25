@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderCityStoryArt, renderCityStoryClue, renderCityStoryProp } from '../city-story-art.js';
+import { renderCityStoryArt, renderCityStoryClue, renderCityStoryProp, renderCityStoryPhoto } from '../city-story-art.js';
 
 const evidenceOrder = svg => [...svg.matchAll(/data-evidence="([^"]+)"/g)].map(match => match[1]);
 const shownProps = svg => [...svg.matchAll(/data-story-prop="([^"]+)"/g)].map(match => match[1]);
@@ -97,4 +97,14 @@ test('SVG gradient IDs are safe, internally resolved, and distinct across instan
   }
   assert.equal(renderCityStoryArt('film', {}, maliciousPrefix), illustrations[0], 'same inputs stay deterministic');
   assert.doesNotMatch(renderCityStoryClue('old-gate', maliciousPrefix), /<script>|&/);
+});
+
+test('every evidence photo shows its clock, so a wrong order can be checked on the cards', () => {
+  const times = { setup: '14:00', packing: '16:15', closing: '19:00' };
+  for (const [id, time] of Object.entries(times)) {
+    const card = renderCityStoryPhoto(id);
+    assert.equal((card.match(/<circle r="31"/g) || []).length, 1, `${id} has a clock face`);
+    assert.match(card, new RegExp(`>${time}</text>`));
+  }
+  assert.match(renderCityStoryPhoto('setup'), /M0 0v-18M0 0l11-6/, 'the setup clock points to two');
 });

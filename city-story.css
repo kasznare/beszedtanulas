@@ -132,3 +132,27 @@ body[data-screen="city-story"] .app { max-width:1200px; }
   .city-story-items-inspect .city-story-item small,.city-story-items-layout .city-story-item small { padding:0 10px 8px; }
 }
 @media(prefers-reduced-motion:reduce) { #city-story * { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
+
+/* Locked choices, the clue suggestion and the collected-story stamps. */
+#city-story .city-story-choice.is-locked { background:#f3f2ec; border-style:dashed; border-color:#c9cbbf; color:#6d7570; cursor:help; }
+#city-story .city-story-choice.is-locked:hover { background:#efeee6; border-color:#b8bcae; }
+#city-story .city-story-choice.is-locked .city-story-choice-number { border-color:transparent; font-size:.95rem; }
+#city-story .city-story-choice.follows-clue { border-color:#c9963c; box-shadow:0 0 0 2px #e8c47a55; }
+.city-story-clue-badge { color:#8a5d12!important; font-weight:700; }
+.city-story-first-clue { display:flex; gap:12px; align-items:center; padding:10px 12px; margin:0 0 14px; border:1px solid #e3cf9c; border-radius:14px; background:#fbf4df; }
+.city-story-first-clue-art { width:72px; flex:none; }
+.city-story-first-clue-art svg { display:block; width:100%; height:auto; }
+.city-story-first-clue h3 { margin:0 0 4px; font-size:.95rem; }
+.city-story-first-clue p { margin:0 0 3px; font-size:.86rem; line-height:1.45; }
+.city-story-first-clue small { color:#7b5f25; font-weight:700; font-size:.78rem; }
+.city-story-first-clue > div { flex:1; min-width:0; }
+.city-story-tools b { min-width:23px; width:auto; padding:0 5px; border-radius:12px; }
+.city-story-collection-inline { margin:14px 0 12px; }
+.city-story-collection-inline h3 { display:flex; justify-content:space-between; gap:10px; margin:0 0 8px; font-size:.9rem; }
+.city-story-collection-inline h3 span, .city-story-collection-help { color:#6b7762; font-weight:600; }
+.city-story-stamps { border-collapse:separate; border-spacing:5px; margin:0 auto 12px; font-size:.78rem; }
+.city-story-stamps th { font-weight:700; color:#4e6a5e; text-align:center; padding:2px 4px; white-space:nowrap; }
+.city-story-stamps th[scope="row"] { text-align:left; }
+.city-story-stamps td:not(:first-child) { width:44px; height:34px; text-align:center; border:1.5px dashed #c5d2c6; border-radius:10px; color:#b8c4b8; font-size:1.15rem; }
+.city-story-stamps td.is-found { border-style:solid; border-color:#d0a447; background:#fbefcf; color:#c08a1e; }
+.city-story-stamps td.is-new { box-shadow:0 0 0 3px #e8b53c88; }
