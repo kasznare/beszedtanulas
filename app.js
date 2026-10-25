@@ -2165,9 +2165,9 @@ function innerBackButton() {
   if (directEntry) return null;
   return innerBackSelectors[currentScreen] && document.getElementById(currentScreen)?.querySelector(innerBackSelectors[currentScreen]);
 }
-function updateBackButton() {
+function updateBackButton({ opening = false } = {}) {
   // Once a directly opened game shows its own chooser, its exercises go back to that chooser again.
-  if (directEntry && document.getElementById(currentScreen)?.matches('[data-game="menu"], [data-game="hub"], [data-mode="hub"]')) directEntry = false;
+  if (directEntry && !opening && document.getElementById(currentScreen)?.matches('[data-game="menu"], [data-game="hub"], [data-mode="hub"]')) directEntry = false;
   const button = document.querySelector('#back-button');
   button.hidden = currentScreen === 'home';
   const destination = innerBackButton() ? screenInfo[currentScreen].title : screenInfo[appNavigation.trail.at(-2)?.screen || parentScreen(currentScreen)]?.title;
@@ -2374,7 +2374,8 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
     : screen === 'numbers' ? numberMode === 'quiz' ? 'Keresd meg!' : 'Számoljuk meg!' : screenInfo[screen].title;
   syncProfileControls();
   syncNumberMode();
-  updateBackButton();
+  // The game has not drawn yet: a hub marker left from its last visit must not cancel a direct entry.
+  updateBackButton({ opening: true });
   document.querySelector("#help-button").hidden = ['parent', 'play-break'].includes(screen);
   if (screen === "cards") renderCards();
   if (screen === "imitate") { const pool=getSpeechWords();if(!pool.some(w=>w.id===words[currentImitate].id))currentImitate=words.findIndex(w=>w.id===pool[0].id);renderImitate(); renderRoundProgress(); }
@@ -2400,6 +2401,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "r-practice") {rPractice.start();if(gameOptions.kind)rPractice.open(gameOptions.kind);}
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (screen === 'numbers' && numberMode === 'quiz') renderNumberQuiz();
+  updateBackButton();
   title.tabIndex = -1;
   title.focus({ preventScroll: true });
   window.scrollTo(0, 0);
