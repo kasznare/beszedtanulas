@@ -306,7 +306,7 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
     confirmExpression.disabled = true;
     offer.hidden = true;
     panel.dataset.mood = "waiting";
-    panel.dataset.teddyMode = requestMode;
+    panel.dataset.requestMode = requestMode;
     next.disabled = true;
     next.classList.remove("is-ready");
     next.setAttribute("aria-label", done === total - 1 ? "Piknik befejezése" : "Következő finomság");

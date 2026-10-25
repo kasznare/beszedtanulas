@@ -174,7 +174,7 @@ export function setupDressGame({ effect = () => {}, getChoiceCount, playPrompt, 
     index = 0; complete = false; cleanCount = 0; worn = new Set(); lastMatch = null; bear.reset();
     modes.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.dressMode === outfit)));
     setGameTitle(panel, DRESS_TITLES[outfit] || 'Maci öltözik');
-    panel.dataset.dressMode = outfit;
+    panel.dataset.outfit = outfit;
     // In the free wardrobe the weather cards replace the weather sentence.
     weatherCards.hidden = outfit !== 'free';
     weatherLine.hidden = outfit === 'free';

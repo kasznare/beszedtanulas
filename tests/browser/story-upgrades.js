@@ -16,11 +16,24 @@ async (page) => {
     if (!await page.locator('#meadow-collect-mode').isVisible()) await page.locator('.meadow-mode-options summary').click();
     await page.locator('#meadow-collect-mode').selectOption(collectMode);
     await page.locator('#meadow-serve-mode').selectOption(serveMode);
-    await page.locator('#meadow-show-count').setChecked(showCount);
+    await page.locator('#meadow-show-count').selectOption(showCount ? 'always' : 'never');
   };
   const apple = id => page.locator(`[data-apple="${id}"]`).click();
   const served = async (guest, item = 'plate') => page.locator(`[data-guest-id="${guest}"][data-serve-item="${item}"]`).click();
   const check = () => page.locator('#meadow-check').click();
+  // Maciház dresses a random weather outfit: read the asked garment from the saved task.
+  const dressStep = async story => {
+    const task = (await state()).meadow[story ? 'adventure' : 'free'].task;
+    const steps = await page.evaluate(async weather => (await import('./meseliget-data.js')).meadowDressSteps(weather), task.weather);
+    return steps[task.dressed];
+  };
+  const dressAll = async story => {
+    for (let step = 0; step < 4; step++) {
+      const saved = (await state()).meadow[story ? 'adventure' : 'free'];
+      if (!saved?.task || saved.task.kind !== 'dress' || saved.task.solved) break;
+      await page.locator(`[data-item="${await dressStep(story)}"]`).click();
+    }
+  };
   const continueStory = async () => { await page.reload(); await enter('meseliget'); await page.locator('#meadow-start').click(); };
   const task = async () => { const p = (await state()).meadow; return p.free?.task; };
   const fillTable = async story => {
@@ -43,17 +56,20 @@ async (page) => {
   await page.reload(); await enter('meseliget'); await page.locator('[data-quantity="3"]').click();
   await page.evaluate(() => { const s = JSON.parse(localStorage.getItem('speech_game_progress_v1')); s.settings.numberLimit = 10; s.settings.roundLength = 3; localStorage.setItem('speech_game_progress_v1', JSON.stringify(s)); });
   await page.reload(); await enter('meseliget'); await layout('map'); await pick(3); await page.locator('#meadow-start').click();
-  await page.locator('[data-item="cipo"]').click(); await page.locator('#meadow-hint').click();
-  ok(await page.locator('[data-item="cipo"]').evaluate(node => node.classList.contains('meadow-retry') && !node.classList.contains('meadow-hint')), 'Wrong clothes retain a distinct retry cue');
-  ok(await page.locator('[data-item="sapka"].meadow-hint').count() === 1, 'Help marks only the requested garment');
-  await page.locator('[data-item="sapka"]').click(); await map(); const savedStory = JSON.stringify((await state()).meadow.adventure);
+  ok((await state()).meadow.adventure.weather, 'A new adventure chooses the weather for Maci');
+  const asked = await dressStep(true);
+  const other = await page.locator('.meadow-clothing').evaluateAll((buttons, asked) => buttons.map(button => button.dataset.item).find(id => id !== asked), asked);
+  await page.locator(`[data-item="${other}"]`).click(); await page.locator('#meadow-hint').click();
+  ok(await page.locator(`[data-item="${other}"]`).evaluate(node => node.classList.contains('meadow-retry') && !node.classList.contains('meadow-hint')), 'Wrong clothes retain a distinct retry cue');
+  ok(await page.locator(`[data-item="${asked}"].meadow-hint`).count() === 1, 'Help marks only the requested garment');
+  await page.locator(`[data-item="${asked}"]`).click(); await map(); const savedStory = JSON.stringify((await state()).meadow.adventure);
   await page.locator('#meadow-house').click();
   ok((await state()).meadow.free.kind === 'dress' && (await state()).meadow.free.task.dressed === 0, 'Maciház starts independent dressing');
-  await page.locator('[data-item="sapka"]').click(); await page.locator('[data-item="cipo"]').click();
+  await dressAll(false);
   ok(JSON.stringify((await state()).meadow.adventure) === savedStory, 'Standalone dressing preserves the paused story');
   await page.locator('#meadow-next').click(); await page.locator('#meadow-map').click(); await page.locator('#meadow-start').click();
-  ok(await page.locator('#meadow-bear [data-garment="sapka"].is-worn').count() === 1, 'Story resumes with the previously worn hat');
-  await page.locator('[data-item="cipo"]').click(); await page.locator('#meadow-next').click(); await apple(0); await apple(1);
+  ok(await page.locator(`#meadow-bear [data-garment="${asked}"].is-worn`).count() >= 1, 'Story resumes with the previously worn garment');
+  await dressAll(true); await page.locator('#meadow-next').click(); await apple(0); await apple(1);
   await continueStory();
   ok(await page.locator('.in-basket').count() === 2, 'Two collected apples survive a reload');
   await page.locator('#meadow-undo').click(); ok(await page.locator('.in-basket').count() === 1, 'Undo history survives reload');
@@ -63,6 +79,7 @@ async (page) => {
   ok(JSON.stringify((await state()).meadow.adventure.guests) === JSON.stringify(initialGuests), 'Story guests remain stable');
   await fillTable(true); await check(); const firstMemory = (await state()).meadow.memories[0];
   ok(firstMemory.target === 3 && JSON.stringify(firstMemory.guests) === JSON.stringify(initialGuests), 'Album saves actual guests and count');
+  ok((await state()).meadow.practice.target === 4 && (await state()).meadow.practice.serveMode === 'named', 'A finished picnic invites one more friend and asks for named serving next time');
   const reward = (await state()).rewards; await page.locator('#meadow-check').evaluate(button => button.click()); ok((await state()).rewards === reward, 'Repeated completion does not duplicate rewards');
   await page.locator('#meadow-next').click(); await page.locator('#meadow-map').click();
   await settings('sort'); await pick(3); await page.locator('#meadow-garden').click();
@@ -88,7 +105,7 @@ async (page) => {
   await served(firstFull); await map(); await page.reload(); await enter('meseliget'); await page.locator('#meadow-free-resume').click();
   ok((await task()).plates.length === 1 && (await task()).cups.length === 0, 'Partial full setting resumes without losing a plate');
   await fillTable(false); await check(); await page.locator('#meadow-next').waitFor({ state: 'visible' }); ok(await page.locator('#meadow-next').isVisible(), 'Ten guests can receive both items'); await map();
-  await pick(2); await page.locator('#meadow-start').click(); await page.locator('[data-item="sapka"]').click(); await page.locator('[data-item="cipo"]').click(); await page.locator('#meadow-next').click();
+  await pick(2); await page.locator('#meadow-start').click(); await dressAll(true); await page.locator('#meadow-next').click();
   await apple(0); await apple(1); await check(); await page.locator('#meadow-next').click(); await fillTable(true); await check(); await page.locator('#meadow-next').click(); await page.locator('#meadow-album-open').click();
   ok(await page.locator('.meadow-memory-friends > span').count() === 2, 'Newest album page shows the actual two-person picnic');
   await page.locator('#meadow-album-older').click(); ok(await page.locator('.meadow-memory-friends > span').count() === 3, 'Previous album page retains three original guests');

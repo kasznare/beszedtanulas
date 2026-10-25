@@ -76,9 +76,14 @@ async page => {
   ok(await page.locator('#meadow-next').isVisible() && await narration('mese_served_full') === 0, 'A parent dialog suppresses delayed table narration');
   await page.evaluate(() => document.querySelector('#parent-gate').close());
   await page.locator('#meadow-back').dispatchEvent('click'); await page.locator('#meadow-house').click();
-  await page.locator('[data-item="cipo"]').click(); await page.locator('#meadow-hint').click();
-  ok(await page.locator('[data-item="cipo"].meadow-retry').count() === 1 && await page.locator('[data-item="sapka"].meadow-hint').count() === 1, 'Dressing retry and requested help remain distinct static cues');
-  await page.locator('[data-item="sapka"]').click(); await page.locator('[data-item="cipo"]').click();
+  // Maciház dresses a random weather outfit: the asked garment is read from Maci's request.
+  const requested = async () => (await snapshot()).voice.filter(id => id.startsWith('dress_request_')).at(-1).replace('dress_request_', '');
+  ok((await snapshot()).voice.some(id => id.startsWith('dress_weather_')), 'Maciház starts by naming the weather');
+  const asked = await requested();
+  const other = await page.locator('.meadow-clothing').evaluateAll((buttons, asked) => buttons.map(button => button.dataset.item).find(id => id !== asked), asked);
+  await page.locator(`[data-item="${other}"]`).click(); await page.locator('#meadow-hint').click();
+  ok(await page.locator(`[data-item="${other}"].meadow-retry`).count() === 1 && await page.locator(`[data-item="${asked}"].meadow-hint`).count() === 1, 'Dressing retry and requested help remain distinct static cues');
+  for (let step = 0; step < 3 && await page.locator('.meadow-clothing:enabled').count(); step++) await page.locator(`[data-item="${await requested()}"]`).click();
   ok(await page.locator('#meadow-next').isHidden(), 'Standalone Maciház also preserves its completed outfit before the ending');
   await page.locator('#meadow-next').waitFor({ state: 'visible' });
   ok(await narration('mese_house_done') === 1, 'Standalone dressing uses its own delayed ending voice');

@@ -1,3 +1,5 @@
+import { DRESS_OUTFITS, DRESS_WEATHERS, allDressItems, sortByBody } from './dress-data.js';
+
 const count = value => Number.isSafeInteger(value) && value >= 0 ? value : 0;
 const quantity = value => Number.isInteger(value) && value >= 1 && value <= 10;
 const copy = value => JSON.parse(JSON.stringify(value));
@@ -29,13 +31,34 @@ export function normalizeMeadowOptions(value = {}) {
   return {
     collectMode: ['count', 'sort', 'add', 'remove'].includes(value?.collectMode) ? value.collectMode : 'count',
     serveMode: ['all', 'named', 'full'].includes(value?.serveMode) ? value.serveMode : 'all',
-    showCount: value?.showCount !== false,
+    // true: the live basket count is shown only up to three apples; 'always' or false are parent choices.
+    showCount: value?.showCount === false ? false : value?.showCount === 'always' ? 'always' : true,
   };
 }
 function practice(value = {}) {
   return { target: quantity(value?.target) ? value.target : 3, varied: value?.varied !== false, ...normalizeMeadowOptions(value) };
 }
 export const meadowAppleTotal = target => Math.min(12, Math.max(target + 2, 4));
+// From four apples on, the child counts without a running total unless a parent asks for it.
+export const meadowShowsCount = (options, target) => options?.showCount === 'always' || (options?.showCount !== false && target < 4);
+// Pears sit at new places in every sorting task; older saved tasks keep their fixed pattern.
+export const meadowLegacyPears = target => Array.from({ length: meadowAppleTotal(target) }, (_, i) => i).filter(i => i % 3 === 1);
+export function meadowPearSpots(target, random = Math.random) {
+  const total = meadowAppleTotal(target);
+  return meadowShuffle(Array.from({ length: total }, (_, i) => i), random).slice(0, Math.floor((total + 1) / 3)).sort((a, b) => a - b);
+}
+// Maciház dresses a random weather outfit in body order; Maci already wears his póló.
+export function meadowDressSteps(weather) {
+  if (!DRESS_WEATHERS.includes(weather)) return ['sapka', 'cipo'];
+  return sortByBody(DRESS_OUTFITS[weather].items.filter(id => id !== 'polo').map(id => allDressItems.find(item => item.id === id))).map(item => item.id);
+}
+export const meadowOutfit = weather => DRESS_WEATHERS.includes(weather) ? [...DRESS_OUTFITS[weather].items] : ['polo', 'sapka', 'cipo'];
+export const meadowWeather = (random = Math.random) => DRESS_WEATHERS[Math.min(DRESS_WEATHERS.length - 1, Math.floor(random() * DRESS_WEATHERS.length))];
+// Each finished picnic invites one more friend (up to the number limit) and makes the table a step harder.
+export function nextAdventurePractice(practiceValue, finished, limit = 10) {
+  const serveMode = { all: 'named', named: 'full', full: 'full' }[finished?.options?.serveMode] || 'named';
+  return { ...practiceValue, target: Math.max(1, Math.min(limit, (finished?.target || 1) + 1)), varied: false, serveMode };
+}
 export function meadowInitialCount(target, options) {
   return options.collectMode === 'add' ? Math.max(1, target - 1) : options.collectMode === 'remove' ? target + 1 : 0;
 }
@@ -47,9 +70,11 @@ function normalizeSelection(value, target, guestIds, options) {
     cups: options.serveMode === 'full' ? list(value?.cups, id => guestIds.includes(id)) : [],
   };
 }
-export function createMeadowTask(kind, target, guestIds, options = {}, random = Math.random) {
+export function createMeadowTask(kind, target, guestIds, options = {}, random = Math.random, details = {}) {
   const settings = normalizeMeadowOptions(options);
   return {
+    ...(kind === 'collect' && settings.collectMode === 'sort' ? { pears: meadowPearSpots(target, random) } : {}),
+    ...(kind === 'dress' ? { weather: DRESS_WEATHERS.includes(details.weather) ? details.weather : meadowWeather(random) } : {}),
     kind, selected: kind === 'collect' ? Array.from({ length: meadowInitialCount(target, settings) }, (_, i) => i) : [],
     plates: [], cups: [], dressed: 0, helped: false, solved: false, moves: [],
     requestOrder: meadowShuffle(guestIds, random),
@@ -58,9 +83,14 @@ export function createMeadowTask(kind, target, guestIds, options = {}, random = 
 function normalizeTask(value, kind, target, guestIds, options) {
   if (!value || value.kind !== kind) return null;
   const selection = normalizeSelection(value, target, guestIds, options);
+  // Newer fields are kept only when present, so older backups still compare equal after loading.
+  const weather = kind === 'dress' && DRESS_WEATHERS.includes(value.weather) ? { weather: value.weather } : {};
+  const pears = kind === 'collect' && Array.isArray(value.pears) ? { pears: list(value.pears, id => Number.isInteger(id) && id >= 0 && id < meadowAppleTotal(target)).sort((a, b) => a - b) } : {};
+  const dressed = Number.isInteger(value.dressed) && value.dressed >= 0 && value.dressed <= meadowDressSteps(weather.weather).length ? value.dressed : 0;
   return {
-    kind, ...selection, dressed: [0, 1, 2].includes(value.dressed) ? value.dressed : 0,
-    helped: value.helped === true, solved: value.solved === true && meadowTaskComplete({ kind, ...selection, dressed: value.dressed }, target, guestIds, options),
+    ...pears, ...weather,
+    kind, ...selection, dressed,
+    helped: value.helped === true, solved: value.solved === true && meadowTaskComplete({ kind, ...selection, ...weather, dressed }, target, guestIds, options),
     moves: Array.isArray(value.moves) ? value.moves.slice(-100).map(move => normalizeSelection(move, target, guestIds, options)) : [],
     requestOrder: guests(value.requestOrder, target).every(id => guestIds.includes(id)) ? guests(value.requestOrder, target) : [...guestIds],
   };
@@ -70,7 +100,7 @@ function normalizeAdventure(value) {
   const guestIds = guests(value.guests, value.target), options = normalizeMeadowOptions(value.options);
   if (options.collectMode === 'add' && value.target === 1) options.collectMode = 'count';
   const task = normalizeTask(value.task, kinds[value.step], value.target, guestIds, options);
-  return { step: value.step, target: value.target, guests: guestIds, options, task: task?.solved ? null : task };
+  return { step: value.step, target: value.target, guests: guestIds, options, task: task?.solved ? null : task, ...(DRESS_WEATHERS.includes(value.weather) ? { weather: value.weather } : {}) };
 }
 function normalizeFree(value) {
   if (!value || !kinds.includes(value.kind) || !quantity(value.target) || ![1, 3, 5, 10].includes(value.length) || !Number.isInteger(value.round) || value.round < 0 || value.round >= value.length) return null;
@@ -84,6 +114,7 @@ function normalizeMemories(value) {
   const seen = new Set();
   return value.filter(item => item && typeof item.id === 'string' && /^piknik-\d+$/.test(item.id) && quantity(item.target) && isoDate(item.date) && !seen.has(item.id) && seen.add(item.id)).map(item => ({
     id: item.id, date: new Date(item.date).toISOString(), target: item.target, guests: guests(item.guests, item.target), serveMode: ['all', 'named', 'full'].includes(item.serveMode) ? item.serveMode : 'all',
+    ...(DRESS_WEATHERS.includes(item.weather) ? { weather: item.weather } : {}),
   }));
 }
 export function normalizeMeadow(value = {}) {
@@ -114,7 +145,7 @@ export function meadowServingRequest(task, guestIds, options = {}) {
   return null;
 }
 export function meadowTaskComplete(task, target, guestIds, options = {}) {
-  if (task.kind === 'dress') return task.dressed === 2;
+  if (task.kind === 'dress') return task.dressed === meadowDressSteps(task.weather).length;
   if (task.kind === 'collect') return task.selected.length === target;
   return guestIds.every(id => task.plates.includes(id) && (options.serveMode !== 'full' || task.cups.includes(id)));
 }
@@ -136,7 +167,7 @@ export function recordMeadowTask(value, kind, assisted, details = {}) {
   if (finished) {
     next.journeys += 1;
     const adventure = next.adventure;
-    next.memories.push({ id: `piknik-${next.journeys}`, date: isoDate(details.date) ? new Date(details.date).toISOString() : new Date().toISOString(), target: adventure.target, guests: [...adventure.guests], serveMode: adventure.options.serveMode });
+    next.memories.push({ id: `piknik-${next.journeys}`, date: isoDate(details.date) ? new Date(details.date).toISOString() : new Date().toISOString(), target: adventure.target, guests: [...adventure.guests], serveMode: adventure.options.serveMode, ...(adventure.weather ? { weather: adventure.weather } : {}) });
     next.adventure = null;
   }
   return { progress: next, finished: Boolean(finished) };
