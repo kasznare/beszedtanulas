@@ -1,161 +1,158 @@
-import { buildMemoryDeck, buildSoundMemoryDeck, MEMORY_TIMING_KEY, normalizeMemoryTiming } from './memory-data.js';
+import {
+  buildMemoryDeck, buildSoundMemoryDeck, isMemoryPair, memoryStars, nextMemoryPairs, nextSoundMemoryLevel,
+  normalizeMemoryTiming, normalizeSoundMemoryLevel, MEMORY_TIMING_KEY, SOUND_MEMORY_KEY, SOUND_MEMORY_LEVELS,
+} from './memory-data.js';
 import { wordPicture } from './word-art.js';
 import { setGameTitle, focusGameTitle } from './game-heading.js';
 
-export function setupMemoryGame({ effect = () => {}, getOptions, playWord, speak, stopPlayback, onComplete, setPairs, onRestart = () => {} }) {
+const TITLES = { classic: 'Képpárok', sound: 'Hang–kép párok' };
+const KIND_ICONS = { sound: '🔊', name: '💬' };
+const KIND_LABELS = { sound: 'állathang', name: 'állatnév' };
+
+export function setupMemoryGame({ effect = () => {}, getOptions, playWord, playAnimal = async () => false, speak, stopPlayback, onComplete, setPairs, onRestart = () => {}, storage = globalThis.localStorage }) {
   const root = document.querySelector('#memory');
-  let active = false, deck = [], open = [], matched = new Set(), preview = false, busy = false, finished = false;
-  let mode = 'classic', soundDeck = { sounds: [], pictures: [] }, selectedSound = null, selectedPicture = null, soundStatus = '';
-  let generation = 0, timer, timingOpen = false;
+  let active = false, deck = [], open = [], matched = new Set(), preview = false, previewUsed = false, busy = false, finished = false;
+  let mode = 'classic', mismatches = 0, pairs = 0, soundLevel = 0, generation = 0, flips = 0, timer, timingOpen = false, statusText = '';
   let timing;
-  try { timing = normalizeMemoryTiming(JSON.parse(window.localStorage.getItem(MEMORY_TIMING_KEY))); }
+  try { timing = normalizeMemoryTiming(JSON.parse(storage?.getItem(MEMORY_TIMING_KEY))); }
   catch { timing = normalizeMemoryTiming(); }
-  function saveTiming() { try { window.localStorage.setItem(MEMORY_TIMING_KEY, JSON.stringify(timing)); } catch {} }
-  const say = id => { if (active && !document.hidden) speak(id); };
+  const saveTiming = () => { try { storage?.setItem(MEMORY_TIMING_KEY, JSON.stringify(timing)); } catch {} };
+  const readSoundLevel = () => { try { return normalizeSoundMemoryLevel(JSON.parse(storage?.getItem(SOUND_MEMORY_KEY) ?? 'null')); } catch { return 0; } };
+  const saveSoundLevel = () => { try { storage?.setItem(SOUND_MEMORY_KEY, JSON.stringify({ level: soundLevel })); } catch {} };
+  const allowed = () => active && !document.hidden;
+  const say = id => allowed() ? speak(id) : undefined;
   const cancel = () => { generation++; clearTimeout(timer); busy = false; preview = false; stopPlayback(); };
   function schedule(fn, delay) {
     const token = generation;
     clearTimeout(timer);
     timer = window.setTimeout(() => { if (active && token === generation && !document.hidden) fn(); }, delay);
   }
-  const modeMarkup = () => `<div class="memory-modes" role="group" aria-label="Párosító módja"><button type="button" data-memory-mode="classic" aria-pressed="${mode === 'classic'}">Képpárok</button><button type="button" data-memory-mode="sound" aria-pressed="${mode === 'sound'}">Hang–kép párok</button></div>`;
-  function bindModeButtons() {
-    root.querySelectorAll('[data-memory-mode]').forEach(button => button.addEventListener('click', () => {
-      if (!active || document.hidden) return;
-      start({ mode: button.dataset.memoryMode });
-    }));
+  const isMatched = card => matched.has(card.key);
+
+  function faceMarkup(card, found) {
+    if (found || card.kind === 'picture') return `${wordPicture(card.word)}<small>${found ? '✓' : ''}</small>`;
+    return `<span class="memory-kind-icon">${KIND_ICONS[card.kind]}</span>`;
+  }
+  function cardLabel(card, index, revealed, found) {
+    if (!revealed) return `${index + 1}. kártya, lefordítva`;
+    if (found) return `${index + 1}. kártya, ${card.word.label}, a párja megvan`;
+    return `${index + 1}. kártya, ${card.kind === 'picture' ? card.word.label : KIND_LABELS[card.kind]}`;
+  }
+  function currentStatus() {
+    if (statusText) return statusText;
+    if (finished) return mode === 'sound' ? 'Minden hang megtalálta a párját!' : 'Minden kép megtalálta a párját!';
+    if (preview) return 'Jegyezd meg a képek helyét!';
+    if (open.length === 2) return 'Ez most nem pár. Jegyezd meg, mi hol van!';
+    if (open.length) return mode === 'sound' ? 'Hol van a párja?' : 'Most keresd meg a párját!';
+    return 'Válassz egy kártyát!';
   }
   function render(focusKey) {
-    if (mode === 'sound') { renderSound(focusKey); return; }
-    setGameTitle(root, 'Képpárok');
-    root.innerHTML = `<p class="memory-instructions">Fordíts fel két kártyát!</p>
-      ${modeMarkup()}
-      <div class="memory-options" role="group" aria-label="Párok száma">${[2, 3, 4, 6].map(n => `<button data-pairs="${n}" aria-pressed="${getOptions().memoryPairs === n}" ${busy ? 'disabled' : ''}>${n} pár</button>`).join('')}</div>
-      <details class="memory-timing" ${timingOpen ? 'open' : ''}><summary>Időzítés</summary><label>Második pillantás <select id="memory-mismatch">${[[1100,'Rövid'],[2000,'Közepes'],[3500,'Hosszú']].map(([ms,label]) => `<option value="${ms}" ${timing.mismatchMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label><label>Képek megjegyzése <select id="memory-preview">${[[3500,'Rövid'],[7000,'Hosszú'],[0,'Amíg folytatom']].map(([ms,label]) => `<option value="${ms}" ${timing.previewMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label></details>
-      <div class="memory-progress" role="status">${matched.size} / ${deck.length / 2} pár megvan <span aria-hidden="true">${'🌼'.repeat(matched.size)}</span></div>
-      <div class="memory-board" style="--memory-cols:${deck.length <= 6 ? 2 : 3}" data-count="${deck.length}" role="group" aria-label="Képes memóriakártyák">${deck.map((card, i) => {
-        const found = matched.has(card.word.id), revealed = found || preview || open.includes(card.key);
-        return `<button class="memory-card ${revealed ? 'is-open' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${i + 1}. kártya, ${revealed ? card.word.label + (found ? ', a párja megvan' : '') : 'lefordítva'}" aria-pressed="${revealed}" ${found || busy || preview || finished ? 'disabled' : ''}><span class="memory-card-back" aria-hidden="true">✿</span><span class="memory-card-face" aria-hidden="true">${wordPicture(card.word)}<small>${found ? '✓' : ''}</small></span></button>`;
+    setGameTitle(root, TITLES[mode]);
+    const found = matched.size / 2;
+    const hintButton = mode === 'classic' ? `<button type="button" id="memory-hint" ${finished || busy || (previewUsed && !preview) ? 'disabled' : ''} aria-label="${preview ? 'Folytatom' : previewUsed ? 'A közös nézelődés ebben a körben elfogyott' : 'Nézzük meg együtt, egyszer'}">${preview ? 'Folytatom ▶' : '💡 Nézzük meg!'}</button>` : '';
+    root.innerHTML = `<div class="memory-modes" role="group" aria-label="Párosító módja">${Object.entries(TITLES).map(([id, name]) => `<button type="button" data-memory-mode="${id}" aria-pressed="${mode === id}">${name}</button>`).join('')}</div>
+      <div class="memory-progress" role="status">${found} / ${pairs} pár <span aria-hidden="true">${'🌼'.repeat(found)}</span></div>
+      <div class="memory-board${mode === 'sound' ? ' memory-sound-board' : ''}" style="--memory-cols:${deck.length <= 6 ? 2 : deck.length <= 8 ? 4 : 3}" data-count="${deck.length}" role="group" aria-label="${mode === 'sound' ? 'Hangos memóriakártyák' : 'Képes memóriakártyák'}">${deck.map((card, i) => {
+        const done = isMatched(card), revealed = done || preview || open.includes(card.key);
+        return `<button type="button" class="memory-card ${revealed ? 'is-open' : ''} ${done ? 'is-matched' : ''}" data-card="${card.key}" data-kind="${revealed ? card.kind : ''}" aria-label="${cardLabel(card, i, revealed, done)}" aria-pressed="${revealed}" ${done || busy || preview || finished ? 'disabled' : ''}><span class="memory-card-back" aria-hidden="true">${mode === 'sound' ? '♪' : '✿'}</span><span class="memory-card-face" aria-hidden="true">${faceMarkup(card, done)}</span></button>`;
       }).join('')}</div>
-      <p id="memory-status" class="memory-status" role="status">${finished ? 'Minden kép megtalálta a párját!' : preview ? 'Jegyezd meg a képek helyét!' : open.length === 2 ? 'Nézd meg a két képet! Próbálhatod újra.' : open.length ? 'Most keresd meg a párját!' : 'Válassz egy kártyát!'}</p>
-      <div class="memory-actions"><button id="memory-hint" ${finished || busy ? 'disabled' : ''}>${preview ? 'Folytatom ▶' : '💡 Nézzük meg!'}</button><button id="memory-restart">↻ Új képek</button></div>`;
-    bindModeButtons();
+      <p id="memory-status" class="memory-status" role="status">${currentStatus()}</p>
+      <div class="memory-actions">${hintButton}<button type="button" id="memory-restart" aria-label="Új kártyák">↻</button></div>
+      <details class="memory-timing" ${timingOpen ? 'open' : ''}><summary>Időzítés</summary><label>Második pillantás <select id="memory-mismatch">${[[1100, 'Rövid'], [2000, 'Közepes'], [3500, 'Hosszú']].map(([ms, label]) => `<option value="${ms}" ${timing.mismatchMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label>${mode === 'classic' ? `<label>Képek megjegyzése <select id="memory-preview">${[[3500, 'Rövid'], [7000, 'Hosszú'], [0, 'Amíg folytatom']].map(([ms, label]) => `<option value="${ms}" ${timing.previewMs === ms ? 'selected' : ''}>${label}</option>`).join('')}</select></label>` : ''}</details>`;
+    root.querySelectorAll('[data-memory-mode]').forEach(button => button.addEventListener('click', () => {
+      if (!allowed()) return;
+      start({ mode: button.dataset.memoryMode }); focusGameTitle(root);
+    }));
     root.querySelector('.memory-timing').addEventListener('toggle', event => { timingOpen = event.target.open; });
     root.querySelectorAll('[data-card]').forEach(button => button.addEventListener('click', () => flip(button.dataset.card)));
-    root.querySelectorAll('[data-pairs]').forEach(button => button.addEventListener('click', () => {
-      if (!active || busy || !setPairs) return;
-      setPairs(Number(button.dataset.pairs)); start();
-    }));
-    root.querySelector('#memory-restart').addEventListener('click', start);
-    root.querySelector('#memory-hint').addEventListener('click', hint);
-    for (const [id, field] of [['memory-mismatch','mismatchMs'], ['memory-preview','previewMs']]) root.querySelector(`#${id}`).addEventListener('change', event => {
+    root.querySelector('#memory-restart').addEventListener('click', () => { start(); root.querySelector('#memory-restart')?.focus({ preventScroll: true }); });
+    root.querySelector('#memory-hint')?.addEventListener('click', hint);
+    for (const [id, field] of [['memory-mismatch', 'mismatchMs'], ['memory-preview', 'previewMs']]) root.querySelector(`#${id}`)?.addEventListener('change', event => {
       timing = normalizeMemoryTiming({ ...timing, [field]: Number(event.target.value) }); saveTiming();
       if (field === 'previewMs' && preview && timing.previewMs === 0) clearTimeout(timer);
-      if (field === 'previewMs' && preview && timing.previewMs) schedule(() => { preview = false; render(); root.querySelector('#memory-hint').focus(); }, timing.previewMs);
+      if (field === 'previewMs' && preview && timing.previewMs) schedule(endPreview, timing.previewMs);
     });
     if (focusKey) root.querySelector(`[data-card="${focusKey}"]`)?.focus({ preventScroll: true });
   }
-  function renderSound(focusKey) {
-    const options = getOptions();
-    const cardMarkup = (card, index) => {
-      const found = matched.has(card.word.id), selected = (card.kind === 'sound' ? selectedSound : selectedPicture) === card.key;
-      if (card.kind === 'sound') return `<button type="button" class="memory-sound-card ${selected ? 'is-selected' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${index + 1}. hangkártya${found ? ', párja megvan' : ', hallgasd meg'}" aria-pressed="${selected}" ${found || finished ? 'disabled' : ''}><span aria-hidden="true" class="memory-sound-symbol">🔊</span><span aria-hidden="true">${index + 1}</span><span class="memory-sound-check" aria-hidden="true">${found ? '✓' : ''}</span></button>`;
-      return `<button type="button" class="memory-picture-card ${selected ? 'is-selected' : ''} ${found ? 'is-matched' : ''}" data-card="${card.key}" aria-label="${card.word.label}${found ? ', párja megvan' : ''}" aria-pressed="${selected}" ${found || finished ? 'disabled' : ''}>${wordPicture(card.word)}<span class="memory-sound-check" aria-hidden="true">${found ? '✓' : ''}</span></button>`;
-    };
-    setGameTitle(root, 'Hang–kép párok');
-    root.innerHTML = `<p class="memory-instructions">Hallgass meg egy hangot, majd keresd meg a képét!</p>
-      ${modeMarkup()}
-      <div class="memory-options" role="group" aria-label="Párok száma">${[2,3,4,6].map(n=>`<button data-pairs="${n}" aria-pressed="${options.memoryPairs === n}">${n} pár</button>`).join('')}</div>
-      <div class="memory-progress" role="status">${matched.size} / ${soundDeck.sounds.length} pár megvan <span aria-hidden="true">${'🌼'.repeat(matched.size)}</span></div>
-      <div class="memory-sound-board" role="group" aria-label="Hang és kép párosítása"><div class="memory-sound-column" role="group" aria-label="Hangok">${soundDeck.sounds.map(cardMarkup).join('')}</div><div class="memory-sound-column" role="group" aria-label="Képek">${soundDeck.pictures.map(cardMarkup).join('')}</div></div>
-      <p id="memory-status" class="memory-status" role="status">${soundStatus || (finished ? 'Minden hang megtalálta a képét!' : 'Válassz egy hangot, majd egy képet!')}</p>
-      <div class="memory-actions"><button id="memory-restart">↻ Új párok</button></div>`;
-    bindModeButtons();
-    root.querySelectorAll('[data-pairs]').forEach(button=>button.addEventListener('click',()=>{if(!active||!setPairs)return;setPairs(Number(button.dataset.pairs));start({mode:'sound'});}));
-    root.querySelectorAll('[data-card]').forEach(button=>button.addEventListener('click',()=>selectSoundCard(button.dataset.card)));
-    root.querySelector('#memory-restart').addEventListener('click',()=>start({mode:'sound'}));
-    if(focusKey)root.querySelector(`[data-card="${focusKey}"]`)?.focus({preventScroll:true});
-  }
-  function selectSoundCard(key) {
-    if(!active||mode!=='sound'||finished||document.hidden)return;
-    const card=[...soundDeck.sounds,...soundDeck.pictures].find(item=>item.key===key);
-    if(!card||matched.has(card.word.id))return;
-    effect('card');
-    const soundToPlay=card.kind==='sound'?card:null;
-    const playSelected=()=>soundToPlay?playWord(soundToPlay.word,{target:`.memory-sound-card[data-card="${soundToPlay.key}"]`}):null;
-    if(card.kind==='sound'){
-      selectedSound=key;
-      soundStatus='Hallgasd meg újra, vagy keresd meg a képét!';
-    }else{
-      selectedPicture=key;
-      soundStatus='Most válassz hozzá egy hangot!';
-    }
-    if(selectedSound&&selectedPicture){
-      const sound=soundDeck.sounds.find(item=>item.key===selectedSound);
-      const picture=soundDeck.pictures.find(item=>item.key===selectedPicture);
-      if(sound.word.id===picture.word.id){
-        matched.add(sound.word.id);effect('collect');selectedSound=null;selectedPicture=null;
-        soundStatus=matched.size===soundDeck.sounds.length?'Minden hang megtalálta a képét!':'Megvan a pár! Jöhet a következő hang.';
-        if(matched.size===soundDeck.sounds.length){
-          finished=true;renderSound();root.querySelector('#memory-restart').focus({preventScroll:true});
-          playSelected();
-          onComplete(matched.size,{mode:'sound'});
-          return;
-        }
-        renderSound();playSelected();root.querySelector('.memory-sound-card:not(:disabled)')?.focus({preventScroll:true});return;
-      }
-      effect('retry');selectedSound=null;selectedPicture=null;soundStatus='Ez most nem pár. Hallgasd meg újra!';
-    }
-    renderSound(key);playSelected();
-  }
-  function start({mode:requestedMode}={}) {
+
+  function start({ mode: requestedMode } = {}) {
     onRestart();
-    cancel(); active = true; finished = false; open = []; matched = new Set();
-    if(requestedMode)mode=requestedMode;
-    selectedSound=null;selectedPicture=null;soundStatus='';
+    cancel(); active = true; finished = false; open = []; matched = new Set(); mismatches = 0; previewUsed = false; statusText = '';
+    if (TITLES[requestedMode]) mode = requestedMode;
     const options = getOptions();
-    if(mode==='sound'){soundDeck=buildSoundMemoryDeck(options.words,options.memoryPairs);deck=[];render();focusGameTitle(root);say('memory_sound_start');}
-    else{deck=buildMemoryDeck(options.words, options.memoryPairs);soundDeck={sounds:[],pictures:[]};render();focusGameTitle(root); say('memory_start');}
+    if (mode === 'sound') {
+      soundLevel = readSoundLevel();
+      deck = buildSoundMemoryDeck(soundLevel);
+    } else deck = buildMemoryDeck(options.words, options.memoryPairs, Math.random, options.allWords || []);
+    pairs = deck.length / 2;
+    render(); focusGameTitle(root);
+    say(mode === 'sound' ? 'memory_sound_start' : 'memory_start');
+  }
+  function playCard(card) {
+    const cue = { target: `.memory-card[data-card="${card.key}"] .memory-card-face` };
+    if (mode === 'classic') return playWord(card.word, cue);
+    if (card.kind === 'sound') return playAnimal(card.word.id);
+    return speak(`abk_name_${card.word.id}`);
+  }
+  function complete() {
+    finished = true; statusText = '';
+    const stars = memoryStars(mismatches, pairs);
+    if (mode === 'sound') { soundLevel = nextSoundMemoryLevel(soundLevel, mismatches); saveSoundLevel(); }
+    else setPairs?.(nextMemoryPairs(pairs, mismatches));
+    render(); root.querySelector('#memory-restart').focus({ preventScroll: true });
+    // The round dialog says "memory_done"; the game itself stays quiet here.
+    onComplete(stars, { mode, mismatches, pairs });
   }
   function flip(key) {
-    if (!active || busy || preview || finished || document.hidden || open.includes(key)) return;
+    if (!allowed() || busy || preview || finished || open.includes(key)) return;
     const card = deck.find(c => c.key === key);
-    if (!card || matched.has(card.word.id)) return;
-    effect('card'); open.push(key); playWord(card.word, { target: `.memory-card[data-card="${key}"] .memory-card-face` }); render(key);
+    if (!card || isMatched(card)) return;
+    effect('card'); open.push(key); statusText = '';
+    const flipToken = ++flips;
+    const playback = playCard(card);
+    render(key);
     if (open.length !== 2) return;
     const first = deck.find(c => c.key === open[0]);
-    if (first.word.id === card.word.id) {
-      effect('collect'); matched.add(card.word.id); open = []; render();
-      root.querySelector('#memory-status').textContent = 'Egyforma képek! Megvan egy pár.';
-      if (matched.size === deck.length / 2) {
-        finished = true; render(); root.querySelector('#memory-restart').focus({ preventScroll: true }); say('memory_done'); onComplete(matched.size,{mode:'classic'});
-      } else root.querySelector('[data-card]:not(:disabled)')?.focus({ preventScroll: true });
-    } else {
-      busy = true; render(key);
+    if (isMatched(first) || !isMemoryPair(first, card)) {
+      mismatches++; busy = true; render(key);
       const firstKey = first.key;
       schedule(() => { open = []; busy = false; render(firstKey); }, timing.mismatchMs);
-    }
-  }
-  function hint() {
-    if (!active || busy || finished || document.hidden) return;
-    if (preview) { cancel(); open = []; render(); root.querySelector('#memory-hint').focus(); return; }
-    open = []; preview = true; render(); say('memory_hint');
-    root.querySelector('#memory-hint').focus();
-    if (timing.previewMs) schedule(() => { preview = false; render(); root.querySelector('#memory-hint').focus(); }, timing.previewMs);
-  }
-  function stop() { active = false; cancel(); open = []; selectedSound=null;selectedPicture=null; }
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && active) {
-      cancel(); open = []; selectedSound=null;selectedPicture=null;
-    } else if (active) render();
-  });
-  return { start, restart(){start({mode});}, getContext(){return {mode};}, stop, repeat() {
-    if(mode==='sound'){
-      const card=soundDeck.sounds.find(item=>item.key===selectedSound);
-      if(card&&active&&!document.hidden)playWord(card.word,{target:`.memory-sound-card[data-card="${card.key}"]`});
-      else say(finished?'memory_done':'memory_sound_start');
       return;
     }
-    say(preview ? 'memory_hint' : finished ? 'memory_done' : 'memory_start');
-  } };
+    effect('collect'); matched.add(first.key); matched.add(card.key); open = [];
+    if (matched.size === deck.length) { complete(); return; }
+    statusText = mode === 'sound' ? `Megvan a pár: ${card.word.label}!` : 'Egyforma képek! Megvan egy pár.';
+    render();
+    root.querySelector('[data-card]:not(:disabled)')?.focus({ preventScroll: true });
+    // After the card's own sound, a short praise, unless the child has already flipped on.
+    const token = generation;
+    Promise.resolve(playback).catch(() => {}).then(() => {
+      if (token === generation && flipToken === flips && allowed() && !finished) say(mode === 'sound' ? 'abk_well_done' : 'memory_match');
+    });
+  }
+  function endPreview() { preview = false; render(); root.querySelector('#memory-hint')?.focus({ preventScroll: true }); }
+  // One shared look per round; the button then stays off until a new round.
+  function hint() {
+    if (!allowed() || busy || finished || mode !== 'classic') return;
+    if (preview) { cancel(); open = []; render(); root.querySelector('#memory-restart')?.focus({ preventScroll: true }); return; }
+    if (previewUsed) return;
+    open = []; preview = true; previewUsed = true; statusText = ''; render(); say('memory_hint');
+    root.querySelector('#memory-hint').focus({ preventScroll: true });
+    if (timing.previewMs) schedule(endPreview, timing.previewMs);
+  }
+  function stop() { active = false; cancel(); open = []; }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && active) { cancel(); open = []; }
+    else if (active) render();
+  });
+  return {
+    start, restart() { start({ mode }); }, getContext() { return { mode }; }, stop,
+    getLevel() { return mode === 'sound' ? { mode, ...SOUND_MEMORY_LEVELS[soundLevel] } : { mode, pairs }; },
+    repeat() {
+      const last = deck.find(card => card.key === open.at(-1));
+      if (last && allowed()) { playCard(last); return; }
+      if (mode === 'sound') { say(finished ? 'memory_done' : 'memory_sound_start'); return; }
+      say(preview ? 'memory_hint' : finished ? 'memory_done' : 'memory_start');
+    },
+  };
 }

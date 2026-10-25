@@ -8,9 +8,14 @@ async page => {
     const errors = [], rows = [];
     p.on('pageerror', error => errors.push(error.message));
     await p.route('https://cdn.jsdelivr.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '' }));
-    await p.addInitScript(() => localStorage.setItem('speech_game_progress_v1', JSON.stringify({
-      settings: { spokenGuidance: false }, supabase: { syncPaused: true },
-    })));
+    await p.addInitScript(() => {
+      localStorage.setItem('speech_game_progress_v1', JSON.stringify({
+        settings: { spokenGuidance: false, memoryPairs: 6 }, supabase: { syncPaused: true },
+      }));
+      localStorage.setItem('beszedtanulas.memorySound.v1', JSON.stringify({ level: 5 }));
+      localStorage.setItem('beszedtanulas.listeningLevels.v1', JSON.stringify({ base: 2, choices: 4, phraseChoices: 3, bingoSize: 3 }));
+      localStorage.setItem('beszedtanulas.flipLevels.v1', JSON.stringify({ kimStart: 2, findSize: 8 }));
+    });
     await p.goto(new URL('/', page.url()).href);
     const click = async selector => p.locator(selector).click();
     const enter = async () => {
@@ -225,16 +230,45 @@ async page => {
           if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`${label}: back did not return to ${menu}`);
         }
       }
+      // Densest levels come from the saved progress set in the init script (12 cards, 4 pictures, 3×3 bingo, 8 flip cards).
       await open('activity-menu', 'memory');
-      for (const mode of ['classic', 'sound']) {
-        await click(`[data-memory-mode="${mode}"]`); await click('[data-pairs="6"]');
-        await check(`${size}:memory-${mode}-6`);
-      }
-      await click('[data-memory-mode="classic"]');
+      await check(`${size}:memory-classic-6`);
       const cards = await p.locator('[data-card]').evaluateAll(buttons => buttons.map(button => button.dataset.card));
-      await click(`[data-card="${cards[0]}"]`); await click(`[data-card="${cards.find(key => key.split(':')[0] !== cards[0].split(':')[0]) || cards[1]}"]`);
+      await click(`[data-card="${cards[0]}"]`); await click(`[data-card="${cards.find(key => key.slice(0, key.lastIndexOf('-')) !== cards[0].slice(0, cards[0].lastIndexOf('-')))}"]`);
       await check(`${size}:memory-mismatch`);
-      await click('[data-pairs="3"]');
+      await click('[data-memory-mode="sound"]'); await titleFocused();
+      await check(`${size}:memory-sound-6`);
+      const soundCards = await p.locator('[data-card]').evaluateAll(buttons => buttons.map(button => button.dataset.card));
+      await click(`[data-card="${soundCards[0]}"]`); await click(`[data-card="${soundCards[1]}"]`);
+      await check(`${size}:memory-sound-open`);
+      await click('[data-memory-mode="classic"]');
+      await open('picture-menu', 'listening-game');
+      for (const mode of ['bingo', 'phrase', 'classic']) {
+        await click(`[data-listening-mode="${mode}"]`); await titleFocused();
+        await check(`${size}:listening-${mode}`);
+      }
+      if (await p.locator('.listening-answer').count() !== 4) throw Error('Densest Hol van? level should show four pictures');
+      for (const answer of await p.locator('.listening-answer').all()) {
+        await answer.click();
+        if (await answer.evaluate(button => button.classList.contains('is-correct'))) { await check(`${size}:listening-correct`); break; }
+        await check(`${size}:listening-retry`);
+      }
+      await click('[data-listening-mode="bingo"]');
+      if (await p.locator('.listening-bingo-tile').count() !== 9) throw Error('Densest bingo should be 3×3');
+      await click('#listening-none'); await check(`${size}:bingo-feedback`);
+      await open('picture-menu', 'flip');
+      await click('[data-flip-mode="find"]'); await titleFocused();
+      if (await p.locator('[data-flip-index]').count() !== 8) throw Error('Densest find round should have eight cards');
+      await check(`${size}:flip-find-preview`);
+      await click('#flip-hide'); await check(`${size}:flip-find-hidden`);
+      await click('[data-flip-mode="missing"]'); await titleFocused();
+      await check(`${size}:flip-missing-preview`);
+      await click('#flip-hide'); await p.waitForSelector('[data-missing-answer]');
+      await check(`${size}:flip-missing-guess`);
+      await p.locator('[data-missing-answer]').first().click(); await check(`${size}:flip-missing-answer`);
+      await click('[data-flip-mode="free"]');
+      await click('#back-button');
+      if (await p.locator('body').getAttribute('data-screen') !== 'picture-menu') throw Error('Mi bújt el? back did not return to its menu');
       for (const game of ['shapes', 'colors', 'tower', 'grid', 'memory']) {
         const menu = game === 'grid' ? 'big-menu' : 'shape-menu';
         await open(menu);

@@ -50,26 +50,46 @@ async page => {
   await page.locator('#round-replay').click();
   ok(await page.locator('[data-teddy-mode="expressive"]').getAttribute('aria-pressed')==='true','Replay preserves expressive mode');
   await layouts('Expressive Maci');await page.screenshot({path:'output/playwright/depth-teddy.png',fullPage:true});
+  await page.evaluate(()=>{window.depthHeard=[];document.addEventListener('narrationstart',e=>depthHeard.push(e.detail.id));});
+  const rewards=async()=>JSON.parse(await saved()).rewards,plays=async()=>JSON.parse(await saved()).plays;
+  // Sound memory has no visible answer: pair cards by trying, as a child would.
+  const solveMemory=async()=>{
+    for(let guard=0;guard<60&&!(await page.locator('#round-complete').isVisible());guard++){
+      const keys=await page.locator('.memory-card:not(.is-matched)').evaluateAll(bs=>bs.map(b=>b.dataset.card));
+      if(keys.length<2)break;
+      for(const key of keys.slice(1)){
+        await page.locator(`[data-card="${keys[0]}"]`).click();await page.locator(`[data-card="${key}"]`).click();
+        if(await page.locator(`[data-card="${key}"].is-matched`).count())break;
+        await page.waitForFunction(()=>document.querySelectorAll('.memory-card:not(:disabled)').length>0);
+      }
+    }
+    await page.waitForSelector('#round-complete[open]');
+  };
   await enter('activity-menu','memory');await page.locator('[data-memory-mode="sound"]').click();
-  const beforeSound=await saved();
-  const sounds=await page.locator('.memory-sound-card').evaluateAll(bs=>bs.map(b=>({key:b.dataset.card,label:b.getAttribute('aria-label')})));
-  ok(sounds.length===3&&sounds.every(c=>/^\d+\. hangkártya, hallgasd meg$/.test(c.label)),'Sound tiles reveal no word or picture before matching');
+  const beforeSound={rewards:await rewards(),plays:await plays()};
+  const sounds=await page.locator('.memory-card').evaluateAll(bs=>bs.map(b=>({key:b.dataset.card,label:b.getAttribute('aria-label')})));
+  ok(sounds.length===6&&sounds.every(c=>/^\d+\. kártya, lefordítva$/.test(c.label)&&/^card-\d+$/.test(c.key)),'Sound memory starts face down and its markup names no animal');
   await layouts('Sound picture pairs');await page.screenshot({path:'output/playwright/depth-sound-pairs.png',fullPage:true});
-  for(const sound of sounds){await page.locator(`[data-card="${sound.key}"]`).click();await page.locator(`[data-card="${sound.key.replace('sound-','picture-')}"]`).click();}
-  await page.waitForSelector('#round-complete[open]');ok(await saved()===beforeSound,'Sound matching adds no saved play or reward results');
+  await solveMemory();
+  ok(await rewards()===beforeSound.rewards+1&&await plays()===beforeSound.plays,'A sound memory round earns one reward and counts no word plays');
   await page.locator('#round-replay').click();ok(await page.locator('[data-memory-mode="sound"]').getAttribute('aria-pressed')==='true','Replay preserves sound pairs');
   // Finish again and use the curated related activity, without a player history.
-  for(const key of await page.locator('.memory-sound-card').evaluateAll(bs=>bs.map(b=>b.dataset.card))){await page.locator(`[data-card="${key}"]`).click();await page.locator(`[data-card="${key.replace('sound-','picture-')}"]`).click();}
-  await page.waitForSelector('#round-complete[open]');await page.locator('#round-related button').click();
+  await solveMemory();await page.locator('#round-related button').click();
   ok(await page.locator('[data-listening-mode="bingo"]').getAttribute('aria-pressed')==='true','Related launch opens bingo directly');
-  const beforeBingo=await saved(),board=await page.locator('.listening-bingo-tile').evaluateAll(bs=>bs.map(b=>b.dataset.word));
+  const beforeBingo=await rewards(),board=await page.locator('.listening-bingo-tile').evaluateAll(bs=>bs.map(b=>b.dataset.word));
+  ok(board.length===4,'Bingo starts on a 2×2 board');
   await layouts('Bingo');await page.screenshot({path:'output/playwright/depth-bingo.png',fullPage:true});
-  for(let step=0;step<board.length;step++){
-    for(const id of await page.locator('.listening-bingo-tile:not(:disabled)').evaluateAll(bs=>bs.map(b=>b.dataset.word))){await page.locator(`.listening-bingo-tile[data-word="${id}"]`).click();if(await page.locator('.listening-bingo-tile.is-covered').count()===step+1)break;}
+  let decisions=0;
+  for(let step=0;step<12&&!(await page.locator('#round-complete').isVisible());step++){
+    await page.waitForFunction(n=>depthHeard.filter(id=>id.startsWith('word_')).length>n,step);
+    const id=await page.evaluate(()=>depthHeard.filter(i=>i.startsWith('word_')).at(-1).slice(5));
+    if(board.includes(id))await page.locator(`.listening-bingo-tile[data-word="${id}"]`).click();else{decisions++;await page.locator('#listening-none').click();}
     ok((await page.locator('.listening-bingo-tile').evaluateAll(bs=>bs.map(b=>b.dataset.word))).join()===board.join(),'Bingo keeps the same pictures in the same positions');
-    await page.locator('#listening-next').click();
+    await page.waitForFunction(n=>depthHeard.filter(id=>id.startsWith('word_')).length>n+1||document.querySelector('#round-complete[open]'),step,{timeout:5000});
   }
-  await page.waitForSelector('#round-complete[open]');ok(await saved()===beforeBingo,'Bingo adds no saved play or reward results');
+  await page.waitForSelector('#round-complete[open]');
+  ok(decisions>=1,'Bingo asked at least once for a picture that is not on the board');
+  ok(await rewards()===beforeBingo+1,'A won bingo earns one reward');
   await page.locator('#round-replay').click();ok(await page.locator('[data-listening-mode="bingo"]').getAttribute('aria-pressed')==='true','Replay preserves bingo');
   const count=JSON.parse(await saved()).settings;ok(count.memoryPairs===3&&count.listeningChoices===3&&count.roundLength===3,'Recommendations do not change configured difficulty');
   await page.reload();await enter('practice-menu','two-word');ok(await page.locator('#phrase-group').inputValue()==='all'&&await page.locator('#phrase-topic').inputValue()==='all','Content filters reset on reload without storing history');

@@ -91,7 +91,7 @@ async page => {
   check(flip.afterStop === 1, 'Leaving during the final flip word cannot finish an abandoned round');
 
   for (const transition of ['hidden', 'stop', 'restart']) {
-    await fixture('<section><div id="listening-answers"></div><div id="listening-progress"></div><p id="listening-status"></p><button id="listening-next"></button><button id="listening-replay"></button></section>');
+    await fixture('<h1 id="screen-title"></h1><section id="listening-game"><div id="listening-answers"></div><div id="listening-progress"></div><p id="listening-status"></p><button id="listening-replay"></button></section>');
     const result = await page.evaluate(async transition => {
       const { setupListeningGame } = await import('/listening-game.js');
       const prompts = [];

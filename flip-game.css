@@ -1,0 +1,55 @@
+/* Mi bújt el?: board sizes from 2 to 8 cards, the Kim's-game answers and the round progress. */
+#flip .flip-grid { --flip-cols: 3; --flip-card-h: 150px; --flip-pic: 64px; grid-template-columns: repeat(var(--flip-cols), minmax(0, 1fr)); gap: 12px; }
+#flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="4"] { --flip-cols: 2; }
+#flip .flip-grid[data-count="7"], #flip .flip-grid[data-count="8"] { --flip-cols: 4; }
+#flip .flip-card { min-height: var(--flip-card-h); }
+#flip .flip-card .card-emoji { font-size: var(--flip-pic); line-height: 1; }
+#flip .flip-card .card-emoji .word-picture { width: 1em; height: 1em; }
+#flip .flip-card .card-word { margin-top: 6px; }
+#flip .flip-card.is-returned .flip-card-front { background: #e2efd9; box-shadow: 0 0 0 4px #9cc79f; }
+#flip .flip-card.is-success .flip-card-front { background: #e8f3e1; }
+#flip .flip-progress { display: flex; justify-content: center; gap: 8px; margin: 4px 0; }
+#flip .progress-dot.is-star { background: #e0b03f; box-shadow: 0 0 0 3px #f6e5b4; }
+#flip .flip-answer-grid { gap: 12px; margin: 10px 0; }
+#flip .flip-answer-grid .flip-answer { display: grid; place-items: center; min-width: 76px; min-height: 76px; padding: 6px; border-radius: 18px; font-size: 52px; line-height: 1; }
+#flip .flip-answer .word-picture { width: 1em; height: 1em; }
+#flip .flip-answer.is-retry { border-color: #7b929f; background: #edf1f3; }
+#flip .flip-answer.is-hint { box-shadow: 0 0 0 5px #b7cfb5; }
+#flip .flip-answer.is-found { border-color: #4c8b5e; background: #e1f0d9; opacity: 1; }
+#flip .flip-actions { margin: 8px auto; }
+#flip .flip-actions button { min-width: 56px; min-height: 52px; font-size: 1.3rem; }
+#flip .flip-modes { margin: 4px auto 6px; }
+#flip .listen-status { min-height: 1.4em; margin: 6px 0; }
+
+@media (max-width: 600px) and (orientation: portrait) {
+  #flip .flip-grid { --flip-card-h: 118px; --flip-pic: 52px; gap: 10px; }
+  #flip .flip-grid[data-count="7"], #flip .flip-grid[data-count="8"] { --flip-card-h: 104px; --flip-pic: 42px; }
+  #flip .flip-card .card-word { font-size: .85rem; }
+}
+/* Tablet portrait: everything stacks; at most two rows of cards share the height under the controls. */
+@media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  #flip .flip-grid { --flip-card-h: clamp(120px, calc((100dvh - 440px) / 2), 210px); --flip-pic: 76px; gap: 14px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"] { --flip-card-h: clamp(140px, calc(100dvh - 520px), 240px); }
+}
+/* Tablet landscape: the cards on the left, choices and buttons in a column beside them. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  #flip .flip-game { display: grid; grid-template-columns: minmax(0, 1fr) 270px; column-gap: 24px; align-items: center; align-content: center; max-width: 1040px; margin: 0 auto; }
+  #flip .flip-game > * { grid-column: 2; }
+  #flip .flip-game > .flip-grid { grid-column: 1; grid-row: 1 / span 6; margin: 0; }
+  #flip .flip-grid { --flip-card-h: clamp(110px, calc((100dvh - 230px) / 2), 210px); --flip-pic: 72px; gap: 14px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"] { --flip-card-h: clamp(140px, calc(100dvh - 300px), 260px); --flip-pic: 88px; }
+  #flip .flip-grid[data-count="4"] { --flip-cols: 4; --flip-card-h: clamp(140px, calc(100dvh - 300px), 240px); }
+}
+/* Phones in landscape: one or two short rows, buttons in a narrow column on the right. */
+@media (orientation: landscape) and (max-height: 600px) {
+  #flip .flip-game { display: grid; grid-template-columns: minmax(0, 1fr) 210px; column-gap: 12px; align-items: center; }
+  #flip .flip-game > * { grid-column: 2; margin-block: 2px; }
+  #flip .flip-game > .flip-grid { grid-column: 1; grid-row: 1 / span 6; margin: 0; }
+  #flip .flip-grid { --flip-card-h: clamp(64px, calc((100dvh - 150px) / 2), 140px); --flip-pic: 44px; gap: 8px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"], #flip .flip-grid[data-count="4"] { --flip-cols: 4; --flip-card-h: clamp(90px, calc(100dvh - 170px), 180px); --flip-pic: 56px; }
+  #flip .flip-grid[data-count="5"], #flip .flip-grid[data-count="6"] { --flip-cols: 3; }
+  #flip .flip-card .card-word { margin-top: 2px; font-size: .8rem; }
+  #flip .flip-modes, #flip .flip-answer-grid { gap: 6px; }
+  #flip .flip-modes button { padding: 6px 8px; font-size: .85rem; }
+  #flip .flip-answer-grid .flip-answer { min-width: 60px; min-height: 60px; font-size: 40px; }
+}
