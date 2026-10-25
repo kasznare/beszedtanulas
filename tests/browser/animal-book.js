@@ -145,7 +145,7 @@ async page => {
     await playAnimal('dog',false,false); await page.locator('#home-button').click();
     ok(await page.locator('#animal-book .is-playing,#animal-book .is-loading').count() === 0, 'Leaving the book clears active playback');
     await enter(); await page.locator('#abk-page-forest').click(); await page.locator('#abk-markers').click();
-    ok(JSON.stringify(await preferences()) === JSON.stringify({pageId:'forest',markersVisible:false}), 'Page and hidden-marker choice are saved together in the book-specific storage key');
+    ok(JSON.stringify(await preferences()) === JSON.stringify({pageId:'forest',markersVisible:false,quizLevel:1}), 'Page and hidden-marker choice are saved together in the book-specific storage key');
     await page.reload(); await enter();
     ok(await currentPage() === 'forest' && await page.locator('#abk-markers').getAttribute('aria-pressed') === 'false', 'Reload restores the chosen page and marker visibility');
     ok(await page.locator('.abk-sound-marker').evaluateAll(markers => markers.every(marker=>getComputedStyle(marker).opacity==='0')), 'Hidden markers remain visually hidden after reload');
@@ -156,7 +156,7 @@ async page => {
     // No fake sound replaces the real MP3 checks above or the offline checks below.
     harness = await context.newPage(); harness.on('pageerror', errorListener);
     const harnessUrl = `${origin}/__animal-book-browser-qa__`;
-    await harness.route(harnessUrl, route => route.fulfill({contentType:'text/html',body:`<!doctype html><html><head><base href="${origin}/"><link rel="stylesheet" href="animal-book.css"></head><body><section id="animal-book"></section><script type="module">import {setupAnimalBook} from './animal-book-game.js';localStorage.setItem('beszedtanulas.animalBook.v1',JSON.stringify({pageId:'farm',markersVisible:true}));window.bookControl={requests:[],stops:0};bookControl.api=setupAnimalBook({playSound(id,{onStart}){return new Promise((resolve,reject)=>bookControl.requests.push({id,onStart,resolve,reject}));},stopPlayback(){bookControl.stops++;}});bookControl.api.start();window.bookControlReady=true;</script></body></html>`}));
+    await harness.route(harnessUrl, route => route.fulfill({contentType:'text/html',body:`<!doctype html><html><head><base href="${origin}/"><link rel="stylesheet" href="animal-book.css"></head><body><section id="animal-book"></section><script type="module">import {setupAnimalBook} from './animal-book-game.js';localStorage.setItem('beszedtanulas.animalBook.v1',JSON.stringify({pageId:'farm',markersVisible:true}));window.bookControl={requests:[],stops:0,names:[],completed:[]};bookControl.api=setupAnimalBook({playSound(id,{onStart}){return new Promise((resolve,reject)=>bookControl.requests.push({id,onStart,resolve,reject}));},playName(id){bookControl.names.push(id);return Promise.resolve(true);},onComplete(count,context){bookControl.completed.push({count,...context});},stopPlayback(){bookControl.stops++;}});bookControl.api.start();window.bookControlReady=true;</script></body></html>`}));
     await harness.goto(harnessUrl); await harness.bringToFront(); await harness.waitForFunction(()=>window.bookControlReady);
     await harness.locator('#abk-hotspot-cow').click();
     ok(await harness.locator('.is-loading').count() === 2 && await harness.locator('.is-playing').count() === 0, 'A pending sound shows loading without a premature playing glow');
@@ -196,6 +196,55 @@ async page => {
     ok(await harness.locator('#abk-animal-cow .abk-animal-symbol').evaluate(symbol=>getComputedStyle(symbol).animationName==='none'), 'Reduced motion disables the listening animation');
     await harness.evaluate(async()=>{const request=bookControl.requests.at(-1);bookControl.api.stop();request.onStart();request.resolve(true);await Promise.resolve();});
     ok(await harness.locator('.is-playing,.is-loading').count() === 0, 'Stopping the controller invalidates all pending audio indications');
+    await harness.emulateMedia({reducedMotion:'no-preference'});
+    await harness.evaluate(()=>bookControl.api.start());
+    const lastRequest = () => harness.evaluate(()=>bookControl.requests.at(-1)?.id);
+    const waitRequests = count => harness.waitForFunction(count=>bookControl.requests.length>count,count);
+    const resolveLast = () => harness.evaluate(async()=>{bookControl.requests.at(-1).onStart();bookControl.requests.at(-1).resolve(true);await Promise.resolve();});
+    await harness.locator('#abk-search').click(); await harness.waitForFunction(()=>bookControl.names.length>=1);
+    ok(['cow','horse','sheep'].includes(await harness.evaluate(()=>bookControl.names.at(-1))), 'Picture search names an animal of the open page');
+    await harness.locator('#abk-next').click(); await harness.waitForFunction(()=>bookControl.names.length>=2);
+    ok(['dog','cat','chicken'].includes(await harness.evaluate(()=>bookControl.names.at(-1))), 'Turning the page during picture search announces the new target');
+    const wanted = await harness.evaluate(()=>bookControl.names.at(-1)), wrongPick = ['dog','cat','chicken'].find(id=>id!==wanted);
+    let before = await harness.evaluate(()=>bookControl.requests.length);
+    await harness.locator(`#abk-hotspot-${wrongPick}`).click(); await waitRequests(before);
+    ok(await lastRequest() === wrongPick, 'A wrong picture plays that animal before the target name again');
+    await resolveLast(); await harness.waitForFunction(()=>bookControl.names.length>=3);
+    ok(await harness.evaluate(()=>bookControl.names.at(-1)) === wanted, 'The contrast ends with the asked name');
+    before = await harness.evaluate(()=>bookControl.requests.length);
+    await harness.locator(`#abk-hotspot-${wanted}`).click(); await waitRequests(before);
+    ok(await harness.evaluate(()=>bookControl.names.at(-1)) === wanted && await lastRequest() === wanted && await harness.locator('#abk-next-task').isVisible(), 'A right picture names the animal, plays its sound and offers the next one');
+    await resolveLast();
+    before = await harness.evaluate(()=>bookControl.requests.length);
+    await harness.locator('#abk-quiz').click(); await waitRequests(before);
+    ok(await harness.locator('.abk-page-controls,.abk-scene').count() === 0, 'Állatkvíz replaces the page with one listening question');
+    for (let question = 0; question < 5; question++) {
+      const target = await lastRequest(), choices = await harness.locator('.abk-quiz-choice').evaluateAll(buttons=>buttons.map(button=>button.dataset.animal));
+      ok(choices.length === (question < 2 ? 3 : 4) && choices.includes(target), `Quiz question ${question+1} offers ${choices.length} animals including the heard one`);
+      ok(await harness.locator(`.abk-quiz-choice[data-animal="${target}"].is-playing`).count() === 0, 'The unsolved target never glows while its sound plays');
+      await resolveLast();
+      if (question === 0) {
+        const wrong = choices.find(id=>id!==target);
+        before = await harness.evaluate(()=>bookControl.requests.length);
+        await harness.locator(`.abk-quiz-choice[data-animal="${wrong}"]`).click(); await waitRequests(before);
+        ok(await lastRequest() === wrong, 'A wrong quiz pick plays the chosen animal first');
+        before = await harness.evaluate(()=>bookControl.requests.length); await resolveLast(); await waitRequests(before);
+        ok(await lastRequest() === target, 'Then the heard animal sounds again for contrast');
+        await resolveLast();
+      }
+      before = await harness.evaluate(()=>bookControl.requests.length);
+      await harness.locator(`.abk-quiz-choice[data-animal="${target}"]`).click(); await waitRequests(before);
+      ok(await harness.evaluate(()=>bookControl.names.at(-1)) === target && await lastRequest() === target, 'A right quiz pick names the animal and plays its sound');
+      before = await harness.evaluate(()=>bookControl.requests.length); await resolveLast();
+      if (question < 4) await waitRequests(before);
+    }
+    await harness.waitForFunction(()=>bookControl.completed.length===1);
+    ok(JSON.stringify(await harness.evaluate(()=>bookControl.completed[0])) === JSON.stringify({count:4,firstTry:4,level:2}), 'Stars count first-try answers and four unlock the nameless level');
+    before = await harness.evaluate(()=>bookControl.requests.length);
+    await harness.locator('#abk-quiz-again').click(); await waitRequests(before);
+    ok(await harness.locator('.abk-quiz-choice .abk-animal-name').count() === 0 && await harness.locator('#abk-level-2').getAttribute('aria-pressed') === 'true', 'Level 2 shows the animals without names');
+    await harness.locator('#abk-browse').click();
+    ok(await harness.locator('.abk-scene').count() === 1, 'The book returns from the quiz to its pages');
     await harness.close(); harness=null; await page.bringToFront();
 
     await page.waitForFunction(()=>document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'),undefined,{timeout:60000});

@@ -545,6 +545,9 @@ animalBook = setupAnimalBook({
   speak: id => speakVoice(id),
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
+  effect: playEffect,
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: count => { state.rewards += 1; saveProgress(); refreshStats(); celebrateRound('animal-book', count); },
 });
 audiobooks = setupAudiobooks({ stopPlayback, onListeningChange: playing => { if (playing) playTime?.start(); } });
 pourGame = setupPourGame({
@@ -2252,6 +2255,7 @@ function setupNavigation() {
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
     else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
+    else if (completedRoundKind === "animal-book") animalBook.startQuiz();
     else startAutoImitateSession();
   });
   const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
