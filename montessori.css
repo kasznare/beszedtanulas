@@ -98,8 +98,6 @@
 .mo-surface-box { width: 100%; max-width: 760px; }
 .mo-surface-box .mo-box-lid { padding: 0; }
 .mo-shape-surface { position: relative; width: 100%; aspect-ratio: 1.65; }
-[data-level="1"] .mo-shape-surface { aspect-ratio: 2.25; }
-[data-level="2"] .mo-shape-surface { aspect-ratio: 1.9; }
 .mo-surface-box .mo-holes, .mo-board-pieces { position: absolute; inset: 0; display: block; pointer-events: none; }
 .mo-board-pieces { z-index: 2; }
 .mo-surface-box .mo-hole-cell, .mo-board-pieces .mo-piece { position: absolute; left: var(--mo-x); top: var(--mo-y); transform: translate(-50%, -50%); }
@@ -133,8 +131,6 @@
   [data-game="colors"] .mo-piece { width: 64px; height: 66px; }
   .mo-status { font-size: .8rem; }.mo-actions .mo-soft-button { padding: 9px 12px; }
   .mo-shape-surface { aspect-ratio: .78; }
-  [data-level="1"] .mo-shape-surface { aspect-ratio: 1.3; }
-  [data-level="2"] .mo-shape-surface { aspect-ratio: 1; }
   [data-level="4"] .mo-shape-surface { aspect-ratio: .64; }
   .mo-surface-box .mo-hole-cell, .mo-surface-box .mo-hole { width: 80px; height: 80px; }
   .mo-surface-box .mo-hole svg.mo-shape-art { width: 66px; height: 66px; }
@@ -244,8 +240,6 @@
   .montessori-panel .mo-status { margin: 6px 0; }
   .montessori-panel .mo-workspace { padding: 10px; gap: 10px; }
   .montessori-panel .mo-surface-box { --mo-aspect: 1.65; max-width: calc((100dvh - 500px) * var(--mo-aspect)); margin-inline: auto; }
-  [data-level="1"] .mo-surface-box { --mo-aspect: 2.25; }
-  [data-level="2"] .mo-surface-box { --mo-aspect: 1.9; }
   [data-game="shapes"][data-level="7"] .mo-surface-box, [data-game="shapes"][data-level="8"] .mo-surface-box { --mo-aspect: 1.1; }
 }
 /* Tablet landscape: the workspace on the left, instructions, levels and actions beside it. */
@@ -259,3 +253,29 @@
   [data-game="grid"].montessori-panel .mo-grid-board { margin: 0; }
   [data-game="shapes"][data-level="7"] .mo-surface-box, [data-game="shapes"][data-level="8"] .mo-surface-box { max-width: calc((100dvh - 270px) * 1.1); margin-inline: auto; }
 }
+
+/* Gameplay states: wrong cells after a check, fixed tiles, the gap, the leaning tower and counting bowls. */
+.mo-slot.is-wrong, .mo-slot.mo-piece.is-wrong { position: relative; border: 3px dashed #c4553f; background: #fbe9e4; }
+.mo-slot.is-wrong::after, .mo-bowl-target.is-wrong::after { content: "!"; position: absolute; top: 3px; right: 6px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #c4553f; color: #fff; font: 700 .8rem/1 system-ui, sans-serif; }
+.mo-bowl-target.is-wrong { outline: 3px dashed #c4553f; outline-offset: -3px; background: #fbe9e4; }
+.mo-slot.is-fixed { border-style: solid; border-color: #e3d6bf; background: #f7efdf; }
+.mo-slot.is-gap { border: 3px dashed #758b68; background: #eef2e6; color: #758b68; }
+.mo-slot.is-retry, .mo-bowl-target.is-retry, .mo-hole.is-retry { animation: mo-shake 320ms ease-in-out; }
+@keyframes mo-shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.mo-tower-area { position: relative; display: inline-block; }
+.mo-tower-area > .mo-tower-stack { position: absolute; left: 0; right: 0; bottom: 35px; margin: 0; pointer-events: none; transform-origin: 50% 100%; transition: transform 300ms ease; }
+.mo-tower-stack.is-leaning { transform: rotate(-7deg) translateX(-6px); }
+.mo-tower-stack.is-shaking { animation: mo-wobble 420ms ease-in-out; }
+.mo-tower-stack.is-leaning.is-shaking { animation: mo-wobble-leaning 420ms ease-in-out; }
+@keyframes mo-wobble { 25% { transform: rotate(-5deg); } 75% { transform: rotate(4deg); } }
+@keyframes mo-wobble-leaning { 0%, 100% { transform: rotate(-7deg) translateX(-6px); } 50% { transform: rotate(-12deg) translateX(-10px); } }
+.mo-tower-top { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 5px 0; margin: -5px 0; border: 0; border-radius: 14px; background: transparent; pointer-events: auto; touch-action: manipulation; }
+.mo-tower-top:focus-visible { outline: 3px solid #758b68; }
+[data-game="colors"][data-level="5"] .mo-color-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mo-bowl-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.mo-bowl-cell .mo-bowl-target { width: 100%; }
+.mo-count-button { align-items: center; min-width: 88px; min-height: 44px; padding: 0 12px; border: 1px solid #cdb894; border-radius: 14px; background: #fffaf0; }
+.mo-count-button i { width: 13px; height: 13px; background: #806e56; }
+@media (prefers-reduced-motion: reduce) { .mo-tower-stack, .mo-tower-stack.is-shaking, .mo-slot.is-retry, .mo-bowl-target.is-retry, .mo-hole.is-retry { animation: none; transition: none; } }
+.mo-bowl-cell .mo-bowl-target { min-height: 0; padding-bottom: 2px; }
+.mo-bowl-cell .mo-count-button { margin-top: -4px; }

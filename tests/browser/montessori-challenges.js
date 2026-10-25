@@ -13,16 +13,31 @@ async page => {
   const ready = () => page.locator('#mo-restart:not([disabled])').waitFor();
   const move = async (id, target) => { await choose(id); await page.locator(`[data-mo-target="${target}"]`).click(); await ready(); };
   const saved = () => page.evaluate(() => { const kind = document.querySelector('#montessori').dataset.game, level = document.querySelector('#montessori').dataset.level; const key = Object.keys(localStorage).find(key => key.startsWith('beszedtanulas.montessori.v2:') && key.endsWith(`:${kind}:${level}`)); return JSON.parse(localStorage.getItem(key)); });
-  const exercise = async () => { const record = await saved(); return page.evaluate(async ({ record, kind, level }) => { const { createMontessoriSession } = await import('./montessori-session.js'); return createMontessoriSession(kind, +level, record.seed); }, { record, kind: await page.locator('#montessori').getAttribute('data-game'), level: await page.locator('#montessori').getAttribute('data-level') }); };
+  const exercise = async () => { const record = await saved(); return page.evaluate(async ({ record, kind, level }) => { const { createMontessoriSession } = await import('./montessori-session.js'); return createMontessoriSession(kind, +level, record.seed, { span: record.span }); }, { record, kind: await page.locator('#montessori').getAttribute('data-game'), level: await page.locator('#montessori').getAttribute('data-level') }); };
   const rewards = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards);
   await page.setViewportSize({ width: 1194, height: 834 }); await menu();
-  ok(await page.locator('[data-mo-game]').count() === 5, 'Five games and 26 levels are reachable');
-  for (const [kind, levels] of [['shapes', 8], ['colors', 5], ['tower', 5], ['grid', 4], ['memory', 4]]) {
+  ok(await page.locator('[data-mo-game]').count() === 5, 'Five games and 28 levels are reachable');
+  for (const [kind, levels] of [['shapes', 8], ['colors', 5], ['tower', 5], ['grid', 6], ['memory', 4]]) {
     await page.locator(`[data-mo-game="${kind}"]`).click();
     for (let level = 1; level <= levels; level++) {
       await page.locator(`[data-mo-level="${level}"]`).click(); await page.locator('#mo-restart').click(); const round = await exercise(), before = await rewards();
       if (kind === 'memory') { ok(await page.locator('.mo-memory-pattern svg').count() === round.total, `memory/${level}: sample visible before hiding`); await page.locator('#mo-hide-pattern').click(); ok(await page.locator('.mo-memory-pattern').count() === 0, `memory/${level}: sample hidden during reconstruction`); }
       for (const id of round.blockers) await page.locator(`[data-mo-blocker="${id}"]`).click();
+      if (kind === 'grid' && level >= 5) {
+        // Grid puzzles: find the rule-breaking tile (6), then fill the one gap from three candidates.
+        const cell = round.targets.find(t => t.id === round.gap);
+        if (level === 6) {
+          await page.locator(`[data-mo-piece="${round.fixed[0]}"]`).click(); ok(await page.locator('.mo-tray [data-mo-piece]').count() === 0, 'grid/6: a correct tile is not the odd one');
+          await page.locator(`[data-mo-piece="${round.odd}"]`).click();
+        }
+        ok(await page.locator('.mo-tray [data-mo-piece]').count() === 3 && await page.locator('#mo-check').count() === 0, `grid/${level}: three candidates, no check button`);
+        const candidates = round.pieces.filter(p => p.id.startsWith('candidate'));
+        await move(candidates.find(p => p.color !== cell.color || p.shape !== cell.shape).id, cell.id);
+        ok(await page.locator('#montessori').getAttribute('data-done') === 'false' && await rewards() === before, `grid/${level}: a decoy is refused`);
+        await move(candidates.find(p => p.color === cell.color && p.shape === cell.shape).id, cell.id);
+        ok(await page.locator('#montessori').getAttribute('data-done') === 'true' && await rewards() === before + 1, `grid/${level}: solves and awards once`);
+        continue;
+      }
       if (kind === 'grid' || kind === 'memory') {
         const a = round.pieces[0]; await move(a.id, round.targets[0].id); await page.locator('#mo-check').click();
         ok(await page.locator('#montessori').getAttribute('data-done') === 'false' && await rewards() === before, `${kind}/${level}: incomplete check keeps editable pieces and no reward`);
@@ -35,9 +50,9 @@ async page => {
         if (kind === 'shapes' && level >= 6 && piece.rotation !== target.rotation) { await choose(piece.id); for (let i = 0; i < 4; i++) { if (+(await page.locator(`[data-mo-piece="${piece.id}"]`).getAttribute('data-mo-rotation')) === target.rotation) break; await page.locator('#mo-turn-right').click(); } }
         await move(piece.id, target.id); occupied.add(target.id); amounts[target.id] = (amounts[target.id] || 0) + 1;
       }
-      if (kind === 'grid' || kind === 'memory') { ok(await page.locator('#montessori').getAttribute('data-done') === 'false', `${kind}/${level}: waits for explicit check`); await page.locator('#mo-check').click(); }
+      if (kind === 'grid' || kind === 'memory' || kind === 'colors' && level === 5) { ok(await page.locator('#montessori').getAttribute('data-done') === 'false', `${kind}/${level}: waits for explicit check`); await page.locator('#mo-check').click(); }
       ok(await page.locator('#montessori').getAttribute('data-done') === 'true' && await rewards() === before + 1, `${kind}/${level}: solves and awards once`);
-      if (level === levels) { await page.reload(); await menu(); await page.locator(`[data-mo-game="${kind}"]`).click(); ok(await page.locator('#montessori').getAttribute('data-done') === 'true' && await rewards() === before + 1, `${kind}: completed exercise resumes without a second reward`); }
+      if (level === levels) { await page.reload(); await menu(); await page.locator(`[data-mo-game="${kind}"]`).click(); ok(await page.locator('#montessori').getAttribute('data-done') === 'false' && await rewards() === before + 1, `${kind}: a completed exercise is not reopened; a fresh round starts without a reward`); }
     }
     await menu();
   }

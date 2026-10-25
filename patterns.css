@@ -208,3 +208,32 @@
   .patterns-status { margin-top:6px; min-height:1.4em; }
 }
 @media(prefers-reduced-motion:reduce) { #patterns * { scroll-behavior:auto; } }
+
+/* Sessions of five mixed rounds: progress stars, tappable cells, gaps, the odd token and dot groups. */
+#patterns-progress { display:flex; gap:6px; align-items:center; justify-content:center; }
+.patterns-round-dot { display:grid; place-items:center; width:20px; height:20px; border:2px solid #b9c8ae; border-radius:50%; background:#fffdf7; color:#fff; font-size:13px; font-style:normal; line-height:1; }
+.patterns-round-dot.is-current { border-color:#326b54; box-shadow:0 0 0 3px #dce8d4; }
+.patterns-round-dot.is-done { border-color:#9fb592; background:#c9d8bd; }
+.patterns-round-dot.is-star { border-color:#c6962b; background:#e8b64a; }
+#patterns .patterns-cell-button { display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; min-height:44px; padding:0; border:0; border-radius:11px; background:transparent; }
+#patterns .patterns-cell-button:active { background:#e4eddd; }
+.patterns-preview-cell.is-gap { border:2px dashed #4b7b57; background:#ecf2e2; }
+.patterns-preview-cell.is-gap .patterns-empty { width:100%; max-width:84px; }
+.patterns-preview-cell.is-odd { border:2px dashed #b4553f; background:#fbece6; }
+.patterns-preview-cell.is-odd .patterns-token { opacity:.35; }
+.patterns-preview-cell.is-fixed { border-color:#4b7b57; background:#e7efdf; }
+.patterns-preview-cell.is-retry { animation:patterns-shake 320ms ease-in-out; }
+@keyframes patterns-shake { 25% { transform:translateX(-4px); } 75% { transform:translateX(4px); } }
+#patterns .patterns-choice.is-eliminated { opacity:.3; border-style:dashed; }
+.patterns-answer-row { grid-template-columns:repeat(var(--pattern-answer-count,3),minmax(0,1fr)); }
+#patterns[data-round-type="grow"] .patterns-continuation { max-width:150px; }
+.patterns-count-number { visibility:hidden; font-size:.85rem; }
+#patterns.shows-counts .patterns-count-number { visibility:visible; }
+#patterns[data-round-type="grow"] .patterns-answer-slot .patterns-cell-number { visibility:hidden; }
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) {
+  #patterns[data-round-type="gap"] > .patterns-choice-section, #patterns[data-round-type="odd"] > .patterns-choice-section { grid-column:1 / -1; max-width:560px; margin-inline:auto; }
+}
+@media(orientation:landscape) and (max-height:600px) and (min-width:681px) {
+  #patterns[data-round-type="gap"] .patterns-choice-section, #patterns[data-round-type="odd"] .patterns-choice-section { grid-column:2 / -1; max-width:420px; justify-self:center; }
+}
+@media(prefers-reduced-motion:reduce) { .patterns-preview-cell.is-retry { animation:none; } }

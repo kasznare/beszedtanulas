@@ -58,7 +58,32 @@ async page => {
   const choiceFor = key => page.locator('[data-pattern-choice]').filter({ has: page.locator(`svg[data-pattern-token="${key}"]`) });
   const correct = async () => { await waitUnlocked(); await tap(choiceFor(await expected())); };
   const solveBoard = async () => { while (await count() < 3) await correct(); };
-  const finish = async () => { await solveBoard(); await page.waitForSelector('#round-complete[open]'); };
+  const attr = name => page.locator('#patterns').getAttribute(name);
+  // Works out the answer of a gap, odd or growing round from the visible row only.
+  const visibleAnswer = () => page.evaluate(() => {
+    const root = document.querySelector('#patterns'), type = root.dataset.roundType;
+    const cells = [...root.querySelectorAll('.patterns-preview-cell')].map(cell => cell.dataset.tokenKey || null);
+    const choices = [...root.querySelectorAll('[data-pattern-choice]')].map(button => button.dataset.tokenKey);
+    const periodic = row => { for (let p = 1; p * 2 <= row.length; p++) if (row.every((key, i) => key === row[i % p])) return true; return false; };
+    if (type === 'grow') { const counts = cells.map(key => Number(key.split(':n')[1])); return { choice: choices.find(key => key.endsWith(`:n${counts.at(-1) * 2 - counts.at(-2)}`)) }; }
+    if (type === 'gap') { const gap = cells.indexOf(null); return { choice: choices.find(key => periodic(cells.map((cell, i) => i === gap ? key : cell))) }; }
+    const vocabulary = [...new Set([...cells, ...choices])];
+    for (const [index] of cells.entries()) for (const key of vocabulary) if (periodic(cells.map((cell, i) => i === index ? key : cell))) return { cell: index, choice: key };
+    return {};
+  });
+  // Solves the current round of any type and waits until the next one (or the end) appears.
+  const solveRound = async () => {
+    const index = await attr('data-round-index'), type = await attr('data-round-type');
+    if (type === 'next') await solveBoard();
+    else {
+      const answer = await visibleAnswer();
+      if (type === 'odd') { await tap(page.locator(`[data-pattern-cell="${answer.cell}"]`)); await page.waitForFunction(() => document.querySelector('#patterns').dataset.phase === 'fix'); }
+      await waitUnlocked(); await tap(page.locator(`[data-pattern-choice][data-token-key="${answer.choice}"]`));
+    }
+    if (index !== '4') await page.waitForFunction(value => document.querySelector('#patterns').dataset.roundIndex !== value, index, { timeout: 5000 });
+  };
+  const solveSession = async () => { while (await attr('data-round-done') !== 'true' || await attr('data-round-index') !== '4') await solveRound(); };
+  const finish = async () => { await solveSession(); await page.waitForSelector('#round-complete[open]'); };
   const scrollTo = async edge => {
     // Mobile WebKit does not expose wheel injection; locator scrolling uses
     // the engine's native scrolling without modifying layout or hit targets.
@@ -119,7 +144,8 @@ async page => {
   ok(await count() === 0 && await page.locator('#patterns').getAttribute('data-hint-stage') === '1' && await page.locator('.patterns-preview-cell.is-motif').count() > 0, 'First help marks the repeating unit without solving the answer');
   ok(await page.locator('.patterns-preview-cell.is-reference').getAttribute('data-token-key') === await expected(), 'The first hint identifies the matching earlier position in the visible sequence');
   await page.locator('#patterns-hint').click();
-  ok(await count() === 0 && await page.locator('[data-pattern-choice].is-hint').count() === 1 && await page.locator('[data-pattern-choice].is-hint').getAttribute('data-token-key') === await expected(), 'Second help points to one answer while leaving the child in control');
+  const remaining = await page.locator('[data-pattern-choice]:not(.is-eliminated)').evaluateAll(buttons => buttons.map(button => button.dataset.tokenKey));
+  ok(await count() === 0 && remaining.length === 2 && remaining.includes(await expected()), 'Second help leaves two cards, one of them right, and the child still chooses');
   await page.locator('#help-button').click();
   await page.waitForFunction(() => patternVoices.includes('patterns_start'));
   ok(true, 'Manually requested spoken help works with automatic guidance disabled');
@@ -153,14 +179,16 @@ async page => {
   await page.keyboard.press('Escape');
   ok(await count() === 1 && (await pattern()).join('|') === beforeCancel && await page.locator('#patterns').getAttribute('data-family-id') === 'shapes', 'Cancelling the chooser preserves the current pattern and placed elements');
   await finish();
-  ok(await page.locator('#round-complete-title').innerText() === 'Sikerült folytatnod a mintát!', 'Three correct choices open the shared success dialog');
+  ok(await page.locator('#round-complete-title').innerText() === 'Sikerült folytatnod a mintát!', 'A finished five-round session opens the shared success dialog');
+  ok(await page.locator('#complete-stars').innerText() === '⭐⭐⭐⭐', 'The round with a wrong tap and the strong hint costs exactly one of five stars');
+  ok(await attr('data-level-id') === 'thinker', 'Two clean rounds in a row raise the level from Felfedező to Gondolkodó');
   ok(await saved() === originalProgress, 'Choices, help, mistakes, undo, and completion preserve all pre-existing saved progress');
   await page.keyboard.press('Escape');
-  ok(await count() === 3 && await page.locator('.patterns-answer-slot.is-filled').count() === 3, 'Escape keeps the full completed pattern visible');
+  ok(await attr('data-round-done') === 'true' && await page.locator('#patterns.is-complete').count() === 1, 'Escape keeps the completed last round visible');
   await page.locator('#patterns-restart').click(); await finish();
-  const completedPattern = (await pattern()).join('|');
+  const completedPattern = (await pattern()).join('|'), levelBeforeReplay = await attr('data-level-id');
   await page.locator('#round-replay').click();
-  ok(await count() === 0 && await page.locator('#patterns').getAttribute('data-level-id') === 'explorer' && await page.locator('#patterns').getAttribute('data-family-id') === 'shapes', 'Még egy ilyen keeps the selected level and family');
+  ok(await count() === 0 && await attr('data-round-index') === '0' && await page.locator('#patterns').getAttribute('data-level-id') === levelBeforeReplay && await page.locator('#patterns').getAttribute('data-family-id') === 'shapes', 'Még egy ilyen keeps the selected level and family');
   ok((await pattern()).join('|') !== completedPattern, 'Replay changes the actual visible pattern');
   await finish();
   await page.locator('#round-related [data-related-source="patterns"]').click(); await at('workshop');
@@ -170,6 +198,20 @@ async page => {
   ok(true, 'Back returns to the shapes and patterns menu');
   await page.locator('#shape-menu [data-open="patterns"]').click(); await page.locator('#home-button').click(); await at('home');
   ok(true, 'Home leaves the new game immediately');
+  const rememberedLevel = await page.evaluate(() => Object.entries(localStorage).find(([key]) => key.startsWith('beszedtanulas.patterns.v1:'))?.[1]);
+  await page.reload(); await enter();
+  ok(rememberedLevel && JSON.parse(rememberedLevel).levelId === await attr('data-level-id'), 'The adapted level is remembered for this profile after a reload');
+
+  // "Melyik a hibás?": a wrong cell costs the star, the odd one opens the repair choices.
+  for (let attempt = 0; attempt < 6 && await attr('data-round-type') !== 'odd'; attempt++) await solveRound();
+  ok(await attr('data-round-type') === 'odd' && await attr('data-phase') === 'find' && !(await page.locator('.patterns-choice-section').isVisible()), 'The third round asks for the wrong token before showing any choices');
+  const odd = await visibleAnswer();
+  await tap(page.locator(`[data-pattern-cell="${odd.cell === 0 ? 1 : 0}"]`));
+  ok(await attr('data-wrong-count') === '1' && await attr('data-phase') === 'find', 'Tapping a correct token is counted as a mistake');
+  await tap(page.locator(`[data-pattern-cell="${odd.cell}"]`));
+  ok(await attr('data-phase') === 'fix' && await page.locator('.patterns-preview-cell.is-odd').count() === 1 && await page.locator('.patterns-choice-section').isVisible(), 'Finding the odd token marks it and opens the repair choices');
+  await tap(page.locator(`[data-pattern-choice][data-token-key="${odd.choice}"]`));
+  ok(await attr('data-round-done') === 'true' && await page.locator('.patterns-round-dot.is-done').count() >= 1, 'The repaired round is done without a star');
   await enter();
 
   for (const [width, height] of [[390, 844], [430, 932], [844, 390], [834, 1194], [768, 1024], [375, 667], [667, 375], [568, 320]]) {
@@ -191,10 +233,10 @@ async page => {
   await correct(); await correct(); await waitUnlocked(); await page.locator('#patterns-hint').click();
   ok(await page.locator('.patterns-answer-slot.is-reference').count() === 1 && await page.locator('.patterns-answer-slot.is-reference').getAttribute('data-token-key') === await expected(), 'Late help correctly points to an already placed token from the previous repetition');
 
-  await choose('starter', 'directions'); await solveBoard();
+  await choose('starter', 'directions'); await solveSession();
   await page.locator('#patterns-restart').click(); await page.waitForTimeout(1200);
   ok(await count() === 0 && !(await page.locator('#round-complete').isVisible()), 'Restart immediately after completion cancels the pending success dialog');
-  await solveBoard(); await page.locator('#home-button').click(); await page.waitForTimeout(1200);
+  await solveSession(); await page.locator('#home-button').click(); await page.waitForTimeout(1200);
   ok(await page.locator('#home').isVisible() && !(await page.locator('#round-complete').isVisible()), 'Leaving immediately after completion prevents a stale success dialog');
 
   // SVG rasterization catches accidentally identical drawings whose token keys

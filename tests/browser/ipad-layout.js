@@ -275,6 +275,36 @@ async page => {
         await click(`#${menu} [data-kind="${game}"]`);
         const levels = await p.locator('[data-mo-level]').count();
         for (let level = 1; level <= levels; level++) { await click(`[data-mo-level="${level}"]`); await check(`${size}:montessori-${game}-${level}`); }
+        // Gameplay states after a mistake: a leaning tower, an overfilled counted bowl,
+        // marked grid/memory cells after a failed check, and the "odd tile" puzzle.
+        if (game === 'tower') {
+          await click('[data-mo-level="5"]'); await click('#mo-restart');
+          for (const disc of ['disc-0', 'disc-1']) { await click(`[data-mo-piece="${disc}"]`); await click('[data-mo-target="tower"]'); await p.locator('#mo-restart:not([disabled])').waitFor(); }
+          await check(`${size}:montessori-tower-leaning`);
+          await click('[data-mo-take]'); await check(`${size}:montessori-tower-take-back`);
+        }
+        if (game === 'colors') {
+          await click('[data-mo-level="5"]'); await click('#mo-restart');
+          const ball = await p.locator('.mo-tray [data-mo-piece]').first().getAttribute('data-mo-piece');
+          await click(`[data-mo-piece="${ball}"]`); await click(`[data-mo-target="${ball.replace(/-\d+$/, '')}"]`); await p.locator('#mo-restart:not([disabled])').waitFor();
+          await click('#mo-check'); await check(`${size}:montessori-colors-count-marked`);
+        }
+        if (game === 'grid') {
+          await click('[data-mo-level="3"]'); await click('#mo-restart');
+          const tiles = await p.locator('.mo-tray [data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
+          const cells = await p.locator('.mo-slot[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
+          for (let i = 0; i < cells.length; i++) { await click(`[data-mo-piece="${tiles[i]}"]`); await click(`.mo-slot[data-mo-target="${cells[i]}"]`); }
+          await click('#mo-check'); await check(`${size}:montessori-grid-marked`);
+          await click('[data-mo-level="6"]'); await click('#mo-restart');
+          await p.locator('.mo-slot[data-mo-piece]').first().click(); await check(`${size}:montessori-grid-odd-find`);
+        }
+        if (game === 'memory') {
+          await click('[data-mo-level="4"]'); await click('#mo-restart'); await click('#mo-hide-pattern');
+          const beads = await p.locator('.mo-tray [data-mo-piece]').evaluateAll(buttons => buttons.map(button => button.dataset.moPiece));
+          const slots = await p.locator('.mo-slot[data-mo-target]').evaluateAll(buttons => buttons.map(button => button.dataset.moTarget));
+          for (let i = 0; i < slots.length; i++) { await click(`[data-mo-piece="${beads[i]}"]`); await click(`.mo-slot[data-mo-target="${slots[i]}"]`); }
+          await click('#mo-check'); await check(`${size}:montessori-memory-marked`);
+        }
         await click('[data-mo-level="1"]');
         await click('#back-button');
         if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);
@@ -288,6 +318,28 @@ async page => {
       await open('shape-menu', 'patterns');
       await click('#patterns-change'); await click('[data-pattern-level="thinker"]'); await click('#patterns-apply');
       await check(`${size}:patterns-thinker`);
+      // Every round type of a five-round session, including the strong hint and the odd-token repair.
+      await click('#patterns-hint'); await click('#patterns-hint'); await check(`${size}:patterns-strong-hint`);
+      for (let round = 0; round < 5; round++) {
+        const type = await p.locator('#patterns').getAttribute('data-round-type');
+        await check(`${size}:patterns-${round}-${type}`);
+        const answer = await p.evaluate(() => {
+          const root = document.querySelector('#patterns'), type = root.dataset.roundType;
+          const cells = [...root.querySelectorAll('.patterns-preview-cell')].map(cell => cell.dataset.tokenKey || null);
+          const choices = [...root.querySelectorAll('[data-pattern-choice]')].map(button => button.dataset.tokenKey);
+          const periodic = row => { for (let n = 1; n * 2 <= row.length; n++) if (row.every((key, i) => key === row[i % n])) return true; return false; };
+          if (type === 'next') { const n = [1, 2, 3, 4, 6].find(n => cells.every((key, i) => key === cells[i % n])); return { choices: [0, 1, 2].map(k => cells[(cells.length + k) % n]) }; }
+          if (type === 'grow') { const counts = cells.map(key => Number(key.split(':n')[1])); return { choices: [choices.find(key => key.endsWith(`:n${counts.at(-1) * 2 - counts.at(-2)}`))] }; }
+          if (type === 'gap') { const gap = cells.indexOf(null); return { choices: [choices.find(key => periodic(cells.map((cell, i) => i === gap ? key : cell)))] }; }
+          for (const [index] of cells.entries()) for (const key of new Set([...cells, ...choices])) if (periodic(cells.map((cell, i) => i === index ? key : cell))) return { cell: index, choices: [key] };
+          return { choices: [] };
+        });
+        if (answer.cell !== undefined) { await click(`[data-pattern-cell="${answer.cell}"]`); await check(`${size}:patterns-${round}-odd-fix`); }
+        for (const key of answer.choices) { await p.waitForFunction(() => document.querySelector('#patterns').dataset.answerLocked === 'false'); await click(`[data-pattern-choice][data-token-key="${key}"]`); }
+        if (round < 4) await p.waitForFunction(value => document.querySelector('#patterns').dataset.roundIndex === value, String(round + 1), { timeout: 5000 });
+      }
+      await check(`${size}:patterns-session-done`);
+      await p.waitForSelector('#round-complete[open]', { timeout: 8000 }); await p.keyboard.press('Escape');
       await click('#patterns-change'); await click('[data-pattern-level="explorer"]'); await click('#patterns-apply');
       await open('play-menu', 'meseliget'); await click('#meadow-garden'); await check(`${size}:meseliget-task`);
       await click('#back-button');
