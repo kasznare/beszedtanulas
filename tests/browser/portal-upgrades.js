@@ -119,11 +119,20 @@ async page => {
   }
   await page.waitForSelector('#round-complete[open]');
   ok(await page.locator('#round-complete').isVisible(),'Find mode completes after finding each requested picture');
-  await enter('picture-menu','flip');await page.locator('[data-flip-mode="missing"]').click();await page.locator('#flip-hide').click();
-  const hidden=await page.locator('#flip-grid button:not(.is-open)').getAttribute('data-word');
-  await layout('Missing picture');await page.locator(`[data-missing-answer="${hidden}"]`).click();
+  await enter('picture-menu','flip');await page.locator('[data-flip-mode="missing"]').click();
+  for(let question=0;question<5;question++){
+    const shown=await page.locator('[data-flip-index]').evaluateAll(bs=>bs.map(b=>b.dataset.word));
+    await page.locator('#flip-hide').click();await page.waitForSelector('[data-missing-answer]');
+    const remaining=await page.locator('[data-flip-index]').evaluateAll(bs=>bs.map(b=>b.dataset.word));
+    ok(remaining.length<shown.length&&remaining.every(id=>shown.includes(id)),'The hidden picture leaves the board and the rest stay');
+    const options=await page.locator('[data-missing-answer]').evaluateAll(bs=>bs.map(b=>b.dataset.missingAnswer));
+    ok(!options.some(id=>remaining.includes(id)),'Answers never include a picture that is still visible');
+    if(question===0)await layout('Missing picture');
+    for(const id of shown.filter(id=>!remaining.includes(id)))await page.locator(`[data-missing-answer="${id}"]`).click();
+    if(question<4)await page.waitForSelector('#flip-hide');
+  }
   await page.waitForSelector('#round-complete[open]');
-  ok(await page.locator('#round-complete').isVisible(),'Missing-picture mode accepts the hidden picture');
+  ok(await page.locator('#complete-stars').innerText()==='⭐⭐⭐⭐⭐','Five first-try answers give five stars');
   await enter('picture-menu','topics');await page.locator('[data-topic="food"]').click();
   await page.setViewportSize({width:1000,height:1000});await page.screenshot({path:'output/playwright/portal-food-pictures.png',fullPage:true});
   ok(errors.length===0,`No uncaught errors: ${errors.join(', ')}`);
