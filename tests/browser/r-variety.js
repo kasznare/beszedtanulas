@@ -67,14 +67,15 @@ async parent => {
     ok(await page.locator('[data-sound]').count()===2,'R sound choices still have their own listening buttons');
     await enter('post');await shots('recipients');
     const sent=[];
-    for(const friend of ['rabbit','bear']){
+    ok(await page.locator('[data-house]').count()===2,'Two houses show the parcel their friend wishes for');
+    const houseLabel=text=>page.evaluate(text=>[...document.querySelectorAll('#r-practice .rp-recipient-picker button')].find(b=>b.getAttribute('aria-label').includes(`ezt kéri: ${text}`)).getAttribute('aria-label'),text);
+    for(let parcel=0;parcel<2;parcel++){
       const id=await target(),word=data.words.find(w=>w.id===id);sent.push(id);
-      await page.locator(`[data-recipient="${friend}"]`).click();
-      ok(await page.locator(`[data-recipient="${friend}"]`).getAttribute('aria-pressed')==='true','The selected friend receives the parcel');
-      ok(await page.evaluate(friend=>document.activeElement?.dataset.recipient===friend,friend),'Recipient selection keeps keyboard focus');
       await page.locator('[data-action="advance"]').evaluate(button=>{button.click();button.click();});await idle();
+      const friend=await page.evaluate(text=>[...document.querySelectorAll('[data-deliver]')].find(b=>b.getAttribute('aria-label').includes(`ezt kéri: ${text}`)).dataset.deliver,word.text);
       await page.locator(`[data-deliver="${friend}"]`).evaluate(button=>{button.click();button.click();});await idle();
-      ok((await page.locator(`[data-recipient="${friend}"] .rp-mailbox`).getAttribute('aria-label')).includes(word.text),'The chosen word reaches the selected mailbox once');
+      const label=await houseLabel(word.text);
+      ok(label.includes(`megkapta: ${word.text}`)&&label.split(word.text).length===3,'The parcel reaches the friend who wished for it, once');
     }
     ok((await rounds()).post.rounds===1&&await page.locator('.rp-mailbox small').count()===2,'Two linked deliveries complete exactly one round and stay visible');
     await page.locator('[data-action="restart"]').click();await idle();ok(!sent.includes(await target()),'The next post round brings fresh words');
@@ -89,6 +90,7 @@ async parent => {
     ok(await page.locator('.rp-finish').isVisible()&&await page.locator('.rp-decoration.is-decorated').count()===3,'The finished workshop keeps all chosen decorations');
     await enter('rhyme');await page.locator('[data-rhyme-mode="missing"]').click();await idle();await shots('missing');
     for(let r=0;r<4;r++){
+      let mark=await page.evaluate(()=>rVarietyQA.starts.length);
       await page.locator(`[data-rhyme="${r}"]`).click();await idle();
       for(let i=0;i<4;i++){
         const gap=data.gaps[r][i];
@@ -102,6 +104,8 @@ async parent => {
         await page.locator(`[data-gap-choice="${gap.word.id}"]`).click();await idle();
         ok((await page.locator('.rp-gap-blank').innerText())===gap.missing&&await page.locator('.rp-gap-choices .is-found').count()===1,'The chosen image restores the inflected word in its sentence');
         ok(await page.evaluate(({start,voice})=>rVarietyQA.starts.slice(start).includes(voice),{start,voice:gap.voice}),'The found word has its own Jessa sample before the complete line');
+        ok(await page.evaluate(({mark,start,line,model})=>{const heard=rVarietyQA.starts.slice(mark,start);return !heard.includes(line)&&heard.includes(model);},{mark,start,line:gap.lineClip,model:gap.modelClip})&&await page.evaluate(({start,line})=>rVarietyQA.starts.slice(start).includes(line),{start,line:gap.lineClip}),'The model plays the other half of the line; the full line with the hidden word follows only after it was found');
+        mark=await page.evaluate(()=>rVarietyQA.starts.length);
         await page.locator('[data-action="rhyme-next"]').click();await idle();
       }
       ok(await page.locator('.rp-rhyme-complete').isVisible(),`${data.rhymes[r].id}: all four gaps finish`);

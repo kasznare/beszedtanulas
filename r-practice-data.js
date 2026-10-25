@@ -3,7 +3,7 @@ import { words as pictureWords } from './game-data.js';
 
 export const R_GAMES = [
   { id: 'hunter', name: 'Hangvadász', icon: '🔎', detail: 'Képkereső · R-hang · az R helye' },
-  { id: 'post', name: 'Robotpostás', icon: '🤖', detail: 'Mondd utánam · válassz barátot · küldd el' },
+  { id: 'post', name: 'Robotpostás', icon: '🤖', detail: 'Mondd utánam · ki mit kér? · vidd el' },
   { id: 'workshop', name: 'Perecműhely', icon: '🥨', detail: 'Gyakorolj · válassz díszt · alkoss' },
   { id: 'rhyme', name: 'Mondókaliget', icon: '🎵', detail: 'Mondjuk együtt · keresd az elbújt szót' },
   { id: 'echo', name: 'Saját visszhang', icon: '🎙️', detail: 'Vedd fel · hasonlítsd össze a mintával' },
@@ -91,13 +91,19 @@ export const R_RHYME_EXTRA_WORDS = [{id:'gyerek',text:'gyerek',icon:'🧒'},{id:
 const gaps = {
   roka:[['Róka','roka'],['répát','repa'],['perec','perec'],['gyerek','gyerek']],
   kert:[['rózsa','rozsa'],['Robot','robot'],['Róka','roka'],['virágkert','viragkert']],
-  sator:[['gyere','gyere'],['sátrat','sator'],['Körte','korte'],['Róka','roka']],
+  sator:[['gyere','gyere'],['sátrat','sator'],['kosárba','kosar'],['Róka','roka']],
   robot:[['robot','robot'],['ceruzát','ceruza'],['várat','var'],['madarat','madar']],
 };
+// The model never says the hidden word: it plays the recorded half of the line that
+// does not contain the gap (the first half for line-final gaps). The full line is the
+// confirmation after the right picture was found.
 export function rhymeGap(rhymeId, line) {
   const [missing,id] = gaps[rhymeId]?.[line] || [];
   const word = [...R_WORDS,...R_RHYME_EXTRA_WORDS].find(word=>word.id===id);
-  return word ? {missing,word,voice: R_WORDS.includes(word) ? `r_word_${id}` : `r_puzzle_word_${id}`} : null;
+  if(!word)return null;
+  const [first,second]=R_RHYME_PARTS[rhymeId][line], part=second.includes(missing)&&!first.includes(missing)?1:0;
+  return {missing,word,part,voice: R_WORDS.includes(word) ? `r_word_${id}` : `r_puzzle_word_${id}`,
+    modelClip:`r_rhyme_part_${rhymeId}_${line}_${part?0:1}`,lineClip:`r_rhyme_${rhymeId}_${line}`};
 }
 export function buildRhymeChoices(rhymeId, line, random=Math.random) {
   const gap=rhymeGap(rhymeId,line);
@@ -150,8 +156,20 @@ export function buildRPracticeDeck(preferences, previousIds=[], random=Math.rand
   const familiar=shuffleR(pool.filter(word=>previous.has(word.id)),random);
   return [...fresh,...familiar].slice(0,count);
 }
+// "Az R helye" always mixes the three positions: one saved word group (also changed by
+// the Perecműhely picker) would make every answer the same.
+export function buildRPositionDeck(count, previousIds=[], random=Math.random) {
+  const previous=new Set(previousIds);
+  const groups=shuffleR(['initial','medial','final'],random).map(position=>{
+    const pool=rWordPool(position);
+    return [...shuffleR(pool.filter(word=>!previous.has(word.id)),random),...shuffleR(pool.filter(word=>previous.has(word.id)),random)];
+  });
+  return Array.from({length:count},(_,i)=>groups[i%3][Math.floor(i/3)]).filter(Boolean);
+}
 export function buildRHunterRound(preferences, random = Math.random, previousIds=[]) {
-  const options = normalizeRPreferences(preferences), pool = rWordPool(options.position);
+  const options = normalizeRPreferences(preferences);
+  if (options.hunterKind === 'position') return shuffleR(buildRPositionDeck(options.roundLength,previousIds,random),random).map(target=>({target,choices:[target]}));
+  const pool = rWordPool(options.position);
   return buildRPracticeDeck(options,previousIds,random).map(target => {
     const others = options.hunterKind === 'sound' ? R_DISTRACTORS : pool.filter(word=>word.id!==target.id);
     return { target, choices:shuffleR([target, ...shuffleR(others,random).slice(0,options.choices-1)],random) };
@@ -218,11 +236,29 @@ export function rPostMissions(position='all') {
   const ids=new Set(rWordPool(position).map(word=>word.id));
   return R_POST_MISSIONS.filter(mission=>mission.words.every(id=>ids.has(id)));
 }
-export function buildRPostMission(position='all',random=Math.random,previousId='') {
+// After two finished deliveries the mission grows to three parcels and three wishes.
+export function rPostParcelCount(rounds=0) {
+  return rounds>=2?3:2;
+}
+// Every house wishes for one parcel (shown as its picture); a parcel must reach the
+// friend who asked for it. With two parcels one house has no wish.
+export function buildRPostMission(position='all',random=Math.random,previousId='',parcels=2) {
   const pool=rPostMissions(position), available=pool.length?pool:R_POST_MISSIONS;
   const fresh=available.filter(mission=>mission.id!==previousId);
   const mission=shuffleR(fresh.length?fresh:available,random)[0];
-  return {...mission,deck:mission.words.map(id=>({...R_WORDS.find(word=>word.id===id)}))};
+  const deck=mission.words.map(id=>({...R_WORDS.find(word=>word.id===id)}));
+  if(parcels===3){
+    const groupPool=rWordPool(position).filter(word=>!mission.words.includes(word.id));
+    const extra=shuffleR(groupPool.length?groupPool:R_WORDS.filter(word=>!mission.words.includes(word.id)),random)[0];
+    deck.push({...extra});
+  }
+  const friends=shuffleR(R_RECIPIENTS,random);
+  const wishes=Object.fromEntries(R_RECIPIENTS.map(friend=>[friend.id,null]));
+  deck.forEach((word,i)=>{wishes[friends[i].id]=word.id;});
+  return {...mission,deck,wishes};
+}
+export function rPostWishOwner(wishes, wordId) {
+  return Object.keys(wishes||{}).find(id=>wishes[id]===wordId)||'';
 }
 
 // Short meaningful units have their own generated recordings, not runtime speech.
