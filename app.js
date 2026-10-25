@@ -52,6 +52,8 @@ import { createPlayTimeLimit, PLAY_TIME_KEY, formatPlayTime } from "./play-time.
 
 let selectedCategory = "all";
 let practiceLaunchWordId = null;
+// A "Keressük meg!" / "Mondjuk!" launch from a picture topic uses that topic only while its game stays open.
+let launchedTopic = null;
 
 const STORAGE_KEY = "speech_game_progress_v1";
 const WORD_LISTEN_WINDOW_MS = 18_000;
@@ -375,15 +377,15 @@ listeningGame = setupListeningGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => {
     const firstWordId=practiceLaunchWordId;practiceLaunchWordId=null;
-    return { words:getPracticeWords(),length:state.settings.roundLength,choiceCount:state.settings.listeningChoices,difficulty:state.settings.listeningDifficulty,firstWordId };
+    return { words:getPracticeWords(),allWords:words,length:state.settings.roundLength,choiceCount:state.settings.listeningChoices,difficulty:state.settings.listeningDifficulty,firstWordId };
   },
   setDifficulty: value => { state.settings.listeningDifficulty=value; saveProgress(); },
   speak: id => speakVoice(id),
   playPrompt: playListeningPrompt,
-  playCorrect: () => { stopPlayback(); playSuccessSound(); speakGuide("good"); },
+  playCorrect: () => { stopPlayback(); playSuccessSound(); return speakGuide("good"); },
   stopPlayback,
-  onComplete: (count, context = {}) => {
-    if(context.mode!=="bingo"){state.rewards += 1;saveProgress();refreshStats();}
+  onComplete: count => {
+    state.rewards += 1;saveProgress();refreshStats();
     celebrateRound("listening-game", count);
   },
 });
@@ -450,15 +452,16 @@ logicGame = setupLogic({
 memoryGame = setupMemoryGame({
   effect: playEffect,
   onRestart: () => roundSuccess.cancel(),
-  getOptions: () => ({ words: getPracticeWords(), memoryPairs: state.settings.memoryPairs }),
+  getOptions: () => ({ words: getPracticeWords(), allWords: words, memoryPairs: state.settings.memoryPairs }),
   playWord: (word, cue) => playWord(word, undefined, cue), speak: id => speakVoice(id), stopPlayback,
+  playAnimal: id => tryPlayFile(`./audio/animals/${id}.mp3`, beginPlayback(), { start() {}, stop() {} }),
   setPairs: pairs => {
     state.settings.memoryPairs = pairs;
     document.querySelector('#memory-pairs').value = pairs;
     saveProgress();
   },
   onComplete: (count, context = {}) => {
-    if(context.mode!=='sound'){state.rewards += 1;saveProgress();refreshStats();}
+    state.rewards += 1;saveProgress();refreshStats();
     celebrateRound('memory', count);
   },
 });
@@ -574,7 +577,7 @@ rPractice = setupRPractice({
 });
 flipGame=setupFlipGame({
   effect:playEffect,onRestart:()=>roundSuccess.cancel(),
-  getOptions:()=>({words:getPracticeWords(),flipMode:state.settings.flipMode}),
+  getOptions:()=>({words:getPracticeWords(),allWords:words,flipMode:state.settings.flipMode}),
   setMode:mode=>{state.settings.flipMode=mode;saveProgress();},
   playWord:(word,cue)=>playWord(word,undefined,cue),speak:ids=>Array.isArray(ids)?speakVoiceSequence(ids):speakVoice(ids),stopPlayback,
   onComplete:count=>{state.rewards++;saveProgress();refreshStats();celebrateRound("flip",count);},
@@ -656,7 +659,7 @@ applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 setupPlayTime();
-setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, [data-pattern-choice], #patterns-undo, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
+setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, [data-pattern-choice], #patterns-undo, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer, .listening-none, .flip-answer' });
 document.addEventListener("visibilitychange", () => { if (document.hidden) effects.stop(); else effects.sync(); });
 window.addEventListener("pagehide", () => effects.stop());
 
@@ -799,7 +802,7 @@ function changePhraseFilter(key,value) {
 }
 function launchCardPractice(screen) {
   const word=words.find(w=>w.id===practiceLaunchWordId);if(!word)return;
-  state.settings.practiceTopic=selectedCategory;state.settings.useFavorites=false;saveProgress();
+  launchedTopic={screen,topic:selectedCategory};
   currentImitate=words.indexOf(word);showScreen(screen);
 }
 function syncBasicPractice() {
@@ -1128,6 +1131,7 @@ async function playListeningPrompt(word, { intro = false, retry = false, force =
     await speakVoice(retry ? "guide_again" : "guide_listening_game", token);
   }
   if (token !== playbackToken || currentScreen !== "listening-game" || document.hidden) return;
+  if (word.kind === "phrase") { registerPlay(); await speakVoice(`phrase_${word.id}`, token); return; }
   await playWord(word, token);
 }
 
@@ -1433,11 +1437,13 @@ function getWordDifficultyScore(word) {
 }
 
 function getPracticeWords() {
-  const category = wordCategories.find(entry => entry.id === state.settings.practiceTopic) || wordCategories[0];
+  const topic = launchedTopic?.topic ?? state.settings.practiceTopic;
+  const category = wordCategories.find(entry => entry.id === topic) || wordCategories[0];
   return words.filter(word => category.words.includes(word.id));
 }
 
 function getSpeechWords() {
+  if (launchedTopic) return getPracticeWords();
   const favorites=words.filter(word=>state.settings.favoriteWords.includes(word.id));
   return state.settings.useFavorites && favorites.length ? favorites : getPracticeWords();
 }
@@ -2299,6 +2305,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
     screen = 'play-break'; announce = false;
   }
   stopAutoImitateSession(false);
+  if (launchedTopic && launchedTopic.screen !== screen) launchedTopic = null;
   effects?.stop();
   listeningGame?.stop();
   teddyGame?.stop();

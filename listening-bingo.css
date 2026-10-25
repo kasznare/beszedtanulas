@@ -1,9 +1,67 @@
-.listening-modes { display: flex; justify-content: center; gap: 10px; margin: 4px 0 14px; }
+.listening-modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px 0 14px; }
 .listening-modes button { min-height: 44px; padding: 8px 16px; border: 2px solid #b8cbaa; border-radius: 14px; background: #fffdf5; color: #3d634d; font: inherit; cursor: pointer; touch-action: manipulation; }
 .listening-modes button[aria-pressed="true"] { background: #e4f0dc; border-color: #378254; font-weight: 750; }
-.listening-answers.is-bingo .listening-bingo-tile { position: relative; overflow: hidden; }
+.listening-panel [hidden] { display: none !important; }
+
+/* First-try answers show as gold dots: the same count becomes the stars of the round. */
+.listening-panel .progress-dot.is-star { background: #e0b03f; box-shadow: 0 0 0 3px #f6e5b4; }
+
+/* Pictures are sized by font-size, so denser boards only change one number. */
+.listening-panel .listening-answer .listening-picture .word-picture { width: 1em; height: 1em; }
+.listening-panel .listening-answers[data-count="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: 150px; padding: 10px 8px; }
+.listening-panel .listening-answers[data-count="4"] .listening-picture { font-size: 84px; }
+
+/* Két szó: two small pictures side by side make one phrase. */
+.listening-panel .listening-phrase .listening-picture { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: clamp(54px, 8vw, 92px); line-height: 1; }
+.listening-phrase-part .word-picture { width: 1em; height: 1em; font-size: inherit; text-align: center; }
+
+/* Hangos bingó: a 2×2 or 3×3 board, and a big "not on my board" button. */
+.listening-panel .listening-answers.is-bingo { grid-template-columns: repeat(var(--bingo-size, 2), minmax(0, 1fr)); gap: 12px; }
+.listening-panel .listening-answers.is-bingo .listening-bingo-tile { position: relative; overflow: hidden; min-height: 130px; padding: 8px; border-radius: 24px; }
+.listening-panel .listening-answers.is-bingo .listening-picture { font-size: 76px; }
+.listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: 96px; border-radius: 20px; }
+.listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 58px; }
 .listening-bingo-cover { position: absolute; inset: 0; display: none; place-items: center; color: #174e38; background: #acd797aa; font-size: clamp(2rem, 7vw, 4.2rem); font-weight: 900; text-shadow: 0 2px #fff9; }
 .listening-bingo-tile.is-covered .listening-bingo-cover { display: grid; }
 .listening-bingo-tile.is-covered { border-color: #378254; background: #dcefd5; opacity: 1; }
 .listening-bingo-tile.is-covered .listening-picture { opacity: .8; }
-@media (max-width: 520px) { .listening-modes { margin-bottom: 8px; } .listening-modes button { padding: 6px 12px; } }
+.listening-panel .listening-bingo-tile.is-line { border-color: #c9952c; box-shadow: 0 0 0 5px #f3d27a; }
+.listening-none { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 180px; min-height: 60px; margin: 12px auto 0; padding: 8px 20px; border: 3px solid #d7c39a; border-radius: 22px; background: #fff6e2; color: #5b4a2c; font: inherit; font-size: 1.1rem; font-weight: 800; box-shadow: 0 4px 0 #e4d3ae; cursor: pointer; touch-action: manipulation; }
+.listening-none > span:first-child { font-size: 1.8rem; line-height: 1; }
+.listening-none:disabled { opacity: .55; cursor: default; }
+.listening-none.is-retry { border-color: #7b929f; background: #edf1f3; }
+.listening-none.is-hint { box-shadow: 0 0 0 5px #b7cfb5; }
+.listening-status-picture { display: inline-block; vertical-align: middle; margin-right: 6px; font-size: 36px; }
+.listening-status-picture .word-picture { width: 1em; height: 1em; }
+.listening-panel .upgrade-options { margin: 6px auto; }
+
+@media (max-width: 520px) { .listening-modes { margin-bottom: 8px; gap: 6px; } .listening-modes button { padding: 6px 12px; } }
+
+/* Tablet portrait: everything stacks, so the board takes the height left under the controls. */
+@media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  .listening-panel .listening-prompt { margin: 6px 0 12px; }
+  .listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: clamp(120px, calc((100dvh - 500px) / 2), 220px); }
+  .listening-panel .listening-answers.is-bingo .listening-bingo-tile { min-height: clamp(110px, calc((100dvh - 560px) / 2), 210px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 580px) / 3), 150px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 64px; }
+}
+/* Tablet landscape: controls on the left (see play-layout.css), the pictures fill the right side. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .listening-panel .listening-prompt { margin: 4px 0; }
+  .listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: clamp(120px, calc((100dvh - 240px) / 2), 220px); }
+  .listening-panel .listening-answers.is-bingo .listening-bingo-tile { min-height: clamp(110px, calc((100dvh - 250px) / 2), 220px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 260px) / 3), 150px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 66px; }
+  .listening-panel > .listening-none { width: 100%; margin: 6px 0; }
+}
+/* Phones in landscape: the pictures stay in the middle column, the "not on my board" button on the right. */
+@media (orientation: landscape) and (max-height: 600px) {
+  .listening-panel > .listening-none { grid-column: 3; grid-row: 2; min-width: 0; width: 100%; margin: 0; padding: 8px 4px; flex-direction: column; gap: 2px; font-size: .9rem; }
+  .listening-panel .listening-answers[data-count="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: 150px; }
+  .listening-panel .listening-answers.is-bingo .listening-bingo-tile { min-height: clamp(70px, calc((100dvh - 180px) / 2), 130px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(60px, calc((100dvh - 170px) / 3), 96px); }
+  .listening-panel .listening-answers.is-bingo .listening-picture { font-size: 54px; }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 40px; }
+}
