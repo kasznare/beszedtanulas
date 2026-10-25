@@ -125,3 +125,33 @@
 .teddy-meal:not(:empty) { padding: 5px; border: 2px solid #fff9e8; border-radius: 22px; background: #e8f2dd; box-shadow: 0 3px 8px #526b4c33; }
 .teddy-meal > span { width: 42px; height: 42px; display: grid; place-items: center; border: 2px solid #fff9e8; border-radius: 50%; background: #fffdf5; }
 @media (max-width: 649px) { .teddy-expression { margin-top: 8px; gap: 6px; } .teddy-expression button { min-height: 44px; padding: 6px 12px; } .teddy-chosen-food { width: 56px; height: 56px; } }
+/* Gameplay upgrade: Maci's tummy fills, the order strip fills as feedback, up to five plates, and the child's own plate. */
+.teddy-tummy { fill: #f2b866; opacity: .85; transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(var(--tummy, 0)); transition: transform .5s ease; }
+.teddy-scene > #teddy-next { position: absolute; left: 10px; bottom: 14px; margin: 0; }
+.teddy-order .teddy-order-blank { border: 2px dashed #cdb98f; border-radius: 50%; color: #8d7a52; font-size: 1.3rem; font-weight: 800; }
+.teddy-answers[data-count="4"], .teddy-answers[data-count="5"] { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 14px; }
+.teddy-answers[data-count="4"] .teddy-plate { flex: 0 0 calc((100% - 12px) / 2); }
+.teddy-answers[data-count="5"] .teddy-plate { flex: 0 0 calc((100% - 24px) / 3); }
+.teddy-answers[data-count="4"] .teddy-plate, .teddy-answers[data-count="5"] .teddy-plate { min-height: 0; max-width: 132px; border-width: 5px; padding: 6px; }
+.teddy-answers[data-count="4"] .teddy-food, .teddy-answers[data-count="5"] .teddy-food { font-size: clamp(38px, 5vw, 60px); }
+.teddy-expression .teddy-expression-confirm, .teddy-expression-offer { grid-column: 1 / -1; }
+.teddy-expression-offer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.teddy-expression-offer[hidden], .teddy-expression .teddy-expression-confirm[hidden] { display: none; }
+.teddy-expression [data-teddy-offer="more"] { background: #f4ddaa; border-color: #bd8d42; }
+.teddy-expression [data-teddy-offer="enough"] { background: #dbeccf; border-color: #4b9166; }
+@media (orientation: landscape) and (max-height: 600px) and (min-width: 650px) {
+  .teddy-answers[data-count="4"] .teddy-plate, .teddy-answers[data-count="5"] .teddy-plate { flex-basis: calc((100% - 48px) / 5); max-width: 100px; }
+}
+@media (prefers-reduced-motion: reduce) { .teddy-tummy { transition: none; } }
+/* Landscape tablets: three plates share one row, so the growing choice keeps the table inside the screen. */
+@media (orientation: landscape) and (min-width: 650px) and (min-height: 601px) {
+  .teddy-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .teddy-answers[data-count="3"] .teddy-plate:last-child { grid-column: auto; width: 100%; }
+  .teddy-answers[data-count="3"] .teddy-plate { min-height: 0; max-width: 150px; }
+}
+/* Short landscape screens: the word-count switch sits beside the answer buttons instead of above them. */
+@media (orientation: landscape) and (max-height: 600px) and (min-width: 650px) {
+  .teddy-expression { grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+  .teddy-expression-length { grid-column: 1; }
+  .teddy-expression .teddy-expression-confirm, .teddy-expression-offer { grid-column: 2; }
+}

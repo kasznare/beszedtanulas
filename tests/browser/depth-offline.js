@@ -37,8 +37,8 @@ async parent => {
     const food=await page.locator('#teddy-answers .teddy-plate').first().getAttribute('data-word');
     await page.locator('#teddy-answers .teddy-plate').first().click();
     await page.waitForFunction(id=>depthOfflineVoices.includes(`teddy_${id}`),food,{timeout:15000});
-    await page.locator('.teddy-expression-confirm').click();await page.locator('.teddy-expression-give').click();await page.waitForFunction(()=>!document.querySelector('#teddy-next').disabled);
-    ok(await page.locator('.teddy-meal > span').count()===1,'Offline expressive Maci plays the model and receives the chosen food');
+    await page.locator('.teddy-expression-confirm').click();await page.locator('[data-teddy-offer="more"]').waitFor({state:'visible'});
+    ok(await page.locator('.teddy-meal > span').count()===1,'Offline expressive Maci plays the model and passes the chosen food to the child');
     await enter('practice-menu','two-word');await page.locator('#phrase-group').selectOption('person_action');
     ok((await page.locator('#phrase-content-count').innerText()).startsWith('8 '),'Expanded phrase bank and filters load offline');
     ok(!errors.length,`No offline JavaScript errors: ${errors.join('; ')}`);

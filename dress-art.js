@@ -23,6 +23,8 @@ export function createDressIcon(id) {
 export function createDressBear(container = document.querySelector("#dress-bear")) {
   const bear = document.querySelector("#teddy-game .teddy-illustration").cloneNode(true);
   bear.querySelector("#teddy-mouth").removeAttribute("id");
+  // The feeding game's tummy meter belongs to the picnic bear only.
+  bear.querySelectorAll(".teddy-tummy, #teddy-belly-clip").forEach(element => element.remove());
   // The scarf replaces the picnic bow, while the shared face keeps its reactions.
   bear.querySelectorAll(":scope > path, :scope > circle").forEach(element => element.remove());
   function garment(id, parent, x, y, width, height, before = null) {

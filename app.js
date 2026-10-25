@@ -392,7 +392,7 @@ teddyGame = setupTeddyGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playTeddyPrompt,
-  speak: id => speakVoice(id),
+  speak: ids => Array.isArray(ids) ? speakVoiceSequence(ids) : speakVoice(ids),
   playThanks: () => speakVoice("guide_teddy_thanks"),
   stopPlayback,
   onComplete: (count, context = {}) => {

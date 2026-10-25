@@ -13,7 +13,7 @@ async(page)=>{
    // Try existing choices until the request locks; no internal game state is changed.
    const ids=await page.locator(`#${game}-answers button`).evaluateAll(bs=>bs.map(b=>({key:b.dataset.item||b.dataset.word})));
    for(const {key} of ids){const b=page.locator(`#${game}-answers [data-${game==='dress'?'item':'word'}="${key}"]`);if(await b.isEnabled())await b.click();if(await page.locator(`#${game}-answers button:enabled`).count()===0)break;}
-   await page.waitForFunction(id=>!document.querySelector('#'+id+'-next').disabled,game);await page.locator(`#${game}-next`).click();
+   await page.waitForFunction(id=>!document.querySelector('#'+id+'-next').disabled,game);await page.locator(`#${game}-next`).evaluate(b=>{if(!b.disabled)b.click();});
   }
   await page.waitForSelector('#round-complete[open]');
   ok(await page.locator('#round-complete').isVisible(),`${game}: full round finishes`);ok((await state()).rewards===before+1,`${game}: one reward`);

@@ -95,14 +95,18 @@ async (page) => {
   ok(JSON.stringify((await state()).meadow.memories[0]) === JSON.stringify(firstMemory), 'Later free play and stories cannot rewrite older memories');
   await layout('album'); await page.screenshot({ path: 'output/playwright/story-album.png', fullPage: true });
 
-  await enter('teddy-game'); await page.locator('[data-teddy-mode="sequence"]').click();
-  ok(await page.locator('#teddy-answers .word-picture').count() === 2, 'Teddy uses original food illustrations');
-  const labels = (await page.locator('.teddy-order li > span:last-child').allTextContents()).map(text => text.replace(/^\d\. /, ''));
-  await page.locator(`#teddy-answers button[aria-label="${labels[1]}"]`).click();
+  await enter('teddy-game');
+  await page.evaluate(() => { window.teddyVoices = []; document.addEventListener('narrationstart', event => teddyVoices.push(event.detail.id)); });
+  await page.locator('[data-teddy-mode="sequence"]').click();
+  ok(await page.locator('#teddy-answers .word-picture').count() >= 3, 'Teddy uses original food illustrations, with a plate that is not asked for');
+  ok(await page.locator('.teddy-order .teddy-order-blank').count() === 2, 'The ordered foods stay hidden until Maci eats them');
+  await page.waitForFunction(() => teddyVoices.some(id => /^teddy_sequence_[a-z]+_[a-z]+$/.test(id)), undefined, { timeout: 15000 });
+  const labels = (await page.evaluate(() => teddyVoices.filter(id => /^teddy_sequence_[a-z]+_[a-z]+$/.test(id)).at(-1))).split('_').slice(2);
+  await page.locator(`#teddy-answers [data-word="${labels[1]}"]`).click();
   ok(await page.locator('.teddy-order .is-done').count() === 0, 'Second food cannot satisfy the first request');
-  await page.locator(`#teddy-answers button[aria-label="${labels[0]}"]`).click();
+  await page.locator(`#teddy-answers [data-word="${labels[0]}"]`).click();
   ok(await page.locator('#teddy-next').isDisabled() && await page.locator('.teddy-order .is-done').count() === 1, 'First food advances only the sequence step');
-  await page.locator(`#teddy-answers button[aria-label="${labels[1]}"]`).click();
+  await page.locator(`#teddy-answers [data-word="${labels[1]}"]`).click();
   ok(await page.locator('#teddy-next').isEnabled() && await page.locator('.teddy-order .is-done').count() === 2, 'Both foods complete the ordered request');
   await page.screenshot({ path: 'output/playwright/story-teddy.png', fullPage: true });
   await page.locator('[data-teddy-mode="single"]').click(); ok(await page.locator('.teddy-order').isHidden(), 'Beginner mode keeps a single request');

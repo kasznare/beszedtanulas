@@ -42,8 +42,9 @@ async page => {
   ok(await page.locator('[data-teddy-mode="expressive"]').getAttribute('aria-pressed')==='true','Related launch opens expressive mode directly');
   const beforeTeddy=await saved();
   for(let i=0;i<3;i++){
-    await page.locator('#teddy-answers .teddy-plate').first().click();await page.locator('.teddy-expression-confirm').click();await page.locator('.teddy-expression-give').click();
-    await page.waitForFunction(()=>!document.querySelector('#teddy-next').disabled);await page.locator('#teddy-next').click();
+    await page.locator('#teddy-answers .teddy-plate').first().click();await page.locator('.teddy-expression-confirm').click();
+    await page.locator('[data-teddy-offer="enough"]').waitFor({state:'visible'});await page.locator('[data-teddy-offer="enough"]').click();
+    await page.waitForFunction(n=>document.querySelectorAll('#teddy-progress .is-done').length===n||document.querySelector('#round-complete[open]'),i+1,{timeout:10000});
   }
   await page.waitForSelector('#round-complete[open]');
   ok(await saved()===beforeTeddy,'An expressive round adds no saved play or reward results');
