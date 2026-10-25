@@ -1,4 +1,4 @@
-import { wordCategories } from './game-data.js';
+import { CARD_TOPICS } from './word-cards.js';
 
 // Menus are grouped by skill, not by game. A card opens a screen, optionally straight into one of its
 // exercises (kind), so one game (e.g. Montessori) can offer exercises in several skill groups.
@@ -71,7 +71,7 @@ export const GROUPS = Object.freeze([
 export const HOME_SCREENS = Object.freeze(['audiobooks']);
 
 const screens = new Set(['home', 'parent', 'play-break', 'cards', ...HOME_SCREENS, ...GROUPS.flatMap(group => [group.screen, ...group.screens])]);
-const categories = new Set(wordCategories.map(category => category.id));
+const categories = new Set(CARD_TOPICS.map(category => category.id));
 const modes = new Set(['count', 'quiz']);
 // A game offered in several groups returns to its main group after a reload or deep link.
 const MAIN_GROUP = { memory: 'activity-menu', 'teddy-game': 'play-menu', montessori: 'shape-menu', workshop: 'shape-menu', furfangliget: 'big-menu', engineering: 'activity-menu' };

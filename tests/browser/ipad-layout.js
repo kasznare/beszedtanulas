@@ -244,6 +244,7 @@ async page => {
       }
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-quiz', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
+      for (const topic of ['animals', 'food', 'clothes']) { await open('picture-menu', 'topics'); await click(`[data-topic="${topic}"]`); await check(`${size}:cards-${topic}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {
         await open('practice-menu', 'r-practice'); await click(`[data-game="${game}"]`); await check(`${size}:r-${game}`);
       }

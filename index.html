@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="./portal.css" />
   <link rel="stylesheet" href="./narration.css" />
   <link rel="stylesheet" href="./animal-book.css" />
+  <link rel="stylesheet" href="./word-cards.css" />
   <link rel="stylesheet" href="./audiobook.css" />
   <link rel="stylesheet" href="./story-visuals.css" />
   <link rel="stylesheet" href="./pour.css" />
@@ -182,9 +183,10 @@
     <section id="number-menu" class="panel menu-panel" aria-label="Számok"></section>
 
     <section id="cards" class="panel" aria-label="Beszélő képek">
-      <div class="cards-toolbar"><span id="cards-count" class="cards-count" role="status"></span><button class="small-icon" data-open="topics" aria-label="Másik képcsoport">🌈</button></div>
+      <div class="cards-toolbar"><span id="cards-count" class="cards-count" role="status"></span><button id="card-peek-start" class="card-peek-start" hidden>🙈 Kukucs!</button><button class="small-icon" data-open="topics" aria-label="Másik képcsoport">🌈</button></div>
       <div id="category-picker" hidden></div>
       <div id="cards-grid" class="cards-grid"></div>
+      <div id="card-peek" class="card-peek" hidden></div>
       <div id="card-followup" class="card-followup" hidden><p id="card-selected"></p><button id="card-find" class="upgrade-action">🔎 Keressük meg!</button><button id="card-say" class="upgrade-action">💬 Mondjuk együtt!</button></div>
     </section>
 
