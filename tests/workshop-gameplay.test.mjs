@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WORKSHOP_GAMES, WORKSHOP_LEVEL_KEYS, WORKSHOP_TASK_VERSION, normalizeWorkshopOptions, workshopLevelFor, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopBalanceStars, workshopFixedSum, workshopHint, normalizeWorkshop, validateWorkshop, workshopTaskForSession } from '../workshop-data.js';
+import { WORKSHOP_GAMES, WORKSHOP_LEVEL_KEYS, WORKSHOP_TASK_VERSION, normalizeWorkshopOptions, workshopLevelFor, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopBalanceStars, workshopFixedSum, workshopHint, normalizeWorkshop, validateWorkshop, workshopTaskForSession, newWorkshopDesign, workshopDesignReady, workshopDesignSequence, weaveWorkshopDesign, workshopDesignSolved, workshopDesignUnit } from '../workshop-data.js';
 
 const same = (a, b) => a.color === b.color && a.shape === b.shape;
 
@@ -104,4 +104,25 @@ test('older version-3 sessions still validate and rebuild their original task', 
     assert.deepEqual(validateWorkshop(progress).sessions[kind][level - 1], session);
   }
   assert.equal(newWorkshopSession('sort', 1, 1).taskVersion, WORKSHOP_TASK_VERSION);
+});
+
+test('Tervezd meg!: a built unit is woven three times and the child mends two gaps', () => {
+  for (let seed = 0; seed < 60; seed++) {
+    const design = newWorkshopDesign(seed);
+    assert.equal(design.palette.length, 4);
+    assert.equal(new Set(design.palette.map(object => `${object.color}:${object.shape}`)).size, 4);
+    assert.deepEqual(workshopDesignReady(design), { ok: false, reason: 'short' });
+    design.slots = [1, null, 1]; assert.deepEqual(workshopDesignReady(design), { ok: false, reason: 'same' });
+    assert.equal(weaveWorkshopDesign(design), design, 'an unready design is not woven');
+    design.slots = seed % 2 ? [0, 2, null] : [3, 1, 3];
+    assert.deepEqual(workshopDesignReady(design), { ok: true });
+    const woven = weaveWorkshopDesign(design, () => (seed % 7) / 7), unit = workshopDesignUnit(woven), sequence = workshopDesignSequence(woven);
+    assert.equal(woven.phase, 'fix'); assert.equal(sequence.length, unit.length * 3);
+    assert.ok(sequence.every((value, i) => value === unit[i % unit.length]));
+    assert.equal(woven.holes.length, 2); assert.equal(new Set(woven.holes).size, 2);
+    assert.ok(woven.holes.every(position => position >= unit.length && position < sequence.length));
+    assert.equal(workshopDesignSolved(woven), false);
+    woven.answers = woven.holes.map(position => sequence[position]); assert.equal(workshopDesignSolved(woven), true);
+    woven.answers[0] = (woven.answers[0] + 1) % 4; assert.equal(workshopDesignSolved(woven), false);
+  }
 });

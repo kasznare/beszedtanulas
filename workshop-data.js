@@ -118,6 +118,34 @@ export function generateWorkshopTask(kind, level, seed, version = WORKSHOP_TASK_
     : level === 1 ? [3, 4, 5, 6] : level === 2 ? [6, 7, 8, 9] : [9, 10, 11, 12, 13, 14, 15];
   return { kind, level, choices, target: possibleTargets[Math.floor(random() * possibleTargets.length)], countRequired, distinct, stock: level === 1 ? 6 : level === 2 ? 2 : 1, maxPieces: level === 1 ? 6 : 4 };
 }
+// "Tervezd meg!": the child builds a two- or three-bead unit, the thread repeats it, then the child mends two gaps.
+// The design is a short side game and is not saved.
+export function newWorkshopDesign(seed = workshopSeed()) {
+  const random = randomSource(seed), colors = shuffle(Object.keys(WORKSHOP_COLORS), random).slice(0, 2), shapes = shuffle(Object.keys(WORKSHOP_SHAPES), random).slice(0, 2);
+  return { seed, phase: 'build', palette: shuffle(colors.flatMap(color => shapes.map(shape => ({ color, shape }))), random), slots: [null, null, null], holes: [], answers: [] };
+}
+export const workshopDesignUnit = design => design.slots.filter(value => value !== null);
+export function workshopDesignReady(design) {
+  const unit = workshopDesignUnit(design);
+  if (unit.length < 2) return { ok: false, reason: 'short' };
+  if (new Set(unit).size < 2) return { ok: false, reason: 'same' };
+  return { ok: true };
+}
+export function workshopDesignSequence(design) {
+  const unit = workshopDesignUnit(design), length = unit.length * 3;
+  return Array.from({ length }, (_, i) => unit[i % unit.length]);
+}
+export function weaveWorkshopDesign(design, random = Math.random) {
+  if (!workshopDesignReady(design).ok) return design;
+  const unit = workshopDesignUnit(design), length = unit.length * 3;
+  const holes = shuffle(Array.from({ length: length - unit.length }, (_, i) => i + unit.length), random).slice(0, 2).sort((a, b) => a - b);
+  return { ...design, phase: 'fix', holes, answers: holes.map(() => null) };
+}
+export function workshopDesignSolved(design) {
+  if (design?.phase !== 'fix') return false;
+  const sequence = workshopDesignSequence(design);
+  return design.holes.every((position, i) => design.answers[i] === sequence[position]);
+}
 export function workshopSortTarget(task, object) {
   if (task.filter && object[task.filter.key]!==task.filter.value) return task.bins.length-1;
   if (!task.filter && task.level === 3 && object.size !== task.wantedSize) return task.bins.length - 1;

@@ -254,6 +254,13 @@ async page => {
           await check(`${size}:workshop-${game}-${level}`);
           if (await p.locator('#ws-check').count()) { await click('#ws-check'); await check(`${size}:workshop-${game}-${level}-retry`); }
         }
+        if (game === 'pattern') {
+          await click('#ws-design-start'); await check(`${size}:workshop-design-build`);
+          for (const choice of [0, 1, 2]) await click(`[data-design-choice="${choice}"]`);
+          await click('#ws-design-check'); await check(`${size}:workshop-design-fix`);
+          if (await p.locator('#screen-title').innerText() !== 'Mintaszövő') throw Error('Tervezd meg lost the title');
+          await click('#ws-design-leave');
+        }
         const solution = await p.evaluate(async game => {
           const d = await import('./workshop-data.js'), saved = JSON.parse(localStorage.getItem('speech_game_progress_v1'));
           const session = saved.workshop.sessions[game][0], t = d.workshopTaskForSession(session);

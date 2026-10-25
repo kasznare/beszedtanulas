@@ -180,7 +180,7 @@
 /* Per-game level strip and the win banner share the toolbar row, so neither pushes the work down. */
 .ws-level-strip { display:flex; gap:6px; flex-wrap:nowrap; }
 .workshop-panel .ws-level-strip button { display:flex; align-items:center; gap:6px; min-height:44px; min-width:48px; padding:6px 10px; background:#edeedc; font-size:.85rem; }
-.ws-level-strip button>span:first-child { font-size:.6rem; letter-spacing:1px; color:#826c38; }
+.ws-level-strip button>span:first-child { font-size:.75rem; letter-spacing:1px; color:#826c38; }
 .workshop-panel .ws-level-strip button[aria-pressed=true] { color:white; background:var(--ws-green); border-color:var(--ws-green); }
 .ws-level-strip button[aria-pressed=true]>span:first-child { color:#fff3c5; }
 .ws-level-strip button[aria-pressed=false] .ws-level-name { display:none; }
@@ -235,3 +235,9 @@
  .ws-rods-toolbox { padding:8px 12px; }.ws-rods { grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-top:6px; }.workshop-panel .ws-rod-choice { min-height:64px; padding:5px 4px; gap:4px; }
  .workshop-panel:has(> .next-task-card) .ws-actions button { padding-inline:12px; font-size:.92rem; }
 }
+/* Mintaszövő "Tervezd meg!": the listen and design buttons share one row; the unit has three wide slots. */
+.ws-pattern-top { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin:0 0 12px; }
+.ws-pattern-top #ws-pattern-listen { margin:0; }
+.ws-pattern-thread.ws-design-unit { grid-template-columns:repeat(3,minmax(0,96px)); justify-content:center; }
+@media(min-width:900px) and (min-height:600px) and (orientation:landscape) { .ws-pattern-top { margin-bottom:8px; } .ws-pattern-thread.ws-design-unit { grid-template-columns:repeat(3,minmax(0,96px)); } }
+.workshop-panel .ws-design-panel .ws-pattern-slot:disabled { opacity:1; border-style:solid; }
