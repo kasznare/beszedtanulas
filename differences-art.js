@@ -261,17 +261,28 @@ function greenhouse(P, prefix) {
 }
 
 const renderers = { picnic, harbor, workshop, greenhouse };
+// A small visitor for the "extra" variant: bright and round, so it reads as something new at a glance.
+const ladybug = (x, y) => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="10" fill="#d8544a" stroke="#6f2a26" stroke-width="1.5"/><path d="M0-10V10" stroke="#3b2a28" stroke-width="1.5"/><circle cx="-4.5" cy="-2" r="2" fill="#3b2a28"/><circle cx="4.5" cy="3.5" r="2" fill="#3b2a28"/><circle cy="-10" r="4" fill="#3b2a28"/></g>`;
 
 export function renderDifferenceScene(sceneId, changedIds = [], prefix = 'scene') {
   const scene = DIFFERENCE_SCENES.find(item => item.id === sceneId) || DIFFERENCE_SCENES[0];
   const safePrefix = String(prefix).replace(/[^a-zA-Z0-9_-]/g, '-') || 'scene';
-  const selected = new Set(changedIds);
+  // A list names details that show their drawn change; a map can pick another variant for each detail.
+  const selected = new Map(Array.isArray(changedIds) ? changedIds.map(id => [id, 'authored']) : Object.entries(changedIds || {}));
   const P = (id, draw) => {
     const { area } = scene.differences.find(item => item.id === id);
     const clipId = `${safePrefix}-area-${id}`;
+    const rx = area.rx * 8, ry = area.ry * 5.2;
+    const variant = selected.get(id);
+    const content = variant === 'authored' ? draw(true)
+      : variant === 'missing' ? ''
+      : variant === 'color' ? `<g filter="url(#${safePrefix}-recolour)">${draw(false)}</g>`
+      : variant === 'mirror' ? `<g transform="scale(-1 1)">${draw(false)}</g>`
+      : variant === 'extra' ? `${draw(false)}${ladybug(rx * .34, -ry * .3)}`
+      : draw(false);
     // Local clipping makes the painted difference exactly bounded by the hit
     // ellipse, including antialiased strokes. Art has comfortable inner margins.
-    return `<g data-difference-id="${id}" transform="translate(${area.x * 8} ${area.y * 5.2})"><defs><clipPath id="${clipId}"><ellipse rx="${area.rx * 8}" ry="${area.ry * 5.2}"/></clipPath></defs><g clip-path="url(#${clipId})">${draw(selected.has(id))}</g></g>`;
+    return `<g data-difference-id="${id}" transform="translate(${area.x * 8} ${area.y * 5.2})"><defs><clipPath id="${clipId}"><ellipse rx="${rx}" ry="${ry}"/></clipPath></defs><g clip-path="url(#${clipId})">${content}</g></g>`;
   };
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="${safePrefix}-title ${safePrefix}-desc" class="differences-scene"><title id="${safePrefix}-title">${scene.name}</title><desc id="${safePrefix}-desc">${scene.subtitle}. Részletgazdag rajz a különbségkereső játékhoz.</desc><defs>
     <linearGradient id="${safePrefix}-sky" x2="0" y2="1"><stop stop-color="#c6e3e4"/><stop offset="1" stop-color="#eef1d9"/></linearGradient>
@@ -280,5 +291,6 @@ export function renderDifferenceScene(sceneId, changedIds = [], prefix = 'scene'
     <pattern id="${safePrefix}-wood" width="120" height="18" patternUnits="userSpaceOnUse"><rect width="120" height="18" fill="#c9a87c"/><path d="M0 17H120" stroke="#b29266" stroke-width="2"/><path d="M10 8q22-5 45 0M77 9h27" fill="none" stroke="#dcc095" stroke-width="2"/></pattern>
     <pattern id="${safePrefix}-floor" width="180" height="45" patternUnits="userSpaceOnUse"><rect width="180" height="45" fill="#dfc89d"/><path d="M0 44H180M0 0V45" stroke="#c6ac7d" stroke-width="2"/><path d="M29 16h34M107 29h43" stroke="#e8d5ae" stroke-width="3"/></pattern>
     <pattern id="${safePrefix}-tile" width="100" height="60" patternUnits="userSpaceOnUse"><rect width="100" height="60" fill="#e5dbc0"/><path d="M0 0H100V60H0Z" fill="none" stroke="#c9c6aa" stroke-width="2"/><path d="M7 7h86v46H7Z" fill="none" stroke="#eee5cb" stroke-width="2"/></pattern>
+    <filter id="${safePrefix}-recolour" color-interpolation-filters="sRGB"><feColorMatrix type="hueRotate" values="165"/><feColorMatrix type="saturate" values="1.5"/></filter>
   </defs><g stroke-linecap="round" stroke-linejoin="round">${renderers[scene.id](P, safePrefix)}</g></svg>`;
 }

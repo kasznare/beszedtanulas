@@ -294,6 +294,17 @@ async page => {
       await check(`${size}:puzzle-next`);
       await click('#back-button');
       if (await p.locator('body').getAttribute('data-screen') !== 'activity-menu') throw Error('Puzzle: back did not return to activity-menu');
+      // Különbségek: the easy and the densest level, and the look-first pause after quick misses.
+      await open('activity-menu', 'differences');
+      for (const levelId of ['starter', 'detective']) {
+        await click('#differences-change'); await click(`[data-difference-level="${levelId}"]`); await click('#differences-apply');
+        await check(`${size}:differences-${levelId}`);
+      }
+      const corner = await p.locator('.differences-picture[data-side="left"]').boundingBox();
+      for (let i = 0; i < 3; i++) await p.mouse.click(corner.x + 5 + i * 3, corner.y + 5);
+      if (!(await p.locator('#differences.is-resting').count())) throw Error('Differences: quick misses did not pause');
+      await check(`${size}:differences-rest`);
+      await click('#back-button');
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {

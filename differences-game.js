@@ -1,7 +1,9 @@
-import { DIFFERENCE_SCENES, DIFFERENCE_LEVELS, createDifferenceRound, findDifferenceAt } from './differences-data.js';
+import { DIFFERENCE_SCENES, DIFFERENCE_LEVELS, createDifferenceRound, findDifferenceAt, differenceStars, differenceHint, differenceVariants } from './differences-data.js';
 import { renderDifferenceScene } from './differences-art.js';
 
 const WIDTH = 800, HEIGHT = 520;
+// Three misses this close together start a short "look first" pause.
+const MISS_BURST = 3, MISS_WINDOW = 4000, REST_TIME = 2600;
 const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const signature = round => `${round.sceneId}:${round.levelId}:${[...round.ids].sort().join(',')}`;
@@ -14,6 +16,7 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
   let zoom = false, view = { x: 0, y: 0, width: WIDTH, height: HEIGHT };
   let cursor = { x: 50, y: 50 }, keyboard = false, pointer = null, miss = null, missTimer = null;
   let listeners = null, lastSignature = '', renderNumber = 0;
+  let misses = 0, hints = 0, missTimes = [], resting = false, restTimer = null;
   const playable = () => active && !finished && !document.hidden && !root.querySelector('dialog[open]');
   const status = text => { const node = root.querySelector('#differences-status'); if (node) node.textContent = text; };
   const say = (id, force = false) => { if (active && !document.hidden) speak(id, force); };
@@ -26,7 +29,19 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
     root.classList.remove('is-panning');
   }
   function clearTransient() {
-    clearPointer(); clearTimeout(missTimer); missTimer = null; miss = null;
+    clearPointer(); clearTimeout(missTimer); missTimer = null; miss = null; endRest(false);
+  }
+  function endRest(announce = true) {
+    clearTimeout(restTimer); restTimer = null; missTimes = [];
+    if (!resting) return;
+    resting = false; root.classList.remove('is-resting');
+    if (announce && active) status('Most keress tovább nyugodtan!');
+  }
+  function rest() {
+    resting = true; missTimes = []; root.classList.add('is-resting'); stopPlayback();
+    status('Állj meg egy kicsit! Előbb nézd meg jól a két képet, aztán koppints.');
+    say('differences_hint');
+    clearTimeout(restTimer); restTimer = setTimeout(() => endRest(), REST_TIME);
   }
 
   function render() {
@@ -37,7 +52,7 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
       <div class="differences-progress-wrap"><strong id="differences-progress" aria-live="off"></strong><span class="differences-progress-dots" aria-hidden="true"></span></div>
     </div>
     <p class="differences-instruction" id="differences-instruction">Keresd meg, mi változott! Bármelyik képen jelölhetsz.</p>
-    <div class="differences-pair" role="group" aria-label="A két összehasonlítható kép">${['left', 'right'].map((side, index) => `<figure class="differences-frame"><figcaption><span>${index + 1}. kép</span><span aria-hidden="true">${index ? '✧' : '✦'}</span></figcaption><div class="differences-picture" data-side="${side}" role="button" tabindex="0" aria-label="${index + 1}. kép: ${escapeHtml(scene.name)}. Jelöld meg az eltérést!" aria-describedby="differences-keyboard-help differences-instruction"><div class="differences-art" aria-hidden="true">${renderDifferenceScene(sceneId, index ? round.ids : [], `differences-${renderNumber}-${side}`)}</div><svg class="differences-overlay" viewBox="0 0 800 520" aria-hidden="true"></svg></div></figure>`).join('')}</div>
+    <div class="differences-pair" role="group" aria-label="A két összehasonlítható kép">${['left', 'right'].map((side, index) => `<figure class="differences-frame"><figcaption><span>${index + 1}. kép</span><span aria-hidden="true">${index ? '✧' : '✦'}</span></figcaption><div class="differences-picture" data-side="${side}" role="button" tabindex="0" aria-label="${index + 1}. kép: ${escapeHtml(scene.name)}. Jelöld meg az eltérést!" aria-describedby="differences-keyboard-help differences-instruction"><div class="differences-art" aria-hidden="true">${renderDifferenceScene(sceneId, index ? round.variants : [], `differences-${renderNumber}-${side}`)}</div><svg class="differences-overlay" viewBox="0 0 800 520" aria-hidden="true"></svg></div></figure>`).join('')}</div>
     <div class="differences-actions"><button id="differences-hint"><span aria-hidden="true">☀</span> Segítség</button><button id="differences-zoom" aria-pressed="false"><span aria-hidden="true">⌕</span> 2× nagyító</button><button id="differences-restart" aria-label="Új kör ugyanezzel a képpel és nehézséggel"><span aria-hidden="true">↻</span><span class="differences-restart-label"> Új kör</span></button></div>
     <p id="differences-status" class="differences-status" role="status" aria-live="polite" aria-atomic="true"></p>
     <p class="differences-zoom-help" hidden>Húzd bármelyik képet: együtt mozognak. Koppints egy eltérésre!</p>
@@ -105,24 +120,31 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
   }
 
   function choosePoint(point) {
-    if (!playable() || !point) return;
+    if (!playable() || !point || resting) return;
     cursor = point; clearTimeout(missTimer); miss = null;
-    const difference = findDifferenceAt(scene, round.ids, point.x, point.y, found);
+    const hitScale = DIFFERENCE_LEVELS.find(item => item.id === levelId)?.hitScale ?? 1;
+    const difference = findDifferenceAt(scene, round.ids, point.x, point.y, found, hitScale);
     if (!difference) {
-      const previous = findDifferenceAt(scene, round.ids, point.x, point.y);
+      const previous = findDifferenceAt(scene, round.ids, point.x, point.y, [], hitScale);
       if (previous && found.includes(previous.id)) status('Ezt már megtaláltad. Keress egy másik eltérést!');
       else {
+        // Tapping everywhere is no longer free: misses cost stars, and a quick burst of them asks for a pause.
+        const now = Date.now(); misses++;
+        missTimes = [...missTimes.filter(time => now - time < MISS_WINDOW), now];
         status('Itt most nincs eltérés. Nézz körül tovább!'); miss = point;
         missTimer = setTimeout(() => { missTimer = null; miss = null; if (active) updateOverlays(); }, 850);
+        if (missTimes.length >= MISS_BURST) rest();
       }
       updateOverlays(); return;
     }
-    stopPlayback(); found.push(difference.id); effect('collect');
+    stopPlayback(); found.push(difference.id); effect('collect'); missTimes = [];
     if (hintTarget === difference.id) { hintTarget = null; hintStage = 0; }
     finished = found.length === round.ids.length;
     updateProgress(); updateOverlays();
-    status(finished ? 'Minden különbséget megtaláltál!' : `Megvan! ${difference.label} · Még ${round.ids.length - found.length} eltérés vár.`);
-    if (finished) onComplete({ sceneId, levelId, count: round.ids.length });
+    const label = round.variants?.[difference.id] === 'authored' ? `${difference.label} · ` : '';
+    status(finished ? 'Minden különbséget megtaláltál!' : `Megvan! ${label}Még ${round.ids.length - found.length} eltérés vár.`);
+    say('guide_good');
+    if (finished) onComplete({ sceneId, levelId, count: differenceStars({ misses, hints }), misses, hints });
   }
 
   function hint() {
@@ -132,10 +154,12 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
       const remaining = round.ids.filter(id => !found.includes(id));
       hintTarget = remaining[Math.floor(Math.random() * remaining.length)]; hintStage = 0;
     }
-    hintStage = Math.min(3, hintStage + 1);
-    const difference = scene.differences.find(item => item.id === hintTarget);
-    status(hintStage === 1 ? difference.hint : hintStage === 2 ? `${difference.hint} Nézd meg a jelölt környéket mindkét képen!` : 'A kisebb jelölésen belül hasonlítsd össze a részleteket, és jelöld meg az eltérést!');
-    if (hintStage >= 2) { if (zoom) centerView(difference.area.x, difference.area.y); say(hintStage === 2 ? 'differences_hint' : 'differences_closer', true); }
+    hintStage = Math.min(3, hintStage + 1); hints++;
+    const difference = scene.differences.find(item => item.id === hintTarget), text = differenceHint(difference, round.variants?.[hintTarget]);
+    status(hintStage === 1 ? text : hintStage === 2 ? `${text} Nézd meg a jelölt környéket mindkét képen!` : 'A kisebb jelölésen belül hasonlítsd össze a részleteket, és jelöld meg az eltérést!');
+    if (hintStage >= 2 && zoom) centerView(difference.area.x, difference.area.y);
+    // differences_closer is recorded with the same words as differences_hint, so only the first ring speaks.
+    if (hintStage === 2) say('differences_hint', true); else if (hintStage === 3) stopPlayback();
     updateOverlays();
   }
 
@@ -230,12 +254,16 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
     // A fresh round should not accidentally present exactly the same subset.
     for (let attempt = 0; attempt < 12 && signature(round) === lastSignature; attempt++) round = createDifferenceRound(sceneId, levelId);
     if (signature(round) === lastSignature) {
-      const ceiling = DIFFERENCE_LEVELS.findIndex(item => item.id === levelId) + 1;
+      const ceiling = DIFFERENCE_LEVELS.find(item => item.id === levelId)?.ceiling ?? 3;
       const replacement = scene.differences.find(item => item.difficulty <= ceiling && !round.ids.includes(item.id));
-      if (replacement) round = { ...round, ids: [...round.ids.slice(1), replacement.id] };
+      if (replacement) {
+        const variants = { ...round.variants, [replacement.id]: differenceVariants(replacement.id).includes(round.variants[round.ids[0]]) ? round.variants[round.ids[0]] : 'authored' };
+        delete variants[round.ids[0]];
+        round = { ...round, ids: [...round.ids.slice(1), replacement.id], variants };
+      }
     }
     lastSignature = signature(round); renderNumber++;
-    active = true; finished = false; found = []; hintTarget = null; hintStage = 0; pending = null;
+    active = true; finished = false; found = []; hintTarget = null; hintStage = 0; pending = null; misses = 0; hints = 0; missTimes = [];
     zoom = false; view = { x: 0, y: 0, width: WIDTH, height: HEIGHT }; cursor = { x: 50, y: 50 }; keyboard = false;
     render(); attachListeners(); if (options.announce !== false) say('differences_start');
   }

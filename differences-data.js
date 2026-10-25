@@ -75,33 +75,56 @@ export const DIFFERENCE_SCENES = [
   },
 ];
 
+// Kezdő is the entry level: three obvious changes (missing or extra things) and generous tap areas.
 export const DIFFERENCE_LEVELS = [
-  { id: 'explorer', name: 'Felfedező', count: 5 },
-  { id: 'observer', name: 'Megfigyelő', count: 7 },
-  { id: 'detective', name: 'Nyomozó', count: 10 },
+  { id: 'starter', name: 'Kezdő', count: 3, ceiling: 1, hitScale: 1.6, variants: ['missing', 'extra'] },
+  { id: 'explorer', name: 'Felfedező', count: 5, ceiling: 1, hitScale: 1.2, variants: ['authored', 'missing', 'extra', 'color'] },
+  { id: 'observer', name: 'Megfigyelő', count: 7, ceiling: 2, hitScale: 1, variants: ['authored', 'authored', 'color', 'mirror', 'extra'] },
+  { id: 'detective', name: 'Nyomozó', count: 10, ceiling: 3, hitScale: 1, variants: ['authored', 'authored', 'color', 'mirror'] },
 ];
+// Besides its drawn change, every detail can be shown recoloured, missing or with a small extra visitor.
+// Mirroring is offered only where the drawing is clearly not left-right symmetric.
+export const DIFFERENCE_VARIANTS = ['authored', 'color', 'missing', 'extra', 'mirror'];
+const MIRROR_SAFE = new Set(['teapot', 'watering-can', 'squirrel', 'gull', 'fish', 'toy-car', 'rocking-horse', 'bird', 'snail', 'trowel', 'kite']);
+export const differenceVariants = id => DIFFERENCE_VARIANTS.filter(kind => kind !== 'mirror' || MIRROR_SAFE.has(id));
 
+const unit = rng => { const value = Number(rng()); return Number.isFinite(value) ? Math.max(0, Math.min(value, 1 - Number.EPSILON)) : 0; };
 export function createDifferenceRound(sceneId, levelId = 'observer', rng = Math.random) {
   const scene = DIFFERENCE_SCENES.find(item => item.id === sceneId) || DIFFERENCE_SCENES[0];
-  const level = DIFFERENCE_LEVELS.find(item => item.id === levelId) || DIFFERENCE_LEVELS[1];
-  const ceiling = DIFFERENCE_LEVELS.indexOf(level) + 1;
-  const available = scene.differences.filter(item => item.difficulty <= ceiling).map(item => item.id);
+  const level = DIFFERENCE_LEVELS.find(item => item.id === levelId) || DIFFERENCE_LEVELS[2];
+  const available = scene.differences.filter(item => item.difficulty <= level.ceiling).map(item => item.id);
   for (let i = available.length - 1; i > 0; i -= 1) {
-    const value = Number(rng());
-    const j = Math.floor((Number.isFinite(value) ? Math.max(0, Math.min(value, 1 - Number.EPSILON)) : 0) * (i + 1));
+    const j = Math.floor(unit(rng) * (i + 1));
     [available[i], available[j]] = [available[j], available[i]];
   }
-  return { sceneId: scene.id, levelId: level.id, ids: available.slice(0, level.count) };
+  const ids = available.slice(0, level.count);
+  const variants = Object.fromEntries(ids.map(id => {
+    const pool = level.variants.filter(kind => differenceVariants(id).includes(kind));
+    return [id, pool[Math.floor(unit(rng) * pool.length)] || 'authored'];
+  }));
+  return { sceneId: scene.id, levelId: level.id, ids, variants };
 }
 
-export function findDifferenceAt(scene, ids, x, y, found = []) {
+export function findDifferenceAt(scene, ids, x, y, found = [], hitScale = 1) {
   const currentScene = typeof scene === 'string' ? DIFFERENCE_SCENES.find(item => item.id === scene) : scene;
   if (!currentScene || !Number.isFinite(x) || !Number.isFinite(y) || x < 0 || y < 0 || x > 100 || y > 100) return undefined;
   const selected = new Set(ids);
   const completed = new Set(found);
-  return currentScene.differences.find(item => {
-    if (!selected.has(item.id) || completed.has(item.id)) return false;
-    const { area } = item;
-    return ((x - area.x) / area.rx) ** 2 + ((y - area.y) / area.ry) ** 2 <= 1;
-  });
+  const scale = Number.isFinite(hitScale) && hitScale >= 1 ? hitScale : 1;
+  const distance = item => ((x - item.area.x) / (item.area.rx * scale)) ** 2 + ((y - item.area.y) / (item.area.ry * scale)) ** 2;
+  // With enlarged areas two details can overlap; the nearer one wins.
+  return currentScene.differences.filter(item => selected.has(item.id) && !completed.has(item.id) && distance(item) <= 1)
+    .sort((a, b) => distance(a) - distance(b))[0];
+}
+
+// Fewer stars for scattered tapping (every third miss) and for each hint used.
+export function differenceStars({ misses = 0, hints = 0 } = {}) {
+  return Math.max(1, Math.min(5, 5 - Math.floor(Math.max(0, misses) / 3) - Math.max(0, hints)));
+}
+
+// The location sentence of a hint stays true for every variant; the detail question only fits the drawn change.
+export function differenceHint(difference, variant = 'authored') {
+  if (variant === 'authored') return difference.hint;
+  const first = difference.hint.match(/^.*?[.!?](?=\s|$)/)?.[0] || difference.hint;
+  return first;
 }
