@@ -317,3 +317,13 @@
   .meadow-resume-free { font-size: .85rem; }
 }
 @media (orientation: landscape) and (max-height: 390px) { .meadow-mode-options { grid-column: 1 / -1; } }
+/* Leave room for the counting guide and feedback above the main actions. */
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 800px) and (orientation: landscape) {
+  .meadow-panel[data-mode="collect"] .meadow-stage { grid-template-columns: 180px minmax(0,1fr); gap: 18px; }
+  .meadow-panel[data-mode="collect"] .meadow-task-title { margin: 10px 0; }
+  .meadow-panel[data-mode="collect"] .meadow-orchard { min-height: 64px; gap: 6px; padding: 8px; }
+  .meadow-panel[data-mode="collect"] .meadow-apple { width: 48px; height: 48px; font-size: 32px; border-radius: 15px; }
+  .meadow-panel[data-mode="collect"] .meadow-basket { min-height: 100px; }
+  .meadow-panel[data-mode="collect"] .meadow-basket-apples { min-height: 44px; }
+  .meadow-panel[data-mode="collect"] .meadow-status { margin: 8px 0; }
+}

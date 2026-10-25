@@ -42,6 +42,10 @@ test('quantity feedback distinguishes too few, too many and exactly enough throu
 });
 
 import { validateMeadow, meadowGuests, meadowInitialCount, createMeadowTask, changeMeadowSelection, meadowTaskComplete, meadowServingRequest, MESE_CLIPS } from '../meseliget-data.js';
+test('apple completion models use az before egy and öt throughout the supported count range', () => {
+ const quantities=['az egy','a két','a három','a négy','az öt','a hat','a hét','a nyolc','a kilenc','a tíz'];
+ quantities.forEach((quantity,index)=>assert.equal(MESE_CLIPS[`mese_collected_${index+1}`],`Megvan ${quantity} alma! Köszönöm!`));
+});
 test('v1 checkpoints migrate without inventing pictures for old picnic totals', () => {
  const old={version:1,journeys:4,collect:{independent:3,assisted:2},serve:{independent:5,assisted:0},adventure:{step:1,target:5}};
  const migrated=validateMeadow(old);

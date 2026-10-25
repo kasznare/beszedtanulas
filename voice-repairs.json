@@ -1,0 +1,347 @@
+{
+  "version": 1,
+  "model_id": "eleven_v4",
+  "language_code": "hu",
+  "clips": {
+    "engineering_build": {
+      "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!",
+      "spokenTarget": "Váálassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj szééles alapot /ˈeːpiːtɛni/!"
+    },
+    "engineering_bridge": {
+      "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!",
+      "spokenTarget": "/ˈeːpiːt͡ʃ/ hidat! Koppints /ˈkeːt/ pontra, és összekötjük egy /ˈruːd.dɒl/. A végén engedd /ˈaːt/ az /ˈɒutoːt/!"
+    },
+    "engineering_water": {
+      "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
+      "spokenTarget": "/ˈt͡ʃob.bɒnt/! Próbáld /ˈbɛjːɛbː/ tenni! Vissza is vonhatod az utolsó léépéést."
+    },
+    "mese_collected_5": {
+      "text": "Megvan az öt alma! Köszönöm!",
+      "spokenTarget": "Megvan az /ˈøt/ alma! /ˈkøsønøm/!"
+    },
+    "r_rhyme_sator_1": {
+      "text": "Erdő mellett sátrat állítunk.",
+      "spokenTarget": "/ˈɛrdøː/ mellett /ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/."
+    },
+    "phrase_anya_gyere": {
+      "text": "anya, gyere",
+      "spokenTarget": "/ˈɒɲɒ/, /ˈɟɛrɛ/."
+    },
+    "dress_request_sapka": {
+      "text": "Kérem a sapkát.",
+      "spokenTarget": "Kéérem a sapkáát."
+    },
+    "dress_name_cipo": {
+      "text": "cipő",
+      "spokenTarget": "/ˈt͡sipøː/."
+    },
+    "flip_find": {
+      "text": "Hol bújt el? Keresd meg a képét!",
+      "spokenTarget": "Hol bújt el? Keresd meg a kéépéét!"
+    },
+    "r_phrase_sator": {
+      "text": "piros sátor",
+      "spokenTarget": "Piros sáátor."
+    },
+    "mese_guest_koala_plate": {
+      "text": "Adj a koalának egy tányért!",
+      "spokenTarget": "Adj a /ˈkoɒlaːnɒk/ egy /ˈtaːɲeːrt/!"
+    },
+    "mese_guest_majom_plate": {
+      "text": "Adj a majomnak egy tányért!",
+      "spokenTarget": "Adj a /ˈmɒjomnɒk/ egy /ˈtaːɲeːrt/!"
+    },
+    "dress_thanks_sal": {
+      "text": "Meleg a sálam!",
+      "spokenTarget": "/ˈmɛlɛɡ/ a sáálam!"
+    },
+    "dress_thanks_szandal": {
+      "text": "Szellős a szandálom!",
+      "spokenTarget": "Szel-lőős a szandáálom!"
+    },
+    "mese_guest_cica_plate": {
+      "text": "Adj a cicának egy tányért!",
+      "spokenTarget": "Adj a tszitszáának egy /ˈtaːɲeːrt/!"
+    },
+    "r_variant_kek_sator": {
+      "text": "kék sátor",
+      "spokenTarget": "/ˈkeːk/ sáátor."
+    },
+    "r_rhyme_robot_1": {
+      "text": "Piros ceruzát a kezébe kap.",
+      "spokenTarget": "Piros /ˈt͡sɛruzaːt/ a kezébe kap."
+    },
+    "r_word_madar": {
+      "text": "madár",
+      "spokenTarget": "madáár."
+    },
+    "r_phrase_raketa": {
+      "text": "repül a rakéta",
+      "spokenTarget": "Repül a rakééta."
+    },
+    "phrase_cica_alszik": {
+      "text": "cica alszik",
+      "spokenTarget": "tszitsza alszik."
+    },
+    "chess_rook_three": {
+      "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből.",
+      "spokenTarget": "Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
+    },
+    "chess_queen_open": {
+      "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!",
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!"
+    },
+    "chess_rook_pin_three": {
+      "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!",
+      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+    },
+    "chess_rook_knight_open": {
+      "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
+      "spokenTarget": "A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+    },
+    "chess_bishop_pawn_open": {
+      "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
+      "spokenTarget": "A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
+    },
+    "chess_knight_four": {
+      "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!",
+      "spokenTarget": "A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!"
+    },
+    "chess_king_five": {
+      "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!",
+      "spokenTarget": "A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+    },
+    "chess_rook_master": {
+      "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!",
+      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+    },
+    "chess_knight_master": {
+      "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!",
+      "spokenTarget": "Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+    },
+    "chess_rook_pawn_master": {
+      "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+    },
+    "chess_rook_knight_master": {
+      "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
+      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+    },
+    "chess_rook_pin_master": {
+      "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!",
+      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+    },
+    "chess_king_master": {
+      "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!",
+      "spokenTarget": "A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
+    },
+    "chess_queen_pawn_master": {
+      "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+    },
+    "chess_bishop_knight_master": {
+      "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
+      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+    },
+    "dress_request_polo": {
+      "text": "Kérem a pólót.",
+      "spokenTarget": "Kéérem a pólót."
+    },
+    "dress_request_sal": {
+      "text": "Kérem a sálat.",
+      "spokenTarget": "Kéérem a sálat."
+    },
+    "dress_request_cipo": {
+      "text": "Kérem a cipőt.",
+      "spokenTarget": "Kéérem a cipőt."
+    },
+    "dress_request_esokabat": {
+      "text": "Kérem az esőkabátot.",
+      "spokenTarget": "Kéérem az esőkabátot."
+    },
+    "dress_request_gumicsizma": {
+      "text": "Kérem a gumicsizmát.",
+      "spokenTarget": "Kéérem a gumicsizmát."
+    },
+    "dress_request_napkalap": {
+      "text": "Kérem a napkalapot.",
+      "spokenTarget": "Kéérem a napkalapot."
+    },
+    "dress_request_rovidnadrag": {
+      "text": "Kérem a rövidnadrágot.",
+      "spokenTarget": "Kéérem a rövidnadrágot."
+    },
+    "dress_request_szandal": {
+      "text": "Kérem a szandált.",
+      "spokenTarget": "Kéérem a szandált."
+    },
+    "guide_listening_game": {
+      "text": "Hallgasd meg a szót, és keresd meg a képét!",
+      "spokenTarget": "Hallgasd meg a szót, és keresd meg a kéépéét!"
+    },
+    "mese_guest_koala_cup": {
+      "text": "Adj a koalának egy poharat!",
+      "spokenTarget": "Adj a /ˈkoɒlaːnɒk/ egy poharat!"
+    },
+    "mese_guest_majom_cup": {
+      "text": "Adj a majomnak egy poharat!",
+      "spokenTarget": "Adj a /ˈmɒjomnɒk/ egy /ˈpohɒrɒt/!"
+    },
+    "mese_guest_cica_cup": {
+      "text": "Adj a cicának egy poharat!",
+      "spokenTarget": "Adj a /ˈt͡si.t͡saːnɒk/ egy poharat!"
+    },
+    "word_cipo": {
+      "text": "cipő",
+      "spokenTarget": "/ˈt͡sipøː/."
+    },
+    "r_word_cipo": {
+      "text": "cipő",
+      "spokenTarget": "/ˈt͡sipøː/."
+    },
+    "abk_name_cat": {
+      "text": "Cica",
+      "spokenTarget": "/ˈt͡si.t͡sɒ/."
+    },
+    "abk_name_chicken": {
+      "text": "Tyúk",
+      "spokenTarget": "Tyúúk."
+    },
+    "abk_name_cuckoo": {
+      "text": "Kakukk",
+      "spokenTarget": "/ˈkɒkukː/."
+    },
+    "dress_name_gumicsizma": {
+      "text": "gumicsizma",
+      "spokenTarget": "/ˈɡumi.t͡ʃiz.mɒ/."
+    },
+    "word_maci": {
+      "text": "maci",
+      "spokenTarget": "matszi."
+    },
+    "number_8": {
+      "text": "nyolc",
+      "spokenTarget": "/ˈɲol.t͡s/."
+    },
+    "quantity_alma_8": {
+      "text": "nyolc alma",
+      "spokenTarget": "/ˈɲol.t͡s/ alma."
+    },
+    "quantity_labda_8": {
+      "text": "nyolc labda",
+      "spokenTarget": "/ˈɲol.t͡s/ labda."
+    },
+    "quantity_auto_8": {
+      "text": "nyolc autó",
+      "spokenTarget": "/ˈɲol.t͡s/ autó."
+    },
+    "phrase_puha_maci": {
+      "text": "puha maci",
+      "spokenTarget": "/ˈpuhɒ/ matszi."
+    },
+    "r_word_maci": {
+      "text": "maci",
+      "spokenTarget": "matszi."
+    },
+    "logic_n_8": {
+      "text": "nyolc",
+      "spokenTarget": "/ˈɲol.t͡s/."
+    },
+    "workshop_n_8": {
+      "text": "nyolc",
+      "spokenTarget": "/ˈɲol.t͡s/."
+    },
+    "guide_menu_thinking": {
+      "text": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!",
+      "spokenTarget": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Váálassz egy játékot!"
+    },
+    "guide_practice": {
+      "text": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!",
+      "spokenTarget": "Egy szóval vagy két szóval is gyakorolhatunk. Váálassz egy képet!"
+    },
+    "guide_mic_help": {
+      "text": "Kérj meg egy felnőttet, hogy kapcsolja be a mikrofont!",
+      "spokenTarget": "/ˈkeːrj/ meg egy felnőttet, hogy kapcsolja be a mikrofont!"
+    },
+    "montessori_shapes_2": {
+      "text": "Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!",
+      "spokenTarget": "Nézd a lyuk alakját és a keret szíínéét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!"
+    },
+    "montessori_tower_retry": {
+      "text": "Előbb egy nagyobb korong következik. Nézd meg a tálcát!",
+      "spokenTarget": "Előbb egy nagyobb /ˈkoroŋɡ/ következik. Nézd meg a tálcát!"
+    },
+    "r_mission_unnep": {
+      "text": "Ünnepi asztalt készítünk. Küldj tortát és virágot!",
+      "spokenTarget": "Ün-nepi asztalt készítünk. Küldj tortát és virágot!"
+    },
+    "r_mission_zene": {
+      "text": "Zenés ünnep lesz. Küldj rádiót és rózsát!",
+      "spokenTarget": "Zenéés ünnep lesz. Küldj rádiót és rózsát!"
+    },
+    "mese_guest_panda_cup": {
+      "text": "Adj a pandának egy poharat!",
+      "spokenTarget": "Adj a /ˈpɒndaːnɒk/ egy poharat!"
+    },
+    "chess_king_team": {
+      "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
+      "spokenTarget": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!"
+    },
+    "city_story_epilogue_recap2": {
+      "text": "A padot a javított láb és a kezdőbetűk alapján azonosítottad.",
+      "spokenTarget": "A padot a /ˈjɒviːtotː/ láb és a kezdőbetűk alapján azonosítottad."
+    },
+    "city_story_workshop_red_p3": {
+      "text": "Dani megfordítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette.",
+      "spokenTarget": "Dani megfor-díítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette."
+    },
+    "guide_teddy": {
+      "text": "Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!",
+      "spokenTarget": "Megéheztem! /ˈhɒlː.ɡɒʒd/ meg, mit kérek, és koppints a finomságra!"
+    },
+    "engineering_hub": {
+      "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
+      "spokenTarget": "/ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, /ˈtɛrvɛzː/ saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!"
+    },
+    "r_story": {
+      "text": "Tegyük sorba a mondóka képeit! Melyik volt először?",
+      "spokenTarget": "Tegyük sorba a mondóka kéépeit! Melyik volt először?"
+    },
+    "r_story_done": {
+      "text": "Sorba rendeztük a mondóka képeit!",
+      "spokenTarget": "/ˈʃorbɒ/ rendeztük a mondóka képeit!"
+    }
+  },
+  "boundedExcerpts": [
+    "phrase_part_kerek_vizet_0",
+    "phrase_part_meg_alma_0",
+    "phrase_part_nem_kerem_0",
+    "phrase_part_kerek_almat_0",
+    "phrase_part_kerek_tejet_0",
+    "phrase_part_kerek_kiflit_0",
+    "phrase_part_kerek_kenyeret_0",
+    "phrase_part_adj_vizet_0",
+    "phrase_part_apa_integet_0",
+    "phrase_part_kutya_fut_0",
+    "phrase_part_maci_eszik_0",
+    "phrase_part_kicsi_cica_0",
+    "phrase_part_nagy_auto_0",
+    "phrase_part_meleg_tej_0",
+    "phrase_part_puha_maci_0",
+    "phrase_part_meg_kerek_0",
+    "phrase_part_eleg_volt_0",
+    "phrase_part_meg_jatszunk_0",
+    "patterns_retry",
+    "r_rhyme_part_roka_0_0",
+    "r_rhyme_part_roka_1_0",
+    "r_rhyme_part_roka_3_0",
+    "r_rhyme_part_kert_0_0",
+    "r_rhyme_part_kert_2_0",
+    "r_rhyme_part_kert_3_0",
+    "r_rhyme_part_sator_1_0",
+    "r_rhyme_part_sator_2_0",
+    "r_rhyme_part_sator_3_0",
+    "r_rhyme_part_robot_1_0",
+    "phrase_part_cica_alszik_0"
+  ]
+}

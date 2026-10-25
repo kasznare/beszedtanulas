@@ -291,6 +291,63 @@ Források:
 
 Hiányzó saját felvételnél a játék a kész Jessa-hangra vált. Ha a gyári MP3 sem indul, látható üzenet kéri az ismétlést; a játék nem vált másik böngészőhangra. A dinamikus szám- és mennyiségmondatokat is a teljes helyi hangjegyzék fedi le. A 24 családi szófelvétel, az R-kaland saját felvevője, az állathangok és a zörejek változatlanok.
 
+## Helyi hangátírás
+
+A `scripts/transcribe-voice.py` ingyenes, helyben futó [faster-whisper](https://github.com/SYSTRAN/faster-whisper) felismeréssel írja át a hangokat magyar szöveggé. A program nem használ ElevenLabs-kulcsot vagy kreditet, és nem továbbít hangot. A telepítéshez és a modell első letöltéséhez internet szükséges; az ellenőrzés kizárólag már letöltött modellel, offline módban működik. Hiányzó modellnél leáll. A nagy modell körülbelül 1,6 GB helyet igényel; a Python-környezet és a modell nem kerül a játékcsomagba.
+
+Elkülönített környezet telepítése `uv` használatával:
+
+~~~bash
+uv venv --python 3.12 ~/.local/share/beszedtanulas/voice-qa-venv
+uv pip install --python ~/.local/share/beszedtanulas/voice-qa-venv/bin/python -r scripts/requirements-voice-qa.txt
+source ~/.local/share/beszedtanulas/voice-qa-venv/bin/activate
+# Csak ha a modell még nincs a helyi cache-ben:
+python -c 'from faster_whisper.utils import download_model; download_model("large-v3-turbo")'
+~~~
+
+Ellenőrzés az aktivált környezetben:
+
+~~~bash
+npm run transcribe-voice -- --ids 'engineering_*'
+python scripts/transcribe-voice.py --audio /teljes/utvonal/minta.mp3 --expected 'Próbálj széles alapot építeni!'
+python scripts/transcribe-voice.py --samples /teljes/utvonal/candidate-c.json
+~~~
+
+Apple Silicon gépen az opcionális MLX háttér a Metal gyorsítását használja. Az aktivált helyi környezetbe telepítés és az egyszeri modellletöltés:
+
+~~~bash
+uv pip install --python ~/.local/share/beszedtanulas/voice-qa-venv/bin/python -r scripts/requirements-voice-qa-mlx.txt
+python -c 'from huggingface_hub import snapshot_download; snapshot_download("mlx-community/whisper-large-v3-turbo")'
+~~~
+
+Ezután a teljes rövid játékhangjegyzék helyben, offline ellenőrizhető:
+
+~~~bash
+HF_HUB_OFFLINE=1 python scripts/transcribe-voice.py --backend mlx --all --output output/local-voice-qa/review
+~~~
+
+A `--backend mlx` alapmodellje az `mlx-community/whisper-large-v3-turbo`; a `--model` itt is elfogad már letöltött helyi könyvtárat. A program csak helyi modellfájlokat használ, hiányos modellnél leáll. A két háttér külön felismerési cache-t kap; a riport a háttér és a modellfájlok azonosítóit is rögzíti. MLX esetén a helyi FFmpeg futtatható állományának útvonala, ellenőrzőösszege és verzióadata is része a cache azonosítójának: dekódercsere után a program új átiratot készít. A verzió kiolvasásához kizárólag helyi `ffmpeg -version` parancs fut.
+
+A pontos, áttekintett hangbemenet-javításokat a `voice-repairs.json` tartalmazza. A `clips` bejegyzései az eredeti `text` mellett külön `spokenTarget` értéket adnak; a fordító ellenőrzi az azonosítót, a változatlan megjelenített szöveget, az egy-egy szavas megfeleltetést, a modellt és a nyelvet. A `boundedExcerpts` kivágásainak ráhagyása nem nyúlhat bele a szomszédos szó igazított időtartamába. A fordítás önmagában nem készít vagy telepít hangot. Elkülönített könyvtárban az éles jegyzék átírása nélkül is kipróbálható:
+
+~~~bash
+voice_preview_dir=$(mktemp -d)
+node scripts/build-voice-manifest.mjs --output-dir "$voice_preview_dir"
+# A jegyzék: "$voice_preview_dir/audio/voice/manifest.json"
+~~~
+
+A fordítás nem másolja át a hangokat. Egy már előkészített külön hangkönyvtár ellenőrzésénél a jegyzék relatív `file` útvonalainak alapja kifejezetten megadható:
+
+~~~bash
+python scripts/transcribe-voice.py --backend mlx --all --manifest /teljes/utvonal/hang-sandbox/audio/voice/manifest.json --audio-root /teljes/utvonal/hang-sandbox --output output/local-voice-qa/sandbox
+~~~
+
+Az alapértelmezett projektjegyzék továbbra is a projekt gyökerét használja hangalapként. Egyedi `--manifest` mellett, `--audio-root` nélkül kizárólag a jegyzék saját könyvtára az alap; a program nem keres más helyeken hiányzó fájlt. Az `--audio-root` csak a jegyzék relatív útvonalaira vonatkozik; az abszolút útvonalak változatlanok.
+
+A `--all` a rövid játékhangjegyzék egészét ellenőrzi; a meséket, családi felvételeket és zörejeket nem veszi hozzá automatikusan. A `--model /helyi/modell/konyvtara` másik letöltött modellt választ. Az `--output` megváltoztatja az alapértelmezett `output/voice-transcription` célkönyvtárat. Itt a `report.html` meghallgatható hangokkal és eredeti/felismert szövegpárokkal nyitható meg; a `report.json` a szóidőket, eltéréseket, hangellenőrzőösszegeket és felismerési beállításokat is tartalmazza. A helyi cache azonos hangbájtokkal, modellel és beállításokkal újrahasználható.
+
+A felismerő sem szöveges súgásként, sem előző felvételként nem kapja meg az elvárt szöveget. Az összehasonlítás megtartja az ékezeteket és a kettőzött betűket: `széles/szeles`, `csobbant/csoban`, `rúddal/rúdal` eltérés marad. Az eltérő átirat meghallgatási jelzés, önmagában nem bizonyít hibás kiejtést; az egyező átirat sem jóváhagyás, mert a felismerő kijavíthatja a hallott hibát. A szóidők nem mérik az egyes hangok hosszúságát. A `voice-rejections.json` elutasított felvételei hangazonosító helyett a konkrét hang ellenőrzőösszegével kapcsolódnak a riporthoz: egy hibátlan gépi átirat sem írja felül a felhasználó visszajelzését. Az eszköz semmit nem telepít a játék hangjai közé.
+
 ## Hangeffektek a mozdulatokhoz
 
 A koppintás és a kijelölés rövid közös jelzést kap. A Montessori megfogás, fa ütközés, átesés, forgatás, akadálycsúsztatás és golyólerakás külön hallható. A Rendezőrács és Mintaemlék lerakása illesztési, a minta elrejtése és újranézése papírhangot kap; az ellenőrzés külön sikert vagy újrapróbálást jelez. A sakkban külön figurakoppanás, ütési és visszavonási hang van; a képkirakó megfogást, illesztést és visszatételt jelez, a kártyák papírfordítást. A macis játékok étel- és ruhamozdulatai, a Meseliget almái/tányérjai, a Műhelyliget rudai és formái, a bolt, a szabálygép, a róka lépései és az R-kaland képes találatai is effektet kapnak. A meglévő vízöntési hang ugyanarra a külön szabályozható effektkimenetre kapcsolódik.

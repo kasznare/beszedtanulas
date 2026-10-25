@@ -74,7 +74,7 @@ export const R_RHYMES = [
     ['Róka körben táncot jár.', '🦊 🎵'], ['Ránk egy szép virágkert vár.', '🌷 🌹'],
   ]},
   {id:'sator', title:'Erdei kirándulás', icon:'⛺', lines:[
-    ['Erre gyere, erre várunk!', '🦊 👋'], ['Erdő mellett sátrat állunk.', '🌲 ⛺'],
+    ['Erre gyere, erre várunk!', '🦊 👋'], ['Erdő mellett sátrat állítunk.', '🌲 ⛺'],
     ['Körte kerül a kosárba.', '🍐 🧺'], ['Róka indul vacsorára.', '🦊 🍽️'],
   ]},
   {id:'robot', title:'Rajzoló robot', icon:'🤖', lines:[
@@ -229,7 +229,7 @@ export function buildRPostMission(position='all',random=Math.random,previousId='
 export const R_RHYME_PARTS = {
   roka:[['Róka fut','a réten át.'],['Robot őrzi','a répát.'],['Ropi roppan,','perec kerek.'],['Velük játszik','minden gyerek.']],
   kert:[['Piros rózsa','nyílik reggel.'],['Robot locsol','friss vízcseppel.'],['Róka körben','táncot jár.'],['Ránk egy szép','virágkert vár.']],
-  sator:[['Erre gyere,','erre várunk!'],['Erdő mellett','sátrat állunk.'],['Körte kerül','a kosárba.'],['Róka indul','vacsorára.']],
+  sator:[['Erre gyere,','erre várunk!'],['Erdő mellett','sátrat állítunk.'],['Körte kerül','a kosárba.'],['Róka indul','vacsorára.']],
   robot:[['Rajzol a robot:','kerek a nap.'],['Piros ceruzát','a kezébe kap.'],['Rajzol egy rókát,','rajzol egy várat.'],['Rajzol az égre','repülő madarat.']],
 };
 export function rRhymeUnits(rhyme,short=false) {

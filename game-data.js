@@ -39,7 +39,7 @@ export const twoWordPhrases = [
   // Each cue illustrates one spoken part; topic and group support short, coherent rounds.
   { id: "kerek_vizet", text: "kérek vizet", group: "request", topic: "food", emojis: ["🙋", "💧"], targets: [{ base: "kérek", aliases: ["kerek", "kerem", "ker"] }, { base: "vizet", aliases: ["viz", "vizet", "bi"] }] },
   { id: "meg_alma", text: "még almát", group: "more_stop", topic: "food", emojis: ["➕", "🍎"], targets: [{ base: "még", aliases: ["meg"] }, { base: "almát", aliases: ["almat", "alma", "ama"] }] },
-  { id: "anya_gyere", text: "anya gyere", group: "person_action", topic: "family", emojis: ["👩", "👋"], targets: [{ base: "anya", aliases: ["ana", "aja"] }, { base: "gyere", aliases: ["gye"] }] },
+  { id: "anya_gyere", text: "anya, gyere", group: "person_action", topic: "family", emojis: ["👩", "👋"], targets: [{ base: "anya", aliases: ["ana", "aja"] }, { base: "gyere", aliases: ["gye"] }] },
   { id: "apa_auto", text: "apa autózik", group: "person_action", topic: "play", emojis: ["👨", "🚗💨"], targets: [{ base: "apa", aliases: ["aba", "appa"] }, { base: "autózik", aliases: ["autozik", "atozik"] }] },
   { id: "nagy_labda", text: "nagy labda", group: "attribute_object", topic: "play", emojis: ["📏", "⚽"], targets: [{ base: "nagy", aliases: ["nagi"] }, { base: "labda", aliases: ["laba", "bada"] }] },
   { id: "nem_kerem", text: "nem kérem", group: "more_stop", topic: "food", emojis: ["🚫", "🙅"], targets: [{ base: "nem", aliases: ["neem"] }, { base: "kérem", aliases: ["kerem", "kerek"] }] },

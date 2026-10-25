@@ -36,6 +36,11 @@ for (const category of wordCategories) {
   for (const id of category.words) assert.ok(wordIds.has(id), `Unknown word: ${id}`);
 }
 const manifest = JSON.parse(await readFile(new URL('../audio/voice/manifest.json', import.meta.url), 'utf8'));
+const { compileVoiceManifest } = await import('./build-voice-manifest.mjs');
+const repairs = JSON.parse(await readFile(new URL('../voice-repairs.json', import.meta.url), 'utf8'));
+// Compile in memory: verifies exact repairs, common/scoped phonetics, derived
+// excerpts and bounded cuts together without rewriting production artifacts.
+assert.deepEqual(manifest, await compileVoiceManifest({ repairs }), 'Stale compiled voice manifest');
 const generated = JSON.parse(await readFile(new URL('../audio/voice/generated.json', import.meta.url), 'utf8'));
 const voiceConfig = JSON.parse(await readFile(new URL('../voice-config.json', import.meta.url), 'utf8'));
 const pronunciation = JSON.parse(await readFile(new URL('../voice-pronunciation.json', import.meta.url), 'utf8'));
@@ -66,8 +71,8 @@ assert.equal(new Set(CHESS_PHONETIC_IDS).size, CHESS_PHONETIC_IDS.length, 'Repea
 for (const id of CHESS_PHONETIC_IDS) {
   const clip = manifest.clips.find(clip => clip.id === id);
   assert.equal(clip?.text, CHESS_CLIPS[id], `Missing new chess voice: ${id}`);
-  assert.equal(clip.spokenTarget, phoneticChessText(id, clip.text, pronunciation.words), `Stale chess IPA: ${id}`);
-  assert.ok(clip.spokenTarget.includes('/'), `Missing chess IPA: ${id}`);
+  assert.equal(clip.spokenTarget, repairs.clips[id]?.spokenTarget ?? phoneticChessText(id, clip.text, pronunciation.words), `Stale chess pronunciation: ${id}`);
+  if (!Object.hasOwn(repairs.clips, id)) assert.ok(clip.spokenTarget.includes('/'), `Missing chess IPA: ${id}`);
   assert.equal(clip.spokenText.slice(clip.extract.from, clip.extract.to), clip.spokenTarget, `Wrong chess speech excerpt: ${id}`);
   const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
   const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
@@ -79,8 +84,8 @@ for (const id of ENGINEERING_PHONETIC_IDS) {
   const clip = manifest.clips.find(clip => clip.id === id);
   assert.equal(clip?.text, ENGINEERING_CLIPS[id], `Missing engineering voice: ${id}`);
   assert.equal(VOICE_CLIPS[id]?.text, clip.text, `Missing registered engineering voice: ${id}`);
-  assert.equal(clip.spokenTarget, phoneticEngineeringText(id, clip.text, pronunciation.words), `Stale engineering IPA: ${id}`);
-  assert.ok(clip.spokenTarget.includes('/'), `Missing engineering IPA: ${id}`);
+  assert.equal(clip.spokenTarget, repairs.clips[id]?.spokenTarget ?? phoneticEngineeringText(id, clip.text, pronunciation.words), `Stale engineering pronunciation: ${id}`);
+  if (!Object.hasOwn(repairs.clips, id)) assert.ok(clip.spokenTarget.includes('/'), `Missing engineering IPA: ${id}`);
   assert.equal(clip.spokenText.slice(clip.extract.from, clip.extract.to), clip.spokenTarget, `Wrong engineering speech excerpt: ${id}`);
   const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
   const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
@@ -108,10 +113,8 @@ for (const clip of manifest.clips) {
   assert.deepEqual(VOICE_TIMING[clip.id], receipt.words, `Stale speech timing: ${clip.id}`);
   assert.ok(receipt.words?.length, `Missing word timing: ${clip.id}`);
   const sourceWords = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu);
-  for (const [word, ipa] of Object.entries(pronunciation.words)) {
-    const count = sourceWords.filter(value => value.toLocaleLowerCase('hu-HU') === word).length;
-    if (count) assert.equal((clip.spokenTarget || '').split(`/${ipa}/`).length - 1, count, `Missing pronunciation correction for ${word}: ${clip.id}`);
-  }
+  // The complete compiler comparison above checks common IPA while allowing
+  // exact reviewed overrides and the parts derived from those full models.
   assert.deepEqual(receipt.words.map(word => word[2]), sourceWords, `Incomplete spoken text: ${clip.id}`);
   assert.ok(Number.isFinite(receipt.duration) && receipt.duration > .2, `Invalid audio duration: ${clip.id}`);
   assert.ok(receipt.words.at(-1)[1] <= receipt.duration + .001, `Missing final word: ${clip.id}`);

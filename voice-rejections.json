@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "recordings": [
+    {
+      "id": "engineering_build",
+      "reason": "A széles szó szelesnek hallatszik.",
+      "source": {
+        "fingerprint": "4b544f48366e081e5442acdb872978f86ef5a483ffb7703dc85f586c3b9fe664",
+        "sha256": "e8f0f90fba284f87f31f5944608d133de7fa39d4a4c417d641215732e600eeb3"
+      },
+      "installed": {
+        "fingerprint": "3d5f243fbe3b463ac04589e5e449584b24d13ad8d20608d64b59e0c434fa28ca",
+        "sha256": "a59217a2ad5d29cae0a1cacfe8d213a7041894672d3dfe92be88d6a30c83f853"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-10-23"
+    },
+    {
+      "id": "engineering_bridge",
+      "reason": "A rúddal szó rúdalnak hallatszik.",
+      "source": {
+        "fingerprint": "4399950154eddf2ee0b1b924861b1dc368e7d4af4aaec32c8df9e22631757a44",
+        "sha256": "9fdd51e278f9808c814d534770799ce64cc389699174b8a3ebb1e2704cefc5f8"
+      },
+      "installed": {
+        "fingerprint": "0f965319a08b5896b7ed186845b8f4ac213735fabe8b4c44bb6e7f0828de6fbf",
+        "sha256": "d1bfbc437a4234e20a624f47de8b818cc3d40ff5623bbb356141f08c57187a84"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-10-23"
+    },
+    {
+      "id": "engineering_water",
+      "reason": "A csobbant szó csoban alakban hallatszik.",
+      "source": {
+        "fingerprint": "c31b8315909ba1434d88e15d3297d9327f8e440d4c3d1dbc732bd1dee6a5c285",
+        "sha256": "ae784712b30cedad510f75b9983fb3a5b40b9ccf5ddb82cf25bf1c738ebfa8ca"
+      },
+      "installed": {
+        "fingerprint": "575c088fb191c944f41ce3cf787b3d97051713fa0530c67368fd27fc61c3fdac",
+        "sha256": "10febbafa76f899735a8a7999431b3aa6a5d0c66a01735ca3bdab8428ebf40fc"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-10-23"
+    },
+    {
+      "id": "engineering_pronunciation_pilot_a",
+      "status": "rejected-after-user-feedback",
+      "reportedOn": "2026-10-24",
+      "reason": "A legutóbbi A/B2 próbákra a felhasználó azt jelezte, hogy a széles még mindig szeles. A változatot nem nevezte meg, ezért egyik minta sem elfogadott.",
+      "reportedWord": "széles",
+      "variantUnspecified": true,
+      "source": {
+        "fingerprint": "64687ea048facd35187abfe59fea26d2aad52fc1e0c5e969c2deaf823de4b4cf",
+        "sha256": "6966f42eb2741fecb29e029bca090ae1e4d075b39f4d6b05b1406513d90adaf8"
+      },
+      "installed": {
+        "fingerprint": "f7caab36b405915bf3f1f2ab79aa9f16951484654e1dff377513fc5503c25c5b",
+        "sha256": "b2c3676915ddf3c55151eb05a3dbe9ebc02c2bb085086bc3760220328d6c6871"
+      }
+    },
+    {
+      "id": "engineering_pronunciation_pilot_b2",
+      "status": "rejected-after-user-feedback",
+      "reportedOn": "2026-10-24",
+      "reason": "A legutóbbi A/B2 próbákra a felhasználó azt jelezte, hogy a széles még mindig szeles. A változatot nem nevezte meg, ezért egyik minta sem elfogadott.",
+      "reportedWord": "széles",
+      "variantUnspecified": true,
+      "source": {
+        "fingerprint": "6e13a2282e1d9dc682065f9479d024bd7c7def409215d2d529e5627e019ba9dc",
+        "sha256": "30280a4ec876a28d3ed4d378647f9502d3deef7bc4dac48b5afab6e22c1b044a"
+      },
+      "installed": {
+        "fingerprint": "027682c1c485f1b03a1a1ccf82a8027126f3602bb5c570815597c415c1b91bb5",
+        "sha256": "ea7d6e9844a834a31910fa59740e71cb175dd2fa37c3edb5f292b232162a1fb0"
+      }
+    }
+  ]
+}

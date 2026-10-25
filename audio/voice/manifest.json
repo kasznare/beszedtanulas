@@ -64,7 +64,16 @@
       "id": "guide_menu_thinking",
       "text": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!",
       "group": "guide",
-      "file": "audio/voice/guide_menu_thinking.mp3"
+      "file": "audio/voice/guide_menu_thinking.mp3",
+      "spokenText": "Mondjuk együtt: Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Váálassz egy játékot!",
+      "extract": {
+        "from": 16,
+        "to": 98,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Válassz egy játékot!"
+      },
+      "spokenTarget": "Számoljunk, figyeljük a mintákat, és oldjunk meg fejtörőket! Váálassz egy játékot!"
     },
     {
       "id": "guide_menu_stories",
@@ -112,7 +121,16 @@
       "id": "guide_teddy",
       "text": "Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!",
       "group": "guide",
-      "file": "audio/voice/guide_teddy.mp3"
+      "file": "audio/voice/guide_teddy.mp3",
+      "spokenText": "Mondjuk együtt: Megéheztem! /ˈhɒlː.ɡɒʒd/ meg, mit kérek, és koppints a finomságra!",
+      "extract": {
+        "from": 16,
+        "to": 82,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Megéheztem! Hallgasd meg, mit kérek, és koppints a finomságra!"
+      },
+      "spokenTarget": "Megéheztem! /ˈhɒlː.ɡɒʒd/ meg, mit kérek, és koppints a finomságra!"
     },
     {
       "id": "guide_teddy_thanks",
@@ -161,15 +179,15 @@
       "text": "Hallgasd meg a szót, és keresd meg a képét!",
       "group": "guide",
       "file": "audio/voice/guide_listening_game.mp3",
-      "spokenText": "Mondjuk együtt: Hallgasd meg a szót, és keresd meg a /ˈkeːpeːt/!",
+      "spokenText": "Mondjuk együtt: Hallgasd meg a szót, és keresd meg a kéépéét!",
       "extract": {
         "from": 16,
-        "to": 64,
+        "to": 61,
         "before": 0.025,
         "after": 0.15,
         "text": "Hallgasd meg a szót, és keresd meg a képét!"
       },
-      "spokenTarget": "Hallgasd meg a szót, és keresd meg a /ˈkeːpeːt/!"
+      "spokenTarget": "Hallgasd meg a szót, és keresd meg a kéépéét!"
     },
     {
       "id": "guide_cards",
@@ -182,15 +200,15 @@
       "text": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!",
       "group": "guide",
       "file": "audio/voice/guide_practice.mp3",
-      "spokenText": "Mondjuk együtt: Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy /ˈkeːpɛt/!",
+      "spokenText": "Mondjuk együtt: Egy szóval vagy két szóval is gyakorolhatunk. Váálassz egy képet!",
       "extract": {
         "from": 16,
-        "to": 84,
+        "to": 81,
         "before": 0.025,
         "after": 0.15,
         "text": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy képet!"
       },
-      "spokenTarget": "Egy szóval vagy két szóval is gyakorolhatunk. Válassz egy /ˈkeːpɛt/!"
+      "spokenTarget": "Egy szóval vagy két szóval is gyakorolhatunk. Váálassz egy képet!"
     },
     {
       "id": "guide_imitate",
@@ -265,7 +283,16 @@
       "id": "guide_mic_help",
       "text": "Kérj meg egy felnőttet, hogy kapcsolja be a mikrofont!",
       "group": "guide",
-      "file": "audio/voice/guide_mic_help.mp3"
+      "file": "audio/voice/guide_mic_help.mp3",
+      "spokenText": "Mondjuk együtt: /ˈkeːrj/ meg egy felnőttet, hogy kapcsolja be a mikrofont!",
+      "extract": {
+        "from": 16,
+        "to": 74,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérj meg egy felnőttet, hogy kapcsolja be a mikrofont!"
+      },
+      "spokenTarget": "/ˈkeːrj/ meg egy felnőttet, hogy kapcsolja be a mikrofont!"
     },
     {
       "id": "guide_goodbye",
@@ -355,7 +382,16 @@
       "id": "dress_request_sapka",
       "text": "Kérem a sapkát.",
       "group": "dress",
-      "file": "audio/voice/dress_request_sapka.mp3"
+      "file": "audio/voice/dress_request_sapka.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a sapkáát.",
+      "extract": {
+        "from": 16,
+        "to": 33,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a sapkát."
+      },
+      "spokenTarget": "Kéérem a sapkáát."
     },
     {
       "id": "dress_thanks_sapka",
@@ -374,7 +410,16 @@
       "id": "dress_request_polo",
       "text": "Kérem a pólót.",
       "group": "dress",
-      "file": "audio/voice/dress_request_polo.mp3"
+      "file": "audio/voice/dress_request_polo.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a pólót.",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a pólót."
+      },
+      "spokenTarget": "Kéérem a pólót."
     },
     {
       "id": "dress_thanks_polo",
@@ -393,13 +438,31 @@
       "id": "dress_request_sal",
       "text": "Kérem a sálat.",
       "group": "dress",
-      "file": "audio/voice/dress_request_sal.mp3"
+      "file": "audio/voice/dress_request_sal.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a sálat.",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a sálat."
+      },
+      "spokenTarget": "Kéérem a sálat."
     },
     {
       "id": "dress_thanks_sal",
       "text": "Meleg a sálam!",
       "group": "dress",
-      "file": "audio/voice/dress_thanks_sal.mp3"
+      "file": "audio/voice/dress_thanks_sal.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛlɛɡ/ a sáálam!",
+      "extract": {
+        "from": 16,
+        "to": 34,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Meleg a sálam!"
+      },
+      "spokenTarget": "/ˈmɛlɛɡ/ a sáálam!"
     },
     {
       "id": "dress_name_sal",
@@ -412,7 +475,16 @@
       "id": "dress_request_cipo",
       "text": "Kérem a cipőt.",
       "group": "dress",
-      "file": "audio/voice/dress_request_cipo.mp3"
+      "file": "audio/voice/dress_request_cipo.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a cipőt.",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a cipőt."
+      },
+      "spokenTarget": "Kéérem a cipőt."
     },
     {
       "id": "dress_thanks_cipo",
@@ -423,15 +495,32 @@
     {
       "id": "dress_name_cipo",
       "text": "cipő",
-      "spokenText": "cipő.",
+      "spokenText": "Mondjuk együtt: /ˈt͡sipøː/.",
       "group": "dress",
-      "file": "audio/voice/dress_name_cipo.mp3"
+      "file": "audio/voice/dress_name_cipo.mp3",
+      "extract": {
+        "from": 16,
+        "to": 27,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "cipő"
+      },
+      "spokenTarget": "/ˈt͡sipøː/."
     },
     {
       "id": "dress_request_esokabat",
       "text": "Kérem az esőkabátot.",
       "group": "dress",
-      "file": "audio/voice/dress_request_esokabat.mp3"
+      "file": "audio/voice/dress_request_esokabat.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem az esőkabátot.",
+      "extract": {
+        "from": 16,
+        "to": 37,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem az esőkabátot."
+      },
+      "spokenTarget": "Kéérem az esőkabátot."
     },
     {
       "id": "dress_thanks_esokabat",
@@ -450,7 +539,16 @@
       "id": "dress_request_gumicsizma",
       "text": "Kérem a gumicsizmát.",
       "group": "dress",
-      "file": "audio/voice/dress_request_gumicsizma.mp3"
+      "file": "audio/voice/dress_request_gumicsizma.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a gumicsizmát.",
+      "extract": {
+        "from": 16,
+        "to": 37,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a gumicsizmát."
+      },
+      "spokenTarget": "Kéérem a gumicsizmát."
     },
     {
       "id": "dress_thanks_gumicsizma",
@@ -461,15 +559,32 @@
     {
       "id": "dress_name_gumicsizma",
       "text": "gumicsizma",
-      "spokenText": "gumicsizma.",
+      "spokenText": "Mondjuk együtt: /ˈɡumi.t͡ʃiz.mɒ/.",
       "group": "dress",
-      "file": "audio/voice/dress_name_gumicsizma.mp3"
+      "file": "audio/voice/dress_name_gumicsizma.mp3",
+      "extract": {
+        "from": 16,
+        "to": 33,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "gumicsizma"
+      },
+      "spokenTarget": "/ˈɡumi.t͡ʃiz.mɒ/."
     },
     {
       "id": "dress_request_napkalap",
       "text": "Kérem a napkalapot.",
       "group": "dress",
-      "file": "audio/voice/dress_request_napkalap.mp3"
+      "file": "audio/voice/dress_request_napkalap.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a napkalapot.",
+      "extract": {
+        "from": 16,
+        "to": 36,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a napkalapot."
+      },
+      "spokenTarget": "Kéérem a napkalapot."
     },
     {
       "id": "dress_thanks_napkalap",
@@ -488,7 +603,16 @@
       "id": "dress_request_rovidnadrag",
       "text": "Kérem a rövidnadrágot.",
       "group": "dress",
-      "file": "audio/voice/dress_request_rovidnadrag.mp3"
+      "file": "audio/voice/dress_request_rovidnadrag.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a rövidnadrágot.",
+      "extract": {
+        "from": 16,
+        "to": 39,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a rövidnadrágot."
+      },
+      "spokenTarget": "Kéérem a rövidnadrágot."
     },
     {
       "id": "dress_thanks_rovidnadrag",
@@ -507,13 +631,31 @@
       "id": "dress_request_szandal",
       "text": "Kérem a szandált.",
       "group": "dress",
-      "file": "audio/voice/dress_request_szandal.mp3"
+      "file": "audio/voice/dress_request_szandal.mp3",
+      "spokenText": "Mondjuk együtt: Kéérem a szandált.",
+      "extract": {
+        "from": 16,
+        "to": 34,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kérem a szandált."
+      },
+      "spokenTarget": "Kéérem a szandált."
     },
     {
       "id": "dress_thanks_szandal",
       "text": "Szellős a szandálom!",
       "group": "dress",
-      "file": "audio/voice/dress_thanks_szandal.mp3"
+      "file": "audio/voice/dress_thanks_szandal.mp3",
+      "spokenText": "Mondjuk együtt: Szel-lőős a szandáálom!",
+      "extract": {
+        "from": 16,
+        "to": 39,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Szellős a szandálom!"
+      },
+      "spokenTarget": "Szel-lőős a szandáálom!"
     },
     {
       "id": "dress_name_szandal",
@@ -790,16 +932,32 @@
     {
       "id": "abk_name_cat",
       "text": "Cica",
-      "spokenText": "Cica.",
+      "spokenText": "Mondjuk együtt: /ˈt͡si.t͡sɒ/.",
       "group": "animal-book",
-      "file": "audio/voice/abk_name_cat.mp3"
+      "file": "audio/voice/abk_name_cat.mp3",
+      "extract": {
+        "from": 16,
+        "to": 29,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Cica"
+      },
+      "spokenTarget": "/ˈt͡si.t͡sɒ/."
     },
     {
       "id": "abk_name_chicken",
       "text": "Tyúk",
-      "spokenText": "Tyúk.",
+      "spokenText": "Mondjuk együtt: Tyúúk.",
       "group": "animal-book",
-      "file": "audio/voice/abk_name_chicken.mp3"
+      "file": "audio/voice/abk_name_chicken.mp3",
+      "extract": {
+        "from": 16,
+        "to": 22,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Tyúk"
+      },
+      "spokenTarget": "Tyúúk."
     },
     {
       "id": "abk_name_duck",
@@ -832,9 +990,17 @@
     {
       "id": "abk_name_cuckoo",
       "text": "Kakukk",
-      "spokenText": "Kakukk.",
+      "spokenText": "Mondjuk együtt: /ˈkɒkukː/.",
       "group": "animal-book",
-      "file": "audio/voice/abk_name_cuckoo.mp3"
+      "file": "audio/voice/abk_name_cuckoo.mp3",
+      "extract": {
+        "from": 16,
+        "to": 26,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kakukk"
+      },
+      "spokenTarget": "/ˈkɒkukː/."
     },
     {
       "id": "abk_name_wolf",
@@ -966,15 +1132,15 @@
       "text": "Hol bújt el? Keresd meg a képét!",
       "group": "portal",
       "file": "audio/voice/flip_find.mp3",
-      "spokenText": "Mondjuk együtt: Hol bújt el? Keresd meg a /ˈkeːpeːt/!",
+      "spokenText": "Mondjuk együtt: Hol bújt el? Keresd meg a kéépéét!",
       "extract": {
         "from": 16,
-        "to": 53,
+        "to": 50,
         "before": 0.025,
         "after": 0.15,
         "text": "Hol bújt el? Keresd meg a képét!"
       },
-      "spokenTarget": "Hol bújt el? Keresd meg a /ˈkeːpeːt/!"
+      "spokenTarget": "Hol bújt el? Keresd meg a kéépéét!"
     },
     {
       "id": "listening_help",
@@ -994,7 +1160,8 @@
         "to": 21,
         "before": 0.025,
         "after": 0.12,
-        "text": "kérek"
+        "text": "kérek",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1023,7 +1190,8 @@
         "to": 23,
         "before": 0.025,
         "after": 0.12,
-        "text": "még"
+        "text": "még",
+        "boundToAdjacentWords": true
       },
       "spokenTarget": "/ˈmeːɡ/"
     },
@@ -1044,29 +1212,29 @@
     },
     {
       "id": "phrase_part_anya_gyere_0",
-      "text": "anya",
-      "spokenText": "anya gyere.",
+      "text": "anya,",
+      "spokenText": "Mondjuk együtt: /ˈɒɲɒ/, /ˈɟɛrɛ/.",
       "group": "portal",
       "file": "audio/voice/phrase_part_anya_gyere_0.mp3",
-      "spokenTarget": "anya",
+      "spokenTarget": "/ˈɒɲɒ/",
       "extract": {
-        "from": 0,
-        "to": 4,
+        "from": 16,
+        "to": 22,
         "before": 0.025,
         "after": 0.12,
-        "text": "anya"
+        "text": "anya,"
       }
     },
     {
       "id": "phrase_part_anya_gyere_1",
       "text": "gyere",
-      "spokenText": "anya gyere.",
+      "spokenText": "Mondjuk együtt: /ˈɒɲɒ/, /ˈɟɛrɛ/.",
       "group": "portal",
       "file": "audio/voice/phrase_part_anya_gyere_1.mp3",
-      "spokenTarget": "gyere",
+      "spokenTarget": "/ˈɟɛrɛ/",
       "extract": {
-        "from": 5,
-        "to": 10,
+        "from": 24,
+        "to": 31,
         "before": 0.025,
         "after": 0.12,
         "text": "gyere"
@@ -1144,7 +1312,8 @@
         "to": 3,
         "before": 0.025,
         "after": 0.12,
-        "text": "nem"
+        "text": "nem",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1174,7 +1343,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kérek"
+        "text": "kérek",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1204,7 +1374,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kérek"
+        "text": "kérek",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1234,7 +1405,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kérek"
+        "text": "kérek",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1264,7 +1436,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kérek"
+        "text": "kérek",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1294,7 +1467,8 @@
         "to": 19,
         "before": 0.025,
         "after": 0.12,
-        "text": "adj"
+        "text": "adj",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1354,7 +1528,8 @@
         "to": 3,
         "before": 0.025,
         "after": 0.12,
-        "text": "apa"
+        "text": "apa",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1405,28 +1580,29 @@
     {
       "id": "phrase_part_cica_alszik_0",
       "text": "cica",
-      "spokenText": "cica alszik.",
+      "spokenText": "Mondjuk együtt: tszitsza alszik.",
       "group": "portal",
       "file": "audio/voice/phrase_part_cica_alszik_0.mp3",
-      "spokenTarget": "cica",
+      "spokenTarget": "tszitsza",
       "extract": {
-        "from": 0,
-        "to": 4,
+        "from": 16,
+        "to": 24,
         "before": 0.025,
         "after": 0.12,
-        "text": "cica"
+        "text": "cica",
+        "boundToAdjacentWords": true
       }
     },
     {
       "id": "phrase_part_cica_alszik_1",
       "text": "alszik",
-      "spokenText": "cica alszik.",
+      "spokenText": "Mondjuk együtt: tszitsza alszik.",
       "group": "portal",
       "file": "audio/voice/phrase_part_cica_alszik_1.mp3",
       "spokenTarget": "alszik",
       "extract": {
-        "from": 5,
-        "to": 11,
+        "from": 25,
+        "to": 31,
         "before": 0.025,
         "after": 0.12,
         "text": "alszik"
@@ -1444,7 +1620,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kutya"
+        "text": "kutya",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1474,7 +1651,8 @@
         "to": 4,
         "before": 0.025,
         "after": 0.12,
-        "text": "maci"
+        "text": "maci",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1534,7 +1712,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "kicsi"
+        "text": "kicsi",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1564,7 +1743,8 @@
         "to": 4,
         "before": 0.025,
         "after": 0.12,
-        "text": "nagy"
+        "text": "nagy",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1594,7 +1774,8 @@
         "to": 5,
         "before": 0.025,
         "after": 0.12,
-        "text": "meleg"
+        "text": "meleg",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1615,28 +1796,29 @@
     {
       "id": "phrase_part_puha_maci_0",
       "text": "puha",
-      "spokenText": "puha maci.",
+      "spokenText": "Mondjuk együtt: /ˈpuhɒ/ matszi.",
       "group": "portal",
       "file": "audio/voice/phrase_part_puha_maci_0.mp3",
-      "spokenTarget": "puha",
+      "spokenTarget": "/ˈpuhɒ/",
       "extract": {
-        "from": 0,
-        "to": 4,
+        "from": 16,
+        "to": 23,
         "before": 0.025,
         "after": 0.12,
-        "text": "puha"
+        "text": "puha",
+        "boundToAdjacentWords": true
       }
     },
     {
       "id": "phrase_part_puha_maci_1",
       "text": "maci",
-      "spokenText": "puha maci.",
+      "spokenText": "Mondjuk együtt: /ˈpuhɒ/ matszi.",
       "group": "portal",
       "file": "audio/voice/phrase_part_puha_maci_1.mp3",
-      "spokenTarget": "maci",
+      "spokenTarget": "matszi",
       "extract": {
-        "from": 5,
-        "to": 9,
+        "from": 24,
+        "to": 30,
         "before": 0.025,
         "after": 0.12,
         "text": "maci"
@@ -1683,7 +1865,8 @@
         "to": 23,
         "before": 0.025,
         "after": 0.12,
-        "text": "még"
+        "text": "még",
+        "boundToAdjacentWords": true
       },
       "spokenTarget": "/ˈmeːɡ/"
     },
@@ -1714,7 +1897,8 @@
         "to": 4,
         "before": 0.025,
         "after": 0.12,
-        "text": "elég"
+        "text": "elég",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -1773,7 +1957,8 @@
         "to": 23,
         "before": 0.025,
         "after": 0.12,
-        "text": "még"
+        "text": "még",
+        "boundToAdjacentWords": true
       },
       "spokenTarget": "/ˈmeːɡ/"
     },
@@ -2325,15 +2510,17 @@
     {
       "id": "logic_n_8",
       "text": "nyolc",
-      "spokenText": "A szám: nyolc.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/.",
       "group": "logic",
       "file": "audio/voice/logic_n_8.mp3",
       "extract": {
-        "from": 8,
-        "to": 13,
+        "from": 16,
+        "to": 27,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "nyolc"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/."
     },
     {
       "id": "logic_n_9",
@@ -2698,7 +2885,8 @@
         "to": 101,
         "before": 0.025,
         "after": 0.12,
-        "text": "Figyeld az ismétlődést!"
+        "text": "Figyeld az ismétlődést!",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -2732,7 +2920,16 @@
       "id": "montessori_shapes_2",
       "text": "Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!",
       "group": "montessori",
-      "file": "audio/voice/montessori_shapes_2.mp3"
+      "file": "audio/voice/montessori_shapes_2.mp3",
+      "spokenText": "Mondjuk együtt: Nézd a lyuk alakját és a keret szíínéét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!",
+      "extract": {
+        "from": 16,
+        "to": 118,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!"
+      },
+      "spokenTarget": "Nézd a lyuk alakját és a keret szíínéét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!"
     },
     {
       "id": "montessori_shapes_3",
@@ -2846,7 +3043,16 @@
       "id": "montessori_tower_retry",
       "text": "Előbb egy nagyobb korong következik. Nézd meg a tálcát!",
       "group": "montessori",
-      "file": "audio/voice/montessori_tower_retry.mp3"
+      "file": "audio/voice/montessori_tower_retry.mp3",
+      "spokenText": "Mondjuk együtt: Előbb egy nagyobb /ˈkoroŋɡ/ következik. Nézd meg a tálcát!",
+      "extract": {
+        "from": 16,
+        "to": 74,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Előbb egy nagyobb korong következik. Nézd meg a tálcát!"
+      },
+      "spokenTarget": "Előbb egy nagyobb /ˈkoroŋɡ/ következik. Nézd meg a tálcát!"
     },
     {
       "id": "montessori_blocked",
@@ -3113,22 +3319,31 @@
       "id": "chess_king_team",
       "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
       "group": "chess",
-      "file": "audio/voice/chess_king_team.mp3"
+      "file": "audio/voice/chess_king_team.mp3",
+      "spokenText": "Mondjuk együtt: Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!",
+      "extract": {
+        "from": 16,
+        "to": 190,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!"
+      },
+      "spokenTarget": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!"
     },
     {
       "id": "chess_rook_three",
       "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből.",
       "group": "chess",
       "file": "audio/voice/chess_rook_three.mp3",
-      "spokenText": "Mondjuk együtt: Üsd le a három megjelölt figurát a /ˈbaːʃcɒvɒl/! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből.",
+      "spokenText": "Mondjuk együtt: Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből.",
       "extract": {
         "from": 16,
-        "to": 121,
+        "to": 120,
         "before": 0.025,
         "after": 0.15,
         "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből."
       },
-      "spokenTarget": "Üsd le a három megjelölt figurát a /ˈbaːʃcɒvɒl/! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
+      "spokenTarget": "Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
     },
     {
       "id": "chess_bishop_three",
@@ -3165,15 +3380,15 @@
       "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_queen_open.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!",
+      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!",
       "extract": {
         "from": 16,
-        "to": 105,
+        "to": 103,
         "before": 0.025,
         "after": 0.15,
         "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!"
       },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!"
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!"
     },
     {
       "id": "chess_pawn_three",
@@ -3195,45 +3410,45 @@
       "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!",
       "group": "chess",
       "file": "audio/voice/chess_rook_pin_three.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
+      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
       "extract": {
         "from": 16,
-        "to": 117,
+        "to": 116,
         "before": 0.025,
         "after": 0.15,
         "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!"
       },
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
     },
     {
       "id": "chess_rook_knight_open",
       "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_rook_knight_open.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈhusaːrːɒl/ is léphetsz. Szabadítsd fel a /ˈbaːʃcɒ/ útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
+      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
       "extract": {
         "from": 16,
-        "to": 145,
+        "to": 141,
         "before": 0.025,
         "after": 0.15,
         "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!"
       },
-      "spokenTarget": "A /ˈhusaːrːɒl/ is léphetsz. Szabadítsd fel a /ˈbaːʃcɒ/ útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "spokenTarget": "A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
     },
     {
       "id": "chess_bishop_pawn_open",
       "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_bishop_pawn_open.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
+      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
       "extract": {
         "from": 16,
-        "to": 131,
+        "to": 129,
         "before": 0.025,
         "after": 0.15,
         "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
       },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
+      "spokenTarget": "A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
     },
     {
       "id": "chess_queen_four",
@@ -3255,15 +3470,15 @@
       "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!",
       "group": "chess",
       "file": "audio/voice/chess_knight_four.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈhusaːrːɒl/ üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!",
+      "spokenText": "Mondjuk együtt: A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!",
       "extract": {
         "from": 16,
-        "to": 104,
+        "to": 102,
         "before": 0.025,
         "after": 0.15,
         "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!"
       },
-      "spokenTarget": "A /ˈhusaːrːɒl/ üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!"
+      "spokenTarget": "A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!"
     },
     {
       "id": "chess_promotion_four",
@@ -3285,30 +3500,30 @@
       "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_king_five.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈbaːʃcɒvɒl/ is léphetsz. Üsd le a sötét /ˈbaːʃcaːt/, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
+      "spokenText": "Mondjuk együtt: A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
       "extract": {
         "from": 16,
-        "to": 125,
+        "to": 122,
         "before": 0.025,
         "after": 0.15,
         "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!"
       },
-      "spokenTarget": "A /ˈbaːʃcɒvɒl/ is léphetsz. Üsd le a sötét /ˈbaːʃcaːt/, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "spokenTarget": "A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
     },
     {
       "id": "chess_rook_master",
       "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!",
       "group": "chess",
       "file": "audio/voice/chess_rook_master.mp3",
-      "spokenText": "Mondjuk együtt: Négy lépésből üsd le a négy megjelölt figurát a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
+      "spokenText": "Mondjuk együtt: Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
       "extract": {
         "from": 16,
-        "to": 101,
+        "to": 100,
         "before": 0.025,
         "after": 0.15,
         "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!"
       },
-      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
     },
     {
       "id": "chess_bishop_master",
@@ -3330,15 +3545,15 @@
       "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!",
       "group": "chess",
       "file": "audio/voice/chess_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: Öt ugrásból üsd le az öt megjelölt figurát a /ˈhusaːrːɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
+      "spokenText": "Mondjuk együtt: Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!",
       "extract": {
         "from": 16,
-        "to": 98,
+        "to": 96,
         "before": 0.025,
         "after": 0.15,
         "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!"
       },
-      "spokenTarget": "Öt ugrásból üsd le az öt megjelölt figurát a /ˈhusaːrːɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "spokenTarget": "Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!"
     },
     {
       "id": "chess_queen_master",
@@ -3375,90 +3590,90 @@
       "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_rook_pawn_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a /ˈbaːʃcaːnɒk/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
+      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
       "extract": {
         "from": 16,
-        "to": 136,
+        "to": 132,
         "before": 0.025,
         "after": 0.15,
         "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
       },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a /ˈbaːʃcaːnɒk/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
     },
     {
       "id": "chess_rook_knight_master",
       "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_rook_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈhusaːrːɒl/ is léphetsz. Nyisd meg a /ˈbaːʃcɒ/ útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
+      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
       "extract": {
         "from": 16,
-        "to": 140,
+        "to": 136,
         "before": 0.025,
         "after": 0.15,
         "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!"
       },
-      "spokenTarget": "A /ˈhusaːrːɒl/ is léphetsz. Nyisd meg a /ˈbaːʃcɒ/ útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
     },
     {
       "id": "chess_rook_pin_master",
       "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!",
       "group": "chess",
       "file": "audio/voice/chess_rook_pin_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
+      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
       "extract": {
         "from": 16,
-        "to": 127,
+        "to": 126,
         "before": 0.025,
         "after": 0.15,
         "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!"
       },
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a /ˈbaːʃcɒvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
     },
     {
       "id": "chess_king_master",
       "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_king_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ és a /ˈbaːʃcɒvɒl/ is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!",
+      "spokenText": "Mondjuk együtt: A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!",
       "extract": {
         "from": 16,
-        "to": 141,
+        "to": 138,
         "before": 0.025,
         "after": 0.15,
         "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!"
       },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ és a /ˈbaːʃcɒvɒl/ is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
+      "spokenTarget": "A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
     },
     {
       "id": "chess_queen_pawn_master",
       "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_queen_pawn_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
+      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
       "extract": {
         "from": 16,
-        "to": 131,
+        "to": 129,
         "before": 0.025,
         "after": 0.15,
         "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
       },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
     },
     {
       "id": "chess_bishop_knight_master",
       "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
       "file": "audio/voice/chess_bishop_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈhusaːrːɒl/ is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
+      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
       "extract": {
         "from": 16,
-        "to": 141,
+        "to": 139,
         "before": 0.025,
         "after": 0.15,
         "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
       },
-      "spokenTarget": "A /ˈhusaːrːɒl/ is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
     },
     {
       "id": "chess_promotion_master",
@@ -3486,15 +3701,15 @@
       "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
       "group": "engineering",
       "file": "audio/voice/engineering_hub.mp3",
-      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, tervezz saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!",
+      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, /ˈtɛrvɛzː/ saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!",
       "extract": {
         "from": 16,
-        "to": 120,
+        "to": 123,
         "before": 0.025,
         "after": 0.15,
         "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!"
       },
-      "spokenTarget": "/ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, tervezz saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!"
+      "spokenTarget": "/ˈeːpiːt͡ʃyŋk/ együtt! Ejts elemeket a /ˈtoroɲrɒ/, /ˈtɛrvɛzː/ saját /ˈeːpiːtmeːɲt/, vagy /ˈeːpiːt͡ʃ/ hidat!"
     },
     {
       "id": "engineering_drop",
@@ -3516,7 +3731,7 @@
       "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!",
       "group": "engineering",
       "file": "audio/voice/engineering_build.mp3",
-      "spokenText": "Mondjuk együtt: Válassz egy elemet, és /ˈkopːint͡ʃ/ oda, ahová tennéd! El is forgathatod. Próbálj /ˈseːlɛʃ/ alapot építeni!",
+      "spokenText": "Mondjuk együtt: Váálassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj szééles alapot /ˈeːpiːtɛni/!",
       "extract": {
         "from": 16,
         "to": 123,
@@ -3524,37 +3739,37 @@
         "after": 0.15,
         "text": "Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!"
       },
-      "spokenTarget": "Válassz egy elemet, és /ˈkopːint͡ʃ/ oda, ahová tennéd! El is forgathatod. Próbálj /ˈseːlɛʃ/ alapot építeni!"
+      "spokenTarget": "Váálassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj szééles alapot /ˈeːpiːtɛni/!"
     },
     {
       "id": "engineering_bridge",
       "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!",
       "group": "engineering",
       "file": "audio/voice/engineering_bridge.mp3",
-      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃ/ hidat! /ˈkopːint͡ʃ/ két pontra, és összekötjük egy /ˈruːdːɒl/. A végén engedd át az autót!",
+      "spokenText": "Mondjuk együtt: /ˈeːpiːt͡ʃ/ hidat! Koppints /ˈkeːt/ pontra, és összekötjük egy /ˈruːd.dɒl/. A végén engedd /ˈaːt/ az /ˈɒutoːt/!",
       "extract": {
         "from": 16,
-        "to": 118,
+        "to": 127,
         "before": 0.025,
         "after": 0.15,
         "text": "Építs hidat! Koppints két pontra, és összekötjük egy rúddal. A végén engedd át az autót!"
       },
-      "spokenTarget": "/ˈeːpiːt͡ʃ/ hidat! /ˈkopːint͡ʃ/ két pontra, és összekötjük egy /ˈruːdːɒl/. A végén engedd át az autót!"
+      "spokenTarget": "/ˈeːpiːt͡ʃ/ hidat! Koppints /ˈkeːt/ pontra, és összekötjük egy /ˈruːd.dɒl/. A végén engedd /ˈaːt/ az /ˈɒutoːt/!"
     },
     {
       "id": "engineering_water",
       "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
       "group": "engineering",
       "file": "audio/voice/engineering_water.mp3",
-      "spokenText": "Mondjuk együtt: /ˈt͡ʃobːɒnt/! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést.",
+      "spokenText": "Mondjuk együtt: /ˈt͡ʃob.bɒnt/! Próbáld /ˈbɛjːɛbː/ tenni! Vissza is vonhatod az utolsó léépéést.",
       "extract": {
         "from": 16,
-        "to": 89,
+        "to": 95,
         "before": 0.025,
         "after": 0.15,
         "text": "Csobbant! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést."
       },
-      "spokenTarget": "/ˈt͡ʃobːɒnt/! Próbáld beljebb tenni! Vissza is vonhatod az utolsó lépést."
+      "spokenTarget": "/ˈt͡ʃob.bɒnt/! Próbáld /ˈbɛjːɛbː/ tenni! Vissza is vonhatod az utolsó léépéést."
     },
     {
       "id": "engineering_success",
@@ -4110,15 +4325,17 @@
     {
       "id": "workshop_n_8",
       "text": "nyolc",
-      "spokenText": "A szám: nyolc.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/.",
       "group": "workshop",
       "file": "audio/voice/workshop_n_8.mp3",
       "extract": {
-        "from": 8,
-        "to": 13,
+        "from": 16,
+        "to": 27,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "nyolc"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/."
     },
     {
       "id": "workshop_n_9",
@@ -4491,7 +4708,16 @@
       "id": "r_story",
       "text": "Tegyük sorba a mondóka képeit! Melyik volt először?",
       "group": "r-practice",
-      "file": "audio/voice/r_story.mp3"
+      "file": "audio/voice/r_story.mp3",
+      "spokenText": "Mondjuk együtt: Tegyük sorba a mondóka kéépeit! Melyik volt először?",
+      "extract": {
+        "from": 16,
+        "to": 68,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Tegyük sorba a mondóka képeit! Melyik volt először?"
+      },
+      "spokenTarget": "Tegyük sorba a mondóka kéépeit! Melyik volt először?"
     },
     {
       "id": "r_story_retry",
@@ -4512,7 +4738,16 @@
       "id": "r_story_done",
       "text": "Sorba rendeztük a mondóka képeit!",
       "group": "r-practice",
-      "file": "audio/voice/r_story_done.mp3"
+      "file": "audio/voice/r_story_done.mp3",
+      "spokenText": "Mondjuk együtt: /ˈʃorbɒ/ rendeztük a mondóka képeit!",
+      "extract": {
+        "from": 16,
+        "to": 52,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Sorba rendeztük a mondóka képeit!"
+      },
+      "spokenTarget": "/ˈʃorbɒ/ rendeztük a mondóka képeit!"
     },
     {
       "id": "r_echo_compare",
@@ -4871,15 +5106,17 @@
     {
       "id": "r_word_madar",
       "text": "madár",
-      "spokenText": "Ez egy madár.",
+      "spokenText": "Mondjuk együtt: madáár.",
       "group": "r-practice",
       "file": "audio/voice/r_word_madar.mp3",
       "extract": {
-        "from": 7,
-        "to": 12,
+        "from": 16,
+        "to": 23,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "madár"
+      },
+      "spokenTarget": "madáár."
     },
     {
       "id": "r_word_eger",
@@ -5068,15 +5305,17 @@
     {
       "id": "r_word_maci",
       "text": "maci",
-      "spokenText": "Ez egy maci.",
+      "spokenText": "Mondjuk együtt: matszi.",
       "group": "r-practice",
       "file": "audio/voice/r_word_maci.mp3",
       "extract": {
-        "from": 7,
-        "to": 11,
+        "from": 16,
+        "to": 23,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "maci"
+      },
+      "spokenTarget": "matszi."
     },
     {
       "id": "r_word_kutya",
@@ -5159,9 +5398,17 @@
     {
       "id": "r_word_cipo",
       "text": "cipő",
-      "spokenText": "cipő.",
+      "spokenText": "Mondjuk együtt: /ˈt͡sipøː/.",
       "group": "r-practice",
-      "file": "audio/voice/r_word_cipo.mp3"
+      "file": "audio/voice/r_word_cipo.mp3",
+      "extract": {
+        "from": 16,
+        "to": 27,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "cipő"
+      },
+      "spokenTarget": "/ˈt͡sipøː/."
     },
     {
       "id": "r_word_sapka",
@@ -5253,9 +5500,17 @@
     {
       "id": "r_phrase_raketa",
       "text": "repül a rakéta",
-      "spokenText": "repül a rakéta.",
+      "spokenText": "Mondjuk együtt: Repül a rakééta.",
       "group": "r-practice",
-      "file": "audio/voice/r_phrase_raketa.mp3"
+      "file": "audio/voice/r_phrase_raketa.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "repül a rakéta"
+      },
+      "spokenTarget": "Repül a rakééta."
     },
     {
       "id": "r_phrase_radio",
@@ -5422,9 +5677,17 @@
     {
       "id": "r_phrase_sator",
       "text": "piros sátor",
-      "spokenText": "piros sátor.",
+      "spokenText": "Mondjuk együtt: Piros sáátor.",
       "group": "r-practice",
-      "file": "audio/voice/r_phrase_sator.mp3"
+      "file": "audio/voice/r_phrase_sator.mp3",
+      "extract": {
+        "from": 16,
+        "to": 29,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "piros sátor"
+      },
+      "spokenTarget": "Piros sáátor."
     },
     {
       "id": "r_phrase_kosar",
@@ -5551,9 +5814,18 @@
     },
     {
       "id": "r_rhyme_sator_1",
-      "text": "Erdő mellett sátrat állunk.",
+      "text": "Erdő mellett sátrat állítunk.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_sator_1.mp3"
+      "file": "audio/voice/r_rhyme_sator_1.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɛrdøː/ mellett /ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/.",
+      "extract": {
+        "from": 16,
+        "to": 58,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Erdő mellett sátrat állítunk."
+      },
+      "spokenTarget": "/ˈɛrdøː/ mellett /ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/."
     },
     {
       "id": "r_rhyme_sator_2",
@@ -5584,7 +5856,16 @@
       "id": "r_rhyme_robot_1",
       "text": "Piros ceruzát a kezébe kap.",
       "group": "r-practice",
-      "file": "audio/voice/r_rhyme_robot_1.mp3"
+      "file": "audio/voice/r_rhyme_robot_1.mp3",
+      "spokenText": "Mondjuk együtt: Piros /ˈt͡sɛruzaːt/ a kezébe kap.",
+      "extract": {
+        "from": 16,
+        "to": 49,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Piros ceruzát a kezébe kap."
+      },
+      "spokenTarget": "Piros /ˈt͡sɛruzaːt/ a kezébe kap."
     },
     {
       "id": "r_rhyme_robot_2",
@@ -5620,7 +5901,16 @@
       "id": "r_mission_unnep",
       "text": "Ünnepi asztalt készítünk. Küldj tortát és virágot!",
       "group": "r-practice",
-      "file": "audio/voice/r_mission_unnep.mp3"
+      "file": "audio/voice/r_mission_unnep.mp3",
+      "spokenText": "Mondjuk együtt: Ün-nepi asztalt készítünk. Küldj tortát és virágot!",
+      "extract": {
+        "from": 16,
+        "to": 67,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ünnepi asztalt készítünk. Küldj tortát és virágot!"
+      },
+      "spokenTarget": "Ün-nepi asztalt készítünk. Küldj tortát és virágot!"
     },
     {
       "id": "r_mission_piknik",
@@ -5644,7 +5934,16 @@
       "id": "r_mission_zene",
       "text": "Zenés ünnep lesz. Küldj rádiót és rózsát!",
       "group": "r-practice",
-      "file": "audio/voice/r_mission_zene.mp3"
+      "file": "audio/voice/r_mission_zene.mp3",
+      "spokenText": "Mondjuk együtt: Zenéés ünnep lesz. Küldj rádiót és rózsát!",
+      "extract": {
+        "from": 16,
+        "to": 58,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Zenés ünnep lesz. Küldj rádiót és rózsát!"
+      },
+      "spokenTarget": "Zenéés ünnep lesz. Küldj rádiót és rózsát!"
     },
     {
       "id": "r_mission_rajz",
@@ -5682,7 +5981,8 @@
         "to": 8,
         "before": 0.025,
         "after": 0.12,
-        "text": "Róka fut"
+        "text": "Róka fut",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5712,7 +6012,8 @@
         "to": 26,
         "before": 0.025,
         "after": 0.12,
-        "text": "Robot őrzi"
+        "text": "Robot őrzi",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5772,7 +6073,8 @@
         "to": 13,
         "before": 0.025,
         "after": 0.12,
-        "text": "Velük játszik"
+        "text": "Velük játszik",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5802,7 +6104,8 @@
         "to": 11,
         "before": 0.025,
         "after": 0.12,
-        "text": "Piros rózsa"
+        "text": "Piros rózsa",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5862,7 +6165,8 @@
         "to": 11,
         "before": 0.025,
         "after": 0.12,
-        "text": "Róka körben"
+        "text": "Róka körben",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5892,7 +6196,8 @@
         "to": 13,
         "before": 0.025,
         "after": 0.12,
-        "text": "Ránk egy szép"
+        "text": "Ránk egy szép",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -5943,31 +6248,32 @@
     {
       "id": "r_rhyme_part_sator_1_0",
       "text": "Erdő mellett",
-      "spokenText": "Erdő mellett sátrat állunk.",
+      "spokenText": "Mondjuk együtt: /ˈɛrdøː/ mellett /ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/.",
       "group": "r-practice",
       "file": "audio/voice/r_rhyme_part_sator_1_0.mp3",
-      "spokenTarget": "Erdő mellett",
+      "spokenTarget": "/ˈɛrdøː/ mellett",
       "extract": {
-        "from": 0,
-        "to": 12,
+        "from": 16,
+        "to": 32,
         "before": 0.025,
         "after": 0.12,
-        "text": "Erdő mellett"
+        "text": "Erdő mellett",
+        "boundToAdjacentWords": true
       }
     },
     {
       "id": "r_rhyme_part_sator_1_1",
-      "text": "sátrat állunk.",
+      "text": "sátrat állítunk.",
       "group": "r-practice",
       "file": "audio/voice/r_rhyme_part_sator_1_1.mp3",
-      "spokenText": "Erdő mellett sátrat állunk.",
-      "spokenTarget": "sátrat állunk",
+      "spokenText": "Mondjuk együtt: /ˈɛrdøː/ mellett /ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/.",
+      "spokenTarget": "/ˈʃaːtrɒt/ /ˈaːlːiːtuŋk/",
       "extract": {
-        "from": 13,
-        "to": 26,
+        "from": 33,
+        "to": 57,
         "before": 0.025,
         "after": 0.12,
-        "text": "sátrat állunk."
+        "text": "sátrat állítunk."
       }
     },
     {
@@ -5982,7 +6288,8 @@
         "to": 11,
         "before": 0.025,
         "after": 0.12,
-        "text": "Körte kerül"
+        "text": "Körte kerül",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -6012,7 +6319,8 @@
         "to": 10,
         "before": 0.025,
         "after": 0.12,
-        "text": "Róka indul"
+        "text": "Róka indul",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -6063,16 +6371,17 @@
     {
       "id": "r_rhyme_part_robot_1_0",
       "text": "Piros ceruzát",
-      "spokenText": "Piros ceruzát a kezébe kap.",
+      "spokenText": "Mondjuk együtt: Piros /ˈt͡sɛruzaːt/ a kezébe kap.",
       "group": "r-practice",
       "file": "audio/voice/r_rhyme_part_robot_1_0.mp3",
-      "spokenTarget": "Piros ceruzát",
+      "spokenTarget": "Piros /ˈt͡sɛruzaːt/",
       "extract": {
-        "from": 0,
-        "to": 13,
+        "from": 16,
+        "to": 35,
         "before": 0.025,
         "after": 0.12,
-        "text": "Piros ceruzát"
+        "text": "Piros ceruzát",
+        "boundToAdjacentWords": true
       }
     },
     {
@@ -6080,11 +6389,11 @@
       "text": "a kezébe kap.",
       "group": "r-practice",
       "file": "audio/voice/r_rhyme_part_robot_1_1.mp3",
-      "spokenText": "Piros ceruzát a kezébe kap.",
+      "spokenText": "Mondjuk együtt: Piros /ˈt͡sɛruzaːt/ a kezébe kap.",
       "spokenTarget": "a kezébe kap",
       "extract": {
-        "from": 14,
-        "to": 26,
+        "from": 36,
+        "to": 48,
         "before": 0.025,
         "after": 0.12,
         "text": "a kezébe kap."
@@ -6265,9 +6574,17 @@
     {
       "id": "r_variant_kek_sator",
       "text": "kék sátor",
-      "spokenText": "kék sátor.",
+      "spokenText": "Mondjuk együtt: /ˈkeːk/ sáátor.",
       "group": "r-practice",
-      "file": "audio/voice/r_variant_kek_sator.mp3"
+      "file": "audio/voice/r_variant_kek_sator.mp3",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "kék sátor"
+      },
+      "spokenTarget": "/ˈkeːk/ sáátor."
     },
     {
       "id": "r_variant_teli_vodor",
@@ -6638,9 +6955,18 @@
     },
     {
       "id": "mese_collected_5",
-      "text": "Megvan a öt alma! Köszönöm!",
+      "text": "Megvan az öt alma! Köszönöm!",
       "group": "meseliget",
-      "file": "audio/voice/mese_collected_5.mp3"
+      "file": "audio/voice/mese_collected_5.mp3",
+      "spokenText": "Mondjuk együtt: Megvan az /ˈøt/ alma! /ˈkøsønøm/!",
+      "extract": {
+        "from": 16,
+        "to": 49,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Megvan az öt alma! Köszönöm!"
+      },
+      "spokenTarget": "Megvan az /ˈøt/ alma! /ˈkøsønøm/!"
     },
     {
       "id": "mese_sort_5",
@@ -6916,13 +7242,31 @@
       "id": "mese_guest_cica_plate",
       "text": "Adj a cicának egy tányért!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_cica_plate.mp3"
+      "file": "audio/voice/mese_guest_cica_plate.mp3",
+      "spokenText": "Mondjuk együtt: Adj a tszitszáának egy /ˈtaːɲeːrt/!",
+      "extract": {
+        "from": 16,
+        "to": 51,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a cicának egy tányért!"
+      },
+      "spokenTarget": "Adj a tszitszáának egy /ˈtaːɲeːrt/!"
     },
     {
       "id": "mese_guest_cica_cup",
       "text": "Adj a cicának egy poharat!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_cica_cup.mp3"
+      "file": "audio/voice/mese_guest_cica_cup.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈt͡si.t͡saːnɒk/ egy poharat!",
+      "extract": {
+        "from": 16,
+        "to": 51,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a cicának egy poharat!"
+      },
+      "spokenTarget": "Adj a /ˈt͡si.t͡saːnɒk/ egy poharat!"
     },
     {
       "id": "mese_guest_kutya_plate",
@@ -6946,7 +7290,16 @@
       "id": "mese_guest_panda_cup",
       "text": "Adj a pandának egy poharat!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_panda_cup.mp3"
+      "file": "audio/voice/mese_guest_panda_cup.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈpɒndaːnɒk/ egy poharat!",
+      "extract": {
+        "from": 16,
+        "to": 47,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a pandának egy poharat!"
+      },
+      "spokenTarget": "Adj a /ˈpɒndaːnɒk/ egy poharat!"
     },
     {
       "id": "mese_guest_roka_plate",
@@ -6964,13 +7317,31 @@
       "id": "mese_guest_koala_plate",
       "text": "Adj a koalának egy tányért!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_koala_plate.mp3"
+      "file": "audio/voice/mese_guest_koala_plate.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈkoɒlaːnɒk/ egy /ˈtaːɲeːrt/!",
+      "extract": {
+        "from": 16,
+        "to": 51,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a koalának egy tányért!"
+      },
+      "spokenTarget": "Adj a /ˈkoɒlaːnɒk/ egy /ˈtaːɲeːrt/!"
     },
     {
       "id": "mese_guest_koala_cup",
       "text": "Adj a koalának egy poharat!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_koala_cup.mp3"
+      "file": "audio/voice/mese_guest_koala_cup.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈkoɒlaːnɒk/ egy poharat!",
+      "extract": {
+        "from": 16,
+        "to": 47,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a koalának egy poharat!"
+      },
+      "spokenTarget": "Adj a /ˈkoɒlaːnɒk/ egy poharat!"
     },
     {
       "id": "mese_guest_beka_plate",
@@ -7012,13 +7383,31 @@
       "id": "mese_guest_majom_plate",
       "text": "Adj a majomnak egy tányért!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_majom_plate.mp3"
+      "file": "audio/voice/mese_guest_majom_plate.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈmɒjomnɒk/ egy /ˈtaːɲeːrt/!",
+      "extract": {
+        "from": 16,
+        "to": 50,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a majomnak egy tányért!"
+      },
+      "spokenTarget": "Adj a /ˈmɒjomnɒk/ egy /ˈtaːɲeːrt/!"
     },
     {
       "id": "mese_guest_majom_cup",
       "text": "Adj a majomnak egy poharat!",
       "group": "meseliget",
-      "file": "audio/voice/mese_guest_majom_cup.mp3"
+      "file": "audio/voice/mese_guest_majom_cup.mp3",
+      "spokenText": "Mondjuk együtt: Adj a /ˈmɒjomnɒk/ egy /ˈpohɒrɒt/!",
+      "extract": {
+        "from": 16,
+        "to": 49,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Adj a majomnak egy poharat!"
+      },
+      "spokenTarget": "Adj a /ˈmɒjomnɒk/ egy /ˈpohɒrɒt/!"
     },
     {
       "id": "city_story_film_stop_p1",
@@ -7293,7 +7682,16 @@
       "id": "city_story_workshop_red_p3",
       "text": "Dani megfordítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette.",
       "group": "city-story",
-      "file": "audio/voice/city_story_workshop_red_p3.mp3"
+      "file": "audio/voice/city_story_workshop_red_p3.mp3",
+      "spokenText": "Mondjuk együtt: Dani megfor-díítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette.",
+      "extract": {
+        "from": 16,
+        "to": 128,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Dani megfordítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette."
+      },
+      "spokenTarget": "Dani megfor-díítja a padot: az alján két bekarcolt kezdőbetű is egyezik. A kék padot időközben pirosra festette."
     },
     {
       "id": "city_story_workshop_red_choice_bench_under",
@@ -8563,7 +8961,16 @@
       "id": "city_story_epilogue_recap2",
       "text": "A padot a javított láb és a kezdőbetűk alapján azonosítottad.",
       "group": "city-story",
-      "file": "audio/voice/city_story_epilogue_recap2.mp3"
+      "file": "audio/voice/city_story_epilogue_recap2.mp3",
+      "spokenText": "Mondjuk együtt: A padot a /ˈjɒviːtotː/ láb és a kezdőbetűk alapján azonosítottad.",
+      "extract": {
+        "from": 16,
+        "to": 81,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A padot a javított láb és a kezdőbetűk alapján azonosítottad."
+      },
+      "spokenTarget": "A padot a /ˈjɒviːtotː/ láb és a kezdőbetűk alapján azonosítottad."
     },
     {
       "id": "city_story_epilogue_recap3",
@@ -8913,15 +9320,17 @@
     {
       "id": "word_maci",
       "text": "maci",
-      "spokenText": "Ez egy maci.",
+      "spokenText": "Mondjuk együtt: matszi.",
       "group": "word",
       "file": "audio/voice/word_maci.mp3",
       "extract": {
-        "from": 7,
-        "to": 11,
+        "from": 16,
+        "to": 23,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "maci"
+      },
+      "spokenTarget": "matszi."
     },
     {
       "id": "word_szia",
@@ -9043,9 +9452,17 @@
     {
       "id": "word_cipo",
       "text": "cipő",
-      "spokenText": "cipő.",
+      "spokenText": "Mondjuk együtt: /ˈt͡sipøː/.",
       "group": "word",
-      "file": "audio/voice/word_cipo.mp3"
+      "file": "audio/voice/word_cipo.mp3",
+      "extract": {
+        "from": 16,
+        "to": 27,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "cipő"
+      },
+      "spokenTarget": "/ˈt͡sipøː/."
     },
     {
       "id": "word_sapka",
@@ -9118,10 +9535,18 @@
     },
     {
       "id": "phrase_anya_gyere",
-      "text": "anya gyere",
-      "spokenText": "anya gyere.",
+      "text": "anya, gyere",
+      "spokenText": "Mondjuk együtt: /ˈɒɲɒ/, /ˈɟɛrɛ/.",
       "group": "phrase",
-      "file": "audio/voice/phrase_anya_gyere.mp3"
+      "file": "audio/voice/phrase_anya_gyere.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "anya, gyere"
+      },
+      "spokenTarget": "/ˈɒɲɒ/, /ˈɟɛrɛ/."
     },
     {
       "id": "phrase_apa_auto",
@@ -9243,9 +9668,17 @@
     {
       "id": "phrase_cica_alszik",
       "text": "cica alszik",
-      "spokenText": "cica alszik.",
+      "spokenText": "Mondjuk együtt: tszitsza alszik.",
       "group": "phrase",
-      "file": "audio/voice/phrase_cica_alszik.mp3"
+      "file": "audio/voice/phrase_cica_alszik.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "cica alszik"
+      },
+      "spokenTarget": "tszitsza alszik."
     },
     {
       "id": "phrase_kutya_fut",
@@ -9292,9 +9725,17 @@
     {
       "id": "phrase_puha_maci",
       "text": "puha maci",
-      "spokenText": "puha maci.",
+      "spokenText": "Mondjuk együtt: /ˈpuhɒ/ matszi.",
       "group": "phrase",
-      "file": "audio/voice/phrase_puha_maci.mp3"
+      "file": "audio/voice/phrase_puha_maci.mp3",
+      "extract": {
+        "from": 16,
+        "to": 31,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "puha maci"
+      },
+      "spokenTarget": "/ˈpuhɒ/ matszi."
     },
     {
       "id": "phrase_szep_virag",
@@ -9714,22 +10155,32 @@
     {
       "id": "number_8",
       "text": "nyolc",
-      "spokenText": "A szám: nyolc.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/.",
       "group": "number",
       "file": "audio/voice/number_8.mp3",
       "extract": {
-        "from": 8,
-        "to": 13,
+        "from": 16,
+        "to": 27,
         "before": 0.025,
-        "after": 0.15
-      }
+        "after": 0.15,
+        "text": "nyolc"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/."
     },
     {
       "id": "quantity_auto_8",
       "text": "nyolc autó",
-      "spokenText": "nyolc autó.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/ autó.",
       "group": "number",
-      "file": "audio/voice/quantity_auto_8.mp3"
+      "file": "audio/voice/quantity_auto_8.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "nyolc autó"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/ autó."
     },
     {
       "id": "question_auto_8",
@@ -9740,9 +10191,17 @@
     {
       "id": "quantity_labda_8",
       "text": "nyolc labda",
-      "spokenText": "nyolc labda.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/ labda.",
       "group": "number",
-      "file": "audio/voice/quantity_labda_8.mp3"
+      "file": "audio/voice/quantity_labda_8.mp3",
+      "extract": {
+        "from": 16,
+        "to": 33,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "nyolc labda"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/ labda."
     },
     {
       "id": "question_labda_8",
@@ -9753,9 +10212,17 @@
     {
       "id": "quantity_alma_8",
       "text": "nyolc alma",
-      "spokenText": "nyolc alma.",
+      "spokenText": "Mondjuk együtt: /ˈɲol.t͡s/ alma.",
       "group": "number",
-      "file": "audio/voice/quantity_alma_8.mp3"
+      "file": "audio/voice/quantity_alma_8.mp3",
+      "extract": {
+        "from": 16,
+        "to": 32,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "nyolc alma"
+      },
+      "spokenTarget": "/ˈɲol.t͡s/ alma."
     },
     {
       "id": "question_alma_8",

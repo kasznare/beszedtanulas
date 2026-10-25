@@ -167,7 +167,7 @@ export const MESE_CLIPS = {
 };
 for (let n = 1; n <= 10; n++) {
   MESE_CLIPS[`mese_collect_${n}`] = `Tegyél ${MESE_WORDS[n]} almát a kosárba!`;
-  MESE_CLIPS[`mese_collected_${n}`] = `Megvan ${n === 1 ? 'az' : 'a'} ${MESE_WORDS[n]} alma! Köszönöm!`;
+  MESE_CLIPS[`mese_collected_${n}`] = `Megvan ${n === 1 || n === 5 ? 'az' : 'a'} ${MESE_WORDS[n]} alma! Köszönöm!`;
   MESE_CLIPS[`mese_sort_${n}`] = `Tegyél ${MESE_WORDS[n]} almát a kosárba! A körtéket hagyd a kertben!`;
   if (n >= 2) MESE_CLIPS[`mese_add_${n}`] = `Van ${MESE_WORDS[n - 1]} alma a kosárban. Tegyél hozzá még egy almát!`;
   MESE_CLIPS[`mese_remove_${n}`] = `Van ${MESE_WORDS[n + 1]} alma a kosárban. Tegyél vissza egy almát!`;

@@ -517,7 +517,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/phrase_part_meg_alma_1.mp3"
   },
   "phrase_part_anya_gyere_0": {
-    "text": "anya",
+    "text": "anya,",
     "file": "audio/voice/phrase_part_anya_gyere_0.mp3"
   },
   "phrase_part_anya_gyere_1": {
@@ -2357,7 +2357,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/r_rhyme_sator_0.mp3"
   },
   "r_rhyme_sator_1": {
-    "text": "Erdő mellett sátrat állunk.",
+    "text": "Erdő mellett sátrat állítunk.",
     "file": "audio/voice/r_rhyme_sator_1.mp3"
   },
   "r_rhyme_sator_2": {
@@ -2509,7 +2509,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/r_rhyme_part_sator_1_0.mp3"
   },
   "r_rhyme_part_sator_1_1": {
-    "text": "sátrat állunk.",
+    "text": "sátrat állítunk.",
     "file": "audio/voice/r_rhyme_part_sator_1_1.mp3"
   },
   "r_rhyme_part_sator_2_0": {
@@ -2813,7 +2813,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/mese_collect_5.mp3"
   },
   "mese_collected_5": {
-    "text": "Megvan a öt alma! Köszönöm!",
+    "text": "Megvan az öt alma! Köszönöm!",
     "file": "audio/voice/mese_collected_5.mp3"
   },
   "mese_sort_5": {
@@ -4129,7 +4129,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/phrase_meg_alma.mp3"
   },
   "phrase_anya_gyere": {
-    "text": "anya gyere",
+    "text": "anya, gyere",
     "file": "audio/voice/phrase_anya_gyere.mp3"
   },
   "phrase_apa_auto": {

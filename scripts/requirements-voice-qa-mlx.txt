@@ -1,0 +1,2 @@
+# Optional Apple Silicon Metal backend for offline Hungarian voice review.
+mlx-whisper==0.4.3

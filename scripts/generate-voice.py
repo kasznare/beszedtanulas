@@ -22,7 +22,24 @@ from elevenlabs_voice import ROOT, CONFIG, TOKEN, SPOKEN_TOKEN, compact, fingerp
 
 CACHE = Path.home() / '.config/beszedtanulas/jessa-voice-cache'
 SECRET = Path.home() / '.config/beszedtanulas/elevenlabs.env'
+REJECTIONS = ROOT / 'voice-rejections.json'
 STOP = threading.Event()
+
+
+def assert_not_rejected(ids, *, source_fingerprint=None, source_sha=None,
+                        installed_fingerprint=None, installed_sha=None):
+    """Keep human-rejected recordings out of the paid cache and installation paths."""
+    registry = json.loads(REJECTIONS.read_text())
+    if registry.get('version') != 1:
+        raise RuntimeError('Unknown voice rejection registry version')
+    for rejected in registry['recordings']:
+        source = rejected['source']
+        installed = rejected['installed']
+        if ((source_fingerprint and source_fingerprint == source['fingerprint'])
+                or (source_sha and source_sha == source['sha256'])
+                or (installed_fingerprint and installed_fingerprint == installed['fingerprint'])
+                or (installed_sha and installed_sha == installed['sha256'])):
+            raise RuntimeError(f"{', '.join(ids)}: rejected voice recording ({rejected['id']}: {rejected['reason']}); change the spoken input and review a new sample")
 
 
 def api(endpoint, key):
@@ -42,11 +59,13 @@ def load_key():
 
 def generate(text, ids, key):
     code = fingerprint(text)
+    assert_not_rejected(ids, source_fingerprint=code)
     audio, receipt, pending = (CACHE / (code + suffix) for suffix in ['.mp3', '.json', '.pending.json'])
     if audio.exists() and receipt.exists():
         meta = json.loads(receipt.read_text())
         if meta.get('fingerprint') != code:
             raise RuntimeError('Paid cache fingerprint differs; inspect without regenerating')
+        assert_not_rejected(ids, source_sha=sha(audio.read_bytes()))
     else:
         if pending.exists() or audio.exists() or receipt.exists():
             raise RuntimeError(f'{ids[0]}: ambiguous previous request; recover from history, do not resend')
@@ -80,6 +99,7 @@ def generate(text, ids, key):
         except Exception:
             STOP.set()
             raise RuntimeError(f'{ids[0]}: interrupted result retained; recover from history before retrying') from None
+    assert_not_rejected(ids, source_sha=sha(audio.read_bytes()))
     length, words = validate(audio, meta, text)
     meta.update(duration=length, words=words)
     save(receipt, meta)
@@ -87,9 +107,41 @@ def generate(text, ids, key):
     return audio, meta
 
 
+def bound_excerpt_to_adjacent_words(clip, alignment, start, stop, duration):
+    """Limit optional padding without cutting any aligned target spoken token."""
+    text = clip['spokenText']
+    begin, end = clip['extract']['from'], clip['extract']['to']
+    words = list(SPOKEN_TOKEN.finditer(text))
+    target = [word for word in words if word.start() < end and word.end() > begin]
+    if (not 0 <= begin < end <= len(text) or not target
+            or any(word.start() < begin or word.end() > end for word in target)
+            or ''.join(alignment['characters']) != text):
+        raise RuntimeError(f"{clip['id']}: invalid adjacent-word excerpt span")
+    starts, ends = (alignment[field] for field in
+                    ('character_start_times_seconds', 'character_end_times_seconds'))
+    previous = [word for word in words if word.end() <= begin]
+    following = [word for word in words if word.start() >= end]
+    target_start = min(starts[word.start()] for word in target)
+    target_end = max(ends[word.end() - 1] for word in target)
+    previous_end = ends[previous[-1].end() - 1] if previous else 0
+    following_start = starts[following[0].start()] if following else duration
+    values = (start, stop, duration, target_start, target_end, previous_end, following_start)
+    if not all(isinstance(value, (int, float)) and not isinstance(value, bool)
+               and math.isfinite(value) for value in values):
+        raise RuntimeError(f"{clip['id']}: invalid adjacent-word timing")
+    start, stop = max(start, previous_end), min(stop, following_start)
+    if not (0 <= start <= target_start <= target_end <= stop <= duration and start < stop):
+        raise RuntimeError(f"{clip['id']}: adjacent-word bounds cut target speech")
+    return start, stop
+
+
 def installed_recording(clip, audio, meta):
+    assert_not_rejected([clip['id']], source_fingerprint=meta['fingerprint'],
+                        source_sha=sha(audio.read_bytes()))
     extract = clip.get('extract')
     if not extract:
+        assert_not_rejected([clip['id']], installed_fingerprint=meta['fingerprint'],
+                            installed_sha=sha(audio.read_bytes()))
         return audio, meta
     text = clip['spokenText']
     begin, end = extract['from'], extract['to']
@@ -103,6 +155,8 @@ def installed_recording(clip, audio, meta):
     alignment = meta['alignment']
     start = max(0, alignment['character_start_times_seconds'][begin] - extract['before'])
     stop = min(meta['duration'], alignment['character_end_times_seconds'][end - 1] + extract['after'])
+    if extract.get('boundToAdjacentWords') is True:
+        start, stop = bound_excerpt_to_adjacent_words(clip, alignment, start, stop, meta['duration'])
     code = fingerprint(text, extract)
     target = CACHE / (code + '.excerpt.mp3')
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(audio), '-ss', str(start),
@@ -113,8 +167,18 @@ def installed_recording(clip, audio, meta):
     words = [[round(alignment['character_start_times_seconds'][begin + m.start()] - start, 4),
               round(alignment['character_end_times_seconds'][begin + m.end() - 1] - start, 4), displayed.group()]
              for m, displayed in zip(spoken_words, display_words)]
+    # Provider source alignment permits small tail drift; installed excerpts
+    # must contain every complete aligned word in their actual encoded duration.
+    if not math.isfinite(length) or length <= 0 or not words:
+        raise RuntimeError(f"{clip['id']}: invalid excerpt duration or missing word timing")
+    for index, word in enumerate(words):
+        if (not all(math.isfinite(value) for value in word[:2])
+                or not 0 <= word[0] <= word[1] <= length + .001
+                or (index and word[0] < words[index - 1][0])):
+            raise RuntimeError(f"{clip['id']}: invalid excerpt word timing at {index}: {word[:2]} exceeds duration {length}")
     result = {**meta, 'fingerprint': code, 'sha256': sha(target.read_bytes()), 'duration': length, 'words': words,
               'sourceSha256': meta['sha256'], 'sourceStart': start, 'sourceEnd': stop}
+    assert_not_rejected([clip['id']], installed_fingerprint=code, installed_sha=result['sha256'])
     save(CACHE / (code + '.excerpt.json'), result)
     return target, result
 
@@ -138,6 +202,9 @@ def main():
     groups = {}
     for clip in clips:
         groups.setdefault(clip.get('spokenText', clip['text']), []).append(clip)
+    if args.generate:
+        for text, batch in groups.items():
+            assert_not_rejected([clip['id'] for clip in batch], source_fingerprint=fingerprint(text))
     missing = [text for text in groups if not (CACHE / (fingerprint(text) + '.json')).exists()]
     characters = sum(map(len, missing))
     print(f'{len(clips)} IDs, {len(groups)} unique recordings, {len(missing)} uncached, {characters} new characters', flush=True)
@@ -164,6 +231,8 @@ def main():
                 audio, meta = task.result()
                 for clip in batch:
                     installed_audio, installed_meta = installed_recording(clip, audio, meta)
+                    assert_not_rejected([clip['id']], installed_fingerprint=installed_meta['fingerprint'],
+                                        installed_sha=sha(installed_audio.read_bytes()))
                     output = ROOT / clip['file']
                     temporary = output.with_suffix('.part.mp3')
                     shutil.copyfile(installed_audio, temporary)

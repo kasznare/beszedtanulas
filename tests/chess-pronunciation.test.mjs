@@ -21,10 +21,11 @@ test('every new chess instruction has a scoped v4 phonetic input with one spoken
 });
 
 test('the local mapping distinguishes Hungarian vowel length and consonant clusters', () => {
-  assert.equal(CHESS_WORD_IPA.bástyával, 'ˈbaːʃcɒvɒl');
+  assert.equal(CHESS_WORD_IPA.bástyával, 'ˈbaːʃcaːvɒl');
   assert.equal(CHESS_WORD_IPA.huszárral, 'ˈhusaːrːɒl');
   assert.equal(CHESS_WORD_IPA.gyaloggal, 'ˈɟɒloɡːɒl');
   assert.equal(CHESS_WORD_IPA.vezérré, 'ˈvɛzeːrːeː');
+  assert.match(phoneticChessText('chess_rook_three', CHESS_CLIPS.chess_rook_three), /\/ˈbaːʃcaːvɒl\//);
   assert.match(phoneticChessText('chess_rook_three', CHESS_CLIPS.chess_rook_three), /\/ˈt͡ʃilːɒɡrɒ\//);
   assert.equal(phoneticChessText('chess_rook_three', 'Még a csillagra.', {még:'ˈmeːɡ'}), '/ˈmeːɡ/ a /ˈt͡ʃilːɒɡrɒ/.');
 });

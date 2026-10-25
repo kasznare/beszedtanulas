@@ -615,67 +615,67 @@
       "characterCost": 9.0
     },
     "guide_menu_thinking": {
-      "fingerprint": "704929dc68d6554433c62fdf767cdee1d71c73d7161f90d9135ce95fb4815190",
-      "sha256": "79f9f89388177aa7f843671297b876fb7830beda720d8799ec00345ff3f7a46d",
+      "fingerprint": "54e5e79d751263c50851d458b8df971f044d97665184c1cd65d0e0c93ad7b1e6",
+      "sha256": "774fd3d15c692143f2a8168b40923abdc330f83de07dc69ba1d1ebb474e06321",
       "words": [
         [
-          0.0,
-          0.88,
+          0.025,
+          0.825,
           "Számoljunk"
         ],
         [
-          1.2,
-          1.6,
+          1.145,
+          1.545,
           "figyeljük"
         ],
         [
-          1.68,
-          1.72,
+          1.625,
+          1.665,
           "a"
         ],
         [
-          1.76,
-          2.4,
+          1.705,
+          2.425,
           "mintákat"
         ],
         [
-          2.56,
-          2.64,
+          2.505,
+          2.665,
           "és"
         ],
         [
-          2.72,
-          3.04,
+          2.745,
+          3.065,
           "oldjunk"
         ],
         [
-          3.12,
-          3.2,
+          3.185,
+          3.305,
           "meg"
         ],
         [
-          3.28,
-          4.08,
+          3.345,
+          4.185,
           "fejtörőket"
         ],
         [
-          4.4,
-          4.827,
+          4.665,
+          5.278,
           "Válassz"
         ],
         [
-          4.853,
-          4.96,
+          5.332,
+          5.412,
           "egy"
         ],
         [
-          5.0,
-          5.68,
+          5.438,
+          6.185,
           "játékot"
         ]
       ],
-      "duration": 5.84,
-      "characterCost": 9.0
+      "duration": 6.344989,
+      "characterCost": 39.0
     },
     "guide_dress": {
       "fingerprint": "eb1aeee2cfb9d4fe8e66b55b2a360eb80b76f395c2be937465b1d6f3ac9b31c9",
@@ -857,57 +857,57 @@
       "characterCost": 4.0
     },
     "guide_teddy": {
-      "fingerprint": "5678371996bb177b48a5ed0f568b25a3427e5e71b2939aa88b0952004fbfaf95",
-      "sha256": "3e52bce1a492c7a6f0a98da254051d40a203aac5aed0bd6889e7191fa62401a6",
+      "fingerprint": "450229c36c5761380bd46525a786038d58cf5f90399200911784f41fe45f42f6",
+      "sha256": "4defb01b79ad787cf122a019c7d0eebb5ea7a1360d3812aab7c579eafdd70828",
       "words": [
         [
-          0.0,
-          1.04,
+          0.025,
+          0.985,
           "Megéheztem"
         ],
         [
-          1.44,
-          1.893,
+          1.465,
+          1.845,
           "Hallgasd"
         ],
         [
-          1.947,
-          2.0,
+          1.865,
+          2.025,
           "meg"
         ],
         [
-          2.16,
-          2.24,
+          2.185,
+          2.265,
           "mit"
         ],
         [
-          2.32,
-          2.72,
+          2.305,
+          2.665,
           "kérek"
         ],
         [
-          2.92,
-          3.04,
+          2.865,
+          2.985,
           "és"
         ],
         [
-          3.08,
-          3.52,
+          3.025,
+          3.465,
           "koppints"
         ],
         [
-          3.547,
-          3.573,
+          3.492,
+          3.518,
           "a"
         ],
         [
-          3.6,
-          4.4,
+          3.545,
+          4.345,
           "finomságra"
         ]
       ],
-      "duration": 4.64,
-      "characterCost": 7.0
+      "duration": 4.584989,
+      "characterCost": 33.0
     },
     "guide_teddy_thanks": {
       "fingerprint": "012df3ea23818be8290df2e308ffeb88036c52e2a8aae430b793176fa990c85d",
@@ -1014,16 +1014,16 @@
       "characterCost": 6.0
     },
     "guide_listening_game": {
-      "fingerprint": "6bfa87e0abddea5241b806601027505f7a5be792d27fd8678958e1ee442614c3",
-      "sha256": "366d8b1e982d23ebbef3ce9008c65878d6f004caa86ed15de17c862584a78b61",
+      "fingerprint": "5b6662f68f3ed7841b12e8ed1f2f3c6a23db2edda7ef09dc979d20bcd8a7e45f",
+      "sha256": "fc49b9e0a1fc967e88e6bf951c8cbbf535f467de0a637ac438c4c7e13e19b76b",
       "words": [
         [
           0.025,
-          0.425,
+          0.478,
           "Hallgasd"
         ],
         [
-          0.505,
+          0.532,
           0.585,
           "meg"
         ],
@@ -1034,37 +1034,37 @@
         ],
         [
           0.745,
-          1.065,
+          1.145,
           "szót"
         ],
         [
           1.305,
-          1.385,
+          1.465,
           "és"
         ],
         [
-          1.465,
-          1.785,
+          1.545,
+          1.918,
           "keresd"
         ],
         [
-          1.865,
-          1.945,
+          1.972,
+          2.025,
           "meg"
         ],
         [
-          1.998,
-          2.052,
+          2.065,
+          2.105,
           "a"
         ],
         [
-          2.105,
-          2.665,
+          2.185,
+          2.905,
           "képét"
         ]
       ],
-      "duration": 2.824989,
-      "characterCost": 7.0
+      "duration": 3.064989,
+      "characterCost": 24.0
     },
     "guide_picture_menu": {
       "fingerprint": "6cee52900a4b2477613f365d043035df4141a47defa7dc036b896a8c4b3832e3",
@@ -1158,8 +1158,8 @@
       "characterCost": 5.0
     },
     "guide_practice": {
-      "fingerprint": "ff311332dd5902c93722f7054cfa5d49666abfb0184a9bb2127c911dc996d69c",
-      "sha256": "b70ff9766dcd3a95ad9842ab67a201d149a731ce41f5dd7876a344976d0c7701",
+      "fingerprint": "72c2892d0d0d9235e1344d68856222cdf4b2d96f0192e650923dc2ff63ec2757",
+      "sha256": "2fb074c2954af9b6c8d371c5ca6928d6c0eac43d480ad4e0137685feff57c679",
       "words": [
         [
           0.025,
@@ -1177,43 +1177,43 @@
           "vagy"
         ],
         [
-          1.145,
+          1.225,
           1.385,
           "két"
         ],
         [
           1.465,
-          1.705,
+          1.785,
           "szóval"
         ],
         [
-          1.785,
+          1.825,
           1.865,
           "is"
         ],
         [
-          1.905,
+          1.945,
           2.825,
           "gyakorolhatunk"
         ],
         [
-          3.145,
-          3.572,
+          3.305,
+          3.812,
           "Válassz"
         ],
         [
-          3.598,
-          3.665,
+          3.838,
+          3.945,
           "egy"
         ],
         [
-          3.705,
-          4.265,
+          4.025,
+          4.585,
           "képet"
         ]
       ],
-      "duration": 4.424989,
-      "characterCost": 9.0
+      "duration": 4.744989,
+      "characterCost": 32.0
     },
     "guide_imitate": {
       "fingerprint": "bb7157f432ebf4fbd9fa5f494c4856dcf21624befbe7971d0ca7fb532a9831b7",
@@ -1634,57 +1634,57 @@
       "characterCost": 5.0
     },
     "guide_mic_help": {
-      "fingerprint": "0f6fb80a795b32cf27ac4e8936525f2ac6679de007768d8362077df8e837e9be",
-      "sha256": "8912f6ee3e02ef72802a825bbdf969b07bb9f040aa0d301c0fed39828f3685b1",
+      "fingerprint": "6e89353b4437b3dc20e307491b3342eab6b94a1531ead396341203317a174630",
+      "sha256": "7b559231efbab58f670b46a53f9946ef810eaea316946df16fbe3ebfda8fe37c",
       "words": [
         [
-          0.0,
-          0.24,
+          0.025,
+          0.238,
           "Kérj"
         ],
         [
-          0.32,
-          0.4,
+          0.265,
+          0.425,
           "meg"
         ],
         [
-          0.44,
-          0.56,
+          0.465,
+          0.545,
           "egy"
         ],
         [
-          0.64,
-          1.28,
+          0.585,
+          1.225,
           "felnőttet"
         ],
         [
-          1.333,
-          1.52,
+          1.358,
+          1.465,
           "hogy"
         ],
         [
-          1.64,
-          2.0,
+          1.585,
+          2.025,
           "kapcsolja"
         ],
         [
-          2.08,
-          2.16,
+          2.065,
+          2.105,
           "be"
         ],
         [
-          2.2,
-          2.24,
+          2.145,
+          2.185,
           "a"
         ],
         [
-          2.28,
-          3.04,
+          2.225,
+          2.905,
           "mikrofont"
         ]
       ],
-      "duration": 3.28,
-      "characterCost": 6.0
+      "duration": 3.144989,
+      "characterCost": 30.0
     },
     "guide_one_word": {
       "fingerprint": "32bc60014747d941b352748e2dc715495197d7e90a0f8a957ef48a72b571c9de",
@@ -5841,43 +5841,43 @@
       "characterCost": 1.0
     },
     "logic_n_8": {
-      "fingerprint": "01819c16d89bd1e3a801e1e506666d6621820158b203eb90c8eff688d6f7710e",
-      "sha256": "1e254ce3caba80a700495680df76579fd5a0de07f5e7f6d8160471ff38a1e982",
+      "fingerprint": "5624aa51b24ce0ce2c0b585db2fa29593b419be1f8db36ded2906002577d36f3",
+      "sha256": "eaf1a90b5877f12e9a3182ffab1ea1b480aae0246a89940336e9fe33c71e9a3d",
       "words": [
         [
           0.025,
-          0.585,
+          0.825,
           "nyolc"
         ]
       ],
-      "duration": 0.734989,
-      "characterCost": 2.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "workshop_n_8": {
-      "fingerprint": "01819c16d89bd1e3a801e1e506666d6621820158b203eb90c8eff688d6f7710e",
-      "sha256": "1e254ce3caba80a700495680df76579fd5a0de07f5e7f6d8160471ff38a1e982",
+      "fingerprint": "5624aa51b24ce0ce2c0b585db2fa29593b419be1f8db36ded2906002577d36f3",
+      "sha256": "eaf1a90b5877f12e9a3182ffab1ea1b480aae0246a89940336e9fe33c71e9a3d",
       "words": [
         [
           0.025,
-          0.585,
+          0.825,
           "nyolc"
         ]
       ],
-      "duration": 0.734989,
-      "characterCost": 2.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "number_8": {
-      "fingerprint": "01819c16d89bd1e3a801e1e506666d6621820158b203eb90c8eff688d6f7710e",
-      "sha256": "1e254ce3caba80a700495680df76579fd5a0de07f5e7f6d8160471ff38a1e982",
+      "fingerprint": "5624aa51b24ce0ce2c0b585db2fa29593b419be1f8db36ded2906002577d36f3",
+      "sha256": "eaf1a90b5877f12e9a3182ffab1ea1b480aae0246a89940336e9fe33c71e9a3d",
       "words": [
         [
           0.025,
-          0.585,
+          0.825,
           "nyolc"
         ]
       ],
-      "duration": 0.734989,
-      "characterCost": 2.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "logic_n_10": {
       "fingerprint": "ebb6829901f32531d205bdeb736b35e738721920940e6c57130edf8c8d11e2a9",
@@ -9305,137 +9305,137 @@
       "characterCost": 13.0
     },
     "chess_king_team": {
-      "fingerprint": "0c085db277461968065e6fbc5da14dce369443c3e0c823cc104d61fd203d38e6",
-      "sha256": "83d4ecc6c53077f61a638c67269c84b8e9f04e16af83cb6e7d909798aec3acf8",
+      "fingerprint": "c903d999e7219d3387c6bcd004ac5729a08a02d65ecb74d1a6e4c6b216fdeb96",
+      "sha256": "ddefdceaddf154bca4998d37ecd84d99b604709ca3dd51ab7dcc495b583188a9",
       "words": [
         [
-          0.0,
-          0.24,
+          0.025,
+          0.265,
           "Vidd"
         ],
         [
-          0.28,
-          0.32,
+          0.292,
+          0.318,
           "a"
         ],
         [
-          0.44,
-          0.72,
+          0.345,
+          0.705,
           "királyt"
         ],
         [
-          0.76,
-          0.8,
+          0.745,
+          0.785,
           "a"
         ],
         [
-          0.88,
-          1.52,
+          0.825,
+          1.465,
           "csillagra"
         ],
         [
-          1.84,
-          2.48,
+          1.745,
+          2.185,
           "legfeljebb"
         ],
         [
-          2.56,
-          2.8,
+          2.265,
+          2.505,
           "négy"
         ],
         [
-          2.88,
-          3.6,
+          2.585,
+          3.305,
           "lépésből"
         ],
         [
-          4.08,
-          4.16,
+          3.705,
+          3.785,
           "A"
         ],
         [
-          4.28,
-          4.64,
+          3.865,
+          4.265,
           "világos"
         ],
         [
-          4.72,
-          5.2,
+          4.305,
+          4.825,
           "bástyával"
         ],
         [
-          5.28,
-          5.36,
+          4.905,
+          4.985,
           "is"
         ],
         [
-          5.44,
-          6.0,
+          5.065,
+          5.665,
           "léphetsz"
         ],
         [
-          6.4,
-          6.8,
+          6.105,
+          6.505,
           "Előbb"
         ],
         [
-          6.84,
-          7.04,
+          6.545,
+          6.745,
           "üsd"
         ],
         [
-          7.12,
-          7.2,
+          6.785,
+          6.825,
           "le"
         ],
         [
-          7.24,
-          7.28,
+          6.905,
+          6.945,
           "a"
         ],
         [
-          7.4,
-          7.84,
+          6.985,
+          7.465,
           "megjelölt"
         ],
         [
-          7.88,
-          8.24,
+          7.505,
+          7.865,
           "sötét"
         ],
         [
-          8.28,
-          8.8,
+          7.945,
+          8.505,
           "bástyát"
         ],
         [
-          8.853,
-          8.96,
+          8.798,
+          8.905,
           "hogy"
         ],
         [
-          9.0,
-          9.04,
+          8.958,
+          9.012,
           "a"
         ],
         [
-          9.12,
-          9.44,
+          9.065,
+          9.385,
           "király"
         ],
         [
-          9.56,
-          10.16,
+          9.465,
+          10.265,
           "biztonságban"
         ],
         [
-          10.24,
-          11.12,
+          10.305,
+          11.145,
           "átkelhessen"
         ]
       ],
-      "duration": 11.28,
-      "characterCost": 18.0
+      "duration": 11.304989,
+      "characterCost": 76.0
     },
     "chess_promotion_route": {
       "fingerprint": "5e60dfcc6889f08782f745b0a77ec0e4e362d1889deedcd7c8abf44a62186875",
@@ -14294,17 +14294,17 @@
       "characterCost": 1.0
     },
     "r_word_madar": {
-      "fingerprint": "8d3544cb4c20e8f14daa18f47166d991fb27f440e667ac6b19bc1b2691b1ae5a",
-      "sha256": "13a7680e24a22c7e857bf43195ed6f654c6cfbc2e351964148e40db3ed50fc51",
+      "fingerprint": "7281e5d3dc5e92de4a32f2273119ffec5a7a5cd636f102a683fd5876c47e5ad6",
+      "sha256": "2e2903c559efaea0c3b3b8655920352180f916a59895bbb45d6655ea4021df27",
       "words": [
         [
           0.025,
-          0.585,
+          0.825,
           "madár"
         ]
       ],
-      "duration": 0.735011,
-      "characterCost": 1.0
+      "duration": 1.064989,
+      "characterCost": 9.0
     },
     "r_word_eger": {
       "fingerprint": "c006841d88a3b1b3d48268ee2af2434307e54919b4845c388a31d870187fdba6",
@@ -14600,27 +14600,27 @@
       "characterCost": 1.0
     },
     "r_phrase_raketa": {
-      "fingerprint": "79535a717b9739d58b6fd784fecea3b01546a1ccc89ef86a906eff31763a95e6",
-      "sha256": "34621146e4174ca952904a1531528211966490e77b3f0616bfa348cd49dc765a",
+      "fingerprint": "3d53d2e9f1f8ffe56dfa1b4317776cac9d2bc144aba731cb7742bac5d3340fa0",
+      "sha256": "8df57eaeff9e318739660045699f9c5b7589cd3a2cb8f0a645653cf4f7974918",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.345,
           "repül"
         ],
         [
-          0.72,
-          0.8,
+          0.425,
+          0.465,
           "a"
         ],
         [
-          0.84,
-          1.52,
+          0.505,
+          1.225,
           "rakéta"
         ]
       ],
-      "duration": 1.76,
-      "characterCost": 2.0
+      "duration": 1.385556,
+      "characterCost": 13.0
     },
     "r_phrase_rak": {
       "fingerprint": "8c3a68a262d218657dd74f689e6dd255161873f10dd145f7004e40a8637e3e4f",
@@ -15039,22 +15039,22 @@
       "characterCost": 1.0
     },
     "r_phrase_sator": {
-      "fingerprint": "9abd6b8075624bfeb4a173b044fd11fac58e63428d976bc20f94900dc15bfc46",
-      "sha256": "15c687ec3b05c37e3bb442fe102b7ada462fce2fd36d98f757d74c205cb73824",
+      "fingerprint": "b64bc03985a22a250ab187e87c6083e9c7d83304a03769b1cdf77d0792eeef36",
+      "sha256": "69f04336de743c243931ece4760ce35cd46db6607fccb82a692978ee678aefc8",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.425,
           "piros"
         ],
         [
-          0.6,
-          1.2,
+          0.505,
+          1.145,
           "sátor"
         ]
       ],
-      "duration": 1.6,
-      "characterCost": 1.0
+      "duration": 1.385556,
+      "characterCost": 12.0
     },
     "r_phrase_kosar": {
       "fingerprint": "27afc7aaa37e6f9b8c5793f9df716ba578bf63d200f98571744c4974fb9a0c2c",
@@ -15337,32 +15337,32 @@
       "characterCost": 3.0
     },
     "r_rhyme_sator_1": {
-      "fingerprint": "fe7b3bfb1b96785a9ae72b56a04ec92f51b306e5bb60c8fc27128f12a65be52c",
-      "sha256": "c1a9dd7787f85a7c38c84423a2b55841c40e4baf6c0a4bd189aa525143624700",
+      "fingerprint": "ae9e61d804254dced72d04bafebd2b853e992bc5d458c5df9602f0feee42b4ed",
+      "sha256": "8365877bef8bdf4c7a8b6dce0bb4194fb070b523a1dd55437e11dbb11e943b19",
       "words": [
         [
-          0.0,
-          0.4,
+          0.025,
+          0.385,
           "Erdő"
         ],
         [
-          0.52,
-          0.96,
+          0.425,
+          0.985,
           "mellett"
         ],
         [
-          1.04,
-          1.52,
+          1.065,
+          1.545,
           "sátrat"
         ],
         [
-          1.6,
-          2.16,
-          "állunk"
+          1.585,
+          2.305,
+          "állítunk"
         ]
       ],
-      "duration": 2.4,
-      "characterCost": 3.0
+      "duration": 2.424989,
+      "characterCost": 23.0
     },
     "r_rhyme_sator_2": {
       "fingerprint": "bd8a0d7d35b375e5798144301196fb633a2fb0a8cc5909910986516633289f76",
@@ -15454,37 +15454,37 @@
       "characterCost": 5.0
     },
     "r_rhyme_robot_1": {
-      "fingerprint": "cf8267312dbcdf08348fd3bc6114189bd65a3e41f82371c93391d2b479fbfc4f",
-      "sha256": "be8013533137d3cc4e073decef7ef5eb78e4bcecc8d23b2885853dcb8f3bb272",
+      "fingerprint": "3319c36902a0e980b67db0f14cb0d5931b9d54e7decf953ceb3f5c44b7bdd5ac",
+      "sha256": "49c21ec2b6dc8184ba11e1e20fb6e0bb517591c73c735df6d078fb1ae4239b72",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.345,
           "Piros"
         ],
         [
-          0.64,
-          1.2,
+          0.425,
+          1.065,
           "ceruzát"
         ],
         [
-          1.24,
-          1.28,
+          1.145,
+          1.225,
           "a"
         ],
         [
-          1.36,
-          1.84,
+          1.305,
+          1.785,
           "kezébe"
         ],
         [
-          2.04,
-          2.24,
+          1.985,
+          2.185,
           "kap"
         ]
       ],
-      "duration": 2.4,
-      "characterCost": 3.0
+      "duration": 2.344989,
+      "characterCost": 20.0
     },
     "r_rhyme_robot_2": {
       "fingerprint": "fe1202735d7dc211b01397f042b30eb0e3761dd062d9a15e896097200a97ad47",
@@ -16645,37 +16645,37 @@
       "characterCost": 3.0
     },
     "mese_collected_5": {
-      "fingerprint": "ae25762bec4a14e694478303376c36ec7cb4cc289fce73eaa4b90223bae4c431",
-      "sha256": "c71f400a3223f660e764c33cea23c12d720f241c32c1846b8cc12c4b374cbb18",
+      "fingerprint": "098c29ba00a4339e77b3f290ba12f1b30622d049de60ae5a28104ff5dd04262a",
+      "sha256": "3587ff28994da74e3b83c3eaf526fa2d6e668fcae8cd2e3d56994090c7b16620",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.345,
           "Megvan"
         ],
         [
-          0.52,
-          0.56,
-          "a"
+          0.425,
+          0.505,
+          "az"
         ],
         [
-          0.64,
-          0.88,
+          0.585,
+          0.745,
           "öt"
         ],
         [
-          1.0,
-          1.28,
+          0.865,
+          1.225,
           "alma"
         ],
         [
-          1.68,
-          2.32,
+          1.545,
+          2.185,
           "Köszönöm"
         ]
       ],
-      "duration": 2.48,
-      "characterCost": 3.0
+      "duration": 2.424989,
+      "characterCost": 20.0
     },
     "mese_collect_7": {
       "fingerprint": "19d291e9b19107048e8f9ffa8f7e94d487a5a98238c7e9a29cf036bd00555440",
@@ -17065,27 +17065,27 @@
       "characterCost": 3.0
     },
     "dress_request_sapka": {
-      "fingerprint": "4a13393cc0c86ee4a80f2837d21bbb0af6e75586c2efcf6efdae388078a8c129",
-      "sha256": "197042fe03e284baddbf4b8a06d149e168f76f6d61339cdf5842099353da530c",
+      "fingerprint": "edf2b730de4a43076b7c49bd452cb94d159d7245475d3a916d23d596c6537fe2",
+      "sha256": "1a490e863b2dc5a27e46de90e761e334276848e970e940d2e64a7d4802e75e63",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.56,
-          1.12,
+          0.665,
+          1.305,
           "sapkát"
         ]
       ],
-      "duration": 1.28,
-      "characterCost": 2.0
+      "duration": 1.464989,
+      "characterCost": 13.0
     },
     "dress_thanks_sapka": {
       "fingerprint": "e35edef525a77b8242f5fb1074381b28b26500db732b464f9bec7e7ca5b45f08",
@@ -17111,27 +17111,27 @@
       "characterCost": 2.0
     },
     "dress_request_polo": {
-      "fingerprint": "5943fbe7b4a2a3adda3155f740236949e536216ec6c4445cd60c835eb88fca65",
-      "sha256": "2dab2537b7d50af174f3b849193f947ae684a233938254478346d995a81e7299",
+      "fingerprint": "68563a1ec1d8fe7723c88c6351888c15007156cdda891f98911e39de03be3577",
+      "sha256": "001968e9858352a9144efe617941adb3c65b1cf0528eb804fb9ca9aec5e4e56a",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.48,
-          1.12,
+          0.585,
+          1.225,
           "pólót"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 2.0
+      "duration": 1.385556,
+      "characterCost": 12.0
     },
     "dress_thanks_polo": {
       "fingerprint": "a30e02bc3e6242942f8cd1938b3e7a6e35ac35afed04abe4a1d12b01ff5bdd9e",
@@ -17162,73 +17162,73 @@
       "characterCost": 2.0
     },
     "dress_request_sal": {
-      "fingerprint": "7b4aa6990eb694f87a7ebcc2cb3c75ed3e71fc7ef2f80dbc3004b440868eee2d",
-      "sha256": "d9920a6da87783a20e486900997ec17a7b7401f21e97a96ab173d861269e6157",
+      "fingerprint": "a55464ad01e91c6ea2f524f9fb8d6bc961c39832e2d62de1bf399d529fe6d029",
+      "sha256": "dccd4dc647f2360db5c8c323e0a7b60596edd6f97abba11ecf24b6d66711ae77",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.48,
-          1.12,
+          0.585,
+          1.145,
           "sálat"
         ]
       ],
-      "duration": 1.28,
-      "characterCost": 2.0
+      "duration": 1.304989,
+      "characterCost": 12.0
     },
     "dress_thanks_sal": {
-      "fingerprint": "693c1eae32a13f924440309100c5e63b30e48cd8d44c26e005976e49509a8c34",
-      "sha256": "bca46f74d9cd1813d831c6b0d13f651ce164e17b40891cdf6316015294be8462",
+      "fingerprint": "bdc52b9519e39549b56663c1a6dffddc5b6ee1af8c91943abfbb08a6b3322b4c",
+      "sha256": "088723a0f17e629c1fbbbc955641bf9690d359677687e2709140af734e0ea5b0",
       "words": [
         [
-          0.0,
-          0.4,
+          0.025,
+          0.345,
           "Meleg"
         ],
         [
-          0.44,
-          0.48,
+          0.385,
+          0.425,
           "a"
         ],
         [
-          0.56,
-          1.12,
+          0.505,
+          1.145,
           "sálam"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 2.0
+      "duration": 1.385556,
+      "characterCost": 14.0
     },
     "dress_request_cipo": {
-      "fingerprint": "37b9cd49a5dc2d899af618dc94d046f18a921470892b80bf633b8313b577b23d",
-      "sha256": "8f5e1363ac58b5c9f9a724066d9d5eb88ce4ad484443142233deac8594c41c8b",
+      "fingerprint": "a791ec4fdc89de5ba5795664ffa511e6147f0b93a3d5970cfa0e6d4651de94a3",
+      "sha256": "c566394a74d101acb07531eaf9a53ca90fdc080534f3be87f9767ce08eb431df",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.48,
-          1.12,
+          0.665,
+          1.145,
           "cipőt"
         ]
       ],
-      "duration": 1.28,
-      "characterCost": 2.0
+      "duration": 1.385556,
+      "characterCost": 12.0
     },
     "dress_thanks_cipo": {
       "fingerprint": "cf0c284e547c9d2e3f54d7458f6efda98a8d842613fd4836ea52b00fdab9cdb8",
@@ -17332,17 +17332,17 @@
       "characterCost": 1.0
     },
     "word_maci": {
-      "fingerprint": "afc8e384950a56cbfcc0117e55d91e934d2020588376c4d81716fe04031169d9",
-      "sha256": "9855a050ee3fb54ff2ef257dabd69b3c8695c5a6bfbfb0fa879f34c2c2327345",
+      "fingerprint": "47db61926be69af92d7b40a32f2cbff3f1a4639f28196a2059d139513252a80b",
+      "sha256": "0ca901a8413e0821cdbf44742ffa36378949db1f74aadca420f001711afe2588",
       "words": [
         [
           0.025,
-          0.505,
+          0.585,
           "maci"
         ]
       ],
-      "duration": 0.654989,
-      "characterCost": 1.0
+      "duration": 0.824989,
+      "characterCost": 9.0
     },
     "word_furdokad": {
       "fingerprint": "c8a04b1793e32058f6bc7dceb907b3b2c26424e6b717a4de64ae714352b50621",
@@ -17436,17 +17436,17 @@
       "characterCost": 2.0
     },
     "word_cipo": {
-      "fingerprint": "096b54dc43bbfe3e1f255fbd8d3df756a1a746ba321bca3d5911beab4baadeec",
-      "sha256": "e824291387cee550e35613bb5c70b36d07a114f0c9de39875bbd4109fb490910",
+      "fingerprint": "382ad814288070aaa0ad717d4997098c757ef67e2344ecef2d0ff80d7b61a7fd",
+      "sha256": "4b4070266e01d03617b813b210b8c1832ccc6d5e67c450a7563e7088d62e22ec",
       "words": [
         [
-          0.0,
-          0.64,
+          0.025,
+          0.825,
           "cipő"
         ]
       ],
-      "duration": 1.04,
-      "characterCost": 1.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "word_sapka": {
       "fingerprint": "4e34d6d9e84d15f198e30a371b99861b4b61b11ce4f64db315f07e198c2b6b5a",
@@ -17524,22 +17524,22 @@
       "characterCost": 3.0
     },
     "phrase_anya_gyere": {
-      "fingerprint": "0943fa3812795b86e287fe29c884ec40ad85f11069a08f32568f6d2da661754c",
-      "sha256": "c77bbeaed92cfcf68245cb84df3404e70903e56931deb5b8a3fc21f3a7d7f3df",
+      "fingerprint": "4cefc031f8830cc4f974fdf56c35709bbbf2d6ca0b6a7b3e547e5b5faa4f4f7c",
+      "sha256": "7c2a3d1faac5fe7e2d9f738ec5d85472dbc66de143ca763ef5845c414eebfe32",
       "words": [
         [
-          0.0,
-          0.4,
+          0.025,
+          0.545,
           "anya"
         ],
         [
-          0.8,
-          1.2,
+          0.785,
+          1.265,
           "gyere"
         ]
       ],
-      "duration": 1.44,
-      "characterCost": 1.0
+      "duration": 1.544989,
+      "characterCost": 13.0
     },
     "phrase_apa_auto": {
       "fingerprint": "f4c0ddf6b4bf644d15e1f6ad08ae484df95da48ecadc9ea6def39aa15bfd8b68",
@@ -18934,22 +18934,22 @@
       "characterCost": 4.0
     },
     "quantity_auto_8": {
-      "fingerprint": "2ddb1055352d7d9c0692978877e2df234c09c8c29c985ffa1f72b30ac05ccff0",
-      "sha256": "4a754892ae4afac92046bef9efcf2f5c4aed641715ca47d21ee5fa7ed952d14c",
+      "fingerprint": "3b2cef8fbe564084dc7dc7442a9f6dafe4bb9c66c1a120b7861808a52e5bb029",
+      "sha256": "63bb274261d2881246d26900dd51f545f83822164548000563b63a17d4b77bd4",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.385,
           "nyolc"
         ],
         [
-          0.64,
-          1.36,
+          0.425,
+          0.985,
           "autó"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 1.0
+      "duration": 1.224989,
+      "characterCost": 13.0
     },
     "question_alma_7": {
       "fingerprint": "055b2304782a494f2f6074f360dcfbcf09c19b2dd99defcdf64af63b53690096",
@@ -19000,22 +19000,22 @@
       "characterCost": 4.0
     },
     "quantity_labda_8": {
-      "fingerprint": "b7e6e86fab0ce9610912a8e25c0b975c57e7c0ee7f95f18806d9bd06012a6378",
-      "sha256": "c1ebd19619c714f1d00154060bfc9bd93d2035f772b78b4b96bf2d55d23cab7d",
+      "fingerprint": "d148bd76fdef1b9997f71ea2cba243f738fb804f676801123250244e99085424",
+      "sha256": "95ac8643409243b6b1fe999a4698acf376ae94d042a48c767340b1e133436a3c",
       "words": [
         [
-          0.0,
-          0.64,
+          0.025,
+          0.425,
           "nyolc"
         ],
         [
-          1.12,
-          1.6,
+          0.545,
+          0.905,
           "labda"
         ]
       ],
-      "duration": 1.84,
-      "characterCost": 1.0
+      "duration": 1.144989,
+      "characterCost": 13.0
     },
     "question_auto_8": {
       "fingerprint": "3dc9f1930a18b5f11cbefd829ab5de3f02ea5e9ef5bb9fdbc079d8aeaf87b3b7",
@@ -19066,22 +19066,22 @@
       "characterCost": 4.0
     },
     "quantity_alma_8": {
-      "fingerprint": "286732d279394842c52b0b9ddd5539b921ba3a7ce016f592c3013435c705d122",
-      "sha256": "202c7712a88beb2dd58e3d76858ac27f5fdad0503b7e02931c12976e8229ee9f",
+      "fingerprint": "13add5dc317252e0db33776b054a591cb8f233b779d489da61ec5ac2bfe78fe6",
+      "sha256": "cd9c0949f473a6c7cd5133dd1a060e28de18ef2bcef74b0d36b4d42b53934efa",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.425,
           "nyolc"
         ],
         [
-          0.64,
-          1.12,
+          0.505,
+          0.985,
           "alma"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 1.0
+      "duration": 1.224989,
+      "characterCost": 13.0
     },
     "question_labda_8": {
       "fingerprint": "7f09736093d13cb445ea4dae2473935ff2fa6f9c4def41e06eb28e77dee939f0",
@@ -19943,17 +19943,17 @@
       "characterCost": 1.0
     },
     "r_word_maci": {
-      "fingerprint": "afc8e384950a56cbfcc0117e55d91e934d2020588376c4d81716fe04031169d9",
-      "sha256": "9855a050ee3fb54ff2ef257dabd69b3c8695c5a6bfbfb0fa879f34c2c2327345",
+      "fingerprint": "47db61926be69af92d7b40a32f2cbff3f1a4639f28196a2059d139513252a80b",
+      "sha256": "0ca901a8413e0821cdbf44742ffa36378949db1f74aadca420f001711afe2588",
       "words": [
         [
           0.025,
-          0.505,
+          0.585,
           "maci"
         ]
       ],
-      "duration": 0.654989,
-      "characterCost": 1.0
+      "duration": 0.824989,
+      "characterCost": 9.0
     },
     "r_word_nap": {
       "fingerprint": "af637e129817a84ed4ca9b1480197c08677df261aec63b19d9d58c1016a64acb",
@@ -20008,17 +20008,17 @@
       "characterCost": 1.0
     },
     "r_word_cipo": {
-      "fingerprint": "096b54dc43bbfe3e1f255fbd8d3df756a1a746ba321bca3d5911beab4baadeec",
-      "sha256": "e824291387cee550e35613bb5c70b36d07a114f0c9de39875bbd4109fb490910",
+      "fingerprint": "382ad814288070aaa0ad717d4997098c757ef67e2344ecef2d0ff80d7b61a7fd",
+      "sha256": "4b4070266e01d03617b813b210b8c1832ccc6d5e67c450a7563e7088d62e22ec",
       "words": [
         [
-          0.0,
-          0.64,
+          0.025,
+          0.825,
           "cipő"
         ]
       ],
-      "duration": 1.04,
-      "characterCost": 1.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "r_word_sapka": {
       "fingerprint": "4e34d6d9e84d15f198e30a371b99861b4b61b11ce4f64db315f07e198c2b6b5a",
@@ -20260,107 +20260,107 @@
       "characterCost": 34.0
     },
     "montessori_shapes_2": {
-      "fingerprint": "005ede60ea7687652718d03cb0832913ecdba93653a7ef0d9c9086c316cda63e",
-      "sha256": "c22120c48072b46a6618ddfbcfe8f1a2e586d7ac3ef88a031bac2fd5707b9684",
+      "fingerprint": "5380ea7ff8bd4f714764c3461ad5d2e02d5c0b1df5dc0bad8bf063527da8465d",
+      "sha256": "46cfa4d0f0c51d7cd0719d932a9a4caa776279987385e183b0a71472733b32a6",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.345,
           "Nézd"
         ],
         [
-          0.4,
-          0.44,
+          0.385,
+          0.425,
           "a"
         ],
         [
-          0.48,
-          0.64,
+          0.465,
+          0.665,
           "lyuk"
         ],
         [
-          0.72,
-          1.36,
+          0.745,
+          1.305,
           "alakját"
         ],
         [
-          1.44,
-          1.52,
+          1.385,
+          1.465,
           "és"
         ],
         [
-          1.56,
-          1.6,
+          1.505,
+          1.545,
           "a"
         ],
         [
-          1.68,
-          2.0,
+          1.625,
+          1.945,
           "keret"
         ],
         [
-          2.08,
-          2.64,
+          2.025,
+          2.585,
           "színét"
         ],
         [
-          3.12,
-          3.493,
+          3.065,
+          3.425,
           "Keresd"
         ],
         [
-          3.547,
-          3.6,
+          3.465,
+          3.545,
           "meg"
         ],
         [
-          3.68,
-          3.76,
+          3.625,
+          3.705,
           "az"
         ],
         [
-          3.84,
-          4.32,
+          3.785,
+          4.265,
           "ugyanilyen"
         ],
         [
-          4.4,
-          4.8,
+          4.345,
+          4.665,
           "színű"
         ],
         [
-          4.88,
-          4.96,
+          4.745,
+          4.825,
           "és"
         ],
         [
-          5.04,
-          5.44,
+          4.905,
+          5.225,
           "alakú"
         ],
         [
-          5.6,
-          6.0,
+          5.305,
+          5.785,
           "formát"
         ],
         [
-          6.16,
-          6.24,
+          5.945,
+          6.025,
           "és"
         ],
         [
-          6.32,
-          6.52,
+          6.105,
+          6.305,
           "tedd"
         ],
         [
-          6.56,
-          6.88,
+          6.345,
+          6.665,
           "bele"
         ]
       ],
-      "duration": 7.04,
-      "characterCost": 40.0
+      "duration": 6.824989,
+      "characterCost": 47.0
     },
     "montessori_shapes_3": {
       "fingerprint": "c5a6a5d6a4eb2eb6a98bc4c3dc6961a91168f5063d42176c5ba726eb6cfe7d68",
@@ -20876,57 +20876,57 @@
       "characterCost": 14.0
     },
     "montessori_tower_retry": {
-      "fingerprint": "3ffb4c7f1dab8bb4cd95bc0f7badb920eaa1b93e285872c771402c29e57a1f42",
-      "sha256": "64bb10d443115a55b536f0dc9db0c22bdbaa0d663a5ab8b9ba4b124ab5eaa7e4",
+      "fingerprint": "9d1faf8b2d665569f6502dfc4e752182e4138508cf3428c04264846c19b6289e",
+      "sha256": "54b9a552ce8eb4681018dd26d205983144df2f674b1bd348a72d6f7d7a030f98",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.345,
           "Előbb"
         ],
         [
-          0.36,
-          0.44,
+          0.385,
+          0.465,
           "egy"
         ],
         [
-          0.48,
-          0.8,
+          0.505,
+          0.825,
           "nagyobb"
         ],
         [
-          0.88,
-          1.12,
+          0.865,
+          1.145,
           "korong"
         ],
         [
-          1.2,
-          1.92,
+          1.225,
+          2.025,
           "következik"
         ],
         [
-          2.32,
-          2.56,
+          2.425,
+          2.665,
           "Nézd"
         ],
         [
-          2.64,
-          2.72,
+          2.745,
+          2.825,
           "meg"
         ],
         [
-          2.747,
-          2.773,
+          2.865,
+          2.905,
           "a"
         ],
         [
-          2.8,
-          3.52,
+          2.985,
+          3.625,
           "tálcát"
         ]
       ],
-      "duration": 3.68,
-      "characterCost": 22.0
+      "duration": 3.784989,
+      "characterCost": 30.0
     },
     "montessori_clear": {
       "fingerprint": "dad8f5f3a579cfb9f9e32eafa838e16a94b01a2b6b6e3e1f948aeb93a868cdb7",
@@ -22250,27 +22250,27 @@
       "characterCost": 2.0
     },
     "dress_request_esokabat": {
-      "fingerprint": "98fdcfaa7a336872c7b99d8cff4a1d60530fd7f943eecc08e64355328f8e1487",
-      "sha256": "242e0a645fc8d2848bded97b6620bf5b676024577dc4c8f62307d028de515557",
+      "fingerprint": "c143a216a2a280c3c63d49e4a8b8f4476d7d1842dced367e78395ed067474fd2",
+      "sha256": "468d88c40e9b68004e979160f1962a5e4b0f340a11480e121762fdfa0460c294",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.4,
-          0.48,
+          0.465,
+          0.505,
           "az"
         ],
         [
-          0.6,
-          1.6,
+          0.585,
+          1.705,
           "esőkabátot"
         ]
       ],
-      "duration": 1.76,
-      "characterCost": 8.0
+      "duration": 1.864989,
+      "characterCost": 15.0
     },
     "dress_thanks_esokabat": {
       "fingerprint": "adcd1fcd5017be0cd495ba6f7cedb1e06566fa6111403b1153b92eb99bbe34e9",
@@ -22314,27 +22314,27 @@
       "characterCost": 4.0
     },
     "dress_request_gumicsizma": {
-      "fingerprint": "dff35bd707607fa526f51aa3e80547baa5dbd0a37b4f37ff56288fc051e8f073",
-      "sha256": "03b742b31d7a211d5b5cf5a5cb126e6ea3f18cd6b9f7861a2567ea6b483147b2",
+      "fingerprint": "44b738b99ea2fd994b59a039de8535882f9b203963124d5532d494b9c873ab2a",
+      "sha256": "66defda1438a01c46ed14934d1797e88f4ae86348bbebe843d60cb68893972c5",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.44,
-          1.44,
+          0.545,
+          1.465,
           "gumicsizmát"
         ]
       ],
-      "duration": 1.6,
-      "characterCost": 8.0
+      "duration": 1.704989,
+      "characterCost": 15.0
     },
     "dress_thanks_gumicsizma": {
       "fingerprint": "c186e23b9d9e613c02affc0cd5c44ce3798b78584783c84f2731647932a5beea",
@@ -22370,40 +22370,40 @@
       "characterCost": 15.0
     },
     "dress_name_gumicsizma": {
-      "fingerprint": "c82988462cb3811ba9b94a7a0574067db392235a09c083a7ec24a21b92c9f71f",
-      "sha256": "eafe7cd492a7de9288b167c4500b5321ef5685bbad7e421448d2c8e612bdc975",
+      "fingerprint": "f1dc5d6195cf9d4ff598966a444059b44ab6ebb68e66e9cd9446f2d7fc9a9fde",
+      "sha256": "73e31901e8ca0e707dcdce1ecef6066c71c2739d981ed75d2340e716e746fdf3",
       "words": [
         [
-          0.0,
-          0.96,
+          0.025,
+          0.945,
           "gumicsizma"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 4.0
+      "duration": 1.224989,
+      "characterCost": 13.0
     },
     "dress_request_napkalap": {
-      "fingerprint": "795244d421c3276d7fb1f319bd6993fd984e0ac3b5b3ac110faf6be6ff545356",
-      "sha256": "e37d0616fb5f5139e95a4b0a1e67fcae5f0e5247968e3e99f108df4524c2799d",
+      "fingerprint": "37d84de53ff15a18b04a6ae3294cf836cd79b7f4361ebd7349cd2d4e1ef8709e",
+      "sha256": "5a1396309f774b7ff687eaa7dd24f9a0b114ee2b84e10d9cb55ed28ad13e5e85",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.452,
+          0.478,
           "a"
         ],
         [
-          0.52,
-          1.28,
+          0.505,
+          1.385,
           "napkalapot"
         ]
       ],
-      "duration": 1.68,
-      "characterCost": 8.0
+      "duration": 1.544989,
+      "characterCost": 14.0
     },
     "dress_thanks_napkalap": {
       "fingerprint": "fc4e782da00725a11f664eb0e1ec14be9d1650dd11d2553ef97280843bb19f05",
@@ -22475,27 +22475,27 @@
       "characterCost": 10.0
     },
     "dress_request_rovidnadrag": {
-      "fingerprint": "10664f549f3d1a906b890dee45182854c5081ef550a934fcd3799e39204bad53",
-      "sha256": "3509d0c0e5a3b5d4f541966c00a1dd1b6be70a781d68e1def39ef1b539e23954",
+      "fingerprint": "bfb3b67664ff455488f82f73ca9d3be0636d291ce67794a1e9e6e0f43e0b79e9",
+      "sha256": "555ba3b76ad606896225d956c528366b23026076c5ea484e0221d6ade586242e",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.345,
           "Kérem"
         ],
         [
-          0.347,
-          0.373,
+          0.385,
+          0.425,
           "a"
         ],
         [
-          0.4,
-          1.52,
+          0.505,
+          1.545,
           "rövidnadrágot"
         ]
       ],
-      "duration": 1.76,
-      "characterCost": 9.0
+      "duration": 1.784989,
+      "characterCost": 16.0
     },
     "dress_name_rovidnadrag": {
       "fingerprint": "9026312020f8635292cd6d3eff79e164e964ecaab65e86c0ac5560b66c723427",
@@ -22511,27 +22511,27 @@
       "characterCost": 5.0
     },
     "dress_request_szandal": {
-      "fingerprint": "eb84e0ad7db939ad07db7749bf29930ab452faae7e9c6816d17057fa0a867fea",
-      "sha256": "d4adad22a9f4986889306065963a4233c244ccb790168c3332486d3fa1aa9a9a",
+      "fingerprint": "a5d31d7994b8a0b551c59b9e04520f168ac915548982c42a4963b089dd32758f",
+      "sha256": "9c3b87b8820d68bcd1a6d2fa19a78e359a8ab73184e988e06bae9e33e0f71737",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.425,
           "Kérem"
         ],
         [
-          0.36,
-          0.4,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.48,
-          1.2,
+          0.585,
+          1.305,
           "szandált"
         ]
       ],
-      "duration": 1.44,
-      "characterCost": 7.0
+      "duration": 1.464989,
+      "characterCost": 14.0
     },
     "dress_name_szandal": {
       "fingerprint": "35349f289368e73f5a3bb252a693f77e8e801de253587aa196defb1ada8bec82",
@@ -22547,27 +22547,27 @@
       "characterCost": 3.0
     },
     "dress_thanks_szandal": {
-      "fingerprint": "dd313b1e21dacdcee1fdcfa5bf91d23411572513da50692d48d47bd0350a1a7b",
-      "sha256": "6b06cf857d03609b7cc4d3c7a929f8b50e61f47107d8ca43b2d92e9f4e8529e8",
+      "fingerprint": "6dac44132884e32d965c66770544a9b6beb157a050922194415258261c9c6e12",
+      "sha256": "b5d095a70c7b6013122636de490517a5e3fab98535aeb84a59e64411b0da8205",
       "words": [
         [
-          0.0,
-          0.64,
+          0.025,
+          0.825,
           "Szellős"
         ],
         [
-          0.68,
-          0.72,
+          0.905,
+          0.945,
           "a"
         ],
         [
-          0.8,
-          1.6,
+          0.985,
+          1.865,
           "szandálom"
         ]
       ],
-      "duration": 2.0,
-      "characterCost": 8.0
+      "duration": 2.104989,
+      "characterCost": 16.0
     },
     "teddy_sequence_next": {
       "fingerprint": "cd4df0e08e6f6f99cdcd0af90cd2113a4e44cd8ebf0bae3a214827c3642e221c",
@@ -23595,30 +23595,30 @@
       "characterCost": 2.0
     },
     "abk_name_cat": {
-      "fingerprint": "e0ceb24b77d6af417ec14e258835df55e0d8dd969d8a3e0d08a7a63d4de14d44",
-      "sha256": "9c35ba8ecfa4e017cdf42d420c4db6c5f807d1b0ff72d8f9c4a6699d58920358",
+      "fingerprint": "24afab30ea92ab303f227ab980823cc03173cbcdc3b38861c6301f43d5e666fe",
+      "sha256": "2a6f777a38c0b21a85673fbc823318c05628b4697be7eada4619d3a5111a7846",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.825,
           "Cica"
         ]
       ],
-      "duration": 0.96,
-      "characterCost": 2.0
+      "duration": 0.984989,
+      "characterCost": 12.0
     },
     "abk_name_chicken": {
-      "fingerprint": "a06790009e17b18dda5ea857e746ae4979ffc0724a2034646553b779937d34b1",
-      "sha256": "ddfb47f55749d59ec87871b971a7b7b888ee4e785c030873f538a35fb4697377",
+      "fingerprint": "7e50ed3ed8a3a03927be6da169b159074fcd1a53411b709985fadd7b459aefdd",
+      "sha256": "e608835f35e19be3e74e450915343666dd96103e295f19be2232a940bda9e3e3",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.905,
           "Tyúk"
         ]
       ],
-      "duration": 0.96,
-      "characterCost": 2.0
+      "duration": 0.904989,
+      "characterCost": 9.0
     },
     "abk_name_frog": {
       "fingerprint": "8307c5a69d07fb03007cfc1a08dd6d10a0e4e24f057297f7a32b93dae731d1ca",
@@ -23686,17 +23686,17 @@
       "characterCost": 3.0
     },
     "abk_name_cuckoo": {
-      "fingerprint": "a1cac4fbfc4da33211cbce1c27db059049382598d4917b38bea276db5777bd77",
-      "sha256": "462cb03fc33ac150d134c5eef92e8b048da04be595219840d14773ea36f34b42",
+      "fingerprint": "0e74488a18c79a174dfad1073d8a4c5fbd7a9f15961eadfa1d509b1a7cf7b141",
+      "sha256": "77c663cf3ac4cd4863b030071482a0e78e27c4be6008619c26f073d1c190a9eb",
       "words": [
         [
-          0.0,
-          0.56,
+          0.025,
+          0.825,
           "Kakukk"
         ]
       ],
-      "duration": 0.96,
-      "characterCost": 3.0
+      "duration": 0.824989,
+      "characterCost": 10.0
     },
     "practice_together": {
       "fingerprint": "f4a6aabb48a6a037f1b2f196a9d0b65a30092e1321660915508b1294b0da56f1",
@@ -24351,16 +24351,16 @@
       "characterCost": 15.0
     },
     "flip_find": {
-      "fingerprint": "e2362ae7cda319acc6d222f89b0a66bd18ca04d6d9a27f7403b1bfbeb2381a4a",
-      "sha256": "611d0866534d2bfc0edfbf019878bfc1f7a513af11f7cd768658d4944584f202",
+      "fingerprint": "110656de1f105add6977aaed9745ce6e153cf2179d58f1020be3916f02ad2d30",
+      "sha256": "4d45e38b5301c61a5cf1c665bb38323dec4e30f0221e4e2e562a3a03369b6170",
       "words": [
         [
           0.025,
-          0.265,
+          0.185,
           "Hol"
         ],
         [
-          0.305,
+          0.265,
           0.585,
           "bújt"
         ],
@@ -24370,28 +24370,28 @@
           "el"
         ],
         [
-          1.225,
-          1.585,
+          1.305,
+          1.625,
           "Keresd"
         ],
         [
-          1.625,
           1.705,
+          1.785,
           "meg"
         ],
         [
-          1.785,
           1.825,
+          1.865,
           "a"
         ],
         [
-          1.865,
-          2.425,
+          1.945,
+          2.585,
           "képét"
         ]
       ],
-      "duration": 2.665556,
-      "characterCost": 21.0
+      "duration": 2.744989,
+      "characterCost": 20.0
     },
     "listening_help": {
       "fingerprint": "ac8317ca7cd5d10c2c63d7f4ad010adcbc759dee0af7aa6d872d48eeb2fb32fa",
@@ -25768,85 +25768,85 @@
       "characterCost": 24.0
     },
     "r_story": {
-      "fingerprint": "ecbaf410cce922b28a39e4faef089d812d6a00141d93da1e3ecf30f2d260e534",
-      "sha256": "e5779c1aa0ec69fc56e3c782ab73251d0b82fa3ea43ff744fb9e6660900c0097",
+      "fingerprint": "6488be04329bff214f182e9d2d6746fa12dc22aaa8c3409849c7a8bd6b06a39b",
+      "sha256": "0ec1ca4c010ed9558e5a91c0dd3d25297158c83c308c4f69ebdc372aabcdd8a8",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.345,
           "Tegyük"
         ],
         [
-          0.36,
-          0.72,
+          0.385,
+          0.745,
           "sorba"
         ],
         [
-          0.76,
-          0.8,
+          0.785,
+          0.825,
           "a"
         ],
         [
-          0.92,
-          1.28,
+          0.945,
+          1.385,
           "mondóka"
         ],
         [
-          1.36,
-          2.0,
+          1.425,
+          2.025,
           "képeit"
         ],
         [
-          2.4,
-          2.64,
+          2.425,
+          2.745,
           "Melyik"
         ],
         [
-          2.72,
-          2.88,
+          2.865,
+          2.985,
           "volt"
         ],
         [
-          2.96,
-          3.6,
+          3.065,
+          3.625,
           "először"
         ]
       ],
-      "duration": 3.76,
-      "characterCost": 20.0
+      "duration": 3.864989,
+      "characterCost": 27.0
     },
     "r_story_done": {
-      "fingerprint": "0a6c3f7992bb6fdf9a86ad12edcaf182b46463e29a23ece3ca7f15b8aecc9a00",
-      "sha256": "ec05f19a2c05bbbcda69ae553e22303e202da4b1ecad75c24e4dab20a527a4a8",
+      "fingerprint": "81f75009b260514d222f40083869d67695707f85b1fdcfed40da2d71bb35f5d4",
+      "sha256": "3380c21c29428a55e0d3198fb9d902d2dc3eaa9a594c3a3befed33c3461131b8",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.425,
           "Sorba"
         ],
         [
-          0.6,
-          1.04,
+          0.545,
+          0.985,
           "rendeztük"
         ],
         [
-          1.08,
-          1.12,
+          1.025,
+          1.065,
           "a"
         ],
         [
-          1.24,
-          1.68,
+          1.185,
+          1.545,
           "mondóka"
         ],
         [
-          1.72,
-          2.4,
+          1.625,
+          2.345,
           "képeit"
         ]
       ],
-      "duration": 2.56,
-      "characterCost": 13.0
+      "duration": 2.504989,
+      "characterCost": 21.0
     },
     "r_story_retry": {
       "fingerprint": "2548fba7ba94591a8e40d1bd41e9a7660bc3d8f2ee0ba7d1a9626e384e71f743",
@@ -26092,47 +26092,47 @@
       "characterCost": 20.0
     },
     "r_mission_unnep": {
-      "fingerprint": "919fa1fde75ff257acdbc21cdd33b7b7184a297cf3590d0f9fb9a02f8756d55d",
-      "sha256": "060d3a26c9826cc7623fa5f4b4558c37c2e6e6a061fa8e0174078ce27e464ff5",
+      "fingerprint": "371e00ced56e8b78cdfa2a03c60ed86818bb9f081f5013c2a313017c4442cfe4",
+      "sha256": "83047ac10f1c1687d0b3edd16f303358b83891d9a21fe97bcc197fd0864f11dd",
       "words": [
         [
-          0.0,
-          0.44,
+          0.025,
+          0.425,
           "Ünnepi"
         ],
         [
-          0.48,
-          0.88,
+          0.505,
+          0.905,
           "asztalt"
         ],
         [
-          0.92,
-          1.68,
+          0.945,
+          1.705,
           "készítünk"
         ],
         [
-          2.0,
-          2.28,
+          2.105,
+          2.385,
           "Küldj"
         ],
         [
-          2.32,
-          2.8,
+          2.425,
+          2.905,
           "tortát"
         ],
         [
-          2.88,
-          2.96,
+          2.985,
+          3.065,
           "és"
         ],
         [
-          3.04,
-          3.68,
+          3.145,
+          3.785,
           "virágot"
         ]
       ],
-      "duration": 3.84,
-      "characterCost": 20.0
+      "duration": 3.945556,
+      "characterCost": 27.0
     },
     "r_mission_piknik": {
       "fingerprint": "ce160075d9c0c37199159ef77cf93b916016ecddee3120c257380663d70c91b9",
@@ -28652,70 +28652,70 @@
       "characterCost": 11.0
     },
     "mese_guest_cica_plate": {
-      "fingerprint": "69515a58204d7952f4e3b4135d0fe0469c0fff7d0548ff111232fe060fdd62d8",
-      "sha256": "bd0251f93525c679a4c8b04ce3f958b6f94c87ab217c9d9705ef9a6097fa84d3",
+      "fingerprint": "0c8bbf34f0a36d55467c841accc6d36acaef3d14e516f3b10064a320d07f8b5e",
+      "sha256": "ac8b0b16e5d4010f19580910922315e6c518884687f4ede45bc7ff2b628cafaf",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.185,
           "Adj"
         ],
         [
-          0.347,
-          0.373,
+          0.265,
+          0.305,
           "a"
         ],
         [
-          0.4,
-          0.88,
+          0.345,
+          0.905,
           "cicának"
         ],
         [
-          0.96,
-          1.04,
+          0.985,
+          1.145,
           "egy"
         ],
         [
-          1.12,
-          1.76,
+          1.185,
+          1.865,
           "tányért"
         ]
       ],
-      "duration": 2.0,
-      "characterCost": 10.0
+      "duration": 2.024989,
+      "characterCost": 20.0
     },
     "mese_guest_cica_cup": {
-      "fingerprint": "75e66fae79fcac767f78cc8fc450b790d434349f17a2b14311861bc9bd4f1962",
-      "sha256": "61701cda2f8b0036536e856354c40d5ba57a134c3b8befb2d0afc61985396c7b",
+      "fingerprint": "306378d83ca5d1f680bc27c8a29cf55128e628cb381528af7d63fe6081949d95",
+      "sha256": "9249ff200ccebcd364f6a4d2cfd49f8906d84c83240a0a84c0c6c5ffc6fa72ce",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.265,
           "Adj"
         ],
         [
-          0.347,
-          0.373,
+          0.292,
+          0.318,
           "a"
         ],
         [
-          0.4,
-          0.88,
+          0.345,
+          0.798,
           "cicának"
         ],
         [
-          0.96,
-          1.04,
+          0.825,
+          0.945,
           "egy"
         ],
         [
-          1.12,
-          1.68,
+          0.985,
+          1.545,
           "poharat"
         ]
       ],
-      "duration": 1.92,
-      "characterCost": 10.0
+      "duration": 1.784989,
+      "characterCost": 20.0
     },
     "mese_guest_kutya_plate": {
       "fingerprint": "d310ed33887eb547b04839f5bef218407c79d0a20924283a331fad8e77c2ae31",
@@ -28817,37 +28817,37 @@
       "characterCost": 11.0
     },
     "mese_guest_panda_cup": {
-      "fingerprint": "8a2aec4e8e8e3f0c8b36f84bec572db8239c062283378ead4805aa32312cf829",
-      "sha256": "59e88e3ebc58cc3a6d2eeea5861ecdf893ed9c98afb3be0ffc8cc653a2c57e6b",
+      "fingerprint": "6859ecb12f2d78a1a2f8c8a7d97b4115e084164b252a2e247a3f57504111bec8",
+      "sha256": "fd0372cb45e0a4321179094ebe40692de6cb2cb1acd799a20f4eafa161869bb6",
       "words": [
         [
-          0.0,
-          0.24,
+          0.025,
+          0.185,
           "Adj"
         ],
         [
-          0.28,
-          0.32,
+          0.265,
+          0.345,
           "a"
         ],
         [
-          0.36,
-          0.88,
+          0.365,
+          0.825,
           "pandának"
         ],
         [
-          0.92,
-          1.04,
+          0.865,
+          0.985,
           "egy"
         ],
         [
-          1.08,
-          1.68,
+          1.025,
+          1.625,
           "poharat"
         ]
       ],
-      "duration": 1.84,
-      "characterCost": 11.0
+      "duration": 1.784989,
+      "characterCost": 19.0
     },
     "mese_guest_roka_plate": {
       "fingerprint": "19a493bf5ba56d9942d73a7f5729888d2efbad35b359ba436c59c1663625083b",
@@ -28916,70 +28916,70 @@
       "characterCost": 10.0
     },
     "mese_guest_koala_plate": {
-      "fingerprint": "5e6fccf6551acc113bb5cd508a1361c22934875d03d709d94acebaf8b61de4af",
-      "sha256": "624a0711c04dcec40d268cc26bc9336aded38d487ae8bf89a45307410fd00e2e",
+      "fingerprint": "c3b50087c7a855871504d749f0f0e39f956597d52940205df22f0dd9b6a87e37",
+      "sha256": "7b26c0e98cfd66eac17a97819c4ac8bff9e34cc65dca12e3cfed2c4d733df536",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.265,
           "Adj"
         ],
         [
-          0.347,
-          0.373,
+          0.305,
+          0.345,
           "a"
         ],
         [
-          0.4,
-          0.96,
+          0.385,
+          0.985,
           "koalának"
         ],
         [
-          1.0,
-          1.12,
+          1.025,
+          1.145,
           "egy"
         ],
         [
-          1.2,
-          1.84,
+          1.185,
+          1.865,
           "tányért"
         ]
       ],
-      "duration": 2.08,
-      "characterCost": 11.0
+      "duration": 2.024989,
+      "characterCost": 20.0
     },
     "mese_guest_koala_cup": {
-      "fingerprint": "1b9cb4a6c071024c6645067ccf164984f39acb91d8497951e184756542c953c5",
-      "sha256": "e55adaed63d8a2c3770cc88664a43df337967b9ebffad5e0fdd7a87e78fc0475",
+      "fingerprint": "6e29ef9ef09a824c3fb0e181829ca71107726608ef3b3a92634fc4067c476433",
+      "sha256": "61bcfa7af3791c5b1469b919575300300997548e808255c4cc4d0d49fe3fc8fa",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.185,
           "Adj"
         ],
         [
-          0.347,
-          0.373,
+          0.265,
+          0.345,
           "a"
         ],
         [
-          0.4,
-          0.96,
+          0.385,
+          0.905,
           "koalának"
         ],
         [
-          1.0,
-          1.08,
+          0.945,
+          1.065,
           "egy"
         ],
         [
-          1.12,
-          1.76,
+          1.105,
+          1.705,
           "poharat"
         ]
       ],
-      "duration": 1.92,
-      "characterCost": 11.0
+      "duration": 1.864989,
+      "characterCost": 19.0
     },
     "mese_guest_beka_plate": {
       "fingerprint": "75992b70699b4cf1837d44bafffde97916e88ac9497bded96b83cd5874f320d2",
@@ -29180,70 +29180,70 @@
       "characterCost": 11.0
     },
     "mese_guest_majom_cup": {
-      "fingerprint": "e6e2b43691194a64716469f90baa655bdc62a1af9540421d826c1547585a04d2",
-      "sha256": "16bf8e61a16f991330b2046abcc3dfcda2a45c8416bb3fda5b4f16b7ffd88c2a",
+      "fingerprint": "f81a59aedf8ce5a4f92efd1a5a931b5addf2d599bb81b9e27ad0fa575e5a888a",
+      "sha256": "65bdc5383efae36e76847ac08c00444d6b20643c7b9d446fa986b2231647def4",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.265,
           "Adj"
         ],
         [
-          0.36,
-          0.4,
+          0.292,
+          0.318,
           "a"
         ],
         [
-          0.52,
-          0.88,
+          0.345,
+          0.745,
           "majomnak"
         ],
         [
-          0.92,
-          1.0,
+          0.785,
+          0.905,
           "egy"
         ],
         [
-          1.04,
-          1.68,
+          0.945,
+          1.545,
           "poharat"
         ]
       ],
-      "duration": 1.84,
-      "characterCost": 11.0
+      "duration": 1.704989,
+      "characterCost": 20.0
     },
     "mese_guest_majom_plate": {
-      "fingerprint": "b865c9cb0a5e0f7a52dfbcc7b6f735d0a56050cfef906ac62723ec0b50a99d24",
-      "sha256": "276ebce1fcd57e1c2adb31151cf73f27e61eea30394dabbe4338888172c3e329",
+      "fingerprint": "34fee83847a18d0dbf5f7b582ae78f2997475abe26dfca5a6108ae785b422a94",
+      "sha256": "6faa679fb2c84e65beb2c5cbbafe4e2c8136a77f7ddfeddcd3a5e2812bce1f4e",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.265,
           "Adj"
         ],
         [
-          0.56,
-          0.64,
+          0.292,
+          0.318,
           "a"
         ],
         [
-          0.76,
-          1.12,
+          0.345,
+          0.745,
           "majomnak"
         ],
         [
-          1.16,
-          1.28,
+          0.785,
+          0.905,
           "egy"
         ],
         [
-          1.32,
-          1.92,
+          0.985,
+          1.705,
           "tányért"
         ]
       ],
-      "duration": 2.08,
-      "characterCost": 11.0
+      "duration": 1.864989,
+      "characterCost": 20.0
     },
     "dress_name_sapka": {
       "fingerprint": "3faa4ff6bed68b24c2c3abb4aae1b4d4e65be551383afd070d863e8b2dd267dc",
@@ -29259,21 +29259,21 @@
       "characterCost": 1.0
     },
     "dress_name_cipo": {
-      "fingerprint": "096b54dc43bbfe3e1f255fbd8d3df756a1a746ba321bca3d5911beab4baadeec",
-      "sha256": "e824291387cee550e35613bb5c70b36d07a114f0c9de39875bbd4109fb490910",
+      "fingerprint": "382ad814288070aaa0ad717d4997098c757ef67e2344ecef2d0ff80d7b61a7fd",
+      "sha256": "4b4070266e01d03617b813b210b8c1832ccc6d5e67c450a7563e7088d62e22ec",
       "words": [
         [
-          0.0,
-          0.64,
+          0.025,
+          0.825,
           "cipő"
         ]
       ],
-      "duration": 1.04,
-      "characterCost": 1.0
+      "duration": 0.824989,
+      "characterCost": 11.0
     },
     "phrase_part_kerek_vizet_0": {
-      "fingerprint": "54c7795fa6a7af1d1c5ea7d98b5810af86068d923a27301ae13be92009044b8d",
-      "sha256": "e4a0484d9970544faa43a4ea8fe92869c28c45be56aeb5a885a0b97165789fb6",
+      "fingerprint": "50b7ee9095ba627fdf4f1a282102b6b62ec225db2fc9596e7f44fce6e3cf4f5e",
+      "sha256": "c50b8b71e40829f64a6670ad7a4758aebe11fe12089e19e4fb9a673ae7da0e6e",
       "words": [
         [
           0.025,
@@ -29281,7 +29281,7 @@
           "kérek"
         ]
       ],
-      "duration": 0.544989,
+      "duration": 0.464989,
       "characterCost": 3.0
     },
     "phrase_part_kerek_vizet_1": {
@@ -29298,8 +29298,8 @@
       "characterCost": 3.0
     },
     "phrase_part_meg_alma_0": {
-      "fingerprint": "ec41ab7f8d90f475d3b39354157fc36358e5fd76d2c827d2162b1d7ececaae05",
-      "sha256": "b1417e860a36e225614a7a28d088d2ab1ffec56b3135dd3febc090a36b01b01a",
+      "fingerprint": "730bbecca2e695b58da74054892b247469ee4b779a13b5859241a113a45998ef",
+      "sha256": "128cb06da3b210908e52aa5aa719ad03ee4ad876da74cb4f52832716cec178ac",
       "words": [
         [
           0.025,
@@ -29307,7 +29307,7 @@
           "még"
         ]
       ],
-      "duration": 0.384989,
+      "duration": 0.345011,
       "characterCost": 12.0
     },
     "phrase_part_meg_alma_1": {
@@ -29324,30 +29324,30 @@
       "characterCost": 12.0
     },
     "phrase_part_anya_gyere_0": {
-      "fingerprint": "90a8d26f46112d25a4416395cd44452f8538bdecbfc995913c69323a417542e6",
-      "sha256": "9c68dd6e2a5bd2c6c61d4d2fef73585fc6c57f6ae26deb4fdfce4242ce86ad10",
-      "words": [
-        [
-          0.0,
-          0.4,
-          "anya"
-        ]
-      ],
-      "duration": 0.52,
-      "characterCost": 1.0
-    },
-    "phrase_part_anya_gyere_1": {
-      "fingerprint": "d32cc20d5ff0bd5486ee729096c9b3c4bbb8ab9f80d779af3a40e9c176df85fa",
-      "sha256": "e17c5a3bbaf392cf3d3b15aa3b8ef695528c40b6587950e8a649d3ebac2f8ca4",
+      "fingerprint": "1ed1da3d4066532807dd6444341ebc8bc0ab679da737fff0bb0e89d045451c30",
+      "sha256": "1b6f9f540a794ed64676933cc76ac3bfbcb7d91af5b51827315aa7c0a8479bd4",
       "words": [
         [
           0.025,
-          0.425,
+          0.545,
+          "anya"
+        ]
+      ],
+      "duration": 0.665011,
+      "characterCost": 13.0
+    },
+    "phrase_part_anya_gyere_1": {
+      "fingerprint": "774c7003a52f4987b86759fee049c854e1f0ee9b59b4d90bd33b8bbdb2f52c4c",
+      "sha256": "9699972fd7143cb4cf660c70b16fec434a388f1607601caf32a0959505d3a570",
+      "words": [
+        [
+          0.025,
+          0.505,
           "gyere"
         ]
       ],
-      "duration": 0.544989,
-      "characterCost": 1.0
+      "duration": 0.625011,
+      "characterCost": 13.0
     },
     "phrase_part_apa_auto_0": {
       "fingerprint": "b4f1ae35bf53b91324efc6f7d625b0039669f35c1e01247b94a614ec7f1285c3",
@@ -29402,8 +29402,8 @@
       "characterCost": 1.0
     },
     "phrase_part_nem_kerem_0": {
-      "fingerprint": "ec84a68ccddb3551b681e2eee25a5e2d4fba55ff7f1ab387259b2a9fec3d9fbc",
-      "sha256": "92e0257f2f7873d93e81cbc8bd956edc338bdcfcab72bd720985b7d1d6c8b6da",
+      "fingerprint": "568adb08935d9b7de6485822c8f3e9d2ef5cd49827e4da9227428ef9bff4f8b6",
+      "sha256": "8a9897c0cac3630785caa05202b0df50b09c3867cfc93a2288613d9129ad9fd0",
       "words": [
         [
           0.0,
@@ -29411,7 +29411,7 @@
           "nem"
         ]
       ],
-      "duration": 0.44,
+      "duration": 0.4,
       "characterCost": 1.0
     },
     "phrase_part_nem_kerem_1": {
@@ -29428,8 +29428,8 @@
       "characterCost": 1.0
     },
     "r_rhyme_part_roka_0_0": {
-      "fingerprint": "a271bc73bad03b8804f83ce52388cd711668a56207099f6dd453345fd4b16570",
-      "sha256": "1d1fdb1d5c7f792d6e9b67b078b65e03b3acbe685dafcba8c76addb3e65110d5",
+      "fingerprint": "cc8c9f9ec091cf2ac61113ce3849b61731aa6dc14838e263c3f5d9bb76d115e0",
+      "sha256": "eb33fb505078e7947863bd00a6da7fbd12b43dfe98025a2d85ae153541e3688a",
       "words": [
         [
           0.0,
@@ -29442,7 +29442,7 @@
           "fut"
         ]
       ],
-      "duration": 0.84,
+      "duration": 0.8,
       "characterCost": 2.0
     },
     "r_rhyme_part_roka_0_1": {
@@ -29469,8 +29469,8 @@
       "characterCost": 2.0
     },
     "r_rhyme_part_roka_1_0": {
-      "fingerprint": "629a2860a6070f97fe55834acec21884ad233acb3e88e5586c12ee3665d99feb",
-      "sha256": "43ada055c536a7effcd74faa82dc39c43847e1840db2c05bf7cbf0b0fa4c10d3",
+      "fingerprint": "aa7cf39ab0f0360c25d6f921e6a130e27829fc75c83d2ab79bbe4f36c439f0a2",
+      "sha256": "a55ea49c8b0c0687028d8e744cdb7f1d0006cfa64ad4ef386a50866906a164b7",
       "words": [
         [
           0.025,
@@ -29483,7 +29483,7 @@
           "őrzi"
         ]
       ],
-      "duration": 0.944989,
+      "duration": 0.864989,
       "characterCost": 4.0
     },
     "r_rhyme_part_roka_1_1": {
@@ -29541,8 +29541,8 @@
       "characterCost": 5.0
     },
     "r_rhyme_part_roka_3_0": {
-      "fingerprint": "d29bf276dd7d253c85bb92cecf34be3ff4ac688c58c5f6b6559d5b7f60d02cd5",
-      "sha256": "68fdcfbafa596fa64372fae8b86cd022f816a908a3651be10370477bea562e6b",
+      "fingerprint": "a6ba0b47dc2430d7198759b72fd45fcccf21a892317ff3de52885e2970291406",
+      "sha256": "8b27d528aa9ba6a281b653eae33090791bc337121b85fb7a0a4bf540a09b8ec6",
       "words": [
         [
           0.0,
@@ -29555,7 +29555,7 @@
           "játszik"
         ]
       ],
-      "duration": 1.0,
+      "duration": 0.96,
       "characterCost": 3.0
     },
     "r_rhyme_part_roka_3_1": {
@@ -29577,8 +29577,8 @@
       "characterCost": 3.0
     },
     "r_rhyme_part_kert_0_0": {
-      "fingerprint": "72d8844f137b6b95f655ffa7182f776f3e1583ffabf4e79a4345fc3eb17ed218",
-      "sha256": "43bc930772920629673bd3580224749bd76480431f9475ce0521b230f297a493",
+      "fingerprint": "c473efcfb90804c611456384755c72958fd42bc95f6b5d3471ee33fae6a6e668",
+      "sha256": "6e0c7e73af3bcf4925026a694d6427c09e9cd4ad0ead17d23a711007244a617f",
       "words": [
         [
           0.0,
@@ -29591,7 +29591,7 @@
           "rózsa"
         ]
       ],
-      "duration": 1.16,
+      "duration": 1.12,
       "characterCost": 3.0
     },
     "r_rhyme_part_kert_0_1": {
@@ -29649,8 +29649,8 @@
       "characterCost": 5.0
     },
     "r_rhyme_part_kert_2_0": {
-      "fingerprint": "46f90b9e27df8c14b57cf686e95840f498b6fe12e860e51ee4f81b523221c629",
-      "sha256": "15f412e3515dd21f92792b6a7a2b7c710ffb72568682a1571b0d247a592b5810",
+      "fingerprint": "fe58796b09fcd6704d4ce0eea7b7482d11d4c0a73c87182df44af6454c3bf408",
+      "sha256": "0a2544b6cca57fbc81934aa26735c6298df6a40b3c313014daa95c251190e0c9",
       "words": [
         [
           0.0,
@@ -29663,7 +29663,7 @@
           "körben"
         ]
       ],
-      "duration": 1.08,
+      "duration": 1.04,
       "characterCost": 3.0
     },
     "r_rhyme_part_kert_2_1": {
@@ -29721,8 +29721,8 @@
       "characterCost": 3.0
     },
     "r_rhyme_part_kert_3_0": {
-      "fingerprint": "536764bca93d4c96fdacd9a7defd3fc0035513b3f660d6ef3a8cdf2af40b9bf7",
-      "sha256": "844988c82080a89d74c4b704d7f9a7b9f318b15fe976a4a3d77ae4e3b6bfd6a1",
+      "fingerprint": "fe3f4118db2a661652ccf7daabeb02e867d7e1ca098e7c6c27ba6cc640d80f58",
+      "sha256": "1b04a4a0e690c855fe27b293223f1ce875146da7c8138f43ccad8d86deae190d",
       "words": [
         [
           0.0,
@@ -29740,7 +29740,7 @@
           "szép"
         ]
       ],
-      "duration": 1.08,
+      "duration": 1.04,
       "characterCost": 3.0
     },
     "r_rhyme_part_kert_3_1": {
@@ -29762,26 +29762,26 @@
       "characterCost": 3.0
     },
     "r_rhyme_part_sator_1_0": {
-      "fingerprint": "3e965127ddb8bf60fb39213a986882b93179db97320650fc23935bb1829f9ef3",
-      "sha256": "d05ab89b8328716247609d1f5d4a3ad61796c66f14d937102840734e1621dde1",
+      "fingerprint": "df2f9c4e379313983188ddd98d9b2217fd5a865bc298b0bce4d5f962f15e2240",
+      "sha256": "7cc00499fcc6e6c9b10b94dd1d11d62dc6f42e5eedc710cdf98cf802d89a3154",
       "words": [
         [
-          0.0,
-          0.4,
+          0.025,
+          0.385,
           "Erdő"
         ],
         [
-          0.52,
-          0.96,
+          0.425,
+          0.985,
           "mellett"
         ]
       ],
-      "duration": 1.08,
-      "characterCost": 3.0
+      "duration": 1.065011,
+      "characterCost": 23.0
     },
     "r_rhyme_part_sator_1_1": {
-      "fingerprint": "6e14bf863b8e8ef8c4883286f7c94b3686bae3b71a7e2f902898671f8bb36835",
-      "sha256": "37bb52ec0390629f7ecbba11e8733ebc9894e634d246cdc4211f8c776ffcb7d2",
+      "fingerprint": "9dddb6093969707060870725252f216b9ecbd1499c65d4fc9888519134dc2f74",
+      "sha256": "9a78cc21ea52c1cccf29135412d1fe74f659d7bdf0fe8799f00182cd6a1c0a4d",
       "words": [
         [
           0.025,
@@ -29789,17 +29789,17 @@
           "sátrat"
         ],
         [
-          0.585,
-          1.145,
-          "állunk"
+          0.545,
+          1.265,
+          "állítunk"
         ]
       ],
-      "duration": 1.265011,
-      "characterCost": 3.0
+      "duration": 1.385556,
+      "characterCost": 23.0
     },
     "r_rhyme_part_sator_2_0": {
-      "fingerprint": "7d27a0bdd71c98a29d3c8ac6fafe2b3fffc1a13546684126091968347fe1137b",
-      "sha256": "6b18fbb367cba41c337816c22f58dace336095b91c85ac5e3dcc9e95cf041fab",
+      "fingerprint": "8fbafbca5c334466d743e58ae196a79f99940c6a999efd11b7dc4669cd00f630",
+      "sha256": "7fd31f042bcb66d4d66cdd589dc852836f936f3417123b4444a136d6369cef3f",
       "words": [
         [
           0.0,
@@ -29812,7 +29812,7 @@
           "kerül"
         ]
       ],
-      "duration": 0.84,
+      "duration": 0.76,
       "characterCost": 2.0
     },
     "r_rhyme_part_sator_2_1": {
@@ -29834,8 +29834,8 @@
       "characterCost": 2.0
     },
     "r_rhyme_part_sator_3_0": {
-      "fingerprint": "ba5d9e9f5c23dd41fc71520a9a21441318edfd1b577cd274c6db685f444d674c",
-      "sha256": "ade66b3f8fef5194261436288f53a3eba1e18b9491e9e0fcda951522f5aaafe8",
+      "fingerprint": "5fd606ae41685c3fea7067042c157e1e1fbc6b60de9adadf740d09a9d43056c8",
+      "sha256": "71f353da08f89800b695fbd7706180e7b4465347f1514ac1eb0985ed4e13f2b7",
       "words": [
         [
           0.0,
@@ -29848,7 +29848,7 @@
           "indul"
         ]
       ],
-      "duration": 1.16,
+      "duration": 1.12,
       "characterCost": 2.0
     },
     "r_rhyme_part_sator_3_1": {
@@ -29911,45 +29911,45 @@
       "characterCost": 5.0
     },
     "r_rhyme_part_robot_1_0": {
-      "fingerprint": "01c8d61ac1b3bfaee7e1e0dbafa5bc0e213eb05dabb6be4477f61c5ed9c03ae4",
-      "sha256": "01519fb07471060f047a810dfcc618f16e6226f53cb5c5203e3f87e38d85c901",
-      "words": [
-        [
-          0.0,
-          0.48,
-          "Piros"
-        ],
-        [
-          0.64,
-          1.2,
-          "ceruzát"
-        ]
-      ],
-      "duration": 1.32,
-      "characterCost": 3.0
-    },
-    "r_rhyme_part_robot_1_1": {
-      "fingerprint": "26bcc779fe60804f92de320f83b5e96fa9f8283d42c14ede6a1ebd7c310df53f",
-      "sha256": "92ab46141c0ecd9ebd5fb948a69b6752e70726c90351f7a5e3dba904660e638f",
+      "fingerprint": "36dcb1983fa5e8caeb870096b6015476d78dd79301cac27e0bd4247ba9f649a8",
+      "sha256": "148f988d86abe7bf1a65e4a0fe42b570b6018e96827fc52b6b08f47efd6071a1",
       "words": [
         [
           0.025,
-          0.065,
-          "a"
+          0.345,
+          "Piros"
         ],
         [
-          0.145,
-          0.625,
-          "kezébe"
-        ],
-        [
-          0.825,
-          1.025,
-          "kap"
+          0.425,
+          1.065,
+          "ceruzát"
         ]
       ],
       "duration": 1.145011,
-      "characterCost": 3.0
+      "characterCost": 20.0
+    },
+    "r_rhyme_part_robot_1_1": {
+      "fingerprint": "6d49a3bf6da470b3499f1abb5b2f1e2c07b0847a7b09df113ec015109c56a9a7",
+      "sha256": "bddb3b0bd1bbf96eeb9bc261633cc2b2277d724025b6f8fad262316ebc6f689c",
+      "words": [
+        [
+          0.025,
+          0.105,
+          "a"
+        ],
+        [
+          0.185,
+          0.665,
+          "kezébe"
+        ],
+        [
+          0.865,
+          1.065,
+          "kap"
+        ]
+      ],
+      "duration": 1.185011,
+      "characterCost": 20.0
     },
     "r_rhyme_part_robot_2_0": {
       "fingerprint": "2b47e864c62310e16eeb84ad887ca8b225ef3b2c989cfb445b2bfd797a9d04e7",
@@ -30039,8 +30039,8 @@
       "characterCost": 3.0
     },
     "phrase_part_kerek_almat_0": {
-      "fingerprint": "a3c5fcf58fc6b0a76f8905e4f91f38a9ea1410a30a0545ec7428b900e9cfa737",
-      "sha256": "ffcddd608c76c4036f80e1de5e19e5b475897ad3b0b419858c0d18bb84c6764b",
+      "fingerprint": "726e6796ba42cf2bf1fdc12cbe4e049dc1e46e7d4720962f2f060a5fc5c6da90",
+      "sha256": "1dce425042f63e35aeb11cbf746f7d314b92d3a00bd475d1c41d94fe968bf60f",
       "words": [
         [
           0.0,
@@ -30048,7 +30048,7 @@
           "kérek"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 1.0
     },
     "phrase_part_kerek_almat_1": {
@@ -30083,8 +30083,8 @@
       "characterCost": 1.0
     },
     "phrase_part_kerek_tejet_0": {
-      "fingerprint": "78dc879d4a40ce53a122764ffbfb571edf9e311539e3f04170522ad4c6af3d83",
-      "sha256": "62a00f12b2080428cc52adffe0f2566aa5151afcf291e2d4069730fb5c204405",
+      "fingerprint": "6dc3e15db075649ec377afc9f6c23d0c0b4301558cc7233ddd168f35135211e1",
+      "sha256": "cc0a1a067b86c2205433e72d9cce426ab2b54ae79202932df29fd1321728525a",
       "words": [
         [
           0.0,
@@ -30092,7 +30092,7 @@
           "kérek"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 1.0
     },
     "phrase_part_kerek_tejet_1": {
@@ -30127,8 +30127,8 @@
       "characterCost": 1.0
     },
     "phrase_part_kerek_kiflit_0": {
-      "fingerprint": "78f946c31ea65685473e208e552b4e5cd54409506c39ca1794140691b29993a7",
-      "sha256": "dc82e0944526b30fc4295beec62ce02df21cc50a6682a50d71d8d53c4ad6680a",
+      "fingerprint": "317c9df22bdd25d6e753f62cb785b0bf80f34dab1024ccd78682673f3b89e56b",
+      "sha256": "a25d70ec165f4f09bd3997008cf025d3a45cb638addc7d8ee41fd5e41f1bbfbd",
       "words": [
         [
           0.0,
@@ -30136,7 +30136,7 @@
           "kérek"
         ]
       ],
-      "duration": 0.6,
+      "duration": 0.56,
       "characterCost": 1.0
     },
     "phrase_part_kerek_kiflit_1": {
@@ -30171,8 +30171,8 @@
       "characterCost": 1.0
     },
     "phrase_part_kerek_kenyeret_0": {
-      "fingerprint": "7bead1139bf7f5fbaa7ae8a79c32972a47e50c55ab175761c8fb995677159e5b",
-      "sha256": "50ae7fd418be8c1d6c3b6fca9698c1dfdbd98f7b47a86605bc154f992da660fd",
+      "fingerprint": "80d047be89abff700c6fb3cf718026d61dd6cbda075b31417af75749f8f3871e",
+      "sha256": "b7ae14d62f139a6f52a1e0bf32d0adb7a036d4e99776c3bdfbfee3a49daef65e",
       "words": [
         [
           0.0,
@@ -30180,7 +30180,7 @@
           "kérek"
         ]
       ],
-      "duration": 0.6,
+      "duration": 0.56,
       "characterCost": 2.0
     },
     "phrase_part_kerek_kenyeret_1": {
@@ -30259,8 +30259,8 @@
       "characterCost": 4.0
     },
     "phrase_part_adj_vizet_0": {
-      "fingerprint": "c8ba1b64a285c0d44191bf8635aa8d4594e290f9ff5bbcff0889e2e49ec56a6e",
-      "sha256": "da6a950cd3cb80498de61ce6985839f1be77bcee419494b39ccf597ac1b1188b",
+      "fingerprint": "de90fe018eac302117f7203356379dbc5c05532c56c8493c88e9cde5cbc48e51",
+      "sha256": "af65b60111c08a916102787c4ca36ea0535939a4f5b732dd1aa3f85408754772",
       "words": [
         [
           0.025,
@@ -30268,7 +30268,7 @@
           "adj"
         ]
       ],
-      "duration": 0.384989,
+      "duration": 0.345011,
       "characterCost": 12.0
     },
     "phrase_part_adj_vizet_1": {
@@ -30303,8 +30303,8 @@
       "characterCost": 12.0
     },
     "phrase_part_apa_integet_0": {
-      "fingerprint": "941e4304dbe27e3a8c069aa658fecf456d83a75baefac4af04380f054298f662",
-      "sha256": "0dca0634b203c5928193efcfff23227dfc3374607612be1e9ca994196b4956a9",
+      "fingerprint": "5be5cd6c486e61bd97ee345c6a4b261905525df5538434452c1b5ac8dbb17a1a",
+      "sha256": "cbe5847bb5a0eaa99779498dcc223e9e4a28746cc8b9b3d053e300eb82958617",
       "words": [
         [
           0.0,
@@ -30312,7 +30312,7 @@
           "apa"
         ]
       ],
-      "duration": 0.6,
+      "duration": 0.56,
       "characterCost": 5.0
     },
     "phrase_part_apa_integet_1": {
@@ -30391,52 +30391,52 @@
       "characterCost": 5.0
     },
     "phrase_part_cica_alszik_0": {
-      "fingerprint": "80af4cf48dded6115fba5bdcb4d1dc30d15c175f2a59c9c3856cca8ee6878c9a",
-      "sha256": "9ac6812b34242f2ff73a6118cf83981d106e9692d7a64d0b94361d99ef45b129",
-      "words": [
-        [
-          0.0,
-          0.48,
-          "cica"
-        ]
-      ],
-      "duration": 0.6,
-      "characterCost": 5.0
-    },
-    "phrase_part_cica_alszik_1": {
-      "fingerprint": "48734bf5d955ef84e2808968297c5f3ea9e1063f04a9119a39d04fa6337ec59e",
-      "sha256": "612e4235472c09f5ec780e5a70085e5a4cbd45cdd5b32b115df1880cab8a3f2d",
+      "fingerprint": "4e07ee42ba0a28477459e6324b06fa481548422c81ac116ac1d09717377be61b",
+      "sha256": "90cec6247c03007f75f87fb7c92bd1ba2eb4affc445a3c07c2c312245bfa2761",
       "words": [
         [
           0.025,
-          0.745,
+          0.505,
+          "cica"
+        ]
+      ],
+      "duration": 0.585011,
+      "characterCost": 13.0
+    },
+    "phrase_part_cica_alszik_1": {
+      "fingerprint": "0a2e62746bbbd7fb9d76e11180fd75e17c39b937aedc097cfe1510889119d51f",
+      "sha256": "6f633f027fb12d3240345f18dfe1d15bb8457a0fae031048e2178cd81fb63fd9",
+      "words": [
+        [
+          0.025,
+          0.665,
           "alszik"
         ]
       ],
-      "duration": 0.865011,
-      "characterCost": 5.0
+      "duration": 0.785011,
+      "characterCost": 13.0
     },
     "phrase_cica_alszik": {
-      "fingerprint": "297060b5e5f041fa569a0e0402e16bb3341585c3cdfc772554b75f0c2f034917",
-      "sha256": "252ddf2278bf98c018f63a2857665a3be1b37f1f8fe763856f5a6c6b3e62b95e",
+      "fingerprint": "4abe6b539ff5250c7a0ea7da360e1798ec87d04683f477b49ff94a5b9721401a",
+      "sha256": "4cc32d1b0dee7fc45610bc9f4f4ef51f2e66a0d3c5a6a5463ce4bc367a8b3b75",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.505,
           "cica"
         ],
         [
-          0.8,
-          1.52,
+          0.585,
+          1.225,
           "alszik"
         ]
       ],
-      "duration": 1.68,
-      "characterCost": 5.0
+      "duration": 1.464989,
+      "characterCost": 13.0
     },
     "phrase_part_kutya_fut_0": {
-      "fingerprint": "f4413aab6919f4cccc5fa21fce9ef8e6f1f028d5f7ff2b4a95a3c5058438b6ad",
-      "sha256": "66dc403b497a6a525495f2bac01598d372a8a5fead43685a7136fe5110802bd7",
+      "fingerprint": "0b94a2cce36fa91b85987bbe07f89882bc884b981d6e6400f5747f26813b0da1",
+      "sha256": "396cd1f3cf337a9d9a4e677946212a5269d7e9e848d89d9b80d354d9be206d67",
       "words": [
         [
           0.0,
@@ -30444,7 +30444,7 @@
           "kutya"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 4.0
     },
     "phrase_part_kutya_fut_1": {
@@ -30479,8 +30479,8 @@
       "characterCost": 4.0
     },
     "phrase_part_maci_eszik_0": {
-      "fingerprint": "e988244d8e2437420fa2e69e4be88e2f6a5508c9a41c686b6bab78bfec785af2",
-      "sha256": "e9a88a02b6e01f31d58eccb3973803aad57ccf3dd22bcb4588beba763eb56b6f",
+      "fingerprint": "e50dd072746268dd199602c0d02bc30c3bb9db06fe46adef4167e7ded11f8f55",
+      "sha256": "ffa7f258cfabdf8dad7ecb02aa760d52a77396616e9e77ba152a259916f30864",
       "words": [
         [
           0.0,
@@ -30488,7 +30488,7 @@
           "maci"
         ]
       ],
-      "duration": 0.6,
+      "duration": 0.56,
       "characterCost": 4.0
     },
     "phrase_part_maci_eszik_1": {
@@ -30567,8 +30567,8 @@
       "characterCost": 4.0
     },
     "phrase_part_nagy_auto_0": {
-      "fingerprint": "9804df36219dbd2a68f4e715fefe8f9074dcc049ffaf2516866e75481ee1dc5c",
-      "sha256": "5bcbdaa8463179f32cb7d2781a280b89b69ca82fc5e0d34af9258b38d128473a",
+      "fingerprint": "2883db1360003480a503e84a301899aafc368b15c742ee2e7a7853dc80bc0bd6",
+      "sha256": "f2dd254e70483e5a853f104f31b1380b9be9d3b2b9edeebbd1dee9c60463f0e5",
       "words": [
         [
           0.0,
@@ -30576,7 +30576,7 @@
           "nagy"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 4.0
     },
     "phrase_part_nagy_auto_1": {
@@ -30611,8 +30611,8 @@
       "characterCost": 4.0
     },
     "phrase_part_kicsi_cica_0": {
-      "fingerprint": "a9d5cd29f3bd386ed5f1dd6fb40e20beb08eddb3e6acd76c590accb2759dbc3c",
-      "sha256": "8866a5b6a4fe2bc67647861164f39bc62e8933f7772d505b645780bf943e2938",
+      "fingerprint": "dd7573e36b1cfc8b9dcd4c9f1ccd8b960b3c0ccdf441c2d9214b15e222b799f7",
+      "sha256": "210359ca21209a86719e8baec20318ef68ebcb6bbcdd9736be679c102ec66f6e",
       "words": [
         [
           0.0,
@@ -30620,7 +30620,7 @@
           "kicsi"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 4.0
     },
     "phrase_part_kicsi_cica_1": {
@@ -30655,8 +30655,8 @@
       "characterCost": 4.0
     },
     "phrase_part_meleg_tej_0": {
-      "fingerprint": "4376a8522358fe660a4e7d334c9c685a85f505c9870fb1ec334a715bf253b5f3",
-      "sha256": "ac62d45e2dbf1bf59b9472d84b7e71a0ba88446527b6ee379bb017ae2867c589",
+      "fingerprint": "9bb57ec128cf1947f0b421afe2c3f00e35d8442ce13aa1dccf58240785134495",
+      "sha256": "b2765e90beb483a194ffae4c5827899c0bac1116f84fe3ec9880bbb00193a7cc",
       "words": [
         [
           0.0,
@@ -30664,7 +30664,7 @@
           "meleg"
         ]
       ],
-      "duration": 0.6,
+      "duration": 0.56,
       "characterCost": 4.0
     },
     "phrase_part_meleg_tej_1": {
@@ -30699,21 +30699,21 @@
       "characterCost": 4.0
     },
     "phrase_part_puha_maci_0": {
-      "fingerprint": "2a2a1722136327bf55be4d08fbbdfb5a0fc3468ec7e1c02b16e38ac00489b29d",
-      "sha256": "cc629dd1c4b8ae16b8d6970a4c62965e5f6cde52f9a35b9a57a8b9510689a24a",
+      "fingerprint": "e429cf6452c73fccb98fb3ac73ab4497498d395d7a04dc988c426aa8fd400798",
+      "sha256": "e2b2ad582fdfd3e4a3c8b68ff8314543f10ebed66ef9bac6bec8ed7949de4fa5",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.265,
           "puha"
         ]
       ],
-      "duration": 0.6,
-      "characterCost": 4.0
+      "duration": 0.345011,
+      "characterCost": 12.0
     },
     "phrase_part_puha_maci_1": {
-      "fingerprint": "0b54da704fef7de403ba19aa53572c173562cdb1d9a80e9a34db93c8e9813ac7",
-      "sha256": "d7b19d5c8b9e8c361562a2569d743b2ca761048b2c5175662eb69eaf6f406c8d",
+      "fingerprint": "feafc066be625ff4ac392ff9e1eb9065c5dcbcc210235da32c850815ce2dd705",
+      "sha256": "4aa24c4abf4d459f39589375437c7e221d6dc84e6405bf3bb6489d2def41922f",
       "words": [
         [
           0.025,
@@ -30721,26 +30721,26 @@
           "maci"
         ]
       ],
-      "duration": 0.705011,
-      "characterCost": 4.0
+      "duration": 0.704989,
+      "characterCost": 12.0
     },
     "phrase_puha_maci": {
-      "fingerprint": "25ed887e84a77702b49beb6398107aa2caa6a54d3d72c82b7cbb4923854714ec",
-      "sha256": "e27c9b34227cc49aee67835beefc9d90538eb408d6f10b960444f361ef74e2e6",
+      "fingerprint": "86e6d2abd2ea3e394100b4bdffe366081dc6bb357cbd4fe295b235f7714c302b",
+      "sha256": "2a4f794d6f5ffa7268f76d11f8ec5389f24c7c455f4800f2a2462cf9bb9a361b",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.265,
           "puha"
         ],
         [
-          0.56,
-          1.12,
+          0.345,
+          0.905,
           "maci"
         ]
       ],
-      "duration": 1.44,
-      "characterCost": 4.0
+      "duration": 1.144989,
+      "characterCost": 12.0
     },
     "phrase_part_szep_virag_0": {
       "fingerprint": "dc13f8f61c78f0163b70b584de7d96f4fd14db969d5f51664149d0909331c627",
@@ -30787,8 +30787,8 @@
       "characterCost": 4.0
     },
     "phrase_part_meg_kerek_0": {
-      "fingerprint": "e3946e0ef7937304dc6158c65e80162f17a5270ff64535ee847ab7ef23584c2d",
-      "sha256": "4f6b5c1ce774a8a95f4a4093b5df929276d46f5d5fd84259a8bca097aba4817e",
+      "fingerprint": "54e939ee960214221eadd6e8180e243c9e85e6472d365fb453f9041f96be03ce",
+      "sha256": "3428beb4e119ef9ddd17fa291aad280920b78aea4223c1cbefb32f9d10911bee",
       "words": [
         [
           0.025,
@@ -30796,7 +30796,7 @@
           "még"
         ]
       ],
-      "duration": 0.464989,
+      "duration": 0.384989,
       "characterCost": 12.0
     },
     "phrase_part_meg_kerek_1": {
@@ -30831,8 +30831,8 @@
       "characterCost": 12.0
     },
     "phrase_part_eleg_volt_0": {
-      "fingerprint": "e29175a8069632650e740c85d8d064da27e7489e59ec9242dab98ac06b622b1c",
-      "sha256": "92798d79f37b0dd3d645949989e4d9c077ed9f51cf5f0f2538f8a042b2970c82",
+      "fingerprint": "9ee8197e6b5d71612b452344b1e8fd2e2e6b7ee66933d26591378804f765e564",
+      "sha256": "34a7c95309ca6f9199a957288ad050ece61b4820817840e8ec1866e802862048",
       "words": [
         [
           0.0,
@@ -30840,7 +30840,7 @@
           "elég"
         ]
       ],
-      "duration": 0.52,
+      "duration": 0.48,
       "characterCost": 4.0
     },
     "phrase_part_eleg_volt_1": {
@@ -30919,8 +30919,8 @@
       "characterCost": 4.0
     },
     "phrase_part_meg_jatszunk_0": {
-      "fingerprint": "446d59b436773a12ee9f51aa53e19172c0c4d0fb41caa7db52acedfc3aa22fa1",
-      "sha256": "834c445989ac4f9788ac99941c134d2eaeb8e34d82a9c8973f8e54d2d072d1e6",
+      "fingerprint": "e6c324d336409a647bd3a69244a2c3683f5a676ae049f0b74199b5e8896984e7",
+      "sha256": "57ba2ada7df0948ab400fbbbc8f85930738b7e42776090075ac7626421c5cacf",
       "words": [
         [
           0.025,
@@ -30928,7 +30928,7 @@
           "még"
         ]
       ],
-      "duration": 0.384989,
+      "duration": 0.304989,
       "characterCost": 13.0
     },
     "phrase_part_meg_jatszunk_1": {
@@ -31543,47 +31543,47 @@
       "characterCost": 17.0
     },
     "r_mission_zene": {
-      "fingerprint": "882acacb04db26645918ee3dfcdbf1ff0f6c6d8da413acc7721ce3032c4464b9",
-      "sha256": "5aaf03136958ec2ec74bbfebeb9d54c47d161005b124a2710dde82a127965577",
+      "fingerprint": "9663f714540e7ab39bbd232343d67c4e37f442b28c38f476f0b75b70e2be94fa",
+      "sha256": "7b7b108655a38e022999e023b28f15057a1f3bbe4cd1c5f0ce45541dc6bcc48d",
       "words": [
         [
-          0.0,
-          0.48,
+          0.025,
+          0.425,
           "Zenés"
         ],
         [
-          0.52,
-          0.88,
+          0.505,
+          0.825,
           "ünnep"
         ],
         [
-          1.04,
-          1.28,
+          0.905,
+          1.305,
           "lesz"
         ],
         [
-          1.6,
-          1.88,
+          1.625,
+          1.945,
           "Küldj"
         ],
         [
-          1.92,
-          2.48,
+          2.025,
+          2.425,
           "rádiót"
         ],
         [
-          2.56,
-          2.64,
+          2.505,
+          2.585,
           "és"
         ],
         [
-          2.72,
-          3.36,
+          2.665,
+          3.305,
           "rózsát"
         ]
       ],
-      "duration": 3.52,
-      "characterCost": 16.0
+      "duration": 3.464989,
+      "characterCost": 23.0
     },
     "r_mission_kert": {
       "fingerprint": "ee5e11108742c2aaf06b9e436f2c41828136230abfc389e72f8e35a0ae603037",
@@ -32038,22 +32038,22 @@
       "characterCost": 4.0
     },
     "r_variant_kek_sator": {
-      "fingerprint": "e3e3f1b6c2ec785fcaa409e7a0e25e6bc15331f7bf3c4b4056093d235ce9122b",
-      "sha256": "85542b2c74cfbfcb8d08574159c4a715e74470a85dd689916422e955c97d47f7",
+      "fingerprint": "5557410eef4aadcf0a24500faf30f3cb8f084c8fe67420b0f35b5b9e62036bb4",
+      "sha256": "6ab1781e7cb61a9a997699bcb5206c11974575eb92bce268094228047dd6df5c",
       "words": [
         [
-          0.0,
-          0.4,
+          0.025,
+          0.318,
           "kék"
         ],
         [
-          0.48,
-          1.12,
+          0.345,
+          0.985,
           "sátor"
         ]
       ],
-      "duration": 1.36,
-      "characterCost": 4.0
+      "duration": 1.224989,
+      "characterCost": 12.0
     },
     "listening_bingo_start": {
       "fingerprint": "349bab22536eee515fc04c6ff52a39c78d8154995b4a9140c5186b83d9fdb8b9",
@@ -34963,97 +34963,97 @@
       "characterCost": 14.0
     },
     "city_story_workshop_red_p3": {
-      "fingerprint": "ab3ebcb3115ff2dc85ae0237fe17c6ca83244bf9fd551857762b151ea2a4893d",
-      "sha256": "81e204abfc1b67eb6f968884b3bed3a5aa3ad6741e4e307a58725ed5cfe8d4ca",
+      "fingerprint": "b1ef9d767a7f7c4c9b57de56c708cd97521b6fde5e3bcfa6d3804e1bd2a7f242",
+      "sha256": "7573a9f49a0d28c691359dc6ef2a1d50ab1a10f3bd58500822dc7c13dc31cdf6",
       "words": [
         [
-          0.0,
-          0.32,
+          0.025,
+          0.265,
           "Dani"
         ],
         [
-          0.44,
-          1.04,
+          0.345,
+          1.145,
           "megfordítja"
         ],
         [
-          1.12,
-          1.16,
+          1.225,
+          1.265,
           "a"
         ],
         [
-          1.2,
-          1.6,
+          1.305,
+          1.785,
           "padot"
         ],
         [
-          2.08,
-          2.16,
+          2.185,
+          2.265,
           "az"
         ],
         [
-          2.24,
-          2.72,
+          2.345,
+          2.745,
           "alján"
         ],
         [
-          2.8,
-          3.04,
+          2.825,
+          3.065,
           "két"
         ],
         [
-          3.12,
-          3.68,
+          3.145,
+          3.705,
           "bekarcolt"
         ],
         [
-          3.76,
-          4.4,
+          3.785,
+          4.345,
           "kezdőbetű"
         ],
         [
-          4.48,
-          4.56,
+          4.425,
+          4.505,
           "is"
         ],
         [
-          4.64,
-          5.2,
+          4.585,
+          5.145,
           "egyezik"
         ],
         [
-          5.68,
-          5.76,
+          5.625,
+          5.705,
           "A"
         ],
         [
-          5.84,
-          6.08,
+          5.785,
+          6.025,
           "kék"
         ],
         [
-          6.2,
-          6.48,
+          6.105,
+          6.345,
           "padot"
         ],
         [
-          6.56,
-          7.12,
+          6.425,
+          6.985,
           "időközben"
         ],
         [
-          7.16,
-          7.6,
+          7.065,
+          7.465,
           "pirosra"
         ],
         [
-          7.72,
-          8.32,
+          7.545,
+          8.265,
           "festette"
         ]
       ],
-      "duration": 8.48,
-      "characterCost": 44.0
+      "duration": 8.424989,
+      "characterCost": 51.0
     },
     "city_story_workshop_red_choice_bench_rehearse": {
       "fingerprint": "7d1586ed85499249c34cd5c03ce6465e1d23824469552862e84fe8d6d208efc1",
@@ -47945,62 +47945,62 @@
       "characterCost": 24.0
     },
     "city_story_epilogue_recap2": {
-      "fingerprint": "b40292be6909283554611d804c609c990d58c030b59704741bc858899f6d7617",
-      "sha256": "64944d736a57fa33f9e923e25fe49730d372269c456f1e1a924e3a62302fe978",
+      "fingerprint": "191c87c78979139f32e7831cc369b2ece19bff19b2c43212332173cc21a15596",
+      "sha256": "5071666e8c0704a5b673ec0eef2e9df093df912543d18af2049ac169d4b35270",
       "words": [
         [
-          0.0,
-          0.08,
+          0.025,
+          0.065,
           "A"
         ],
         [
-          0.16,
-          0.48,
+          0.145,
+          0.545,
           "padot"
         ],
         [
-          0.52,
-          0.56,
+          0.625,
+          0.705,
           "a"
         ],
         [
-          0.68,
-          1.12,
+          0.785,
+          1.318,
           "javított"
         ],
         [
-          1.2,
-          1.52,
+          1.345,
+          1.745,
           "láb"
         ],
         [
-          1.6,
-          1.76,
+          1.825,
+          1.905,
           "és"
         ],
         [
-          1.787,
-          1.813,
+          1.945,
+          1.985,
           "a"
         ],
         [
-          1.84,
-          2.56,
+          2.065,
+          2.785,
           "kezdőbetűk"
         ],
         [
-          2.64,
-          3.04,
+          2.825,
+          3.265,
           "alapján"
         ],
         [
-          3.2,
-          4.16,
+          3.425,
+          4.385,
           "azonosítottad"
         ]
       ],
-      "duration": 4.32,
-      "characterCost": 24.0
+      "duration": 4.544989,
+      "characterCost": 32.0
     },
     "city_story_epilogue_recap3": {
       "fingerprint": "5a1b9ac2d3a1a0c59ece0e43cc4def98588baacb923a6d36dddbbde040845e9a",
@@ -49832,8 +49832,8 @@
       "characterCost": 10.0
     },
     "patterns_retry": {
-      "fingerprint": "58695f7055e371e9171591eb5a7644127c4cd5dfb5aaa20a3ab8e23c8aa89b68",
-      "sha256": "b049485f4472654db984a7aade004d201e95c9a953e4897f2fccc1515cc1cca8",
+      "fingerprint": "49a3f51bbceed2f5c93736ba848bf01fd27607c78a9bcf7bf2532c76b436b5c8",
+      "sha256": "cf54f7eb6f15c5da014f5d430bece6509a22ce057d4ae11daf68cfce4ef103e0",
       "words": [
         [
           0.025,
@@ -49851,7 +49851,7 @@
           "ismétlődést"
         ]
       ],
-      "duration": 1.505011,
+      "duration": 1.465011,
       "characterCost": 15.0
     },
     "patterns_done": {
@@ -49878,91 +49878,91 @@
       "characterCost": 8.0
     },
     "chess_rook_three": {
-      "fingerprint": "bdd52bc58b52a2c6956e31ca6981fc5e3ae9dc6b14dfa3753f6a66902b346d9e",
-      "sha256": "c7d4bbe5e1dbe9419a6bcca4bbbf61dc6c73cbbe7348d64b874f7ddda660b361",
+      "fingerprint": "3cb3252e667df5e6150ec9dcfef7d164e35d4b8bb34fbdacde150979d49088ab",
+      "sha256": "da42063f3cb98b7f18f27a4790d578f944cb88d4da6421e7f4db531d30868e7c",
       "words": [
         [
           0.025,
-          0.225,
+          0.265,
           "Üsd"
         ],
         [
-          0.265,
-          0.305,
+          0.345,
+          0.425,
           "le"
         ],
         [
-          0.385,
-          0.425,
+          0.465,
+          0.505,
           "a"
         ],
         [
-          0.465,
-          0.785,
+          0.585,
+          0.905,
           "három"
         ],
         [
-          0.865,
-          1.345,
+          0.985,
+          1.465,
           "megjelölt"
         ],
         [
-          1.425,
-          1.825,
+          1.545,
+          1.945,
           "figurát"
         ],
         [
-          1.865,
-          1.905,
+          2.025,
+          2.065,
           "a"
         ],
         [
-          1.945,
-          2.625,
+          2.105,
+          2.985,
           "bástyával"
         ],
         [
-          3.025,
-          3.105,
+          3.385,
+          3.465,
           "A"
         ],
         [
-          3.145,
-          3.585,
+          3.545,
+          4.025,
           "végén"
         ],
         [
-          3.625,
-          3.825,
+          4.105,
+          4.345,
           "állj"
         ],
         [
-          3.865,
-          3.905,
+          4.372,
+          4.398,
           "a"
         ],
         [
-          3.985,
-          4.705,
+          4.425,
+          5.165,
           "csillagra"
         ],
         [
-          4.905,
           5.345,
+          5.785,
           "legfeljebb"
         ],
         [
-          5.385,
-          5.665,
+          5.825,
+          6.105,
           "három"
         ],
         [
-          5.745,
-          6.705,
+          6.185,
+          6.985,
           "lépésből"
         ]
       ],
-      "duration": 6.704989,
+      "duration": 7.144989,
       "characterCost": 48.0
     },
     "chess_knight_three": {
@@ -50029,82 +50029,82 @@
       "characterCost": 38.0
     },
     "chess_queen_open": {
-      "fingerprint": "e95c3cf4eac73780476c36d8c1f0fe0f72fafeb835fc4fbd18402d47f8bc2637",
-      "sha256": "d0eb8cc9ab310bc9b4ff83bab71bc48b9832cfb12c8f6c6f256c3571767e98b9",
+      "fingerprint": "7050f6001804f979b813ae629f8a960641a418ba494e7ac41ddd738fad950533",
+      "sha256": "28ae0e0635bd3512966b855540fa70400dd38b324628384e4c329827bf58b5c5",
       "words": [
         [
           0.025,
-          0.065,
+          0.105,
           "A"
         ],
         [
-          0.105,
-          0.665,
+          0.145,
+          0.585,
           "gyaloggal"
         ],
         [
+          0.665,
           0.745,
-          0.905,
           "is"
         ],
         [
-          0.985,
-          1.705,
+          0.825,
+          1.465,
           "léphetsz"
         ],
         [
+          1.865,
           2.105,
-          2.345,
           "Nyiss"
         ],
         [
-          2.425,
-          2.585,
+          2.185,
+          2.345,
           "utat"
         ],
         [
-          2.665,
-          2.705,
+          2.425,
+          2.532,
           "a"
         ],
         [
-          2.745,
-          3.305,
+          2.638,
+          3.145,
           "vezérnek"
         ],
         [
-          3.545,
-          3.865,
+          3.305,
+          3.625,
           "aztán"
         ],
         [
+          3.705,
           3.945,
-          4.105,
           "érj"
         ],
         [
-          4.145,
-          4.185,
+          3.972,
+          3.998,
           "a"
         ],
         [
-          4.265,
-          4.665,
+          4.025,
+          4.505,
           "csillagra"
         ],
         [
+          4.585,
           4.745,
-          4.985,
           "két"
         ],
         [
-          5.065,
-          5.785,
+          4.825,
+          5.625,
           "lépésből"
         ]
       ],
-      "duration": 5.944989,
-      "characterCost": 42.0
+      "duration": 5.784989,
+      "characterCost": 41.0
     },
     "chess_bishop_three": {
       "fingerprint": "cf4315d11bbe70d09f2acb1a02e481b9ec4ced3dfdf410b4c17bd8c10630275d",
@@ -50273,71 +50273,71 @@
       "characterCost": 41.0
     },
     "chess_rook_pin_three": {
-      "fingerprint": "9ee4d785c9a21b2ba4d504c80f642399007cd33a7587a8ddca4744ae332a398c",
-      "sha256": "3d790b0935b2fbe6c2e02b4dd0dcc6f546db12488aa7adce256cf22a2dd6c70e",
+      "fingerprint": "81c86e7061a0cbe0176ea6dcf81b5ea12291fe8fb0ea25c103cc17d55adcd53a",
+      "sha256": "eb15b1c5eadc3198f74834e1d91e4a34c38879c59b0e0b94b6e68e24e20af3cf",
       "words": [
         [
           0.025,
-          0.065,
+          0.105,
           "A"
         ],
         [
-          0.105,
+          0.185,
           0.585,
           "királyt"
         ],
         [
-          0.625,
+          0.665,
           1.065,
           "végig"
         ],
         [
-          1.185,
+          1.145,
           1.385,
           "védd"
         ],
         [
-          1.465,
-          1.785,
+          1.545,
+          1.705,
           "meg"
         ],
         [
-          2.265,
-          2.425,
+          2.185,
+          2.345,
           "Üsd"
         ],
         [
+          2.425,
           2.505,
-          2.585,
           "le"
         ],
         [
-          2.625,
-          2.665,
+          2.545,
+          2.585,
           "a"
         ],
         [
-          2.745,
-          3.065,
+          2.665,
+          2.985,
           "három"
         ],
         [
-          3.145,
-          3.625,
+          3.105,
+          3.465,
           "megjelölt"
         ],
         [
-          3.705,
-          4.105,
+          3.545,
+          4.025,
           "figurát"
         ],
         [
-          4.145,
-          4.185,
+          4.065,
+          4.105,
           "a"
         ],
         [
-          4.225,
+          4.145,
           4.905,
           "bástyával"
         ],
@@ -50347,120 +50347,120 @@
           "és"
         ],
         [
-          5.305,
-          5.465,
+          5.345,
+          5.545,
           "érj"
         ],
         [
-          5.505,
-          5.545,
+          5.585,
+          5.625,
           "a"
         ],
         [
-          5.625,
-          6.265,
+          5.665,
+          6.345,
           "csillagra"
         ]
       ],
-      "duration": 6.424989,
-      "characterCost": 47.0
+      "duration": 6.505556,
+      "characterCost": 46.0
     },
     "chess_bishop_pawn_open": {
-      "fingerprint": "4bdb5be7508703ee55f2e28598b7279068673a617f9994fd0426f6bea06749bf",
-      "sha256": "479a86dbb96d09513bec5701939c28865b8492625f96c802757f69c0064ab47a",
+      "fingerprint": "f4115b7fcd38bd2ac75a75e8fd7b623435d845ceb9fb58a897cc91083f22df2f",
+      "sha256": "ba5aba44cd661194a67ed4ccf2576a5b9a3a130ea30e5156633fcf6f431cab54",
       "words": [
         [
           0.025,
-          0.105,
+          0.065,
           "A"
         ],
         [
-          0.185,
-          0.745,
+          0.145,
+          0.625,
           "gyaloggal"
         ],
         [
-          0.825,
-          0.985,
+          0.705,
+          0.785,
           "is"
         ],
         [
-          1.065,
-          1.785,
+          0.865,
+          1.505,
           "léphetsz"
         ],
         [
-          2.265,
-          2.505,
+          1.905,
+          2.145,
           "Nyisd"
         ],
         [
-          2.585,
-          2.665,
+          2.225,
+          2.305,
           "meg"
         ],
         [
-          2.692,
-          2.718,
+          2.332,
+          2.358,
           "a"
         ],
         [
-          2.745,
-          3.065,
+          2.385,
+          2.705,
           "futó"
         ],
         [
-          3.105,
-          3.705,
+          2.745,
+          3.425,
           "átlóját"
         ],
         [
-          3.865,
-          4.185,
+          3.585,
+          3.905,
           "aztán"
         ],
         [
-          4.265,
-          4.585,
+          3.985,
+          4.305,
           "gyűjtsd"
         ],
         [
-          4.665,
-          4.825,
+          4.385,
+          4.545,
           "össze"
         ],
         [
-          4.905,
-          4.985,
+          4.625,
+          4.705,
           "a"
         ],
         [
-          5.105,
-          5.465,
+          4.825,
+          5.265,
           "megjelölt"
         ],
         [
-          5.545,
-          6.185,
+          5.345,
+          5.905,
           "figurákat"
         ],
         [
-          6.265,
-          6.505,
+          5.985,
+          6.225,
           "négy"
         ],
         [
-          6.585,
-          7.305,
+          6.305,
+          7.105,
           "lépésből"
         ]
       ],
-      "duration": 7.544989,
+      "duration": 7.264989,
       "characterCost": 52.0
     },
     "chess_rook_knight_open": {
-      "fingerprint": "63a1dfdfe5a852992a2f3dda10c3b344a19cedcd4fc6bf552a4ae72cceccacb6",
-      "sha256": "59861484959bd810dd134cf1313aa05aa0378aed5c179f2b95b301200510464e",
+      "fingerprint": "1a4e9382a4509a364ae75d1cdbf11d7cd412e7cac92bbc9080b5c348ba263131",
+      "sha256": "5b4f52ff9badef7faa5ef740524cff824035abed5e3de1081acc599e3fe29a1c",
       "words": [
         [
           0.025,
@@ -50478,42 +50478,42 @@
           "is"
         ],
         [
-          0.945,
-          1.545,
+          0.905,
+          1.465,
           "léphetsz"
         ],
         [
-          1.945,
-          2.478,
+          1.865,
+          2.385,
           "Szabadítsd"
         ],
         [
-          2.532,
-          2.585,
+          2.425,
+          2.505,
           "fel"
         ],
         [
+          2.585,
           2.625,
-          2.665,
           "a"
         ],
         [
-          2.705,
-          3.145,
+          2.665,
+          3.065,
           "bástya"
         ],
         [
-          3.265,
-          3.705,
+          3.185,
+          3.625,
           "útját"
         ],
         [
-          3.985,
-          4.185,
+          3.945,
+          4.105,
           "üsd"
         ],
         [
-          4.225,
+          4.185,
           4.265,
           "le"
         ],
@@ -50523,48 +50523,48 @@
           "a"
         ],
         [
-          4.425,
-          4.905,
+          4.465,
+          4.825,
           "megjelölt"
         ],
         [
-          4.985,
-          5.625,
+          4.905,
+          5.545,
           "figurákat"
         ],
         [
-          5.825,
-          5.945,
+          5.745,
+          5.865,
           "és"
         ],
         [
-          6.065,
-          6.265,
+          5.945,
+          6.185,
           "érj"
         ],
         [
+          6.265,
           6.345,
-          6.425,
           "a"
         ],
         [
-          6.465,
-          6.985,
+          6.385,
+          6.905,
           "csillagra"
         ],
         [
-          7.065,
-          7.225,
+          6.985,
+          7.145,
           "négy"
         ],
         [
-          7.305,
+          7.225,
           8.025,
           "lépésből"
         ]
       ],
       "duration": 8.184989,
-      "characterCost": 58.0
+      "characterCost": 56.0
     },
     "chess_queen_four": {
       "fingerprint": "98988f8478f8307f46fe6a03c7f83dc04380f95e7e70b362a0cf5b54927b3efb",
@@ -50645,16 +50645,16 @@
       "characterCost": 42.0
     },
     "chess_knight_four": {
-      "fingerprint": "af8d00bff5ece5ce8c54e8f8f3276db61d201f357d7f1c1b98e1167840ad87af",
-      "sha256": "56d9bb04da675efcd48b31f2692c6912a1510d0091293dbefa2a6b4f9a37909c",
+      "fingerprint": "2d1bcdec5366dcab4e290e3ef2073b516a6992b7bb49bdfcc6912e53e75aec19",
+      "sha256": "1be806ecd613f63fe868a9eba012d7bdeb618caeef15cced0844b3ae442b0107",
       "words": [
         [
           0.025,
-          0.105,
+          0.065,
           "A"
         ],
         [
-          0.185,
+          0.105,
           0.745,
           "huszárral"
         ],
@@ -50684,7 +50684,7 @@
           "megjelölt"
         ],
         [
-          2.385,
+          2.345,
           2.825,
           "figurát"
         ],
@@ -50710,17 +50710,17 @@
         ],
         [
           4.585,
-          4.825,
+          4.745,
           "négy"
         ],
         [
-          4.905,
+          4.825,
           5.625,
           "ugrásból"
         ]
       ],
       "duration": 5.784989,
-      "characterCost": 42.0
+      "characterCost": 41.0
     },
     "chess_promotion_four": {
       "fingerprint": "abb09e9d5a60c1e60369a5377ed2a5b2955335c4269cde9188a9384f6eea9ae9",
@@ -50806,8 +50806,8 @@
       "characterCost": 48.0
     },
     "chess_king_five": {
-      "fingerprint": "22c32e7491dfcf773dad4f114ab0b4bf3ce46eecfda754669a8b470e36c2abf0",
-      "sha256": "def8dfc232804f1184dbcf044983934cfd67588700a990bd979fb3101e63b9d4",
+      "fingerprint": "91f6e866f9607134a911ea4a52d3e4933e62929e81a89d45536839f9f4b55b39",
+      "sha256": "1ee8f2d7e5cd87e542065cb5f03499e87d27dfc53147df366f77945ffc7a4d65",
       "words": [
         [
           0.025,
@@ -50815,115 +50815,115 @@
           "A"
         ],
         [
-          0.145,
-          0.665,
+          0.185,
+          0.825,
           "bástyával"
         ],
         [
-          0.745,
-          0.825,
+          0.905,
+          0.985,
           "is"
         ],
         [
-          0.905,
-          1.585,
+          1.065,
+          1.705,
           "léphetsz"
         ],
         [
-          2.025,
           2.185,
+          2.345,
           "Üsd"
         ],
         [
-          2.265,
-          2.345,
+          2.425,
+          2.505,
           "le"
         ],
         [
-          2.385,
-          2.425,
+          2.545,
+          2.585,
           "a"
         ],
         [
-          2.465,
-          2.825,
+          2.625,
+          2.985,
           "sötét"
         ],
         [
-          2.865,
-          3.505,
+          3.065,
+          3.705,
           "bástyát"
         ],
         [
-          3.705,
-          3.865,
+          3.945,
+          4.145,
           "majd"
         ],
         [
-          3.985,
-          4.265,
+          4.185,
+          4.585,
           "vezesd"
         ],
         [
-          4.305,
-          4.345,
+          4.625,
+          4.665,
           "a"
         ],
         [
-          4.385,
-          4.745,
+          4.705,
+          5.065,
           "királyt"
         ],
         [
-          4.785,
-          4.825,
+          5.105,
+          5.145,
           "a"
         ],
         [
-          4.905,
-          5.385,
+          5.225,
+          5.785,
           "csillagra"
         ],
         [
-          5.465,
-          5.625,
+          5.865,
+          6.025,
           "öt"
         ],
         [
-          5.705,
-          6.425,
+          6.105,
+          6.905,
           "lépésből"
         ]
       ],
-      "duration": 6.664989,
-      "characterCost": 50.0
+      "duration": 7.064989,
+      "characterCost": 49.0
     },
     "chess_rook_master": {
-      "fingerprint": "74818c3ed26a6f8c7343d1f0fbb93a7f0b3dcaa35bc5b301c41ae6104fea7c76",
-      "sha256": "7c66447bf7c2049f108aa475dafb778a3e1ff78397f13b2bd1dcc03d9de6f60a",
+      "fingerprint": "0f0afd3d5149ecfa2f5f17132643f27eded3dbe7fe6464bff78e623784b33d1f",
+      "sha256": "70f2da13acd473c8f6f88e8113851167081cfdac227b44b1429462fab2d0ce3f",
       "words": [
         [
           0.025,
-          0.265,
+          0.185,
           "Négy"
         ],
         [
-          0.345,
+          0.265,
           0.905,
           "lépésből"
         ],
         [
-          0.985,
+          0.945,
           1.145,
           "üsd"
         ],
         [
+          1.185,
           1.225,
-          1.305,
           "le"
         ],
         [
-          1.345,
+          1.305,
           1.385,
           "a"
         ],
@@ -50939,41 +50939,41 @@
         ],
         [
           2.345,
-          2.745,
+          2.825,
           "figurát"
         ],
         [
-          2.785,
-          2.825,
+          2.865,
+          2.905,
           "a"
         ],
         [
-          2.905,
-          3.545,
+          2.985,
+          3.865,
           "bástyával"
-        ],
-        [
-          3.705,
-          3.945,
-          "és"
         ],
         [
           4.025,
           4.185,
+          "és"
+        ],
+        [
+          4.265,
+          4.505,
           "érj"
         ],
         [
-          4.225,
-          4.265,
+          4.545,
+          4.585,
           "a"
         ],
         [
-          4.345,
-          4.985,
+          4.665,
+          5.305,
           "csillagra"
         ]
       ],
-      "duration": 5.144989,
+      "duration": 5.464989,
       "characterCost": 40.0
     },
     "chess_bishop_master": {
@@ -51055,82 +51055,82 @@
       "characterCost": 40.0
     },
     "chess_knight_master": {
-      "fingerprint": "11d400617e5fc75e36fcc48100896a724e9b30def6a4ae3c9ff624d3c027557f",
-      "sha256": "91c26123fb2d5ac5a0c666a1a072cf64d580873ea74ee39880830a154ebf856b",
+      "fingerprint": "229ddbf6c3d23db1076e07decaa1fcaa729d6117bc10af3540a6e210eef2e6c3",
+      "sha256": "3291cd427d7c21477f88e5724f17e3514310c500c775512638f70f30506afcdc",
       "words": [
         [
           0.025,
-          0.145,
+          0.185,
           "Öt"
         ],
         [
-          0.225,
-          0.785,
+          0.265,
+          0.825,
           "ugrásból"
         ],
         [
-          0.865,
-          1.105,
+          0.905,
+          1.065,
           "üsd"
         ],
         [
-          1.185,
-          1.265,
+          1.145,
+          1.225,
           "le"
         ],
         [
-          1.345,
-          1.425,
+          1.305,
+          1.385,
           "az"
         ],
         [
-          1.505,
-          1.665,
+          1.465,
+          1.625,
           "öt"
         ],
         [
-          1.745,
-          2.225,
+          1.705,
+          2.185,
           "megjelölt"
         ],
         [
-          2.305,
-          2.705,
+          2.265,
+          2.665,
           "figurát"
         ],
         [
+          2.705,
           2.745,
-          2.785,
           "a"
         ],
         [
-          2.825,
-          3.585,
+          2.865,
+          3.465,
           "huszárral"
         ],
         [
-          3.745,
-          3.905,
+          3.625,
+          3.865,
           "és"
         ],
         [
-          3.985,
-          4.185,
+          3.945,
+          4.105,
           "érj"
         ],
         [
-          4.225,
-          4.305,
+          4.145,
+          4.185,
           "a"
         ],
         [
-          4.345,
-          4.945,
+          4.265,
+          4.905,
           "csillagra"
         ]
       ],
-      "duration": 5.184989,
-      "characterCost": 39.0
+      "duration": 5.064989,
+      "characterCost": 38.0
     },
     "chess_queen_master": {
       "fingerprint": "6e10dbd28dbfa9eb45a7ae9fb4128f9f07d2d5d182b24fff34e3d49b44dbebae",
@@ -51314,8 +51314,8 @@
       "characterCost": 55.0
     },
     "chess_rook_pawn_master": {
-      "fingerprint": "a1d06610fd50d2582b118ccd504dd9c2fc2ab9ef8c92c680cd76a2853c138a6f",
-      "sha256": "8c9b4af3beb38d0c93b54bbc8c573653ba5d11abad791defd2d4e644f0c9681e",
+      "fingerprint": "3d48e4f7925d6201b299602ababe298e3e687ddccef8d151c287ba2b09b7511f",
+      "sha256": "813a7fe10aee4eb81527f9696b8095c8846241bd56c2862046d17fe88d71644f",
       "words": [
         [
           0.025,
@@ -51324,109 +51324,109 @@
         ],
         [
           0.185,
-          0.745,
+          0.585,
           "gyaloggal"
         ],
         [
-          0.825,
-          0.985,
+          0.665,
+          0.745,
           "is"
         ],
         [
-          1.065,
-          1.785,
+          0.825,
+          1.425,
           "léphetsz"
         ],
         [
-          2.185,
-          2.425,
+          1.865,
+          2.105,
           "Nyiss"
         ],
         [
-          2.505,
-          2.665,
+          2.185,
+          2.345,
           "utat"
         ],
         [
-          2.745,
-          2.785,
+          2.385,
+          2.425,
           "a"
         ],
         [
-          2.825,
-          3.705,
+          2.505,
+          3.225,
           "bástyának"
         ],
         [
-          3.825,
-          4.025,
+          3.505,
+          3.705,
           "üsd"
         ],
         [
-          4.065,
-          4.105,
+          3.745,
+          3.785,
           "le"
         ],
         [
-          4.185,
-          4.225,
+          3.865,
+          3.905,
           "a"
         ],
         [
-          4.265,
-          4.745,
+          3.945,
+          4.425,
           "megjelölt"
         ],
         [
-          4.825,
-          5.465,
+          4.505,
+          5.145,
           "figurákat"
         ],
         [
-          5.785,
-          5.945,
+          5.345,
+          5.465,
           "és"
         ],
         [
-          6.025,
-          6.345,
+          5.545,
+          5.785,
           "érj"
         ],
         [
-          6.385,
-          6.425,
+          5.865,
+          5.945,
           "a"
         ],
         [
-          6.505,
-          7.092,
+          5.985,
+          6.532,
           "csillagra"
         ],
         [
-          7.145,
-          7.305,
+          6.585,
+          6.665,
           "öt"
         ],
         [
-          7.385,
-          8.105,
+          6.745,
+          7.465,
           "lépésből"
         ]
       ],
-      "duration": 8.344989,
-      "characterCost": 54.0
+      "duration": 7.704989,
+      "characterCost": 53.0
     },
     "chess_rook_knight_master": {
-      "fingerprint": "557facf8e3f76339102e8f0c39eba52ee2e9b4d2f969b6e3bef2afb0056c1617",
-      "sha256": "0fc9f41cbcec343cc61ecba7ba86619089113045ccaaf356c8e3e316dd26b402",
+      "fingerprint": "d885248aaff892c993f13894cacdbf70e92f89970ff3de32fba9889d70fe2e82",
+      "sha256": "2148f8de312e6b9a24c2c4b9dc26affd6f475a40249637ed8033158a3f6aa5a2",
       "words": [
         [
           0.025,
-          0.105,
+          0.065,
           "A"
         ],
         [
-          0.145,
+          0.105,
           0.665,
           "huszárral"
         ],
@@ -51486,7 +51486,7 @@
           "megjelölt"
         ],
         [
-          4.705,
+          4.665,
           5.305,
           "figurákat"
         ],
@@ -51496,37 +51496,37 @@
           "és"
         ],
         [
-          5.865,
-          6.025,
+          5.905,
+          6.105,
           "érj"
         ],
         [
-          6.065,
-          6.105,
+          6.185,
+          6.265,
           "a"
         ],
         [
-          6.185,
-          6.665,
+          6.305,
+          6.825,
           "csillagra"
         ],
         [
-          6.745,
-          6.985,
+          6.905,
+          7.065,
           "négy"
         ],
         [
-          7.065,
-          7.785,
+          7.145,
+          7.865,
           "lépésből"
         ]
       ],
       "duration": 8.024989,
-      "characterCost": 56.0
+      "characterCost": 54.0
     },
     "chess_rook_pin_master": {
-      "fingerprint": "332a565b188dd6bcf4b3e28046ed430f467e1620959f14c213c6c6a40560e6e9",
-      "sha256": "447776905649b829a8cd8e92396d31620af5802135350fa74babd23bcf37bede",
+      "fingerprint": "1b94d5b0306dad742ab39abd5662b36fb8897fdd7bf6d7d0eb367bcb20b71b3f",
+      "sha256": "9e30be34eb25a55c16e75eb61b0170f5a3b225964d8a564928781a2ccd83b72b",
       "words": [
         [
           0.025,
@@ -51539,27 +51539,27 @@
           "királyt"
         ],
         [
-          0.745,
-          1.145,
+          0.705,
+          1.065,
           "végig"
         ],
         [
-          1.225,
-          1.465,
+          1.145,
+          1.385,
           "védd"
         ],
         [
-          1.625,
+          1.465,
           1.785,
           "meg"
         ],
         [
-          2.265,
-          2.505,
+          2.345,
+          2.585,
           "Négy"
         ],
         [
-          2.585,
+          2.665,
           3.225,
           "lépésből"
         ],
@@ -51585,46 +51585,46 @@
         ],
         [
           4.265,
-          4.745,
+          4.825,
           "figurákat"
         ],
         [
-          4.825,
-          4.865,
+          4.852,
+          4.878,
           "a"
         ],
         [
           4.905,
-          5.545,
+          5.625,
           "bástyával"
         ],
         [
-          5.745,
-          5.865,
+          5.945,
+          6.105,
           "és"
         ],
         [
-          5.985,
-          6.185,
+          6.225,
+          6.425,
           "érj"
         ],
         [
-          6.225,
-          6.265,
+          6.465,
+          6.505,
           "a"
         ],
         [
-          6.345,
-          6.985,
+          6.585,
+          7.225,
           "csillagra"
         ]
       ],
-      "duration": 7.144989,
-      "characterCost": 51.0
+      "duration": 7.384989,
+      "characterCost": 50.0
     },
     "chess_king_master": {
-      "fingerprint": "f9072ba5cb8400ed22963cd0bae50d5149d0011234e808507786c635a194ae80",
-      "sha256": "ec1238ac1a38d5b2f152844951644ef7c1e1c09da5434bc9890769e2fb972509",
+      "fingerprint": "410acff7269b64cec13a3d48dc080d5dd17562110fecc06e51decec7f87229b3",
+      "sha256": "7118aa3daef319ecf7754e59833c2835bca5baa776690683529ad5f7fd0990a9",
       "words": [
         [
           0.025,
@@ -51632,205 +51632,102 @@
           "A"
         ],
         [
-          0.105,
-          0.745,
+          0.145,
+          0.865,
           "gyaloggal"
         ],
         [
-          0.825,
-          0.985,
+          0.945,
+          1.025,
           "és"
         ],
         [
-          1.012,
-          1.038,
+          1.105,
+          1.145,
           "a"
         ],
         [
-          1.065,
-          1.598,
+          1.185,
+          1.825,
           "bástyával"
         ],
         [
-          1.625,
-          1.785,
+          1.905,
+          1.985,
           "is"
         ],
         [
-          1.865,
-          2.425,
+          2.065,
+          2.705,
           "léphetsz"
         ],
         [
-          2.905,
-          3.065,
+          3.105,
+          3.265,
           "Tedd"
         ],
         [
-          3.145,
-          4.025,
+          3.385,
+          4.145,
           "biztonságossá"
         ],
         [
-          4.105,
-          4.185,
+          4.225,
+          4.305,
           "az"
         ],
         [
-          4.265,
-          4.585,
+          4.385,
+          4.785,
           "utat"
         ],
         [
-          4.745,
-          4.905,
+          4.945,
+          5.025,
           "és"
         ],
         [
-          5.025,
-          5.332,
+          5.145,
+          5.452,
           "vezesd"
         ],
         [
-          5.358,
-          5.385,
+          5.478,
+          5.505,
           "a"
         ],
         [
-          5.465,
-          5.865,
+          5.585,
+          5.985,
           "királyt"
         ],
         [
-          5.905,
-          5.945,
+          6.025,
+          6.065,
           "a"
         ],
         [
-          6.025,
-          6.558,
+          6.145,
+          6.625,
           "csillagra"
         ],
         [
-          6.585,
-          6.825,
+          6.705,
+          6.865,
           "hat"
         ],
         [
-          6.905,
-          7.625,
+          6.945,
+          7.745,
           "lépésből"
         ]
       ],
-      "duration": 7.785556,
-      "characterCost": 56.0
+      "duration": 7.904989,
+      "characterCost": 55.0
     },
     "chess_queen_pawn_master": {
-      "fingerprint": "4c64d72b4e354900de5569d42259814b93dca8a90d0eca13efa5eec9694c5099",
-      "sha256": "ed1ac1917ed6467e76f934a1c637fdafc528902007bac0c9fe709b4af72e2de8",
-      "words": [
-        [
-          0.025,
-          0.105,
-          "A"
-        ],
-        [
-          0.185,
-          0.745,
-          "gyaloggal"
-        ],
-        [
-          0.825,
-          0.985,
-          "is"
-        ],
-        [
-          1.065,
-          1.745,
-          "léphetsz"
-        ],
-        [
-          2.185,
-          2.425,
-          "Nyiss"
-        ],
-        [
-          2.505,
-          2.665,
-          "utat"
-        ],
-        [
-          2.745,
-          2.785,
-          "a"
-        ],
-        [
-          2.825,
-          3.465,
-          "vezérnek"
-        ],
-        [
-          3.745,
-          3.945,
-          "üsd"
-        ],
-        [
-          3.985,
-          4.025,
-          "le"
-        ],
-        [
-          4.105,
-          4.145,
-          "a"
-        ],
-        [
-          4.185,
-          4.665,
-          "megjelölt"
-        ],
-        [
-          4.745,
-          5.385,
-          "figurákat"
-        ],
-        [
-          5.705,
-          5.865,
-          "és"
-        ],
-        [
-          5.945,
-          6.185,
-          "érj"
-        ],
-        [
-          6.225,
-          6.265,
-          "a"
-        ],
-        [
-          6.345,
-          6.825,
-          "csillagra"
-        ],
-        [
-          6.985,
-          7.145,
-          "öt"
-        ],
-        [
-          7.225,
-          7.945,
-          "lépésből"
-        ]
-      ],
-      "duration": 8.184989,
-      "characterCost": 52.0
-    },
-    "chess_bishop_knight_master": {
-      "fingerprint": "6fac841a642bd57931fdea4a1ec91fbddcd6b9166fa90f13fc8453716e9c665d",
-      "sha256": "95384936f33794f12bb1b5a7219b9dd76096c33293bb3a06b21cfb53a482580a",
+      "fingerprint": "cb27157571226a3b329341e33b440e0e500ba84791e8c738b8c3646178264ed2",
+      "sha256": "2a6dd42bf6ddf337be3cb3530aa3aa9d44113ce2482779b70e63c4b24f990df2",
       "words": [
         [
           0.025,
@@ -51840,7 +51737,7 @@
         [
           0.145,
           0.585,
-          "huszárral"
+          "gyaloggal"
         ],
         [
           0.665,
@@ -51855,60 +51752,55 @@
         [
           1.865,
           2.105,
-          "Nyisd"
+          "Nyiss"
         ],
         [
           2.185,
-          2.265,
-          "meg"
-        ],
-        [
-          2.305,
           2.345,
-          "a"
+          "utat"
         ],
         [
           2.425,
-          2.665,
-          "futó"
-        ],
-        [
-          2.745,
-          3.465,
-          "átlóját"
-        ],
-        [
-          3.585,
-          3.785,
-          "üsd"
-        ],
-        [
-          3.825,
-          3.865,
-          "le"
-        ],
-        [
-          3.905,
-          3.945,
+          2.505,
           "a"
         ],
         [
-          4.025,
-          4.505,
+          2.585,
+          3.145,
+          "vezérnek"
+        ],
+        [
+          3.425,
+          3.625,
+          "üsd"
+        ],
+        [
+          3.665,
+          3.705,
+          "le"
+        ],
+        [
+          3.785,
+          3.825,
+          "a"
+        ],
+        [
+          3.865,
+          4.265,
           "megjelölt"
         ],
         [
-          4.585,
-          5.225,
+          4.345,
+          5.065,
           "figurákat"
         ],
         [
-          5.425,
-          5.545,
+          5.305,
+          5.465,
           "és"
         ],
         [
-          5.625,
+          5.545,
           5.785,
           "érj"
         ],
@@ -51934,6 +51826,114 @@
         ]
       ],
       "duration": 7.704989,
+      "characterCost": 52.0
+    },
+    "chess_bishop_knight_master": {
+      "fingerprint": "fca0db6a1cb11e00c46652d10aee0d11607ef8a3c8092e2de4a775e0cbab652d",
+      "sha256": "9a6a3d06a80161e64d02171026ed45f2542a197086f503fc9435ee888b1e1997",
+      "words": [
+        [
+          0.025,
+          0.105,
+          "A"
+        ],
+        [
+          0.225,
+          0.665,
+          "huszárral"
+        ],
+        [
+          0.745,
+          0.825,
+          "is"
+        ],
+        [
+          0.905,
+          1.545,
+          "léphetsz"
+        ],
+        [
+          1.945,
+          2.185,
+          "Nyisd"
+        ],
+        [
+          2.265,
+          2.345,
+          "meg"
+        ],
+        [
+          2.372,
+          2.398,
+          "a"
+        ],
+        [
+          2.425,
+          2.745,
+          "futó"
+        ],
+        [
+          2.852,
+          3.505,
+          "átlóját"
+        ],
+        [
+          3.705,
+          3.865,
+          "üsd"
+        ],
+        [
+          3.945,
+          4.025,
+          "le"
+        ],
+        [
+          4.065,
+          4.105,
+          "a"
+        ],
+        [
+          4.225,
+          4.665,
+          "megjelölt"
+        ],
+        [
+          4.745,
+          5.385,
+          "figurákat"
+        ],
+        [
+          5.585,
+          5.705,
+          "és"
+        ],
+        [
+          5.785,
+          6.025,
+          "érj"
+        ],
+        [
+          6.105,
+          6.185,
+          "a"
+        ],
+        [
+          6.225,
+          6.745,
+          "csillagra"
+        ],
+        [
+          6.825,
+          6.905,
+          "öt"
+        ],
+        [
+          6.985,
+          7.785,
+          "lépésből"
+        ]
+      ],
+      "duration": 7.944989,
       "characterCost": 56.0
     },
     "chess_promotion_master": {
@@ -52035,154 +52035,154 @@
       "characterCost": 55.0
     },
     "engineering_hub": {
-      "fingerprint": "b2e378789ac1291854f934010ce4d90226d23ca2a0bf3b74ebb670c068cdd06d",
-      "sha256": "675d0a71696a1fe95acd8f847056559d9d1da1be6661137bf0c5d4c7860361c1",
+      "fingerprint": "c4fb6fd5fcd3a041ff5140f6512118180ce1a2721dfb904333b7998de64f6641",
+      "sha256": "ea3dac496791b7e85849ff8dbd1b2ba83e7b40749a2243f80e0906b44779a100",
       "words": [
         [
           0.025,
-          0.625,
+          0.665,
           "Építsünk"
         ],
         [
-          0.665,
-          1.225,
+          0.745,
+          1.385,
           "együtt"
         ],
         [
-          1.785,
-          2.025,
+          1.865,
+          2.105,
           "Ejts"
         ],
         [
-          2.105,
-          2.505,
+          2.185,
+          2.665,
           "elemeket"
         ],
         [
-          2.585,
-          2.625,
+          2.705,
+          2.745,
           "a"
         ],
         [
-          2.665,
-          3.305,
+          2.825,
+          3.465,
           "toronyra"
         ],
         [
-          3.585,
-          3.945,
+          3.665,
+          4.025,
           "tervezz"
         ],
         [
-          3.985,
-          4.345,
+          4.105,
+          4.505,
           "saját"
         ],
         [
-          4.425,
-          5.105,
+          4.545,
+          5.265,
           "építményt"
         ],
         [
-          5.185,
-          5.385,
+          5.345,
+          5.545,
           "vagy"
         ],
         [
-          5.545,
-          5.945,
+          5.785,
+          6.238,
           "építs"
         ],
         [
-          6.025,
-          6.425,
+          6.292,
+          6.665,
           "hidat"
         ]
       ],
-      "duration": 6.584989,
-      "characterCost": 48.0
+      "duration": 6.824989,
+      "characterCost": 49.0
     },
     "engineering_build": {
-      "fingerprint": "3d5f243fbe3b463ac04589e5e449584b24d13ad8d20608d64b59e0c434fa28ca",
-      "sha256": "a59217a2ad5d29cae0a1cacfe8d213a7041894672d3dfe92be88d6a30c83f853",
+      "fingerprint": "fd10ba71d123c77c8b649714f3f109cefb31c659f46bf627d48a83e38cbb4849",
+      "sha256": "fb817b17586635144191e6079d008ef1eff88e10dd970ef9939dcf66f81d5b72",
       "words": [
         [
           0.025,
-          0.385,
+          0.425,
           "Válassz"
         ],
         [
-          0.425,
-          0.545,
+          0.465,
+          0.585,
           "egy"
         ],
         [
-          0.585,
-          0.985,
+          0.745,
+          1.065,
           "elemet"
         ],
         [
-          1.145,
           1.225,
+          1.305,
           "és"
         ],
         [
-          1.305,
-          1.745,
+          1.385,
+          1.865,
           "koppints"
         ],
         [
-          1.785,
           2.025,
+          2.185,
           "oda"
         ],
         [
-          2.185,
-          2.505,
+          2.265,
+          2.665,
           "ahová"
         ],
         [
-          2.585,
-          3.145,
+          2.785,
+          3.225,
           "tennéd"
         ],
         [
-          3.545,
           3.625,
+          3.785,
           "El"
         ],
         [
-          3.705,
-          3.785,
+          3.865,
+          3.945,
           "is"
         ],
         [
-          3.865,
-          4.665,
+          4.065,
+          4.745,
           "forgathatod"
         ],
         [
-          4.985,
-          5.385,
+          5.065,
+          5.465,
           "Próbálj"
         ],
         [
-          5.425,
-          5.745,
+          5.545,
+          6.025,
           "széles"
         ],
         [
-          5.785,
-          6.105,
+          6.065,
+          6.425,
           "alapot"
         ],
         [
-          6.185,
-          6.825,
+          6.465,
+          6.985,
           "építeni"
         ]
       ],
-      "duration": 6.984989,
+      "duration": 7.224989,
       "characterCost": 49.0
     },
     "engineering_drop": {
@@ -52264,21 +52264,21 @@
       "characterCost": 44.0
     },
     "engineering_water": {
-      "fingerprint": "575c088fb191c944f41ce3cf787b3d97051713fa0530c67368fd27fc61c3fdac",
-      "sha256": "10febbafa76f899735a8a7999431b3aa6a5d0c66a01735ca3bdab8428ebf40fc",
+      "fingerprint": "495d9dfe766698687efb1f4bde045fa443039c5bfe7b131d44c1db005491342c",
+      "sha256": "90c4f877cf77f0eaa07c8077f10f79066f11670caf32bbded5aaeda5ce30355f",
       "words": [
         [
           0.025,
-          0.665,
+          0.745,
           "Csobbant"
         ],
         [
-          0.985,
-          1.385,
+          1.065,
+          1.465,
           "Próbáld"
         ],
         [
-          1.465,
+          1.505,
           1.865,
           "beljebb"
         ],
@@ -52298,12 +52298,12 @@
           "is"
         ],
         [
-          3.345,
-          3.705,
+          3.305,
+          3.625,
           "vonhatod"
         ],
         [
-          3.745,
+          3.705,
           3.785,
           "az"
         ],
@@ -52314,16 +52314,16 @@
         ],
         [
           4.425,
-          4.985,
+          5.145,
           "lépést"
         ]
       ],
-      "duration": 5.144989,
-      "characterCost": 36.0
+      "duration": 5.304989,
+      "characterCost": 38.0
     },
     "engineering_bridge": {
-      "fingerprint": "0f965319a08b5896b7ed186845b8f4ac213735fabe8b4c44bb6e7f0828de6fbf",
-      "sha256": "d1bfbc437a4234e20a624f47de8b818cc3d40ff5623bbb356141f08c57187a84",
+      "fingerprint": "cf0d614045f96f2648bf3ae783263f3f258ec508c5ba1f70401fcab2a78f706e",
+      "sha256": "bc217413cb4bbe0f9ef165171cf104ecd0749b602ed31c77eabd092926df412e",
       "words": [
         [
           0.025,
@@ -52332,77 +52332,77 @@
         ],
         [
           0.505,
-          0.985,
+          0.905,
           "hidat"
         ],
         [
           1.385,
-          1.745,
+          1.785,
           "Koppints"
         ],
         [
-          1.785,
-          2.025,
+          1.825,
+          1.998,
           "két"
         ],
         [
-          2.145,
-          2.505,
+          2.025,
+          2.425,
           "pontra"
         ],
         [
-          2.665,
-          2.825,
+          2.625,
+          2.745,
           "és"
         ],
         [
-          2.905,
-          3.465,
+          2.785,
+          3.385,
           "összekötjük"
         ],
         [
+          3.425,
           3.545,
-          3.665,
           "egy"
         ],
         [
-          3.705,
-          4.225,
+          3.585,
+          4.305,
           "rúddal"
         ],
         [
-          4.665,
-          4.745,
+          4.585,
+          4.625,
           "A"
         ],
         [
-          4.825,
-          5.305,
+          4.665,
+          5.065,
           "végén"
         ],
         [
-          5.385,
-          5.705,
+          5.145,
+          5.465,
           "engedd"
         ],
         [
-          5.785,
-          5.945,
+          5.545,
+          5.665,
           "át"
         ],
         [
-          5.985,
-          6.025,
+          5.705,
+          5.785,
           "az"
         ],
         [
-          6.105,
-          6.665,
+          5.825,
+          6.345,
           "autót"
         ]
       ],
-      "duration": 6.824989,
-      "characterCost": 47.0
+      "duration": 6.505556,
+      "characterCost": 51.0
     },
     "engineering_success": {
       "fingerprint": "ef5baed72dd4fd938ab42fb1b7cc2c86be48b7782a0fd7ce5c837a94cbf4996f",

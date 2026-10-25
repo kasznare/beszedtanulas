@@ -38,9 +38,13 @@ async page => {
     await p.locator('#home [data-open="activity-menu"]').click();
     await p.locator('#activity-menu [data-kind="drop"]').click();
     await p.locator('#en-back').dispatchEvent('click');
-    await p.waitForFunction(duration => voiceQA.played.some(a => Math.abs(a.duration - duration) < .1 && a.ended), expected.duration);
+    // A cancelled tower cue can be within 100 ms of the hub cue's duration.
+    // Its ended event must not resolve the wait for a complete introduction.
+    await p.waitForFunction(duration => voiceQA.played.some(a => Math.abs(a.duration - duration) < .1
+      && a.ended && a.ended - a.started > (duration - .2) * 1000), expected.duration);
     const result = await p.evaluate(duration => ({
-      audio: voiceQA.played.find(a => Math.abs(a.duration - duration) < .1 && a.ended),
+      audio: voiceQA.played.find(a => Math.abs(a.duration - duration) < .1 && a.ended
+        && a.ended - a.started > (duration - .2) * 1000),
       fallback: voiceQA.fallback
     }), expected.duration);
     ok(result.audio.ended - result.audio.started > (expected.duration - .2) * 1000, 'Jessa introduction plays to the end offline');

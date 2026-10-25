@@ -16,7 +16,7 @@ export const CHESS_PHONETIC_IDS = Object.freeze([
 // native Hungarian spelling, as recommended for selective v4 IPA prompting.
 export const CHESS_WORD_IPA = Object.freeze({
   csillagra: 'ˈt͡ʃilːɒɡrɒ',
-  bástyával: 'ˈbaːʃcɒvɒl',
+  bástyával: 'ˈbaːʃcaːvɒl',
   bástyának: 'ˈbaːʃcaːnɒk',
   bástya: 'ˈbaːʃcɒ',
   bástyát: 'ˈbaːʃcaːt',

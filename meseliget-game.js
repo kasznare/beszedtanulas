@@ -273,7 +273,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
   function paintWin() {
     lockSuccess(); root.dataset.mood = 'happy';
     root.querySelector('#meadow-repeat').disabled = false;
-    root.querySelector('#meadow-status').textContent = mode === 'collect' ? `Megvan ${target === 1 ? 'az' : 'a'} ${MESE_WORDS[target]} alma!` : mode === 'serve' ? options.serveMode === 'full' ? 'Mindenkinek jutott tányér és pohár!' : 'Mindenkinek jutott tányér!' : 'Felöltöztem! Indulhatunk!';
+    root.querySelector('#meadow-status').textContent = mode === 'collect' ? `Megvan ${target === 1 || target === 5 ? 'az' : 'a'} ${MESE_WORDS[target]} alma!` : mode === 'serve' ? options.serveMode === 'full' ? 'Mindenkinek jutott tányér és pohár!' : 'Mindenkinek jutott tányér!' : 'Felöltöztem! Indulhatunk!';
     if (mode === 'serve') root.querySelector('.meadow-serving-label').textContent = 'Megterítettünk!';
     const nextButton = root.querySelector('#meadow-next'); nextButton.hidden = false;
     nextButton.textContent = round === length - 1 ? story ? 'Kezdődhet a piknik! ▶' : 'Elkészültünk! ▶' : 'Tovább ▶';
