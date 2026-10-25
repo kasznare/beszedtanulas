@@ -11,7 +11,7 @@ export const GROUPS = Object.freeze([
     card('animal-book', 'Hangos állatkönyv', 'Ki hogyan szól?', '📖', '1–4'),
     card('listening-game', 'Hol van?', 'Hallgasd meg, keresd meg', '🔎', '2–4'),
     card('flip', 'Mi bújt el?', 'Fordítsd fel a képeket', '🎁', '2–5'),
-    card('memory', 'Hang–kép párok', 'Melyik képhez szól?', '🔊', '3–6', { kind: 'sound' }),
+    card('memory', 'Hang–kép párok', 'Melyik állat szól?', '🔊', '3–6', { kind: 'sound' }),
   ])] },
   { screen: 'practice-menu', title: 'Mondd utánam', sections: [section('', [
     card('imitate', 'Egy szó', 'Mondjuk együtt', '🍎', '1–4'),

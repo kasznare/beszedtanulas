@@ -27,12 +27,16 @@ async parent => {
     const enter=async(group,screen)=>{await home();await page.locator(`#home [data-open="${group}"]`).click();await page.locator(`#${group} [data-open="${screen}"]`).click();};
     await enter('picture-menu','listening-game');await page.locator('[data-listening-mode="bingo"]').click();
     await page.waitForFunction(()=>depthOfflineVoices.includes('listening_bingo_start')&&depthOfflineVoices.some(id=>id.startsWith('word_')),undefined,{timeout:15000});
-    ok(await page.locator('.listening-bingo-tile').count()>=2,'Offline bingo plays its guide and target with its fixed board');
+    ok(await page.locator('.listening-bingo-tile').count()>=2,'Offline bingo plays its guide and first call with its board');
     await enter('activity-menu','memory');await page.locator('[data-memory-mode="sound"]').click();
     await page.waitForFunction(()=>depthOfflineVoices.includes('memory_sound_start'),undefined,{timeout:15000});
-    const card=await page.locator('.memory-sound-card').first().getAttribute('data-card');
-    await page.locator(`[data-card="${card}"]`).click();await page.locator(`[data-card="${card.replace('sound-','picture-')}"]`).click();
-    ok(await page.locator('.memory-sound-card.is-matched').count()===1,'Offline sound-to-picture matching accepts a real pair');
+    const cards=await page.locator('.memory-card').evaluateAll(bs=>bs.map(b=>b.dataset.card));
+    for(const key of cards.slice(1)){
+      await page.locator(`[data-card="${cards[0]}"]`).click();await page.locator(`[data-card="${key}"]`).click();
+      if(await page.locator(`[data-card="${key}"].is-matched`).count())break;
+      await page.waitForFunction(()=>document.querySelectorAll('.memory-card:not(:disabled)').length>0);
+    }
+    ok(await page.locator('.memory-card.is-matched').count()===2,'Offline sound memory plays its cards and accepts a real pair');
     await enter('play-menu','teddy-game');await page.locator('[data-teddy-mode="expressive"]').click();
     const food=await page.locator('#teddy-answers .teddy-plate').first().getAttribute('data-word');
     await page.locator('#teddy-answers .teddy-plate').first().click();
