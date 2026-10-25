@@ -160,3 +160,21 @@
   #engineering .en-game-card { display:flex; min-height:180px; }
   #engineering .en-game-card svg { width:100%; height:95px; }
 }
+
+/* Levels, challenge cards and earned stars. */
+#engineering .en-levels button { display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:0; line-height:1.1; min-width:52px; }
+#engineering .en-levels button span { font-size:15px; font-weight:750; }
+#engineering .en-levels button small { font-size:11px; letter-spacing:.04em; color:#c08a1e; }
+#engineering .en-levels button[data-locked="true"] small { color:inherit; }
+#engineering .en-challenges button span { font-size:22px; }
+#engineering .en-card-stars { margin-top:6px; font-size:.85rem; font-weight:700; color:#b07d1a; }
+#engineering #en-stars, #engineering #en-bridge-stars { color:#c08a1e; font-size:15px; letter-spacing:.06em; }
+#engineering .en-overlay-stars { font-size:34px!important; color:#d8a12a; letter-spacing:.1em; max-width:none!important; }
+#engineering .en-pair > #en-rotate, #engineering .en-pair > #en-speed { grid-column:auto; }
+@media (min-width:700px) and (min-height:600px) {
+  #engineering[data-mode="drop"] .en-stage-wrap, #engineering[data-mode="build"] .en-stage-wrap { width:min(100%,calc((100dvh - 270px)*4/3)); }
+}
+@media (orientation:landscape) and (max-height:500px) {
+  #engineering .en-levels { margin-bottom:5px; }
+  #engineering .en-levels button { min-height:44px; padding:2px 8px; }
+}

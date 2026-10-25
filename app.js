@@ -31,6 +31,7 @@ import { setupDifferencesGame } from "./differences-game.js";
 import { setupPatternsGame } from "./patterns-game.js";
 import { setupChessGame } from "./chess-game.js";
 import { setupEngineering } from "./engineering-game.js";
+import { loadEngineering, saveEngineering } from "./engineering-data.js";
 import { normalizePuzzleOptions } from "./puzzle-data.js";
 import { setupMontessoriGame } from "./montessori-game.js";
 import { normalizeMontessoriOptions } from "./montessori-data.js";
@@ -155,8 +156,7 @@ let patternsGame;
 let montessoriGame;
 let chessGame;
 let engineeringGame;
-// Keep experiments only for this page session, separated by the active profile.
-const engineeringSessions = new Map();
+// Építőliget levels, stars and bridge plans are kept per profile in their own storage key.
 const engineeringScope = () => state.profileStore?.activeKey || profileKey(state.supabase);
 let workshopGame;
 let animalBook;
@@ -505,10 +505,12 @@ chessGame = setupChessGame({
   },
 });
 engineeringGame = setupEngineering({
-  getProgress: () => engineeringSessions.get(engineeringScope()),
-  setProgress: progress => engineeringSessions.set(engineeringScope(), progress),
+  getProgress: () => loadEngineering(localStorage, engineeringScope()),
+  setProgress: progress => saveEngineering(localStorage, engineeringScope(), progress),
   speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id); },
   stopPlayback,
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: count => { state.rewards += 1; saveProgress(); refreshStats(); celebrateRound('engineering', count); },
 });
 montessoriGame = setupMontessoriGame({
   getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
@@ -2252,6 +2254,7 @@ function setupNavigation() {
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
     else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
+    else if (completedRoundKind === "engineering") showScreen("engineering", { gameOptions: engineeringGame.getContext() });
     else startAutoImitateSession();
   });
   const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
@@ -2487,7 +2490,7 @@ function celebrateRound(kind, count) {
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
     document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "patterns" ? "Sikerült folytatnod a mintát!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
-    const nextPuzzle = kind === 'chess' && chessGame.canAdvance();
+    const nextPuzzle = kind === 'chess' && chessGame.canAdvance() || kind === 'engineering' && engineeringGame.canAdvance();
     const continueButton = document.querySelector('#round-replay');
     continueButton.classList.add('round-next');
     continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy ilyen');
@@ -2506,7 +2509,7 @@ function celebrateRound(kind, count) {
     else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
     else if (kind === "patterns" && state.settings.spokenGuidance) speakVoice('patterns_done');
     else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(count === 3 ? 'chess_done' : 'chess_solved');
-    else if (kind === "chess") return;
+    else if (kind === "chess" || kind === "engineering") return;
     else if ((kind === "differences" || kind === "patterns") && !state.settings.spokenGuidance) return;
     else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");
   });

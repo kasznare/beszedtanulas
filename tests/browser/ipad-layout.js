@@ -114,6 +114,15 @@ async page => {
       await click(`[data-en-node="${a}"]`);
       await click(`[data-en-node="${b}"]`);
     };
+    // Open every Építőliget level so the densest bridge and the narrowest island are measured too.
+    await p.evaluate(() => {
+      const prefix = 'engineering_progress_v1:';
+      const keys = new Set([prefix + JSON.stringify(['local', 'kid', 'local']), ...Object.keys(localStorage).filter(key => key.startsWith(prefix))]);
+      for (const key of keys) {
+        const saved = JSON.parse(localStorage.getItem(key) || '{}');
+        localStorage.setItem(key, JSON.stringify({ ...saved, dropStars: [1, 1, 1, 0], bridges: Array.from({ length: 5 }, (_, i) => ({ beams: saved.bridges?.[i]?.beams || [], completed: true, stars: 1 })) }));
+      }
+    });
     for (const [width,height] of [[768,900],[1024,680],[390,844],[932,430]]) {
       const tablet = width===768 || width===1024;
       await p.setViewportSize({ width,height });
@@ -126,6 +135,15 @@ async page => {
         await click(`[data-en-mode="${mode}"]`);
         await titleFocused();
         await measureEngineering(`${width}x${height}:${mode}`,mode,tablet);
+        if (mode==='drop') {
+          await click('[data-en-drop-level="3"]');
+          await titleFocused();
+          await measureEngineering(`${width}x${height}:drop-narrow-island`,mode,tablet);
+        } else {
+          await click('[data-en-challenge="tree"]');
+          await measureEngineering(`${width}x${height}:build-tree-card`,mode,tablet);
+          await click('[data-en-challenge="tree"]');
+        }
         if (mode==='drop') await click('#en-drop');
         else {
           const box = await p.locator('#en-stage').boundingBox();
@@ -139,7 +157,7 @@ async page => {
       }
       await click('[data-en-mode="bridge"]');
       await titleFocused();
-      for (const level of [0,1,2]) {
+      for (const level of [0,1,2,3,4]) {
         await click(`[data-en-level="${level}"]`);
         await titleFocused();
         await measureEngineering(`${width}x${height}:bridge-${level}`,'bridge',tablet);
@@ -160,6 +178,8 @@ async page => {
       await click('#en-test');
       await p.waitForFunction(() => document.querySelector('#en-status').textContent.startsWith('Átért!'),{},{timeout:20000});
       await measureEngineering(`${width}x${height}:bridge-success`,'bridge',tablet);
+      await p.waitForSelector('#round-complete[open]');
+      await p.locator('#round-complete').evaluate(dialog => dialog.close());
       if (tablet && width===1024) await p.screenshot({path:'output/playwright/engineering-ipad-layout.png',animations:'disabled'});
       await click('#back-button');
       await titleFocused();

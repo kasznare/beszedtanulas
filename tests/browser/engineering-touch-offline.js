@@ -14,7 +14,7 @@ async page => {
     await p.locator('[data-en-piece="block"]').tap();
     const stage=p.locator('#en-stage'),r=await stage.boundingBox();
     await p.touchscreen.tap(r.x+r.width*.5,r.y+r.height*.4);
-    await p.waitForFunction(()=>document.querySelector('#en-volume').textContent.startsWith('4 '));
+    await p.waitForFunction(()=>document.querySelector('#en-count').textContent==='1 elem');
     ok(true,'touch selection and placement work fully offline');
     await p.waitForFunction(()=>!document.querySelector('#en-place').disabled);
     await p.locator('#en-pause').tap();
