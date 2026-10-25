@@ -27,7 +27,7 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
   const root = document.querySelector('#engineering');
   let active=false, mode=null, world=null, raf=0, last=0, accumulator=0, paused=false;
   let selected='block', angle=0, ghost={x:400,y:220}, history=[], pending=null, elapsed=0, slow=true, lostSeen=0, ended=false;
-  let dropLevel=0, queue=[], won=false, challenge=null, challengeDone=false, challengeLost=0;
+  let dropLevel=0, queue=[], won=false, challenge=null, challengeDone=false, challengeLost=0, rewarded=new Set();
   let level=0, layout=null, beams=[], selectedNode=null, trial=null, bridgeHistory=[], progress=normalizeEngineering();
   let drag=null, suppressClick=false, view={x:0,y:0,w:800,h:600};
   const $ = selector => root.querySelector(selector);
@@ -56,7 +56,7 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
   function enter(kind, { level: wanted } = {}) {
     onRestart();
     cleanup(); mode=kind; paused=false; suppressClick=false; ended=false; won=false; selected='block'; angle=0; elapsed=0; pending=null; history=[]; lostSeen=0; ghost={x:400,y:220};
-    challengeDone=false; challengeLost=0;
+    challengeDone=false; challengeLost=0; rewarded=new Set();
     if(kind==='bridge') {
       if(Number.isInteger(wanted) && wanted>=0 && wanted<BRIDGE_LEVELS.length && bridgeUnlocked(progress,wanted)) level=wanted;
       if(!bridgeUnlocked(progress,level)) level=0;
@@ -265,7 +265,9 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
     challengeDone=true;progress.buildStars[challenge]=Math.max(progress.buildStars[challenge],stars);save();
     status(`Kész: ${info.name}! ${starText(stars)}`);
     const row=$('.en-levels');if(row)row.outerHTML=levelRow();
-    say('chess_star');syncControls();onComplete(stars);
+    say('chess_star');syncControls();
+    // One celebration per card and construction: re-selecting a met card does not farm rewards.
+    if(!rewarded.has(challenge)){rewarded.add(challenge);onComplete(stars);}
   }
   function checkGoals(stats) {
     if(mode==='drop'&&!won&&!pending&&world.lost<DROP_SPLASHES&&stats.height>=DROP_LEVELS[dropLevel].goal) {winDrop();return;}
