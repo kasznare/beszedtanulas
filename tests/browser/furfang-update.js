@@ -9,7 +9,7 @@ async(page)=>{
  await page.reload();await page.waitForFunction(()=>document.body.dataset.screen==='home');
  const after=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));ok(JSON.stringify(after.logic)===JSON.stringify(before.logic),'Home reload preserves math progress');ok(after.rewards===before.rewards,'Home reload preserves rewards');
  await page.locator('#home [data-open="big-menu"]').click();await page.locator('#big-menu [data-kind="machine"]').click();await page.locator('#logic-back').dispatchEvent('click');await page.locator('[data-game="route"]').click();
- const s=after.logic.sessions.route;if(s?.done)ok(await page.locator(`[data-cell="${(s.level+2)**2-1}"] .logic-fox`).count()===1,'Solved route reopens with fox at destination');
+ const s=after.logic.sessions.route;if(s?.done){const end=await page.evaluate(async s=>(await import('./logic-data.js')).logicTaskForSession(s).end,s);ok(await page.locator('.logic-traveller').getAttribute('data-position')===String(end),'Solved route reopens with fox at destination');}
  for(const [width,height] of [[375,667],[430,932],[932,350],[834,1194],[1194,834]]){
   await page.setViewportSize({width,height});const m=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,small:[...document.querySelectorAll('#furfangliget button')].filter(b=>{const r=b.getBoundingClientRect();return r.width<43.5||r.height<43.5}).map(b=>b.id||b.getAttribute('aria-label'))}));ok(!m.overflow,`Final route fits ${width}×${height}`);ok(!m.small.length,`Final route touch controls 44px ${width}×${height}`);
  }

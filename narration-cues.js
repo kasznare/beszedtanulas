@@ -26,7 +26,7 @@ const map = {
  logic_shop_3: {parts:[part('összesen','[data-order="total"]'),part('mennyivel több','[data-order="difference"]'),part('két kosárba','.logic-basket')]},
  logic_change: {target:'.logic-order',parts:[part('Tedd bele','.logic-basket')]},
  logic_shop_hint1: {target:'.logic-order'}, logic_shop_hint2:{parts:[part('pöttyök','.logic-fruit'),part('Tegyél hozzá','[data-delta="1"]'),part('vegyél el','[data-delta="-1"]'),part('vissza','#logic-undo')]},
- logic_shop_hint3: {target:'.logic-hint-text'},logic_shop_more:{target:'.logic-attention'},logic_shop_less:{target:'.logic-attention'},logic_shop_done:{target:'.logic-market-scene.is-delivered'},
+ logic_shop_hint3: {target:'.logic-pairing'},logic_shop_more:{target:'.logic-attention'},logic_shop_less:{target:'.logic-attention'},logic_shop_done:{target:'.logic-market-scene.is-delivered'},
  logic_machine_1: {parts:[part('példák','.logic-example'),part('műveletet','.logic-ops'),part('próbáld ki','#logic-trial'),part('két új szám','.logic-predictions')]},
  logic_machine_2: {parts:[part('mindhárom példában','.logic-example'),part('rakod össze','.logic-slots'),part('próbagombbal','#logic-trial'),part('két új szám','.logic-predictions')]},
  logic_machine_3: {parts:[part('két művelet','.logic-slots'),part('Koppints egy helyre','[data-slot]'),part('műveletet','.logic-ops'),part('Próbáld ki','#logic-trial'),part('két új esetet','.logic-predictions')]},

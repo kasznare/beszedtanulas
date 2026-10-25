@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { LOGIC_GAMES, normalizeLogic, validateLogic, logicSessionForLevel, storeLogicSession, newSession, generateTask, routeSolution, applyRule, completeLogic } from '../logic-data.js';
+import { LOGIC_GAMES, normalizeLogic, validateLogic, logicSessionForLevel, storeLogicSession, newSession, generateTask, routeSolution, routeStepsFromPath, applyRule, completeLogic } from '../logic-data.js';
 import { WORKSHOP_COLORS, WORKSHOP_SHAPES, newWorkshopSession, generateWorkshopTask, workshopTaskForSession, workshopSortTarget, normalizeWorkshop, validateWorkshop, completeWorkshop, workshopSolved, workshopBalanceSolutions, remainingWorkshopSolutions, beginWorkshopAlternative, workshopHint, workshopSolutionKey } from '../workshop-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { createProgressBackup, parseProgressBackup, snapshotProgress } from '../progress-data.js';
@@ -27,9 +27,9 @@ test('old active logic sessions migrate without changing them, and every level r
 test('completed logic tasks retain exactly one reward after leaving and resuming their level',()=>{
   for(const kind of LOGIC_GAMES){
     let p=normalizeLogic();const s=newSession(kind,1,5,42),t=generateTask(kind,1,5,42);
-    if(kind==='shop'){s.stage=1;s.values=t.orders[1];}
-    if(kind==='machine'){s.program=t.program;s.values=t.questions.map(n=>applyRule(n,t.program));}
-    if(kind==='route')s.path=routeSolution(t);
+    if(kind==='shop'){s.stage=t.customers.length-1;s.marks=Array(s.stage).fill(1);s.values=t.orders.at(-1);}
+    if(kind==='machine'){s.program=t.program;s.verified=true;s.values=t.questions.map(n=>applyRule(n,t.program));}
+    if(kind==='route')s.steps=routeStepsFromPath(routeSolution(t),t.size);
     storeLogicSession(p,s);const first=completeLogic(p,kind);assert.equal(first.reward,true);p=first.progress;
     storeLogicSession(p,newSession(kind,2,5,77));storeLogicSession(p,logicSessionForLevel(p,kind,1));
     assert.equal(completeLogic(p,kind).reward,false);assert.equal(p.games[kind][0].independent,1);

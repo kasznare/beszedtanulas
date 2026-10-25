@@ -7,6 +7,10 @@ async (page) => {
  const parent=async()=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();await page.locator('#parent-button').click();const text=await page.locator('#parent-gate-question').innerText(),n=text.match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  const task=async kind=>page.evaluate(async k=>{const {generateTask}=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions[k];return generateTask(k,s.level,s.limit,s.seed)},kind);
  const fill=async values=>{for(let i=0;i<values.length;i++){const input=page.locator(`#logic-value-${i}`);await input.fill(String(values[i]));await input.press('Tab');}};
+ // Machine predictions are choices; route programs (level 2+) are typed with the arrows.
+ const answer=async values=>{for(let i=0;i<values.length;i++)if(await page.locator(`#logic-answer-${i}-${values[i]}`).getAttribute('aria-pressed')!=='true')await page.locator(`#logic-answer-${i}-${values[i]}`).click();};
+ const arrows=['up','right','down','left'];
+ const program=async steps=>{for(const d of steps)await page.locator(`[data-direction="${arrows[d]}"]`).click();};
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.evaluate(async()=>{localStorage.clear();for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();for(const c of await caches.keys())await caches.delete(c);});const url=page.url();await page.goto('about:blank');await page.goto(url);await enter();
  const original=(await saved())?.attempts||0;
@@ -19,19 +23,23 @@ async (page) => {
    await page.locator('#logic-hint').click();await page.locator('#logic-hint').click();await page.locator('#logic-hint').click();
    ok((await saved()).logic.sessions[kind].help===3,`${kind} ${level}: progressive hint saved`);
    if(kind==='shop'){
-    await fill(t.orders[0]);await page.locator('#logic-check').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');ok((await saved()).logic.sessions.shop.stage===1,`Shop ${level}: second order follows`);ok((await saved()).rewards===before,`Shop ${level}: first order not rewarded`);
-    await fill(t.orders[1]);
+    ok(t.customers.length===(level===1?4:5),`Shop ${level}: market day queue`);
+    for(let c=0;c<t.orders.length-1;c++){await fill(t.orders[c]);await page.locator('#logic-check').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');ok((await saved()).logic.sessions.shop.stage===c+1,`Shop ${level}: customer ${c+2} follows`);}
+    ok((await saved()).rewards===before,`Shop ${level}: earlier customers not rewarded`);
+    await fill(t.orders.at(-1));
    }else if(kind==='machine'){
     for(let i=0;i<t.program.length;i++){await page.locator(`#logic-slot-${i}`).click();await page.locator(`[data-op="${t.program[i]}"]`).click();}
     await page.locator('#logic-trial').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');ok((await page.locator('.logic-match').count())===3,`Machine ${level}: trial runs examples`);
-    const values=await page.evaluate(async t=>{const {applyRule}=await import('./logic-data.js');return t.questions.map(n=>applyRule(n,t.program));},t);await fill(values);
+    ok((await saved()).logic.sessions.machine.trials===1,`Machine ${level}: trial counted`);
+    const values=await page.evaluate(async t=>{const {applyRule}=await import('./logic-data.js');return t.questions.map(n=>applyRule(n,t.program));},t);await answer(values);
    }else{
     const path=await page.evaluate(async t=>(await import('./logic-data.js')).routeSolution(t),t);
-    for(const cell of path.slice(1))await page.locator(`[data-cell="${cell}"]`).click();
+    if(level===1)for(const cell of path.slice(1))await page.locator(`[data-cell="${cell}"]`).click();
+    else{ok(await page.locator('[data-cell]:enabled').count()===0&&await page.locator('[data-direction]:enabled').count()===4,`Route ${level}: program mode leaves every arrow open`);await program(await page.evaluate(async([p,size])=>(await import('./logic-data.js')).routeStepsFromPath(p,size),[path,t.size]));}
    }
    const preUndo=(await saved()).logic.sessions[kind];await page.locator('#logic-undo').click();const postUndo=(await saved()).logic.sessions[kind];ok(JSON.stringify(preUndo)!==JSON.stringify(postUndo),`${kind} ${level}: undo changes plan`);
    // Restore the final move through the same visible control.
-   if(kind==='route')await page.locator(`[data-cell="${preUndo.path.at(-1)}"]`).click();else await fill(preUndo.values);
+   if(kind==='route')await program(preUndo.steps.slice(-1));else if(kind==='machine')await answer(preUndo.values);else await fill(preUndo.values);
    const resume=(await saved()).logic.sessions[kind];await page.reload();await enter();await page.locator(`[data-game="${kind}"]`).click();ok(JSON.stringify((await saved()).logic.sessions[kind])===JSON.stringify(resume),`${kind} ${level}: reload restores complete attempt`);
    await page.locator('#logic-check').evaluate(b=>{b.click();b.click()});await page.waitForSelector('#logic-next');
    ok((await saved()).rewards===before+1,`${kind} ${level}: exactly one reward`);ok((await saved()).logic.games[kind][level-1].assisted===1,`${kind} ${level}: assisted result separated`);
