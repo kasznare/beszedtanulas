@@ -45,7 +45,7 @@ import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
 import { setupRPractice } from "./r-practice-game.js";
 import { normalizeRProgress, matchRPracticeSpeech } from "./r-practice-data.js";
 import { detectRVoiceActivity } from "./r-practice-media.js";
-import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
+import { normalizeWorkshop, normalizeWorkshopOptions, WORKSHOP_LEVEL_KEYS, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
@@ -74,7 +74,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions(), ...normalizePracticeSettings(), ...normalizeNumberSettings() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, ...normalizeWorkshopOptions(), pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions(), ...normalizePracticeSettings(), ...normalizeNumberSettings() };
 const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
@@ -533,10 +533,14 @@ workshopGame = setupWorkshop({
   effect: playEffect,
   getProgress: () => state.workshop, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
-  setLevel: level => {
+  setLevel: (level, kind) => {
     if (![1, 2, 3].includes(level)) return;
-    state.settings.workshopLevel = level;
-    document.querySelector('#workshop-level').value = level;
+    if (WORKSHOP_LEVEL_KEYS[kind]) state.settings[WORKSHOP_LEVEL_KEYS[kind]] = level;
+    else {
+      state.settings.workshopLevel = level;
+      Object.assign(state.settings, normalizeWorkshopOptions({ workshopLevel: level }));
+      document.querySelector('#workshop-level').value = level;
+    }
     saveProgress();
   },
   updateProgress: (progress, reward) => {
@@ -1376,6 +1380,7 @@ function normalizeState(input) {
       ...normalizePracticeSettings(input.settings),
       ...normalizeNumberSettings(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
+      ...normalizeWorkshopOptions(input.settings),
       pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
@@ -2253,6 +2258,11 @@ function setupNavigation() {
     showScreen(task.screen,{announce:task.screen==='listening-game',gameOptions:task});
   });
   document.querySelector("#round-home").addEventListener("click", () => showScreen("home"));
+  document.querySelector('#round-related').addEventListener('click', event => {
+    if (!event.target.closest('#round-puzzle-more')) return;
+    document.querySelector('#round-complete').close();
+    if (puzzleGame.choose('more')) showScreen('puzzle');
+  });
   document.querySelector('#round-back').addEventListener('click', goBack);
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
@@ -2262,7 +2272,7 @@ function setupNavigation() {
     else if (completedRoundKind === "listening-game") showScreen("listening-game",{gameOptions:listeningGame.getContext?.()||{}});
     else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
     else if (completedRoundKind === "pour") showScreen("pour");
-    else if (completedRoundKind === "puzzle") {showScreen("puzzle");puzzleGame.restart();}
+    else if (completedRoundKind === "puzzle") {puzzleGame.choose('image');showScreen("puzzle");}
     else if (completedRoundKind === "differences") showScreen("differences", { gameOptions: differencesGame.getContext() });
     else if (completedRoundKind === "patterns") showScreen("patterns", { gameOptions: patternsGame.getContext() });
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
@@ -2443,6 +2453,8 @@ function setupParentSettings() {
     const select = document.querySelector(`#${id}`); select.value = state.settings[key];
     select.addEventListener('change', () => {state.settings[key] = Number(select.value); saveProgress();});
   }
+  // The parent choice sets all three workshops; each game can still change its own level.
+  document.querySelector('#workshop-level').addEventListener('change', () => { Object.assign(state.settings, normalizeWorkshopOptions({ workshopLevel: state.settings.workshopLevel })); saveProgress(); });
   const roundLength = document.querySelector("#round-length");
   const topic = document.querySelector("#practice-topic");
   const wordVoice = document.querySelector("#word-voice");
@@ -2508,19 +2520,19 @@ function celebrateRound(kind, count) {
     burstConfettiOverlay(1000);
     document.querySelector("#complete-stars").textContent = "⭐".repeat(Math.min(count, 5));
     document.querySelector("#round-complete-title").textContent = kind === "dress-game" ? "Indulhat a séta!" : kind === "memory" ? "Minden pár megvan!" : kind === "puzzle" ? "Elkészült a kép!" : kind === "differences" ? "Minden különbséget megtaláltál!" : kind === "patterns" ? "Sikerült folytatnod a mintát!" : kind === "chess" ? count === 3 ? "Megvan a három csillag!" : "Szép sakkmegoldás!" : "De jó volt együtt!";
-    const nextPuzzle = kind === 'chess' && chessGame.canAdvance() || kind === 'engineering' && engineeringGame.canAdvance();
+    const nextPuzzle = kind === 'chess' && chessGame.canAdvance() || kind === 'engineering' && engineeringGame.canAdvance(), nextPicture = kind === 'puzzle';
     const continueButton = document.querySelector('#round-replay');
     continueButton.classList.add('round-next');
-    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : 'Még egy ilyen');
-    setButtonIcon(continueButton, nextPuzzle ? 'next' : 'repeat');
+    continueButton.setAttribute('aria-label', nextPuzzle ? 'Következő feladat' : nextPicture ? 'Következő kép' : 'Még egy ilyen');
+    setButtonIcon(continueButton, nextPuzzle || nextPicture ? 'next' : 'repeat');
     {
       const label = document.createElement('span');
-      label.textContent = nextPuzzle?'Következő feladat':'Még egy ilyen';
+      label.textContent = nextPuzzle?'Következő feladat':nextPicture?'Következő kép':'Még egy ilyen';
       continueButton.append(label);
     }
-    document.querySelector("#round-related").innerHTML=relatedTaskMarkup(kind);
+    document.querySelector("#round-related").innerHTML=(kind==='puzzle'?puzzleGame.moreButton():'')+relatedTaskMarkup(kind);
     document.querySelector("#round-complete").showModal();
-    if (nextPuzzle) continueButton.focus({ preventScroll: true });
+    if (nextPuzzle || nextPicture) continueButton.focus({ preventScroll: true });
     if (kind === "pour") speakVoice('pour_done');
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');

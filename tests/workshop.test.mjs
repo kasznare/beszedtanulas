@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WORKSHOP_GAMES, WORKSHOP_COLORS, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopHint, normalizeWorkshop, validateWorkshop, completeWorkshop, rememberWorkshop, undoWorkshop, workshopTaskForSession } from '../workshop-data.js';
+import { WORKSHOP_GAMES, WORKSHOP_COLORS, generateWorkshopTask, newWorkshopSession, workshopSortTarget, workshopSolved, workshopBalanceSolutions, workshopHint, normalizeWorkshop, validateWorkshop, completeWorkshop, rememberWorkshop, undoWorkshop, workshopTaskForSession, workshopFixedSum } from '../workshop-data.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 
 function solve(task, session) {
@@ -61,12 +61,12 @@ test('balance tasks accept every valid composition and enforce exact count, dist
     const task = generateWorkshopTask('balance', level, seed), solutions = workshopBalanceSolutions(task);
     assert.ok(solutions.length);
     for (const rods of solutions) {
-      assert.equal(rods.reduce((sum, n) => sum + n, 0), task.target);
+      assert.equal(workshopFixedSum(task) + rods.reduce((sum, n) => sum + n, 0), task.target);
       if (level > 1) { assert.equal(rods.length, level); assert.equal(new Set(rods).size, level); }
       const session = newWorkshopSession('balance', level, seed); session.moves.rods = [...rods].reverse(); assert.ok(workshopSolved(task, session));
     }
     const session = newWorkshopSession('balance', level, seed);
-    session.moves.rods = Array(task.target).fill(1); assert.equal(workshopSolved(task, session), level === 1 && task.target<=task.maxPieces);
+    session.moves.rods = Array(task.target).fill(1); assert.equal(workshopSolved(task, session), false, 'only adding single units never balances');
     session.moves.rods = [100]; assert.equal(workshopSolved(task, session), false);
   }
   const task = generateWorkshopTask('balance', 2, 0), session = newWorkshopSession('balance', 2, 0);
@@ -79,7 +79,7 @@ test('progressive correction reaches a solution from empty, incorrect or overwei
     const task = generateWorkshopTask(kind, level, seed), session = newWorkshopSession(kind, level, seed);
     if (kind === 'sort') session.moves.placements.fill(task.bins.length - 1);
     if (kind === 'pattern') session.moves.answers.fill(0);
-    if (kind === 'balance') session.moves.rods = level === 3 ? [3, 4, 5, 6] : level === 2 ? [4, 4, 5, 5] : [3, 3, 3, 3, 3, 3];
+    if (kind === 'balance') session.moves.rods = level === 3 ? [3, 4, 5, 6] : level === 2 ? [4, 4, 5, 5] : task.mode === 'missing' ? [task.choices.find(n => n !== task.target - task.fixed[0])] : [3, 3, 4, 4];
     for (let step = 0; step < 24 && !workshopSolved(task, session); step++) {
       const hint = workshopHint(task, session); assert.notEqual(hint.action, 'ready'); applyHint(session, hint);
       const progress = normalizeWorkshop(); progress.sessions[kind][level - 1] = session; assert.deepEqual(validateWorkshop(progress).sessions[kind][level - 1], session);

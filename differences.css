@@ -55,7 +55,8 @@
 .differences-scenes strong { display:block; margin:8px 6px 0; font-size:.95rem; }
 .differences-scenes small { display:block; color:#697c63; margin:3px 6px 0; font-size:.72rem; line-height:1.35; font-weight:500; }
 .differences-chooser h3 { font-size:.95rem; margin:18px 0 9px; }
-.differences-levels { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.differences-levels { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+@media(max-width:520px) { .differences-levels { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 #differences .differences-levels button { min-width:0; padding:10px 5px; }
 .differences-levels strong,.differences-levels span { display:block; }
 .differences-levels span { font-size:.76rem; margin-top:4px; font-weight:500; }
@@ -134,4 +135,8 @@
   .differences-chooser h2 { font-size:1.15rem; }
   .differences-chooser h3 { margin:12px 0 7px; }
 }
-@media(prefers-reduced-motion:reduce) { #differences * { scroll-behavior:auto; } }
+/* "Look first" pause after a burst of misses: the pictures stay visible but rest for a moment. */
+.differences-picture::after { content:'👀'; position:absolute; inset:0; display:grid; place-items:center; font-size:3rem; background:#fffdf699; opacity:0; pointer-events:none; transition:opacity .2s; }
+#differences.is-resting .differences-picture::after { opacity:1; }
+#differences.is-resting .differences-picture { cursor:default; }
+@media(prefers-reduced-motion:reduce) { #differences * { scroll-behavior:auto; }.differences-picture::after { transition:none; } }

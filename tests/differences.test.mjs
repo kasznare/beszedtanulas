@@ -22,7 +22,7 @@ const groupFor = (svg, id) => {
 test('four authored scenes have unique, labelled differences and bounded hit ellipses', () => {
   assert.equal(DIFFERENCE_SCENES.length, 4);
   assert.equal(new Set(DIFFERENCE_SCENES.map(scene => scene.id)).size, 4);
-  assert.deepEqual(DIFFERENCE_LEVELS.map(level => level.count), [5, 7, 10]);
+  assert.deepEqual(DIFFERENCE_LEVELS.map(level => level.count), [3, 5, 7, 10]);
   for (const scene of DIFFERENCE_SCENES) {
     assert.ok(scene.name && scene.subtitle);
     assert.ok(scene.differences.length > 10, `${scene.id} has spare differences for replay`);

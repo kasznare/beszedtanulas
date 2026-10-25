@@ -12,17 +12,17 @@ test('every size covers the entire picture exactly once, with matching crop coor
     for (const piece of puzzle.pieces) {
       assert.equal(piece.id, piece.row * puzzle.columns + piece.column);
       assert.equal(piece.x, piece.column * 100 / (puzzle.columns - 1));
-      assert.equal(piece.y, piece.row * 100);
+      assert.equal(piece.y, puzzle.rows > 1 ? piece.row * 100 / (puzzle.rows - 1) : 0);
     }
   }
 });
 test('an ordered shuffle still becomes an unsolved tray, and invalid sizes fall back safely', () => {
   for (const random of [() => 0, () => 0.999999, () => 1]) {
-    const puzzle = buildPuzzle(10, random);
-    assert.equal(new Set(puzzle.order).size, 10);
+    const puzzle = buildPuzzle(16, random);
+    assert.equal(new Set(puzzle.order).size, 16);
     assert.ok(puzzle.order.some((id, index) => id !== index));
   }
-  for (const value of [0, 7, 9, 12, '10', null]) assert.equal(buildPuzzle(value).pieces.length, 6);
+  for (const value of [0, 7, 8, 10, '12', null]) assert.equal(buildPuzzle(value).pieces.length, 6);
 });
 test('any valid position accepts a piece, while a full shuffled board is not complete', () => {
   for (const count of PUZZLE_SIZES) {
@@ -112,10 +112,12 @@ test('malformed boards, unknown occupants and duplicate pieces are rejected with
 });
 test('saved settings accept all supported pictures/sizes and recover from malformed storage', () => {
   for (const image of PUZZLE_IMAGES) for (const count of PUZZLE_SIZES) {
-    assert.deepEqual(normalizePuzzleOptions({ puzzleImage: image.id, puzzlePieces: count }), { puzzleImage: image.id, puzzlePieces: count });
+    assert.deepEqual(normalizePuzzleOptions({ puzzleImage: image.id, puzzlePieces: count }), { puzzleImage: image.id, puzzlePieces: count, puzzleStrict: false });
   }
+  assert.deepEqual(normalizePuzzleOptions({ puzzlePieces: 8, puzzleStrict: true }), { puzzleImage: 'farm', puzzlePieces: 9, puzzleStrict: true });
+  assert.equal(normalizePuzzleOptions({ puzzlePieces: 10 }).puzzlePieces, 12);
   for (const value of [undefined, null, false, 'forest', { puzzleImage: '../bad', puzzlePieces: 500 }]) {
-    assert.deepEqual(normalizePuzzleOptions(value), { puzzleImage: 'farm', puzzlePieces: 6 });
+    assert.deepEqual(normalizePuzzleOptions(value), { puzzleImage: 'farm', puzzlePieces: 6, puzzleStrict: false });
   }
 });
 test('original illustrations and three simple beginner pictures exist', async () => {
@@ -131,7 +133,7 @@ test('original illustrations and three simple beginner pictures exist', async ()
 });
 test('saved boards reject duplicate and foreign pieces and preserve reward state', () => {
   const puzzle = buildPuzzle(4, () => 0);
-  const board = { imageId: 'sun', pieceCount: 4, order: puzzle.order, placed: [[0, 2], [2, 0]], rewarded: true };
+  const board = { imageId: 'sun', pieceCount: 4, order: puzzle.order, placed: [[0, 2], [2, 0]], rewarded: true, solved: 1 };
   assert.deepEqual(normalizePuzzleBoard(board, 'sun', 4), board);
   for (const invalid of [{ ...board, placed: [[0, 1], [0, 2]] }, { ...board, placed: [[0, 1], [2, 1]] }, { ...board, placed: [[8, 1]] }, { ...board, order: [0, 1, 1, 3] }, { ...board, rewarded: 'yes' }]) {
     assert.equal(normalizePuzzleBoard(invalid, 'sun', 4), null);

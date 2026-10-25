@@ -13,6 +13,13 @@ const integer = (n, min, max) => Number.isSafeInteger(n) && n >= min && n <= max
 const record = value => !!value && typeof value === 'object' && !Array.isArray(value);
 const count = n => integer(n, 0, Number.MAX_SAFE_INTEGER) ? n : 0;
 export function workshopSeed() { return Math.floor(Math.random() * 0x100000000); }
+// Each workshop keeps its own difficulty. Older saves had one shared level; it seeds all three.
+export const WORKSHOP_LEVEL_KEYS = { sort: 'workshopSortLevel', pattern: 'workshopPatternLevel', balance: 'workshopBalanceLevel' };
+export function normalizeWorkshopOptions(settings = {}) {
+  const source = record(settings) ? settings : {}, shared = integer(source.workshopLevel, 1, 3) ? source.workshopLevel : 1;
+  return Object.fromEntries(WORKSHOP_GAMES.map(kind => [WORKSHOP_LEVEL_KEYS[kind], integer(source[WORKSHOP_LEVEL_KEYS[kind]], 1, 3) ? source[WORKSHOP_LEVEL_KEYS[kind]] : shared]));
+}
+export const workshopLevelFor = (settings, kind) => normalizeWorkshopOptions(settings)[WORKSHOP_LEVEL_KEYS[kind]] ?? 1;
 function randomSource(seed) {
   let s = seed >>> 0;
   return () => { s += 0x6D2B79F5; let t = Math.imul(s ^ s >>> 15, 1 | s); t ^= t + Math.imul(t ^ t >>> 7, 61 | t); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
@@ -25,14 +32,17 @@ function shuffle(items, random) {
 export function workshopObjectName(object) {
   return [object.size === 0 ? 'kis' : object.size === 1 ? 'nagy' : '', WORKSHOP_COLORS[object.color].name, WORKSHOP_SHAPES[object.shape]].filter(Boolean).join(' ');
 }
-export function generateWorkshopTask(kind, level, seed, version = 3, round = 0) {
+export const WORKSHOP_TASK_VERSION = 4;
+export function generateWorkshopTask(kind, level, seed, version = WORKSHOP_TASK_VERSION, round = 0) {
   if (!WORKSHOP_GAMES.includes(kind) || !integer(level, 1, 3) || !integer(seed, 0, 0xffffffff)) throw new Error('Érvénytelen műhelyfeladat.');
   const random = randomSource(seed), colors = shuffle(Object.keys(WORKSHOP_COLORS), random).slice(0, 2);
   const shapes = shuffle(Object.keys(WORKSHOP_SHAPES), random);
   if (kind === 'sort' && version >= 3) {
     const wantedSize = Math.floor(random()*2);
+    // Version 4: every shape comes in both sizes, so sorting by size never equals sorting by shape.
+    const sizeFlip = version >= 4 ? Math.floor(random()*2) : 0;
     const objects = shuffle(level===1
-      ? colors.flatMap(color=>shapes.map((shape,i)=>({color,shape,size:i%2})))
+      ? colors.flatMap((color,c)=>shapes.map((shape,i)=>({color,shape,size:version>=4?(c+i+sizeFlip)%2:i%2})))
       : colors.flatMap(color=>shapes.slice(0,2).flatMap(shape=>[0,1].map(size=>({color,shape,size})))),random);
     const families = level===1 ? [['color'],['shape'],['size']] : [['color','shape'],['color','size'],['shape','size']];
     const family = Math.floor(random()*(level===3?2:families.length)), keys = families[level===3?family:(family+round)%families.length];
@@ -75,12 +85,32 @@ export function generateWorkshopTask(kind, level, seed, version = 3, round = 0) 
           : {color:colors[Math.floor(i%3/2)],shape:shapes[i%2]});
       }
     }
-    const palette = shuffle(motif.filter((o, i) => motif.findIndex(p => p.color === o.color && p.shape === o.shape) === i), random);
+    let palette = shuffle(motif.filter((o, i) => motif.findIndex(p => p.color === o.color && p.shape === o.shape) === i), random);
+    if (version >= 4) {
+      // Decoys share a colour and/or shape with the motif in a combination the thread never shows,
+      // so the toolbox is no longer a coin flip between the two right answers.
+      const same = (p, o) => p.color === o.color && p.shape === o.shape;
+      const candidates = colors.flatMap(color => shapes.map(shape => ({ color, shape }))).filter(o => !palette.some(p => same(p, o)));
+      const shared = o => Number(motif.some(p => p.color === o.color)) + Number(motif.some(p => p.shape === o.shape));
+      const ordered = shuffle(candidates, random).sort((a, b) => shared(b) - shared(a));
+      const extra = Math.min(level === 1 ? 1 : 2, 6 - palette.length, ordered.length);
+      palette = shuffle([...palette, ...ordered.slice(0, extra)], random);
+    }
     const sequence = Array.from({ length: level === 1 ? 8 : level === 2 ? 9 : 12 }, (_, i) => palette.findIndex(o => o.color === motif[i % motif.length].color && o.shape === motif[i % motif.length].shape));
     // Preserve old seed meanings. New tasks keep a full visible repeating unit,
     // while the remaining gaps vary and still have one answer under that rule.
     const holes = version < 2 ? (level === 1 ? [6, 7] : level === 2 ? [4, 7, 8] : [3, 7, 10, 11]) : shuffle(Array.from({length:sequence.length-motif.length},(_,i)=>i+motif.length),random).slice(0,[2,3,4][level-1]).sort((a,b)=>a-b);
     return { kind, level, palette, motif: motif.map(o => palette.findIndex(p => p.color === o.color && p.shape === o.shape)), sequence, holes };
+  }
+  if (version >= 4 && level === 1) {
+    // Two Felfedező task types: one rod is missing beside a fixed rod, or reach the amount with as few rods as possible.
+    if (random() < .5) {
+      const target = 5 + Math.floor(random() * 6), low = Math.max(2, target - 6), high = Math.min(6, target - 1);
+      const missing = low + Math.floor(random() * (high - low + 1));
+      return { kind, level, mode: 'missing', choices: [1, 2, 3, 4, 5, 6], target, fixed: [target - missing], countRequired: 1, distinct: false, stock: 1, maxPieces: 1 };
+    }
+    const target = 6 + Math.floor(random() * 7);
+    return { kind, level, mode: 'fewest', choices: [1, 2, 3, 4, 5], target, fixed: [], countRequired: null, distinct: false, stock: 2, maxPieces: 5, minRods: Math.ceil(target / 5) };
   }
   const choices = Array.from({ length: level === 1 ? 3 : level === 2 ? 5 : version>=3?7:6 }, (_, i) => i + 1);
   const countRequired = level === 1 ? null : level, distinct = level > 1;
@@ -88,17 +118,52 @@ export function generateWorkshopTask(kind, level, seed, version = 3, round = 0) 
     : level === 1 ? [3, 4, 5, 6] : level === 2 ? [6, 7, 8, 9] : [9, 10, 11, 12, 13, 14, 15];
   return { kind, level, choices, target: possibleTargets[Math.floor(random() * possibleTargets.length)], countRequired, distinct, stock: level === 1 ? 6 : level === 2 ? 2 : 1, maxPieces: level === 1 ? 6 : 4 };
 }
+// "Tervezd meg!": the child builds a two- or three-bead unit, the thread repeats it, then the child mends two gaps.
+// The design is a short side game and is not saved.
+export function newWorkshopDesign(seed = workshopSeed()) {
+  const random = randomSource(seed), colors = shuffle(Object.keys(WORKSHOP_COLORS), random).slice(0, 2), shapes = shuffle(Object.keys(WORKSHOP_SHAPES), random).slice(0, 2);
+  return { seed, phase: 'build', palette: shuffle(colors.flatMap(color => shapes.map(shape => ({ color, shape }))), random), slots: [null, null, null], holes: [], answers: [] };
+}
+export const workshopDesignUnit = design => design.slots.filter(value => value !== null);
+export function workshopDesignReady(design) {
+  const unit = workshopDesignUnit(design);
+  if (unit.length < 2) return { ok: false, reason: 'short' };
+  if (new Set(unit).size < 2) return { ok: false, reason: 'same' };
+  return { ok: true };
+}
+export function workshopDesignSequence(design) {
+  const unit = workshopDesignUnit(design), length = unit.length * 3;
+  return Array.from({ length }, (_, i) => unit[i % unit.length]);
+}
+export function weaveWorkshopDesign(design, random = Math.random) {
+  if (!workshopDesignReady(design).ok) return design;
+  const unit = workshopDesignUnit(design), length = unit.length * 3;
+  const holes = shuffle(Array.from({ length: length - unit.length }, (_, i) => i + unit.length), random).slice(0, 2).sort((a, b) => a - b);
+  return { ...design, phase: 'fix', holes, answers: holes.map(() => null) };
+}
+export function workshopDesignSolved(design) {
+  if (design?.phase !== 'fix') return false;
+  const sequence = workshopDesignSequence(design);
+  return design.holes.every((position, i) => design.answers[i] === sequence[position]);
+}
 export function workshopSortTarget(task, object) {
   if (task.filter && object[task.filter.key]!==task.filter.value) return task.bins.length-1;
   if (!task.filter && task.level === 3 && object.size !== task.wantedSize) return task.bins.length - 1;
   return task.bins.findIndex(bin => !bin.other && (!bin.color || bin.color === object.color) && (!bin.shape || bin.shape === object.shape) && (bin.size === undefined || bin.size === object.size));
+}
+export const workshopFixedSum = task => (task.fixed || []).reduce((sum, n) => sum + n, 0);
+// Stars for the "fewest rods" balance: the shortest composition earns three.
+export function workshopBalanceStars(task, rods) {
+  if (task?.mode !== 'fewest' || !Array.isArray(rods)) return null;
+  const extra = rods.length - task.minRods;
+  return extra <= 0 ? 3 : extra === 1 ? 2 : 1;
 }
 export function workshopTaskForSession(session) {
   return generateWorkshopTask(session.kind, session.level, session.seed, session.taskVersion ?? 1, session.round ?? 0);
 }
 export function newWorkshopSession(kind, level = 1, seed = workshopSeed()) {
   const task = generateWorkshopTask(kind, level, seed);
-  return { kind, level, seed, taskVersion: 3, round: 0, rewarded: false, found: [], help: 0, misses: 0, done: false, moves: { placements: kind === 'sort' ? task.objects.map(() => -1) : [], answers: kind === 'pattern' ? task.holes.map(() => null) : [], rods: [] }, history: [] };
+  return { kind, level, seed, taskVersion: WORKSHOP_TASK_VERSION, round: 0, rewarded: false, found: [], help: 0, misses: 0, done: false, moves: { placements: kind === 'sort' ? task.objects.map(() => -1) : [], answers: kind === 'pattern' ? task.holes.map(() => null) : [], rods: [] }, history: [] };
 }
 function validMoves(task, moves) {
   return record(moves) && Array.isArray(moves.placements) && Array.isArray(moves.answers) && Array.isArray(moves.rods)
@@ -111,7 +176,7 @@ export function workshopSolved(task, session) {
   const moves = session.moves;
   if (task.kind === 'sort') return moves.placements.every((bin, i) => bin === workshopSortTarget(task, task.objects[i]));
   if (task.kind === 'pattern') return moves.answers.every((answer, i) => answer === task.sequence[task.holes[i]]);
-  return moves.rods.reduce((sum, n) => sum + n, 0) === task.target && (!task.countRequired || moves.rods.length === task.countRequired) && (!task.distinct || new Set(moves.rods).size === moves.rods.length);
+  return workshopFixedSum(task) + moves.rods.reduce((sum, n) => sum + n, 0) === task.target && (!task.countRequired || moves.rods.length === task.countRequired) && (!task.distinct || new Set(moves.rods).size === moves.rods.length);
 }
 export function rememberWorkshop(session) {
   if (session.done) return;
@@ -134,7 +199,7 @@ export function workshopBalanceSolutions(task) {
       if (sum + value <= task.target && rods.filter(n => n === value).length < (task.distinct ? 1 : task.stock)) visit([...rods, value], i, sum + value);
     }
   }
-  visit([], 0, 0);
+  visit([], 0, workshopFixedSum(task));
   return solutions;
 }
 export const workshopSolutionKey = rods => [...rods].sort((a,b)=>a-b).join(',');
@@ -161,7 +226,7 @@ export function workshopHint(task, session) {
     for (const value of current) { const index = remaining.indexOf(value); if (index >= 0) { remaining.splice(index, 1); shared++; } }
     return { score: (current.length - shared) * 10 + remaining.length, remaining };
   };
-  const solutions = remainingWorkshopSolutions(task, session).sort((a, b) => distance(a).score - distance(b).score);
+  const solutions = remainingWorkshopSolutions(task, session).sort((a, b) => distance(a).score - distance(b).score || a.length - b.length);
   if (!solutions.length) return { action: 'ready' };
   const remaining = [...solutions[0]];
   for (let index = 0; index < current.length; index++) {
@@ -174,7 +239,7 @@ export function workshopHint(task, session) {
 function validSession(session, kind, level) {
   if (!record(session) || session.kind !== kind || session.level !== level || !integer(session.seed, 0, 0xffffffff) || !integer(session.help, 0, 3) || !integer(session.misses, 0, 9999) || typeof session.done !== 'boolean') return false;
   const version = session.taskVersion ?? 1, round = session.round ?? 0;
-  if (![1,2,3].includes(version) || !integer(round,0,version>=2&&kind==='sort'?1:0) || (session.rewarded!==undefined&&typeof session.rewarded!=='boolean')) return false;
+  if (![1,2,3,4].includes(version) || !integer(round,0,version>=2&&kind==='sort'?1:0) || (session.rewarded!==undefined&&typeof session.rewarded!=='boolean')) return false;
   const task = workshopTaskForSession(session), found = session.found ?? [];
   if (!Array.isArray(found) || (kind!=='balance' && found.length) || found.length>30 || found.some(rods=>!Array.isArray(rods)||!workshopSolved(task,{moves:{placements:[],answers:[],rods}})) || new Set(found.map(workshopSolutionKey)).size!==found.length) return false;
   if (kind==='balance' && (found.length>0 && !session.rewarded || session.rewarded && !found.length)) return false;

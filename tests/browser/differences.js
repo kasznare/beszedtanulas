@@ -73,7 +73,7 @@ async page => {
   ok(await page.locator('.differences-picture').count() === 2, 'Both authored pictures are present');
   ok(await page.evaluate(() => JSON.parse(localStorage.getItem('beszedtanulas.playTime.v1')).startedAt !== null), 'Entering the new game starts the shared play-time budget');
   for (const sceneId of ['picnic', 'harbor', 'workshop', 'greenhouse']) {
-    for (const [levelId, count] of [['explorer', 5], ['observer', 7], ['detective', 10]]) {
+    for (const [levelId, count] of [['starter', 3], ['explorer', 5], ['observer', 7], ['detective', 10]]) {
       await choose(sceneId, levelId);
       ok((await active()).length === count && await found() === 0, `${sceneId}/${levelId}: exact selected difference count and fresh board`);
     }
@@ -89,6 +89,11 @@ async page => {
   ok(await found() === 2, 'A new difference accepts a tap on the right image');
   await tapPoint('left', 1, 1);
   ok(await found() === 2, 'A miss leaves the found count and round unchanged');
+  await tapPoint('left', 1, 2); await tapPoint('left', 2, 1);
+  ok(await page.locator('#differences.is-resting').count() === 1, 'Three quick misses start a short look-first pause');
+  await tapDifference(details[2], 'left');
+  ok(await found() === 2, 'Taps during the look-first pause are ignored');
+  await page.waitForFunction(() => !document.querySelector('#differences').classList.contains('is-resting'), null, { timeout: 5000 });
   await page.locator('#differences-hint').click();
   ok(await found() === 2, 'Text help does not automatically solve a difference');
   await page.locator('#differences-hint').click();
@@ -121,12 +126,14 @@ async page => {
 
   await finish();
   ok(await page.locator('#round-complete-title').innerText() === 'Minden különbséget megtaláltál!', 'Completing the board opens the shared success dialog');
+  ok(await page.locator('#complete-stars').innerText() === '⭐⭐', 'Three misses and two hints leave two stars');
   ok(await progress() === originalProgress, 'Selection, help, misses, and completing a game preserve all existing saved progress');
   const completedIds = details.map(item => item.id).sort().join('|');
   await page.locator('#round-replay').click();
   ok(await found() === 0 && await page.locator('#differences').getAttribute('data-level-id') === 'observer', 'Még egy ilyen keeps the chosen difficulty and clears all found marks');
   ok((await active()).map(item => item.id).sort().join('|') !== completedIds, 'Replay changes the actual visible differences');
   await finish();
+  ok(await page.locator('#complete-stars').innerText() === '⭐⭐⭐⭐⭐', 'A clean round earns five stars');
   await page.keyboard.press('Escape');
   ok(await found() === 7 && await page.locator('[data-found-id]').count() === 14 && await page.locator('.differences-picture').count() === 2, 'Escape closes the success dialog while keeping the complete marked picture pair');
   await page.locator('#differences-restart').click();

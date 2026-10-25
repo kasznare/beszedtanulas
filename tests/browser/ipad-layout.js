@@ -329,6 +329,76 @@ async page => {
         await click('#back-button');
         if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);
       }
+      // Műhelyliget: every level from the in-game strip, a failed check and a finished task (with its win banner).
+      const workshopTitles = { sort: 'Válogatókert', pattern: 'Mintaszövő', balance: 'Egyensúlyműhely' };
+      for (const game of ['sort', 'pattern', 'balance']) {
+        const workshopMenu = game === 'balance' ? 'number-menu' : 'shape-menu';
+        await open(workshopMenu);
+        await click(`#${workshopMenu} [data-kind="${game}"]`);
+        for (const level of [3, 2, 1]) {
+          await click(`#ws-game-level-${level}`); await titleFocused();
+          if (await p.locator('#screen-title').innerText() !== workshopTitles[game]) throw Error(`${game}: level change lost the title`);
+          await check(`${size}:workshop-${game}-${level}`);
+          if (await p.locator('#ws-check').count()) { await click('#ws-check'); await check(`${size}:workshop-${game}-${level}-retry`); }
+        }
+        if (game === 'pattern') {
+          await click('#ws-design-start'); await check(`${size}:workshop-design-build`);
+          for (const choice of [0, 1, 2]) await click(`[data-design-choice="${choice}"]`);
+          await click('#ws-design-check'); await check(`${size}:workshop-design-fix`);
+          if (await p.locator('#screen-title').innerText() !== 'Mintaszövő') throw Error('Tervezd meg lost the title');
+          await click('#ws-design-leave');
+        }
+        const solution = await p.evaluate(async game => {
+          const d = await import('./workshop-data.js'), saved = JSON.parse(localStorage.getItem('speech_game_progress_v1'));
+          const session = saved.workshop.sessions[game][0], t = d.workshopTaskForSession(session);
+          return { destinations: game === 'sort' ? t.objects.map(o => d.workshopSortTarget(t, o)) : [], holes: t.holes || [], sequence: t.sequence || [], rods: game === 'balance' ? d.workshopBalanceSolutions(t)[0] : [], done: session.done };
+        }, game);
+        if (!solution.done) {
+          if (game === 'balance') { while (await p.locator('[data-take]').count()) await click('[data-take]'); for (const rod of solution.rods) await click(`[data-add="${rod}"]`); }
+          if (game === 'pattern') for (const [i, position] of solution.holes.entries()) { await click(`[data-slot="${i}"]`); await click(`[data-choice="${solution.sequence[position]}"]`); }
+          if (game === 'sort') for (let round = 0; round < 2; round++) {
+            const now = await p.evaluate(async () => { const d = await import('./workshop-data.js'), s = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions.sort[0], t = d.workshopTaskForSession(s); return t.objects.map(o => d.workshopSortTarget(t, o)); });
+            for (const [i, bin] of now.entries()) { await click(`[data-token="${i}"]`); await click(`[data-bin="${bin}"]`); }
+            await click('#ws-check');
+          }
+          else await click('#ws-check');
+          await p.locator('.ws-celebration').waitFor();
+        }
+        await check(`${size}:workshop-${game}-done`);
+        await click('#back-button');
+        if (await p.locator('body').getAttribute('data-screen') !== workshopMenu) throw Error(`Workshop ${game}: back did not return to ${workshopMenu}`);
+      }
+      // Képkirakó: the densest grid, a bounced drop in "Csak a jó helyre", a finished picture and the next one.
+      await open('activity-menu', 'puzzle');
+      for (const pieces of [16, 2, 6]) {
+        if (!(await p.locator('#puzzle-choices').isVisible())) await click('#puzzle-choose');
+        await click(`[data-puzzle-size="${pieces}"]`);
+        if (await p.locator('#puzzle-choices').isVisible()) await click('#puzzle-choose');
+        await check(`${size}:puzzle-${pieces}`);
+      }
+      await click('#puzzle-restart');
+      await click('#puzzle-strict'); await click('.puzzle-tray [data-piece="0"]'); await click('[data-slot="1"]');
+      await check(`${size}:puzzle-bounce`);
+      await click('#puzzle-strict');
+      for (let id = 0; id < 6; id++) { await click(`.puzzle-tray [data-piece="${id}"]`); await click(`[data-slot="${id}"]`); }
+      await check(`${size}:puzzle-done`);
+      await p.locator('#round-complete[open]').waitFor();
+      await click('#round-replay');
+      if (await p.locator('#screen-title').innerText() !== 'Képkirakó') throw Error('Puzzle title lost after the next picture');
+      await check(`${size}:puzzle-next`);
+      await click('#back-button');
+      if (await p.locator('body').getAttribute('data-screen') !== 'activity-menu') throw Error('Puzzle: back did not return to activity-menu');
+      // Különbségek: the easy and the densest level, and the look-first pause after quick misses.
+      await open('activity-menu', 'differences');
+      for (const levelId of ['starter', 'detective']) {
+        await click('#differences-change'); await click(`[data-difference-level="${levelId}"]`); await click('#differences-apply');
+        await check(`${size}:differences-${levelId}`);
+      }
+      const corner = await p.locator('.differences-picture[data-side="left"]').boundingBox();
+      for (let i = 0; i < 3; i++) await p.mouse.click(corner.x + 5 + i * 3, corner.y + 5);
+      if (!(await p.locator('#differences.is-resting').count())) throw Error('Differences: quick misses did not pause');
+      await check(`${size}:differences-rest`);
+      await click('#back-button');
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-quiz', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
       for (const topic of ['animals', 'food', 'clothes']) { await open('picture-menu', 'topics'); await click(`[data-topic="${topic}"]`); await check(`${size}:cards-${topic}`); }
