@@ -19,6 +19,8 @@ async page => {
   const saved = () => page.evaluate(() => JSON.parse(localStorage.getItem('speech_game_progress_v1')));
   const fill = cup => page.locator(`#pour-water-${cup}`).evaluate(node => Number(node.dataset.fill));
   const done = cup => page.locator(`[data-pour-cup="${cup}"]`).getAttribute('data-done');
+  // The marks change every round: read the visible target height of each glass.
+  const target = cup => page.locator(`[data-pour-cup="${cup}"]`).evaluate(node => Number(node.dataset.target));
   const waitFill = (cup, amount) => page.waitForFunction(({ cup, amount }) => Number(document.querySelector(`#pour-water-${cup}`).dataset.fill) >= amount, { cup, amount });
   const sensor = (beta, gamma, milliseconds = 700) => page.evaluate(({ beta, gamma, milliseconds }) => new Promise(resolve => {
     const until = performance.now() + milliseconds;
@@ -32,19 +34,24 @@ async page => {
 
   await enter();
   const before = (await saved()).rewards;
+  const firstTargets = [await target(0), await target(1)];
+  ok(firstTargets[0] === firstTargets[1] && [.4, .55, .72, .88].includes(firstTargets[0]), 'Beginner glasses share one mark from the varied heights');
   await page.keyboard.down('ArrowLeft');
-  await waitFill(0, .7);
+  await waitFill(0, firstTargets[0] - .03);
   await page.keyboard.up('ArrowLeft');
   ok(await done(0) === 'true' && await fill(1) === 0, 'Beginner control accepts a manual stop at the mark in the selected glass');
   await page.keyboard.down('ArrowRight');
-  await waitFill(1, .7);
+  await waitFill(1, firstTargets[1] - .03);
   await page.keyboard.up('ArrowRight');
-  ok((await saved()).rewards === before, 'Two glasses await the explicit finish button');
+  await page.waitForFunction(before => JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards === before + 1, before, { timeout: 8000 });
+  ok(await page.locator('#pour-finish').isDisabled(), 'Two finished glasses end the round by themselves');
   await page.locator('#pour-finish').evaluate(button => { button.click(); button.click(); });
+  await page.waitForTimeout(300);
   ok((await saved()).rewards === before + 1, 'The complete picnic rewards once even on duplicate activation');
   ok((await saved()).attempts === 0, 'Pouring does not add speech attempts');
   await page.locator('#round-replay').click();
   ok(await fill(0) === 0 && await fill(1) === 0, 'Replay opens a fresh pouring game');
+  ok((await target(0)) !== firstTargets[0] || (await target(1)) !== firstTargets[1], 'A new round brings new marks');
 
   const remaining = () => page.locator('#pour-jug-water').evaluate(node => Number(node.dataset.remaining));
   const hold = await page.locator('#pour-hold').boundingBox();
@@ -106,20 +113,26 @@ async page => {
   ok(await fill(0) === cancelled, 'An interrupted drag stops the pouring');
 
   await page.locator('[data-pour-level="2"]').click();
-  await page.keyboard.down('ArrowLeft'); await waitFill(0, .69); await page.keyboard.up('ArrowLeft');
+  const manual = [await target(0), await target(1)];
+  ok(manual[0] !== manual[1], 'The manual level asks for two different marks');
+  await page.keyboard.down('ArrowLeft'); await waitFill(0, manual[0] - .03); await page.keyboard.up('ArrowLeft');
   ok(await done(0) === 'true', 'Manual level accepts the target band on release');
-  await page.keyboard.down('ArrowLeft'); await waitFill(0, .9); await page.keyboard.up('ArrowLeft');
+  await page.keyboard.down('ArrowLeft'); await waitFill(0, Math.min(1, manual[0] + .1)); await page.keyboard.up('ArrowLeft');
   ok(await done(0) === 'false', 'A ready glass can still be overfilled by pouring again');
   await page.locator('#pour-empty').click();
-  await page.keyboard.down('ArrowLeft'); await waitFill(0, .69); await page.keyboard.up('ArrowLeft');
+  await page.keyboard.down('ArrowLeft'); await waitFill(0, manual[0] - .03); await page.keyboard.up('ArrowLeft');
   await page.locator('#pour-refill').click();
-  await page.keyboard.down('ArrowRight'); await waitFill(1, .9); await page.keyboard.up('ArrowRight');
+  await page.keyboard.down('ArrowRight'); await waitFill(1, Math.min(1, manual[1] + .1)); await page.keyboard.up('ArrowRight');
   ok(await done(1) === 'false' && (await page.locator('#pour-status').innerText()).includes('sok'), 'Excess water is explained and remains retryable');
   await page.locator('#pour-empty').click();
   ok(await fill(1) === 0 && await done(0) === 'true', 'Emptying retries one glass and preserves the finished friend');
   await page.locator('[data-pour-level="3"]').click();
   const targetLines = await page.locator('.pour-target').evaluateAll(nodes => nodes.map(node => node.getAttribute('d')));
   ok(targetLines[0] !== targetLines[1], 'Advanced level visibly shows two different target heights');
+  ok(Math.abs(await target(0) - await target(1)) >= .25 - 1e-9, 'Advanced portions differ clearly');
+  await page.locator('[data-pour-level="4"]').click();
+  ok(await page.locator('#pour-refill').isHidden() && Math.abs(await remaining() - (await target(0) + await target(1) + .08)) < 1e-9, 'Pont elég víz: the jug holds just enough and cannot be refilled');
+  await page.locator('[data-pour-level="3"]').click();
   await page.reload(); await enter();
   ok(await page.locator('[data-pour-level="3"]').getAttribute('aria-pressed') === 'true', 'Difficulty survives reload');
 

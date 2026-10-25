@@ -2,7 +2,9 @@ import {
   normalizeMeadow, normalizeMeadowOptions, recordMeadowTask, countFeedback, MESE_WORDS, MESE_ANIMALS,
   meadowShuffle, meadowGuests, meadowAppleTotal, meadowInitialCount, createMeadowTask,
   changeMeadowSelection, meadowTaskComplete, meadowServingRequest,
+  meadowShowsCount, meadowLegacyPears, meadowDressSteps, meadowOutfit, meadowWeather, nextAdventurePractice,
 } from './meseliget-data.js';
+import { allDressItems, buildWeatherRound } from './dress-data.js';
 import { createDressBear, createDressIcon } from './dress-art.js';
 import { createSuccessDelay } from './success-delay.js';
 import { setGameTitle, focusGameTitle } from './game-heading.js';
@@ -14,13 +16,15 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
   const root = document.querySelector('#meseliget');
   let active = false, mode = 'map', story = false, target = 3, round = 0, length = 3, bear;
   let prefs, options, guestIds = [], task = null, lastClip = 'mese_map', lastMemory = null;
-  let successPending = false;
+  let successPending = false, weather = null, dressPlan = null;
   const successDelay = createSuccessDelay();
   function cancelSuccess() { successDelay.cancel(); successPending = false; delete root.dataset.successPending; }
   const progress = () => normalizeMeadow(getProgress());
   const numberLimit = () => Math.max(1, Math.min(10, Math.floor(Number(getOptions().numberLimit) || 3)));
   const alive = () => active && !document.hidden;
-  function say(id) { lastClip = id; if (alive()) speak(id); }
+  function say(id) { lastClip = id; return alive() ? speak(id) : undefined; }
+  const dressItem = id => allDressItems.find(item => item.id === id);
+  const dressSteps = () => meadowDressSteps(task?.weather);
   function bind(id, fn) { root.querySelector(`#${id}`)?.addEventListener('click', fn); }
   // Views with a task or result heading focus it; the others focus the shared title.
   function focusTitle() { const heading = root.querySelector('h2'); if (heading) heading.focus({ preventScroll: true }); else focusGameTitle(root); }
@@ -49,7 +53,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     else if (task && !task.solved && mode === 'serve') {
       const request = servingRequest();
       say(options.serveMode !== 'all' && request ? `mese_guest_${request.guest}_${request.item}` : options.serveMode === 'full' ? 'mese_serve_full' : 'mese_serve');
-    } else if (task && !task.solved && mode === 'dress') say(`dress_request_${task.dressed ? 'cipo' : 'sapka'}`);
+    } else if (task && !task.solved && mode === 'dress') say(`dress_request_${dressSteps()[task.dressed]}`);
     else say(lastClip);
   }
   function quantityButtons(value) {
@@ -68,7 +72,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     return `<details class="meadow-mode-options"><summary>Játékváltozatok</summary><div class="meadow-option-fields">
       ${select('meadow-collect-mode', 'Almáskert', { count: 'Számolás', sort: 'Almák a körték között', add: 'Tegyél hozzá egyet!', remove: 'Vegyél el egyet!' }, prefs.collectMode)}
       ${select('meadow-serve-mode', 'Piknikrét', { all: 'Mindenkinek egy tányér', named: 'Hallgasd meg, ki kér!', full: 'Tányér és pohár, név szerint' }, prefs.serveMode)}
-      <label class="meadow-count-toggle"><input id="meadow-show-count" type="checkbox" ${prefs.showCount ? 'checked' : ''}> Mutassuk, hány alma van a kosárban</label>
+      ${select('meadow-show-count', 'Almák száma a kosáron', { auto: 'Csak 3 almáig', always: 'Mindig látszik', never: 'Rejtve marad' }, prefs.showCount === 'always' ? 'always' : prefs.showCount === false ? 'never' : 'auto')}
       <p>Az új játékra és az új kalandra vonatkozik. A félbehagyott játék megtartja a saját változatát.</p>
     </div></details>`;
   }
@@ -79,7 +83,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
         prefs[key] = event.target.value; rememberPrefs();
       });
     }
-    root.querySelector('#meadow-show-count')?.addEventListener('change', event => { if (alive()) { prefs.showCount = event.target.checked; rememberPrefs(); } });
+    root.querySelector('#meadow-show-count')?.addEventListener('change', event => { if (alive()) { prefs.showCount = { auto: true, always: 'always', never: false }[event.target.value] ?? true; rememberPrefs(); } });
   }
   function map(announce = true) {
     cancelSuccess(); stopPlayback(); mode = 'map'; story = false; task = null;
@@ -113,21 +117,21 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     const p = progress();
     if (!p.adventure) {
       options = normalizeMeadowOptions(prefs); target = effectiveTarget(prefs.target);
-      p.adventure = { step: 0, target, guests: meadowGuests(target), options, task: null }; updateProgress(p, false);
+      p.adventure = { step: 0, target, guests: meadowGuests(target), options, task: null, weather: meadowWeather() }; updateProgress(p, false);
     }
     const adventure = p.adventure;
-    story = true; target = adventure.target; round = adventure.step; length = 3; options = clone(adventure.options); guestIds = [...adventure.guests];
+    story = true; target = adventure.target; round = adventure.step; length = 3; options = clone(adventure.options); guestIds = [...adventure.guests]; weather = adventure.weather || null;
     question(['dress', 'collect', 'serve'][round], adventure.task);
   }
   function startFree(kind) {
     if (!alive()) return;
     story = false; round = 0; length = kind === 'dress' ? 1 : [1, 3, 5, 10].includes(getOptions().roundLength) ? getOptions().roundLength : 3;
-    options = normalizeMeadowOptions(prefs); target = newTarget(); guestIds = meadowGuests(target); question(kind);
+    options = normalizeMeadowOptions(prefs); target = newTarget(); guestIds = meadowGuests(target); weather = null; question(kind);
   }
   function resumeFree() {
     if (!alive()) return;
     const saved = progress().free; if (!saved) return;
-    story = false; round = saved.round; length = saved.length; target = saved.target; guestIds = [...saved.guests]; options = clone(saved.options);
+    story = false; round = saved.round; length = saved.length; target = saved.target; guestIds = [...saved.guests]; options = clone(saved.options); weather = null;
     question(saved.kind, saved.task);
   }
   function title() {
@@ -148,17 +152,23 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
       <div class="meadow-controls">${mode === 'dress' ? '' : '<div class="meadow-edit-actions"><button id="meadow-undo" class="meadow-quiet" disabled aria-label="Utolsó lépés visszavonása">↶ Visszavonás</button><button id="meadow-reset" class="meadow-quiet" disabled>↺ Újrakezdem</button></div>'}
       <div class="meadow-actions"><button id="meadow-hint" class="meadow-quiet">💡 Segíts!</button><button id="meadow-check" class="meadow-primary">Kész! ✓</button><button id="meadow-next" class="meadow-primary" hidden>Tovább ▶</button></div></div>`;
     bear = createDressBear(root.querySelector('#meadow-bear')); bear.wear('polo');
-    if (mode !== 'dress' || task.dressed >= 1) bear.wear('sapka');
-    if (mode !== 'dress' || task.dressed === 2) bear.wear('cipo');
+    // Later stations show the adventure's outfit; Maciház shows what is already on.
+    if (mode === 'dress') dressSteps().slice(0, task.dressed).forEach(id => bear.wear(id));
+    else meadowOutfit(weather).forEach(id => bear.wear(id));
     bind('meadow-back', () => map()); bind('meadow-repeat', repeat); bind('meadow-hint', hint); bind('meadow-check', check); bind('meadow-next', next);
     bind('meadow-undo', undo); bind('meadow-reset', resetTask); bindQuantities(true); focusTitle();
   }
   function question(kind, saved = null) {
     cancelSuccess(); stopPlayback(); mode = kind;
-    task = saved ? clone(saved) : createMeadowTask(kind, target, guestIds, options);
+    task = saved ? clone(saved) : createMeadowTask(kind, target, guestIds, options, Math.random, { weather: weather || undefined });
+    dressPlan = kind === 'dress' && task.weather ? buildWeatherRound(task.weather, 2) : null;
     shell(); renderTask();
     if (task.solved) { paintWin(); say(successClip()); }
-    else { saveTask(); repeat(); }
+    else if (kind === 'dress' && task.weather && !task.dressed) {
+      // The weather comes first, then Maci asks for the first garment.
+      saveTask(); const current = task;
+      Promise.resolve(say(`dress_weather_${task.weather}`)).then(() => { if (alive() && task === current && mode === 'dress' && !task.dressed && !task.solved) repeat(); });
+    } else { saveTask(); repeat(); }
   }
   function renderTask(focusId, movement) {
     if (mode === 'dress') renderDress();
@@ -166,24 +176,27 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     else renderServe(focusId, movement);
   }
   function renderDress() {
-    const item = task.dressed === 0 ? 'sapka' : 'cipo';
+    const steps = dressSteps(), item = steps[Math.min(task.dressed, steps.length - 1)];
     root.querySelector('#meadow-work').innerHTML = '<div class="meadow-clothes" role="group" aria-label="Válassz ruhát"></div>';
-    const choices = meadowShuffle(item === 'sapka' ? ['cipo', 'sapka'] : ['cipo', 'sal']);
+    // Weather outfits use the dress game's choices: the asked garment and one for the same place on another day.
+    const planned = dressPlan?.steps.find(step => step.target.id === item)?.choices.map(choice => choice.id);
+    const choices = planned || meadowShuffle(item === 'sapka' ? ['cipo', 'sapka'] : ['cipo', 'sal']);
     for (const id of choices) {
       const button = document.createElement('button'); button.className = 'meadow-clothing'; button.dataset.item = id;
-      button.setAttribute('aria-label', { sapka: 'Sapka', cipo: 'Cipő', sal: 'Sál' }[id]); button.append(createDressIcon(id)); button.disabled = task.solved;
+      const label = dressItem(id).label;
+      button.setAttribute('aria-label', label[0].toLocaleUpperCase('hu-HU') + label.slice(1)); button.append(createDressIcon(id)); button.disabled = task.solved;
       button.addEventListener('click', () => {
         if (!alive() || task.solved) return;
         root.querySelectorAll('.meadow-retry').forEach(choice => choice.classList.remove('meadow-retry'));
         if (id !== item) { effect('retry'); task.helped = true; button.classList.add('meadow-retry'); root.querySelector('#meadow-status').textContent = 'Hallgassuk meg újra, melyik ruhát kéri!'; saveTask(); repeat(); return; }
         effect('fabric'); bear.wear(item); task.dressed += 1; saveTask();
-        if (task.dressed === 2) win();
+        if (task.dressed === steps.length) win();
         else { renderDress(); root.querySelector('.meadow-clothing')?.focus({ preventScroll: true }); repeat(); }
       });
       root.querySelector('.meadow-clothes').append(button);
     }
     root.querySelector('#meadow-check').hidden = true;
-    root.querySelector('#meadow-status').textContent = task.solved ? successPending ? '' : 'Felöltöztem!' : item === 'sapka' ? 'Kérem a sapkát!' : 'Most jöhet a cipő!';
+    root.querySelector('#meadow-status').textContent = task.solved ? successPending ? '' : 'Felöltöztem!' : dressItem(item).request;
   }
   function updateEditActions() {
     const undoButton = root.querySelector('#meadow-undo'), resetButton = root.querySelector('#meadow-reset');
@@ -192,7 +205,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     if (resetButton) resetButton.disabled = task.solved || (JSON.stringify([...task.selected].sort((a, b) => a - b)) === JSON.stringify(initial) && !task.plates.length && !task.cups.length);
   }
   function selectionStatus() {
-    if (mode === 'collect') root.querySelector('#meadow-status').textContent = options.showCount || task.helped ? `${task.selected.length} alma a kosárban` : 'Számold meg az almákat! Ha elkészültél, koppints a Kész gombra!';
+    if (mode === 'collect') root.querySelector('#meadow-status').textContent = meadowShowsCount(options, target) || task.helped ? `${task.selected.length} alma a kosárban` : 'Számold meg az almákat! Ha elkészültél, koppints a Kész gombra!';
     else root.querySelector('#meadow-status').textContent = options.serveMode === 'all' ? `${task.plates.length} állatnak van tányérja` : requestText();
   }
   function moveApple(id) {
@@ -228,9 +241,10 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     return `<div class="meadow-help-tray"><span class="meadow-help-label">Egy pötty, egy alma</span><div class="meadow-count-guide" role="img" aria-label="${target} helyre ${Math.min(task.selected.length, target)} alma került">${Array.from({ length: target }, (_, i) => `<span class="meadow-count-place ${i < task.selected.length ? 'filled' : ''}" aria-hidden="true"><span>${i < task.selected.length ? '🍎' : '•'}</span><small>${i + 1}</small></span>`).join('')}</div>${task.selected.length > target ? `<span class="meadow-extra-apples">${task.selected.length - target} almát tegyünk vissza! ↶</span>` : ''}</div>`;
   }
   function renderCollect(focusId, movement) {
-    const total = meadowAppleTotal(target), showCount = options.showCount || task.helped || task.solved;
+    const total = meadowAppleTotal(target), showCount = meadowShowsCount(options, target) || task.helped || task.solved;
+    const pears = options.collectMode === 'sort' ? task.pears || meadowLegacyPears(target) : [];
     const apple = (id, inside) => `<button class="meadow-apple ${inside ? 'in-basket' : ''} ${movement?.id === id ? 'meadow-just-moved' : ''}" data-apple="${id}" aria-label="${inside ? 'Alma visszatevése' : 'Alma a kosárba'}, ${id + 1}. alma" ${task.solved ? 'disabled' : ''}><span aria-hidden="true">🍎</span></button>`;
-    const orchard = Array.from({ length: total }, (_, i) => `${task.selected.includes(i) ? '' : apple(i, false)}${options.collectMode === 'sort' && i % 3 === 1 ? `<button class="meadow-apple meadow-pear" data-pear="${i}" aria-label="Körte, ${i + 1}. gyümölcs" ${task.solved ? 'disabled' : ''}><span aria-hidden="true">🍐</span></button>` : ''}`).join('');
+    const orchard = Array.from({ length: total }, (_, i) => `${task.selected.includes(i) ? '' : apple(i, false)}${pears.includes(i) ? `<button class="meadow-apple meadow-pear" data-pear="${i}" aria-label="Körte, ${i + 1}. gyümölcs" ${task.solved ? 'disabled' : ''}><span aria-hidden="true">🍐</span></button>` : ''}`).join('');
     root.querySelector('#meadow-work').innerHTML = `<div class="meadow-garden-scene"><div class="meadow-scene-sky" aria-hidden="true"><span>☀</span><span>Almáskert</span><span>🌿</span></div><div class="meadow-orchard" role="group" aria-label="Leszedhető gyümölcsök">${orchard}</div></div><div class="meadow-basket ${movement?.added ? 'meadow-receiving' : ''}" role="group" aria-label="Kosár${showCount ? `, ${task.selected.length} alma` : ''}"><span class="meadow-basket-label">🧺 A kosarad ${showCount ? `<strong>${task.selected.length}</strong>` : ''}</span><div class="meadow-basket-apples">${task.selected.map(id => apple(id, true)).join('') || '<span class="meadow-empty">Koppints egy almára!</span>'}</div></div>${task.helped ? countGuide() : ''}`;
     root.querySelectorAll('[data-apple]').forEach(button => button.addEventListener('click', () => moveApple(Number(button.dataset.apple))));
     root.querySelectorAll('[data-pear]').forEach(button => button.addEventListener('click', () => {
@@ -254,7 +268,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     task.helped = true; saveTask();
     if (mode === 'collect') { renderCollect(); say('mese_count_help'); }
     else if (mode === 'serve') { renderServe(); options.serveMode === 'all' ? say('mese_plate_help') : repeat(); }
-    else { root.querySelector(`[data-item="${task.dressed ? 'cipo' : 'sapka'}"]`)?.classList.add('meadow-hint'); repeat(); }
+    else { root.querySelector(`[data-item="${dressSteps()[task.dressed]}"]`)?.classList.add('meadow-hint'); repeat(); }
   }
   function check() {
     if (!alive() || task.solved) return;
@@ -282,7 +296,10 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
   function win() {
     if (task.solved) return;
     task.solved = true; successPending = true; root.dataset.successPending = 'true'; stopPlayback();
+    const before = progress().adventure;
     const result = recordMeadowTask(progress(), mode, task.helped, { story });
+    // A finished picnic makes the next adventure a little bigger and the table a little harder.
+    if (result.finished && before) { prefs = nextAdventurePractice(result.progress.practice, before, numberLimit()); result.progress.practice = clone(prefs); }
     if (!story) result.progress.free = { kind: mode, round, length, target, guests: [...guestIds], options: clone(options), task: clone(task) };
     if (result.finished) lastMemory = result.progress.memories.at(-1);
     updateProgress(result.progress, story ? result.finished : round === length - 1);
@@ -308,7 +325,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     const ids = memory.guests;
     return `<div class="meadow-memory" role="img" aria-label="Közös piknik: ${ids.map(id => animal(id).name).join(', ')}. ${memory.target} barát, alma és teríték."><div class="meadow-memory-bear" aria-hidden="true"></div><div class="meadow-memory-friends" aria-hidden="true">${ids.map(id => `<span>${animal(id).emoji}<small>${memory.serveMode === 'full' ? '🍽️ 🥛 🍎' : '🍽️ 🍎'}</small></span>`).join('')}</div></div>`;
   }
-  function dressMemory() { const memoryBear = createDressBear(root.querySelector('.meadow-memory-bear')); ['polo', 'sapka', 'cipo'].forEach(id => memoryBear.wear(id)); }
+  function dressMemory(memory) { const memoryBear = createDressBear(root.querySelector('.meadow-memory-bear')); meadowOutfit(memory?.weather).forEach(id => memoryBear.wear(id)); }
   function finish(wasStory) {
     cancelSuccess(); stopPlayback();
     if (!wasStory) { const p = progress(); p.free = null; updateProgress(p, false); }
@@ -316,7 +333,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     mode = 'finish'; task = null; root.dataset.mode = mode; root.dataset.mood = 'happy';
     setGameTitle(root, 'Meseliget');
     root.innerHTML = `<div class="meadow-ending"><h2 tabindex="-1">${wasStory ? 'Elkészült a piknik!' : 'Köszönöm a segítséget!'}</h2>${memoryScene(memory)}<p>${wasStory ? 'Egy új emlék került az albumodba.' : 'Mára szépen megdolgoztunk.'}</p><div class="meadow-actions"><button id="meadow-home" class="meadow-quiet">⌂ Mára vége</button><button id="meadow-map" class="meadow-primary">Vissza a ligetbe ▶</button>${wasStory ? '<button id="meadow-album-open" class="meadow-quiet">📖 Megnézem az emléket</button>' : ''}</div></div>`;
-    dressMemory(); bind('meadow-home', () => openScreen('home')); bind('meadow-map', () => map()); bind('meadow-album-open', () => album()); focusTitle(); say(wasStory ? 'mese_finish' : 'mese_free_finish');
+    dressMemory(memory); bind('meadow-home', () => openScreen('home')); bind('meadow-map', () => map()); bind('meadow-album-open', () => album()); focusTitle(); say(wasStory ? 'mese_finish' : 'mese_free_finish');
   }
   function album(page = 0) {
     cancelSuccess(); stopPlayback(); mode = 'album'; task = null; root.dataset.mode = mode;
@@ -324,7 +341,7 @@ export function setupMeadow({ effect = () => {}, getProgress, updateProgress, ge
     const date = memory ? new Intl.DateTimeFormat('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(memory.date)) : '';
     setGameTitle(root, 'A mi emlékalbumunk');
     root.innerHTML = `<div class="meadow-ending"><button id="meadow-back" class="meadow-quiet" hidden>↶ Térkép</button>${memory ? `<p class="meadow-memory-date">${date} · ${memory.target} barát</p>${memoryScene(memory)}<div class="meadow-album-pages"><button id="meadow-album-newer" class="meadow-quiet" ${index === 0 ? 'disabled' : ''}>← Újabb</button><span>${total - index}. emlék / ${total}</span><button id="meadow-album-older" class="meadow-quiet" ${index === total - 1 ? 'disabled' : ''}>Régebbi →</button></div><button id="meadow-retell" class="meadow-quiet">🔊 Meséld el!</button>` : '<div class="meadow-album-empty" aria-hidden="true">📖</div><p>Az első emlékképünk még ránk vár.</p>'}<p>${p.journeys} közös piknik${oldCount ? ` · ${oldCount} régi piknikhez még nem készült emlékkép.` : ''}</p><button id="meadow-start" class="meadow-primary">${p.adventure ? 'Folytassuk!' : 'Induljunk piknikezni!'} ▶</button></div>`;
-    if (memory) dressMemory();
+    if (memory) dressMemory(memory);
     bind('meadow-back', () => map()); bind('meadow-start', startStory); bind('meadow-album-newer', () => album(index - 1)); bind('meadow-album-older', () => album(index + 1)); bind('meadow-retell', () => say(`mese_memory_${memory.target}`));
     focusTitle(); say(memory ? `mese_memory_${memory.target}` : 'mese_empty_album');
   }

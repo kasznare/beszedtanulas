@@ -47,13 +47,14 @@ test('quantity answers stay unique and use the requested nearby or distant distr
     assert.ok(choices.includes(target));
     const distances=choices.filter(n=>n!==target).map(n=>Math.abs(n-target)).sort((a,b)=>a-b);
     const possible=Array.from({length:limit},(_,i)=>i+1).filter(n=>n!==target).map(n=>Math.abs(n-target)).sort((a,b)=>a-b);
-    assert.deepEqual(distances,difficulty==='wide'?[possible.at(-1)]:possible.slice(0,2));
+    if(difficulty==='close')assert.deepEqual(distances,possible.slice(0,2));
+    else assert.ok(distances[0]>=2||possible.every(distance=>distance<2),'a wide distractor is at least two apart when possible');
   }
 });
 
 test('number tasks and per-quantity results survive export and profile snapshots without sharing references', () => {
   const progress=snapshotProgress();
-  progress.numbers.sessions.count={...newNumberSession('count',5,3),counted:[2,0]};
+  progress.numbers.sessions.count={...newNumberSession('count',5,3),amount:3,counted:[2,0]};
   progress.numbers.stats.count[3].independent=2;
   const restored=parseProgressBackup(JSON.stringify(createProgressBackup(progress))).progress;
   assert.deepEqual(restored.numbers,progress.numbers);
@@ -63,7 +64,7 @@ test('number tasks and per-quantity results survive export and profile snapshots
 
 test('invalid completed tasks and forged quantities cannot enter an imported backup', () => {
   const base=normalizeNumberProgress();
-  base.sessions.count=newNumberSession('count',5,3);
+  base.sessions.count={...newNumberSession('count',5,3),amount:3};
   for(const patch of [{amount:11},{counted:[0,0]},{counted:[0,1,2]},{solved:true},{completed:3,rewarded:false},{rewarded:true}]){
     const bad=structuredClone(base);Object.assign(bad.sessions.count,patch);
     assert.throws(()=>validateNumberProgress(bad));

@@ -87,12 +87,21 @@ async page => {
   for(let task=0;task<3;task++){
     const indexes=await page.locator('.counting-object[aria-pressed="false"]').evaluateAll(bs=>bs.map(b=>b.dataset.countingIndex));
     for(const index of indexes)await page.locator(`[data-counting-index="${index}"]`).click();
+    const total=await page.locator('.counting-object').count();
+    ok(await page.locator('#number-total-choices [data-total]').count()===3&&await page.locator('#number-next').isDisabled(),'Self counting asks "Hány van?" before revealing the total, and Tovább waits');
+    if(task===0){
+      const wrongTotal=await page.locator('#number-total-choices [data-total]').evaluateAll((bs,n)=>bs.map(b=>Number(b.dataset.total)).find(v=>v!==n),total);
+      await page.locator(`[data-total="${wrongTotal}"]`).click();
+      ok(await page.locator('.counting-object[aria-pressed="true"]').count()===0&&(await page.locator('#number-status').innerText()).startsWith('Próbáld újra'),'A wrong total clears the marks for a fresh count');
+      for(let index=0;index<total;index++)await page.locator(`[data-counting-index="${index}"]`).click();
+    }
+    await page.locator(`[data-total="${total}"]`).click();
     ok((await page.locator('#number-status').innerText()).startsWith('Összesen'),'Counting shows the final total');
     if(task<2)await page.locator('#number-next').click();
   }
   await page.waitForSelector('#round-complete[open]');
   ok((await saved()).rewards===countReward+1,'Completed number round is rewarded exactly once');
-  ok(Object.values((await saved()).numbers.stats.count).reduce((n,s)=>n+s.independent,0)===3,'Parent stats retain independent results by quantity');
+  ok(Object.values((await saved()).numbers.stats.count).reduce((n,s)=>n+s.independent,0)===2&&Object.values((await saved()).numbers.stats.count).reduce((n,s)=>n+s.helped,0)===1,'Parent stats retain independent and recounted results by quantity');
   await home();await number('count');ok((await saved()).rewards===countReward+1,'Returning to a completed count never duplicates reward');
   await page.locator('[data-number-setting="numberLayout"][data-value="scattered"]').click();await layout('Scattered counting');
   await number('quiz');ok(await page.locator('[data-quantity]').count()===2,'Beginner quantity quiz has two choices');

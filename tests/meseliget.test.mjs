@@ -104,3 +104,69 @@ test('v2 rejects corrupted saved pictures, partial state and mode options',()=>{
  for(const change of changes){const broken=structuredClone(baseline);change(broken);assert.throws(()=>validateMeadow(broken),/Meseliget/);}
  const reordered=Object.fromEntries(Object.entries(baseline).reverse());assert.deepEqual(validateMeadow(reordered),baseline);
 });
+
+import { meadowShowsCount, meadowLegacyPears, meadowPearSpots, meadowAppleTotal, meadowDressSteps, meadowOutfit, nextAdventurePractice, normalizeMeadowOptions } from '../meseliget-data.js';
+import { DRESS_OUTFITS } from '../dress-data.js';
+import { VOICE_CLIPS } from '../voice-library.js';
+const seededMeadow = (seed = 1) => () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+test('the running basket count is hidden from four apples on unless a parent asks for it', () => {
+ const auto = normalizeMeadowOptions({});
+ assert.equal(auto.showCount, true);
+ assert.equal(meadowShowsCount(auto, 3), true);
+ assert.equal(meadowShowsCount(auto, 4), false);
+ assert.equal(meadowShowsCount(normalizeMeadowOptions({ showCount: 'always' }), 9), true);
+ assert.equal(meadowShowsCount(normalizeMeadowOptions({ showCount: false }), 2), false);
+ assert.equal(normalizeMeadowOptions({ showCount: 'bogus' }).showCount, true);
+});
+
+test('pears move to new places in every sorting task, and old saved tasks keep their pattern', () => {
+ const random = seededMeadow(4), seen = new Set();
+ for (let run = 0; run < 20; run++) {
+  const spots = meadowPearSpots(5, random);
+  assert.equal(spots.length, meadowLegacyPears(5).length);
+  assert.ok(spots.every(spot => spot >= 0 && spot < meadowAppleTotal(5)));
+  seen.add(spots.join());
+ }
+ assert.ok(seen.size > 5);
+ const guestIds = ['cica', 'nyuszi', 'roka'], options = { collectMode: 'sort', serveMode: 'all', showCount: true };
+ const task = createMeadowTask('collect', 3, guestIds, options, seededMeadow(2));
+ assert.ok(Array.isArray(task.pears));
+ const saved = normalizeMeadow({ free: { kind: 'collect', target: 3, round: 0, length: 3, guests: guestIds, options, task } });
+ assert.deepEqual(saved.free.task.pears, task.pears);
+ const legacy = { ...task }; delete legacy.pears;
+ assert.equal('pears' in normalizeMeadow({ free: { kind: 'collect', target: 3, round: 0, length: 3, guests: guestIds, options, task: legacy } }).free.task, false);
+});
+
+test('Maciház dresses a weather outfit in body order with recorded requests', () => {
+ assert.deepEqual(meadowDressSteps('rain'), ['esokabat', 'gumicsizma']);
+ assert.deepEqual(meadowDressSteps('summer'), ['rovidnadrag', 'napkalap', 'szandal']);
+ assert.deepEqual(meadowDressSteps('classic'), ['sal', 'sapka', 'cipo']);
+ assert.deepEqual(meadowDressSteps(undefined), ['sapka', 'cipo'], 'older saved tasks keep the hat-and-shoes flow');
+ for (const weather of ['classic', 'rain', 'summer']) {
+  assert.deepEqual(new Set(['polo', ...meadowDressSteps(weather)]), new Set(DRESS_OUTFITS[weather].items));
+  assert.deepEqual(meadowOutfit(weather), DRESS_OUTFITS[weather].items);
+  for (const id of meadowDressSteps(weather)) assert.ok(VOICE_CLIPS['dress_request_' + id], id);
+  assert.ok(VOICE_CLIPS['dress_weather_' + weather]);
+  const task = createMeadowTask('dress', 3, ['cica'], {}, Math.random, { weather });
+  assert.equal(task.weather, weather);
+  assert.equal(meadowTaskComplete({ ...task, dressed: meadowDressSteps(weather).length - 1 }, 3, ['cica']), false);
+  assert.equal(meadowTaskComplete({ ...task, dressed: meadowDressSteps(weather).length }, 3, ['cica']), true);
+  const saved = normalizeMeadow({ adventure: { step: 0, target: 3, weather, task: { ...task, dressed: 2 } } });
+  assert.equal(saved.adventure.weather, weather);
+  assert.equal(saved.adventure.task.dressed, 2);
+ }
+});
+
+test('each finished picnic invites one more friend and makes serving harder', () => {
+ const finished = { target: 3, options: { serveMode: 'all' } };
+ let practiceValue = nextAdventurePractice({ target: 3, varied: true, collectMode: 'count', serveMode: 'all', showCount: true }, finished, 10);
+ assert.equal(practiceValue.target, 4); assert.equal(practiceValue.serveMode, 'named'); assert.equal(practiceValue.varied, false);
+ practiceValue = nextAdventurePractice(practiceValue, { target: 4, options: { serveMode: 'named' } }, 10);
+ assert.equal(practiceValue.target, 5); assert.equal(practiceValue.serveMode, 'full');
+ assert.equal(nextAdventurePractice(practiceValue, { target: 3, options: { serveMode: 'full' } }, 3).target, 3, 'never above the number limit');
+ // The story memory keeps the outfit of that picnic.
+ let value = normalizeMeadow({ adventure: { step: 2, target: 2, guests: ['cica', 'nyuszi'], weather: 'rain' } });
+ value = recordMeadowTask(value, 'serve', false).progress;
+ assert.equal(value.memories.at(-1).weather, 'rain');
+});

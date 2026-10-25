@@ -435,6 +435,43 @@ async page => {
       await open('play-menu', 'meseliget'); await click('#meadow-garden'); await check(`${size}:meseliget-task`);
       await click('#back-button');
       if (await p.locator('#screen-title').innerText() !== 'Meseliget') throw Error('Meseliget back did not return to its map');
+      await click('#meadow-house'); await check(`${size}:meseliget-weather-dress`);
+      // Picnic games: every mode, a feedback state and the densest state their ladders reach.
+      await open('play-menu', 'teddy-game');
+      for (const mode of ['single', 'sequence', 'expressive']) { await click(`[data-teddy-mode="${mode}"]`); await check(`${size}:teddy-${mode}`); }
+      await p.locator('#teddy-answers .teddy-plate').first().click(); await click('.teddy-expression-confirm');
+      await p.locator('[data-teddy-offer="more"]').waitFor({ state: 'visible' }); await check(`${size}:teddy-expressive-offer`);
+      await click('[data-teddy-mode="sequence"]');
+      if (await p.locator('#screen-title').innerText() !== 'Először… aztán…') throw Error('Teddy mode title did not change');
+      for (const plate of await p.locator('#teddy-answers .teddy-plate').all()) {
+        await plate.click();
+        if ((await p.locator('#teddy-status').innerText()).startsWith('Nem kérem')) break;
+      }
+      await check(`${size}:teddy-sequence-refused`);
+      // Five plates with a four-food order is the largest state the plate and memory ladders reach.
+      await p.evaluate(() => {
+        const answers = document.querySelector('#teddy-answers'), order = document.querySelector('.teddy-order');
+        while (answers.children.length < 5) answers.append(answers.children[0].cloneNode(true));
+        answers.dataset.count = '5';
+        while (order.children.length < 4) order.append(order.children[0].cloneNode(true));
+      });
+      await check(`${size}:teddy-five-plates-four-foods`);
+      await click('[data-teddy-mode="single"]'); await click('#back-button');
+      if (await p.locator('body').getAttribute('data-screen') !== 'play-menu') throw Error('Teddy back did not return to play-menu');
+      await open('play-menu', 'dress-game');
+      for (const mode of ['weather', 'free']) { await click(`[data-dress-mode="${mode}"]`); await check(`${size}:dress-${mode}`); }
+      for (const id of ['polo', 'esokabat', 'gumicsizma']) await click(`#dress-answers [data-item="${id}"]`);
+      if (await p.locator('#dress-next').isDisabled()) throw Error('A rain outfit should fit its weather card');
+      await check(`${size}:dress-free-fits-rain`);
+      await click('[data-dress-mode="classic"]');
+      await open('number-menu'); await click('#number-menu [data-mode="count"]');
+      await click('[data-number-setting="numberSelf"][data-value="true"]');
+      const countingObjects = await p.locator('.counting-object').count();
+      for (let index = 0; index < countingObjects; index++) await click(`[data-counting-index="${index}"]`);
+      if (await p.locator('#number-total-choices [data-total]').count() !== 3) throw Error('Self counting should ask how many');
+      await check(`${size}:numbers-how-many`);
+      await click('[data-number-setting="numberSelf"][data-value="false"]');
+      await open('activity-menu', 'pour'); await click('[data-pour-level="4"]'); await check(`${size}:pour-exact-water`); await click('[data-pour-level="1"]');
       if (width === 1024) await p.screenshot({ path: 'output/playwright/montessori-ipad-layout.png', animations: 'disabled' });
       // Furfangliget: every level, the densest states, a wrong step, the win state, the title and the way back.
       const logicTask = kind => p.evaluate(async k => {

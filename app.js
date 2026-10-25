@@ -397,7 +397,7 @@ teddyGame = setupTeddyGame({
   onRestart: () => roundSuccess.cancel(),
   getOptions: () => ({ length: state.settings.roundLength, choiceCount: state.settings.listeningChoices }),
   playPrompt: playTeddyPrompt,
-  speak: id => speakVoice(id),
+  speak: ids => Array.isArray(ids) ? speakVoiceSequence(ids) : speakVoice(ids),
   playThanks: () => speakVoice("guide_teddy_thanks"),
   stopPlayback,
   onComplete: (count, context = {}) => {
@@ -1381,7 +1381,7 @@ function normalizeState(input) {
       ...normalizeNumberSettings(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
       ...normalizeWorkshopOptions(input.settings),
-      pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
+      pourLevel: [1, 2, 3, 4].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
     detection: {
@@ -2267,7 +2267,7 @@ function setupNavigation() {
   document.querySelector("#round-replay").addEventListener("click", () => {
     document.querySelector("#round-complete").close();
     if (completedRoundKind === "flip") showScreen("flip");
-    else if (completedRoundKind === "dress-game") showScreen("dress-game");
+    else if (completedRoundKind === "dress-game") showScreen("dress-game",{gameOptions:{rotate:true}});
     else if (completedRoundKind === "teddy-game") showScreen("teddy-game",{gameOptions:teddyGame.getContext?.()||{}});
     else if (completedRoundKind === "listening-game") showScreen("listening-game",{gameOptions:listeningGame.getContext?.()||{}});
     else if (completedRoundKind === "memory") showScreen("memory",{gameOptions:memoryGame.getContext?.()||{}});
@@ -2382,7 +2382,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "flip") renderFlipGame();
   if (screen === "listening-game") listeningGame.start({ ...gameOptions, announce });
   if (screen === "teddy-game") teddyGame.start({ ...gameOptions, announce });
-  if (screen === "dress-game") dressGame.start({ announce });
+  if (screen === "dress-game") dressGame.start({ ...gameOptions, announce });
   if (screen === "meseliget") meadowGame.start({ announce });
   if (screen === "furfangliget") logicGame.start(gameOptions);
   if (screen === "memory") memoryGame.start(gameOptions);
@@ -2533,7 +2533,7 @@ function celebrateRound(kind, count) {
     document.querySelector("#round-related").innerHTML=(kind==='puzzle'?puzzleGame.moreButton():'')+relatedTaskMarkup(kind);
     document.querySelector("#round-complete").showModal();
     if (nextPuzzle || nextPicture) continueButton.focus({ preventScroll: true });
-    if (kind === "pour") speakVoice('pour_done');
+    if (kind === "pour") { if (state.settings.spokenGuidance) speakVoice("pour_done"); }
     else if (kind === "memory") speakVoice('memory_done');
     else if (kind === "puzzle") speakVoice('puzzle_done');
     else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
