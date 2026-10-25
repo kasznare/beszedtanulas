@@ -39,6 +39,7 @@ export const GROUPS = Object.freeze([
     ]),
   ] },
   { screen: 'number-menu', title: 'Számok', sections: [section('', [
+    card('number-steps', 'Számlépcső', 'Egy, kettő, három', '🪜', '2–3'),
     card('numbers', 'Számoljuk meg!', 'Érints meg mindet', '🍎', '2–5', { mode: 'count' }),
     card('numbers', 'Keresd meg!', 'Melyiken van annyi?', '🔢', '3–5', { mode: 'quiz' }),
     card('furfangliget', 'Erdei bolt', 'Vásárolj és számolj', '🧺', '5–8', { kind: 'shop' }),

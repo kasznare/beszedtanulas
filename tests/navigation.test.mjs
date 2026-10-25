@@ -14,7 +14,7 @@ test('skill groups reach every game, each exercise once, and every game has one 
   // A card is a game plus, optionally, the exercise it opens; no exercise appears twice.
   const keys = cards.map(item => `${item.screen}:${item.kind || item.mode || ''}`);
   assert.equal(new Set(keys).size, keys.length);
-  assert.equal(new Set(cards.map(item => item.screen)).size, 22);
+  assert.equal(new Set(cards.map(item => item.screen)).size, 23);
   for (const item of cards) assert.match(item.ages, /^\d+–\d+$/, `${item.title} names an age range`);
   // Pattern exercises from four games sit together.
   assert.deepEqual(GROUPS.find(group => group.screen === 'shape-menu').sections.at(-1).cards.map(item => `${item.screen}:${item.kind || ''}`),
@@ -28,6 +28,10 @@ test('skill groups reach every game, each exercise once, and every game has one 
   assert.deepEqual(HOME_SCREENS, ['audiobooks']);
   assert.equal(parentScreen('audiobooks'), 'home');
   assert.equal(parentScreen('flip'), 'picture-menu');
+  assert.equal(parentScreen('number-steps'), 'number-menu');
+  assert.deepEqual(GROUPS.find(group => group.screen === 'number-menu').cards[0], {
+    screen: 'number-steps', title: 'Számlépcső', note: 'Egy, kettő, három', icon: '🪜', ages: '2–3',
+  });
   assert.equal(parentScreen('montessori'), 'shape-menu');
   assert.equal(parentScreen('memory'), 'activity-menu');
   assert.equal(parentScreen('teddy-game'), 'play-menu');
@@ -48,6 +52,7 @@ test('canonical paths preserve the selected category and number mode for restora
   assert.deepEqual(screenPath(trail), ['home', 'number-menu', 'numbers']);
   assert.ok(trail.every(entry => entry.category === 'food' && entry.numberMode === 'quiz'));
   assert.deepEqual(screenPath(canonicalTrail(route('parent'))), ['home', 'parent']);
+  assert.deepEqual(screenPath(canonicalTrail(route('number-steps'))), ['home', 'number-menu', 'number-steps']);
 });
 
 test('real navigation order survives cross-group recovery instead of jumping to a canonical parent', () => {

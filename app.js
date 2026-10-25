@@ -5,6 +5,7 @@ import { normalizePracticeSettings } from "./portal-practice-data.js";
 import { normalizeNumberSettings, normalizeNumberProgress } from "./number-data.js";
 import { setupFlipGame } from "./flip-game.js";
 import { setupNumberGames } from "./number-game.js";
+import { setupNumberStepsGame } from "./number-steps-game.js";
 import { PROJECT_SUPABASE } from "./supabase-config.js";
 
 import { words, wordCategories, twoWordPhrases, TODDLER_ALIASES } from "./game-data.js";
@@ -83,7 +84,7 @@ let offlineClient;
 let playTime;
 let handlingPlayTime = false;
 let parentGateUnlocksTime = false;
-const timedScreens = new Set(['cards', 'numbers', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'engineering', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
+const timedScreens = new Set(['cards', 'numbers', 'number-steps', 'imitate', 'two-word', 'flip', 'listening-game', 'teddy-game', 'dress-game', 'meseliget', 'furfangliget', 'memory', 'puzzle', 'differences', 'patterns', 'city-story', 'chess', 'engineering', 'montessori', 'workshop', 'animal-book', 'audiobooks', 'pour', 'r-practice']);
 const innerBackSelectors = { meseliget: '#meadow-back', furfangliget: '#logic-back', workshop: '#ws-back', montessori: '#mo-back', engineering: '#en-back', 'r-practice': '[data-action="hub"]', audiobooks: '#story-back' };
 const narration = createNarration({ getRoot: () => document.getElementById(currentScreen), getWords: id => VOICE_TIMING[id] });
 let completedRoundKind = "imitate";
@@ -120,6 +121,7 @@ const screenInfo = {
   "number-menu": { title: "Számok" },
   "big-menu": { title: "Fejtörők" },
   numbers: { title: "Számoljunk!", guide: "count" },
+  "number-steps": { title: "Számlépcső" },
   flip: { title: "Mi bújt el?", guide: "flip" },
   parent: { title: "Szülői beállítások" },
   'play-break': { title: "Pihenőidő" },
@@ -169,6 +171,7 @@ let audiobooks;
 let pourGame;
 let rPractice;
 let numberGame;
+let numberStepsGame;
 let flipGame;
 let externalProgressChanged = false;
 const wordAudioBufferCache = new Map();
@@ -298,6 +301,7 @@ function changeActiveProfile(role) {
     next.profileStore = checkpointProfiles(next);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     disconnectCloud();
+    numberStepsGame?.stop();
     Object.assign(state, next);
     refreshStats();
     progressTools.refresh();
@@ -603,6 +607,9 @@ flipGame=setupFlipGame({
   setMode:mode=>{state.settings.flipMode=mode;saveProgress();},
   playWord:(word,cue)=>playWord(word,undefined,cue),speak:ids=>Array.isArray(ids)?speakVoiceSequence(ids):speakVoice(ids),stopPlayback,
   onComplete:count=>{state.rewards++;saveProgress();refreshStats();celebrateRound("flip",count);},
+});
+numberStepsGame = setupNumberStepsGame({
+  speak: ids => speakVoiceSequence(ids), stopPlayback,
 });
 numberGame = setupNumberGames({
   effect:playEffect,onRestart:()=>roundSuccess.cancel(),
@@ -2223,6 +2230,7 @@ function setupNavigation() {
     if (currentScreen === "numbers" && numberMode === "quiz") speakNumberQuestion();
     else if (currentScreen === "flip") flipGame.repeat();
     else if (currentScreen === "numbers") numberGame.repeat();
+    else if (currentScreen === "number-steps") numberStepsGame.repeat();
     else if (currentScreen === "meseliget") meadowGame.repeat();
     else if (currentScreen === "furfangliget") logicGame.repeat();
     else if (currentScreen === "memory") memoryGame.repeat();
@@ -2350,6 +2358,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   pourGame?.stop();
   rPractice?.stop();
   numberGame?.stop();
+  numberStepsGame?.stop();
   flipGame?.stop();
   if (cloudResumePending) disconnectCloud();
   progressTools?.cancelPending();
@@ -2399,6 +2408,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   if (screen === "audiobooks") audiobooks.start();
   if (screen === "pour") pourGame.start();
   if (screen === "r-practice") {rPractice.start();if(gameOptions.kind)rPractice.open(gameOptions.kind);}
+  if (screen === "number-steps") numberStepsGame.start();
   if (screen === "numbers" && numberMode === "count") renderNumbers();
   if (screen === 'numbers' && numberMode === 'quiz') renderNumberQuiz();
   updateBackButton();

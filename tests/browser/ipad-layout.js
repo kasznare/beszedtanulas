@@ -3,6 +3,7 @@ async page => {
   const context = await page.context().browser().newContext({
     viewport: { width: 1024, height: 680 }, hasTouch: true, isMobile: true, serviceWorkers: 'block',
   });
+  const numberStepsOnly = new URL(page.url()).searchParams.get('layout') === 'number-steps';
   try {
     const p = await context.newPage();
     const errors = [], rows = [];
@@ -49,6 +50,8 @@ async page => {
     const titleFocused = async () => {
       if (await p.evaluate(() => document.activeElement?.id) !== 'screen-title') throw Error('View change missed the visible title');
     };
+    const engineeringRows = [];
+    if (!numberStepsOnly) {
     for (const [width, height] of [[768, 900], [1024, 680], [390, 844], [932, 430]]) {
       const tablet = width === 768 || width === 1024;
       await p.setViewportSize({ width, height });
@@ -95,7 +98,6 @@ async page => {
       contextPrevented: !document.querySelector('.chess-square').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true })),
     }));
     if (touch.selection !== 'none' || touch.editable === 'none' || !touch.contextPrevented) throw Error(JSON.stringify(touch));
-    const engineeringRows = [];
     const engineeringTitle = { hub:'Építőliget', drop:'Pottyanó torony', build:'Szabad építés', bridge:'Hídműhely' };
     const measureEngineering = async (name, mode, tablet) => {
       const result = await p.evaluate(({ name }) => {
@@ -200,6 +202,70 @@ async page => {
       contextPrevented:!document.querySelector('#engineering .en-game-card').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true})),
     }));
     if (engineeringTouch.selection!=='none' || !engineeringTouch.contextPrevented) throw Error(JSON.stringify(engineeringTouch));
+
+    }
+
+    // Számlépcső has one scene and three cumulative steps: rapid taps are ignored during speech.
+    const numberStepsRows = [];
+    const stepsIdle = () => p.waitForFunction(() => document.querySelector('#number-steps').dataset.busy === 'false', undefined, { timeout: 15000 });
+    const measureSteps = async name => {
+      const result = await p.evaluate(name => {
+        const active = document.querySelector('#number-steps');
+        const controls = [...active.querySelectorAll('button')].filter(element => element.checkVisibility());
+        return {
+          name, title: document.querySelector('#screen-title').textContent,
+          x: Math.max(0, document.documentElement.scrollWidth - innerWidth),
+          y: Math.max(0, document.documentElement.scrollHeight - innerHeight),
+          repeated: [...active.querySelectorAll('h1,h2,h3')].filter(element => element.checkVisibility() && element.textContent.trim() === 'Számlépcső').length,
+          small: controls.filter(element => { const r = element.getBoundingClientRect(); return r.width < 43.5 || r.height < 43.5; }).map(element => element.id),
+          clipped: controls.filter(element => { const r = element.getBoundingClientRect(); return r.left < -1 || r.right > innerWidth + 1 || r.top < -1 || r.bottom > innerHeight + 1; }).map(element => element.id),
+        };
+      }, name);
+      numberStepsRows.push(result);
+      if (result.title !== 'Számlépcső' || result.repeated || result.x > 1 || result.y > 1 || result.small.length || result.clipped.length) throw Error(JSON.stringify(result));
+    };
+    for (const [width, height] of [[768, 900], [1024, 680], [390, 844], [932, 430]]) {
+      await p.setViewportSize({ width, height });
+      if (await p.locator('body').getAttribute('data-screen') !== 'home') await click('#home-button');
+      await click('#home [data-open="number-menu"]');
+      const first = await p.locator('#number-menu .game-menu-card').first().getAttribute('data-open');
+      if (first !== 'number-steps') throw Error('Számlépcső should be the first number game');
+      await click('#number-menu [data-open="number-steps"]'); await titleFocused(); await stepsIdle();
+      if (await p.locator('#number-steps').getAttribute('data-step') !== '0') throw Error('Számlépcső entry did not reset');
+      await measureSteps(`${width}x${height}:steps-zero`);
+      for (const step of [1, 2, 3]) {
+        await p.locator('#number-steps-advance').evaluate(button => { for (let i = 0; i < 8; i++) button.click(); });
+        if (await p.locator('#number-steps').getAttribute('data-step') !== String(step)) throw Error('Számlépcső rapid taps skipped a step');
+        await measureSteps(`${width}x${height}:steps-${step}-busy`); await stepsIdle();
+        await measureSteps(`${width}x${height}:steps-${step}`);
+      }
+      if (await p.locator('#round-complete').isVisible()) throw Error('Számlépcső should finish within its scene');
+      await p.screenshot({ path: `output/playwright/number-steps-layout-${context.browser().browserType().name()}-${width}x${height}.png`, animations: 'disabled' });
+      await click('#help-button'); await stepsIdle();
+      if (await p.locator('#number-steps').getAttribute('data-step') !== '3') throw Error('Számlépcső help advanced the scene');
+      await click('#number-steps-advance'); await stepsIdle();
+      if (await p.locator('#number-steps').getAttribute('data-step') !== '0') throw Error('Számlépcső restart failed');
+      await click('#back-button'); await titleFocused();
+      if (await p.locator('body').getAttribute('data-screen') !== 'number-menu' || await p.locator('#screen-title').innerText() !== 'Számok') throw Error('Számlépcső back did not restore number menu');
+    }
+    await click('#number-menu [data-open="number-steps"]');
+    const stepsTouch = await p.evaluate(() => {
+      const scene = document.querySelector('#number-steps-advance');
+      const input = document.createElement('input'); scene.parentElement.append(input);
+      const editable = getComputedStyle(input).userSelect; input.remove();
+      return {
+        selection: getComputedStyle(scene).userSelect,
+        callout: getComputedStyle(scene).webkitTouchCallout,
+        editable,
+        contextPrevented: !scene.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true })),
+      };
+    });
+    if (stepsTouch.selection !== 'none' || stepsTouch.editable === 'none' || !stepsTouch.contextPrevented || stepsTouch.callout && stepsTouch.callout !== 'none') throw Error(JSON.stringify(stepsTouch));
+
+    if (numberStepsOnly) {
+      if (errors.length) throw Error(errors.join('; '));
+      return `${numberStepsRows.length} Számlépcső tablet/phone states passed layout, title, navigation and touch checks.`;
+    }
 
     // Every menu and game: one visible title, no repeated heading, and on tablets no page scroll.
     // Mesetár is a long library by design; Róka's folded settings may sit below the fold.
@@ -522,7 +588,7 @@ async page => {
     }
 
     if (errors.length) throw Error(errors.join('; '));
-    return `${rows.length} chess, ${engineeringRows.length} engineering and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks.`;
+    return `${rows.length} chess, ${engineeringRows.length} engineering, ${numberStepsRows.length} number steps and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks.`;
   } finally {
     await context.close();
   }
