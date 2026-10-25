@@ -71,13 +71,15 @@ async page => {
     await page.evaluate(() => successScenes.logicTask('machine')); await page.locator('#furfangliget [data-game="machine"]').click();
     const solution = await page.evaluate(() => successScenes.logicSolution);
     for (const op of solution.program) await page.locator(`[data-op="${op}"]`).click();
-    await fillAmounts(solution.values);
+    // Predictions are choices that unlock after a fitting machine trial.
+    await page.locator('#logic-trial').click(); await page.waitForFunction(() => document.querySelector('#furfangliget').dataset.busy === 'false');
+    for (const [index, value] of solution.values.entries()) await page.locator(`#logic-answer-${index}-${value}`).click();
   };
   await enterMachine();
   const machineBefore = await snapshot();
   await page.locator('#logic-check').evaluate(button => { button.click(); button.click(); });
   ok(rewards(await snapshot(), 'logic') === rewards(machineBefore, 'logic') + 1 && (await snapshot()).lp.sessions.machine.done, 'Logic: progress and exactly one reward are immediate');
-  ok(await page.locator('#logic-value-0').isDisabled() && await page.locator('#logic-undo').isDisabled(), 'Logic: completed machine cannot be edited during the delay');
+  ok(await page.locator('[data-answer]:enabled').count() === 0 && await page.locator('#logic-undo').isDisabled(), 'Logic: completed machine cannot be edited during the delay');
   ok(narration(await snapshot(), 'logic_machine_done') === 0, 'Logic: final narration has not started early');
   await checkQuietInterval('#furfangliget', '#logic-next', 'Logic machine');
   ok(narration(await snapshot(), 'logic_machine_done') === 1, 'Logic: final narration starts once');
@@ -89,10 +91,12 @@ async page => {
 
   await page.evaluate(() => successScenes.logicTask('shop')); await page.locator('#furfangliget [data-game="shop"]').click();
   const orders = await page.evaluate(() => successScenes.logicSolution), shopBefore = rewards(await snapshot(), 'logic');
-  await fillAmounts(orders[0]); await page.locator('#logic-check').click();
-  await page.waitForFunction(() => successScenes.lp.sessions.shop.stage === 1);
-  ok(rewards(await snapshot(), 'logic') === shopBefore, 'Shop: first order remains an ordinary intermediate transition');
-  await fillAmounts(orders[1]); await page.locator('#logic-check').click();
+  for (let stage = 0; stage < orders.length - 1; stage++) {
+    await fillAmounts(orders[stage]); await page.locator('#logic-check').click();
+    await page.waitForFunction(next => successScenes.lp.sessions.shop.stage === next, stage + 1);
+  }
+  ok(rewards(await snapshot(), 'logic') === shopBefore, 'Shop: earlier customers remain ordinary intermediate transitions');
+  await fillAmounts(orders.at(-1)); await page.locator('#logic-check').click();
   ok(rewards(await snapshot(), 'logic') === shopBefore + 1 && (await snapshot()).lp.sessions.shop.done, 'Shop: final order is saved before its delivery/ending interval');
   await checkQuietInterval('#furfangliget', '#logic-next', 'Final shop order');
 

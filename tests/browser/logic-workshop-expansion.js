@@ -43,12 +43,15 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   await page.locator('#logic-level').selectOption('2');ok(JSON.stringify((await state()).logic.sessions.shop)===JSON.stringify(secondLevel),'second level resumes exact work');
   let task=await logicTask('shop');for(let i=0;i<2;i++)await fill(i,task.orders[0][i]);
   await page.locator('#logic-check').click();await page.waitForFunction(()=>window.expansionFixture.logic.sessions.shop.stage===1);
-  ok((await page.locator('.logic-order-change').innerText()).includes('→'),'changed order shows before and after');
+  ok(await page.locator('.logic-queue li.is-served').count()===1&&await page.locator('.logic-queue li.is-current').count()===1,'the next customer of the market day steps up');
+  ok(JSON.stringify((await state()).logic.sessions.shop.values)===JSON.stringify(task.orders[0]),'baskets carry over to the next customer');
   await layout('#furfangliget','shop');
   await page.locator('#logic-back').dispatchEvent('click');await page.locator('[data-game="machine"]').click();task=await logicTask('machine');
   for(let i=0;i<task.program.length;i++){await page.locator(`#logic-slot-${i}`).click();await page.locator(`#logic-op-${task.program[i]}`).click();}
+  ok(await page.locator('[data-answer]:enabled').count()===0,'predictions wait for a fitting trial');
+  await page.locator('#logic-trial').click();await page.waitForFunction(()=>document.querySelector('#furfangliget').dataset.busy==='false');
   const answers=await page.evaluate(t=>t.questions.map(n=>window.expansionFixture.ld.applyRule(n,t.program)),task);
-  await fill(0,answers[0]);await fill(1,(answers[1]+1)%(task.limit+1));await page.locator('#logic-check').click();
+  await page.locator(`#logic-answer-0-${answers[0]}`).click();await page.locator(`#logic-answer-1-${task.answers[1].find(v=>v!==answers[1])}`).click();await page.locator('#logic-check').click();
   ok((await page.locator('#logic-result-0').innerText()).includes('✓')&&(await page.locator('#logic-result-1').innerText()).includes('↻'),'each prediction has its own correctness feedback');
   await page.locator('#logic-help-result-1').click();ok(await page.locator('#logic-prediction-help-1').count()===1,'targeted help reveals one computation step');
   await page.locator('.logic-experiment summary').click();await page.locator('#logic-experiment-input').fill('4');await page.locator('#logic-experiment-run').click();
@@ -58,8 +61,9 @@ export async function runLogicWorkshopExpansionChecks(page, baseURL) {
   const path=await page.evaluate(t=>window.expansionFixture.ld.routeSolution(t),task);
   for(const cell of path.slice(1))await page.locator(`#logic-cell-${cell}`).click();
   await page.locator('#logic-plan-1').click();await page.locator('#logic-replan-confirm').click();
-  ok((await state()).logic.sessions.route.path.length===2,'replan keeps the selected prefix');
-  await page.locator('#logic-undo').click();ok(JSON.stringify((await state()).logic.sessions.route.path)===JSON.stringify(path),'replanning can be undone in one move');
+  ok((await state()).logic.sessions.route.steps.length===1,'replan keeps the selected prefix');
+  const fullProgram=await page.evaluate(([p,size])=>window.expansionFixture.ld.routeStepsFromPath(p,size),[path,task.size]);
+  await page.locator('#logic-undo').click();ok(JSON.stringify((await state()).logic.sessions.route.steps)===JSON.stringify(fullProgram),'replanning can be undone in one move');
   await page.locator('#logic-route-view').selectOption('steps');ok(await page.locator('.logic-board').isVisible(),'map remains visible in deferred mode');
   await page.locator('#logic-route-speed').selectOption('1000');await page.locator('#logic-check').click();await page.locator('#logic-route-pause').click();
   const paused=await page.locator('.logic-traveller').getAttribute('data-position');

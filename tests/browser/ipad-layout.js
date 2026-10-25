@@ -255,6 +255,52 @@ async page => {
       await click('#back-button');
       if (await p.locator('#screen-title').innerText() !== 'Meseliget') throw Error('Meseliget back did not return to its map');
       if (width === 1024) await p.screenshot({ path: 'output/playwright/montessori-ipad-layout.png', animations: 'disabled' });
+      // Furfangliget: every level, the densest states, a wrong step, the win state, the title and the way back.
+      const logicTask = kind => p.evaluate(async k => {
+        const d = await import('./logic-data.js'), s = JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions[k], t = d.logicTaskForSession(s);
+        return { ...t, steps: k === 'route' ? d.routeStepsFromPath(d.routeSolution(t), t.size) : [], right: k === 'machine' ? t.questions.map(n => d.applyRule(n, t.program)) : [], offBoard: k === 'route' ? [0, 1, 2, 3].find(x => d.routeStep(t.start, x, t.size) < 0) : 0 };
+      }, kind);
+      const fresh = async () => { if (await p.locator('#logic-next').count()) await click('#logic-next'); };
+      const fill = async values => { for (const [i, v] of values.entries()) { await p.locator(`#logic-value-${i}`).fill(String(v)); await p.locator(`#logic-value-${i}`).press('Tab'); } };
+      const arrows = ['up', 'right', 'down', 'left'];
+      for (const kind of ['shop', 'machine', 'route']) {
+        const menu = kind === 'shop' ? 'number-menu' : 'big-menu';
+        await open(menu); await click(`#${menu} [data-kind="${kind}"]`);
+        for (const level of [1, 2, 3]) {
+          await p.locator('#logic-level').selectOption(String(level)); await fresh();
+          await check(`${size}:logic-${kind}-${level}`);
+        }
+        const t = await logicTask(kind);
+        if (kind === 'shop') {
+          for (let i = 0; i < 3; i++) await click('#logic-hint');
+          await check(`${size}:logic-shop-pairing`);
+          await fill([(t.orders[0][0] + 1) % (t.limit + 1), t.orders[0][1]]); await click('#logic-check');
+          await check(`${size}:logic-shop-wrong`);
+          for (const order of t.orders) { await fill(order); await click('#logic-check'); await p.waitForFunction(() => document.querySelector('#furfangliget').dataset.busy === 'false'); }
+        } else if (kind === 'machine') {
+          for (const [i, op] of t.program.entries()) { await click(`#logic-slot-${i}`); await click(`#logic-op-${op}`); }
+          await click('#logic-trial'); await p.waitForFunction(() => document.querySelector('#furfangliget').dataset.busy === 'false');
+          await click(`#logic-help-result-0`);
+          await check(`${size}:logic-machine-open`);
+          await click(`#logic-answer-0-${t.answers[0].find(v => v !== t.right[0])}`); await click(`#logic-answer-1-${t.right[1]}`); await click('#logic-check');
+          await check(`${size}:logic-machine-wrong`);
+          await click(`#logic-answer-0-${t.right[0]}`); await click('#logic-check');
+        } else {
+          await click(`[data-direction="${arrows[t.offBoard]}"]`); await click('#logic-check');
+          await p.waitForSelector('#logic-replan-confirm');
+          await check(`${size}:logic-route-bump`);
+          await click('#logic-replan-confirm');
+          for (const d of t.steps) await click(`[data-direction="${arrows[d]}"]`);
+          await check(`${size}:logic-route-full-program`);
+          await click('#logic-check');
+        }
+        await p.waitForSelector('#logic-next', { timeout: 30000 });
+        await check(`${size}:logic-${kind}-win`);
+        if (!(await p.locator('.logic-heading .logic-stars').count())) throw Error(`${kind}: win state shows no stars`);
+        await click('#back-button');
+        if (await p.locator('#screen-title').innerText() !== 'Furfangliget') throw Error(`${kind}: back did not return to Furfangliget`);
+        await check(`${size}:logic-menu`);
+      }
     }
 
     if (errors.length) throw Error(errors.join('; '));

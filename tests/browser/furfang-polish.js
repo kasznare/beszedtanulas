@@ -45,12 +45,13 @@ export async function runFurfangPolishChecks(page, baseURL) {
   await page.locator('#logic-value-0').fill(String(changed)); await page.locator('#logic-value-0').press('Tab');
   await page.locator('#logic-undo').click();
   ensure(Number(await page.locator('#logic-value-0').inputValue()) === original, 'numeric entry undo');
-  for (let stage = 0; stage < 2; stage++) {
+  ensure(await page.locator('.logic-queue li').count() === task.customers.length, 'market day shows the customer queue');
+  for (let stage = 0; stage < task.orders.length; stage++) {
     for (let i = 0; i < 2; i++) await page.locator(`#logic-value-${i}`).fill(String(task.orders[stage][i]));
     await page.locator('#logic-check').click();
     ensure(await page.locator('.is-delivering').count() === 1, 'shop delivers baskets');
     await page.waitForFunction(() => document.querySelector('#furfangliget').dataset.busy === 'false');
-    ensure(await page.evaluate(() => window.furfangFixture.rewards) === stage, 'shop reward only after both orders');
+    ensure(await page.evaluate(() => window.furfangFixture.rewards) === (stage === task.orders.length - 1 ? 1 : 0), 'shop reward only after the last customer');
   }
   ensure(await page.locator('.is-delivered').count() === 1, 'completed delivery remains visible');
   await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="shop"]').click();
@@ -71,12 +72,15 @@ export async function runFurfangPolishChecks(page, baseURL) {
   ensure(await page.evaluate(() => window.furfangFixture.rewards) === 1, 'machine trial earns no reward');
   await page.locator('#logic-counters').click(); ensure(await page.locator('.logic-input .logic-dots').count() > 0, 'higher-level counters are optional');
   const answers = await page.evaluate(t => t.questions.map(n => window.furfangFixture.data.applyRule(n, t.program)), task);
-  for (let i = 0; i < 2; i++) { await page.locator(`#logic-value-${i}`).fill(String(answers[i])); await page.locator(`#logic-value-${i}`).press('Tab'); }
+  ensure(await page.locator('[data-answer]').count() === 8, 'level-3 predictions offer four choices each');
+  for (let i = 0; i < 2; i++) await page.locator(`#logic-answer-${i}-${answers[i]}`).click();
   await page.locator('#logic-check').click(); await page.locator('#logic-next').waitFor(); ensure(await page.locator('#logic-next').count() === 1, 'correct machine completes after its viewing interval');
   await page.locator('#logic-back').dispatchEvent('click'); await page.locator('[data-game="route"]').click();
   await assertLayout('route mobile'); task = await taskFor('route');
   const path = await page.evaluate(t => window.furfangFixture.data.routeSolution(t), task);
-  for (const cell of path.slice(1)) await page.locator(`#logic-cell-${cell}`).click();
+  // Level 3 is always a program: the arrows add steps and the fox waits at the start.
+  const program = async (route, size) => { for (const d of await page.evaluate(([p, s]) => window.furfangFixture.data.routeStepsFromPath(p, s), [route, size])) await page.locator(`[data-direction="${['up', 'right', 'down', 'left'][d]}"]`).click(); };
+  await program(path, task.size);
   ensure(await page.locator('[data-plan-step]').count() === path.length - 1, 'route plan is numbered');
   const initialTransform = await page.locator('.logic-traveller').evaluate(el => el.style.transform);
   await page.locator('#logic-check').click();
@@ -94,7 +98,7 @@ export async function runFurfangPolishChecks(page, baseURL) {
   ensure((await page.locator('#logic-hint').textContent()).includes('3/3'), 'three help levels');
   task = await taskFor('route');
   const nextPath = await page.evaluate(t => window.furfangFixture.data.routeSolution(t), task);
-  for (const cell of nextPath.slice(1)) await page.locator(`#logic-cell-${cell}`).click();
+  await program(nextPath, task.size);
   await page.setViewportSize({ width: 932, height: 350 }); await assertLayout('route landscape');
   await page.locator('#logic-check').click();
   await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: true }); document.dispatchEvent(new Event('visibilitychange')); Object.defineProperty(document, 'hidden', { configurable: true, value: false }); document.dispatchEvent(new Event('visibilitychange')); });

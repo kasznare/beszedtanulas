@@ -11,13 +11,18 @@ async(page)=>{
  const parent=async()=>{await home();await page.locator('#parent-button').click();const n=(await page.locator('#parent-gate-question').innerText()).match(/\d+/g).map(Number);await page.locator('#parent-gate-answers button').filter({hasText:new RegExp(`^${n[0]+n[1]}$`)}).click();};
  await parent();await page.locator('#route-level').selectOption('1');await enter();await page.locator('[data-game="route"]').click();if(await page.locator('#logic-next').count())await page.locator('#logic-next').click();
  await page.setViewportSize({width:834,height:1194});
- const a=await page.locator('[data-cell="0"]').boundingBox(),b=await page.locator('[data-cell="1"]').boundingBox(),c=await page.locator('[data-cell="2"]').boundingBox();
+ // Level 1 is a 4×4 map with rocks; the plan is saved as directions (0 up, 1 right, 2 down, 3 left).
+ const route=await page.evaluate(async()=>{const d=await import('./logic-data.js'),s=JSON.parse(localStorage.getItem('speech_game_progress_v1')).logic.sessions.route,t=d.logicTaskForSession(s),path=d.routeSolution(t);const x=t.start%t.size,y=Math.floor(t.start/t.size);const diagonal=[[1,1],[-1,1],[1,-1],[-1,-1]].map(([dx,dy])=>[x+dx,y+dy]).filter(([a,b])=>a>=0&&b>=0&&a<t.size&&b<t.size).map(([a,b])=>b*t.size+a)[0];return {path,steps:d.routeStepsFromPath(path,t.size),diagonal};});
+ const steps=async()=>JSON.stringify((await state()).logic.sessions.route.steps);
+ const [a,b,c]=await Promise.all(route.path.slice(0,3).map(cell=>page.locator(`[data-cell="${cell}"]`).boundingBox()));
  await page.mouse.move(a.x+a.width/2,a.y+a.height/2);await page.mouse.down();await page.mouse.move(b.x+b.width/2,b.y+b.height/2,{steps:10});await page.mouse.move(c.x+c.width/2,c.y+c.height/2,{steps:10});await page.mouse.up();
- ok(JSON.stringify((await state()).logic.sessions.route.path)==='[0,1,2]','Continuous drag builds two steps');
- await page.locator('#logic-undo').click();ok(JSON.stringify((await state()).logic.sessions.route.path)==='[0,1]','Dragged step can be undone');
- await page.locator('[data-cell="1"]').click();ok(JSON.stringify((await state()).logic.sessions.route.path)==='[0]','Tap on final cell undoes step');
- await page.locator('[data-direction="down"]').focus();await page.keyboard.press('Enter');ok(JSON.stringify((await state()).logic.sessions.route.path)==='[0,3]','Keyboard alternative builds route');
- await page.locator('#logic-clear').click();await page.locator('[data-cell="8"]').click();ok((await state()).logic.sessions.route.path.length===1,'Diagonal jump rejected');
+ ok(await steps()===JSON.stringify(route.steps.slice(0,2)),'Continuous drag builds two steps');
+ await page.locator('#logic-undo').click();ok(await steps()===JSON.stringify(route.steps.slice(0,1)),'Dragged step can be undone');
+ await page.locator(`[data-cell="${route.path[1]}"]`).click();ok(await steps()==='[]','Tap on final cell undoes step');
+ await page.locator(`[data-cell="${route.path[1]}"]`).click();await page.locator(`[data-cell="${route.path[2]}"]`).focus();await page.keyboard.press('Enter');
+ ok(await steps()===JSON.stringify(route.steps.slice(0,2)),'A keyboard click right after a tap is not swallowed');
+ await page.locator('#logic-clear').click();await page.locator('[data-direction]:enabled').first().focus();await page.keyboard.press('Enter');ok(JSON.parse(await steps()).length===1,'Keyboard alternative builds route');
+ await page.locator('#logic-clear').click();await page.locator(`[data-cell="${route.diagonal}"]`).click();ok(await steps()==='[]','Diagonal jump rejected');
  await page.locator('#logic-check').click();await home();await page.waitForTimeout(500);ok(await page.locator('#home').isVisible(),'Exit cancels route playback');
  // Profile isolation is exercised via parent UI.
  const child=(await state()).logic;await parent();await page.locator('#supabase-role').selectOption('admin');
