@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {applyRule, generateTask, logicTaskForSession, newSession, normalizeLogic, routeSolution, taskSolved, validateLogic} from '../logic-data.js';
+import {applyRule, generateTask, logicTaskForSession, newSession, normalizeLogic, routeSolution, routeStepsFromPath, taskSolved, validateLogic} from '../logic-data.js';
 import {generateWorkshopTask, newWorkshopSession, workshopTaskForSession, workshopSortTarget, workshopBalanceSolutions, workshopSolved, normalizeWorkshop, validateWorkshop} from '../workshop-data.js';
 import {WORKSHOP_CLIPS} from '../workshop-voice.js';
 
@@ -12,12 +12,15 @@ test('new routes vary their edge endpoints and remain short, solvable tasks at e
       const edge=c=>c<size||c>=size*(size-1)||c%size===0||c%size===size-1;
       assert.ok(edge(task.start)&&edge(task.end)&&task.start!==task.end);
       assert.ok(path&&path.length-1<=task.maxSteps);
-      assert.ok(path.length-1>=[2,5,8][level-1]&&path.length-1<=[6,10,15][level-1]);
-      assert.equal(task.maxSteps,path.length-1+[2,3,4][level-1]);
+      assert.ok(path.length-1>=[4,7,9][level-1]&&path.length-1<=[8,14,18][level-1],`route ${level}/${seed} length`);
+      assert.equal(task.maxSteps,path.length-1+[3,2,1][level-1]);
+      if(level>1)assert.ok(path.length-1>routeSolution({...task,blocked:[]}).length-1,`rocks force a detour ${level}/${seed}`);
       assert.ok(task.parcels.every(c=>c!==task.start&&c!==task.end&&!task.blocked.includes(c)));
       assert.ok(task.blocked.every(c=>c!==task.start&&c!==task.end));
-      const session=newSession('route',level,5,seed);assert.deepEqual(session.path,[task.start]);
-      session.path=path;assert.ok(taskSolved(task,session));
+      const session=newSession('route',level,5,seed);assert.deepEqual(session.steps,[]);assert.deepEqual(session.path,[]);
+      session.steps=routeStepsFromPath(path,size);assert.ok(taskSolved(task,session));
+      const legacy=generateTask('route',level,5,seed,2),legacyPath=routeSolution(legacy);
+      assert.equal(legacy.maxSteps,legacyPath.length-1+[2,3,4][level-1]);
       const saved=normalizeLogic();saved.sessions.route=session;assert.deepEqual(validateLogic(saved).sessions.route,session);
       endpoints.add(`${task.start}:${task.end}`);layouts.add(`${task.start}:${task.end}:${task.parcels}:${task.blocked}`);
     }
@@ -103,8 +106,12 @@ test('new balance targets retain legal compositions, a useful spread, and exact 
 test('legacy seeded sessions still reconstruct and validate under their original task versions',()=>{
   for(const level of [1,2,3])for(const seed of [0,7,42,99]){
     for(const kind of ['machine','route']){
-      const session=newSession(kind,level,5,seed);delete session.taskVersion;
-      const task=generateTask(kind,level,5,seed,1);assert.deepEqual(logicTaskForSession(session),task);
+      // The saved shape used before task version 3: route plans were cell paths, predictions numbers.
+      const task=generateTask(kind,level,5,seed,1);
+      const session={kind,level,limit:5,seed,stage:0,help:0,misses:0,done:false,values:[0,0],program:kind==='machine'?Array(task.slots).fill(null):[],path:kind==='route'?[task.start]:[],history:[]};
+      assert.deepEqual(logicTaskForSession(session),task);
+      const v2={...structuredClone(session),taskVersion:2,path:kind==='route'?[generateTask(kind,level,5,seed,2).start]:[]};
+      const saved=normalizeLogic();saved.sessions[kind]=v2;assert.deepEqual(validateLogic(saved).sessions[kind],v2,'version 2 saves still validate');
       if(kind==='machine'){session.program=task.program;session.values=task.questions.map(n=>applyRule(n,task.program));}
       else session.path=routeSolution(task);
       session.done=true;const progress=normalizeLogic();progress.sessions[kind]=session;assert.deepEqual(validateLogic(progress).sessions[kind],session);
