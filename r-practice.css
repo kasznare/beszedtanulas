@@ -173,3 +173,10 @@
   .rp-post-scene {grid-template-columns:1fr 1fr;}
 }
 .rp-mission-ending { display:grid; gap:12px; text-align:center; font-weight:700; }.rp-mission-ending > span { font-size:2.5rem; }.rp-target-picture > span { display:inline-block; font-size:.72em; }
+/* Robotpostás wishes: each house shows the parcel its friend asked for. */
+.rp-wish { display:inline-flex; align-items:center; gap:2px; padding:2px 8px; vertical-align:middle; border:2px solid #d9cfae; border-radius:14px; background:#fffdf3; font-size:1.5rem; line-height:1.2; }
+.rp-wish.is-empty { border-style:dashed; font-size:1.1rem; opacity:.7; }
+#r-practice .rp-recipient-picker .is-fulfilled .rp-wish { border-color:#78957f; background:#e4efdf; }
+#r-practice .rp-recipient-picker button.is-try { border-color:#d2a46a; background:#fbf0dc; }
+#r-practice .rp-recipient-picker button:disabled:not(:has(.is-empty)) { opacity:1; }
+@media(max-width:480px){ .rp-wish { font-size:1.2rem; padding:1px 5px; } }

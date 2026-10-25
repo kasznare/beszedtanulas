@@ -246,7 +246,8 @@ async page => {
         if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);
       }
       await open('picture-menu', 'animal-book');
-      for (const mode of ['abk-sound', 'abk-search', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
+      for (const mode of ['abk-sound', 'abk-search', 'abk-quiz', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
+      for (const topic of ['animals', 'food', 'clothes']) { await open('picture-menu', 'topics'); await click(`[data-topic="${topic}"]`); await check(`${size}:cards-${topic}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {
         await open('practice-menu', 'r-practice'); await click(`[data-game="${game}"]`); await check(`${size}:r-${game}`);
       }

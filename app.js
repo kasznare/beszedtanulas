@@ -36,6 +36,8 @@ import { setupMontessoriGame } from "./montessori-game.js";
 import { normalizeMontessoriOptions } from "./montessori-data.js";
 import { setupWorkshop } from "./workshop-game.js";
 import { setupAnimalBook } from "./animal-book-game.js";
+import { setupWordCards } from "./word-cards-game.js";
+import { CARD_TOPICS, cardTopic } from "./word-cards.js";
 import { setupAudiobooks } from "./audiobook-game.js";
 import { setupPourGame } from "./pour-game.js";
 import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
@@ -160,6 +162,7 @@ const engineeringSessions = new Map();
 const engineeringScope = () => state.profileStore?.activeKey || profileKey(state.supabase);
 let workshopGame;
 let animalBook;
+let wordCards;
 let audiobooks;
 let pourGame;
 let rPractice;
@@ -545,6 +548,16 @@ animalBook = setupAnimalBook({
   speak: id => speakVoice(id),
   stopPlayback,
   onShowCredits: showAnimalBookCredits,
+  effect: playEffect,
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: count => { state.rewards += 1; saveProgress(); refreshStats(); celebrateRound('animal-book', count); },
+});
+wordCards = setupWordCards({
+  playCard: (card, cue) => playWord(card, undefined, cue),
+  speak: id => speakVoice(id),
+  effect: playEffect, stopPlayback, onPick: pickCard,
+  onRestart: () => roundSuccess.cancel(),
+  onComplete: count => { state.rewards += 1; saveProgress(); refreshStats(); celebrateRound('cards', count); },
 });
 audiobooks = setupAudiobooks({ stopPlayback, onListeningChange: playing => { if (playing) playTime?.start(); } });
 pourGame = setupPourGame({
@@ -734,7 +747,7 @@ function shuffleNumbers(values) {
 
 function setupCategories() {
   const picker = document.querySelector("#category-picker");
-  wordCategories.forEach((category) => {
+  CARD_TOPICS.forEach((category) => {
     const button = document.createElement("button");
     button.className = "category-choice";
     button.textContent = category.label;
@@ -859,35 +872,20 @@ function completePhraseStep() {
   }else{state.rewards++;saveProgress();refreshStats();syncBasicPractice();nextPhraseBtn.focus({preventScroll:true});}
 }
 
+// Cards come from CARD_TOPICS; only cards with a practiceId offer the word practice follow-up.
 function renderCards() {
-  cardsGrid.innerHTML = "";
-  const category = wordCategories.find((entry) => entry.id === selectedCategory);
-  document.querySelector('#card-followup').hidden=!category.words.includes(practiceLaunchWordId);
-  if(!category.words.includes(practiceLaunchWordId))practiceLaunchWordId=null;
-  const visibleWords = words.filter((word) => category.words.includes(word.id));
+  const topic = cardTopic(selectedCategory);
+  if(!topic.cards.some(card=>card.practiceId&&card.practiceId===practiceLaunchWordId))practiceLaunchWordId=null;
+  document.querySelector('#card-followup').hidden=!practiceLaunchWordId;
   document.querySelectorAll(".category-choice").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.category === selectedCategory));
   });
-  document.querySelector("#cards-count").textContent = `${visibleWords.length} szó`;
-  visibleWords.forEach((word) => {
-    const button = document.createElement("button");
-    button.className = "card";
-    button.dataset.word = word.id;
-    button.innerHTML = `<div class="card-emoji">${wordPicture(word)}</div><div class="card-word">${word.label}</div>`;
-    button.setAttribute("aria-label", `${word.label} meghallgatása`);
-    button.addEventListener("click", async () => {
-      practiceLaunchWordId=word.id;
-      const followup=document.querySelector("#card-followup");followup.hidden=false;
-      document.querySelector("#card-selected").textContent=`Ezzel játszunk: ${word.label}`;
-      const playback = playWord(word, undefined, {target:`.card[data-word="${word.id}"] .card-emoji`});
-      const token = playbackToken;
-      cardsGrid.querySelectorAll(".card").forEach((card) => card.classList.remove("is-speaking"));
-      button.classList.add("is-speaking");
-      await playback;
-      if (token === playbackToken) button.classList.remove("is-speaking");
-    });
-    cardsGrid.appendChild(button);
-  });
+  wordCards.render(topic);
+}
+function pickCard(card) {
+  practiceLaunchWordId=card.practiceId||null;
+  const followup=document.querySelector("#card-followup");followup.hidden=!practiceLaunchWordId;
+  document.querySelector("#card-selected").textContent=practiceLaunchWordId?`Ezzel játszunk: ${card.label}`:'';
 }
 
 function renderFlipGame() { flipGame.start(); }
@@ -1111,8 +1109,14 @@ function refreshStats() {
   rewardCount.textContent = String(state.rewards);
 }
 
-async function playWord(word, token = beginPlayback(), cue = narrationCue(`word_${word.id}`, currentScreen)) {
+async function playWord(word, token = beginPlayback(), cue = narrationCue(word.clip || `word_${word.id}`, currentScreen)) {
   registerPlay();
+  // Picture cards may reuse another game's recording (`clip`), then an animal sound.
+  if (word.clip) {
+    const played = await speakVoice(word.clip, token, cue);
+    if (word.sound && played && token === playbackToken) await tryPlayFile(word.sound, token, { start() {}, stop() {} });
+    return played;
+  }
   if (state.settings.wordVoice === "natural") return speakVoice(`word_${word.id}`, token, cue);
   const src = `./audio/${word.id}.mp3`;
   const visual = narration.prepare(`word_${word.id}`, word.label, cue);
@@ -2216,6 +2220,7 @@ function setupNavigation() {
     else if (currentScreen === "engineering") engineeringGame.repeat();
     else if (currentScreen === "workshop") workshopGame.repeat();
     else if (currentScreen === "animal-book") animalBook.repeat();
+    else if (currentScreen === "cards" && wordCards.isPeeking()) wordCards.repeat();
     else if (currentScreen === "audiobooks") audiobooks.repeat();
     else if (currentScreen === "r-practice") rPractice.repeat();
     else if (currentScreen === "dress-game") dressGame.repeat({ intro: true, force: true });
@@ -2252,11 +2257,13 @@ function setupNavigation() {
     else if (completedRoundKind.startsWith("numbers-")) { numberMode=completedRoundKind.slice(8); showScreen("numbers",{announce:false}); numberGame.start(numberMode,{fresh:true}); }
     else if(completedRoundKind==='two-word'){currentPhrase=nextPhraseIndex();showScreen('two-word');startPhraseRound();}
     else if (completedRoundKind === "chess") { if (!chessGame.nextPuzzle()) showScreen("chess"); }
+    else if (completedRoundKind === "animal-book") animalBook.startQuiz();
+    else if (completedRoundKind === "cards") wordCards.startPeek();
     else startAutoImitateSession();
   });
-  const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡" };
-  const tones = ["peach", "yellow", "mint", "blue", "mint", "peach"];
-  wordCategories.filter(category => category.id !== "all").forEach((category, index) => {
+  const icons = { family: "👨‍👩‍👧", animals: "🐶", food: "🍎", play: "🧸", nature: "🌳", home: "🏡", clothes: "👕" };
+  const tones = ["peach", "yellow", "mint", "blue", "mint", "peach", "yellow"];
+  CARD_TOPICS.filter(category => category.id !== "all").forEach((category, index) => {
     const button = document.createElement("button");
     button.className = `topic-tile tone-${tones[index]}`;
     const title = category.label.slice(category.label.indexOf(" ") + 1);
@@ -2315,6 +2322,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   engineeringGame?.stop();
   workshopGame?.stop();
   animalBook?.stop();
+  wordCards?.stop();
   audiobooks?.stop();
   pourGame?.stop();
   rPractice?.stop();
@@ -2339,7 +2347,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   panels.forEach(panel => panel.classList.toggle("is-active", panel.id === screen));
   const title = document.querySelector("#screen-title");
   title.textContent = screen === "cards"
-    ? wordCategories.find(category => category.id === selectedCategory).label
+    ? cardTopic(selectedCategory).label
     : screen === 'numbers' ? numberMode === 'quiz' ? 'Keresd meg!' : 'Számoljuk meg!' : screenInfo[screen].title;
   syncProfileControls();
   syncNumberMode();

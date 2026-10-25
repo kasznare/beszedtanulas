@@ -59,7 +59,47 @@ export function normalizeAnimalBookPreferences(value) {
   return {
     pageId: ANIMAL_BOOK_PAGES[animalBookPageIndex(value?.pageId)].id,
     markersVisible: typeof value?.markersVisible === 'boolean' ? value.markersVisible : true,
+    quizLevel: value?.quizLevel === 2 ? 2 : 1,
   };
+}
+
+function shuffled(items, random) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.min(i, Math.max(0, Math.floor(random() * (i + 1))));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+// Page tasks pick a random animal of the page, never the one just asked,
+// so the child cannot learn a fixed order.
+export function nextAnimalBookTarget(animals, previousId = null, random = Math.random) {
+  const ids = animals.map(animal => animal.id);
+  const fresh = ids.filter(id => id !== previousId);
+  const pool = fresh.length ? fresh : ids;
+  return pool[Math.min(pool.length - 1, Math.max(0, Math.floor(random() * pool.length)))];
+}
+
+// Állatkvíz: five different targets from the whole book. The first two questions
+// offer three pictures, the rest four, with distractors drawn from every page.
+export const ANIMAL_QUIZ_LENGTH = 5;
+export const ANIMAL_QUIZ_CHOICES = Object.freeze([3, 3, 4, 4, 4]);
+export function buildAnimalQuiz(random = Math.random, previousFirst = null) {
+  let targets = shuffled(ANIMAL_BOOK_ANIMALS, random).slice(0, ANIMAL_QUIZ_LENGTH);
+  if (targets[0].id === previousFirst) targets = [...targets.slice(1), targets[0]];
+  return targets.map((target, index) => {
+    const others = shuffled(ANIMAL_BOOK_ANIMALS.filter(animal => animal.id !== target.id), random).slice(0, ANIMAL_QUIZ_CHOICES[index] - 1);
+    return { targetId: target.id, choices: shuffled([target, ...others], random).map(animal => animal.id) };
+  });
+}
+// Stars count the questions solved on the first try; finishing earns at least one.
+export function animalQuizStars(firstTry) {
+  return Math.max(1, Math.min(ANIMAL_QUIZ_LENGTH, Number.isInteger(firstTry) ? firstTry : 0));
+}
+// Four or five first-try answers unlock the harder level without names.
+export function nextAnimalQuizLevel(level, firstTry) {
+  return level === 2 || firstTry >= 4 ? 2 : 1;
 }
 export function loadAnimalBookPreferences(storage) {
   try { return normalizeAnimalBookPreferences(JSON.parse(storage?.getItem(ANIMAL_BOOK_STORAGE_KEY) ?? 'null')); }

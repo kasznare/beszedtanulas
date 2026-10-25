@@ -95,6 +95,36 @@
  .abk-modes { flex-wrap:wrap; }
  .abk-scene { align-self:start; max-width:calc((100dvh - 290px) * 1.5); }
 }
+/* Állatkvíz: one listening question with 3–4 animals from the whole book. */
+.animal-book-panel .abk-paper.is-quiz { display:block; padding:14px 16px 10px; }
+.abk-paper.is-quiz .abk-modes { margin-bottom:12px; }
+.abk-quiz { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.abk-quiz-bar { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 18px; }
+.abk-quiz-dots { display:flex; gap:6px; font-size:1.25rem; line-height:1; }
+.abk-quiz-dots span { display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#efeddc; color:#8b8468; }
+.abk-quiz-dots .is-current { background:var(--abk-tint); color:var(--abk-ink); box-shadow:0 0 0 2px var(--abk-accent); }
+.abk-quiz-dots .is-done { background:#fff6d6; }
+.abk-quiz-levels { display:flex; gap:6px; }
+.animal-book-panel .abk-quiz-levels button { padding:6px 10px; font-size:.92rem; }
+.animal-book-panel .abk-quiz-levels button[aria-pressed=true] { border-color:var(--abk-accent); background:var(--abk-tint); }
+.abk-paper.is-quiz .abk-task { margin:0; }
+.animal-book-panel .abk-paper.is-quiz #abk-listen { padding:10px 22px; font-size:1.15rem; border-color:var(--abk-accent); background:var(--abk-tint); }
+.abk-quiz-choices { display:grid; grid-template-columns:repeat(var(--abk-choices,3),minmax(0,1fr)); gap:12px; width:100%; max-width:760px; }
+.animal-book-panel .abk-quiz-choice { min-height:132px; }
+.abk-quiz-choice .abk-animal-symbol { font-size:3.6rem; }
+.abk-quiz-check { position:absolute; top:6px; right:9px; color:#48724d; font-size:1.3rem; }
+.animal-book-panel .abk-quiz-choice.is-found { border-color:#78957f; background:#e5eddf; box-shadow:0 0 0 3px #78957f; }
+.animal-book-panel .abk-quiz-choice.is-try { border-color:#c9a26a; background:#fbf1de; }
+.abk-quiz-done { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.abk-quiz-done p { margin:0; font-size:1.35rem; font-weight:800; }
+.abk-paper.is-quiz .abk-status { min-height:1.4em; }
+@media(max-width:600px) {
+ .abk-quiz-choices { gap:8px; }.animal-book-panel .abk-quiz-choice { min-height:104px; }.abk-quiz-choice .abk-animal-symbol { font-size:2.8rem; }
+ .abk-quiz-dots span { width:26px; height:26px; font-size:1rem; }
+}
+@media(max-height:540px) and (orientation:landscape) {
+ .abk-paper.is-quiz .abk-modes { margin-bottom:6px; }.abk-quiz { gap:6px; }.animal-book-panel .abk-quiz-choice { min-height:88px; }.abk-quiz-choice .abk-animal-symbol { font-size:2.5rem; }
+}
 @media(prefers-reduced-motion:reduce) { .animal-book-panel *, .animal-book-panel *::before, .animal-book-panel *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
 .animal-credits-dialog { width:min(650px,calc(100% - 32px)); max-height:85svh; padding:28px; border:2px solid #d5c6ae; border-radius:20px; background:#fffdf4; color:#454436; overflow:auto; }
 .animal-credits-dialog::backdrop { background:#253e366b; }

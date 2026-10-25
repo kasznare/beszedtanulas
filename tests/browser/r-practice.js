@@ -51,6 +51,7 @@ async page => {
   const open=async()=>{await page.getByRole('button',{name:'Mondd utánam',exact:true}).click();await page.locator('#practice-menu [data-open="r-practice"]').click();};
   await open();ok(await page.locator('.rp-game-card').count()===5,'Five complete games are reachable from Mondd utánam');
   const words=await page.evaluate(async()=>{const m=await import('./r-practice-data.js');return m.R_WORDS;});
+  const wishedHouse=()=>page.evaluate(()=>{const id=document.querySelector('#r-practice .rp-target').dataset.word;return id;}).then(id=>page.evaluate(text=>[...document.querySelectorAll('#r-practice [data-deliver]')].find(b=>b.getAttribute('aria-label').includes(`ezt kéri: ${text}`)).dataset.deliver,words.find(word=>word.id===id).text));
   const views=[{width:375,height:667},{width:932,height:350},{width:834,height:1194},{width:1194,height:834}];
   for(const game of ['hunter','post','workshop','rhyme','echo']){
     await enter(game);
@@ -80,8 +81,8 @@ async page => {
   await page.locator('[data-choice]').nth(rIndex).click();await idle();ok(await page.locator('.is-found').count()===1,'Sound hunting accepts the R word');
   await hub();await prefs('position','all');await prefs('roundLength',3);await enter('post');
   ok(await page.locator('[data-action="listen"]').count()===0,'Together mode requests no microphone');
-  for(let i=0;i<2;i++){await page.locator('[data-action="advance"]').click();await idle();await page.locator('[data-deliver="fox"]').click();await idle();}
-  ok(await page.locator('.rp-finish').count()===1,'Robotpostás delivers both linked parcels to the chosen house');
+  for(let i=0;i<2;i++){await page.locator('[data-action="advance"]').click();await idle();await page.locator(`[data-deliver="${await wishedHouse()}"]`).click();await idle();}
+  ok(await page.locator('.rp-finish').count()===1,'Robotpostás delivers both parcels to the friends who asked for them');
   await hub();await enter('workshop');
   for(const position of ['initial','medial','final']){
     await page.locator(`[data-position="${position}"]`).click();await idle();
@@ -107,10 +108,10 @@ async page => {
   await page.locator('[data-action="listen"]').click();await page.locator('#r-practice[data-phase="listening"]').waitFor();await idle();
   ok((await status()).includes('felismerte')&&await page.locator('[data-action="advance"]').isEnabled(),'Recognized full phrase enables the next step without an articulation score');
   ok((await page.locator('.rp-transcript').innerText()).includes(target),'Transcript is displayed');
-  await page.locator('[data-action="advance"]').click();await idle();await page.locator('[data-deliver="fox"]').click();await idle();
+  await page.locator('[data-action="advance"]').click();await idle();await page.locator(`[data-deliver="${await wishedHouse()}"]`).click();await idle();
   await page.evaluate(()=>{rQA.speech='banán';});await page.locator('[data-action="listen"]').click();await idle();
   ok(!await page.locator('[data-action="advance"]').isEnabled()&&(await status()).includes('Más szót'),'Unrelated recognized word does not automatically advance');
-  await page.locator('[data-action="confirm"]').click();await idle();await page.locator('[data-deliver="rabbit"]').click();await idle();ok(await page.locator('.rp-parcel').count()===2,'Adult can deliver after uncertain recognition');
+  await page.locator('[data-action="confirm"]').click();await idle();await page.locator(`[data-deliver="${await wishedHouse()}"]`).click();await idle();ok(await page.locator('.rp-parcel').count()===2,'Adult can deliver after uncertain recognition');
   await page.locator('[data-action="restart"]').click();await idle();
   await page.evaluate(()=>{rQA.scenario='network';});await page.locator('[data-action="listen"]').click();await idle();
   ok((await status()).includes('internetkapcsolat')&&await page.locator('[data-action="confirm"]').isEnabled(),'Recognition network error has a together-mode recovery');

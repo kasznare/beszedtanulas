@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ANIMAL_BOOK_PAGES, ANIMAL_BOOK_ANIMALS, ANIMAL_BOOK_AUDIO, ANIMAL_BOOK_CLIPS, ANIMAL_BOOK_STORAGE_KEY, animalBookPageIndex, normalizeAnimalBookPreferences, loadAnimalBookPreferences, saveAnimalBookPreferences } from '../animal-book-data.js';
-import { createAnimalBookPlayback } from '../animal-book-game.js';
+import { ANIMAL_BOOK_PAGES, ANIMAL_BOOK_ANIMALS, ANIMAL_BOOK_AUDIO, ANIMAL_BOOK_CLIPS, ANIMAL_BOOK_STORAGE_KEY, animalBookPageIndex, normalizeAnimalBookPreferences, loadAnimalBookPreferences, saveAnimalBookPreferences, nextAnimalBookTarget, buildAnimalQuiz, animalQuizStars, nextAnimalQuizLevel, ANIMAL_QUIZ_LENGTH, ANIMAL_QUIZ_CHOICES } from '../animal-book-data.js';
+import { createAnimalBookPlayback, animalAnswerSteps } from '../animal-book-game.js';
 
 function deferred() {
   let resolve, reject;
@@ -45,15 +45,15 @@ test('the illustrated book has four ordered places, three animals each and twelv
 test('last-page and marker preferences are device-local and tolerate corrupt or unavailable storage', () => {
   const memory = new Map([['unrelated.progress', 'keep this']]);
   const storage = { getItem: key => memory.get(key) ?? null, setItem: (key, value) => memory.set(key, value) };
-  assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'farm', markersVisible: true });
+  assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'farm', markersVisible: true, quizLevel: 1 });
   assert.equal(saveAnimalBookPreferences(storage, { pageId: 'forest', markersVisible: false, attempts: 999 }), true);
-  assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'forest', markersVisible: false });
-  assert.deepEqual(JSON.parse(memory.get(ANIMAL_BOOK_STORAGE_KEY)), { pageId: 'forest', markersVisible: false });
+  assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'forest', markersVisible: false, quizLevel: 1 });
+  assert.deepEqual(JSON.parse(memory.get(ANIMAL_BOOK_STORAGE_KEY)), { pageId: 'forest', markersVisible: false, quizLevel: 1 });
   assert.equal(memory.get('unrelated.progress'), 'keep this'); assert.equal(memory.size, 2);
-  for (const value of [null, [], 'broken', { pageId: 'unknown', markersVisible: 'no' }, { pageId: 3, markersVisible: 0 }]) assert.deepEqual(normalizeAnimalBookPreferences(value), { pageId: 'farm', markersVisible: true });
-  memory.set(ANIMAL_BOOK_STORAGE_KEY, '{broken'); assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'farm', markersVisible: true });
+  for (const value of [null, [], 'broken', { pageId: 'unknown', markersVisible: 'no' }, { pageId: 3, markersVisible: 0 }]) assert.deepEqual(normalizeAnimalBookPreferences(value), { pageId: 'farm', markersVisible: true, quizLevel: 1 });
+  memory.set(ANIMAL_BOOK_STORAGE_KEY, '{broken'); assert.deepEqual(loadAnimalBookPreferences(storage), { pageId: 'farm', markersVisible: true, quizLevel: 1 });
   const denied = { getItem() { throw new Error('storage denied'); }, setItem() { throw new Error('quota exceeded'); } };
-  assert.deepEqual(loadAnimalBookPreferences(denied), { pageId: 'farm', markersVisible: true }); assert.equal(saveAnimalBookPreferences(denied, { pageId: 'pond' }), false);
+  assert.deepEqual(loadAnimalBookPreferences(denied), { pageId: 'farm', markersVisible: true, quizLevel: 1 }); assert.equal(saveAnimalBookPreferences(denied, { pageId: 'pond' }), false);
   assert.equal(saveAnimalBookPreferences(null, {}), false);
   for (let index = 0; index < ANIMAL_BOOK_PAGES.length; index++) assert.equal(animalBookPageIndex(ANIMAL_BOOK_PAGES[index].id), index);
   assert.equal(animalBookPageIndex('bad'), 0);
@@ -114,4 +114,72 @@ test('unknown ids never reach playback and returned state cannot mutate the soun
   const playing = control.playback.play('wolf'); const copied = control.playback.getState(); copied.playing = true; copied.animalId = 'cow';
   assert.equal(control.playback.getState().playing, false); assert.equal(control.playback.getState().animalId, 'wolf');
   control.sounds[0].onStart(); control.sounds[0].resolve(true); assert.equal(await playing, true);
+});
+
+function seeded(seed) {
+  let value = seed;
+  return () => { value = (value * 1103515245 + 12345) % 2147483648; return value / 2147483648; };
+}
+
+test('page tasks pick random animals of the page and never repeat the previous target', () => {
+  for (const page of ANIMAL_BOOK_PAGES) {
+    const random = seeded(7), seen = new Set();
+    let previous = null;
+    for (let i = 0; i < 60; i++) {
+      const next = nextAnimalBookTarget(page.animals, previous, random);
+      assert.ok(page.animals.some(animal => animal.id === next));
+      assert.notEqual(next, previous);
+      seen.add(next); previous = next;
+    }
+    assert.equal(seen.size, 3, `${page.id}: every animal is asked`);
+  }
+  // The old fixed cycle (cow, horse, sheep, cow …) must not come back.
+  const orders = new Set();
+  for (let seed = 1; seed < 30; seed++) {
+    const random = seeded(seed); let previous = null; const order = [];
+    for (let i = 0; i < 4; i++) { previous = nextAnimalBookTarget(ANIMAL_BOOK_PAGES[0].animals, previous, random); order.push(previous); }
+    orders.add(order.join());
+  }
+  assert.ok(orders.size > 3);
+});
+
+test('Állatkvíz asks five different animals from all pages with 3 then 4 picture choices', () => {
+  assert.equal(ANIMAL_QUIZ_LENGTH, 5); assert.deepEqual([...ANIMAL_QUIZ_CHOICES], [3, 3, 4, 4, 4]);
+  const targets = new Set(), pagesUsed = new Set();
+  for (let seed = 1; seed < 80; seed++) {
+    const quiz = buildAnimalQuiz(seeded(seed));
+    assert.equal(quiz.length, 5);
+    assert.equal(new Set(quiz.map(item => item.targetId)).size, 5, 'targets do not repeat inside a round');
+    quiz.forEach((item, index) => {
+      assert.equal(item.choices.length, ANIMAL_QUIZ_CHOICES[index]);
+      assert.equal(new Set(item.choices).size, item.choices.length);
+      assert.ok(item.choices.includes(item.targetId));
+      for (const id of item.choices) {
+        assert.ok(ANIMAL_BOOK_ANIMALS.some(animal => animal.id === id));
+        pagesUsed.add(ANIMAL_BOOK_PAGES.find(page => page.animals.some(animal => animal.id === id)).id);
+      }
+      targets.add(item.targetId);
+    });
+  }
+  assert.equal(targets.size, 12, 'every animal of the book can be asked');
+  assert.equal(pagesUsed.size, 4);
+  const first = buildAnimalQuiz(seeded(3))[0].targetId;
+  assert.notEqual(buildAnimalQuiz(seeded(3), first)[0].targetId, first, 'a new round does not open with the same animal');
+});
+
+test('quiz stars count first-try answers and a strong round unlocks the nameless level', () => {
+  assert.equal(animalQuizStars(5), 5); assert.equal(animalQuizStars(3), 3);
+  assert.equal(animalQuizStars(0), 1, 'finishing the quiz always earns one star');
+  assert.equal(animalQuizStars(9), 5); assert.equal(animalQuizStars('x'), 1);
+  assert.equal(nextAnimalQuizLevel(1, 3), 1); assert.equal(nextAnimalQuizLevel(1, 4), 2); assert.equal(nextAnimalQuizLevel(2, 0), 2);
+  assert.equal(normalizeAnimalBookPreferences({ quizLevel: 2 }).quizLevel, 2);
+  assert.equal(normalizeAnimalBookPreferences({ quizLevel: 3 }).quizLevel, 1);
+});
+
+test('answers have animal audio: a right pick names and sounds it, a wrong pick contrasts with the target', () => {
+  assert.deepEqual(animalAnswerSteps({ mode: 'quiz', chosenId: 'cow', targetId: 'cow' }), [['name', 'cow'], ['sound', 'cow']]);
+  assert.deepEqual(animalAnswerSteps({ mode: 'sound', chosenId: 'dog', targetId: 'cow' }), [['sound', 'dog'], ['sound', 'cow']]);
+  assert.deepEqual(animalAnswerSteps({ mode: 'quiz', chosenId: 'wolf', targetId: 'owl' }), [['sound', 'wolf'], ['sound', 'owl']]);
+  assert.deepEqual(animalAnswerSteps({ mode: 'scene', chosenId: 'frog', targetId: 'duck' }), [['sound', 'frog'], ['name', 'duck']], 'the picture search repeats the name it asked for');
+  for (const animal of ANIMAL_BOOK_ANIMALS) assert.ok(ANIMAL_BOOK_CLIPS[`abk_name_${animal.id}`], 'every named answer has a recorded name');
 });

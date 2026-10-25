@@ -61,19 +61,25 @@ async page => {
   }
   await click('restart');ok(!previous.includes(await page.locator('.rp-target').getAttribute('data-word')),'Main fresh-word selection survives restart');
   await enter('post');
-  ok(await page.locator('.rp-mission-items span').count()===2,'Post opens a coherent two-parcel mini mission');
+  // Each house wishes for one parcel; the parcel must reach the friend who asked for it.
+  const wished=()=>page.evaluate(async()=>{const m=await import('/r-practice-data.js');const id=document.querySelector('#r-practice .rp-target').dataset.word,text=m.R_WORDS.find(w=>w.id===id).text;return [...document.querySelectorAll('#r-practice [data-deliver]')].find(b=>b.getAttribute('aria-label').includes(`ezt kéri: ${text}`)).dataset.deliver;});
+  const deliverAll=async()=>{const total=await page.locator('.rp-mission-items span').count();for(let i=0;i<total;i++){await click('advance');await page.locator(`[data-deliver="${await wished()}"]`).click();if(i<total-1)await idle();}return total;};
+  ok(await page.locator('.rp-mission-items span').count()===2&&await page.locator('.rp-wish:not(.is-empty)').count()===2,'Post opens a two-parcel mission and two houses show their wishes');
   await click('advance');ok(await page.locator('[data-deliver]').count()===3&&await page.locator('.rp-parcel').count()===0,'Speaking prepares the parcel without delivering it automatically');
-  await page.locator('[data-deliver="fox"]').focus();await page.locator('[data-deliver="fox"]').press('Enter');await idle();
-  ok(await page.locator('.rp-parcel').count()===1,'Keyboard delivery sends the parcel to the chosen house');
-  await click('advance');await page.locator('[data-deliver="rabbit"]').click();await idle();
+  const house=await wished(),wrongHouse=['fox','bear','rabbit'].find(id=>id!==house);
+  await page.locator(`[data-deliver="${wrongHouse}"]`).click();await idle();
+  ok(await page.locator('.rp-parcel').count()===0&&await page.locator(`[data-deliver="${wrongHouse}"].is-try`).count()===1,'A parcel taken to the wrong house stays with Robot');
+  await page.locator(`[data-deliver="${house}"]`).focus();await page.locator(`[data-deliver="${house}"]`).press('Enter');await idle();
+  ok(await page.locator('.rp-parcel').count()===1,'Keyboard delivery sends the parcel to the friend who asked for it');
+  await click('advance');await page.locator(`[data-deliver="${await wished()}"]`).click();await idle();
   ok(await page.locator('.rp-finish').count()===1&&await page.locator('.rp-parcel').count()===2,'Both delivered parcels remain visible in the finished mission');
   ok(await page.evaluate(()=>performance.now()-qa.roundAt.post>=1000),'Final post display waits for the full one-second success delay');
-  await click('restart');await click('advance');await page.locator('[data-deliver="fox"]').click();await idle();await click('advance');await page.locator('[data-deliver="bear"]').click();
+  await click('restart');await deliverAll();
   ok(await root.getAttribute('data-success-pending')==='true'&&await page.locator('.rp-finish').count()===0,'The last delivered parcel remains on screen before completion');
   await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
   await page.waitForTimeout(1100);ok(await root.getAttribute('data-success-pending')==='true','Hidden time does not consume the success delay');
   await page.evaluate(()=>{delete document.hidden;delete document.visibilityState;document.dispatchEvent(new Event('visibilitychange'));});await idle();
-  await click('restart');await click('advance');await page.locator('[data-deliver="fox"]').click();await idle();await click('advance');await page.locator('[data-deliver="bear"]').click();
+  await click('restart');ok(await deliverAll()===3&&await page.locator('.rp-wish:not(.is-empty)').count()===3,'After two missions Robot carries three parcels for three wishes');
   await click('hub');await resetClips();await page.waitForTimeout(1100);
   ok(await root.getAttribute('data-game')==='hub'&&!await page.evaluate(()=>qa.clips.some(c=>c.id==='r_round_done')),'Leaving cancels the delayed completion sound');
   await enter('workshop');await page.locator('[data-stamp="star"]').click();await click('advance');await page.locator('[data-decoration="heart"]').click();

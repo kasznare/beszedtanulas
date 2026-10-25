@@ -1,0 +1,62 @@
+/* Beszélő képek: larger topics (more than eight cards) use a denser grid so a whole
+   topic, its toolbar and the practice follow-up fit an iPad without page scrolling. */
+#cards .cards-grid[data-density="dense"] .card-emoji .word-picture, #cards .card-peek-choice .card-emoji .word-picture, #cards .card-emoji .dress-icon { display:inline-block; width:1em; height:1em; max-width:none; max-height:none; vertical-align:middle; }
+#cards .card.is-seen { border-color:#cfe2d2; }
+#cards .cards-grid[data-density="dense"] { grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+#cards .cards-grid[data-density="dense"] .card { min-height:126px; padding:10px 4px; border-radius:20px; }
+#cards .cards-grid[data-density="dense"] .card-emoji { font-size:54px; }
+#cards .cards-grid[data-density="dense"] .card-word { margin-top:6px; font-size:1rem; }
+#cards .card-followup { margin:10px 0 0; padding:10px; }
+.cards-toolbar { gap:10px; }
+.card-peek-start { min-height:48px; padding:8px 18px; border:2px solid #e3c98e; border-radius:24px; background:#fff3d2; color:var(--ink); font:inherit; font-weight:800; font-size:1.1rem; cursor:pointer; }
+.card-peek-start.is-new { animation:card-peek-wiggle 1.2s ease-in-out 2; }
+@keyframes card-peek-wiggle { 20% { transform:rotate(-4deg) scale(1.05); } 45% { transform:rotate(4deg) scale(1.05); } 70% { transform:none; } }
+
+/* Kukucs: three "Hol van?" questions on the topic. */
+.card-peek { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.card-peek-dots { display:flex; gap:8px; }
+.card-peek-dots span { display:grid; place-items:center; width:34px; height:34px; border-radius:50%; background:#efe9da; color:#8a8170; font-size:1.2rem; }
+.card-peek-dots .is-current { background:#fff3d2; box-shadow:0 0 0 2px #d9b863; color:var(--ink); }
+.card-peek-dots .is-done { background:#e5f4df; }
+.card-peek-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.card-peek-actions button { min-height:48px; padding:8px 18px; border:2px solid #e0d6c2; border-radius:24px; background:#fffdf8; color:var(--ink); font:inherit; font-weight:750; cursor:pointer; }
+.card-peek-actions .card-peek-listen { border-color:#70a781; background:#e5f4df; font-size:1.15rem; }
+.card-peek-actions button:disabled { opacity:.45; cursor:default; }
+.card-peek-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; width:100%; max-width:760px; }
+#cards .card-peek-choice { min-height:190px; }
+#cards .card-peek-choice.is-found { border-color:#70a781; background:#e5f4df; box-shadow:0 0 0 3px #70a781; }
+#cards .card-peek-choice.is-try { border-color:#d8b47a; background:#fbf1de; }
+.card-peek-status { min-height:1.4em; margin:0; text-align:center; font-weight:700; }
+.card-peek-result { margin:0; font-size:1.5rem; font-weight:800; }
+@media (max-width:600px) {
+  #cards .cards-grid[data-density="dense"] { grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+  #cards .cards-grid[data-density="dense"] .card { min-height:104px; padding:8px 3px; border-radius:17px; }
+  #cards .cards-grid[data-density="dense"] .card-emoji { font-size:44px; }
+  #cards .cards-grid[data-density="dense"] .card-word { font-size:.9rem; }
+  .card-peek-choices { gap:10px; }
+  #cards .card-peek-choice { min-height:150px; }
+  .card-peek-start { padding:8px 12px; font-size:1rem; }
+}
+@media (min-width:900px) and (orientation:landscape) {
+  #cards .cards-grid[data-density="dense"] { grid-template-columns:repeat(6,minmax(0,1fr)); }
+  #cards .cards-grid[data-density="dense"] .card { min-height:118px; }
+  #cards .cards-grid[data-density="dense"] .card-emoji { font-size:50px; }
+}
+@media (orientation:landscape) and (max-height:600px) {
+  #cards .cards-grid[data-density="dense"] { grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
+  #cards .cards-grid[data-density="dense"] .card { min-height:100px; padding:6px 3px; }
+  #cards .cards-grid[data-density="dense"] .card-emoji { font-size:40px; }
+  #cards .cards-grid[data-density="dense"] .card-word { margin-top:3px; font-size:.85rem; }
+  .card-peek { gap:8px; }
+  #cards .card-peek-choice { min-height:130px; padding:8px 4px; }
+  #cards .card-peek-choice .card-emoji { font-size:60px; }
+}
+@media (prefers-reduced-motion:reduce) { .card-peek-start.is-new { animation:none; } }
+/* Seven topics: four columns on landscape tablets, one row on landscape phones. */
+@media (min-width:900px) and (orientation:landscape) and (min-height:601px) {
+  .topic-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media (orientation:landscape) and (max-height:600px) {
+  .topic-grid { grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
+  .topic-tile { font-size:.8rem; }
+}
