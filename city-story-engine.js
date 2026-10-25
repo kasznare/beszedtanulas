@@ -1,4 +1,4 @@
-import { STORY_SCENES, STORY_CLUES, STORY_FEEDBACK, STORY_CLIPS } from './city-story-data.js';
+import { STORY_SCENES, STORY_CLUES, STORY_FEEDBACK, STORY_CLIPS, STORY_ROUTES, STORY_ENDINGS, STORY_ROUTE_INFO } from './city-story-data.js';
 
 export function createStoryState() {
   return { nodeId: 'film-stop', route: null, flags: {}, clues: [], ending: null };
@@ -10,6 +10,18 @@ function matches(state, condition = {}) {
     const actual = key === 'route' || key === 'ending' ? state[key] : state.flags[key];
     return actual === expected || (expected === false && actual === undefined);
   });
+}
+
+// A choice's needs is one condition or a list of alternatives (any one is enough).
+function unlocked(state, choice) {
+  if (!choice.needs) return true;
+  return (Array.isArray(choice.needs) ? choice.needs : [choice.needs]).some((condition) => matches(state, condition));
+}
+
+/** The route that the first close look at the frozen film points to. */
+export function suggestedRoute(state) {
+  const inspected = state?.flags?.inspected;
+  return STORY_ROUTES.find((route) => STORY_ROUTE_INFO[route].clue === inspected) || null;
 }
 
 function currentScene(state) {
@@ -43,7 +55,14 @@ export function getStoryScene(state) {
   return {
     id: scene.id, title: scene.title, chapter: scene.chapter, location: scene.location,
     art: scene.art, paragraphs, voiceIds,
-    choices: activity ? [] : scene.choices.filter((choice) => matches(state, choice.when)).map(({ id, label, hint, icon, voiceId }) => ({ id, label, ...(hint ? { hint } : {}), ...(icon ? { icon } : {}), voiceId })),
+    // Locked choices stay visible, so the child sees that an earlier find would have opened them.
+    choices: activity ? [] : scene.choices.filter((choice) => matches(state, choice.when)).map((choice) => {
+      const { id, label, hint, icon, voiceId, route, lockHint } = choice;
+      const locked = !unlocked(state, choice);
+      return { id, label, ...(hint ? { hint } : {}), ...(icon ? { icon } : {}), voiceId,
+        ...(locked ? { locked: true, lockHint } : {}),
+        ...(route && route === suggestedRoute(state) ? { followsClue: true } : {}) };
+    }),
     ...(activity ? { activity } : {}),
     ...(scene.ending ? { ending: scene.ending } : {}),
     ...(recap.length ? { recap: recap.map((entry) => entry.text), recapVoiceIds: recap.map((entry) => entry.voiceId) } : {}),
@@ -54,7 +73,7 @@ export function getStoryScene(state) {
 export function chooseStoryOption(state, choiceId) {
   const scene = currentScene(state);
   if (activitySolved(state, scene) === false || typeof choiceId !== 'string') return state;
-  const choice = scene.choices.find((entry) => entry.id === choiceId && matches(state, entry.when));
+  const choice = scene.choices.find((entry) => entry.id === choiceId && matches(state, entry.when) && unlocked(state, entry));
   if (!choice) return state;
   if (choice.restart) return createStoryState();
   if (!STORY_SCENES[choice.to]) return state;
@@ -122,4 +141,33 @@ export function completeStoryActivity(state, answer) {
 
 export function getStoryJournal(state) {
   return (Array.isArray(state?.clues) ? state.clues : []).map((id) => STORY_CLUES[id]).filter(Boolean).map((clue) => ({ ...clue }));
+}
+
+/** The first close-look clue, recalled in the epilogue with its recorded detail line. */
+export function getInspectedClue(state) {
+  const id = state?.flags?.inspected;
+  const item = STORY_SCENES['film-stop'].activity.items.find((entry) => entry.id === id);
+  if (!item) return null;
+  const route = suggestedRoute(state);
+  return { id, title: STORY_CLUES[`inspect:${id}`].title, text: item.detail, voiceId: item.detailVoiceId, route, followed: route === state.route };
+}
+
+// Collected stories: one stamp for every investigation route × finale pair.
+export const STORY_STAMP_TOTAL = STORY_ROUTES.length * STORY_ENDINGS.length;
+export function storyStamp(state) {
+  const scene = STORY_SCENES[state?.nodeId];
+  return scene && STORY_ENDINGS.includes(scene.ending) && STORY_ROUTES.includes(state.route) && state.ending === scene.ending ? `${state.route}:${scene.ending}` : null;
+}
+export function normalizeStoryStamps(value) {
+  const valid = new Set(STORY_ROUTES.flatMap((route) => STORY_ENDINGS.map((ending) => `${route}:${ending}`)));
+  return Array.isArray(value) ? [...new Set(value.filter((key) => valid.has(key)))] : [];
+}
+export const STORY_STAMP_PREFIX = 'city_story_stamps_v1:';
+export function loadStoryStamps(storage, scope = 'default') {
+  try { return normalizeStoryStamps(JSON.parse(storage?.getItem(STORY_STAMP_PREFIX + scope) || '[]')); }
+  catch { return []; }
+}
+export function saveStoryStamps(storage, scope = 'default', stamps) {
+  try { storage?.setItem(STORY_STAMP_PREFIX + scope, JSON.stringify(normalizeStoryStamps(stamps))); return true; }
+  catch { return false; }
 }

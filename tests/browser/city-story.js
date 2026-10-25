@@ -58,18 +58,20 @@ async page => {
       ['archive-map', 'archive-arrive'], ['archive-to-court', 'court-arrival'],
     ] },
   ];
+  // Some finale choices need an earlier find: the old camera position (street),
+  // the tried puppet frame and the workshop visit (workshop route).
   const endingCases = [
-    { id: 'film', first: 'ending-film', choices: [
-      ['film-angle-shift', 'film-eszter'], ['film-eszter-live', 'film-direct'],
+    { id: 'film', first: 'ending-film', choices: route => [
+      [route === 'street' ? 'film-angle-shift' : 'film-angle-inside', 'film-eszter'], ['film-eszter-live', 'film-direct'],
       ['film-sequence', 'film-props'],
-    ] },
-    { id: 'theatre', first: 'ending-theatre', choices: [
-      ['theatre-puppets', 'theatre-direct'], ['theatre-rethink', 'theatre-ending'],
-    ] },
-    { id: 'walk', first: 'ending-walk', choices: [
+    ], locked: route => route === 'street' ? null : 'film-angle-shift' },
+    { id: 'theatre', first: 'ending-theatre', choices: route => [
+      [route === 'workshop' ? 'theatre-puppets' : 'theatre-boards', 'theatre-direct'], ['theatre-rethink', 'theatre-ending'],
+    ], locked: route => route === 'workshop' ? null : 'theatre-puppets' },
+    { id: 'walk', first: 'ending-walk', choices: route => route === 'workshop' ? [
       ['walk-long', 'walk-workshop'], ['walk-from-workshop', 'walk-door'],
       ['walk-wide', 'walk-ending'],
-    ] },
+    ] : [['walk-short', 'walk-door'], ['walk-wide', 'walk-ending']], locked: route => route === 'workshop' ? null : 'walk-long' },
   ];
 
   await enter();
@@ -86,6 +88,7 @@ async page => {
       await check();
       ok(await root.locator('#city-story-journal b').innerText() === '1', 'Investigated clue reaches the journal');
       await choose('begin-investigation', 'route-choice');
+      ok(await root.locator(`[data-story-choice="${route.first}"]`).evaluate(button => button.classList.contains('follows-clue')), 'The inspected detail highlights its route');
       await choose(route.first, route.id === 'street' ? 'street-number' : route.id === 'workshop' ? 'workshop-red' : 'archive-envelope');
       ok(await root.getAttribute('data-route') === route.id, `${route.id} route is recorded`);
       if (route.id === 'archive') {
@@ -123,7 +126,15 @@ async page => {
       await choose(['layout-wall', 'layout-later', 'layout-library'][endingIndex], 'ending-choice');
       await choose(ending.first, ending.id === 'film' ? 'film-prep' : ending.id === 'theatre' ? 'theatre-prep' : 'walk-prep');
       ok(await root.getAttribute('data-ending') === ending.id, `${ending.id} plan is recorded`);
-      for (const [choice, destination] of ending.choices) await choose(choice, destination);
+      const lockedChoice = ending.locked(route.id);
+      if (lockedChoice) {
+        const lockedButton = root.locator(`[data-story-choice="${lockedChoice}"]`);
+        ok(await lockedButton.getAttribute('aria-disabled') === 'true', `${route.id}/${ending.id}: ${lockedChoice} is locked by earlier decisions`);
+        const before = await node();
+        await lockedButton.click();
+        ok(await node() === before && (await root.locator('#city-story-status').innerText()).length > 0, `${lockedChoice} explains why it is locked`);
+      }
+      for (const [choice, destination] of ending.choices(route.id)) await choose(choice, destination);
       if (ending.id === 'film') {
         for (const id of ['pillow', 'board', 'bread']) await item(id);
         ok(await root.locator('[data-story-item][aria-pressed="true"]').count() === 3, 'Exactly three film props are selected');
@@ -133,6 +144,10 @@ async page => {
       const endingNode = `${ending.id}-ending`;
       await at(endingNode);
       ok(await root.locator('#city-story-scene-title').innerText() !== '', `${route.id}/${ending.id}: ending is rendered`);
+      const found = routeIndex * endingCases.length + endingIndex + 1;
+      ok((await root.locator('#city-story-stamps b').innerText()) === `${found}/9`, `${route.id}/${ending.id}: a new story stamp is collected`);
+      ok(await root.locator('.city-story-stamps td.is-new').count() === 1, 'the new stamp is highlighted');
+      ok(await root.locator('#city-story-home').innerText() === 'Vissza a Fejtörőkhöz', 'the leave button names the menu it opens');
       await choose(`${ending.id}-epilogue`, 'epilogue');
       ok(await root.getAttribute('data-route') === route.id && await root.getAttribute('data-ending') === ending.id, `${route.id}/${ending.id}: route and ending survive the epilogue`);
       ok(await root.locator('.city-story-recap li').count() >= 2, `${route.id}/${ending.id}: ending recap has route and outcome`);
@@ -193,6 +208,7 @@ async page => {
   await at('film-stop');
   ok(await root.locator('#city-story-journal b').innerText() === '0', 'Reload begins a new session without writing story progress');
   ok(JSON.parse(await progress()).rewards === JSON.parse(originalProgress).rewards, 'Reload preserves earned rewards');
+  ok(await root.locator('#city-story-stamps b').innerText() === '9/9', 'Collected story stamps survive a reload');
 
   const workerReady = await page.waitForFunction(() => navigator.serviceWorker.controller && document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'), undefined, { timeout: 20000 }).then(() => true, () => false);
   if (!workerReady) {

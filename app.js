@@ -480,6 +480,7 @@ cityStoryGame = setupCityStoryGame({
   hasVoice: id => Boolean(VOICE_CLIPS[id]),
   speak: (ids, force = false) => { if (force || state.settings.spokenGuidance) return speakVoiceSequence(ids); },
   onHome: () => showScreen("big-menu"),
+  getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
 });
 differencesGame = setupDifferencesGame({
   effect: playEffect,

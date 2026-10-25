@@ -230,7 +230,7 @@ add('court-memory', {
   ],
   choices: [
     { id: 'memory-enact', label: 'Játsszuk el sorban a három pillanatot.', to: 'court-practice', set: { retelling: 'enact' }, clue: 'Eljátszva látható: a próba, az elpakolás és az esti zárás külön pillanat.' },
-    { id: 'memory-frame', label: 'Mutassuk meg a képen kívül maradt fordulót.', to: 'court-practice', set: { retelling: 'frame' }, clue: 'A teljes udvar megmutatja, ami a régi képkivágásból hiányzott.' },
+    { id: 'memory-frame', label: 'Mutassuk meg a képen kívül maradt fordulót.', needs: [{ frameEdgeKnown: true }, { cartTurnKnown: true }, { benchScale: true }, { routePlan: true }], lockHint: 'Ehhez tudni kell, mi maradt ki a régi képből: a kocsi fordulója, a dobogó mérete vagy az udvarrajz.', to: 'court-practice', set: { retelling: 'frame' }, clue: 'A teljes udvar megmutatja, ami a régi képkivágásból hiányzott.' },
   ],
 });
 
@@ -287,7 +287,7 @@ add('film-prep', {
     { when: { cameraReady: false }, paragraphs: ['Két helyet próbáltok ki most: az utca felől jól látszik a nyíló kapu, az udvarból a megérkező emberek.'] },
   ],
   choices: [
-    { id: 'film-angle-shift', label: 'Induljunk a régi képből, aztán tárjuk fel az egész udvart.', to: 'film-eszter', set: { filmAngle: 'shift', camera: 'original' }, clue: 'A mai film kamerája megmutatja a régi kép szélén kívüli szabad utat.' },
+    { id: 'film-angle-shift', label: 'Induljunk a régi képből, aztán tárjuk fel az egész udvart.', needs: { cameraReady: true }, lockHint: 'A régi kameraállást a kék kapu nyomán lehet megtalálni.', to: 'film-eszter', set: { filmAngle: 'shift', camera: 'original' }, clue: 'A mai film kamerája megmutatja a régi kép szélén kívüli szabad utat.' },
     { id: 'film-angle-inside', label: 'Az udvarból vegyük fel az érkezőket és a kaput.', to: 'film-eszter', set: { filmAngle: 'inside', camera: 'wide' }, clue: 'A mai filmben minden érkező és a kocsi fordulója is látszik.' },
   ],
 });
@@ -372,7 +372,7 @@ add('theatre-prep', {
     { when: { puppetReady: false }, paragraphs: ['A bábkeretet még nem próbáltátok. A keskeny keret vagy a könyvtár mozgatható képtartója közül választhatsz.'] },
   ],
   choices: [
-    { id: 'theatre-puppets', label: 'Állítsuk fel a keskeny bábkeretet és jelöljük ki a nézőteret.', to: 'theatre-direct', set: { theatreForm: 'puppets' }, clue: 'A bábkeret elfér a kipróbált szabad átjáró mellett.' },
+    { id: 'theatre-puppets', label: 'Állítsuk fel a keskeny bábkeretet és jelöljük ki a nézőteret.', needs: { puppetReady: true }, lockHint: 'A bábkeretet Dani műhelyében lehet kipróbálni.', to: 'theatre-direct', set: { theatreForm: 'puppets' }, clue: 'A bábkeret elfér a kipróbált szabad átjáró mellett.' },
     { id: 'theatre-boards', label: 'Mozgatható képtartókkal mutassuk meg a három képet.', to: 'theatre-direct', set: { theatreForm: 'boards' }, clue: 'A mozgatható képtartókat félre lehet állítani, ha a kocsi érkezik.' },
   ],
 });
@@ -424,7 +424,7 @@ add('walk-prep', {
   ],
   choices: [
     { id: 'walk-short', label: 'Három állomás: régi nézőpont, zöld kapu, könyvtár.', to: 'walk-door', set: { walkRoute: 'short' }, clue: 'A rövid séta három ellenőrzött állomásból áll.' },
-    { id: 'walk-long', label: 'Tegyük bele Dani műhelyét és egy mozgatható képtáblát.', to: 'walk-workshop', set: { walkRoute: 'long' }, clue: 'A hosszabb séta a műhely padjának javítását is megmutatja.' },
+    { id: 'walk-long', label: 'Tegyük bele Dani műhelyét és egy mozgatható képtáblát.', needs: { route: 'workshop' }, lockHint: 'Ehhez előbb Dani műhelyében kell járnod.', to: 'walk-workshop', set: { walkRoute: 'long' }, clue: 'A hosszabb séta a műhely padjának javítását is megmutatja.' },
   ],
 });
 
@@ -446,7 +446,7 @@ add('walk-door', {
   ],
   choices: [
     { id: 'walk-wide', label: 'Álljunk az utca szélesebb részére.', to: 'walk-ending', set: { walkStop: 'wide' }, clue: 'A csoport a tér szélesebb részéről figyeli meg a kaput.' },
-    { id: 'walk-small', label: 'Előbb mutassuk a képtáblát, majd kisebb csoportban lépjünk közelebb.', to: 'walk-ending', set: { walkStop: 'small' }, clue: 'A pékség bejárata a kisebb csoportos megfigyelésnél is szabad marad.' },
+    { id: 'walk-small', label: 'Előbb mutassuk a képtáblát, majd kisebb csoportban lépjünk közelebb.', needs: [{ walkWorkshopChecked: true }, { pictureStrip: true }], lockHint: 'Ehhez képtábla vagy képsor kell: a műhelyben vagy a könyvtárban készülhet.', to: 'walk-ending', set: { walkStop: 'small' }, clue: 'A pékség bejárata a kisebb csoportos megfigyelésnél is szabad marad.' },
   ],
 });
 
@@ -519,6 +519,9 @@ add('recall-help', {
 
 export const STORY_ENDINGS = ['film', 'theatre', 'walk'];
 export const STORY_ROUTES = ['street', 'workshop', 'archive'];
+// Stamp collection labels (shown, not spoken). The first close look points to a route.
+export const STORY_ROUTE_INFO = { street: { label: 'Kapu', icon: '🚪', clue: 'gate' }, workshop: { label: 'Pad', icon: '🪑', clue: 'bench' }, archive: { label: 'Füzet', icon: '📓', clue: 'notebook' } };
+export const STORY_ENDING_INFO = { film: { label: 'Film', icon: '🎬' }, theatre: { label: 'Előadás', icon: '🎭' }, walk: { label: 'Séta', icon: '🚶' } };
 
 export const STORY_FEEDBACK = {
   inspectInvalid: clip('feedback.inspectInvalid', 'Válassz egy látható részletet a képkockán; utána indulhatunk tovább.'),
