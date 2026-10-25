@@ -491,7 +491,9 @@ differencesGame = setupDifferencesGame({
 patternsGame = setupPatternsGame({
   effect: playEffect,
   stopPlayback,
-  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return speakVoice(id); },
+  getScope: () => state.profileStore?.activeKey || profileKey(state.supabase),
+  // Growing patterns count their dot groups aloud as a sequence of number clips.
+  speak: (id, force = false) => { if (force || state.settings.spokenGuidance) return Array.isArray(id) ? speakVoiceSequence(id) : speakVoice(id); },
   onRestart: () => roundSuccess.cancel(),
   onComplete: ({ count }) => celebrateRound('patterns', count),
 });
@@ -656,7 +658,7 @@ applyProjectSupabaseConfig();
 if (window.supabase) trySupabaseAutoconnect();
 else document.querySelector("#supabase-sdk").addEventListener("load", trySupabaseAutoconnect, { once: true });
 setupPlayTime();
-setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, [data-pattern-choice], #patterns-undo, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
+setupInterfaceEffects({ audio: effects, skipSelector: '[data-mo-piece], [data-mo-target], [data-mo-take], [data-mo-blocker], .puzzle-piece, .puzzle-slot, .differences-picture, [data-pattern-choice], [data-pattern-cell], #patterns-undo, .chess-square, .memory-card, .teddy-plate, .dress-choice, .listening-answer' });
 document.addEventListener("visibilitychange", () => { if (document.hidden) effects.stop(); else effects.sync(); });
 window.addEventListener("pagehide", () => effects.stop());
 
