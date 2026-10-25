@@ -34,7 +34,7 @@ export function setupNumberGames({effect=()=>{},onRestart=()=>{},getProgress,set
     const opts=options(),self=opts.numberSelf&&!session.solved;
     // Self counting ends with a choice of three numerals before the total is revealed.
     const asking=mode==='count'&&session.choices.length>0&&!session.solved;
-    root.innerHTML=`<div class="numbers-wrap"><h2 id="numbers-title" class="sr-only">${mode==='count'?'Számoljuk meg!':'Keresd meg!'}</h2>
+    root.innerHTML=`<div class="numbers-wrap">
       <div class="upgrade-options" role="group" aria-label="Számolási segítség">${mode==='count'?`<button data-number-setting="numberSelf" data-value="false" aria-pressed="${!opts.numberSelf}">Együtt számolunk</button><button data-number-setting="numberSelf" data-value="true" aria-pressed="${opts.numberSelf}">Előbb megszámolom</button>`:`<button data-number-setting="quizDifficulty" data-value="wide" aria-pressed="${opts.quizDifficulty==='wide'}">Két különböző</button><button data-number-setting="quizDifficulty" data-value="close" aria-pressed="${opts.quizDifficulty==='close'}">Három hasonló</button>`}</div>
       <div class="upgrade-options" role="group" aria-label="Tárgyak elrendezése"><button data-number-setting="numberLayout" data-value="rows" aria-pressed="${opts.numberLayout!=='scattered'}">Sorokban</button><button data-number-setting="numberLayout" data-value="scattered" aria-pressed="${opts.numberLayout==='scattered'}">Szétszórva</button></div>
       <p class="upgrade-note" id="number-round-progress">${session.completed} / ${session.length} feladat megvan</p>
