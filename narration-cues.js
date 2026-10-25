@@ -85,7 +85,7 @@ const map = {
 
 export function narrationCue(id, screen) {
  if (map[id]) return map[id];
- if (id.startsWith('workshop_level_')) return {target:'.ws-levels'};
+ if (id.startsWith('workshop_level_')) return {target:'.ws-levels, .ws-level-strip [aria-pressed="true"]'};
  if (id.startsWith('workshop_n_')) return {target:'.ws-balance-reference'};
  if (/^workshop_(sort|pattern|balance)_hint[23]$/.test(id)) return {target:'.ws-hint-focus'};
  if (id.startsWith('workshop_sort_')) return {target:'.ws-sort-layout'};

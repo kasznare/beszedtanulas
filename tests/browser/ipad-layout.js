@@ -242,6 +242,38 @@ async page => {
         await click('#back-button');
         if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`Montessori ${game}: back did not return to ${menu}`);
       }
+      // Műhelyliget: every level from the in-game strip, a failed check and a finished task (with its win banner).
+      const workshopTitles = { sort: 'Válogatókert', pattern: 'Mintaszövő', balance: 'Egyensúlyműhely' };
+      for (const game of ['sort', 'pattern', 'balance']) {
+        const workshopMenu = game === 'balance' ? 'number-menu' : 'shape-menu';
+        await open(workshopMenu);
+        await click(`#${workshopMenu} [data-kind="${game}"]`);
+        for (const level of [3, 2, 1]) {
+          await click(`#ws-game-level-${level}`); await titleFocused();
+          if (await p.locator('#screen-title').innerText() !== workshopTitles[game]) throw Error(`${game}: level change lost the title`);
+          await check(`${size}:workshop-${game}-${level}`);
+          if (await p.locator('#ws-check').count()) { await click('#ws-check'); await check(`${size}:workshop-${game}-${level}-retry`); }
+        }
+        const solution = await p.evaluate(async game => {
+          const d = await import('./workshop-data.js'), saved = JSON.parse(localStorage.getItem('speech_game_progress_v1'));
+          const session = saved.workshop.sessions[game][0], t = d.workshopTaskForSession(session);
+          return { destinations: game === 'sort' ? t.objects.map(o => d.workshopSortTarget(t, o)) : [], holes: t.holes || [], sequence: t.sequence || [], rods: game === 'balance' ? d.workshopBalanceSolutions(t)[0] : [], done: session.done };
+        }, game);
+        if (!solution.done) {
+          if (game === 'balance') { while (await p.locator('[data-take]').count()) await click('[data-take]'); for (const rod of solution.rods) await click(`[data-add="${rod}"]`); }
+          if (game === 'pattern') for (const [i, position] of solution.holes.entries()) { await click(`[data-slot="${i}"]`); await click(`[data-choice="${solution.sequence[position]}"]`); }
+          if (game === 'sort') for (let round = 0; round < 2; round++) {
+            const now = await p.evaluate(async () => { const d = await import('./workshop-data.js'), s = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions.sort[0], t = d.workshopTaskForSession(s); return t.objects.map(o => d.workshopSortTarget(t, o)); });
+            for (const [i, bin] of now.entries()) { await click(`[data-token="${i}"]`); await click(`[data-bin="${bin}"]`); }
+            await click('#ws-check');
+          }
+          else await click('#ws-check');
+          await p.locator('.ws-celebration').waitFor();
+        }
+        await check(`${size}:workshop-${game}-done`);
+        await click('#back-button');
+        if (await p.locator('body').getAttribute('data-screen') !== workshopMenu) throw Error(`Workshop ${game}: back did not return to ${workshopMenu}`);
+      }
       await open('picture-menu', 'animal-book');
       for (const mode of ['abk-sound', 'abk-search', 'abk-browse']) { await click(`#${mode}`); await check(`${size}:${mode}`); }
       for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {

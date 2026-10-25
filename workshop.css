@@ -177,11 +177,25 @@
 @media(max-width:375px) { .ws-pattern-thread { grid-template-columns:repeat(4,minmax(0,1fr)); }.ws-bins { grid-template-columns:minmax(0,1fr); }.ws-leaf-bin { grid-template-columns:100px minmax(0,1fr); } }
 @media(min-width:650px) and (max-width:760px) and (max-height:540px) { .ws-pattern-thread { grid-template-columns:repeat(6,minmax(0,1fr)); } }
 
+/* Per-game level strip and the win banner share the toolbar row, so neither pushes the work down. */
+.ws-level-strip { display:flex; gap:6px; flex-wrap:nowrap; }
+.workshop-panel .ws-level-strip button { display:flex; align-items:center; gap:6px; min-height:44px; min-width:48px; padding:6px 10px; background:#edeedc; font-size:.85rem; }
+.ws-level-strip button>span:first-child { font-size:.6rem; letter-spacing:1px; color:#826c38; }
+.workshop-panel .ws-level-strip button[aria-pressed=true] { color:white; background:var(--ws-green); border-color:var(--ws-green); }
+.ws-level-strip button[aria-pressed=true]>span:first-child { color:#fff3c5; }
+.ws-level-strip button[aria-pressed=false] .ws-level-name { display:none; }
+.ws-toolbar .ws-celebration { margin:0; padding:4px 14px; }
+.ws-stars { color:#b9841d; font-size:1.25rem; letter-spacing:2px; }
+.ws-bounced { animation:ws-bounce .45s ease-out; }
+@keyframes ws-bounce { 0% { transform:translateX(0); } 25% { transform:translateX(-7px); } 50% { transform:translateX(6px); } 75% { transform:translateX(-3px); } 100% { transform:translateX(0); } }
+.ws-fixed-rod { display:flex; align-items:center; gap:5px; min-height:46px; padding:5px 7px; border:2px solid #a9b4ab; border-radius:10px; background:#eef0e8; font-size:.85rem; }
+.ws-fixed-rod>span:last-child { font-size:.9rem; }
+@media(max-width:400px) { .workshop-panel .ws-level-strip button { padding:6px 8px; } .ws-level-strip { gap:4px; } }
 /* Tablets: the win banner fills the empty middle of the toolbar row instead of pushing the work down. */
 @media(min-width:700px) and (min-height:600px) {
  .ws-heading { margin:4px 0 8px; }.ws-heading p { margin-top:0; }.ws-status { margin:6px 0; }.ws-actions { padding-bottom:4px; }
  .workshop-panel { position:relative; }
- .ws-celebration { position:absolute; top:0; left:0; right:0; z-index:1; width:fit-content; height:48px; box-sizing:border-box; margin:0 auto; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
+ .ws-toolbar .ws-celebration { height:48px; padding:0 16px; gap:10px; }.ws-celebration>span { font-size:1.4rem; }
  .ws-found-solutions { padding:6px 8px; gap:4px 6px; }.ws-found-solutions strong { flex-basis:auto; font-size:.85rem; }.ws-found-solutions span { font-size:.85rem; }
  /* Left: counts, scale, sentence, checks. Right: the target beads, the rule, your beads, the tray and found solutions. */
  .ws-balance-scene { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-rows:auto auto auto auto auto auto; gap:6px 14px; align-items:center; padding:10px; }

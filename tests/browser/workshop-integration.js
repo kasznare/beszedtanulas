@@ -51,6 +51,13 @@ async page => {
   }
   await page.locator('button[data-level="1"]').click(); await page.locator('[data-game="balance"]').click(); await solve('balance',await task('balance',1)); await page.locator('#ws-check').click();
   ok((await state()).workshop.games.balance[0].independent === 1, 'Independent results are distinct from helped results');
+  await page.locator('#ws-back').dispatchEvent('click'); await page.locator('[data-game="sort"]').click();
+  const bounceTask = await task('sort',1), wrongBin = (bounceTask.destinations[0]+1) % bounceTask.bins.length;
+  await page.locator('[data-token="0"]').click(); await page.locator(`[data-bin="${wrongBin}"]`).click();
+  ok((await state()).workshop.sessions.sort[0].moves.placements[0] === -1 && await page.locator('.ws-token-pool [data-token="0"]').count() === 1, 'Felfedező sorting sends a wrongly placed object straight back');
+  await page.locator('#ws-game-level-2').click();
+  ok((await state()).settings.workshopSortLevel === 2 && (await state()).settings.workshopPatternLevel === 1 && await page.locator('#screen-title').innerText() === 'Válogatókert', 'The in-game level strip changes only this workshop');
+  await page.locator('#ws-game-level-1').click();
   const child = (await state()).workshop;
   await parent(); await page.locator('#supabase-role').selectOption('admin');
   ok(Object.values((await state()).workshop.sessions).flat().every(s=>s===null), 'Parent trial has separate workshop attempts');

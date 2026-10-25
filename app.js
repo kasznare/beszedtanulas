@@ -42,7 +42,7 @@ import { ANIMAL_BOOK_PAGES } from "./animal-book-data.js";
 import { setupRPractice } from "./r-practice-game.js";
 import { normalizeRProgress, matchRPracticeSpeech } from "./r-practice-data.js";
 import { detectRVoiceActivity } from "./r-practice-media.js";
-import { normalizeWorkshop, WORKSHOP_NAMES } from "./workshop-data.js";
+import { normalizeWorkshop, normalizeWorkshopOptions, WORKSHOP_LEVEL_KEYS, WORKSHOP_NAMES } from "./workshop-data.js";
 import { normalizeLogic, LOGIC_NAMES } from "./logic-data.js";
 import { normalizeMeadow } from "./meseliget-data.js";
 import { recognizeHungarianSpeech, SPEECH_TIMING, speechErrorMessage } from "./speech-recognition.js";
@@ -69,7 +69,7 @@ const SUPABASE_CONFIG_DEFAULTS = {
   activeRole: PROJECT_SUPABASE?.activeRole === "admin" ? "admin" : "kid",
   syncPaused: false,
 };
-const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions(), ...normalizePracticeSettings(), ...normalizeNumberSettings() };
+const SETTINGS_DEFAULTS = { roundLength: 5, spokenGuidance: true, wordVoice: "natural", numberLimit: 3, practiceTopic: "all", listeningChoices: 2, mathLimit: 5, shopLevel: 1, machineLevel: 1, routeLevel: 1, routeView: "map", memoryPairs: 3, workshopLevel: 1, ...normalizeWorkshopOptions(), pourLevel: 1, ...normalizePuzzleOptions(), ...normalizeMontessoriOptions(), ...normalizeEffectOptions(), ...normalizePracticeSettings(), ...normalizeNumberSettings() };
 const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
@@ -522,10 +522,14 @@ workshopGame = setupWorkshop({
   effect: playEffect,
   getProgress: () => state.workshop, getOptions: () => state.settings,
   speak: ids => speakVoiceSequence(ids), stopPlayback,
-  setLevel: level => {
+  setLevel: (level, kind) => {
     if (![1, 2, 3].includes(level)) return;
-    state.settings.workshopLevel = level;
-    document.querySelector('#workshop-level').value = level;
+    if (WORKSHOP_LEVEL_KEYS[kind]) state.settings[WORKSHOP_LEVEL_KEYS[kind]] = level;
+    else {
+      state.settings.workshopLevel = level;
+      Object.assign(state.settings, normalizeWorkshopOptions({ workshopLevel: level }));
+      document.querySelector('#workshop-level').value = level;
+    }
     saveProgress();
   },
   updateProgress: (progress, reward) => {
@@ -1363,6 +1367,7 @@ function normalizeState(input) {
       ...normalizePracticeSettings(input.settings),
       ...normalizeNumberSettings(input.settings),
       workshopLevel: [1, 2, 3].includes(input.settings?.workshopLevel) ? input.settings.workshopLevel : 1,
+      ...normalizeWorkshopOptions(input.settings),
       pourLevel: [1, 2, 3].includes(input.settings?.pourLevel) ? input.settings.pourLevel : 1,
       practiceTopic: wordCategories.some(category => category.id === input.settings?.practiceTopic) ? input.settings.practiceTopic : "all",
     },
@@ -2422,6 +2427,8 @@ function setupParentSettings() {
     const select = document.querySelector(`#${id}`); select.value = state.settings[key];
     select.addEventListener('change', () => {state.settings[key] = Number(select.value); saveProgress();});
   }
+  // The parent choice sets all three workshops; each game can still change its own level.
+  document.querySelector('#workshop-level').addEventListener('change', () => { Object.assign(state.settings, normalizeWorkshopOptions({ workshopLevel: state.settings.workshopLevel })); saveProgress(); });
   const roundLength = document.querySelector("#round-length");
   const topic = document.querySelector("#practice-topic");
   const wordVoice = document.querySelector("#word-voice");
