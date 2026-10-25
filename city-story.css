@@ -156,3 +156,7 @@ body[data-screen="city-story"] .app { max-width:1200px; }
 .city-story-stamps td:not(:first-child) { width:44px; height:34px; text-align:center; border:1.5px dashed #c5d2c6; border-radius:10px; color:#b8c4b8; font-size:1.15rem; }
 .city-story-stamps td.is-found { border-style:solid; border-color:#d0a447; background:#fbefcf; color:#c08a1e; }
 .city-story-stamps td.is-new { box-shadow:0 0 0 3px #e8b53c88; }
+
+/* The story counter joined the toolbar: buttons keep their 44px touch size and the row may wrap. */
+.city-story-tools { flex-wrap:wrap; justify-content:flex-end; }
+.city-story-tools button { flex-shrink:0; min-width:44px; }

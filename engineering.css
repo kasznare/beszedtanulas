@@ -186,3 +186,9 @@
   #engineering .en-score>strong { margin:0; font-size:26px; }
   #engineering .en-score>div { flex-direction:column; align-items:flex-end; gap:0; }
 }
+
+/* Phones: the five building pieces get a full-width row, so they never cover the place button. */
+@media(max-width:699px) {
+  #engineering .en-palette { grid-column:1/-1; grid-row:auto; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
+  #engineering .en-palette>button { min-height:56px; }
+}
