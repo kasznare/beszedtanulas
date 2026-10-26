@@ -348,6 +348,35 @@ A `--all` a rövid játékhangjegyzék egészét ellenőrzi; a meséket, család
 
 A felismerő sem szöveges súgásként, sem előző felvételként nem kapja meg az elvárt szöveget. Az összehasonlítás megtartja az ékezeteket és a kettőzött betűket: `széles/szeles`, `csobbant/csoban`, `rúddal/rúdal` eltérés marad. Az eltérő átirat meghallgatási jelzés, önmagában nem bizonyít hibás kiejtést; az egyező átirat sem jóváhagyás, mert a felismerő kijavíthatja a hallott hibát. A szóidők nem mérik az egyes hangok hosszúságát. A `voice-rejections.json` elutasított felvételei hangazonosító helyett a konkrét hang ellenőrzőösszegével kapcsolódnak a riporthoz: egy hibátlan gépi átirat sem írja felül a felhasználó visszajelzését. Az eszköz semmit nem telepít a játék hangjai közé.
 
+## Teljes mesék helyi ellenőrzése és részleges javítása
+
+A `scripts/audit-audiobooks.py` a Mesetár ténylegesen elkészült felvételeit ellenőrzi. Az eredeti címet és szöveget a felvétel bizonylata szerinti alakban használja; a szerző nevét nem teszi a felolvasott szöveg elé. Előbb ellenőrzi a hangok hash-ét, majd az előző szakaszban telepített helyi felismerőt futtatja. A meglévő meséket és feliratokat nem változtatja meg, nincs fizetős API-hívás.
+
+~~~bash
+# Az aktivált voice-qa környezetben, Apple Silicon gépen:
+python scripts/audit-audiobooks.py --backend mlx --output output/audiobook-qa/review
+# Csak jegyzékellenőrzés és előkészítés, hangfelismerés nélkül:
+python scripts/audit-audiobooks.py --prepare --output output/audiobook-qa/review
+# Egy korábbi vagy még futó audit meghallgatási riportjának frissítése:
+python scripts/review-audiobooks.py --audit output/audiobook-qa/review/report.json --manifest output/audiobook-qa/review/manifest.json
+~~~
+
+A `listening-review.html` a gyanús részletekre ugró lejátszást és az eredeti mondatokat mutatja. A `listening-review.json` hang- és szöveghash-hez kötött mondatjelölteket tartalmaz. A szóhatár- és írásképbeli eltérések külön csoportba kerülnek; az ékezet és a mássalhangzó-hossz eltérése megmarad. A riport feltünteti, ha még nincs minden mese feldolgozva. Az ASR-időablak csak meghallgatáshoz való, nem automatikus vágási pont és nem bizonyított kiejtési hiba.
+
+HTTP-n megnyitva az időpontra ugráshoz byte-range kiszolgálás szükséges; a Python egyszerű `http.server` kiszolgálója erre nem elég. A projekt meglévő helyi médiaszerverével ellenőrizhető: `python3 tests/browser/audiobooks-fixture.py 5193`, majd `http://127.0.0.1:5193/output/audiobook-qa/review/listening-review.html`. A riport és a hangmásolatok helyiek, nem kerülnek a nyilvános portálra.
+
+A `scripts/patch-audiobook.py` már meglévő helyettesítő felvételből készít **ellenőrizetlen javítási mintát**, új `output/` könyvtárba. Általában teljes mondatot célszerű cserélni; szócsere csak tisztán elválasztható hanghatároknál indokolt. A helyettesítő hang generálásához előbb fonetikus `spokenText`, a teljes mondat kiejtési ellenőrzése és friss keretellenőrzés kell. A script maga nem generál hangot és nem fogyaszt kreditet.
+
+A terv JSON-mezői: `storyId`, `baseAudioSha256`, a teljes felolvasási referenciaszöveg `sourceTextSha256` értéke és a `patches` lista. Minden csere tartalmazza az `id`, `start`, `end`, `displayStart`, `displayEnd`, `text`, `spokenText`, `replacementFile`, `replacementSha256`, `replacementStart`, `replacementEnd` mezőket. Az időpontok másodpercben, a szöveghatárok Python-karakterindexként értendők; a végpontok kizárók. A szövegindexek a címet is tartalmazó teljes referencia alapján készülnek. A cserehangnak már léteznie kell, a vágásokat meg kell hallgatni.
+
+~~~bash
+python scripts/patch-audiobook.py output/javitasi-terv.json --output output/mese-javitas-01 --dry-validate
+# Csak ellenőrzés után, új célkönyvtárba:
+python scripts/patch-audiobook.py output/javitasi-terv.json --output output/mese-javitas-01 --mp3
+~~~
+
+Az eszköz PCM-ben illeszti össze a részeket; az eredeti felolvasás többi részét nem kell újranarrálni. A változatlan szakaszok a közös PCM-formátumra dekódolt forrással egyeznek. Az opcionális MP3 egyszeri, veszteséges kódolás. A mintához új hash-ek és időeltolási térkép készül; ez a javított mondat belső szóidőit még nem igazolja. Éles csere előtt új szóigazítás, felirat- és animációidőzítés, a vágások meghallgatása és az összefűzött mese ismételt helyi ellenőrzése szükséges. A script nem telepít hangot vagy metaadatot a portálba.
+
 ## Hangeffektek a mozdulatokhoz
 
 A koppintás és a kijelölés rövid közös jelzést kap. A Montessori megfogás, fa ütközés, átesés, forgatás, akadálycsúsztatás és golyólerakás külön hallható. A Rendezőrács és Mintaemlék lerakása illesztési, a minta elrejtése és újranézése papírhangot kap; az ellenőrzés külön sikert vagy újrapróbálást jelez. A sakkban külön figurakoppanás, ütési és visszavonási hang van; a képkirakó megfogást, illesztést és visszatételt jelez, a kártyák papírfordítást. A macis játékok étel- és ruhamozdulatai, a Meseliget almái/tányérjai, a Műhelyliget rudai és formái, a bolt, a szabálygép, a róka lépései és az R-kaland képes találatai is effektet kapnak. A meglévő vízöntési hang ugyanarra a külön szabályozható effektkimenetre kapcsolódik.

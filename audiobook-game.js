@@ -41,7 +41,7 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
   });
   function update(state = player.getState()) {
     onListeningChange(active && state.phase === 'playing');
-    if (!active) return;
+    if (!active || !$('#story-toggle')) return;
     const story = stories.find(story => story.id === state.storyId);
     if (!story) return;
     if (state.offlineSaved) downloaded.add(story.id);
@@ -72,6 +72,7 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
     }
     $('#story-cover').textContent = story.emoji;
     root.dataset.phase = state.phase;
+    root.dataset.errorKind = state.errorKind || '';
     $('#story-toggle').disabled = pending || ['idle', 'loading'].includes(state.phase);
     $('#story-toggle').setAttribute('aria-label', pending ? 'A felolvasás még nem érhető el' : playing ? 'Mese szüneteltetése' : state.position && state.phase !== 'ended' ? 'Mese folytatása' : 'Mese lejátszása');
     $('#story-toggle').innerHTML = pending ? `<span aria-hidden="true">📖</span><strong>${story.audioStatus === 'rights-pending' ? 'Forrásra vár' : 'Hangra vár'}</strong>` : `<span aria-hidden="true">${playing ? 'Ⅱ' : '▶'}</span><strong>${playing ? 'Szünet' : state.phase === 'error' ? 'Újrapróbálom' : state.position && state.phase !== 'ended' ? 'Folytatom' : 'Meghallgatom'}</strong>`;
@@ -82,7 +83,16 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
     seek.setAttribute('aria-valuetext', `${formatStoryTime(state.position)} / ${formatStoryTime(state.duration)}`);
     $('#story-elapsed').textContent = formatStoryTime(state.position);
     $('#story-duration').textContent = formatStoryTime(state.duration);
-    const status = story.audioStatus === 'rights-pending' ? 'A mű még forrásellenőrzésre vár. A megadott kiadás modern átdolgozását nem közöljük újra.' : pending ? 'A teljes szöveg már olvasható. A hang az előfizetési keret felszabadulására vár.' : state.phase === 'error' ? 'A mese most nem indult el. Ellenőrizd az internetet, és próbáld újra!' : state.phase === 'loading' ? 'Előkészítjük a mesét…' : state.phase === 'buffering' ? 'A mese betöltődik…' : state.phase === 'playing' ? 'Szól a mese.' : state.phase === 'ended' ? 'Vége a mesének. Újra meghallgathatod, vagy választhatsz egy másikat.' : state.phase === 'paused' ? 'Itt tartunk. Folytassuk, amikor szeretnéd!' : 'A nagy gombbal indul a mese.';
+    const errorStatus = {
+      'not-allowed': 'A böngésző új koppintást kér. Koppints az Újrapróbálom gombra!',
+      interrupted: 'A lejátszás megszakadt. Koppints az Újrapróbálom gombra!',
+      network: 'A hang nem töltődött be. Ellenőrizd a kapcsolatot, és próbáld újra!',
+      decode: 'A hangot most nem sikerült lejátszani. Koppints az Újrapróbálom gombra!',
+      unsupported: 'A böngésző ezt a hangot most nem tudja lejátszani. Próbáld újra!',
+      source: 'A mese hangja most nem érhető el. Próbáld újra!',
+      playback: 'A mese most nem indult el. Koppints az Újrapróbálom gombra!',
+    }[state.errorKind] || 'A mese most nem indult el. Koppints az Újrapróbálom gombra!';
+    const status = story.audioStatus === 'rights-pending' ? 'A mű még forrásellenőrzésre vár. A megadott kiadás modern átdolgozását nem közöljük újra.' : pending ? 'A teljes szöveg már olvasható. A hang az előfizetési keret felszabadulására vár.' : state.phase === 'error' ? errorStatus : state.phase === 'loading' ? 'Előkészítjük a mesét…' : state.phase === 'buffering' ? 'A mese betöltődik…' : state.phase === 'playing' ? 'Szól a mese.' : state.phase === 'ended' ? 'Vége a mesének. Újra meghallgathatod, vagy választhatsz egy másikat.' : state.phase === 'paused' ? 'Itt tartunk. Folytassuk, amikor szeretnéd!' : 'A nagy gombbal indul a mese.';
     if ($('#story-status').textContent !== status) $('#story-status').textContent = status;
     const download = $('#story-download');
     download.hidden = Boolean(story.local) || pending;
@@ -144,10 +154,10 @@ export function setupAudiobooks({ stopPlayback, onListeningChange = () => {} }) 
     const collection = document.createElement('section'); collection.className = 'rado-library'; collection.setAttribute('aria-labelledby', 'rado-title');
     root.querySelector('.story-local-import').before(collection);
     collectionSearch = setupRadoLibrary(collection, { readyStories: stories.filter(story => !story.audioStatus || story.audioStatus === 'ready'), onRead: () => player.pause(), onPlay: async id => {
+      setView('player');
       await player.select(id);
       if (active && player.getState().storyId === id) {
-        setView('player'); $('#story-toggle').focus({ preventScroll: true });
-        await player.play();
+        $('#story-toggle').focus({ preventScroll: true });
       }
     } });
     collectionSearch.setQuery(search);

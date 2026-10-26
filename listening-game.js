@@ -430,7 +430,7 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
     }
     repeat({ intro: announce });
   }
-  const suspend = () => { generation++; clearTimeout(timer); stopPlayback(); };
+  const suspend = () => { if (!active) return; generation++; clearTimeout(timer); stopPlayback(); };
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) suspend();
     else if (active && pending && !complete) scheduleAdvance();

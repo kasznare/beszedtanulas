@@ -3,7 +3,17 @@ import { AUDIOBOOKS } from './audiobook-data.js';
 const STORAGE_KEY = 'beszedtanulas.audiobooks.v1';
 const cacheName = `beszedtanulas-audiobooks:${new URL('.', import.meta.url).href}:v1`;
 const cacheKey = story => new URL(`${story.file}?v=${story.sha256}`, import.meta.url).href;
+// A retry can bypass the worker's range-response path without reusing an old HTTP cache entry.
+const directUrl = story => new URL(`${story.file}?playback=${story.sha256}`, import.meta.url).href;
 const finite = value => typeof value === 'number' && Number.isFinite(value);
+const playbackErrorKind = (error, mediaError) => {
+  if (error?.name === 'NotAllowedError') return 'not-allowed';
+  if (mediaError?.code === 2) return 'network';
+  if (mediaError?.code === 3) return 'decode';
+  if (mediaError?.code === 4 || error?.name === 'NotSupportedError') return 'unsupported';
+  if (mediaError?.code === 1 || error?.name === 'AbortError') return 'interrupted';
+  return 'playback';
+};
 
 export function normalizeAudiobookState(value, stories = AUDIOBOOKS) {
   const source = value && typeof value === 'object' ? value : {};
@@ -53,7 +63,7 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     if (current.audioStatus && current.audioStatus !== 'ready') { state.phase = 'text'; emit(); return true; }
     let resolved;
     try { resolved = await resolveSource(current); }
-    catch { if (token === generation) { state.phase = 'error'; emit(); } return false; }
+    catch { if (token === generation) { state.phase = 'error'; state.errorKind = 'source'; emit(); } return false; }
     if (token !== generation) { releaseSource(resolved); return false; }
     source = resolved;
     state.offlineSaved = resolved.blob === true;
@@ -75,7 +85,8 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     });
     element.addEventListener('waiting', () => { if (active() && wantsPlayback) { state.phase = 'buffering'; emit(); } });
     element.addEventListener('pause', () => {
-      if (!active() || element.ended || !['playing', 'buffering'].includes(state.phase)) return;
+      // A native pause event may arrive after a new play() has already resumed.
+      if (!active() || !element.paused || element.ended || !['playing', 'buffering'].includes(state.phase)) return;
       if (state.metadata) state.position = Math.max(0, element.currentTime || 0);
       wantsPlayback = false; state.phase = 'paused'; remember(); emit();
     });
@@ -91,7 +102,7 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
       wantsPlayback = false; state.phase = 'ended'; state.position = state.duration;
       remember(true); emit();
     });
-    element.addEventListener('error', () => { if (active()) { wantsPlayback = false; state.phase = 'error'; remember(); emit(); } });
+    element.addEventListener('error', () => { if (active()) { wantsPlayback = false; state.phase = 'error'; state.errorKind = playbackErrorKind(null, element.error); remember(); emit(); } });
     sourceAttached = !resolved.saveOnPlay;
     if (sourceAttached) element.src = resolved.url;
     state.phase = 'ready'; saveBucket = -1; emit();
@@ -104,16 +115,26 @@ export function createAudiobookPlayer({ stories = AUDIOBOOKS, audioFactory = () 
     wantsPlayback = true;
     if (!sourceAttached) { element.src = source.url; element.preload = 'metadata'; sourceAttached = true; }
     if (state.phase === 'ended') { state.position = 0; element.currentTime = 0; }
-    if (state.phase === 'error') element.load();
+    if (state.phase === 'error' && !['not-allowed', 'interrupted'].includes(state.errorKind)) {
+      if (source.fallbackUrl && element.src !== source.fallbackUrl) {
+        // Switch only on a new play gesture. Keep the bookmark until the new source has metadata.
+        state.metadata = false;
+        element.src = source.fallbackUrl;
+      } else element.load();
+    }
+    state.errorKind = '';
     state.phase = 'buffering'; emit();
     try {
       const playback = element.play();
       // First visits can start playback before the offline worker takes control.
       // The fallback only runs then; controlled playback shares one SW download.
-      void source?.onPlay?.();
+      // Storage failures must never be mistaken for playback failures.
+      const onPlay = source?.onPlay;
+      const direct = Boolean(source?.fallbackUrl && element.src === source.fallbackUrl);
+      Promise.resolve().then(() => onPlay?.({ direct })).catch(() => {});
       await playback;
     }
-    catch { if (token === generation && attempt === playGeneration) { wantsPlayback = false; state.phase = 'error'; emit(); } return false; }
+    catch (error) { if (token === generation && attempt === playGeneration) { wantsPlayback = false; state.phase = 'error'; state.errorKind = playbackErrorKind(error, element.error); emit(); } return false; }
     return token === generation && attempt === playGeneration && wantsPlayback;
   }
   function seek(seconds) {
@@ -139,10 +160,14 @@ export async function isAudiobookSaved(story) {
 export async function resolveAudiobookSource(story) {
   try {
     const cached = await (await openCache())?.match(cacheKey(story));
-    if (cached) return { url: URL.createObjectURL(await cached.blob()), blob: true };
+    if (cached) {
+      // The published MP3s can arrive as audio/mp3 or without a type. Give Safari the standard MIME type.
+      const blob = new Blob([await cached.blob()], { type: 'audio/mpeg' });
+      return { url: URL.createObjectURL(blob), blob: true, fallbackUrl: directUrl(story) };
+    }
   } catch { /* Streaming remains available if local storage is unavailable. */ }
-  return { url: cacheKey(story), saveOnPlay: true, onPlay: () => {
-    if (!globalThis.navigator?.serviceWorker?.controller) void saveAudiobookOffline(story).catch(() => {});
+  return { url: cacheKey(story), fallbackUrl: directUrl(story), saveOnPlay: true, onPlay: ({ direct = false } = {}) => {
+    if (direct || !globalThis.navigator?.serviceWorker?.controller) void saveAudiobookOffline(story).catch(() => {});
   } };
 }
 const offlineSaves = new Map();

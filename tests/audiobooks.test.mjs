@@ -58,6 +58,46 @@ test('a pending play request cannot resume after pause or departure', async () =
   assert.equal(await attempt,false);assert.equal(audio.paused,true);assert.equal(player.getState().phase,'paused');
   const second=player.play();player.stop();resolvePlay();assert.equal(await second,false);assert.equal(player.getState().phase,'idle');
 });
+for (const action of ['resume', 'restart']) test(`a queued native pause event cannot cancel ${action} before that event runs`, async () => {
+  const tasks = [];
+  class QueuedAudio extends AudioStub {
+    play() {
+      this.paused = false;
+      tasks.push(() => this.event('playing'));
+      return Promise.resolve();
+    }
+    pause() {
+      if (this.paused) return;
+      this.paused = true;
+      tasks.push(() => this.event('pause'));
+    }
+  }
+  let audio;
+  const { player } = fixture({
+    audioFactory: () => (audio = new QueuedAudio()),
+    // The app stops other narration before playing, including pausing this player.
+    beforePlay: () => player.pause(),
+  });
+  await player.select('a');
+  assert.equal(await player.play(), true);
+  tasks.shift()();
+  assert.equal(player.getState().phase, 'playing');
+  if (action === 'resume') {
+    player.pause();
+    assert.equal(audio.paused, true);
+    assert.equal(await player.play(), true);
+  } else {
+    assert.equal(await player.restart(), true);
+  }
+  assert.equal(audio.paused, false);
+  // Native media events run as tasks: this old pause arrives after play() has resumed.
+  tasks.shift()();
+  assert.equal(player.getState().phase, 'buffering');
+  tasks.shift()();
+  assert.equal(player.getState().phase, 'playing');
+  assert.equal(audio.paused, false);
+});
+
 test('ending, seeking, retrying and restarting keep completion separate from bookmarks', async () => {
   const {player,audios}=fixture();await player.select('a');const audio=audios[0];audio.event('loadedmetadata');
   await player.play();audio.currentTime=300;audio.ended=true;audio.event('ended');
