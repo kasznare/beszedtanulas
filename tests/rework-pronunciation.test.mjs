@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileVoiceManifest } from '../scripts/build-voice-manifest.mjs';
-import { REWORK_PHONETIC_IDS, REWORK_WORD_IPA, phoneticReworkText } from '../rework-voice-pronunciation.js';
+import { REWORK_PHONETIC_IDS, REWORK_WORD_IPA, REWORK_LINE_IPA, phoneticReworkText } from '../rework-voice-pronunciation.js';
 import { CHESS_PHONETIC_IDS } from '../chess-voice-pronunciation.js';
 import { ENGINEERING_PHONETIC_IDS } from '../engineering-voice-pronunciation.js';
 import { readFile } from 'node:fs/promises';
@@ -44,4 +44,21 @@ test('reviewed words mark Hungarian vowel length, clusters and assimilation', ()
   assert.equal(REWORK_WORD_IPA.gyűjteményben, 'ˈɟyːjtɛmeːɲbɛn');
   assert.equal(REWORK_WORD_IPA.kettő, 'ˈkɛtːøː');
   assert.equal(phoneticReworkText('patterns_gap', 'Melyik hiányzik a sorból?'), '/ˈmɛjik/ /ˈhijaːɲzik/ a /ˈʃorboːl/?');
+});
+
+test('the second-attempt lines override single words without touching the shared word map', async () => {
+  const { clips } = await compileVoiceManifest();
+  const rejected = JSON.parse(await readFile(new URL('../voice-rejections.json', import.meta.url), 'utf8')).recordings.map(entry => entry.id);
+  for (const [id, words] of Object.entries(REWORK_LINE_IPA)) {
+    assert.ok(REWORK_PHONETIC_IDS.includes(id), id);
+    assert.ok(rejected.includes(id), `Override without a rejected first recording: ${id}`);
+    const text = clips.find(clip => clip.id === id).text;
+    for (const [word, ipa] of Object.entries(words)) {
+      assert.match(text.toLocaleLowerCase('hu-HU'), new RegExp(`(?<![\\p{L}])${word}(?![\\p{L}])`, 'u'), `${id} has no word ${word}`);
+      assert.ok(phoneticReworkText(id, text).includes(`/${ipa}/`), `${id}: ${word}`);
+    }
+  }
+  assert.equal(REWORK_WORD_IPA.házhoz, 'ˈhaːshoz');
+  assert.equal(phoneticReworkText('counting_how_many', 'Hány van? Koppints a számra!'), '/ˈhaːɲ/ /ˈvɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!');
+  assert.equal(phoneticReworkText('patterns_odd', 'Melyik nem illik a sorba?'), '/ˈmɛjik/ /nɛm/ /ˈilːik/ a /ˈʃorbɒ/?');
 });

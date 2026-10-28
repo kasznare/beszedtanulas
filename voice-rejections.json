@@ -74,6 +74,174 @@
         "fingerprint": "027682c1c485f1b03a1a1ccf82a8027126f3602bb5c570815597c415c1b91bb5",
         "sha256": "ea7d6e9844a834a31910fa59740e71cb175dd2fa37c3edb5f292b232162a1fb0"
       }
+    },
+    {
+      "id": "counting_how_many",
+      "reason": "A Hány van? kezdet Hávonnak, a koppints szó kapj nincsnek hallatszik.",
+      "source": {
+        "fingerprint": "a6cfc807ebe299a64b6cad83212cfcbfd0c01f02935c848acd34027b1d058782",
+        "sha256": "f2afe5ba3180f809e94a170d585ad5a56fa6b8348016fcc9d4d996e69abb9267"
+      },
+      "installed": {
+        "fingerprint": "fee70f22cac5ebce5446b5c1b801a001a5c0d32484f8d6f542ea34d16ea85f1a",
+        "sha256": "c1171e979ea8ac648d28c27ff342e20e48011711a3506c7269c952f4b9fa1629"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "logic_route_bump",
+      "reason": "Az itt szó a rókához tapad, az Innen tervezd újra rész torzul.",
+      "source": {
+        "fingerprint": "85508eacb494b3bf634655dc06d292d5350b1eab7478441de287fba764b08111",
+        "sha256": "dd3c43824ac2a16fb3a76db04031e3b5bb8ef7d4019943045da78cc50623892b"
+      },
+      "installed": {
+        "fingerprint": "abf151154a3988cfa24cb8a4887827d1944d2b2f6075df200d6d23d995e5657d",
+        "sha256": "969070b12878579d42e634590bc96b2107d8979a91f2f0e6b5d9e7ff1aacab4f"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "chess_pawns_intro",
+      "reason": "A Juttasd át rész Jutta azatnak hallatszik.",
+      "source": {
+        "fingerprint": "b9ac95a3cdfc56535b8fff4659b81d89713b4e28058d44a27e4f3e200024630a",
+        "sha256": "5f8684ae53cbfae47b86c1ce5789046c04d38f3fb361051ce07420b285cb6a48"
+      },
+      "installed": {
+        "fingerprint": "163a960d90fd59ed38848da809f9f805302284c1481bf6460171ac0d615ea461",
+        "sha256": "ffc7a4e3c92bce2163003c0b7ec2da4dd9ab9f0a2a5e5207e1e5d8833edcd356"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "engineering_bar_broke",
+      "reason": "Az erősítsd szó erőségynek hallatszik.",
+      "source": {
+        "fingerprint": "6c502610c8e0d2726c64ba0ff076de6105871e8ea2d150bed8d83c21ec5fb4d1",
+        "sha256": "b5e1ac1af094494dd49761fd6540241c02437e440e955392f47a26648f395c5f"
+      },
+      "installed": {
+        "fingerprint": "94bf0b1c53a95ccd30e6e817e7813922ad3559fb4908fbcd5f882aca31f3f2b5",
+        "sha256": "5b50eed05699d19b1d5aeade87bdb25a279185f72eb311d26089ebb54f6d2c04"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "patterns_grow",
+      "reason": "A pötty szó eltűnik, a kezdet Hanykatnak hallatszik.",
+      "source": {
+        "fingerprint": "cca24bb0daa0d4ec1fbcff7f6d26eb44845697ecfbdae2fab3a606ead982989c",
+        "sha256": "211b92cfb62010159c563e51cad20eac31c9db122956a3a6e3bba359863a31fb"
+      },
+      "installed": {
+        "fingerprint": "19f87d5483a8e0319395da6558c8cc34fb68551d877b7ba4cbb4f79dc0cf0a59",
+        "sha256": "b42ea9ea5a865cb7d15b148e87c4e2f61938399650e81d6efa70b69a47715bfd"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "logic_route_2",
+      "reason": "A házhoz szó hásozsnak, a Vidd el videlnek hallatszik.",
+      "source": {
+        "fingerprint": "2eb2a480f7ac84a312932a00e5f016cb31e591db2c14c05c6a29f2bb75709466",
+        "sha256": "f21616a45cf90131a3d44f0075aa50ad7488c58d73cf63394e7b1a86108e6fa3"
+      },
+      "installed": {
+        "fingerprint": "3fe354a448928b3b18e177b39c370d1a9c7aeff0f269e839c44ff09f86809514",
+        "sha256": "0c0f46f923b728f7e3d8501183abf54fca7b3488471f5c2639dc8b48dabea396"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "patterns_odd_fix",
+      "reason": "A Mi illik rész Mi éliknek hallatszik.",
+      "source": {
+        "fingerprint": "e7e1144497e79f911c842758efdada143d37eac1b18ad456168c4090e3e76aeb",
+        "sha256": "c77763b36a04a969247da4a9fb7a6108ba8912929bfb1cd74deb72f2f9282d3c"
+      },
+      "installed": {
+        "fingerprint": "3c3a40f71f9a210a811ed2c60dc68bbfcdc5c2b060e54892166d4aadf15b1def",
+        "sha256": "3585dff4d59eeacd70c6e0b855ed9103f8c16e0967bb5691d495e4bf674bb8be"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "workshop_balance_fewest",
+      "reason": "Az ugyanannyit szó ugyanaitnak hallatszik.",
+      "source": {
+        "fingerprint": "f27b5f52def3de0e08f45334614415e8198890be99a30215aa3827e780da8a94",
+        "sha256": "3f53dfa90033abb157faf0ec4ce98ffff30ad767e01efb5f168907c357c8a4fc"
+      },
+      "installed": {
+        "fingerprint": "efb697518668fc09269f7db5211dc1c485d92d246f6cb185d12c4a214bfc568d",
+        "sha256": "1db00fb9e955c6b4b83c3d9dc1c9f713772fcf62e46a9581da225d868d39ca0d"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "logic_route_bump",
+      "reason": "Második próba: az innen szó Énennek, az itt elakadt rész étel akadtnak hallatszik.",
+      "source": {
+        "fingerprint": "41f417bd84a0f933cf5634136bdfd7328df9b873672ca96b5720a4e1f16a0489",
+        "sha256": "146b6a314ab52fd3fe8b5a052789158be4aa97a80357005859fc4d07d4ab371d"
+      },
+      "installed": {
+        "fingerprint": "3bd3809da5d939b2d8fdb38dccb8d47ae03b6f86359a8669dac969b1ff9e25b7",
+        "sha256": "895bd4b7faf29f4f3289fbec0517ace73eaee95fd458c1250058d7afa9388a56"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "chess_pawns_intro",
+      "reason": "Második próba: a Juttasd át rész továbbra is Jutta azatnak hallatszik.",
+      "source": {
+        "fingerprint": "6ddbef8e8180fdb1c2d8c03b23306bebac60e5ced7c1efbc783f1798c94b132f",
+        "sha256": "17eac3ce7472edcdc314948635c3b1176d63995ca6719a7a857d71d024caa199"
+      },
+      "installed": {
+        "fingerprint": "d899fe8c277ed34fd3500edf79c2edc193ced37d22f224bc5d747bb015d765fe",
+        "sha256": "c1df0c81329010e36133f2ea3f8f993b0f1baeff33794a09d26efaecca772ab7"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "engineering_bar_broke",
+      "reason": "Második próba: az erősítsd szó továbbra is erőségnek hallatszik.",
+      "source": {
+        "fingerprint": "293026d43b47c28862692244fb37e6d91204afa4170d6c1375af0b397f876086",
+        "sha256": "9aacd2994f0baa23bc0187fdf8a0893835e917dedd2d804c6cb359e0518bfcd2"
+      },
+      "installed": {
+        "fingerprint": "cdff95e3919c0946017bf4b5880e1a19a36abc4b1e062f0c582c9e4cf4cb5a0a",
+        "sha256": "10906b2ff5ddba0160a7f574950b1a67d3ed8132b4c9756d0471d9a928cb719c"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "patterns_odd_fix",
+      "reason": "Második próba: az illik szó továbbra is éliknek hallatszik.",
+      "source": {
+        "fingerprint": "0a35a985f817a9333426c1f3b32be9b1881669a3301a6ff79e35a76583f117b9",
+        "sha256": "5ad0a31936651f002ae4a81203f1385a385e470f0cb9007f9b52a889b96e53d6"
+      },
+      "installed": {
+        "fingerprint": "e2131e727cbc33d0bedecc623428c5e00b35dbc356a4fa554d97ba90b616ee6e",
+        "sha256": "a8dda77b30525fc74f802a506a510f09db0ee357b0c1e241e7a29803cbb68947"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-10-28"
     }
   ]
 }

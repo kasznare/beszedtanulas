@@ -64,12 +64,37 @@ export const REWORK_WORD_IPA = Object.freeze({
   eltört: 'ˈɛltørt', erősítsd: 'ˈɛrøːʃiːd͡ʒd', háromszögekkel: 'ˈhaːromsøɡɛkːɛl',
 });
 
+// Second attempt (2026-10-28) of the lines whose first recording was rejected after the
+// transcription review (voice-rejections.json). The word map above keeps the input of the
+// accepted recordings unchanged; only these lines get the adjusted forms.
+export const REWORK_LINE_IPA = Object.freeze({
+  // "Hány van?" came out as "Hávon": both words of the question carry stress.
+  counting_how_many: { hány: 'ˈhaːɲ', van: 'ˈvɒn' },
+  // "itt" fused with "róka", and "Innen tervezd újra" blurred; the short words get their own
+  // stress. Third attempt: the long consonants are doubled instead of length-marked, which is
+  // what made "ugyanannyit" come through on the second attempt.
+  logic_route_bump: { itt: 'ˈitt', innen: 'ˈinnɛn', újra: 'ˈuːjrɒ' },
+  // "Juttasd át" came out as "Jutta azat": the particle is spoken as a stressed word of its own,
+  // and the long t is doubled.
+  chess_pawns_intro: { juttasd: 'ˈjuttɒʒd', át: 'ˈaːt' },
+  // The tied affricate in "erősítsd" came out as "gy" twice; the ligature symbol is tried.
+  engineering_bar_broke: { erősítsd: 'ˈɛrøːʃiːʤd' },
+  // "pötty" disappeared between "hány" and "jön".
+  patterns_grow: { hány: 'ˈhaːɲ', pötty: 'ˈpøcː' },
+  // The h of "házhoz" was lost in the devoiced form, and "Vidd el" fused.
+  logic_route_2: { házhoz: 'ˈhaːzhoz', vidd: 'ˈvidː' },
+  // "Mi illik" came out as "Mi élik" twice: the question word is stressed and the long l is doubled.
+  patterns_odd_fix: { mi: 'ˈmi', illik: 'ˈillik' },
+  // The long ny of "ugyanannyit" was dropped; it is written as a doubled consonant.
+  workshop_balance_fewest: { ugyanannyit: 'ˈuɟɒnɒɲɲit' },
+});
+
 const WORD = /[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu;
 export function phoneticReworkText(id, text, commonWords = {}) {
   if (!REWORK_PHONETIC_IDS.includes(id)) return null;
   return text.replace(WORD, word => {
     const key = word.toLocaleLowerCase('hu-HU');
-    const ipa = REWORK_WORD_IPA[key] || commonWords[key];
+    const ipa = REWORK_LINE_IPA[id]?.[key] || REWORK_WORD_IPA[key] || commonWords[key];
     return ipa ? `/${ipa}/` : word;
   });
 }

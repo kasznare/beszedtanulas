@@ -5,22 +5,25 @@ The October 2026 game rework added modes whose instructions were first shown as 
 ## The recording run
 
 - The default account (`~/.config/beszedtanulas/elevenlabs.env`) had 55 characters left until 2026-11-11, so the run used the second account's key, `~/.config/elevenlabs/api-key-new.txt`, through `ELEVENLABS_API_KEY_FILE=… npm run generate-voice`. Jessa was added to that account's library first (same voice id, same owner), so the voice is unchanged. No reset credit was redeemed.
-- Cost: 3 209 characters; 29 980 remain on the second account.
+- Cost: 3 209 characters, plus 1 078 for the re-makes below; 29 624 remain on the second account.
 - `chess_mate` was generated alone as a sample and transcribed before the bulk run.
 
 ## Listen to these
 
-`scripts/transcribe-voice.py` (local faster-whisper, no network) read all 39 clips back. A difference is a flag, not a proven error, and the recognizer misspells common words (koppints → "koppincs", rúd → "ród"). These transcripts were far enough from the text that a person should listen to them:
+`scripts/transcribe-voice.py` (local faster-whisper, no network) read all 39 clips back. A difference is a flag, not a proven error, and the recognizer misspells common words (koppints → "koppincs", rúd → "ród"). Eight transcripts were far enough from the text that their recordings were re-made on 2026-10-28 with adjusted input (`REWORK_LINE_IPA` in `rework-voice-pronunciation.js`; the first attempts are in `voice-rejections.json`, 1 078 characters in all). Four now read back as written:
 
-- `counting_how_many` — heard "Hávon, kapj nincs a számra".
-- `logic_route_bump` — heard "Énen terves túlra az utat" for „Innen tervezd újra az utat".
-- `chess_pawns_intro` — heard "Jutta azat" for „Juttasd át".
-- `engineering_bar_broke` — heard "Erőségy meg három sögekkel" for „Erősítsd meg háromszögekkel".
-- `patterns_grow` — heard "Hanykat jön ezután" for „Hány pötty jön ezután".
-- `logic_route_2` — heard "hásozs" for „házhoz" and "Visszavonáson".
-- `patterns_odd_fix`, `workshop_balance_fewest` — single words heard oddly („illik", „ugyanannyit").
+- `counting_how_many`, `patterns_grow` — stress on „Hány" and „van"/„pötty" (first heard "Hávon", "Hanykat").
+- `logic_route_2` — „házhoz" written with its h (`ˈhaːzhoz`, first heard "hásozs").
+- `workshop_balance_fewest` — the long ny of „ugyanannyit" written doubled (`ɲɲ`), which the length mark (`ɲː`) did not give.
 
-To reject one: add it to `voice-rejections.json` with the fingerprints from `audio/voice/generated.json`, change its IPA in `rework-voice-pronunciation.js`, and rerun `npm run generate-voice --ids <id>`; the rejected input can never be reused.
+Four were re-made twice and are still heard the same way; nobody has listened to them, so a person should:
+
+- `logic_route_bump` — „Innen" is now clear, but „itt elakadt" is heard "telakat" and „tervezd újra" "terves túra".
+- `chess_pawns_intro` — „Juttasd át" heard "Jutta azat", then "Juttazsat".
+- `engineering_bar_broke` — „Erősítsd" heard "Erőség(y)" with `d͡ʒd`, `dʒd` and `ʤd`.
+- `patterns_odd_fix` — „Mi illik" heard "Mi élik", then "Mélik" with `ˈilːik` and `ˈillik`.
+
+The recognizer also misspells words that are surely right in these clips ("galogodat", "végere", "harm sögekkel"), so these may be its own errors. To reject one: add it to `voice-rejections.json` with the fingerprints from `audio/voice/generated.json`, change its line in `REWORK_LINE_IPA`, and rerun `npm run generate-voice --ids <id>`; a rejected input can never be reused.
 
 ## The lines
 

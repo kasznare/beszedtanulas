@@ -1104,15 +1104,15 @@
       "text": "Hány van? Koppints a számra!",
       "group": "portal",
       "file": "audio/voice/counting_how_many.mp3",
-      "spokenText": "Mondjuk együtt: /haːɲ/ /vɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!",
+      "spokenText": "Mondjuk együtt: /ˈhaːɲ/ /ˈvɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!",
       "extract": {
         "from": 16,
-        "to": 55,
+        "to": 57,
         "before": 0.025,
         "after": 0.15,
         "text": "Hány van? Koppints a számra!"
       },
-      "spokenTarget": "/haːɲ/ /vɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!"
+      "spokenTarget": "/ˈhaːɲ/ /ˈvɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!"
     },
     {
       "id": "cards_peek_intro",
@@ -2102,15 +2102,15 @@
       "text": "Hoppá, a róka itt elakadt! Innen tervezd újra az utat!",
       "group": "logic",
       "file": "audio/voice/logic_route_bump.mp3",
-      "spokenText": "Mondjuk együtt: /ˈhopːaː/, a /ˈroːkɒ/ /itː/ /ˈɛlɒkɒtː/! /ˈinːɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!",
+      "spokenText": "Mondjuk együtt: /ˈhopːaː/, a /ˈroːkɒ/ /ˈitt/ /ˈɛlɒkɒtː/! /ˈinnɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!",
       "extract": {
         "from": 16,
-        "to": 98,
+        "to": 99,
         "before": 0.025,
         "after": 0.15,
         "text": "Hoppá, a róka itt elakadt! Innen tervezd újra az utat!"
       },
-      "spokenTarget": "/ˈhopːaː/, a /ˈroːkɒ/ /itː/ /ˈɛlɒkɒtː/! /ˈinːɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!"
+      "spokenTarget": "/ˈhopːaː/, a /ˈroːkɒ/ /ˈitt/ /ˈɛlɒkɒtː/! /ˈinnɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!"
     },
     {
       "id": "logic_route_shortest",
@@ -2420,15 +2420,15 @@
       "text": "Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
       "group": "logic",
       "file": "audio/voice/logic_route_2.mp3",
-      "spokenText": "Mondjuk együtt: /vidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːshoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/.",
+      "spokenText": "Mondjuk együtt: /ˈvidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːzhoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/.",
       "extract": {
         "from": 16,
-        "to": 199,
+        "to": 200,
         "before": 0.025,
         "after": 0.15,
         "text": "Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz."
       },
-      "spokenTarget": "/vidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːshoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/."
+      "spokenTarget": "/ˈvidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːzhoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/."
     },
     {
       "id": "logic_route_3",
@@ -3112,30 +3112,30 @@
       "text": "Megtaláltad! Mi illik a helyére?",
       "group": "patterns",
       "file": "audio/voice/patterns_odd_fix.mp3",
-      "spokenText": "Mondjuk együtt: /ˈmɛɡtɒlaːltɒd/! /mi/ /ˈilːik/ a /ˈhɛjeːrɛ/?",
+      "spokenText": "Mondjuk együtt: /ˈmɛɡtɒlaːltɒd/! /ˈmi/ /ˈillik/ a /ˈhɛjeːrɛ/?",
       "extract": {
         "from": 16,
-        "to": 60,
+        "to": 61,
         "before": 0.025,
         "after": 0.15,
         "text": "Megtaláltad! Mi illik a helyére?"
       },
-      "spokenTarget": "/ˈmɛɡtɒlaːltɒd/! /mi/ /ˈilːik/ a /ˈhɛjeːrɛ/?"
+      "spokenTarget": "/ˈmɛɡtɒlaːltɒd/! /ˈmi/ /ˈillik/ a /ˈhɛjeːrɛ/?"
     },
     {
       "id": "patterns_grow",
       "text": "Hány pötty jön ezután? Számoljuk meg!",
       "group": "patterns",
       "file": "audio/voice/patterns_grow.mp3",
-      "spokenText": "Mondjuk együtt: /haːɲ/ /pøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!",
+      "spokenText": "Mondjuk együtt: /ˈhaːɲ/ /ˈpøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!",
       "extract": {
         "from": 16,
-        "to": 66,
+        "to": 68,
         "before": 0.025,
         "after": 0.15,
         "text": "Hány pötty jön ezután? Számoljuk meg!"
       },
-      "spokenTarget": "/haːɲ/ /pøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!"
+      "spokenTarget": "/ˈhaːɲ/ /ˈpøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!"
     },
     {
       "id": "patterns_start",
@@ -4085,15 +4085,15 @@
       "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!",
       "group": "chess",
       "file": "audio/voice/chess_pawns_intro.mp3",
-      "spokenText": "Mondjuk együtt: /ˈɟɒloɡt͡ʃɒtɒ/! /ˈjutːɒʒd/ /aːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!",
+      "spokenText": "Mondjuk együtt: /ˈɟɒloɡt͡ʃɒtɒ/! /ˈjuttɒʒd/ /ˈaːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!",
       "extract": {
         "from": 16,
-        "to": 102,
+        "to": 103,
         "before": 0.025,
         "after": 0.15,
         "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!"
       },
-      "spokenTarget": "/ˈɟɒloɡt͡ʃɒtɒ/! /ˈjutːɒʒd/ /aːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!"
+      "spokenTarget": "/ˈɟɒloɡt͡ʃɒtɒ/! /ˈjuttɒʒd/ /ˈaːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!"
     },
     {
       "id": "engineering_flag",
@@ -4130,15 +4130,15 @@
       "text": "Eltört egy rúd! Erősítsd meg háromszögekkel!",
       "group": "engineering",
       "file": "audio/voice/engineering_bar_broke.mp3",
-      "spokenText": "Mondjuk együtt: /ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːd͡ʒd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!",
+      "spokenText": "Mondjuk együtt: /ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːʤd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!",
       "extract": {
         "from": 16,
-        "to": 78,
+        "to": 76,
         "before": 0.025,
         "after": 0.15,
         "text": "Eltört egy rúd! Erősítsd meg háromszögekkel!"
       },
-      "spokenTarget": "/ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːd͡ʒd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!"
+      "spokenTarget": "/ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːʤd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!"
     },
     {
       "id": "engineering_hub",
@@ -4265,7 +4265,7 @@
       "text": "Rakd ki ugyanannyit minél kevesebb rúddal!",
       "group": "workshop",
       "file": "audio/voice/workshop_balance_fewest.mp3",
-      "spokenText": "Mondjuk együtt: /rɒɡd/ /ki/ /ˈuɟɒnɒɲːit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!",
+      "spokenText": "Mondjuk együtt: /rɒɡd/ /ki/ /ˈuɟɒnɒɲɲit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!",
       "extract": {
         "from": 16,
         "to": 74,
@@ -4273,7 +4273,7 @@
         "after": 0.15,
         "text": "Rakd ki ugyanannyit minél kevesebb rúddal!"
       },
-      "spokenTarget": "/rɒɡd/ /ki/ /ˈuɟɒnɒɲːit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!"
+      "spokenTarget": "/rɒɡd/ /ki/ /ˈuɟɒnɒɲɲit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!"
     },
     {
       "id": "workshop_design_build",
