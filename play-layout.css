@@ -359,3 +359,9 @@
   .montessori-panel[data-game="colors"][data-level="4"] .mo-tray, .montessori-panel[data-game="colors"][data-level="5"] .mo-tray { gap: 6px; }
   .montessori-panel[data-game="colors"][data-level="4"] .mo-color-board, .montessori-panel[data-game="colors"][data-level="5"] .mo-color-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
 }
+
+/* Landscape iPads: the nine bingo tiles use the height beside the controls. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 225px) / 3), 160px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 74px; }
+}
