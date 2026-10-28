@@ -206,7 +206,7 @@ export function setupRPractice({ effect=()=>{}, quietEffects=()=>{}, onRestart=(
       return prefs.hunterKind==='sound'?playClips([...(intro?['r_hunter_sound']:[]),...current.choices.map(word=>`r_word_${word.id}`)],id=>({target:id==='r_hunter_sound'?'.rp-game-instruction':`.rp-option[data-id="${id.replace('r_word_','')}"]`})):playClips([...(intro?['r_hunter']:[]),`r_word_${current.target.id}`],{target:'.rp-game-instruction'});
     }
     // The recorded post intro speaks of two parcels; three-parcel missions start with the mission itself.
-    if(['post','workshop','echo'].includes(game))return playClips([...(intro&&!(game==='post'&&deck.length>2)?[`r_${game}`]:[]),...(intro&&game==='post'?[`r_mission_${mission.id}`]:[]),targetClip()],{target:'.rp-target'});
+    if(['post','workshop','echo'].includes(game))return playClips([...(intro&&!(game==='post'&&deck.length>2)?[`r_${game}`]:[]),...(intro&&game==='post'?[`r_mission_${mission.id}`]:[]),...(intro&&game==='post'&&mission?.wishes?['r_post_wishes']:[]),targetClip()],{target:'.rp-target'});
     // In the missing-word puzzle the model is the half line without the hidden word.
     if(game==='rhyme')return playClips([...(intro?[prefs.rhymeMode==='missing'?'r_rhyme_gap':'r_rhyme']:[]),prefs.rhymeMode==='missing'?rhymeGap(currentRhyme().id,step).modelClip:targetClip()],{target:prefs.rhymeMode==='missing'?'.rp-gap-line':'.rp-rhyme-current'},{after:prefs.rhymeMode==='repeat'?'Most mondjátok ti! Ha készen vagytok, lépjetek tovább.':'Most te jössz!'});
   }

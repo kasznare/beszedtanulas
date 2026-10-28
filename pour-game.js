@@ -272,7 +272,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
       if (!spilledBefore && round.spills[input.cup]) { flags.spilled = true; status = 'Hopp, kicsordul a víz! Állítsd meg az öntést!'; say('pour_spill'); }
       if (!round.remaining) {
         flowingCup = null; stopFlowSound(); settle(input.cup);
-        if (!emptyNotified && POUR_LEVELS[round.level - 1].exact) { emptyNotified = true; if (!round.done.every(Boolean)) status = 'Elfogyott a víz. Kezdjük újra az Új poharak gombbal!'; }
+        if (!emptyNotified && POUR_LEVELS[round.level - 1].exact) { emptyNotified = true; if (!round.done.every(Boolean)) { status = 'Elfogyott a víz. Kezdjük újra az Új poharak gombbal!'; say('pour_exact_empty'); } }
         else if (!emptyNotified) { emptyNotified = true; status = 'Üres a kancsó. A Feltöltöm gombbal hozhatsz még vizet!'; say('pour_empty'); }
       }
     }
@@ -373,7 +373,7 @@ export function setupPourGame({ effect = () => {}, getOptions, setLevel, speak, 
   }
   function repeat() {
     release();
-    say(round.done.every(Boolean) ? 'pour_done' : mode === 'tilt' ? 'pour_tilt' : round.level === 3 ? (round.targets[0] < round.targets[1] ? 'pour_two' : 'pour_two_reverse') : round.level >= 2 ? 'pour_manual' : 'pour_start');
+    say(round.done.every(Boolean) ? 'pour_done' : mode === 'tilt' ? 'pour_tilt' : POUR_LEVELS[round.level - 1].exact ? 'pour_exact_start' : round.level === 3 ? (round.targets[0] < round.targets[1] ? 'pour_two' : 'pour_two_reverse') : round.level >= 2 ? 'pour_manual' : 'pour_start');
     if (mode === 'tilt') neutralRequired = true;
   }
   function suspend() {

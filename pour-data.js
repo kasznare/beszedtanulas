@@ -11,6 +11,8 @@ export const POUR_PAIR_GAP = .25;
 export const POUR_EXACT_MARGIN = .08;
 export const JUG_CAPACITY = 2.6;
 export const POUR_CLIPS = {
+  pour_exact_start: 'Pont elég víz van a kancsóban. Vigyázz, ne folyjon ki!',
+  pour_exact_empty: 'Elfogyott a víz. Kezdjük újra új poharakkal!',
   pour_start: 'Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.',
   pour_tilt: 'Tartsd kényelmesen a telefont! Döntsd balra a macihoz, jobbra a nyuszihoz! Középen megáll az öntés.',
   pour_centre: 'Hozd vissza középre a telefont! Utána tölthetünk a másik pohárba.',

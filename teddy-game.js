@@ -143,7 +143,7 @@ export function setupTeddyGame({ effect = () => {}, getOptions, playPrompt, play
   }
 
   function prompt(options = {}) {
-    if (requestMode === "expressive") return speak(selectedFood && phase !== "choose" ? modelId(selectedFood) : "guide_listening");
+    if (requestMode === "expressive") return speak(selectedFood && phase !== "choose" ? modelId(selectedFood) : "teddy_expressive_intro");
     if (requestMode === "sequence") return speak(sequencePromptIds(request.targets, { intro: options.intro }));
     if (request.again && !options.intro) return speak("phrase_meg_kerek");
     return playPrompt(request.target, options);

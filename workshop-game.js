@@ -81,6 +81,8 @@ export function setupWorkshop({ effect = () => {}, getProgress, updateProgress, 
       if (kind === 'sort' && level === 3) ids.push(task.wantedSize ? 'workshop_only_big' : 'workshop_only_small');
     }
     if(kind==='pattern'&&level===3&&session.taskVersion>=3) ids.splice(0,1,'workshop_pattern_2');
+    if (kind === 'balance' && task.mode === 'missing') ids.splice(0, 1, 'workshop_balance_missing');
+    if (kind === 'balance' && task.mode === 'fewest') ids.splice(0, 1, 'workshop_balance_fewest');
     if (kind === 'balance') ids.push('workshop_target', { id: `workshop_n_${task.target}`, cue: { target: '.ws-balance-reference, .ws-balance-heading span:first-child' } });
     // The missing-rod task also names the rod that is already in place.
     if (kind === 'balance' && task.mode === 'missing') ids.push({ id: `workshop_n_${task.fixed[0]}`, cue: { target: '.ws-fixed-rod' } });
@@ -90,7 +92,7 @@ export function setupWorkshop({ effect = () => {}, getProgress, updateProgress, 
   function startDesign() {
     if (!active || kind !== 'pattern' || successPending) return;
     stopPlayback(); effect('grab'); design = newWorkshopDesign(); designSlot = 0; status = '';
-    renderDesign(); focusGameTitle(root);
+    renderDesign(); focusGameTitle(root); say('workshop_design_build');
   }
   function leaveDesign() {
     if (!design) return;

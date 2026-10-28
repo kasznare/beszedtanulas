@@ -86,8 +86,10 @@ export function setupMemoryGame({ effect = () => {}, getOptions, playWord, playA
     } else deck = buildMemoryDeck(options.words, options.memoryPairs, Math.random, options.allWords || []);
     pairs = deck.length / 2;
     render(); focusGameTitle(root);
-    say(mode === 'sound' ? 'memory_sound_start' : 'memory_start');
+    say(mode === 'sound' ? soundIntro() : 'memory_start');
   }
+  // The harder sound levels pair a sound with the spoken name, which needs its own instruction.
+  function soundIntro() { return SOUND_MEMORY_LEVELS[soundLevel]?.partner === 'name' ? 'memory_sound_name_start' : 'memory_sound_start'; }
   function playCard(card) {
     const cue = { target: `.memory-card[data-card="${card.key}"] .memory-card-face` };
     if (mode === 'classic') return playWord(card.word, cue);
@@ -151,7 +153,7 @@ export function setupMemoryGame({ effect = () => {}, getOptions, playWord, playA
     repeat() {
       const last = deck.find(card => card.key === open.at(-1));
       if (last && allowed()) { playCard(last); return; }
-      if (mode === 'sound') { say(finished ? 'memory_done' : 'memory_sound_start'); return; }
+      if (mode === 'sound') { say(finished ? 'memory_done' : soundIntro()); return; }
       say(preview ? 'memory_hint' : finished ? 'memory_done' : 'memory_start');
     },
   };

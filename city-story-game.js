@@ -40,6 +40,7 @@ export function setupCityStoryGame({ effect = () => {}, speak = () => {}, stopPl
     const detail = current.activity?.type === 'inspect' && current.activity.items.find(item=>item.id===selected[0]);
     if(detail?.detailVoiceId) lines.push({id:detail.detailVoiceId,cue:{target:'.city-story-detail'}});
     lines.push(...(current.recapVoiceIds || []));
+    if(newStamp) lines.unshift({ id:'city_story_new_stamp', cue:{ target:'.city-story-collection-inline' } });
     return narrate(lines, force);
   }
   function voiceButton(id, label) {
@@ -144,7 +145,7 @@ export function setupCityStoryGame({ effect = () => {}, speak = () => {}, stopPl
     if(button.hasAttribute('data-story-close')) { button.closest('dialog')?.close(); return; }
     if(button.id==='city-story-confirm-restart') { restart(); return; }
     if(!playable()) return;
-    if(button.dataset.storyLocked) { const choice=scene().choices.find(entry=>entry.id===button.dataset.storyChoice); message=choice?.lockHint||'Ez az út most zárva van.'; effect('retry'); setStatus(message); }
+    if(button.dataset.storyLocked) { const choice=scene().choices.find(entry=>entry.id===button.dataset.storyChoice); message=choice?.lockHint||'Ez az út most zárva van.'; effect('retry'); setStatus(message); void narrate(['city_story_locked']); }
     else if(button.dataset.storyChoice) advance(chooseStoryOption(state,button.dataset.storyChoice));
     else if(button.dataset.storyItem) selectItem(button.dataset.storyItem);
     else if(button.dataset.storyVoice) narrate([button.dataset.storyVoice],true);

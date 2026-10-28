@@ -34,6 +34,9 @@ export const BUILD_CHALLENGES = Object.freeze([
 ]);
 export const ROTATABLE_PIECES = Object.freeze(['plank', 'pillar']);
 export const ENGINEERING_CLIPS = {
+  engineering_flag: 'Elérted a zászlót!',
+  engineering_challenge: 'Kész! Ügyesen építettél!',
+  engineering_bar_broke: 'Eltört egy rúd! Erősítsd meg háromszögekkel!',
   engineering_hub: 'Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!',
   engineering_drop: 'Az elem ide-oda mozog. Koppints, és leesik! Építs a szigetre! A vízbe ne essen!',
   engineering_build: 'Válassz egy elemet, és koppints oda, ahová tennéd! El is forgathatod. Próbálj széles alapot építeni!',

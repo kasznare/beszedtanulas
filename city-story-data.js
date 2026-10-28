@@ -551,3 +551,6 @@ export const STORY_CLUES = Object.fromEntries([
     `choice:${choice.id}`, { title: choice.label.replace(/[.!?]$/, ''), text: choice.clue, artKey: scene.art },
   ])),
 ].map(([id, clue]) => [id, { id, ...clue }]));
+// Collection and locked-choice cues added with the 2026 rework.
+STORY_CLIPS.city_story_new_stamp = 'Új történet a gyűjteményben!';
+STORY_CLIPS.city_story_locked = 'Ez az út most zárva van. Egy korábbi nyom nyithatja ki.';

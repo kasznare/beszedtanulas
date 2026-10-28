@@ -136,7 +136,9 @@ export function setupPatternsGame({ effect = () => {}, speak = () => {}, stopPla
   function roundIntro() {
     status(round.type === 'next' ? 'Nézd végig a sort, aztán válassz!' : round.type === 'gap' ? 'Az egyik hely üres. Mi illik bele?' : round.type === 'odd' ? 'Egy elem elrontja a mintát. Keresd meg!' : 'Számold meg a pöttyöket!');
     // Growing rows are counted aloud, group by group.
-    if (round.type === 'grow') say(round.preview.map(token => numberClip(token.count)));
+    if (round.type === 'grow') say(['patterns_grow', ...round.preview.map(token => numberClip(token.count))]);
+    else if (round.type === 'gap') say('patterns_gap');
+    else if (round.type === 'odd') say('patterns_odd');
   }
 
   function newRound() {
@@ -222,7 +224,7 @@ export function setupPatternsGame({ effect = () => {}, speak = () => {}, stopPla
       return;
     }
     effect('snap'); phase = 'fix'; hintStage = 0; render();
-    status('Megtaláltad! Mi illik a helyére?');
+    status('Megtaláltad! Mi illik a helyére?'); say('patterns_odd_fix');
     focus('[data-pattern-choice]:not([aria-disabled="true"])');
   }
 

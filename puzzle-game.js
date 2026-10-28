@@ -150,6 +150,7 @@ export function setupPuzzleGame({ effect = () => {}, getOptions, setOptions, get
     selected = null; reviewing = false; bounced = null; saveBoard(Boolean(savedBoard()?.rewarded));
     stopPlayback(); render('#puzzle-strict');
     status(strict ? 'Most csak a jó helyre kerülhet darab. A rossz helyről visszaugrik.' : 'Most bárhová leteheted a darabokat, és később átrendezheted.');
+    if (strict) say('puzzle_strict_on');
   }
 
   function cleanupDrag() {

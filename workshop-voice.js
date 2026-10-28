@@ -1,5 +1,8 @@
 // These ids join the shared voice manifest. The game uses only prerecorded-clip ids.
 export const WORKSHOP_CLIPS = {
+  workshop_balance_missing: 'A jobb oldalon már van egy rúd. Egyetlen rúddal tedd egyensúlyba a mérleget!',
+  workshop_balance_fewest: 'Rakd ki ugyanannyit minél kevesebb rúddal!',
+  workshop_design_build: 'Tervezd meg a saját mintádat! Válassz két vagy három formát, a fonal majd ismétli őket.',
   workshop_menu: 'Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.',
   workshop_level_1: 'Felfedező. Egyszerűbb minták és kisebb mennyiségek várnak.',
   workshop_level_2: 'Gondolkodó. Több tulajdonságot és a rudak számát is figyeld!',

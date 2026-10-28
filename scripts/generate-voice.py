@@ -49,6 +49,10 @@ def api(endpoint, key):
 
 
 def load_key():
+    # A key file named in the environment (another account with quota) wins over the default secret.
+    key_file = os.environ.get('ELEVENLABS_API_KEY_FILE')
+    if key_file:
+        return Path(key_file).expanduser().read_text().strip()
     config = {}
     for line in SECRET.read_text().splitlines():
         if '=' in line and not line.lstrip().startswith('#'):

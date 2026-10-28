@@ -17,6 +17,9 @@ export const MONTESSORI_COLORS = [
   { id: 'green', name: 'Zöld', hex: '#69936b' },
 ];
 export const MONTESSORI_CLIPS = {
+  montessori_grid_missing: 'Melyik hiányzik a rácsból? Tedd a helyére!',
+  montessori_grid_odd: 'Melyik nem illik a rácsba? Koppints rá, aztán tedd a helyére a jót!',
+  montessori_tower_lean: 'Billeg a torony! Koppints a felső korongra, és vedd le!',
   montessori_menu: 'Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!',
   montessori_shapes_1: 'Tedd a formát a hozzá illő lyukba! Húzd oda, vagy koppints a formára, majd a lyukra!',
   montessori_shapes_2: 'Nézd a lyuk alakját és a keret színét! Keresd meg az ugyanilyen színű és alakú formát, és tedd bele!',

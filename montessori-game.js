@@ -71,8 +71,7 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
   }
   function repeat(force = false) {
     if (!active) return;
-    // The grid puzzles have no own recording yet; the general grid rule is read only on request.
-    if (kind === 'grid' && round.mode && !montessoriComplete(round)) { if (force) say('montessori_grid', true); return; }
+    if (kind === 'grid' && round.mode && !montessoriComplete(round)) { say(round.mode === 'odd' ? 'montessori_grid_odd' : 'montessori_grid_missing', force); return; }
     say(!kind ? 'montessori_menu' : montessoriComplete(round) ? `montessori_${kind}_done` : kind === 'shapes' ? round.level >= 6 ? 'montessori_shapes_turn' : round.level === 5 ? 'montessori_shapes_size' : `montessori_shapes_${round.level}` : kind === 'colors' && round.level >= 4 ? round.level === 4 ? 'montessori_colors_shades' : 'montessori_colors_count' : kind === 'grid' && round.level === 4 ? 'montessori_grid_size' : `montessori_${kind}`, force);
   }
   function render(focusSelector, message) {

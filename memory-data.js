@@ -1,6 +1,7 @@
 import { ANIMAL_BOOK_ANIMALS } from './animal-book-data.js';
 
 export const MEMORY_CLIPS = {
+  memory_sound_name_start: 'Fordíts fel két kártyát! Keresd meg az állat hangját és a nevét!',
   memory_start: 'Keress egyforma képeket! Fordíts fel két kártyát!',
   memory_sound_start: 'Hallgass meg egy hangot, és keresd meg a képét!',
   memory_hint: 'Nézzük meg együtt a képeket! Jegyezd meg, melyik hol van!',

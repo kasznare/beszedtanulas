@@ -14,6 +14,7 @@ export const PUZZLE_SIZES = [2, 4, 6, 9, 12, 16];
 const LEGACY_SIZES = { 8: 9, 10: 12 };
 export const PUZZLE_TAB = .22;
 export const PUZZLE_CLIPS = {
+  puzzle_strict_on: 'Most csak a jó helyre kerülhet a darab.',
   puzzle_start: 'Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.',
   puzzle_hint: 'Nézzük meg a teljes képet! Keresd meg rajta a darabod helyét!',
   puzzle_retry: 'Ez a darab másik helyre illik. Próbáld újra!',

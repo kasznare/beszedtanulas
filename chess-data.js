@@ -84,6 +84,10 @@ export const CHESS_CLIPS = {
   chess_bishop_knight_master: 'A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!',
   chess_promotion_master: 'Változtasd vezérré a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a csillagra hat lépésből!',
   chess_steps_used: 'Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!',
+  chess_tactics_intro: 'Most a sötét is lép! Gondold át, mit válaszol.',
+  chess_tactic_failed: 'A sötét visszaütött. Vond vissza, és keress jobb lépést!',
+  chess_mate: 'Matt! A sötét király nem tud elmenekülni.',
+  chess_pawns_intro: 'Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!',
 };
 
 export function normalizeChessOptions(value = {}) {

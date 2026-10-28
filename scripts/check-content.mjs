@@ -20,6 +20,7 @@ import { CHESS_CLIPS } from '../chess-data.js';
 import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
 import { ENGINEERING_CLIPS } from '../engineering-data.js';
 import { ENGINEERING_PHONETIC_IDS, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
+import { REWORK_PHONETIC_IDS, phoneticReworkText } from '../rework-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -78,7 +79,20 @@ for (const id of CHESS_PHONETIC_IDS) {
   const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
   assert.equal(spoken.length, displayed.length, `Chess IPA changed word positions: ${id}`);
 }
-assert.equal(Object.keys(ENGINEERING_CLIPS).length, ENGINEERING_PHONETIC_IDS.length, 'Engineering voice input missing phonetic review');
+for (const id of Object.keys(ENGINEERING_CLIPS)) assert.ok(ENGINEERING_PHONETIC_IDS.includes(id) || REWORK_PHONETIC_IDS.includes(id), `Engineering voice input missing phonetic review: ${id}`);
+// Every line added with the 2026 rework has a scoped phonetic input that keeps the word positions.
+assert.equal(new Set(REWORK_PHONETIC_IDS).size, REWORK_PHONETIC_IDS.length, 'Repeated rework voice ID');
+for (const id of REWORK_PHONETIC_IDS) {
+  const clip = manifest.clips.find(clip => clip.id === id);
+  assert.ok(clip, `Missing rework voice: ${id}`);
+  assert.equal(VOICE_CLIPS[id]?.text, clip.text, `Missing registered rework voice: ${id}`);
+  assert.equal(clip.spokenTarget, repairs.clips[id]?.spokenTarget ?? phoneticReworkText(id, clip.text, pronunciation.words), `Stale rework pronunciation: ${id}`);
+  if (!Object.hasOwn(repairs.clips, id)) assert.ok(clip.spokenTarget.includes('/'), `Missing rework IPA: ${id}`);
+  assert.equal(clip.spokenText.slice(clip.extract.from, clip.extract.to), clip.spokenTarget, `Wrong rework speech excerpt: ${id}`);
+  const displayed = clip.text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  const spoken = clip.spokenTarget.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
+  assert.equal(spoken.length, displayed.length, `Rework IPA changed word positions: ${id}`);
+}
 assert.equal(new Set(ENGINEERING_PHONETIC_IDS).size, ENGINEERING_PHONETIC_IDS.length, 'Repeated engineering voice ID');
 for (const id of ENGINEERING_PHONETIC_IDS) {
   const clip = manifest.clips.find(clip => clip.id === id);

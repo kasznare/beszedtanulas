@@ -248,7 +248,7 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
       onComplete(stars);
     } else {
       status(trial.broken.length?'Eltört egy rúd! Itt túl nagy volt a teher. Erősítsd meg háromszögekkel, és próbáld újra!':'Itt meghajlott a híd. Építs háromszöget a megjelölt rész köré, és próbáld újra!');
-      say('engineering_retry');
+      say(trial.broken.length?'engineering_bar_broke':'engineering_retry');
     }
     syncControls();
   }
@@ -258,14 +258,14 @@ export function setupEngineering({ getProgress, setProgress, speak, stopPlayback
     progress.dropStars[dropLevel]=Math.max(progress.dropStars[dropLevel],stars);save();
     status(dropLevel+1<DROP_LEVELS.length?'Elérted a zászlót! Megnyílt a következő pálya.':'Elérted a legmagasabb zászlót is!');
     const row=$('.en-levels');if(row)row.outerHTML=levelRow();
-    say('chess_star');syncControls();onComplete(stars);
+    say('engineering_flag');syncControls();onComplete(stars);
   }
   function completeChallenge() {
     const stars=dropStars(world.lost-challengeLost), info=BUILD_CHALLENGES.find(c=>c.id===challenge);
     challengeDone=true;progress.buildStars[challenge]=Math.max(progress.buildStars[challenge],stars);save();
     status(`Kész: ${info.name}! ${starText(stars)}`);
     const row=$('.en-levels');if(row)row.outerHTML=levelRow();
-    say('chess_star');syncControls();
+    say('engineering_challenge');syncControls();
     // One celebration per card and construction: re-selecting a met card does not farm rewards.
     if(!rewarded.has(challenge)){rewarded.add(challenge);onComplete(stars);}
   }

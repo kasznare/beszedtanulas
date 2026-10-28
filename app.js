@@ -1148,7 +1148,7 @@ async function playWord(word, token = beginPlayback(), cue = narrationCue(word.c
 async function playListeningPrompt(word, { intro = false, retry = false, force = false } = {}) {
   const token = beginPlayback();
   if ((state.settings.spokenGuidance || force) && (intro || retry)) {
-    await speakVoice(retry ? "guide_again" : "guide_listening_game", token);
+    await speakVoice(retry ? "guide_again" : word.kind === "phrase" ? "listening_phrase_start" : "guide_listening_game", token);
   }
   if (token !== playbackToken || currentScreen !== "listening-game" || document.hidden) return;
   if (word.kind === "phrase") { registerPlay(); await speakVoice(`phrase_${word.id}`, token); return; }
@@ -2550,7 +2550,7 @@ function celebrateRound(kind, count) {
     else if (kind === "puzzle") speakVoice('puzzle_done');
     else if (kind === "differences" && state.settings.spokenGuidance) speakVoice('differences_done');
     else if (kind === "patterns" && state.settings.spokenGuidance) speakVoice('patterns_done');
-    else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(count === 3 ? 'chess_done' : 'chess_solved');
+    else if (kind === "chess" && state.settings.spokenGuidance) speakVoice(chessGame.completionVoice?.() || (count === 3 ? 'chess_done' : 'chess_solved'));
     else if (kind === "chess" || kind === "engineering") return;
     else if ((kind === "differences" || kind === "patterns") && !state.settings.spokenGuidance) return;
     else speakGuide(kind === "dress-game" ? "dress_finished" : kind === "teddy-game" ? "teddy_finished" : "finished");

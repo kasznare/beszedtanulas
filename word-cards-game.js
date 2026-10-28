@@ -79,7 +79,7 @@ export function setupWordCards({ playCard, speak, effect = () => {}, stopPlaybac
   async function prompt(intro = false) {
     if (!peek || peek.done || !active()) return;
     const target = byId(peek.questions[peek.step].targetId);
-    await sequence([...(intro ? [() => speak('guide_listening_game')] : []), () => playCard(nameOnly(target))]);
+    await sequence([...(intro ? [() => speak('cards_peek_intro')] : []), () => playCard(nameOnly(target))]);
   }
   function startPeek() {
     if (!topic || !active()) return;

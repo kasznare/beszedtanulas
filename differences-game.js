@@ -158,8 +158,7 @@ export function setupDifferencesGame({ effect = () => {}, speak = () => {}, stop
     const difference = scene.differences.find(item => item.id === hintTarget), text = differenceHint(difference, round.variants?.[hintTarget]);
     status(hintStage === 1 ? text : hintStage === 2 ? `${text} Nézd meg a jelölt környéket mindkét képen!` : 'A kisebb jelölésen belül hasonlítsd össze a részleteket, és jelöld meg az eltérést!');
     if (hintStage >= 2 && zoom) centerView(difference.area.x, difference.area.y);
-    // differences_closer is recorded with the same words as differences_hint, so only the first ring speaks.
-    if (hintStage === 2) say('differences_hint', true); else if (hintStage === 3) stopPlayback();
+    if (hintStage === 2) say('differences_hint', true); else if (hintStage === 3) say('differences_closer', true);
     updateOverlays();
   }
 

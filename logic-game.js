@@ -81,7 +81,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
       }
     } else for (let i = 0; i < 2; i++) {
       const cue = { target: `[data-order="${i}"]` }, itemIds = [i ? 'logic_nut' : 'logic_apple'];
-      if (customer.format === 'change') itemIds.push(`logic_n_${base[i]}`, ...(target[i] === base[i] ? [] : [target[i] > base[i] ? 'logic_plus' : 'logic_minus', `logic_n_${Math.abs(target[i] - base[i])}`]));
+      if (customer.format === 'change') itemIds.push(`logic_n_${base[i]}`, ...(target[i] === base[i] ? ['logic_shop_same'] : [target[i] > base[i] ? 'logic_plus' : 'logic_minus', `logic_n_${Math.abs(target[i] - base[i])}`]));
       else itemIds.push(`logic_n_${target[i]}`);
       ids.push(...itemIds.map(id => ({ id, cue })));
     }
@@ -436,9 +436,9 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
           if (!active || session !== completedSession || kind !== completedKind) return;
           successPending = false; delivering = false; status = '✓ Sikerült! Szép munka.';
           render();
-          if (!document.querySelector('dialog[open]')) { $('#logic-next')?.focus({ preventScroll: true }); say(`logic_${kind}_done`); }
+          if (!document.querySelector('dialog[open]')) { $('#logic-next')?.focus({ preventScroll: true }); say(kind === 'route' ? ['logic_route_done', 'logic_route_shortest', `logic_n_${shortestRoute(task)}`] : `logic_${kind}_done`); }
         });
-      } else { render(); repeat(); }
+      } else { render(); if (kind === 'shop') say('logic_shop_next', shopOrderIds()); else repeat(); }
       return;
     }
     if (kind === 'machine' && (!predictionsOpen() || session.values.includes(null))) {
@@ -446,7 +446,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
       effect('retry'); const open = predictionsOpen();
       status = !session.program.every(Boolean) ? 'Előbb töltsd ki a gép üres helyeit!' : !open ? 'Előbb próbáld ki a gépet a Géppróbával!' : 'Válassz eredményt mindkét új számhoz!';
       trial = session.program.every(Boolean) && trial; predictionChecked = open;
-      say(!session.program.every(Boolean) ? 'logic_machine_empty' : !open ? 'logic_machine_help_rule' : 'logic_machine_guess');
+      say(!session.program.every(Boolean) ? 'logic_machine_empty' : !open ? 'logic_machine_locked' : 'logic_machine_guess');
       render('logic-check'); return;
     }
     effect('retry'); recordMiss(session);
@@ -499,7 +499,7 @@ export function setupLogic({ effect = () => {}, getProgress, updateProgress, get
       crash={index:plan.crash,reason:plan.reason,target:plan.target};replanAt=plan.crash;fox=plan.cells.at(-1);walked=plan.cells.length-1;
       effect('retry');recordMiss(session);
       status=plan.reason==='tired'?`Elfogyott a ${task.maxSteps} lépés. Rövidebb utat keress!`:`Hoppá! A ${plan.crash+1}. lépésnél ${plan.reason==='rock'?'kő állja az utat':'vége az ösvénynek'}.`;
-      save();render('logic-replan-confirm');if(plan.reason==='tired')say('logic_route_steps_restart');
+      save();render('logic-replan-confirm');say(plan.reason==='tired'?'logic_route_steps_restart':'logic_route_bump');
       return;
     }
     if(plan.arrived>0&&plan.arrived<session.steps.length)session.steps=session.steps.slice(0,plan.arrived);

@@ -665,6 +665,21 @@
       "file": "audio/voice/dress_name_szandal.mp3"
     },
     {
+      "id": "teddy_expressive_intro",
+      "text": "Most te kérsz a macitól! Válassz egy finomságot!",
+      "group": "teddy",
+      "file": "audio/voice/teddy_expressive_intro.mp3",
+      "spokenText": "Mondjuk együtt: /moʃt/ /tɛ/ /keːrs/ a /ˈmɒt͡sitoːl/! /ˈvaːlɒsː/ /ɛɟ/ /ˈfinomʃaːɡot/!",
+      "extract": {
+        "from": 16,
+        "to": 84,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Most te kérsz a macitól! Válassz egy finomságot!"
+      },
+      "spokenTarget": "/moʃt/ /tɛ/ /keːrs/ a /ˈmɒt͡sitoːl/! /ˈvaːlɒsː/ /ɛɟ/ /ˈfinomʃaːɡot/!"
+    },
+    {
       "id": "teddy_sequence_next",
       "text": "Az első finomság megvan! Most jöhet a második.",
       "group": "teddy",
@@ -869,6 +884,21 @@
       "file": "audio/voice/teddy_sequence_kenyer_tej.mp3"
     },
     {
+      "id": "abk_quiz_intro",
+      "text": "Állatkvíz! Hallgasd meg, ki szól, és koppints rá!",
+      "group": "animal-book",
+      "file": "audio/voice/abk_quiz_intro.mp3",
+      "spokenText": "Mondjuk együtt: /ˈaːlːɒtkviːz/! /ˈhɒlːɡɒʒd/ /mɛɡ/, /ki/ /soːl/, /eːʃ/ /ˈkopːint͡ʃ/ /raː/!",
+      "extract": {
+        "from": 16,
+        "to": 89,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Állatkvíz! Hallgasd meg, ki szól, és koppints rá!"
+      },
+      "spokenTarget": "/ˈaːlːɒtkviːz/! /ˈhɒlːɡɒʒd/ /mɛɡ/, /ki/ /soːl/, /eːʃ/ /ˈkopːint͡ʃ/ /raː/!"
+    },
+    {
       "id": "abk_sound_guide",
       "text": "Hallgasd meg az állat hangját, és válaszd ki, melyik állat szólt!",
       "group": "animal-book",
@@ -1008,6 +1038,96 @@
       "spokenText": "Farkas.",
       "group": "animal-book",
       "file": "audio/voice/abk_name_wolf.mp3"
+    },
+    {
+      "id": "listening_bingo_none",
+      "text": "Ha nincs ilyen képed, koppints a „Nincs nálam” gombra!",
+      "group": "portal",
+      "file": "audio/voice/listening_bingo_none.mp3",
+      "spokenText": "Mondjuk együtt: /hɒ/ /nint͡ʃ/ /ˈijɛn/ /ˈkeːpɛd/, /ˈkopːint͡ʃ/ a „/nint͡ʃ/ /ˈnaːlɒm/” /ˈɡombrɒ/!",
+      "extract": {
+        "from": 16,
+        "to": 95,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ha nincs ilyen képed, koppints a „Nincs nálam” gombra!"
+      },
+      "spokenTarget": "/hɒ/ /nint͡ʃ/ /ˈijɛn/ /ˈkeːpɛd/, /ˈkopːint͡ʃ/ a „/nint͡ʃ/ /ˈnaːlɒm/” /ˈɡombrɒ/!"
+    },
+    {
+      "id": "listening_bingo_win",
+      "text": "Bingó! Megvan egy teljes sor!",
+      "group": "portal",
+      "file": "audio/voice/listening_bingo_win.mp3",
+      "spokenText": "Mondjuk együtt: /ˈbiŋɡoː/! /ˈmɛɡvɒn/ /ɛɟ/ /ˈtɛjɛʃ/ /ʃor/!",
+      "extract": {
+        "from": 16,
+        "to": 57,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Bingó! Megvan egy teljes sor!"
+      },
+      "spokenTarget": "/ˈbiŋɡoː/! /ˈmɛɡvɒn/ /ɛɟ/ /ˈtɛjɛʃ/ /ʃor/!"
+    },
+    {
+      "id": "listening_phrase_start",
+      "text": "Hallgasd meg, mit mondok, és keresd meg a képét!",
+      "group": "portal",
+      "file": "audio/voice/listening_phrase_start.mp3",
+      "spokenText": "Mondjuk együtt: /ˈhɒlːɡɒʒd/ /mɛɡ/, /mit/ /ˈmondok/, /eːʃ/ /ˈkɛrɛʒd/ /mɛɡ/ a /ˈkeːpeːt/!",
+      "extract": {
+        "from": 16,
+        "to": 87,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hallgasd meg, mit mondok, és keresd meg a képét!"
+      },
+      "spokenTarget": "/ˈhɒlːɡɒʒd/ /mɛɡ/, /mit/ /ˈmondok/, /eːʃ/ /ˈkɛrɛʒd/ /mɛɡ/ a /ˈkeːpeːt/!"
+    },
+    {
+      "id": "flip_missing_two",
+      "text": "Most két kép bújik el. Melyik kettő hiányzik?",
+      "group": "portal",
+      "file": "audio/voice/flip_missing_two.mp3",
+      "spokenText": "Mondjuk együtt: /moʃt/ /keːt/ /keːp/ /ˈbuːjik/ /ɛl/. /ˈmɛjik/ /ˈkɛtːøː/ /ˈhijaːɲzik/?",
+      "extract": {
+        "from": 16,
+        "to": 85,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Most két kép bújik el. Melyik kettő hiányzik?"
+      },
+      "spokenTarget": "/moʃt/ /keːt/ /keːp/ /ˈbuːjik/ /ɛl/. /ˈmɛjik/ /ˈkɛtːøː/ /ˈhijaːɲzik/?"
+    },
+    {
+      "id": "counting_how_many",
+      "text": "Hány van? Koppints a számra!",
+      "group": "portal",
+      "file": "audio/voice/counting_how_many.mp3",
+      "spokenText": "Mondjuk együtt: /haːɲ/ /vɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!",
+      "extract": {
+        "from": 16,
+        "to": 55,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hány van? Koppints a számra!"
+      },
+      "spokenTarget": "/haːɲ/ /vɒn/? /ˈkopːint͡ʃ/ a /ˈsaːmrɒ/!"
+    },
+    {
+      "id": "cards_peek_intro",
+      "text": "Kukucs! Hol van? Keresd meg a képet!",
+      "group": "portal",
+      "file": "audio/voice/cards_peek_intro.mp3",
+      "spokenText": "Mondjuk együtt: /ˈkukut͡ʃ/! /hol/ /vɒn/? /ˈkɛrɛʒd/ /mɛɡ/ a /ˈkeːpɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 69,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kukucs! Hol van? Keresd meg a képet!"
+      },
+      "spokenTarget": "/ˈkukut͡ʃ/! /hol/ /vɒn/? /ˈkɛrɛʒd/ /mɛɡ/ a /ˈkeːpɛt/!"
     },
     {
       "id": "listening_bingo_start",
@@ -1978,6 +2098,81 @@
       }
     },
     {
+      "id": "logic_route_bump",
+      "text": "Hoppá, a róka itt elakadt! Innen tervezd újra az utat!",
+      "group": "logic",
+      "file": "audio/voice/logic_route_bump.mp3",
+      "spokenText": "Mondjuk együtt: /ˈhopːaː/, a /ˈroːkɒ/ /itː/ /ˈɛlɒkɒtː/! /ˈinːɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!",
+      "extract": {
+        "from": 16,
+        "to": 98,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hoppá, a róka itt elakadt! Innen tervezd újra az utat!"
+      },
+      "spokenTarget": "/ˈhopːaː/, a /ˈroːkɒ/ /itː/ /ˈɛlɒkɒtː/! /ˈinːɛn/ /ˈtɛrvɛzd/ /ˈuːjrɒ/ /ɒz/ /ˈutɒt/!"
+    },
+    {
+      "id": "logic_route_shortest",
+      "text": "A legrövidebb út ennyi lépés volt.",
+      "group": "logic",
+      "file": "audio/voice/logic_route_shortest.mp3",
+      "spokenText": "Mondjuk együtt: A /ˈlɛɡrøvidɛbː/ /uːt/ /ˈɛɲːi/ /ˈleːpeːʃ/ /volt/.",
+      "extract": {
+        "from": 16,
+        "to": 65,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A legrövidebb út ennyi lépés volt."
+      },
+      "spokenTarget": "A /ˈlɛɡrøvidɛbː/ /uːt/ /ˈɛɲːi/ /ˈleːpeːʃ/ /volt/."
+    },
+    {
+      "id": "logic_machine_locked",
+      "text": "Előbb próbáld ki a gépet a Géppróba gombbal!",
+      "group": "logic",
+      "file": "audio/voice/logic_machine_locked.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɛløːbː/ /ˈproːbaːld/ /ki/ a /ˈɡeːpɛt/ a /ˈɡeːpːroːbɒ/ /ˈɡombːɒl/!",
+      "extract": {
+        "from": 16,
+        "to": 83,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Előbb próbáld ki a gépet a Géppróba gombbal!"
+      },
+      "spokenTarget": "/ˈɛløːbː/ /ˈproːbaːld/ /ki/ a /ˈɡeːpɛt/ a /ˈɡeːpːroːbɒ/ /ˈɡombːɒl/!"
+    },
+    {
+      "id": "logic_shop_next",
+      "text": "Itt a következő vevő!",
+      "group": "logic",
+      "file": "audio/voice/logic_shop_next.mp3",
+      "spokenText": "Mondjuk együtt: /itː/ a /ˈkøvɛtkɛzøː/ /ˈvɛvøː/!",
+      "extract": {
+        "from": 16,
+        "to": 47,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Itt a következő vevő!"
+      },
+      "spokenTarget": "/itː/ a /ˈkøvɛtkɛzøː/ /ˈvɛvøː/!"
+    },
+    {
+      "id": "logic_shop_same",
+      "text": "Ez a kosár maradhat így.",
+      "group": "logic",
+      "file": "audio/voice/logic_shop_same.mp3",
+      "spokenText": "Mondjuk együtt: /ɛz/ a /ˈkoʃaːr/ /ˈmɒrɒthɒt/ /iːɟ/.",
+      "extract": {
+        "from": 16,
+        "to": 51,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ez a kosár maradhat így."
+      },
+      "spokenTarget": "/ɛz/ a /ˈkoʃaːr/ /ˈmɒrɒthɒt/ /iːɟ/."
+    },
+    {
       "id": "logic_play_menu",
       "text": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak.",
       "group": "logic",
@@ -2222,9 +2417,18 @@
     },
     {
       "id": "logic_route_2",
-      "text": "Vidd el a csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
+      "text": "Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
       "group": "logic",
-      "file": "audio/voice/logic_route_2.mp3"
+      "file": "audio/voice/logic_route_2.mp3",
+      "spokenText": "Mondjuk együtt: /vidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːshoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/.",
+      "extract": {
+        "from": 16,
+        "to": 199,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz."
+      },
+      "spokenTarget": "/vidː/ /ɛl/ /ˈmintkeːt/ /ˈt͡ʃomɒɡot/ a /ˈhaːshoz/! A /ˈkøvɛkɛt/ /ˈkɛryld/ /mɛɡ/! /ˈtɛrvɛzd/ /mɛɡ/ /ɒz/ /ˈɛɡeːs/ /ˈutɒt/, /ˈɒstaːn/ /ˈproːbaːld/ /ki/! /ˈvisːɒvonaːʃːɒl/ /ˈjɒviːthɒt͡s/."
     },
     {
       "id": "logic_route_3",
@@ -2679,6 +2883,21 @@
       }
     },
     {
+      "id": "memory_sound_name_start",
+      "text": "Fordíts fel két kártyát! Keresd meg az állat hangját és a nevét!",
+      "group": "memory",
+      "file": "audio/voice/memory_sound_name_start.mp3",
+      "spokenText": "Mondjuk együtt: /ˈfordiːt͡ʃ/ /fɛl/ /keːt/ /ˈkaːrcaːt/! /ˈkɛrɛʒd/ /mɛɡ/ /ɒz/ /ˈaːlːɒt/ /ˈhɒŋɡjaːt/ /eːʃ/ a /ˈnɛveːt/!",
+      "extract": {
+        "from": 16,
+        "to": 116,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Fordíts fel két kártyát! Keresd meg az állat hangját és a nevét!"
+      },
+      "spokenTarget": "/ˈfordiːt͡ʃ/ /fɛl/ /keːt/ /ˈkaːrcaːt/! /ˈkɛrɛʒd/ /mɛɡ/ /ɒz/ /ˈaːlːɒt/ /ˈhɒŋɡjaːt/ /eːʃ/ a /ˈnɛveːt/!"
+    },
+    {
       "id": "memory_start",
       "text": "Keress egyforma képeket! Fordíts fel két kártyát!",
       "group": "memory",
@@ -2734,6 +2953,21 @@
       "text": "Minden pár megvan! Szép munka!",
       "group": "memory",
       "file": "audio/voice/memory_done.mp3"
+    },
+    {
+      "id": "puzzle_strict_on",
+      "text": "Most csak a jó helyre kerülhet a darab.",
+      "group": "puzzle",
+      "file": "audio/voice/puzzle_strict_on.mp3",
+      "spokenText": "Mondjuk együtt: /moʃt/ /t͡ʃɒk/ a /joː/ /ˈhɛjrɛ/ /ˈkɛrylhɛt/ a /ˈdɒrɒb/.",
+      "extract": {
+        "from": 16,
+        "to": 71,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Most csak a jó helyre kerülhet a darab."
+      },
+      "spokenTarget": "/moʃt/ /t͡ʃɒk/ a /joː/ /ˈhɛjrɛ/ /ˈkɛrylhɛt/ a /ˈdɒrɒb/."
     },
     {
       "id": "puzzle_start",
@@ -2815,18 +3049,18 @@
     },
     {
       "id": "differences_closer",
-      "text": "Figyeld meg a képet!",
+      "text": "A kisebb jelölésen belül nézd meg jól a részleteket!",
       "group": "differences",
       "file": "audio/voice/differences_closer.mp3",
-      "spokenText": "Mondjuk együtt: Próbáld újra! Figyeld meg a /ˈkeːpɛt/ vagy hallgasd meg a hangot!",
+      "spokenText": "Mondjuk együtt: A /ˈkiʃɛbː/ /ˈjɛløleːʃɛn/ /ˈbɛlyl/ /neːzd/ /mɛɡ/ /joːl/ a /ˈreːslɛtɛkɛt/!",
       "extract": {
-        "from": 30,
-        "to": 53,
+        "from": 16,
+        "to": 89,
         "before": 0.025,
-        "after": 0.12,
-        "text": "Figyeld meg a képet!"
+        "after": 0.15,
+        "text": "A kisebb jelölésen belül nézd meg jól a részleteket!"
       },
-      "spokenTarget": "Figyeld meg a /ˈkeːpɛt/"
+      "spokenTarget": "A /ˈkiʃɛbː/ /ˈjɛløleːʃɛn/ /ˈbɛlyl/ /neːzd/ /mɛɡ/ /joːl/ a /ˈreːslɛtɛkɛt/!"
     },
     {
       "id": "differences_done",
@@ -2842,6 +3076,66 @@
         "after": 0.12,
         "text": "Szép munka!"
       }
+    },
+    {
+      "id": "patterns_gap",
+      "text": "Melyik hiányzik a sorból?",
+      "group": "patterns",
+      "file": "audio/voice/patterns_gap.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛjik/ /ˈhijaːɲzik/ a /ˈʃorboːl/?",
+      "extract": {
+        "from": 16,
+        "to": 51,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Melyik hiányzik a sorból?"
+      },
+      "spokenTarget": "/ˈmɛjik/ /ˈhijaːɲzik/ a /ˈʃorboːl/?"
+    },
+    {
+      "id": "patterns_odd",
+      "text": "Melyik nem illik a sorba? Koppints rá!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_odd.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛjik/ /nɛm/ /ˈilːik/ a /ˈʃorbɒ/? /ˈkopːint͡ʃ/ /raː/!",
+      "extract": {
+        "from": 16,
+        "to": 71,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Melyik nem illik a sorba? Koppints rá!"
+      },
+      "spokenTarget": "/ˈmɛjik/ /nɛm/ /ˈilːik/ a /ˈʃorbɒ/? /ˈkopːint͡ʃ/ /raː/!"
+    },
+    {
+      "id": "patterns_odd_fix",
+      "text": "Megtaláltad! Mi illik a helyére?",
+      "group": "patterns",
+      "file": "audio/voice/patterns_odd_fix.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛɡtɒlaːltɒd/! /mi/ /ˈilːik/ a /ˈhɛjeːrɛ/?",
+      "extract": {
+        "from": 16,
+        "to": 60,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Megtaláltad! Mi illik a helyére?"
+      },
+      "spokenTarget": "/ˈmɛɡtɒlaːltɒd/! /mi/ /ˈilːik/ a /ˈhɛjeːrɛ/?"
+    },
+    {
+      "id": "patterns_grow",
+      "text": "Hány pötty jön ezután? Számoljuk meg!",
+      "group": "patterns",
+      "file": "audio/voice/patterns_grow.mp3",
+      "spokenText": "Mondjuk együtt: /haːɲ/ /pøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!",
+      "extract": {
+        "from": 16,
+        "to": 66,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Hány pötty jön ezután? Számoljuk meg!"
+      },
+      "spokenTarget": "/haːɲ/ /pøcː/ /jøn/ /ˈɛzutaːn/? /ˈsaːmojuk/ /mɛɡ/!"
     },
     {
       "id": "patterns_start",
@@ -2903,6 +3197,51 @@
         "after": 0.12,
         "text": "Minden elem illeszkedik!"
       }
+    },
+    {
+      "id": "montessori_grid_missing",
+      "text": "Melyik hiányzik a rácsból? Tedd a helyére!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_grid_missing.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛjik/ /ˈhijaːɲzik/ a /ˈraːt͡ʃboːl/? /tɛdː/ a /ˈhɛjeːrɛ/!",
+      "extract": {
+        "from": 16,
+        "to": 75,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Melyik hiányzik a rácsból? Tedd a helyére!"
+      },
+      "spokenTarget": "/ˈmɛjik/ /ˈhijaːɲzik/ a /ˈraːt͡ʃboːl/? /tɛdː/ a /ˈhɛjeːrɛ/!"
+    },
+    {
+      "id": "montessori_grid_odd",
+      "text": "Melyik nem illik a rácsba? Koppints rá, aztán tedd a helyére a jót!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_grid_odd.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmɛjik/ /nɛm/ /ˈilːik/ a /ˈraːt͡ʃbɒ/? /ˈkopːint͡ʃ/ /raː/, /ˈɒstaːn/ /tɛdː/ a /ˈhɛjeːrɛ/ a /joːt/!",
+      "extract": {
+        "from": 16,
+        "to": 114,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Melyik nem illik a rácsba? Koppints rá, aztán tedd a helyére a jót!"
+      },
+      "spokenTarget": "/ˈmɛjik/ /nɛm/ /ˈilːik/ a /ˈraːt͡ʃbɒ/? /ˈkopːint͡ʃ/ /raː/, /ˈɒstaːn/ /tɛdː/ a /ˈhɛjeːrɛ/ a /joːt/!"
+    },
+    {
+      "id": "montessori_tower_lean",
+      "text": "Billeg a torony! Koppints a felső korongra, és vedd le!",
+      "group": "montessori",
+      "file": "audio/voice/montessori_tower_lean.mp3",
+      "spokenText": "Mondjuk együtt: /ˈbilːɛɡ/ a /ˈtoroɲ/! /ˈkopːint͡ʃ/ a /ˈfɛlʃøː/ /ˈkoroŋɡrɒ/, /eːʃ/ /vɛdː/ /lɛ/!",
+      "extract": {
+        "from": 16,
+        "to": 94,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Billeg a torony! Koppints a felső korongra, és vedd le!"
+      },
+      "spokenTarget": "/ˈbilːɛɡ/ a /ˈtoroɲ/! /ˈkopːint͡ʃ/ a /ˈfɛlʃøː/ /ˈkoroŋɡrɒ/, /eːʃ/ /vɛdː/ /lɛ/!"
     },
     {
       "id": "montessori_menu",
@@ -3697,6 +4036,111 @@
       "file": "audio/voice/chess_steps_used.mp3"
     },
     {
+      "id": "chess_tactics_intro",
+      "text": "Most a sötét is lép! Gondold át, mit válaszol.",
+      "group": "chess",
+      "file": "audio/voice/chess_tactics_intro.mp3",
+      "spokenText": "Mondjuk együtt: /moʃt/ a /ˈʃøteːt/ /iʃ/ /leːp/! /ˈɡondold/ /aːt/, /mit/ /ˈvaːlɒsol/.",
+      "extract": {
+        "from": 16,
+        "to": 84,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Most a sötét is lép! Gondold át, mit válaszol."
+      },
+      "spokenTarget": "/moʃt/ a /ˈʃøteːt/ /iʃ/ /leːp/! /ˈɡondold/ /aːt/, /mit/ /ˈvaːlɒsol/."
+    },
+    {
+      "id": "chess_tactic_failed",
+      "text": "A sötét visszaütött. Vond vissza, és keress jobb lépést!",
+      "group": "chess",
+      "file": "audio/voice/chess_tactic_failed.mp3",
+      "spokenText": "Mondjuk együtt: A /ˈʃøteːt/ /ˈvisːɒytøtː/. /vond/ /ˈvisːɒ/, /eːʃ/ /ˈkɛrɛʃː/ /jobː/ /ˈleːpeːʃt/!",
+      "extract": {
+        "from": 16,
+        "to": 95,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A sötét visszaütött. Vond vissza, és keress jobb lépést!"
+      },
+      "spokenTarget": "A /ˈʃøteːt/ /ˈvisːɒytøtː/. /vond/ /ˈvisːɒ/, /eːʃ/ /ˈkɛrɛʃː/ /jobː/ /ˈleːpeːʃt/!"
+    },
+    {
+      "id": "chess_mate",
+      "text": "Matt! A sötét király nem tud elmenekülni.",
+      "group": "chess",
+      "file": "audio/voice/chess_mate.mp3",
+      "spokenText": "Mondjuk együtt: /mɒtː/! A /ˈʃøteːt/ /ˈkiraːj/ /nɛm/ /tud/ /ˈɛlmɛnɛkylni/.",
+      "extract": {
+        "from": 16,
+        "to": 73,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Matt! A sötét király nem tud elmenekülni."
+      },
+      "spokenTarget": "/mɒtː/! A /ˈʃøteːt/ /ˈkiraːj/ /nɛm/ /tud/ /ˈɛlmɛnɛkylni/."
+    },
+    {
+      "id": "chess_pawns_intro",
+      "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!",
+      "group": "chess",
+      "file": "audio/voice/chess_pawns_intro.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɟɒloɡt͡ʃɒtɒ/! /ˈjutːɒʒd/ /aːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!",
+      "extract": {
+        "from": 16,
+        "to": 102,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!"
+      },
+      "spokenTarget": "/ˈɟɒloɡt͡ʃɒtɒ/! /ˈjutːɒʒd/ /aːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!"
+    },
+    {
+      "id": "engineering_flag",
+      "text": "Elérted a zászlót!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_flag.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɛleːrtɛd/ a /ˈzaːsloːt/!",
+      "extract": {
+        "from": 16,
+        "to": 42,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Elérted a zászlót!"
+      },
+      "spokenTarget": "/ˈɛleːrtɛd/ a /ˈzaːsloːt/!"
+    },
+    {
+      "id": "engineering_challenge",
+      "text": "Kész! Ügyesen építettél!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_challenge.mp3",
+      "spokenText": "Mondjuk együtt: /keːs/! /ˈyɟɛʃɛn/ /ˈeːpiːtɛtːeːl/!",
+      "extract": {
+        "from": 16,
+        "to": 50,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Kész! Ügyesen építettél!"
+      },
+      "spokenTarget": "/keːs/! /ˈyɟɛʃɛn/ /ˈeːpiːtɛtːeːl/!"
+    },
+    {
+      "id": "engineering_bar_broke",
+      "text": "Eltört egy rúd! Erősítsd meg háromszögekkel!",
+      "group": "engineering",
+      "file": "audio/voice/engineering_bar_broke.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːd͡ʒd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!",
+      "extract": {
+        "from": 16,
+        "to": 78,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Eltört egy rúd! Erősítsd meg háromszögekkel!"
+      },
+      "spokenTarget": "/ˈɛltørt/ /ɛɟ/ /ruːd/! /ˈɛrøːʃiːd͡ʒd/ /mɛɡ/ /ˈhaːromsøɡɛkːɛl/!"
+    },
+    {
       "id": "engineering_hub",
       "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
       "group": "engineering",
@@ -3800,6 +4244,51 @@
         "text": "A híd meghajlott. Próbáld átlós rudakkal megerősíteni!"
       },
       "spokenTarget": "A /ˈhiːd/ meghajlott. Próbáld /ˈaːtloːʃ/ /ˈrudɒkːɒl/ megerősíteni!"
+    },
+    {
+      "id": "workshop_balance_missing",
+      "text": "A jobb oldalon már van egy rúd. Egyetlen rúddal tedd egyensúlyba a mérleget!",
+      "group": "workshop",
+      "file": "audio/voice/workshop_balance_missing.mp3",
+      "spokenText": "Mondjuk együtt: A /jobː/ /ˈoldɒlon/ /maːr/ /vɒn/ /ɛɟ/ /ruːd/. /ˈɛɟɛtlɛn/ /ˈruːdːɒl/ /tɛdː/ /ˈɛɟɛnʃuːjbɒ/ a /ˈmeːrlɛɡɛt/!",
+      "extract": {
+        "from": 16,
+        "to": 120,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "A jobb oldalon már van egy rúd. Egyetlen rúddal tedd egyensúlyba a mérleget!"
+      },
+      "spokenTarget": "A /jobː/ /ˈoldɒlon/ /maːr/ /vɒn/ /ɛɟ/ /ruːd/. /ˈɛɟɛtlɛn/ /ˈruːdːɒl/ /tɛdː/ /ˈɛɟɛnʃuːjbɒ/ a /ˈmeːrlɛɡɛt/!"
+    },
+    {
+      "id": "workshop_balance_fewest",
+      "text": "Rakd ki ugyanannyit minél kevesebb rúddal!",
+      "group": "workshop",
+      "file": "audio/voice/workshop_balance_fewest.mp3",
+      "spokenText": "Mondjuk együtt: /rɒɡd/ /ki/ /ˈuɟɒnɒɲːit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!",
+      "extract": {
+        "from": 16,
+        "to": 74,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Rakd ki ugyanannyit minél kevesebb rúddal!"
+      },
+      "spokenTarget": "/rɒɡd/ /ki/ /ˈuɟɒnɒɲːit/ /ˈmineːl/ /ˈkɛvɛʃɛbː/ /ˈruːdːɒl/!"
+    },
+    {
+      "id": "workshop_design_build",
+      "text": "Tervezd meg a saját mintádat! Válassz két vagy három formát, a fonal majd ismétli őket.",
+      "group": "workshop",
+      "file": "audio/voice/workshop_design_build.mp3",
+      "spokenText": "Mondjuk együtt: /ˈtɛrvɛzd/ /mɛɡ/ a /ˈʃɒjaːt/ /ˈmintaːdɒt/! /ˈvaːlɒsː/ /keːt/ /vɒɟ/ /ˈhaːrom/ /ˈformaːt/, a /ˈfonɒl/ /mɒjd/ /ˈiʃmeːtli/ /ˈøːkɛt/.",
+      "extract": {
+        "from": 16,
+        "to": 144,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Tervezd meg a saját mintádat! Válassz két vagy három formát, a fonal majd ismétli őket."
+      },
+      "spokenTarget": "/ˈtɛrvɛzd/ /mɛɡ/ a /ˈʃɒjaːt/ /ˈmintaːdɒt/! /ˈvaːlɒsː/ /keːt/ /vɒɟ/ /ˈhaːrom/ /ˈformaːt/, a /ˈfonɒl/ /mɒjd/ /ˈiʃmeːtli/ /ˈøːkɛt/."
     },
     {
       "id": "workshop_menu",
@@ -4429,6 +4918,36 @@
       }
     },
     {
+      "id": "pour_exact_start",
+      "text": "Pont elég víz van a kancsóban. Vigyázz, ne folyjon ki!",
+      "group": "pour",
+      "file": "audio/voice/pour_exact_start.mp3",
+      "spokenText": "Mondjuk együtt: /pont/ /ˈɛleːɡ/ /viːz/ /vɒn/ a /ˈkɒnt͡ʃoːbɒn/. /ˈviɟaːzː/, /nɛ/ /ˈfojːon/ /ki/!",
+      "extract": {
+        "from": 16,
+        "to": 95,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Pont elég víz van a kancsóban. Vigyázz, ne folyjon ki!"
+      },
+      "spokenTarget": "/pont/ /ˈɛleːɡ/ /viːz/ /vɒn/ a /ˈkɒnt͡ʃoːbɒn/. /ˈviɟaːzː/, /nɛ/ /ˈfojːon/ /ki/!"
+    },
+    {
+      "id": "pour_exact_empty",
+      "text": "Elfogyott a víz. Kezdjük újra új poharakkal!",
+      "group": "pour",
+      "file": "audio/voice/pour_exact_empty.mp3",
+      "spokenText": "Mondjuk együtt: /ˈɛlfoɟotː/ a /viːz/. /ˈkɛzɟːyk/ /ˈuːjrɒ/ /uːj/ /ˈpohɒrɒkːɒl/!",
+      "extract": {
+        "from": 16,
+        "to": 78,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Elfogyott a víz. Kezdjük újra új poharakkal!"
+      },
+      "spokenTarget": "/ˈɛlfoɟotː/ a /viːz/. /ˈkɛzɟːyk/ /ˈuːjrɒ/ /uːj/ /ˈpohɒrɒkːɒl/!"
+    },
+    {
       "id": "pour_start",
       "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.",
       "group": "pour",
@@ -4574,6 +5093,21 @@
       "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",
       "group": "pour",
       "file": "audio/voice/pour_done.mp3"
+    },
+    {
+      "id": "r_post_wishes",
+      "text": "Minden ház mást kér. Mondd a szót, aztán vidd a csomagot ahhoz, aki kérte!",
+      "group": "r-practice",
+      "file": "audio/voice/r_post_wishes.mp3",
+      "spokenText": "Mondjuk együtt: /ˈmindɛn/ /haːz/ /maːʃt/ /keːr/. /mondː/ a /soːt/, /ˈɒstaːn/ /vidː/ a /ˈt͡ʃomɒɡot/ /ˈɒhːoz/, /ˈɒki/ /ˈkeːrtɛ/!",
+      "extract": {
+        "from": 16,
+        "to": 126,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Minden ház mást kér. Mondd a szót, aztán vidd a csomagot ahhoz, aki kérte!"
+      },
+      "spokenTarget": "/ˈmindɛn/ /haːz/ /maːʃt/ /keːr/. /mondː/ a /soːt/, /ˈɒstaːn/ /vidː/ a /ˈt͡ʃomɒɡot/ /ˈɒhːoz/, /ˈɒki/ /ˈkeːrtɛ/!"
     },
     {
       "id": "r_hub",
@@ -9145,6 +9679,36 @@
       "text": "Itt nincs megoldandó feladat. Válassz egy történetlépést.",
       "group": "city-story",
       "file": "audio/voice/city_story_feedback_noActivity.mp3"
+    },
+    {
+      "id": "city_story_new_stamp",
+      "text": "Új történet a gyűjteményben!",
+      "group": "city-story",
+      "file": "audio/voice/city_story_new_stamp.mp3",
+      "spokenText": "Mondjuk együtt: /uːj/ /ˈtørteːnɛt/ a /ˈɟyːjtɛmeːɲbɛn/!",
+      "extract": {
+        "from": 16,
+        "to": 54,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Új történet a gyűjteményben!"
+      },
+      "spokenTarget": "/uːj/ /ˈtørteːnɛt/ a /ˈɟyːjtɛmeːɲbɛn/!"
+    },
+    {
+      "id": "city_story_locked",
+      "text": "Ez az út most zárva van. Egy korábbi nyom nyithatja ki.",
+      "group": "city-story",
+      "file": "audio/voice/city_story_locked.mp3",
+      "spokenText": "Mondjuk együtt: /ɛz/ /ɒz/ /uːt/ /moʃt/ /ˈzaːrvɒ/ /vɒn/. /ɛɟ/ /ˈkoraːbːi/ /ɲom/ /ˈɲithɒcːɒ/ /ki/.",
+      "extract": {
+        "from": 16,
+        "to": 96,
+        "before": 0.025,
+        "after": 0.15,
+        "text": "Ez az út most zárva van. Egy korábbi nyom nyithatja ki."
+      },
+      "spokenTarget": "/ɛz/ /ɒz/ /uːt/ /moʃt/ /ˈzaːrvɒ/ /vɒn/. /ɛɟ/ /ˈkoraːbːi/ /ɲom/ /ˈɲithɒcːɒ/ /ki/."
     },
     {
       "id": "teddy_alma",

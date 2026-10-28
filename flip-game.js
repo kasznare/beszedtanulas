@@ -131,7 +131,7 @@ export function setupFlipGame({ effect = () => {}, onRestart = () => {}, getOpti
     if (mode === 'missing') {
       kimLevel = levels.kimStart; kimIndex = 0; kimResults = [];
       newKimQuestion(); deck = [];
-      render(); void speak('flip_missing');
+      render(); void speak(kim.hidden.length === 2 ? 'flip_missing_two' : 'flip_missing');
       return;
     }
     const size = mode === 'find' ? levels.findSize : 6;
@@ -150,7 +150,7 @@ export function setupFlipGame({ effect = () => {}, onRestart = () => {}, getOpti
     if (!allowed()) return;
     if (mode === 'find' && phase === 'guess') return speak(['flip_find', `word_${deck[target].id}`]);
     if (mode === 'missing' && phase === 'guess') return kim?.hidden.length === 2 ? undefined : speak('flip_choose_missing');
-    return speak(mode === 'free' ? 'guide_flip' : mode === 'find' ? 'flip_preview' : 'flip_missing');
+    return speak(mode === 'free' ? 'guide_flip' : mode === 'find' ? 'flip_preview' : kim?.hidden.length === 2 ? 'flip_missing_two' : 'flip_missing');
   }
 
   function hideKim() {
@@ -200,7 +200,7 @@ export function setupFlipGame({ effect = () => {}, onRestart = () => {}, getOpti
     }
     kimIndex = kimResults.length;
     newKimQuestion(); render('#flip-hide');
-    if (kim.hidden.length === 1) void speak('flip_missing');
+    void speak(kim.hidden.length === 2 ? 'flip_missing_two' : 'flip_missing');
   }
 
   root.addEventListener('click', async event => {

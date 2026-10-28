@@ -280,6 +280,10 @@ export const VOICE_CLIPS = {
     "text": "szandál",
     "file": "audio/voice/dress_name_szandal.mp3"
   },
+  "teddy_expressive_intro": {
+    "text": "Most te kérsz a macitól! Válassz egy finomságot!",
+    "file": "audio/voice/teddy_expressive_intro.mp3"
+  },
   "teddy_sequence_next": {
     "text": "Az első finomság megvan! Most jöhet a második.",
     "file": "audio/voice/teddy_sequence_next.mp3"
@@ -368,6 +372,10 @@ export const VOICE_CLIPS = {
     "text": "Először kenyeret kérek, aztán tejet.",
     "file": "audio/voice/teddy_sequence_kenyer_tej.mp3"
   },
+  "abk_quiz_intro": {
+    "text": "Állatkvíz! Hallgasd meg, ki szól, és koppints rá!",
+    "file": "audio/voice/abk_quiz_intro.mp3"
+  },
   "abk_sound_guide": {
     "text": "Hallgasd meg az állat hangját, és válaszd ki, melyik állat szólt!",
     "file": "audio/voice/abk_sound_guide.mp3"
@@ -431,6 +439,30 @@ export const VOICE_CLIPS = {
   "abk_name_wolf": {
     "text": "Farkas",
     "file": "audio/voice/abk_name_wolf.mp3"
+  },
+  "listening_bingo_none": {
+    "text": "Ha nincs ilyen képed, koppints a „Nincs nálam” gombra!",
+    "file": "audio/voice/listening_bingo_none.mp3"
+  },
+  "listening_bingo_win": {
+    "text": "Bingó! Megvan egy teljes sor!",
+    "file": "audio/voice/listening_bingo_win.mp3"
+  },
+  "listening_phrase_start": {
+    "text": "Hallgasd meg, mit mondok, és keresd meg a képét!",
+    "file": "audio/voice/listening_phrase_start.mp3"
+  },
+  "flip_missing_two": {
+    "text": "Most két kép bújik el. Melyik kettő hiányzik?",
+    "file": "audio/voice/flip_missing_two.mp3"
+  },
+  "counting_how_many": {
+    "text": "Hány van? Koppints a számra!",
+    "file": "audio/voice/counting_how_many.mp3"
+  },
+  "cards_peek_intro": {
+    "text": "Kukucs! Hol van? Keresd meg a képet!",
+    "file": "audio/voice/cards_peek_intro.mp3"
   },
   "listening_bingo_start": {
     "text": "Hallgasd a szavakat, és gyűjtsd össze a képeket!",
@@ -716,6 +748,26 @@ export const VOICE_CLIPS = {
     "text": "játszunk",
     "file": "audio/voice/phrase_part_meg_jatszunk_1.mp3"
   },
+  "logic_route_bump": {
+    "text": "Hoppá, a róka itt elakadt! Innen tervezd újra az utat!",
+    "file": "audio/voice/logic_route_bump.mp3"
+  },
+  "logic_route_shortest": {
+    "text": "A legrövidebb út ennyi lépés volt.",
+    "file": "audio/voice/logic_route_shortest.mp3"
+  },
+  "logic_machine_locked": {
+    "text": "Előbb próbáld ki a gépet a Géppróba gombbal!",
+    "file": "audio/voice/logic_machine_locked.mp3"
+  },
+  "logic_shop_next": {
+    "text": "Itt a következő vevő!",
+    "file": "audio/voice/logic_shop_next.mp3"
+  },
+  "logic_shop_same": {
+    "text": "Ez a kosár maradhat így.",
+    "file": "audio/voice/logic_shop_same.mp3"
+  },
   "logic_play_menu": {
     "text": "Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak.",
     "file": "audio/voice/logic_play_menu.mp3"
@@ -853,7 +905,7 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/logic_route_1.mp3"
   },
   "logic_route_2": {
-    "text": "Vidd el a csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
+    "text": "Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.",
     "file": "audio/voice/logic_route_2.mp3"
   },
   "logic_route_3": {
@@ -1040,6 +1092,10 @@ export const VOICE_CLIPS = {
     "text": "húsz",
     "file": "audio/voice/logic_n_20.mp3"
   },
+  "memory_sound_name_start": {
+    "text": "Fordíts fel két kártyát! Keresd meg az állat hangját és a nevét!",
+    "file": "audio/voice/memory_sound_name_start.mp3"
+  },
   "memory_start": {
     "text": "Keress egyforma képeket! Fordíts fel két kártyát!",
     "file": "audio/voice/memory_start.mp3"
@@ -1059,6 +1115,10 @@ export const VOICE_CLIPS = {
   "memory_done": {
     "text": "Minden pár megvan! Szép munka!",
     "file": "audio/voice/memory_done.mp3"
+  },
+  "puzzle_strict_on": {
+    "text": "Most csak a jó helyre kerülhet a darab.",
+    "file": "audio/voice/puzzle_strict_on.mp3"
   },
   "puzzle_start": {
     "text": "Rakjuk össze a képet! Válassz egy darabot, és koppints a helyére! Oda is húzhatod.",
@@ -1089,12 +1149,28 @@ export const VOICE_CLIPS = {
     "file": "audio/voice/differences_hint.mp3"
   },
   "differences_closer": {
-    "text": "Figyeld meg a képet!",
+    "text": "A kisebb jelölésen belül nézd meg jól a részleteket!",
     "file": "audio/voice/differences_closer.mp3"
   },
   "differences_done": {
     "text": "Szép munka!",
     "file": "audio/voice/differences_done.mp3"
+  },
+  "patterns_gap": {
+    "text": "Melyik hiányzik a sorból?",
+    "file": "audio/voice/patterns_gap.mp3"
+  },
+  "patterns_odd": {
+    "text": "Melyik nem illik a sorba? Koppints rá!",
+    "file": "audio/voice/patterns_odd.mp3"
+  },
+  "patterns_odd_fix": {
+    "text": "Megtaláltad! Mi illik a helyére?",
+    "file": "audio/voice/patterns_odd_fix.mp3"
+  },
+  "patterns_grow": {
+    "text": "Hány pötty jön ezután? Számoljuk meg!",
+    "file": "audio/voice/patterns_grow.mp3"
   },
   "patterns_start": {
     "text": "Figyeld az ismétlődő mintát!",
@@ -1111,6 +1187,18 @@ export const VOICE_CLIPS = {
   "patterns_done": {
     "text": "Minden elem illeszkedik!",
     "file": "audio/voice/patterns_done.mp3"
+  },
+  "montessori_grid_missing": {
+    "text": "Melyik hiányzik a rácsból? Tedd a helyére!",
+    "file": "audio/voice/montessori_grid_missing.mp3"
+  },
+  "montessori_grid_odd": {
+    "text": "Melyik nem illik a rácsba? Koppints rá, aztán tedd a helyére a jót!",
+    "file": "audio/voice/montessori_grid_odd.mp3"
+  },
+  "montessori_tower_lean": {
+    "text": "Billeg a torony! Koppints a felső korongra, és vedd le!",
+    "file": "audio/voice/montessori_tower_lean.mp3"
   },
   "montessori_menu": {
     "text": "Fedezzük fel a kis műhelyt! Formadoboz, színtálcák, torony, rendezőrács és mintamemória vár rád!",
@@ -1472,6 +1560,34 @@ export const VOICE_CLIPS = {
     "text": "Elfogytak a lépések. Vonj vissza egy lépést, vagy kezdd újra, és keress rövidebb utat!",
     "file": "audio/voice/chess_steps_used.mp3"
   },
+  "chess_tactics_intro": {
+    "text": "Most a sötét is lép! Gondold át, mit válaszol.",
+    "file": "audio/voice/chess_tactics_intro.mp3"
+  },
+  "chess_tactic_failed": {
+    "text": "A sötét visszaütött. Vond vissza, és keress jobb lépést!",
+    "file": "audio/voice/chess_tactic_failed.mp3"
+  },
+  "chess_mate": {
+    "text": "Matt! A sötét király nem tud elmenekülni.",
+    "file": "audio/voice/chess_mate.mp3"
+  },
+  "chess_pawns_intro": {
+    "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!",
+    "file": "audio/voice/chess_pawns_intro.mp3"
+  },
+  "engineering_flag": {
+    "text": "Elérted a zászlót!",
+    "file": "audio/voice/engineering_flag.mp3"
+  },
+  "engineering_challenge": {
+    "text": "Kész! Ügyesen építettél!",
+    "file": "audio/voice/engineering_challenge.mp3"
+  },
+  "engineering_bar_broke": {
+    "text": "Eltört egy rúd! Erősítsd meg háromszögekkel!",
+    "file": "audio/voice/engineering_bar_broke.mp3"
+  },
   "engineering_hub": {
     "text": "Építsünk együtt! Ejts elemeket a toronyra, tervezz saját építményt, vagy építs hidat!",
     "file": "audio/voice/engineering_hub.mp3"
@@ -1499,6 +1615,18 @@ export const VOICE_CLIPS = {
   "engineering_retry": {
     "text": "A híd meghajlott. Próbáld átlós rudakkal megerősíteni!",
     "file": "audio/voice/engineering_retry.mp3"
+  },
+  "workshop_balance_missing": {
+    "text": "A jobb oldalon már van egy rúd. Egyetlen rúddal tedd egyensúlyba a mérleget!",
+    "file": "audio/voice/workshop_balance_missing.mp3"
+  },
+  "workshop_balance_fewest": {
+    "text": "Rakd ki ugyanannyit minél kevesebb rúddal!",
+    "file": "audio/voice/workshop_balance_fewest.mp3"
+  },
+  "workshop_design_build": {
+    "text": "Tervezd meg a saját mintádat! Válassz két vagy három formát, a fonal majd ismétli őket.",
+    "file": "audio/voice/workshop_design_build.mp3"
   },
   "workshop_menu": {
     "text": "Itt Műhelyliget! Válogasd a tárgyakat, folytasd a mintát, vagy hozd egyensúlyba a mérleget! A három gyémánt nehezebb feladatot jelent.",
@@ -1824,6 +1952,14 @@ export const VOICE_CLIPS = {
     "text": "tizenöt",
     "file": "audio/voice/workshop_n_15.mp3"
   },
+  "pour_exact_start": {
+    "text": "Pont elég víz van a kancsóban. Vigyázz, ne folyjon ki!",
+    "file": "audio/voice/pour_exact_start.mp3"
+  },
+  "pour_exact_empty": {
+    "text": "Elfogyott a víz. Kezdjük újra új poharakkal!",
+    "file": "audio/voice/pour_exact_empty.mp3"
+  },
   "pour_start": {
     "text": "Kínáljuk meg a barátainkat! Válassz poharat, és tartsd nyomva az öntés gombot! A jelzésig tölts, utána engedd el! Ha tovább öntesz, kicsordul a víz.",
     "file": "audio/voice/pour_start.mp3"
@@ -1879,6 +2015,10 @@ export const VOICE_CLIPS = {
   "pour_done": {
     "text": "Mindkét barátunk kapott inni! Kezdődhet a piknik!",
     "file": "audio/voice/pour_done.mp3"
+  },
+  "r_post_wishes": {
+    "text": "Minden ház mást kér. Mondd a szót, aztán vidd a csomagot ahhoz, aki kérte!",
+    "file": "audio/voice/r_post_wishes.mp3"
   },
   "r_hub": {
     "text": "Róka és robot vár rád! Hallgassunk szavakat, mondjunk mondókát, és játsszunk együtt!",
@@ -4003,6 +4143,14 @@ export const VOICE_CLIPS = {
   "city_story_feedback_noActivity": {
     "text": "Itt nincs megoldandó feladat. Válassz egy történetlépést.",
     "file": "audio/voice/city_story_feedback_noActivity.mp3"
+  },
+  "city_story_new_stamp": {
+    "text": "Új történet a gyűjteményben!",
+    "file": "audio/voice/city_story_new_stamp.mp3"
+  },
+  "city_story_locked": {
+    "text": "Ez az út most zárva van. Egy korábbi nyom nyithatja ki.",
+    "file": "audio/voice/city_story_locked.mp3"
   },
   "teddy_alma": {
     "text": "Kérek almát.",

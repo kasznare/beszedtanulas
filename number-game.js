@@ -63,7 +63,7 @@ export function setupNumberGames({effect=()=>{},onRestart=()=>{},getProgress,set
     const complete=n===session.amount;
     if(complete&&self){
       session.choices=buildNumberChoices(session.amount,session.limit,'close');save();render();
-      $('#number-total-choices button')?.focus({preventScroll:true});return;
+      $('#number-total-choices button')?.focus({preventScroll:true});await say(['counting_how_many']);return;
     }
     const roundDone=complete?finishTask():false;save();render();
     $(`[data-counting-index="${index}"]`)?.focus({preventScroll:true});

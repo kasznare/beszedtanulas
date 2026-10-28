@@ -1,6 +1,7 @@
 import { R_PHRASE_VARIANTS, R_WORDS, R_DISTRACTORS, R_RHYMES, R_RHYME_EXTRA_WORDS, R_POST_MISSIONS, R_RHYME_PARTS } from './r-practice-data.js';
 
 export const R_CLIPS = {
+  r_post_wishes: 'Minden ház mást kér. Mondd a szót, aztán vidd a csomagot ahhoz, aki kérte!',
   r_hub:'Róka és robot vár rád! Hallgassunk szavakat, mondjunk mondókát, és játsszunk együtt!',
   r_hunter:'Hallgasd meg a szót! Koppints a képére!',
   r_hunter_sound:'Hallgasd meg a képek nevét! Keresd meg azt, amelyikben hallod az R hangot!',

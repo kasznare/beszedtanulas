@@ -221,7 +221,9 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
     if (!active || !item || complete || solved || document.hidden) return;
     if (mode === 'bingo' && options.intro) {
       const token = generation;
-      Promise.resolve(speak?.('listening_bingo_start')).catch(() => {}).then(() => {
+      // The board rule, then the first call: the child has to decide whether the word is on the board.
+      Promise.resolve(speak?.('listening_bingo_start')).catch(() => {})
+        .then(() => token === generation && active && !complete && !document.hidden ? speak?.('listening_bingo_none') : null).catch(() => {}).then(() => {
         if (token === generation && active && !complete && !document.hidden) playPrompt(promptItem(), { ...options, intro: false });
       });
       return;
@@ -383,7 +385,7 @@ export function setupListeningGame({ effect = () => {}, getOptions, setDifficult
       answers.classList.add('has-bingo');
       status.textContent = 'Bingó!';
       effect('success');
-      scheduleAdvance(playCorrect());
+      scheduleAdvance(Promise.resolve(speak?.('listening_bingo_win')).catch(() => {}));
       return;
     }
     effect('collect');

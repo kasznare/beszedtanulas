@@ -1,6 +1,12 @@
 import { words, twoWordPhrases } from './game-data.js';
 
 export const PORTAL_CLIPS = {
+  listening_bingo_none: 'Ha nincs ilyen képed, koppints a „Nincs nálam” gombra!',
+  listening_bingo_win: 'Bingó! Megvan egy teljes sor!',
+  listening_phrase_start: 'Hallgasd meg, mit mondok, és keresd meg a képét!',
+  flip_missing_two: 'Most két kép bújik el. Melyik kettő hiányzik?',
+  counting_how_many: 'Hány van? Koppints a számra!',
+  cards_peek_intro: 'Kukucs! Hol van? Keresd meg a képet!',
   listening_bingo_start: 'Hallgasd a szavakat, és gyűjtsd össze a képeket!',
   practice_together: 'Hallgassuk meg, és mondjuk együtt! Ha kimondtátok, koppints a pipára!',
   practice_parts: 'Először külön a szavakat, aztán együtt a kifejezést!',

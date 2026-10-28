@@ -155,7 +155,7 @@ export function setupAnimalBook({ playSound, playName, speak, stopPlayback, onPa
     if (!allowed() || mode !== 'quiz' || quizDone) return;
     cancelAudio(); const token = nameToken;
     if (intro) {
-      await guide('abk_sound_guide');
+      await guide('abk_quiz_intro');
       if (token !== nameToken || !allowed() || mode !== 'quiz') return;
     }
     void playback.play(question().targetId);

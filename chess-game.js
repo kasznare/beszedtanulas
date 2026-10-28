@@ -50,6 +50,8 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
     if (options.mode === 'explore') say(`chess_${options.piece}`);
     else if (options.mode === 'stars') say('chess_stars');
     else if (options.mode === 'puzzles' && !tactic()) say(puzzle.voice);
+    else if (tactic()) say('chess_tactics_intro');
+    else if (options.mode === 'pawns') say('chess_pawns_intro');
   }
 
   function render(focusSelector) {
@@ -135,6 +137,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
       }
       if (turn.outcome === 'failed') {
         failed = true; effect('retry');
+        if (lost) say('chess_tactic_failed');
         message = turn.reason === 'stalemate' ? 'Patt! A sötét király nem tud lépni, de sakkban sincs, így döntetlen lett. Vond vissza, és keress mattot!'
           : lost ? `A sötét ${pieceName(board.find(piece => piece.square === turn.reply.to)?.type).toLowerCase()} leütötte a ${ACCUSATIVE[lost.type]}. Vond vissza, és keress jobb lépést!`
           : puzzle.goal === 'mate' ? 'Ez még nem matt: a sötét király el tudott lépni. Vond vissza, és keress másik lépést!'
@@ -216,8 +219,10 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
 
   function repeat() {
     stopPlayback();
-    if (solved) say(options.mode === 'stars' ? 'chess_done' : 'chess_solved', true);
+    if (solved) say(completionVoice(), true);
     else if (options.mode === 'puzzles' && !tactic()) say(puzzle.voice, true);
+    else if (tactic()) say('chess_tactics_intro', true);
+    else if (options.mode === 'pawns') say('chess_pawns_intro', true);
     else if (options.mode === 'explore' || options.mode === 'stars') say(`chess_${board.find(piece => piece.color === 'white')?.type || options.piece}`, true);
   }
   function changePuzzle(direction, focusSelector) {
@@ -226,6 +231,8 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
     reset(focusSelector);
   }
   const canAdvance = () => active && solved && options.mode === 'puzzles';
+  // The celebration speaks this line: a mate gets its own, the pawn battle borrows the puzzle praise.
+  const completionVoice = () => options.mode === 'stars' ? 'chess_done' : tactic() && puzzle.goal === 'mate' ? 'chess_mate' : 'chess_solved';
   root.addEventListener('click', event => {
     if (!active || document.hidden) return;
     const button = event.target.closest('button');
@@ -272,7 +279,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
     }
   });
   document.addEventListener('visibilitychange', () => { if (active && document.hidden) stopPlayback(); });
-  return { start() { active = true; reset(); }, stop() { active = false; cancelReply(); stopPlayback(); }, repeat, canAdvance,
+  return { start() { active = true; reset(); }, stop() { active = false; cancelReply(); stopPlayback(); }, repeat, canAdvance, completionVoice,
     nextPuzzle() {
       if (!canAdvance()) return false;
       changePuzzle(1, 'title');

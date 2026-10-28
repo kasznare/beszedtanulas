@@ -44,6 +44,7 @@ export const ANIMAL_BOOK_PAGES = Object.freeze(pages.map(page => Object.freeze({
 export const ANIMAL_BOOK_ANIMALS = Object.freeze(ANIMAL_BOOK_PAGES.flatMap(page => page.animals));
 export const ANIMAL_BOOK_AUDIO = Object.freeze(Object.fromEntries(ANIMAL_BOOK_ANIMALS.map(animal => [animal.id, `./audio/animals/${animal.id}.mp3`])));
 export const ANIMAL_BOOK_CLIPS = Object.freeze({
+  abk_quiz_intro: 'Állatkvíz! Hallgasd meg, ki szól, és koppints rá!',
   abk_sound_guide: 'Hallgasd meg az állat hangját, és válaszd ki, melyik állat szólt!',
   abk_scene_guide: 'Keresd meg a megnevezett állatot a képen!',
   abk_try_again: 'Próbáld újra! Figyeld meg a képet vagy hallgasd meg a hangot!',

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ENGINEERING_CLIPS } from '../engineering-data.js';
 import { ENGINEERING_PHONETIC_IDS, ENGINEERING_WORD_IPA, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
+import { REWORK_PHONETIC_IDS } from '../rework-voice-pronunciation.js';
 
 const displayedWords = text => text.match(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
 const spokenWords = text => text.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu) || [];
@@ -9,7 +10,8 @@ const spokenWords = text => text.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{
 test('all seven engineering instructions have a separate phonetic v4 input with aligned words', () => {
   assert.equal(ENGINEERING_PHONETIC_IDS.length, 7);
   assert.equal(new Set(ENGINEERING_PHONETIC_IDS).size, 7);
-  assert.deepEqual(new Set(ENGINEERING_PHONETIC_IDS), new Set(Object.keys(ENGINEERING_CLIPS)));
+  // The three lines added with the 2026 rework are pronounced from rework-voice-pronunciation.js.
+  for (const id of Object.keys(ENGINEERING_CLIPS)) assert.ok(ENGINEERING_PHONETIC_IDS.includes(id) || REWORK_PHONETIC_IDS.includes(id), id);
   for (const id of ENGINEERING_PHONETIC_IDS) {
     const display = ENGINEERING_CLIPS[id];
     const spoken = phoneticEngineeringText(id, display);

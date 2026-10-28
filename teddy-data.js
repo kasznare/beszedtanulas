@@ -3,7 +3,7 @@ import { buildListeningRound } from './listening-game.js';
 
 export const teddyFoods = words.filter(word => Object.hasOwn(teddyRequests, word.id));
 export const teddyAccusative = { alma: 'almát', kifli: 'kiflit', kenyer: 'kenyeret', tej: 'tejet', viz: 'vizet' };
-export const TEDDY_CLIPS = { teddy_sequence_next: 'Az első finomság megvan! Most jöhet a második.', teddy_sequence_intro: 'Figyelj a sorrendre! Először az első finomságot add, aztán a másodikat!' };
+export const TEDDY_CLIPS = { teddy_expressive_intro: 'Most te kérsz a macitól! Válassz egy finomságot!', teddy_sequence_next: 'Az első finomság megvan! Most jöhet a második.', teddy_sequence_intro: 'Figyelj a sorrendre! Először az első finomságot add, aztán a másodikat!' };
 for (const first of teddyFoods) for (const second of teddyFoods) {
   if (first.id !== second.id) TEDDY_CLIPS[`teddy_sequence_${first.id}_${second.id}`] = `Először ${teddyAccusative[first.id]} kérek, aztán ${teddyAccusative[second.id]}.`;
 }

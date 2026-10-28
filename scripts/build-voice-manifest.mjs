@@ -20,6 +20,7 @@ import { CHESS_CLIPS } from '../chess-data.js';
 import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
 import { ENGINEERING_CLIPS } from '../engineering-data.js';
 import { ENGINEERING_PHONETIC_IDS, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
+import { REWORK_PHONETIC_IDS, phoneticReworkText } from '../rework-voice-pronunciation.js';
 import { WORKSHOP_CLIPS } from '../workshop-voice.js';
 import { POUR_CLIPS } from '../pour-data.js';
 import { R_CLIPS } from '../r-practice-voice.js';
@@ -168,6 +169,15 @@ for (const id of ENGINEERING_PHONETIC_IDS) {
   if (target === clip.text || !target?.includes('/')) throw Error(`Missing engineering IPA: ${id}`);
   contextual(id, 'Mondjuk együtt: ', target);
 }
+// The 2026 rework lines are pronounced from their own scoped list, so the older
+// chess and engineering inputs stay byte-for-byte unchanged.
+for (const id of REWORK_PHONETIC_IDS) {
+  const clip = clips.find(clip => clip.id === id);
+  if (!clip) throw Error(`Missing rework clip: ${id}`);
+  const target = phoneticReworkText(id, clip.text, pronunciation.words);
+  if (target === clip.text || !target?.includes('/')) throw Error(`Missing rework IPA: ${id}`);
+  contextual(id, 'Mondjuk együtt: ', target);
+}
 repairs ??= JSON.parse(await readFile(new URL('../voice-repairs.json', import.meta.url), 'utf8'));
 validateVoiceRepairs(repairs, config, clips);
 for (const [id, repair] of Object.entries(repairs.clips)) {
@@ -203,7 +213,7 @@ function excerptFrom(clip, source) {
   clip.extract = {from:offset+first.index,to:offset+last.index+last[0].length,before:0.025,after:0.12,text:clip.text};
 }
 // New visual-game cues reuse already recorded phrases; no new paid speech.
-for (const [id, sourceId] of Object.entries({ patterns_start: 'workshop_pattern_1', patterns_hint: 'workshop_pattern_hint1', patterns_retry: 'workshop_pattern_retry', patterns_done: 'workshop_pattern_done', differences_start: 'flip_missing', differences_hint: 'abk_try_again', differences_closer: 'abk_try_again', differences_done: 'memory_done' })) {
+for (const [id, sourceId] of Object.entries({ patterns_start: 'workshop_pattern_1', patterns_hint: 'workshop_pattern_hint1', patterns_retry: 'workshop_pattern_retry', patterns_done: 'workshop_pattern_done', differences_start: 'flip_missing', differences_hint: 'abk_try_again', differences_done: 'memory_done' })) {
   excerptFrom(clips.find(clip => clip.id === id), clips.find(clip => clip.id === sourceId));
 }
 for (const clip of clips) {

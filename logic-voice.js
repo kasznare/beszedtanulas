@@ -1,4 +1,9 @@
 export const LOGIC_CLIPS = {
+  logic_route_bump: 'Hoppá, a róka itt elakadt! Innen tervezd újra az utat!',
+  logic_route_shortest: 'A legrövidebb út ennyi lépés volt.',
+  logic_machine_locked: 'Előbb próbáld ki a gépet a Géppróba gombbal!',
+  logic_shop_next: 'Itt a következő vevő!',
+  logic_shop_same: 'Ez a kosár maradhat így.',
  logic_play_menu: 'Játsszunk a macival, menjünk Meseligetbe, vagy keressük a kirakós képét! Az a Furfangliget, ahol fejtörők várnak.',
  logic_menu: 'Itt Furfangliget! Rendezzük be az erdei boltot, találjuk ki a gép szabályát, vagy tervezzünk egy csomagszállító utat!',
  logic_shop_1: 'Két kosár várja a rendelést. A képek mutatják, mennyi kell bele. A plusz gombbal tehetsz bele, a mínusszal visszavehetsz. Ha elkészültél, koppints a Kész gombra!',
@@ -26,7 +31,7 @@ export const LOGIC_CLIPS = {
  logic_machine_empty: 'Előbb tegyél műveletet a gép minden helyére!',
  logic_machine_done: 'Megfejtetted a szabályt, és a két új feladatot is megoldottad! Működik a gép!',
  logic_route_1: 'Tervezz utat a rókának! Vedd fel a csomagot, majd menj a házhoz! A nyilakkal, koppintással vagy húzással választhatsz lépést. A róka minden lépés után megmutatja, hol jársz. A próbagombbal végigjárja az útitervedet.',
- logic_route_2: 'Vidd el a csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.',
+ logic_route_2: 'Vidd el mindkét csomagot a házhoz! A köveket kerüld meg! Tervezd meg az egész utat, aztán próbáld ki! Visszavonással javíthatsz.',
  logic_route_3: 'Mindkét csomagot el kell vinni a házhoz. Gondold végig, merre kerülsz! Az utadnak bele kell férnie a megadott lépésszámba. Több jó út is lehet.',
  logic_route_steps: 'Nézd a térképet! Látod a csomagokat, a köveket és a házat. A nyilakkal sorban add meg a lépéseket! A róka közben az indulásnál vár. Fejben kövesd az utat, majd a próbagombbal indítsd el a programodat!',
  logic_route_steps_hint2: 'A segítségnél megjelenik a következő lehetséges irány. A nyilakkal folytathatod az útitervet.',
