@@ -1,3 +1,11 @@
+## 2026. október 28. – Tableten a kicsik játékai kitöltik a képernyőt
+
+A felhasználó az összes játék javítását kérte. A böngészős végigjárás (1024×680 és 768×900) szerint a legfiatalabbaknak szóló játékok a képernyő felét üresen hagyták, apró képekkel és tárgyakkal; a Nézegessünk hat- és nyolckártyás témái fekvő iPaden görgették az oldalt. A `play-layout.css` új tabletszabályai csak 700 px szélesség és 800 px (álló), illetve 900 × 600 px (fekvő) felett érvényesek, telefonon semmi nem változott.
+
+Nézegessünk: fekvő tableten négy oszlop, a négykártyás téma egy sor nagy kártya, állóban 2 × 2. Hol van? / Két szó: a két-három kép a teljes magasságot használja, a három módgomb rendezetten osztozik a bal oszlopon. Számoljuk meg! / Keresd meg!: nagyobb tárgyak és válaszkártyák, a két beállításcsoport egy sorban, állóban a tárgyválasztó a tábla mellett; tíz tárggyal és a „Hány van?” lépéssel is görgetés nélkül elfér. Építs tornyot! és Színtálcák: állóban nagyobb korongok, tálkák és golyók, hat tálka három oszlopban. Etesd meg a macit! / Maci öltözik: állóban szélesebb asztal, nagyobb étel és ruha. Az állatkönyv tanyai lapján a bárány és a ló érintőfelülete már nem fedi egymást.
+
+Ellenőrzés: teljes `npm run build` (minden Node- és Python-teszt) és `git diff --check` sikeres; a böngészőpane-ben a két tabletméret mellett 390 × 844 és 932 × 430 is megnézve, vízszintes túlcsordulás és átfedő vezérlő nélkül. A Playwright-futtató ebben a környezetben nem elérhető, az `ipad-layout.js` bejárás nem futott; fizikai iPad-próba nem történt. A `claude/game-depth` ág teljes tartalma fast-forwarddal a `main` ágra került, a GitHub Pages kiadás ebből készül.
+
 ## 2026. október 17. – Folytasd a mintát!
 
 A felhasználó közvetlen mintafolytató játékot kért a számos Szabálygép mellé, formákkal és képi mintákkal. A meglévő csatolt `spot-differences` munkafában, `codex/continue-patterns` ágon készült. Munka közben beérkezett az `e578602` városi mesés kiadás; ezt fast-forward alapon integráltuk, a történet, hangjai és navigációja megmaradt. Az eredeti Documents checkout továbbra is érintetlen.
