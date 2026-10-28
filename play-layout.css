@@ -335,3 +335,27 @@
   .puzzle-pictures span { font-size: .78rem; }
   .puzzle-panel:has(#puzzle-choices:not([hidden])) .puzzle-board { max-width: min(560px, calc((100dvh - 680px) * 1.5)); }
 }
+
+/* Phones (portrait): Montessori levels in one compact row, only the chosen one named; the tall tower target keeps just the room seven discs need. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .montessori-panel .mo-levels { gap: 5px; margin: 6px 0 10px; }
+  .montessori-panel .mo-levels button { min-width: 44px; padding: 6px 9px; justify-content: center; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) { font-size: 0; gap: 0; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) > span { font-size: .78rem; width: 26px; height: 26px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-target, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-target { height: 248px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-board, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-board { min-height: 278px; }
+}
+
+/* Phones (landscape): the dense Montessori boards sit beside their tray instead of above it, and the level row is compact. */
+@media (orientation: landscape) and (max-height: 600px) and (min-width: 650px) {
+  .montessori-panel .mo-levels { flex-wrap: nowrap; gap: 5px; margin: 6px 0 8px; }
+  .montessori-panel .mo-levels button { min-width: 44px; padding: 6px 9px; justify-content: center; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) { font-size: 0; gap: 0; }
+  .montessori-panel .mo-levels button:not([aria-pressed="true"]) > span { font-size: .78rem; width: 26px; height: 26px; }
+  .montessori-panel[data-game="grid"] .mo-workspace, .montessori-panel[data-game="memory"] .mo-workspace,
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-workspace, .montessori-panel[data-game="colors"][data-level="5"] .mo-workspace { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-tray .mo-piece, .montessori-panel[data-game="colors"][data-level="5"] .mo-tray .mo-piece { width: 58px; height: 58px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-tray .mo-ball, .montessori-panel[data-game="colors"][data-level="5"] .mo-tray .mo-ball { width: 42px; height: 42px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-tray, .montessori-panel[data-game="colors"][data-level="5"] .mo-tray { gap: 6px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-color-board, .montessori-panel[data-game="colors"][data-level="5"] .mo-color-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+}
