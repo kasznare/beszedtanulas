@@ -2,6 +2,12 @@
 
 The October 2026 game rework added modes whose instructions are shown as text only, because new recordings need ElevenLabs credit and the phonetic workflow in `AGENTS.md`. Nothing below has been generated. Each line lists the proposed clip id and the Hungarian text; before generating, write the phonetic input (`spokenText`/`spokenTarget`) as `AGENTS.md` requires and check the current ElevenLabs quota.
 
+## Quota check, 2026-10-28
+
+- Starter plan, 39 945 of 40 000 characters used: **55 characters left**, so no generation was attempted. The included quota renews on **2026-11-11, 18:43 UTC**. Reset credits are never redeemed (see `AGENTS.md`).
+- Cost: 39 lines, 1 802 displayed characters. The paid input is longer (the `Mondjuk együtt: ` prefix and `/IPA/` words), roughly **3 300–4 000 characters**, well inside one month's budget.
+- Before the run: add each id to its game's `*_CLIPS` object, give every new id a phonetic variant in a scoped `*-voice-pronunciation.js` (the chess and engineering files show the pattern), then `npm run generate-voice`, listen to a sample, and only then wire the games to play the clips.
+
 ## Sakkliget
 - `chess_tactics_intro` — „Most a sötét is lép! Gondold át, mit válaszol.”
 - `chess_tactic_failed` — „A sötét visszaütött. Vond vissza, és keress jobb lépést!”
