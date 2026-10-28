@@ -365,3 +365,13 @@
   .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 225px) / 3), 160px); }
   .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 74px; }
 }
+
+/* Portrait iPads: the chess piece picker keeps 44 px buttons in the narrower guide column. */
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .chess-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Landscape iPads: the rod toolbox holds three rods per row, so a task with eight rods still ends above the fold. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .workshop-panel .ws-rods { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+}
