@@ -211,11 +211,34 @@
   .number-answer { min-height: min(250px, calc(100dvh - 430px)); padding: 12px; }
   .number-answer-objects { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: 54px; gap: 6px; }
   .number-object-choice { min-width: 64px; min-height: 60px; font-size: 34px; }
-  /* Építs tornyot!: slightly bigger discs; the tower still fits above the tray on a 680px-high screen. */
-  .mo-disc { width: calc(36px + var(--mo-size) * 28px); height: 36px; }
-  .mo-tower-target { width: 256px; height: 240px; }
-  .mo-tower-base { width: 220px; }
-  [data-game="tower"] .mo-piece { height: 70px; }
+  /* Képpárok and Hang–kép párok: two rows of cards use the height beside the controls. */
+  .memory-board[data-count="6"] .memory-card, .memory-board[data-count="8"] .memory-card { height: clamp(86px, calc((100dvh - 250px) / 2), 230px); }
+  .memory-board[data-count="6"] .memory-card-face, .memory-board[data-count="8"] .memory-card-face { font-size: 5.5rem; }
+  .memory-board[data-count="12"] .memory-card { height: clamp(86px, calc((100dvh - 200px) / 3), 170px); }
+  /* Mi bújt el?: one or two rows of cards beside the buttons. */
+  #flip .flip-grid { --flip-card-h: clamp(110px, calc((100dvh - 180px) / 2), 250px); --flip-pic: 84px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"], #flip .flip-grid[data-count="4"] { --flip-card-h: clamp(140px, calc(100dvh - 260px), 300px); --flip-pic: 100px; }
+  /* Építs tornyot!, Színtálcák, Mintaemlék, Rendezőrács: bigger pieces where the board has room. */
+  .mo-disc { width: calc(40px + var(--mo-size) * 32px); height: 40px; }
+  .montessori-panel[data-game="tower"] .mo-tower-target { width: 270px; height: 262px; }
+  .montessori-panel[data-game="tower"] .mo-tower-board { min-height: 296px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-target, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-target { height: 322px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-board, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-board { min-height: 352px; }
+  .mo-tower-base { width: 230px; }
+  [data-game="tower"] .mo-piece { height: 74px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-target { min-height: 132px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl { width: 160px; height: 106px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-inside { height: 70px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl .mo-ball { width: 40px; height: 40px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-ball { width: 60px; height: 60px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-piece { width: 82px; height: 82px; }
+  .montessori-panel .mo-memory-pattern > span { height: 112px; }
+  .montessori-panel .mo-memory-pattern svg { width: 72px; height: 72px; }
+  .montessori-panel .mo-memory-slots .mo-slot { height: 100px; }
+  .montessori-panel .mo-memory-slots .mo-slot svg { width: 68px; height: 68px; }
+  [data-game="memory"].montessori-panel .mo-tray .mo-piece { width: 96px; height: 96px; }
+  [data-game="memory"].montessori-panel .mo-tray .mo-shape-art { width: calc(76px * var(--mo-scale)); height: calc(76px * var(--mo-scale)); }
+  [data-game="grid"].montessori-panel .mo-slot, [data-game="grid"].montessori-panel .mo-slot.mo-piece { height: 84px; }
 }
 @media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
   /* Nézegessünk: a four-card topic is a 2 × 2 board of big pictures. */
@@ -247,13 +270,20 @@
   .mo-tower-target { width: 300px; height: 335px; }
   .mo-tower-base { width: 262px; }
   [data-game="tower"] .mo-piece { height: 84px; }
-  .mo-color-board { max-width: 600px; gap: 20px; }
-  .mo-bowl-target { min-height: 172px; }
-  .mo-bowl { width: 190px; height: 128px; }
-  .mo-bowl-inside { height: 86px; }
-  .mo-ball { width: 66px; height: 66px; }
-  .mo-bowl .mo-ball { width: 46px; height: 46px; }
-  [data-game="colors"] .mo-piece { width: 96px; height: 96px; }
+  .montessori-panel .mo-color-board { max-width: 600px; gap: 20px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-bowl-target { min-height: 132px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-bowl { width: 150px; height: 100px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-bowl-inside { height: 66px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-ball { width: 56px; height: 56px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-bowl .mo-ball { width: 36px; height: 36px; }
+  .montessori-panel[data-game="colors"][data-level="4"] .mo-piece { width: 76px; height: 76px; }
+  /* Two to four plain bowls have room for the biggest bowls and balls; six bowls are moderate, the counting bowls keep their compact size. */
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-target { min-height: 172px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl { width: 190px; height: 128px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-inside { height: 86px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-ball { width: 66px; height: 66px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl .mo-ball { width: 46px; height: 46px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-piece { width: 96px; height: 96px; }
   /* Etesd meg a macit! and Maci öltözik: a wider table beside Maci, with food and clothes a toddler can see. */
   .teddy-picnic { grid-template-columns: .9fr 1.1fr; gap: 20px; }
   .teddy-plate { max-width: 200px; min-height: 150px; }

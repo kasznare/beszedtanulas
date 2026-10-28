@@ -135,6 +135,12 @@ export function setupNumberGames({effect=()=>{},onRestart=()=>{},getProgress,set
     else if(b.dataset.numberSetting){
       cancel();const key=b.dataset.numberSetting,value=key==='numberSelf'?b.dataset.value==='true':b.dataset.value;setOptions({[key]:value});
       if(key==='quizDifficulty')quizStreak={clean:0,missed:0};
+      // Back to counting together: the "Hány van?" question belongs to self counting only. A fully
+      // counted board is then simply finished, so the child is never left with nothing to tap.
+      if(key==='numberSelf'&&value===false&&mode==='count'&&!session.solved&&session.choices.length){
+        if(session.counted.length===session.amount){void total(session.amount);return;}
+        session.choices=[];save();
+      }
       if(key==='quizDifficulty'&&!session.solved){session.choices=buildNumberChoices(session.amount,session.limit,value);save();}render();
       root.querySelector(`[data-number-setting="${key}"][data-value="${b.dataset.value}"]`)?.focus({preventScroll:true});
     }else if(b.id==='number-model'||b.id==='number-question-play')repeat();
