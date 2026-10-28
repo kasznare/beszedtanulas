@@ -304,3 +304,34 @@
   .dress-answers[data-count="3"] .dress-choice { min-height: 120px; padding: 8px; }
   .dress-answers[data-count="3"] .dress-icon { height: 100px; }
 }
+
+/* Third tablet pass: the remaining landscape screens that left a strip of unused height or clipped a control. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* Meseliget: ten friend-count buttons do not fit the right column, so they sit in two rows of five. */
+  .meadow-map > .meadow-plan .meadow-quantities { grid-template-columns: repeat(5, minmax(44px, 1fr)); }
+  /* Egy szó and Két szó: the picture on the left is the point of the screen, so it uses the column. */
+  .imitate-wrap > .imitate-emoji { font-size: min(210px, calc(100dvh - 470px)); }
+  .imitate-wrap > .imitate-emoji .word-picture { max-width: 236px; max-height: 236px; }
+  .phrase-wrap > .phrase-emoji { font-size: min(150px, calc(100dvh - 530px)); }
+  /* Folytasd a mintát!: bigger tokens in the sequence and among the answers. */
+  #patterns:not([data-preview-count="12"]) .patterns-preview-cell .patterns-token { max-width: 84px; }
+  #patterns:not([data-round-type="gap"]):not([data-round-type="odd"]):not([data-preview-count="12"]) .patterns-choice .patterns-token { max-width: 104px; }
+  /* Pottyanó torony: the controls sit beside the stage, so the stage may use the full height. */
+  #engineering[data-mode="drop"] .en-stage-wrap { width: min(100%, calc((100dvh - 200px) * 4 / 3)); }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  /* Sakkliget: four mode names do not fit one row beside the board, and the board takes the width that is left. */
+  .chess-workspace { grid-template-columns: minmax(0, 1fr) 260px; }
+  .chess-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Képkirakó: the board sits above a wide tray instead of beside a narrow one; a tray row holds twice the board columns. */
+  .puzzle-workspace { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .puzzle-board { max-width: min(560px, calc((100dvh - 540px) * 1.5)); margin-inline: auto; }
+  .puzzle-tray { grid-template-columns: repeat(calc(var(--puzzle-cols) * 2), minmax(0, 1fr)); }
+  .puzzle-tray-wrap h3 { margin-bottom: 6px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  /* Képkirakó picture chooser: one row of pictures, and the board makes room while the chooser is open. */
+  .puzzle-pictures { grid-template-columns: repeat(7, minmax(0, 1fr)); max-width: none; gap: 6px; }
+  .puzzle-pictures span { font-size: .78rem; }
+  .puzzle-panel:has(#puzzle-choices:not([hidden])) .puzzle-board { max-width: min(560px, calc((100dvh - 680px) * 1.5)); }
+}
