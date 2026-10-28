@@ -1,12 +1,28 @@
-# Wanted voice lines (not recorded yet)
+# Voice lines of the 2026 game rework
 
-The October 2026 game rework added modes whose instructions are shown as text only, because new recordings need ElevenLabs credit and the phonetic workflow in `AGENTS.md`. Nothing below has been generated. Each line lists the proposed clip id and the Hungarian text; before generating, write the phonetic input (`spokenText`/`spokenTarget`) as `AGENTS.md` requires and check the current ElevenLabs quota.
+The October 2026 game rework added modes whose instructions were first shown as text only. All 39 lines below were recorded on **2026-10-28** and the games now play them. Their pronunciation comes from `rework-voice-pronunciation.js` (scoped IPA, one spoken token per displayed word); the displayed text lives in each game's `*_CLIPS` object.
 
-## Quota check, 2026-10-28
+## The recording run
 
-- Starter plan, 39 945 of 40 000 characters used: **55 characters left**, so no generation was attempted. The included quota renews on **2026-11-11, 18:43 UTC**. Reset credits are never redeemed (see `AGENTS.md`).
-- Cost: 39 lines, 1 802 displayed characters. The paid input is longer (the `Mondjuk együtt: ` prefix and `/IPA/` words), roughly **3 300–4 000 characters**, well inside one month's budget.
-- Before the run: add each id to its game's `*_CLIPS` object, give every new id a phonetic variant in a scoped `*-voice-pronunciation.js` (the chess and engineering files show the pattern), then `npm run generate-voice`, listen to a sample, and only then wire the games to play the clips.
+- The default account (`~/.config/beszedtanulas/elevenlabs.env`) had 55 characters left until 2026-11-11, so the run used the second account's key, `~/.config/elevenlabs/api-key-new.txt`, through `ELEVENLABS_API_KEY_FILE=… npm run generate-voice`. Jessa was added to that account's library first (same voice id, same owner), so the voice is unchanged. No reset credit was redeemed.
+- Cost: 3 209 characters; 29 980 remain on the second account.
+- `chess_mate` was generated alone as a sample and transcribed before the bulk run.
+
+## Listen to these
+
+`scripts/transcribe-voice.py` (local faster-whisper, no network) read all 39 clips back. A difference is a flag, not a proven error, and the recognizer misspells common words (koppints → "koppincs", rúd → "ród"). These transcripts were far enough from the text that a person should listen to them:
+
+- `counting_how_many` — heard "Hávon, kapj nincs a számra".
+- `logic_route_bump` — heard "Énen terves túlra az utat" for „Innen tervezd újra az utat".
+- `chess_pawns_intro` — heard "Jutta azat" for „Juttasd át".
+- `engineering_bar_broke` — heard "Erőségy meg három sögekkel" for „Erősítsd meg háromszögekkel".
+- `patterns_grow` — heard "Hanykat jön ezután" for „Hány pötty jön ezután".
+- `logic_route_2` — heard "hásozs" for „házhoz" and "Visszavonáson".
+- `patterns_odd_fix`, `workshop_balance_fewest` — single words heard oddly („illik", „ugyanannyit").
+
+To reject one: add it to `voice-rejections.json` with the fingerprints from `audio/voice/generated.json`, change its IPA in `rework-voice-pronunciation.js`, and rerun `npm run generate-voice --ids <id>`; the rejected input can never be reused.
+
+## The lines
 
 ## Sakkliget
 - `chess_tactics_intro` — „Most a sötét is lép! Gondold át, mit válaszol.”
