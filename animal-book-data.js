@@ -9,7 +9,7 @@ const pages = [
     animals: [
       { id: 'cow', label: 'Tehén', emoji: '🐄', x: 2, y: 30, width: 40, height: 61 },
       { id: 'horse', label: 'Ló', emoji: '🐎', x: 60, y: 15, width: 30, height: 43 },
-      { id: 'sheep', label: 'Bárány', emoji: '🐑', x: 68, y: 56, width: 31, height: 33 },
+      { id: 'sheep', label: 'Bárány', emoji: '🐑', x: 68, y: 58, width: 31, height: 31 },
     ],
   },
   {

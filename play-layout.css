@@ -186,3 +186,91 @@
   .listening-panel > .listening-answers { grid-column: 2; grid-row: 1 / span 6; margin: 0; }
   .listening-panel > .listen-status { grid-column: 2; grid-row: 7; }
 }
+
+/* Tablets: the toddler games grow into the free height instead of leaving half the screen empty.
+   Every size below is capped with the visible height, so the densest board still fits without page scrolling. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* Nézegessünk: four columns, so a topic of six or eight cards fits; a four-card topic is one row of big cards. */
+  #cards .cards-grid:not([data-density="dense"]) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  #cards .cards-grid:not([data-density="dense"]):has(> :nth-child(5)) .card { min-height: min(190px, calc((100dvh - 330px) / 2)); padding: 12px 6px; }
+  #cards .cards-grid:not([data-density="dense"]):has(> :nth-child(5)) .card-emoji { font-size: 72px; }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card { min-height: min(360px, calc(100dvh - 320px)); }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card-emoji .word-picture { max-width: 240px; max-height: 240px; }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card-word { font-size: 1.4rem; }
+  /* Hol van?: the three modes share the left column tidily, and the two or three pictures use the full height. */
+  .listening-panel > .listening-modes { gap: 8px; }
+  .listening-panel > .listening-modes button { flex: 1 1 100px; }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-answer { min-height: clamp(240px, calc(100dvh - 300px), 400px); }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-picture { font-size: clamp(110px, 20vmin, 170px); }
+  /* Számoljuk meg! and Keresd meg!: objects a toddler can tap, two rows of five beside the big numeral. */
+  .numbers-wrap { max-width: 980px; }
+  .number-symbol { font-size: 108px; }
+  .numbers-wrap #number-picker .number-choice, .number-total-choices .number-choice { min-width: 56px; min-height: 56px; font-size: 1.35rem; }
+  .number-objects { max-width: none; gap: 14px; }
+  .counting-object { flex-basis: calc((100% - 56px) / 5); min-height: min(132px, calc((100dvh - 420px) / 2)); font-size: 58px; border-radius: 26px; }
+  .number-answer { min-height: min(250px, calc(100dvh - 430px)); padding: 12px; }
+  .number-answer-objects { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: 54px; gap: 6px; }
+  .number-object-choice { min-width: 64px; min-height: 60px; font-size: 34px; }
+  /* Építs tornyot!: slightly bigger discs; the tower still fits above the tray on a 680px-high screen. */
+  .mo-disc { width: calc(36px + var(--mo-size) * 28px); height: 36px; }
+  .mo-tower-target { width: 256px; height: 240px; }
+  .mo-tower-base { width: 220px; }
+  [data-game="tower"] .mo-piece { height: 70px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  /* Nézegessünk: a four-card topic is a 2 × 2 board of big pictures. */
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card { min-height: min(300px, calc((100dvh - 330px) / 2)); }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card-emoji .word-picture { max-width: 220px; max-height: 220px; }
+  #cards .cards-grid:not([data-density="dense"]):not(:has(> :nth-child(5))) .card-word { font-size: 1.4rem; }
+  /* Hol van?: two or three pictures grow into the space under the prompt. */
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-answer { min-height: clamp(240px, calc(100dvh - 520px), 400px); }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-picture { font-size: clamp(110px, 18vw, 170px); }
+  /* Számoljuk meg! and Keresd meg!: the two option groups share one line, and the objects and answers grow. */
+  .numbers-wrap { position: relative; max-width: 760px; padding-right: 84px; text-align: center; }
+  .numbers-wrap > .upgrade-options { display: inline-flex; margin: 0 4px 2px; vertical-align: top; }
+  .numbers-wrap > .number-object-picker { position: absolute; right: 0; top: 0; flex-direction: column; gap: 10px; margin: 0; }
+  .numbers-wrap .number-model { margin-top: 0; margin-bottom: 4px; }
+  .number-symbol { font-size: 88px; }
+  .numbers-wrap #number-picker { flex-wrap: nowrap; gap: 6px; margin: 4px 0 10px; }
+  .numbers-wrap #number-picker .number-choice, .number-total-choices .number-choice { min-width: 54px; min-height: 56px; font-size: 1.35rem; }
+  .number-objects { max-width: 720px; gap: 16px; }
+  .counting-object { flex-basis: calc((100% - 64px) / 5); min-height: min(124px, calc((100dvh - 660px) / 2)); font-size: 60px; border-radius: 26px; }
+  .number-answer { min-height: min(280px, calc(100dvh - 620px)); padding: 12px; }
+  .number-answer-objects { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: 56px; gap: 6px; }
+  .number-object-picker { gap: 18px; }
+  .number-object-choice { min-width: 72px; min-height: 64px; font-size: 38px; }
+  /* Építs tornyot! and Színtálcák: bigger discs, bowls and balls. */
+  .montessori-panel { max-width: 920px; }
+  .mo-disc { width: calc(44px + var(--mo-size) * 34px); height: 44px; }
+  .mo-tower-board { min-height: 380px; }
+  .mo-tower-target { width: 300px; height: 335px; }
+  .mo-tower-base { width: 262px; }
+  [data-game="tower"] .mo-piece { height: 84px; }
+  .mo-color-board { max-width: 600px; gap: 20px; }
+  .mo-bowl-target { min-height: 172px; }
+  .mo-bowl { width: 190px; height: 128px; }
+  .mo-bowl-inside { height: 86px; }
+  .mo-ball { width: 66px; height: 66px; }
+  .mo-bowl .mo-ball { width: 46px; height: 46px; }
+  [data-game="colors"] .mo-piece { width: 96px; height: 96px; }
+  /* Etesd meg a macit! and Maci öltözik: a wider table beside Maci, with food and clothes a toddler can see. */
+  .teddy-picnic { grid-template-columns: .9fr 1.1fr; gap: 20px; }
+  .teddy-plate { max-width: 200px; min-height: 150px; }
+  .teddy-food { font-size: 78px; }
+  .teddy-food > svg, .teddy-food > img { max-height: 110px; }
+  .teddy-answers[data-count="4"] .teddy-food, .teddy-answers[data-count="5"] .teddy-food { font-size: 62px; }
+  .dress-choice { min-height: 170px; max-width: 200px; }
+  .dress-choice > .dress-icon { height: 150px; max-width: 150px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) and (max-height: 999px) {
+  /* Below the one-column layout of very tall tablets, three plates and clothes still share a row. */
+  .teddy-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .teddy-answers[data-count="3"] .teddy-plate:last-child { grid-column: auto; width: 100%; }
+  .teddy-answers[data-count="3"] .teddy-plate { min-height: 0; border-width: 5px; }
+  .teddy-answers[data-count="3"] .teddy-food { font-size: 60px; }
+  .dress-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  .dress-answers[data-count="3"] .dress-choice { min-height: 120px; padding: 8px; }
+  .dress-answers[data-count="3"] .dress-icon { height: 100px; }
+}
