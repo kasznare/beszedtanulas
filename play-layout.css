@@ -375,3 +375,152 @@
 @media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
   .workshop-panel .ws-rods { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
 }
+
+/* Seventh pass, tablets: after a card tap the follow-up bar sits on one row, and the six- or eight-card
+   board leaves room for it (four columns for seven or eight cards on portrait iPads), so "Keressük meg!" and "Mondjuk együtt!" stay on screen. */
+@media (min-width: 700px) and (min-height: 600px) {
+  #cards .card-followup { flex-wrap: nowrap; align-items: center; padding: 8px 12px; }
+  #cards .card-followup p { flex-basis: auto; flex-shrink: 1; min-width: 0; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  #cards .cards-grid:not([data-density="dense"]):has(> :nth-child(7)) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+}
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  #cards .cards-grid:not([data-density="dense"]):has(> :nth-child(5)) .card-emoji .word-picture { max-width: min(180px, calc((100dvh - 264px) / 2 - 69px)); max-height: min(180px, calc((100dvh - 264px) / 2 - 69px)); }
+}
+
+/* Landscape iPads, Válogatókert level 3: the four trays share one row and the leaf tray is a strip under them, so a tray
+   with many items still fits. On tablets the selection preview only repeats the line under the items (it exists to stay in view
+   while a phone scrolls), so the line and the highlighted item carry it.
+   On portrait iPads the leaf tray stays under the four trays, with its label beside the icon. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .workshop-panel .ws-bins > .ws-selected-preview { display: none; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) > .ws-bin { padding: 4px; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) .ws-bin-tokens { gap: 4px; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) .ws-bin .ws-token { min-width: 44px; padding: 1px 2px; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) { row-gap: 4px; }
+  .workshop-panel .ws-sort-layout:has(.ws-leaf-bin) .ws-token-pool { padding-block: 2px; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .workshop-panel .ws-bins > .ws-leaf-bin { grid-column: 1 / -1; grid-row: auto; grid-template-columns: 170px minmax(0, 1fr); align-content: stretch; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-target { flex-direction: row; gap: 6px; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-target > span:last-child { text-align: left; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-tokens { justify-content: flex-start; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .workshop-panel .ws-bins > .ws-selected-preview { display: none; }
+  .workshop-panel .ws-bins > .ws-leaf-bin { grid-template-columns: 124px minmax(0, 1fr); }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-tokens { gap: 4px; }
+  .workshop-panel .ws-bins:has(> .ws-leaf-bin) > .ws-bin:not(.ws-leaf-bin) .ws-bin-tokens { min-height: 72px; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-token { padding: 1px 2px; min-height: 52px; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-target { flex-direction: row; gap: 6px; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-target > span:last-child { text-align: left; }
+  .workshop-panel .ws-bins > .ws-leaf-bin .ws-bin-tokens { justify-content: flex-start; }
+}
+
+/* Landscape iPads, Öntögető: the panel uses the full width, so the control column is wide enough for the tilt note, the two-cup
+   buttons and the status line without pushing the footer below the fold. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .pour-panel { max-width: none; }
+  .pour-layout { grid-template-columns: minmax(0, 1.3fr) minmax(340px, 1fr); }
+  .pour-panel .pour-actions { flex-wrap: nowrap; }
+  .pour-panel .pour-actions button { flex: 1 1 0; min-width: 0; padding-inline: 8px; }
+  .pour-panel .pour-actions .pour-hold { flex: 1.3 1 0; }
+}
+
+/* Tablets, Csomagösvény: the "Lépések" label shares its line with "Innen újratervezem" once a step is tapped, and the step
+   chips use the full width under them, so a long plan with a hint still fits instead of squeezing the button into a tall column. */
+@media (min-width: 700px) and (min-height: 600px) {
+  .logic-panel[data-game="route"] .logic-path-plan { flex-wrap: wrap; row-gap: 4px; padding-block: 4px; }
+  .logic-panel[data-game="route"] .logic-path-plan > strong { flex: 1 1 auto; }
+  .logic-panel[data-game="route"] .logic-path-plan > #logic-replan-confirm { order: 1; flex: 0 1 auto; padding-block: 6px; }
+  .logic-panel[data-game="route"] .logic-path-plan > ol { order: 2; flex: 1 0 100%; }
+  .logic-panel[data-game="route"] .logic-path-plan li button { padding-inline: 3px; gap: 2px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .logic-panel[data-game="route"]:has(.logic-hint-route, #logic-replan-confirm) .logic-board-wrap { max-width: calc(100dvh - 570px); }
+}
+
+/* Landscape iPads, the city story: the picture and the text form the left column and the task the right one, so an ordering
+   or choosing task stays on screen beside the scene instead of starting below it. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .city-story-shell:has(> .city-story-activity) { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); align-items: start; }
+  .city-story-shell:has(> .city-story-activity) > * { grid-column: 1 / -1; }
+  .city-story-shell:has(> .city-story-activity) > .city-story-spread { grid-column: 1; grid-row: 2 / span 2; grid-template-columns: minmax(0, 1fr); }
+  .city-story-shell:has(> .city-story-activity) > .city-story-status { grid-column: 2; grid-row: 3; margin-right: 18px; }
+  .city-story-shell:has(> .city-story-activity) > .city-story-activity { grid-column: 2; grid-row: 2; margin: 0 18px 8px 0; padding-top: 14px; border-top: 0; }
+  .city-story-shell:has(> .city-story-activity) .city-story-image-column { padding: 14px 16px 0; }
+  .city-story-shell:has(> .city-story-activity) .city-story-illustration svg { max-height: calc(100dvh - 556px); margin-inline: auto; width: auto; max-width: 100%; }
+  .city-story-shell:has(> .city-story-activity) .city-story-reading { padding: 10px 16px 6px; }
+}
+
+/* Portrait iPads, Egy szó: a slightly smaller picture leaves room for the star that appears after "Együtt kimondtuk",
+   so the session buttons stay above the fold. */
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .imitate-wrap > .imitate-emoji { padding: 0; }
+  .imitate-wrap > .imitate-emoji .word-picture { max-width: 160px; max-height: 160px; }
+}
+/* Tablets, the city story endings: the closing page (picture, text, recap, first clue, choices, story stamps and the next step)
+   flows into balanced columns (three on landscape, two on portrait iPads), so every ending button is on screen without page scrolling. */
+@media (min-width: 700px) and (min-height: 600px) {
+  .city-story-spread:has(.city-story-ending-actions) { display: block; columns: 3; column-gap: 18px; padding: 12px 16px 6px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-image-column { padding: 0; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-reading { padding: 0; }
+  .city-story-spread:has(.city-story-ending-actions) :is(.city-story-illustration, .city-story-title-row, .city-story-recap, .city-story-first-clue, .city-story-choice-wrap, .city-story-collection-inline, .city-story-ending-actions, .next-task-card) { break-inside: avoid; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-title-row { margin-top: 4px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-illustration figcaption { padding-block: 6px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-title-row h2 { margin: 0 0 6px; font-size: 1.35rem; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-illustration svg { max-height: 118px; width: auto; max-width: 100%; margin-inline: auto; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue { gap: 8px; padding: 8px 10px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue-art { width: 48px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue p { line-height: 1.35; }
+  #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-choice { padding: 8px 10px; font-size: .92rem; line-height: 1.3; }
+  .city-story-spread:has(.city-story-ending-actions) .next-task-card { padding-block: 8px; }
+  .city-story-spread:has(.city-story-ending-actions) .next-task-button { padding-block: 6px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-prose { font-size: .95rem; line-height: 1.4; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-prose p { margin-bottom: 6px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-recap { font-size: .9rem; line-height: 1.35; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-ending-actions { gap: 6px; }
+  .city-story-spread:has(.city-story-ending-actions) .city-story-ending-actions button { min-height: 44px; padding-block: 6px; }
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .city-story-spread:has(.city-story-ending-actions) { columns: 2; }
+}
+}
+
+/* Landscape iPads, city story choice scenes: a status message ("Ehhez tudni kell…") sits under the picture in the left column
+   instead of under the whole page. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); grid-template-rows: auto auto auto 1fr; align-items: start; }
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) > * { grid-column: 1 / -1; }
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) > .city-story-spread { display: contents; }
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) .city-story-image-column { grid-column: 1; grid-row: 2; }
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) .city-story-reading { grid-column: 2; grid-row: 2 / span 3; }
+  .city-story-shell:not(:has(> .city-story-activity)):not(:has(.city-story-ending-actions)) > .city-story-status { grid-column: 1; grid-row: 3; margin-left: 16px; }
+}
+
+/* Portrait iPads, the city story: the text column gets more of the width (so the scene text is shorter), and a status message
+   sits under the picture instead of below the task, so the task buttons stay on screen. */
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .city-story-shell:not(:has(.city-story-ending-actions)) { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: auto auto auto 1fr auto; align-items: start; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > * { grid-column: 1 / -1; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > .city-story-spread { display: contents; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-image-column { grid-column: 1; grid-row: 2; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-reading { grid-column: 2; grid-row: 2 / span 3; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > .city-story-status { grid-column: 1; grid-row: 3; margin-left: 16px; padding-block: 4px 6px; font-size: .86rem; line-height: 1.35; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > .city-story-activity { grid-row: 5; }
+  .city-story-shell:has(> .city-story-activity) .city-story-illustration svg { max-height: 160px; width: auto; max-width: 100%; margin-inline: auto; }
+  .city-story-shell:has(> .city-story-activity) .city-story-title-row h2 { font-size: 1.4rem; }
+}
+
+/* Portrait iPads, Meseliget: when a free game can be resumed, its button shares a line with "Folytassuk a kalandot!"
+   instead of pushing the map below the fold. */
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .meadow-map > .meadow-resume-free:not([hidden]) { display: inline-flex; margin: 14px 10px 0; vertical-align: top; }
+  .meadow-map > .meadow-resume-free:not([hidden]) ~ .meadow-start { margin-top: 14px; vertical-align: top; }
+}
+
+/* Portrait iPads, Egyensúlyműhely: each rod button shows its rod beside the number, so two rows of rods and a two-line hint
+   still leave the "Kész!" button on screen. */
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  .workshop-panel .ws-rods { gap: 5px; }
+  .workshop-panel .ws-rods button { flex-direction: row; justify-content: center; gap: 8px; min-height: 46px; }
+}
