@@ -524,3 +524,35 @@
   .workshop-panel .ws-rods { gap: 5px; }
   .workshop-panel .ws-rods button { flex-direction: row; justify-content: center; gap: 8px; min-height: 46px; }
 }
+
+/* Eighth pass: deeper play-throughs (20 taps per game) on both iPad sizes. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* Két szó and Egy szó: with the microphone unavailable the "Képekkel játszom" fallback appears under the status line.
+     The confirm row is empty in microphone mode, so it gives up its margins, and the fallback sits closer to the status. */
+  .imitate-wrap > .upgrade-options:not(:has(> :not([hidden]))), .phrase-wrap > .upgrade-options:not(:has(> :not([hidden]))) { display: none; }
+  .phrase-wrap > .listen-status { margin: 6px 0; }
+  .phrase-wrap > .speech-recovery { margin: 0 0 4px; }
+  .phrase-wrap > .speech-recovery .recovery-button { min-height: 52px; padding-block: 6px; }
+}
+@media (min-width: 700px) and (min-height: 600px) {
+  /* Egyensúlyműhely: the checklist under the scale stacked its pills one per line and outgrew the rod tray beside it
+     (37 px over on landscape with four rods placed). As a full-width last row the pills fit on one line. */
+  .workshop-panel .ws-balance-scene > .ws-balance-checks { grid-column: 1 / -1; grid-row: 7; margin: 2px 0 0; }
+}
+@media (min-width: 700px) and (min-height: 600px) {
+  /* Szabálygép: during a machine test the "N. próba" label stacked above the trace and pushed the buttons 24 px down
+     for a few seconds (both orientations). The current example is already highlighted on the left, so the label stays for screen readers only. */
+  .logic-panel[data-game="machine"] .logic-machine-run.is-running > span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .logic-panel[data-game="machine"] .logic-machine-run.is-running .logic-machine-trace { gap: 4px; flex-wrap: nowrap; }
+  .logic-panel[data-game="machine"] .logic-machine-run.is-running .logic-machine-trace b { padding: 1px 6px; }
+  /* The button reads "Dolgozik a géped… 4×" during the run; it stays one line. */
+  .logic-panel[data-game="machine"] .logic-build > .logic-test { white-space: nowrap; padding-inline: 6px; }
+  /* With the level-3 hint line the build column was 6 px too tall on portrait. */
+  .logic-panel[data-game="machine"] .logic-build > .logic-hint-text { margin-top: 4px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  /* Két szó and Egy szó: the "Képekkel játszom" fallback (no microphone) pushed the page 27 px past the screen. */
+  .phrase-wrap:has(> .speech-recovery:not([hidden])) > .phrase-emoji { padding-top: 8px; }
+  .phrase-wrap > .speech-recovery, .imitate-wrap > .speech-recovery { margin: 6px 0 4px; }
+  .phrase-wrap > .speech-recovery .recovery-button, .imitate-wrap > .speech-recovery .recovery-button { min-height: 52px; padding-block: 6px; }
+}
