@@ -303,6 +303,19 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     };
     drag.scrollFrame = requestAnimationFrame(step);
   }
+  // On the dense Formadoboz levels neighbouring holes overlap at their edges, and the later one sat on top
+  // even when the finger was on the centre of the other. The hole whose centre is nearest to the finger wins.
+  function nearestTarget(element, x, y) {
+    if (!element?.dataset.moTarget || element.dataset.moPiece) return element;
+    const distance = item => { const rect = item.getBoundingClientRect(); return Math.hypot(rect.left + rect.width / 2 - x, rect.top + rect.height / 2 - y); };
+    let best = element;
+    for (const item of document.elementsFromPoint(x, y)) {
+      if (item.closest('.mo-blocker')) break;
+      const hole = item.closest('[data-mo-target]');
+      if (hole && hole !== best && !hole.dataset.moPiece && !hole.disabled && root.contains(hole) && distance(hole) < distance(best)) best = hole;
+    }
+    return best;
+  }
   root.addEventListener('pointerdown', event => {
     const button = event.target.closest('[data-mo-piece], [data-mo-blocker]');
     if (!button || button.disabled || !playable() || !event.isPrimary || event.button !== 0 || montessoriLocked(round, button.dataset.moPiece)) return;
@@ -334,12 +347,12 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     }
     drag.ghost.style.left = `${event.clientX - drag.width / 2}px`; drag.ghost.style.top = `${event.clientY - drag.height / 2}px`;
     root.querySelectorAll('.is-drop-target').forEach(element => element.classList.remove('is-drop-target'));
-    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target]:not(:disabled), [data-mo-take]');
+    const target = nearestTarget(document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target]:not(:disabled), [data-mo-take]'), event.clientX, event.clientY);
     if (target && root.contains(target)) target.classList.add('is-drop-target');
   });
   root.addEventListener('pointerup', event => {
     if (!drag || drag.pointerId !== event.pointerId) return;
-    const previous = drag, target = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target], [data-mo-take]');
+    const previous = drag, target = nearestTarget(document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-mo-target], [data-mo-take]'), event.clientX, event.clientY);
     cleanupDrag(); suppressed = previous.id; suppressUntil = performance.now() + 400;
     if (!playable()) return;
     if (previous.type === 'blocker') {
@@ -373,7 +386,7 @@ export function setupMontessoriGame({ effect = () => {}, getOptions, setOptions,
     else if (button.dataset.moPiece && button.dataset.moTarget && selected && selected !== button.dataset.moPiece) place(button.dataset.moTarget);
     else if (button.dataset.moPiece) select(button.dataset.moPiece);
     else if (button.dataset.moBlocker) moveBlocker(button.dataset.moBlocker);
-    else if (button.dataset.moTarget) place(button.dataset.moTarget);
+    else if (button.dataset.moTarget) place((event.detail > 0 ? nearestTarget(button, event.clientX, event.clientY) : button).dataset.moTarget);
     else if (button.id === 'mo-back') { menu(`[data-mo-game="${kind}"]`); say('montessori_menu'); }
     else if (button.id === 'mo-restart') startGame(kind, round.level, true);
     else if (button.id === 'mo-next') startGame(kind, round.level + 1, true);

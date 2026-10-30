@@ -530,6 +530,13 @@ async page => {
       if (await p.locator('#dress-next').isDisabled()) throw Error('A rain outfit should fit its weather card');
       await check(`${size}:dress-free-fits-rain`);
       await click('[data-dress-mode="classic"]');
+      // The parent "three pictures" setting puts a third piece of clothing on the table.
+      await p.evaluate(() => {
+        const answers = document.querySelector('#dress-answers');
+        while (answers.children.length < 3) answers.append(answers.children[0].cloneNode(true));
+        answers.dataset.count = '3';
+      });
+      await check(`${size}:dress-three-pictures`);
       await open('number-menu'); await click('#number-menu [data-mode="count"]');
       await click('[data-number-setting="numberSelf"][data-value="true"]');
       const countingObjects = await p.locator('.counting-object').count();

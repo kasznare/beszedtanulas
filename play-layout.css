@@ -556,3 +556,38 @@
   .phrase-wrap > .speech-recovery, .imitate-wrap > .speech-recovery { margin: 6px 0 4px; }
   .phrase-wrap > .speech-recovery .recovery-button, .imitate-wrap > .speech-recovery .recovery-button { min-height: 52px; padding-block: 6px; }
 }
+
+/* Ninth pass: every parent setting at its densest value (three pictures, ten-word rounds, six pairs, numbers to 20, hardest levels). */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* Maci öltözik with three pictures: the third piece of clothing wrapped to a second row and pushed the page 78 px past the screen. */
+  .dress-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 16px 12px; }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  .dress-answers[data-count="3"] .dress-choice { min-height: 150px; padding: 8px; }
+  .dress-answers[data-count="3"] .dress-icon { height: 116px; }
+}
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* Meseliget: with one apple too many, the "tegyünk vissza" line under the dot strip pushed the buttons 18 px off screen; it now shares the label row. */
+  .meadow-help-tray:has(> .meadow-extra-apples) { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; align-items: center; }
+  .meadow-help-tray:has(> .meadow-extra-apples) > .meadow-help-label { grid-area: 1 / 1; text-align: right; }
+  .meadow-help-tray:has(> .meadow-extra-apples) > .meadow-extra-apples { grid-area: 1 / 2; margin: 0; text-align: left; }
+  .meadow-help-tray:has(> .meadow-extra-apples) > .meadow-count-guide { grid-area: 2 / 1 / 3 / 3; }
+}
+@media (min-width: 700px) and (min-height: 600px) {
+  /* Szabálygép with dots shown and numbers to 20: 17 dots stacked in four rows and pushed the page 14 px past a portrait screen; two groups of five now share a row. */
+  .logic-panel[data-game="machine"] .logic-quantity .logic-dots { max-width: 132px; }
+  /* Above ten (three or more groups of five) the narrow landscape example column still stacked them; slightly smaller dots make rows of ten. */
+  .logic-panel[data-game="machine"] .logic-quantity .logic-dots:has(> .logic-dot-group:nth-child(3)) { max-width: none; gap: 2px; }
+  .logic-panel[data-game="machine"] .logic-quantity .logic-dots:has(> .logic-dot-group:nth-child(3)) > .logic-dot-group { font-size: .6rem; padding: 1px; }
+  /* After a machine test run each example gets an "A te géped: 20 ✓" badge; on one line it squeezed the dots into tall columns (23 px over on portrait). */
+  .logic-panel[data-game="machine"] .logic-example > :is(.logic-match, .logic-mismatch) { max-width: 96px; white-space: normal; text-align: center; line-height: 1.15; padding-block: 3px; }
+}
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  /* The landscape example column is narrower still (48 px over with 10, 16 and 20 as outputs): a smaller badge and slightly smaller dots while it shows. */
+  .logic-panel[data-game="machine"] .logic-example > :is(.logic-match, .logic-mismatch) { max-width: 74px; padding: 2px 3px; font-size: .75rem; }
+  .logic-panel[data-game="machine"] .logic-example:has(> :is(.logic-match, .logic-mismatch)) .logic-dots { gap: 2px; }
+  .logic-panel[data-game="machine"] .logic-example:has(> :is(.logic-match, .logic-mismatch)) .logic-dot-group { font-size: .55rem; padding: 1px; }
+}
+@media (min-width: 700px) and (min-height: 600px) {
+  /* Szabálygép: the opened "Számoljunk!" line took a full row under the answers, so a wrong answer or the win state ran 27–37 px past the screen (default settings too). It now sits where its button was. */
+  .logic-panel[data-game="machine"] .logic-prediction > .logic-prediction-help { grid-column: 2; grid-row: 2; padding: 4px 8px; line-height: 1.2; white-space: nowrap; }
+}
