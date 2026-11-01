@@ -679,6 +679,40 @@ async page => {
       await click('[data-listening-mode="classic"]');
     }
 
+    // 13-inch iPads: the games grow into the larger screen. Each view must still fit, and its content must reach
+    // down into the screen instead of leaving the lower half empty.
+    if (!numberStepsOnly) {
+      const inside = (name, outer, inner) => p.evaluate(({ name, outer, inner }) => {
+        const spill = [...document.querySelectorAll(outer)].filter(box => box.checkVisibility()).flatMap(box => [...box.querySelectorAll(inner)].map(part => {
+          const a = box.getBoundingClientRect(), b = part.getBoundingClientRect(); return Math.max(b.right - a.right, a.left - b.left); })).filter(d => d > 1);
+        if (spill.length) throw Error(`${name}: ${inner} spills ${Math.round(Math.max(...spill))} px past ${outer}`);
+      }, { name, outer, inner });
+      const fills = (name, min) => p.evaluate(({ name, min }) => {
+        const panel = document.querySelector('.panel.is-active'), top = document.querySelector('.app-bar').getBoundingClientRect().bottom;
+        const bottom = Math.max(...[...panel.querySelectorAll('button, img, svg, canvas')].filter(e => e.checkVisibility()).map(e => e.getBoundingClientRect().bottom));
+        const share = (bottom - top) / (innerHeight - top);
+        if (share < min) throw Error(`${name}: content reaches only ${Math.round(share * 100)}% of the height`);
+      }, { name, min });
+      for (const [width, height] of [[1376, 958], [1032, 1300]]) {
+        await p.setViewportSize({ width, height });
+        const size = `${width}x${height}`;
+        await open('picture-menu', 'topics'); await check(`${size}:topics`); await fills(`${size}:topics`, .7);
+        await open('picture-menu', 'listening-game'); await check(`${size}:listening`); await fills(`${size}:listening`, .7);
+        await open('picture-menu', 'flip'); await check(`${size}:flip`); await fills(`${size}:flip`, .7);
+        await open('play-menu', 'teddy-game'); await check(`${size}:teddy`); await fills(`${size}:teddy`, .7);
+        await open('play-menu', 'dress-game'); await check(`${size}:dress`); await fills(`${size}:dress`, .7);
+        await open('practice-menu', 'r-practice'); await check(`${size}:r-practice`); await fills(`${size}:r-practice`, .7);
+        await open('big-menu', 'chess'); await check(`${size}:chess`); await fills(`${size}:chess`, .75);
+        await open('activity-menu'); await click('#activity-menu [data-kind="drop"]'); await check(`${size}:engineering-drop`); await fills(`${size}:engineering-drop`, .75);
+        await open('big-menu'); await click('#big-menu [data-kind="grid"]'); await check(`${size}:montessori-grid`);
+        await open('number-menu'); await click('#number-menu [data-kind="balance"]');
+        await click('#ws-game-level-3'); await check(`${size}:balance-3`); await inside(`${size}:balance-rods`, '#workshop .ws-rod-choice', '.ws-rod');
+        await click('#ws-game-level-1');
+        await open('number-menu'); await click('#number-menu [data-kind="shop"]'); await check(`${size}:shop`); await inside(`${size}:shop-stepper`, '#furfangliget .logic-stepper', 'button');
+      }
+      await p.setViewportSize({ width: 1024, height: 680 });
+    }
+
     if (errors.length) throw Error(errors.join('; '));
     return `${rows.length} chess, ${engineeringRows.length} engineering, ${numberStepsRows.length} number steps and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks.`;
   } finally {

@@ -719,3 +719,405 @@
   #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-recap { margin-block: 6px; }
   #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue { margin-bottom: 8px; }
 }
+
+/* Twelfth pass: 13-inch iPads (and the older 12.9-inch ones). The app may grow past 1040 px, and each game
+   sizes its board, pictures and pieces to the larger screen; every size stays capped by the visible height. */
+@media (min-width: 1280px) and (min-height: 860px) and (orientation: landscape) {
+  .app, body[data-screen] .app { max-width: 1320px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(380px, calc((100dvh - 200px) / 2)); }
+  .home-grid .home-art, .home-grid .art-activity { zoom: 1.05; }
+  .home-tile-copy .tile-title { font-size: 1.35rem; }
+  .home-tile-copy small { font-size: .95rem; }
+  .game-menu-grid > .game-menu-card, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) { min-height: min(360px, calc((100dvh - 190px) / 2)); }
+  .game-menu-icon, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) .game-menu-icon { font-size: 92px; }
+  .game-menu-card strong { font-size: 1.45rem; }
+  .game-menu-card small { font-size: 1rem; }
+  .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card, .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card:last-child:nth-child(odd),
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { min-height: min(330px, calc((100dvh - 250px) / 2)); }
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { min-height: min(300px, calc((100dvh - 330px) / 2)); }
+  .menu-panel[data-cards="7"] .game-menu-icon, .menu-panel[data-sections="2"] .game-menu-icon { font-size: 72px; }
+  .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(620px, calc(100dvh - 260px)); }
+  .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 104px; }
+  .topic-grid { gap: 22px; }
+  .topic-tile { min-height: min(340px, calc((100dvh - 190px) / 2)); font-size: 1.4rem; border-radius: 32px; }
+  .topic-emoji { font-size: 128px; }
+  #topics, .menu-panel { max-width: 1240px; }
+  /* Állathangos könyv: a bigger picture page, bigger animal buttons beside it. */
+  .animal-book-panel { max-width: none; }
+  .abk-paper { grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); }
+  .abk-heading h2 { font-size: 2rem; }
+  .animal-book-panel .abk-animal { min-height: 120px; }
+  .abk-animal-symbol { font-size: 3.4rem; }
+  .abk-animal-name { font-size: 1.1rem; }
+  .animal-book-panel .abk-modes button { font-size: 1.05rem; min-height: 52px; }
+  /* Hol van?: the pictures use the full height. */
+  .listening-panel.is-active { max-width: none; grid-template-columns: 300px minmax(0, 1fr); column-gap: 32px; }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-answer { min-height: clamp(240px, calc(100dvh - 210px), 760px); }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-picture { font-size: clamp(110px, 24vmin, 260px); }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-phrase .listening-picture { font-size: 200px; }
+  .listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: clamp(120px, calc((100dvh - 230px) / 2), 340px); }
+  .listening-panel .listening-answers[data-count="4"] .listening-picture { font-size: 150px; }
+  .listening-panel .listening-answers.is-bingo .listening-bingo-tile { min-height: clamp(110px, calc((100dvh - 240px) / 2), 340px); }
+  .listening-panel .listening-answers.is-bingo .listening-picture { font-size: 130px; }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 230px) / 3), 230px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 100px; }
+  /* Mi bújt el?: bigger cards beside the buttons. */
+  #flip .flip-game { max-width: none; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 32px; }
+  #flip .flip-grid { --flip-card-h: clamp(110px, calc((100dvh - 200px) / 2), 380px); --flip-pic: 120px; gap: 18px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"], #flip .flip-grid[data-count="4"] { --flip-card-h: clamp(140px, calc(100dvh - 240px), 560px); --flip-pic: 160px; }
+  /* Képpárok and Hang–kép párok: bigger cards. */
+  .memory-panel.is-active { max-width: none; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); column-gap: 32px; }
+  .memory-board .memory-card { height: clamp(86px, calc((100dvh - 210px) / 3), 240px); }
+  .memory-board[data-count="4"] .memory-card { height: clamp(86px, calc((100dvh - 210px) / 2), 380px); }
+  .memory-board[data-count="6"] .memory-card, .memory-board[data-count="8"] .memory-card { height: clamp(86px, calc((100dvh - 210px) / 2), 380px); }
+  .memory-board .memory-card-face { font-size: 5rem; }
+  .memory-board[data-count="4"] .memory-card-face, .memory-board[data-count="6"] .memory-card-face, .memory-board[data-count="8"] .memory-card-face { font-size: 7.5rem; }
+  .memory-board[data-count="12"] .memory-card { height: clamp(86px, calc((100dvh - 200px) / 3), 240px); }
+  /* Egy szó and Két szó: a bigger picture and word, bigger buttons. */
+  .practice-panel { max-width: 1240px; padding: 24px 40px; }
+  .practice-panel.is-active { display: grid; align-content: center; min-height: calc(100dvh - 140px); }
+  .practice-panel.is-active > * { width: 100%; }
+  .imitate-emoji { font-size: 300px; }
+  .imitate-wrap > .imitate-emoji .word-picture { max-width: min(460px, calc(100dvh - 400px)); max-height: min(460px, calc(100dvh - 400px)); }
+  .phrase-emoji, .phrase-wrap > .phrase-emoji { font-size: 190px; }
+  #imitate-word, #phrase-text { font-size: 2.8rem; }
+  .imitate-wrap .actions .icon-btn, .imitate-wrap .session-controls .icon-btn, .phrase-wrap .actions .icon-btn, .phrase-wrap .session-controls .icon-btn { min-width: 96px; min-height: 90px; border-radius: 28px; }
+  .imitate-wrap .actions .icon, .phrase-wrap .actions .icon, .imitate-wrap .session-controls .icon, .phrase-wrap .session-controls .icon { width: 40px; height: 40px; }
+  /* Játék Macival: a bigger Maci, bigger plates and food. */
+  .teddy-panel { max-width: 1240px; }
+  .teddy-picnic { gap: 40px; }
+  .teddy-illustration, #dress-game .teddy-illustration { max-width: min(620px, calc(100dvh - 300px)); max-height: calc(100dvh - 300px); }
+  .teddy-plate { max-width: 280px; min-height: 200px; }
+  .teddy-food { font-size: 120px; }
+  .teddy-food > svg, .teddy-food > img { max-height: 170px; }
+  .teddy-answers[data-count="4"] .teddy-plate, .teddy-answers[data-count="5"] .teddy-plate { max-width: 230px; }
+  .teddy-answers[data-count="4"] .teddy-food, .teddy-answers[data-count="5"] .teddy-food { font-size: 96px; }
+  .dress-answers:not([data-count="free"]) .dress-choice { min-height: 250px; max-width: 290px; }
+  .dress-answers:not([data-count="free"]) .dress-choice > .dress-icon { height: 220px; max-width: 220px; }
+  .dress-answers[data-count="3"] .dress-choice { min-height: 220px; }
+  .dress-answers[data-count="3"] .dress-choice > .dress-icon { height: 180px; }
+  .dress-answers[data-count="free"] .dress-choice { min-height: 150px; font-size: .95rem; }
+
+  /* Meseliget: the map fills the screen with bigger places. */
+  .meadow-panel { max-width: 1320px; }
+  .meadow-map { min-height: calc(100dvh - 130px); align-content: center; padding: 24px 36px; }
+  .meadow-map > .meadow-places { gap: 24px 30%; }
+  .meadow-place { min-height: min(300px, calc((100dvh - 300px) / 2)); justify-content: center; }
+  .meadow-place > span { font-size: 92px; }
+  .meadow-place strong { font-size: 1.5rem; }
+  .meadow-place small { font-size: 1rem; }
+  .meadow-map-bear { max-width: 330px; }
+  .meadow-start { min-height: 64px; font-size: 1.2rem; }
+  .meadow-task-title { font-size: 2rem; }
+  .meadow-stage { gap: 36px; }
+  #meadow-bear .teddy-illustration { max-height: min(460px, calc(100dvh - 400px)); }
+  .meadow-guests { gap: 16px; padding: 22px; }
+  .meadow-guests[data-count="1"] { grid-template-columns: minmax(0, 230px); }
+  .meadow-guest { min-height: min(230px, calc(100dvh - 600px)); }
+  .meadow-guests[data-count="7"] .meadow-guest, .meadow-guests[data-count="8"] .meadow-guest, .meadow-guests[data-count="9"] .meadow-guest, .meadow-guests[data-count="10"] .meadow-guest { min-height: min(170px, calc((100dvh - 560px) / 2)); }
+  .meadow-animal { font-size: 84px; }
+  .meadow-guests[data-count="7"] .meadow-animal, .meadow-guests[data-count="8"] .meadow-animal, .meadow-guests[data-count="9"] .meadow-animal, .meadow-guests[data-count="10"] .meadow-animal { font-size: 62px; }
+  .meadow-plate { width: 72px; height: 62px; font-size: 40px; }
+  .meadow-orchard { min-height: 130px; gap: 12px; }
+  .meadow-apple { width: 92px; height: 92px; font-size: 60px; border-radius: 26px; }
+  .meadow-basket { min-height: 170px; }
+  .meadow-basket-apples { min-height: 92px; }
+  .meadow-clothes { gap: 32px; }
+  .meadow-clothing { width: 210px; height: 225px; }
+  .meadow-primary, .meadow-quiet { min-height: 60px; font-size: 1.1rem; }
+  /* Montessori műhely: a wider board and bigger pieces. */
+  .montessori-panel, .montessori-panel.is-active:not([data-game="menu"]) { max-width: 1320px; }
+  .montessori-panel.is-active:not([data-game="menu"]) { grid-template-columns: minmax(0, 1fr) 320px; column-gap: 28px; }
+  .montessori-panel.is-active:not([data-game="menu"]) > .mo-workspace { min-height: calc(100dvh - 150px); align-content: center; }
+  /* Számoljuk meg! and Keresd meg!: bigger numeral, objects and answers. */
+  .numbers-wrap { max-width: 1260px; padding-right: 100px; }
+  .number-symbol { font-size: 150px; }
+  .numbers-wrap #number-picker .number-choice, .number-total-choices .number-choice { min-width: 72px; min-height: 72px; font-size: 1.7rem; }
+  .counting-object { min-height: min(190px, calc((100dvh - 470px) / 2)); font-size: 84px; border-radius: 30px; }
+  .number-answer { min-height: min(380px, calc(100dvh - 480px)); }
+  .number-answer-objects { font-size: 76px; }
+  .number-object-choice { min-width: 84px; min-height: 80px; font-size: 46px; }
+  .numbers-wrap .actions .icon-btn { min-width: 80px; min-height: 68px; }
+  .number-answers:not(:has(> :nth-child(3))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .number-object-picker { gap: 12px; }
+  /* Sakkliget: the board uses the full height. */
+  .chess-panel { max-width: 1320px; }
+  .chess-board { width: min(100%, calc(100dvh - 200px), 760px); }
+  .chess-workspace { grid-template-columns: minmax(0, 1fr) 380px; }
+  .chess-picker .chess-piece { width: 40px; height: 40px; }
+  .chess-guide { font-size: 1.1rem; }
+  .chess-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chess-modes button, .chess-actions button { min-height: 56px; font-size: 1.05rem; }
+  .chess-square:has(.chess-piece) .chess-goal { font-size: 24px; }
+  /* Képkirakó: a bigger board beside the piece tray. */
+  .puzzle-panel { max-width: 1320px; }
+  .puzzle-workspace { grid-template-columns: minmax(0, 1.75fr) minmax(300px, 1fr); gap: 28px; }
+  .puzzle-board { max-width: calc((100dvh - 290px) * 1.5); margin-inline: auto; }
+  /* Építőliget: the stage uses the full height, the tools beside it. */
+  #engineering { max-width: 1320px; }
+  #engineering .en-workspace { grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; }
+  #engineering .en-stage-wrap, #engineering[data-mode="drop"] .en-stage-wrap { width: min(100%, calc((100dvh - 230px) * 4 / 3)); }
+  #engineering[data-mode="bridge"] .en-stage-wrap { width: min(100%, calc((100dvh - 300px) * 4 / 3)); }
+  #engineering .en-game-cards { max-width: 1200px; }
+  #differences { max-width: 1320px; }
+  /* Töltsünk a barátainknak!: a bigger scene beside the controls. */
+  .pour-layout { grid-template-columns: minmax(0, 1.75fr) minmax(360px, 1fr); gap: 24px; }
+  .pour-art { max-height: calc(100dvh - 300px); }
+  .pour-panel button { min-height: 52px; }
+}
+@media (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+  /* Játék Macival: Maci on top, the plates or clothes in a row underneath. */
+  .teddy-panel { max-width: 940px; }
+  .teddy-picnic { grid-template-columns: 1fr; gap: 28px; max-width: none; }
+  .teddy-scene { max-width: 620px; width: 100%; justify-self: center; }
+  .teddy-illustration, #dress-game .teddy-illustration { max-width: min(560px, calc(100dvh - 760px)); max-height: calc(100dvh - 760px); margin-inline: auto; }
+  .teddy-answers { padding: 20px; gap: 18px; }
+  .teddy-answers[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .teddy-answers[data-count="3"] .teddy-plate:last-child { grid-column: auto; width: 100%; }
+  .teddy-plate { max-width: 260px; min-height: 200px; }
+  .teddy-food { font-size: 116px; }
+  .teddy-food > svg, .teddy-food > img { max-height: 160px; }
+  .teddy-answers[data-count="4"] .teddy-food, .teddy-answers[data-count="5"] .teddy-food { font-size: 88px; }
+  .dress-answers:not([data-count="free"]) .dress-choice { min-height: 250px; max-width: 280px; }
+  .dress-answers:not([data-count="free"]) .dress-choice > .dress-icon { height: 210px; max-width: 210px; }
+  .dress-answers[data-count="3"] .dress-choice:last-child { grid-column: auto; width: 100%; }
+  /* Home, menus and topics: taller cards and bigger pictures. */
+  #topics, .menu-panel, .listening-panel, .memory-panel { max-width: 980px; }
+  .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(300px, calc((100dvh - 250px) / 4)); }
+  .home-tile-copy .tile-title { font-size: 1.3rem; }
+  .home-tile-copy small { font-size: .92rem; }
+  .game-menu-grid > .game-menu-card, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) { min-height: min(400px, calc((100dvh - 290px) / 2)); }
+  .game-menu-grid:not(:has(> :nth-child(5))) > .game-menu-card { min-height: min(440px, calc((100dvh - 280px) / 2)); }
+  .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card, .menu-panel[data-cards="7"] .game-menu-grid > .game-menu-card:last-child:nth-child(odd) { min-height: min(380px, calc((100dvh - 300px) / 2)); }
+  .menu-panel[data-sections="2"] .game-menu-grid > .game-menu-card { min-height: min(340px, calc((100dvh - 400px) / 2)); }
+  .menu-panel[data-cards="7"] .game-menu-icon, .menu-panel[data-sections="2"] .game-menu-icon { font-size: 68px; }
+  .game-menu-grid:not(:has(> :nth-child(4))) > .game-menu-card { min-height: min(640px, calc(100dvh - 420px)); }
+  .game-menu-grid:not(:has(> :nth-child(4))) .game-menu-icon { font-size: 120px; }
+  .game-menu-icon, .game-menu-grid > .game-menu-card:last-child:nth-child(odd) .game-menu-icon { font-size: 84px; }
+  .game-menu-grid:not(:has(> :nth-child(5))) .game-menu-icon { font-size: 104px; }
+  .game-menu-card strong { font-size: 1.35rem; }
+  .game-menu-card small { font-size: .95rem; }
+  .topic-tile { min-height: min(330px, calc((100dvh - 240px) / 3)); font-size: 1.35rem; }
+  .topic-emoji { font-size: 116px; }
+  /* Hol van?: the pictures grow into the height under the prompt. */
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-answer { min-height: clamp(240px, calc(100dvh - 540px), 720px); }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-picture { font-size: 220px; }
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-phrase .listening-picture { font-size: 170px; }
+  .listening-panel .listening-answers[data-count="4"] .listening-answer { min-height: clamp(120px, calc((100dvh - 540px) / 2), 330px); }
+  .listening-panel .listening-answers[data-count="4"] .listening-picture { font-size: 140px; }
+  .listening-panel .listening-answers.is-bingo .listening-bingo-tile { min-height: clamp(110px, calc((100dvh - 600px) / 2), 320px); }
+  .listening-panel .listening-answers.is-bingo .listening-picture { font-size: 120px; }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-bingo-tile { min-height: clamp(86px, calc((100dvh - 620px) / 3), 210px); }
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 90px; }
+  /* Mi bújt el? and Képpárok: taller cards. */
+  #flip .flip-grid { --flip-card-h: clamp(120px, calc((100dvh - 480px) / 2), 380px); --flip-pic: 120px; gap: 18px; }
+  #flip .flip-grid[data-count="1"], #flip .flip-grid[data-count="2"], #flip .flip-grid[data-count="3"] { --flip-card-h: clamp(140px, calc(100dvh - 560px), 560px); --flip-pic: 150px; }
+  .memory-board .memory-card { height: clamp(86px, calc((100dvh - 520px) / 2), 380px); }
+  .memory-board[data-count="12"] .memory-card { height: clamp(86px, calc((100dvh - 540px) / 3), 250px); }
+  .memory-board .memory-card-face { font-size: 7rem; }
+  .memory-board[data-count="12"] .memory-card-face { font-size: 5rem; }
+  /* Egy szó and Két szó: the practice card fills the height, with a bigger picture. */
+  .practice-panel.is-active { display: grid; align-content: center; min-height: calc(100dvh - 140px); }
+  .practice-panel.is-active > * { width: 100%; }
+  .imitate-emoji { font-size: 300px; }
+  .imitate-wrap > .imitate-emoji .word-picture { max-width: 420px; max-height: 420px; }
+  .phrase-emoji, .phrase-wrap > .phrase-emoji { font-size: 200px; }
+  .practice-panel { max-width: 940px; }
+  #imitate-word, #phrase-text { font-size: 2.8rem; }
+  .imitate-wrap .actions .icon-btn, .imitate-wrap .session-controls .icon-btn, .phrase-wrap .actions .icon-btn, .phrase-wrap .session-controls .icon-btn { min-width: 96px; min-height: 90px; border-radius: 28px; }
+  /* Sakkliget: the board across the width, the guide underneath. */
+  .chess-workspace { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .chess-board-wrap { justify-self: center; width: auto; }
+  .chess-board { width: min(100%, calc(100dvh - 560px), 820px); }
+  .chess-picker { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .chess-modes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .chess-modes button, .chess-actions button { min-height: 52px; font-size: 1rem; }
+  .chess-picker .chess-piece { width: 40px; height: 40px; }
+  /* Építőliget: the stage across the width, the tools underneath. */
+  #engineering .en-workspace { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  #engineering .en-stage-wrap, #engineering[data-mode="drop"] .en-stage-wrap, #engineering[data-mode="bridge"] .en-stage-wrap { width: min(100%, calc((100dvh - 560px) * 4 / 3)); justify-self: center; }
+  #engineering .en-tools, #engineering[data-mode="build"] .en-tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; align-items: start; }
+  #engineering .en-tools > * { grid-column: auto; margin: 0; }
+  /* Töltsünk a barátainknak!: the scene across the width, the controls underneath. */
+  .pour-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .pour-art { max-height: calc(100dvh - 640px); }
+  .pour-panel button { min-height: 52px; }
+  /* Számoljuk meg! and Keresd meg!: bigger numeral, objects and answers. */
+  .numbers-wrap { max-width: 980px; padding-right: 100px; }
+  .number-symbol { font-size: 130px; }
+  .numbers-wrap #number-picker .number-choice, .number-total-choices .number-choice { min-width: 64px; min-height: 68px; font-size: 1.6rem; }
+  .number-objects { max-width: none; }
+  .counting-object { min-height: min(260px, calc((100dvh - 700px) / 2)); font-size: 100px; }
+  .number-answer { min-height: min(480px, calc(100dvh - 680px)); }
+  .number-answer-objects { font-size: 72px; }
+  .number-object-choice { min-width: 84px; min-height: 80px; font-size: 46px; }
+  .number-answers:not(:has(> :nth-child(3))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Meseliget: the map fills the screen; the games keep Maci above a bigger table. */
+  .meadow-panel { max-width: 980px; }
+  .meadow-map { min-height: calc(100dvh - 130px); align-content: center; }
+  .meadow-place { min-height: min(280px, calc((100dvh - 700px) / 2)); justify-content: center; }
+  .meadow-place > span { font-size: 88px; }
+  .meadow-place strong { font-size: 1.45rem; }
+  .meadow-map-bear { max-width: 320px; }
+  .meadow-start { min-height: 64px; font-size: 1.2rem; }
+  .meadow-task-title { font-size: 2rem; }
+  .meadow-stage { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .meadow-companion { width: min(100%, 520px); justify-self: center; }
+  #meadow-bear .teddy-illustration { max-height: min(400px, calc(100dvh - 900px)); }
+  .meadow-guest { min-height: 200px; }
+  .meadow-guests[data-count="7"] .meadow-guest, .meadow-guests[data-count="8"] .meadow-guest, .meadow-guests[data-count="9"] .meadow-guest, .meadow-guests[data-count="10"] .meadow-guest { min-height: 160px; }
+  .meadow-animal { font-size: 80px; }
+  .meadow-guests[data-count="7"] .meadow-animal, .meadow-guests[data-count="8"] .meadow-animal, .meadow-guests[data-count="9"] .meadow-animal, .meadow-guests[data-count="10"] .meadow-animal { font-size: 60px; }
+  .meadow-plate { width: 72px; height: 62px; font-size: 40px; }
+  .meadow-orchard { min-height: 130px; gap: 12px; }
+  .meadow-apple { width: 88px; height: 88px; font-size: 56px; border-radius: 26px; }
+  .meadow-basket { min-height: 170px; }
+  .meadow-clothing { width: 200px; height: 215px; }
+  .meadow-primary, .meadow-quiet { min-height: 60px; font-size: 1.1rem; }
+  /* Montessori műhely: the board area grows into the height. */
+  .montessori-panel { max-width: 980px; }
+  .montessori-panel.is-active:not([data-game="menu"]) > .mo-workspace { min-height: calc(100dvh - 380px); align-content: center; }
+}
+@media (min-width: 1280px) and (min-height: 860px) and (orientation: landscape), (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+  /* Montessori műhely: a wider board and bigger pieces. */
+  .montessori-panel .mo-levels button { min-height: 52px; font-size: 1rem; }
+  .mo-disc { width: calc(56px + var(--mo-size) * 44px); height: 54px; }
+  .montessori-panel[data-game="tower"] .mo-tower-target { width: 380px; height: 370px; }
+  .montessori-panel[data-game="tower"] .mo-tower-board { min-height: 410px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-target, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-target { height: 450px; }
+  .montessori-panel[data-game="tower"][data-level="4"] .mo-tower-board, .montessori-panel[data-game="tower"][data-level="5"] .mo-tower-board { min-height: 490px; }
+  .mo-tower-base { width: 320px; }
+  [data-game="tower"] .mo-piece { height: 96px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-target { min-height: 190px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl { width: 230px; height: 152px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl-inside { height: 100px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl .mo-ball { width: 56px; height: 56px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-ball { width: 84px; height: 84px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-piece { width: 112px; height: 112px; }
+  .montessori-panel[data-game="colors"] .mo-workspace { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; }
+  .montessori-panel[data-game="colors"] .mo-color-board { max-width: none; gap: 20px; }
+  .montessori-panel[data-game="colors"]:not([data-level="4"]):not([data-level="5"]) .mo-bowl { width: 210px; height: 140px; }
+  .montessori-panel .mo-memory-pattern > span { height: 160px; }
+  .montessori-panel .mo-memory-pattern svg { width: 104px; height: 104px; }
+  .montessori-panel .mo-memory-slots .mo-slot { height: 140px; }
+  .montessori-panel .mo-memory-slots .mo-slot svg { width: 96px; height: 96px; }
+  [data-game="memory"].montessori-panel .mo-tray .mo-piece { width: 128px; height: 128px; }
+  [data-game="memory"].montessori-panel .mo-tray .mo-shape-art { width: calc(104px * var(--mo-scale)); height: calc(104px * var(--mo-scale)); }
+  [data-game="grid"].montessori-panel .mo-slot, [data-game="grid"].montessori-panel .mo-slot.mo-piece { height: 120px; }
+  /* Műhelyliget (Válogatókert, Mintaszövő, Egyensúlyműhely): bigger objects, bins and slots. */
+  .workshop-panel { max-width: 1320px; }
+  .workshop-panel .ws-heading p, .workshop-panel .ws-status { font-size: 1.1rem; }
+  .workshop-panel h3 { font-size: 1.15rem; }
+  .ws-object { width: 62px; height: 62px; }
+  .ws-shape { width: 54px; height: 54px; }
+  .ws-triangle { width: 60px; height: 56px; padding-top: 13px; }
+  .ws-mark { font-size: 28px; }
+  .ws-small .ws-shape { width: 36px; height: 36px; }
+  .ws-small .ws-triangle { width: 40px; height: 38px; padding-top: 8px; }
+  .ws-small .ws-mark { font-size: 21px; }
+  .ws-large .ws-shape { width: 58px; height: 58px; }
+  .ws-large .ws-triangle { width: 64px; height: 60px; }
+  .workshop-panel .ws-token { min-width: 84px; min-height: 84px; border-radius: 16px; }
+  .ws-token small { font-size: .85rem; }
+  .ws-token-pool { min-height: 240px; gap: 12px; }
+  .ws-bins { gap: 14px; }
+  .ws-bin { padding: 10px; }
+  .workshop-panel .ws-bin-target { min-height: 80px; font-size: 1.05rem; }
+  .ws-bin-tokens { min-height: 110px; }
+  .ws-bin .ws-token { min-width: 70px; min-height: 72px; }
+  .ws-pattern-fixed, .workshop-panel .ws-pattern-slot { min-height: 118px; border-radius: 16px; }
+  .ws-pattern-fixed small, .ws-pattern-slot small { font-size: .85rem; }
+  .ws-pattern-thread { gap: 10px; }
+  .ws-pattern-thread.ws-design-unit { grid-template-columns: repeat(3, minmax(0, 130px)); }
+  .ws-pattern-key .ws-object { width: 46px; height: 46px; }
+  .ws-pattern-key .ws-shape { width: 40px; height: 40px; }
+  .ws-pattern-toolbox { padding: 16px; gap: 18px; }
+  .ws-balance-layout { grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr); gap: 22px; }
+  .ws-balance-scene { padding: 16px; gap: 10px 18px; }
+  .ws-balance-scene > .ws-scale { width: min(100%, 380px); }
+  .ws-balance-heading b, .ws-balance-heading output { font-size: 1.5rem; }
+  .ws-rod { width: calc(var(--units) * 21px + 12px); height: 38px; gap: 3px; padding: 6px; }
+  .ws-rod i { height: 16px; min-width: 10px; }
+  .ws-balance-reference i { width: 18px; height: 18px; }
+  .ws-unit-comparison i { width: 17px; height: 17px; }
+  .ws-rod-choice > span:last-child { font-size: 1.4rem; flex-wrap: wrap; gap: 4px 8px; }
+  .ws-rod-choice .ws-rod { width: calc(var(--units) * 15px + 9px); height: 32px; }
+  .ws-rod-choice small { font-size: .85rem; }
+  .ws-balance-checks li { font-size: .95rem; padding: 5px 10px; }
+  .ws-balance-tray { min-height: 96px; }
+  .workshop-panel .ws-rod-choice { min-height: 96px; }
+  .workshop-panel .ws-actions button { min-height: 60px; font-size: 1.1rem; }
+  /* Folytasd a mintát!: bigger pattern, answer slots and choices. */
+  #patterns { max-width: 1320px; }
+  .patterns-token { max-width: 120px; }
+  #patterns[data-preview-count="12"] .patterns-preview .patterns-token { max-width: 84px; }
+  .patterns-preview { gap: 14px; }
+  .patterns-preview-cell { padding: 10px 6px; border-radius: 18px; }
+  .patterns-cell-number, .patterns-choice-number { font-size: .85rem; }
+  .patterns-answer-slot .patterns-token, .patterns-empty { width: 132px; }
+  .patterns-answer-slot { padding: 10px 10px 26px; }
+  .patterns-slot-mark { font-size: .8rem; }
+  .patterns-choices, .patterns-answer-row { gap: 16px; }
+  .patterns-choice .patterns-token { max-width: 136px; }
+  #patterns > .patterns-continuation, #patterns > .patterns-choice-section { margin-top: 24px; }
+  .patterns-rule { font-size: .95rem; }
+  .patterns-actions button { min-height: 56px; font-size: 1.05rem; padding-inline: 18px; }
+  /* Fejtörők (Erdei bolt, Szabálygép, Csomagösvény): wider, with bigger pieces. */
+  .logic-panel { max-width: 1320px; }
+  .logic-heading p, .logic-status { font-size: 1.1rem; }
+  .logic-market-scene { min-height: 96px; }
+  .logic-customer { font-size: 3.4rem; }
+  .logic-basket { padding: 20px; }
+  .logic-basket h3 { font-size: 1.35rem; }
+  .logic-fruit { min-height: min(260px, calc(100dvh - 560px)); }
+  .logic-fruit .logic-dots { font-size: 2.5rem; max-width: 360px; gap: 6px; }
+  .logic-stepper { grid-template-columns: 72px 84px 72px; gap: 10px; }
+  .logic-stepper button { width: 100%; min-height: 64px; font-size: 2rem; }
+  .logic-stepper input { min-height: 64px; font-size: 2rem; }
+  .logic-stepper output { font-size: 2.2rem; }
+  .logic-panel[data-game="route"] .logic-board-wrap { width: calc(100dvh - 300px); max-width: 660px; }
+  .logic-panel .logic-cell { font-size: 2.8rem; border-radius: 16px; }
+  .logic-cell small { font-size: 1.05rem; }
+  .logic-queue li { font-size: 2.2rem; }
+  .logic-queue li.is-current { font-size: 2.8rem; }
+  .logic-panel[data-game="machine"] .logic-ops button { min-width: 68px; min-height: 56px; font-size: 1.3rem; }
+  .logic-panel[data-game="machine"] .logic-slots button { min-height: 80px; }
+  .logic-panel .logic-prediction .logic-answers button { min-width: 56px; min-height: 56px; font-size: 1.4rem; }
+  .logic-actions button { min-height: 60px; font-size: 1.1rem; }
+  .logic-panel[data-game="machine"] #logic-work { gap: 14px 20px; }
+  .logic-panel[data-game="machine"] .logic-example { font-size: 1.3rem; padding: 14px 10px !important; margin: 8px 0; }
+  .logic-panel[data-game="machine"] .logic-machine-core { font-size: 1.1em; }
+  .logic-predictions { padding: 14px; }
+  .logic-prediction > button:first-child { min-height: 64px; font-size: 1.2rem; }
+  /* Róka R-kalandja: a taller scene and bigger adventure cards. */
+  .rp-hub-scene { height: 250px; }
+  .rp-hub-scene .rp-fox { width: 200px; height: 200px; }
+  .rp-hub-scene .rp-robot { font-size: 7rem; }
+  .rp-game-grid { gap: 16px; }
+  #r-practice .rp-game-card { min-height: 150px; grid-template-columns: 80px 1fr; padding: 14px 18px; }
+  .rp-game-card > span:first-child { font-size: 3.8rem; }
+  .rp-game-card strong { font-size: 1.3rem; }
+  .rp-game-card small { font-size: .95rem; }
+}
+@media (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+  /* Csomagösvény: the board across the width, the plan underneath. */
+  .logic-panel[data-game="route"] .logic-board-wrap { width: min(100%, calc(100dvh - 600px)); max-width: none; margin: auto; }
+  /* Egyensúlyműhely: the scene across the width, the rod box underneath. */
+  .ws-balance-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .ws-rods { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* Maci öltözik with three clothes, Keresd meg! with three answers, Rendezőrács tray: room for the densest boards. */
+  #dress-game .teddy-illustration { max-width: min(500px, calc(100dvh - 820px)); max-height: calc(100dvh - 820px); }
+  .number-answers:has(> :nth-child(3)) .number-answer-objects { font-size: 50px; }
+  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 84px; height: 84px; }
+  .ws-balance-scene > .ws-scale { width: min(100%, 420px); }
+  /* Róka R-kalandja: a taller scene above two columns of adventures. */
+  .rp-hub-scene { height: 340px; }
+  .rp-hub-scene .rp-fox { width: 250px; height: 250px; }
+  .rp-hub-scene .rp-robot { font-size: 8.5rem; }
+  .rp-game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #r-practice .rp-game-card { min-height: 170px; }
+  /* Képkirakó: a bigger board above the tray. */
+  .puzzle-panel { max-width: 980px; }
+  .puzzle-board { max-width: min(100%, calc((100dvh - 660px) * 1.5)); }
+  .puzzle-panel:has(#puzzle-choices:not([hidden])) .puzzle-board { max-width: min(100%, calc((100dvh - 800px) * 1.5)); }
+}
