@@ -30,7 +30,7 @@ async page => {
         const board = active.querySelector('.chess-board').getBoundingClientRect();
         const controls = [...active.querySelectorAll('button:not(.chess-square),select,summary')]
           .filter(element => element.checkVisibility())
-          .map(element => ({ name: element.id || element.textContent.trim().slice(0, 25), rect: element.getBoundingClientRect() }));
+          .map(element => ({ name: element.id || element.textContent.trim().slice(0, 25), rect: element.getBoundingClientRect(), cut: element.scrollWidth > element.clientWidth + 1 }));
         return {
           name, title: document.querySelector('#screen-title').textContent,
           x: Math.max(0, document.documentElement.scrollWidth - innerWidth),
@@ -38,12 +38,13 @@ async page => {
           boardRatio: board.width / board.height,
           square: active.querySelector('.chess-square').getBoundingClientRect().width,
           smallControls: controls.filter(({ rect }) => rect.width < 43.5 || rect.height < 43.5).map(({ name }) => name),
+          cutLabels: controls.filter(({ cut }) => cut).map(({ name }) => name),
           inaccessible: controls.filter(({ rect }) => rect.right > innerWidth + 1 || rect.left < -1 || rect.bottom > document.documentElement.scrollHeight + 1).map(({ name }) => name),
         };
       }, name);
       rows.push(result);
       if (result.title !== 'Sakkliget' || result.x > 1 || Math.abs(result.boardRatio - 1) > .02
-        || result.smallControls.length || result.inaccessible.length || (tablet && result.y > 1) || result.square < 43.5) {
+        || result.smallControls.length || result.cutLabels.length || result.inaccessible.length || (tablet && result.y > 1) || result.square < 43.5) {
         throw Error(JSON.stringify(result));
       }
     };
@@ -52,7 +53,7 @@ async page => {
     };
     const engineeringRows = [];
     if (!numberStepsOnly) {
-    for (const [width, height] of [[768, 900], [1024, 680], [390, 844], [932, 430]]) {
+    for (const [width, height] of [[768, 900], [1024, 680], [390, 844], [932, 430], [844, 390], [667, 375], [375, 667]]) {
       const tablet = width === 768 || width === 1024;
       await p.setViewportSize({ width, height });
       await enter();
@@ -374,6 +375,16 @@ async page => {
           const ball = await p.locator('.mo-tray [data-mo-piece]').first().getAttribute('data-mo-piece');
           await click(`[data-mo-piece="${ball}"]`); await click(`[data-mo-target="${ball.replace(/-\d+$/, '')}"]`); await p.locator('#mo-restart:not([disabled])').waitFor();
           await click('#mo-check'); await check(`${size}:montessori-colors-count-marked`);
+          await click('#mo-restart');
+          const fullest = await p.locator('.mo-bowl-target').evaluateAll(targets => targets.map(t => t.dataset.moTarget).find(id => document.querySelectorAll(`.mo-tray [data-mo-piece^="${id}-"]`).length === 5));
+          for (let i = 0; i < 5; i++) { await click(`.mo-tray [data-mo-piece^="${fullest}-"]`); await click(`[data-mo-target="${fullest}"]`); }
+          await check(`${size}:montessori-colors-five-balls`);
+          const bowls = await p.evaluate(() => [...document.querySelectorAll('.mo-bowl-target')].map(target => {
+            const box = target.getBoundingClientRect(), bowl = target.querySelector('.mo-bowl').getBoundingClientRect();
+            const balls = [...target.querySelectorAll('.mo-bowl .mo-ball')].map(ball => ball.getBoundingClientRect());
+            return { wide: bowl.left < box.left - 1 || bowl.right > box.right + 1, oval: balls.some(ball => Math.abs(ball.width - ball.height) > 1) };
+          }));
+          if (bowls.some(bowl => bowl.wide || bowl.oval)) throw Error(`${size}: colour bowls ${JSON.stringify(bowls)}`);
         }
         if (game === 'grid') {
           await click('[data-mo-level="3"]'); await click('#mo-restart');
@@ -544,7 +555,12 @@ async page => {
       if (await p.locator('#number-total-choices [data-total]').count() !== 3) throw Error('Self counting should ask how many');
       await check(`${size}:numbers-how-many`);
       await click('[data-number-setting="numberSelf"][data-value="false"]');
-      await open('activity-menu', 'pour'); await click('[data-pour-level="4"]'); await check(`${size}:pour-exact-water`); await click('[data-pour-level="1"]');
+      await open('activity-menu', 'pour');
+      for (const level of [1, 2, 3, 4]) {
+        await click(`[data-pour-level="${level}"]`);
+        if (await p.locator('#pour-hold').evaluate(button => button.scrollWidth > button.clientWidth + 1)) throw Error(`${size}: pour level ${level} cuts the hold label`);
+      }
+      await check(`${size}:pour-exact-water`); await click('[data-pour-level="1"]');
       if (width === 1024) await p.screenshot({ path: 'output/playwright/montessori-ipad-layout.png', animations: 'disabled' });
       // Furfangliget: every level, the densest states, a wrong step, the win state, the title and the way back.
       const logicTask = kind => p.evaluate(async k => {
@@ -592,6 +608,24 @@ async page => {
         if (await p.locator('#screen-title').innerText() !== 'Furfangliget') throw Error(`${kind}: back did not return to Furfangliget`);
         await check(`${size}:logic-menu`);
       }
+    }
+
+    // Smaller phones (iPhone SE, 667 × 375 landscape): every label stays inside its button and no colour bowl is wider than its space.
+    if (!numberStepsOnly) {
+      await p.setViewportSize({ width: 667, height: 375 });
+      const cutLabels = async name => { await p.evaluate(name => {
+        const panel = document.querySelector('.panel.is-active');
+        const cut = [...panel.querySelectorAll('button')].filter(button => button.checkVisibility() && button.scrollWidth > button.clientWidth + 1)
+          .map(button => button.textContent.trim().slice(0, 20));
+        const wide = [...panel.querySelectorAll('.mo-bowl-target')].filter(target => { const box = target.getBoundingClientRect(), bowl = target.querySelector('.mo-bowl').getBoundingClientRect(); return bowl.left < box.left - 1 || bowl.right > box.right + 1; }).length;
+        const x = Math.max(0, document.documentElement.scrollWidth - innerWidth);
+        if (cut.length || wide || x > 1) throw Error(`${name}: ${JSON.stringify({ cut, wide, x })}`);
+      }, name); views.push(name); };
+      await open('practice-menu', 'r-practice'); await cutLabels('667x375:r-practice');
+      await open('play-menu', 'dress-game'); await click('[data-dress-mode="free"]'); await cutLabels('667x375:dress-free'); await click('[data-dress-mode="classic"]');
+      await open('shape-menu'); await click('#shape-menu [data-kind="colors"]');
+      for (let level = 1; level <= 5; level++) { await click(`[data-mo-level="${level}"]`); await cutLabels(`667x375:montessori-colors-${level}`); }
+      await click('[data-mo-level="1"]');
     }
 
     if (errors.length) throw Error(errors.join('; '));

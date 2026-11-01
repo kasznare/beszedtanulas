@@ -30,7 +30,7 @@
 .chess-modes,.chess-levels { display:grid; gap:5px; }
 .chess-modes { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .chess-levels { grid-template-columns:repeat(4,minmax(0,1fr)); }
-.chess-modes button,.chess-levels button { min-width:0; padding:6px 2px; font-size:.82rem; line-height:1.15; overflow-wrap:anywhere; }
+.chess-modes button,.chess-levels button { min-width:0; padding:6px 2px; font-size:.82rem; line-height:1.15; overflow-wrap:break-word; }
 .chess-picker { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:4px; }
 .chess-picker button { min-width:0; padding:3px 1px; font-size:.7rem; line-height:1.1; }
 .chess-picker .chess-piece { display:block; width:30px; height:30px; margin:auto; }

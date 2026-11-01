@@ -82,7 +82,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
       }).join('')}</div>
       <div class="chess-legend"><span><i class="chess-dot"></i> Ide léphetsz</span><span><i class="chess-ring"></i> Itt üthetsz</span>${goal() !== null ? '<span>★ Cél</span>' : ''}${markedTargets.length ? '<span>◎ Ezt nyerd meg</span>' : ''}${answers() ? '<span><i class="chess-reply-key"></i> A sötét lépése</span>' : ''}</div></div>
       <div class="chess-guide">
-        <div class="chess-modes" role="group" aria-label="Sakkjáték módja">${[['explore', 'Lépések'], ['stars', 'Csillagok'], ['puzzles', 'Feladatok'], ['pawns', 'Gyalogcsata']].map(([mode, label]) => `<button data-chess-mode="${mode}" aria-pressed="${options.mode === mode}">${label}</button>`).join('')}</div>
+        <div class="chess-modes" role="group" aria-label="Sakkjáték módja">${[['explore', 'Lépések'], ['stars', 'Csillagok'], ['puzzles', 'Feladatok'], ['pawns', 'Gyalog\u00adcsata']].map(([mode, label]) => `<button data-chess-mode="${mode}" aria-pressed="${options.mode === mode}">${label}</button>`).join('')}</div>
         ${options.mode === 'puzzles'
           ? `<div class="chess-levels" role="group" aria-label="Sakkfeladat nehézsége">${CHESS_LEVELS.map(level => `<button data-chess-level="${level.id}" aria-pressed="${options.level === level.id}">${level.label}</button>`).join('')}</div>
             <div class="chess-puzzle-nav"><button id="chess-prev" aria-label="Előző sakkfeladat">←</button><span>${puzzleIndex + 1} / ${levelPuzzles.length} · ${puzzle.title}</span><button id="chess-next" aria-label="Következő sakkfeladat">→</button></div>
