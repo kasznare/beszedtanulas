@@ -628,6 +628,57 @@ async page => {
       await click('[data-mo-level="1"]');
     }
 
+    // Other iPad models: an iPad mini is 744 px wide in portrait (under the old 760 px phone breakpoints) and
+    // leaves 1133 × 634 in landscape when Safari shows its tab bar; Meseliget's free practice and the tower tray
+    // are measured on the standard landscape iPad, two-picture cards on the 13-inch one.
+    if (!numberStepsOnly) {
+      const inside = (name, outer, inner) => p.evaluate(({ name, outer, inner }) => {
+        const spill = [...document.querySelectorAll(outer)].filter(box => box.checkVisibility()).flatMap(box => [...box.querySelectorAll(inner)].map(part => {
+          const a = box.getBoundingClientRect(), b = part.getBoundingClientRect(); return Math.max(b.right - a.right, a.left - b.left); })).filter(d => d > 1);
+        if (spill.length) throw Error(`${name}: ${inner} spills ${Math.round(Math.max(...spill))} px past ${outer}`);
+      }, { name, outer, inner });
+      await p.setViewportSize({ width: 744, height: 1000 });
+      await open('shape-menu'); await check('744x1000:shape-menu'); await inside('744x1000:shape-menu', '#shape-menu .game-menu-card', '.game-menu-icon');
+      await open('big-menu', 'city-story'); await check('744x1000:city-story');
+      await open('activity-menu', 'pour');
+      for (let level = 1; level <= 4; level++) { await click(`[data-pour-level="${level}"]`); await check(`744x1000:pour-${level}`); }
+      await click('[data-pour-level="1"]');
+      await open('activity-menu'); await click('#activity-menu [data-kind="build"]'); await check('744x1000:engineering-build');
+      await p.setViewportSize({ width: 1133, height: 634 });
+      await open('practice-menu', 'r-practice'); await check('1133x634:r-practice', { allowY: 1 });
+      await open('play-menu', 'dress-game'); await check('1133x634:dress');
+      await open('activity-menu', 'differences'); await click('#differences-zoom'); await check('1133x634:differences-zoom'); await click('#differences-zoom');
+      await open('activity-menu'); await click('#activity-menu [data-kind="build"]'); await check('1133x634:engineering-build');
+      await open('big-menu'); await click('#big-menu [data-kind="machine"]'); await check('1133x634:logic-machine');
+      await open('number-menu'); await click('#number-menu [data-kind="balance"]');
+      for (const level of [1, 2, 3]) {
+        await click(`#ws-game-level-${level}`);
+        for (const rod of (await p.locator('#workshop [data-add]').all()).slice(0, 4)) await rod.click();
+        await click('#ws-hint'); await check(`1133x634:balance-${level}-rods`);
+      }
+      await click('#ws-game-level-1');
+      for (const [width, height] of [[1133, 634], [1024, 680]]) {
+        await p.setViewportSize({ width, height });
+        await open('play-menu', 'meseliget'); await click('#meadow-picnic'); await check(`${width}x${height}:meseliget-free-picnic`);
+      }
+      await open('shape-menu'); await click('#shape-menu [data-kind="tower"]'); await inside('1024x680:tower-tray', '#montessori .mo-tray .mo-piece', '.mo-disc');
+      await open('shape-menu'); await click('#shape-menu [data-kind="sort"]');
+      for (const level of [1, 2, 3]) { await click(`#ws-game-level-${level}`); await click('#ws-hint'); await check(`1024x680:sort-${level}-hint`); }
+      await click('#ws-game-level-1');
+      // The clue cards are rows on landscape tablets: each label must be readable, not a sliver beside the picture.
+      await open('big-menu', 'city-story');
+      await p.evaluate(() => {
+        const thin = [...document.querySelectorAll('#city-story .city-story-items-inspect .city-story-item strong, #city-story .city-story-items-layout .city-story-item strong')]
+          .filter(label => label.getBoundingClientRect().width < 120).map(label => label.textContent.trim());
+        if (thin.length) throw Error(`1024x680: city-story card labels squeezed: ${thin.join(', ')}`);
+      });
+      if (await p.locator('#city-story .city-story-items-inspect .city-story-item').count()) { await p.locator('#city-story .city-story-items-inspect .city-story-item').first().click(); await check('1024x680:city-story-clue-detail'); }
+      await p.setViewportSize({ width: 1376, height: 958 });
+      await open('picture-menu', 'listening-game'); await click('[data-listening-mode="phrase"]'); await check('1376x958:listening-phrase');
+      await inside('1376x958:listening-phrase', '.listening-phrase', '.listening-phrase-part');
+      await click('[data-listening-mode="classic"]');
+    }
+
     if (errors.length) throw Error(errors.join('; '));
     return `${rows.length} chess, ${engineeringRows.length} engineering, ${numberStepsRows.length} number steps and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks.`;
   } finally {

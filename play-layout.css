@@ -652,3 +652,70 @@
   body[data-screen="chess"] .app { padding-left: max(8px, env(safe-area-inset-left)); padding-right: max(8px, env(safe-area-inset-right)); }
   .chess-board { border-width: 3px; }
 }
+
+/* Eleventh pass: other iPad models. */
+/* Portrait: the shape menu's two rows of four keep two-emoji icons (🧸 1️⃣, 🔴 🔷) inside their 166 px cards. */
+@media (min-width: 700px) and (min-height: 600px) and (orientation: portrait) {
+  .menu-panel[data-sections="2"] .game-menu-grid .game-menu-icon { font-size: 56px; }
+}
+/* Landscape tablets: in free practice the quantity chooser sits beside the task title, not on its own row
+   (it pushed the Meseliget picnic buttons 18 px below a 1024 × 680 screen). */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .meadow-panel.is-active:has(> .meadow-practice-options) { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; align-items: center; }
+  .meadow-panel.is-active:has(> .meadow-practice-options) > * { grid-column: 1 / -1; min-width: 0; }
+  .meadow-panel.is-active:has(> .meadow-practice-options) > .meadow-task-title { grid-column: 1; margin: 8px 0; text-align: left; }
+  .meadow-panel.is-active:has(> .meadow-practice-options) > .meadow-practice-options { grid-column: 2; max-width: 430px; margin: 0; }
+}
+/* Hol van? – Két szó: two pictures share one card, so each stays at most 140 px (a 170 px 💤 spilled past
+   its card on 13-inch iPads). */
+@media (min-width: 700px) and (min-height: 600px) {
+  .listening-panel .listening-answers:not(.is-bingo):not([data-count="4"]) .listening-phrase .listening-picture { font-size: min(140px, clamp(54px, 20vmin, 170px)); }
+}
+/* Építs tornyot!: tray discs are a share of their button's width, so the 7th disc stays inside the tray
+   (it spilled 13 px past the tray edge on iPads) and every size still looks different. */
+[data-game="tower"] .mo-tray .mo-piece { grid-template-columns: minmax(0, 1fr); }
+[data-game="tower"] .mo-tray .mo-piece .mo-disc { width: calc((100% - 8px) * (var(--mo-size) + 2) / 9); max-width: none; }
+/* Válogatókert: after "Segítség" the hint note sits under the object table, beside the taller bins, instead of
+   a row of its own (it pushed the buttons 10 px below a 1024 × 680 screen). */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.6fr); gap: 12px; align-items: start; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) > * { grid-column: 1 / -1; margin: 0; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) > .ws-sort-layout { display: contents; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) .ws-table { grid-column: 1; grid-row: 2; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) .ws-bins { grid-column: 2; grid-row: 2 / span 2; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) > .ws-hint-note { grid-column: 1; grid-row: 3; }
+}
+/* A film utolsó jelenete: on landscape tablets the clue and layout cards are rows (picture, then label), so they
+   stack in one column; three per row left the label a 12–20 px sliver and only the pictures showed. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .city-story-items-inspect, .city-story-items-layout { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .city-story-items-inspect .city-story-item strong, .city-story-items-layout .city-story-item strong:last-child { grid-row: span 2; }
+  .city-story-items-layout .city-story-layout-icon { font-size: 2.6rem; line-height: 1; }
+  #city-story .city-story-items-inspect .city-story-item, #city-story .city-story-items-layout .city-story-item { grid-template-columns: 72px minmax(0, 1fr); }
+}
+/* Short landscape tablets: an iPad mini with Safari's tab bar leaves 1133 × 634. */
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 660px) and (orientation: landscape) {
+  .rp-hub-scene { height: 104px; }
+  .rp-hub-scene .rp-fox { width: 90px; height: 90px; }
+  .rp-hub-scene .rp-robot { font-size: 3.6rem; }
+  #dress-game .teddy-illustration { max-height: calc(100dvh - 270px); }
+  .ws-balance-tray { padding-block: 4px; }
+  .ws-balance-scene .ws-footnote { display: none; }
+  .workshop-panel .ws-balance-scene > .ws-scale { grid-row: 2 / span 2; width: min(100%, 220px); }
+  .workshop-panel .ws-balance-scene > .ws-balance-description { grid-row: 4; align-self: end; }
+  .workshop-panel .ws-balance-scene > .ws-balance-checks { grid-row: 5; }
+  .workshop-panel .ws-rods-toolbox .ws-hint-note { margin-top: 6px; padding-block: 6px; font-size: .8rem; line-height: 1.3; }
+  #engineering[data-mode="build"] .en-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 9px; }
+  #engineering[data-mode="build"] .en-tools > * { grid-column: 1 / -1; }
+  #engineering[data-mode="build"] #en-rotate { grid-column: 1; }
+  #engineering[data-mode="build"] #en-place { grid-column: 2; }
+  #differences .differences-pair { max-width: 900px; margin-inline: auto; }
+  .meadow-panel .meadow-status { margin: 8px 0; }
+  .logic-panel .logic-status { margin: 3px 0 2px; }
+  .workshop-panel > .ws-heading { margin: 0 0 2px; }
+  .workshop-panel > .ws-status { margin-block: 2px; }
+  #city-story .city-story-order-slots { margin-block: 8px; }
+  #city-story .city-story-task-help { margin: 2px 0 4px; }
+  #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-recap { margin-block: 6px; }
+  #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue { margin-bottom: 8px; }
+}

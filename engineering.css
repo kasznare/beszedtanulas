@@ -73,7 +73,7 @@
 .en-overlay { position:absolute; z-index:3; inset:0; background:#f5f5e6da; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:15px; padding:30px; text-align:center; color:#47694f; pointer-events:none; }
 .en-overlay strong { font-size:28px; }
 .en-overlay span { font-size:13px; max-width:240px; line-height:1.6; }
-@media (max-width:760px) {
+@media (max-width:739px) {
   .en-workspace { grid-template-columns:minmax(0,1fr) 180px; gap:13px; }
   .en-game-cards { gap:10px; }.en-game-card { padding:15px; }.en-game-card>strong{font-size:17px;}.en-card-copy {font-size:12px;}.en-card-number span{font-size:8px;}
   .en-top>.en-kicker { display:none; }

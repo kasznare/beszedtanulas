@@ -79,7 +79,7 @@ body[data-screen="city-story"] .app { max-width:1200px; }
 .city-story-journal-list p { margin:0;line-height:1.5;font-size:.9rem; }
 .city-story-confirm h2 { margin-top:0; }
 @media(min-width:1000px) { .city-story-image-column { position:relative; } .city-story-illustration { position:sticky;top:20px; } }
-@media(max-width:760px) {
+@media(max-width:739px) {
   .city-story-spread { grid-template-columns:1fr; }
   .city-story-image-column { padding:16px 16px 0; }
   .city-story-session-note { display:none; }
