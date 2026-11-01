@@ -720,9 +720,9 @@
   #city-story .city-story-spread:has(.city-story-ending-actions) .city-story-first-clue { margin-bottom: 8px; }
 }
 
-/* Twelfth pass: 13-inch iPads (and the older 12.9-inch ones). The app may grow past 1040 px, and each game
+/* Twelfth pass: 11-inch and 13-inch iPads. From about 1150 × 700 (landscape) or 800 × 1050 (portrait) the app may grow past 1040 px, and each game
    sizes its board, pictures and pieces to the larger screen; every size stays capped by the visible height. */
-@media (min-width: 1280px) and (min-height: 860px) and (orientation: landscape) {
+@media (min-width: 1150px) and (min-height: 700px) and (orientation: landscape) {
   .app, body[data-screen] .app { max-width: 1320px; }
   .home-grid > .home-tile, .home-grid > .home-tile[data-open="activity-menu"] { min-height: min(380px, calc((100dvh - 200px) / 2)); }
   .home-grid .home-art, .home-grid .art-activity { zoom: 1.05; }
@@ -790,7 +790,7 @@
   .teddy-plate { max-width: 280px; min-height: 200px; }
   .teddy-food { font-size: 120px; }
   .teddy-food > svg, .teddy-food > img { max-height: 170px; }
-  .teddy-answers[data-count="4"] .teddy-plate, .teddy-answers[data-count="5"] .teddy-plate { max-width: 230px; }
+  .teddy-answers[data-count="4"] .teddy-plate, .teddy-answers[data-count="5"] .teddy-plate { max-width: min(230px, calc((100dvh - 380px) / 2)); min-height: 0; }
   .teddy-answers[data-count="4"] .teddy-food, .teddy-answers[data-count="5"] .teddy-food { font-size: 96px; }
   .dress-answers:not([data-count="free"]) .dress-choice { min-height: 250px; max-width: 290px; }
   .dress-answers:not([data-count="free"]) .dress-choice > .dress-icon { height: 220px; max-width: 220px; }
@@ -839,6 +839,7 @@
   .number-object-choice { min-width: 84px; min-height: 80px; font-size: 46px; }
   .numbers-wrap .actions .icon-btn { min-width: 80px; min-height: 68px; }
   .number-answers:not(:has(> :nth-child(3))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .number-answers:has(> :nth-child(3)) .number-answer-objects { font-size: min(76px, 4.8vw); }
   .number-object-picker { gap: 12px; }
   /* Sakkliget: the board uses the full height. */
   .chess-panel { max-width: 1320px; }
@@ -852,7 +853,7 @@
   /* Képkirakó: a bigger board beside the piece tray. */
   .puzzle-panel { max-width: 1320px; }
   .puzzle-workspace { grid-template-columns: minmax(0, 1.75fr) minmax(300px, 1fr); gap: 28px; }
-  .puzzle-board { max-width: calc((100dvh - 290px) * 1.5); margin-inline: auto; }
+  .puzzle-board { max-width: calc((100dvh - 320px) * 1.5); margin-inline: auto; }
   /* Építőliget: the stage uses the full height, the tools beside it. */
   #engineering { max-width: 1320px; }
   #engineering .en-workspace { grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; }
@@ -865,7 +866,7 @@
   .pour-art { max-height: calc(100dvh - 300px); }
   .pour-panel button { min-height: 52px; }
 }
-@media (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+@media (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
   /* Játék Macival: Maci on top, the plates or clothes in a row underneath. */
   .teddy-panel { max-width: 940px; }
   .teddy-picnic { grid-template-columns: 1fr; gap: 28px; max-width: none; }
@@ -920,7 +921,7 @@
   .practice-panel.is-active { display: grid; align-content: center; min-height: calc(100dvh - 140px); }
   .practice-panel.is-active > * { width: 100%; }
   .imitate-emoji { font-size: 300px; }
-  .imitate-wrap > .imitate-emoji .word-picture { max-width: 420px; max-height: 420px; }
+  .imitate-wrap > .imitate-emoji .word-picture { max-width: min(420px, calc(100dvh - 760px)); max-height: min(420px, calc(100dvh - 760px)); }
   .phrase-emoji, .phrase-wrap > .phrase-emoji { font-size: 200px; }
   .practice-panel { max-width: 940px; }
   #imitate-word, #phrase-text { font-size: 2.8rem; }
@@ -949,7 +950,7 @@
   .number-objects { max-width: none; }
   .counting-object { min-height: min(260px, calc((100dvh - 700px) / 2)); font-size: 100px; }
   .number-answer { min-height: min(480px, calc(100dvh - 680px)); }
-  .number-answer-objects { font-size: 72px; }
+  .number-answer-objects { font-size: min(72px, 7.6vw); }
   .number-object-choice { min-width: 84px; min-height: 80px; font-size: 46px; }
   .number-answers:not(:has(> :nth-child(3))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* Meseliget: the map fills the screen; the games keep Maci above a bigger table. */
@@ -1105,17 +1106,20 @@
   /* Egyensúlyműhely: the scene across the width, the rod box underneath. */
   .ws-balance-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .ws-rods { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  /* Maci öltözik with three clothes, Keresd meg! with three answers, Rendezőrács tray: room for the densest boards. */
-  #dress-game .teddy-illustration { max-width: min(500px, calc(100dvh - 820px)); max-height: calc(100dvh - 820px); }
-  .number-answers:has(> :nth-child(3)) .number-answer-objects { font-size: 50px; }
+  /* Rendezőrács: tray pieces large enough for their shapes. */
   [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 84px; height: 84px; }
   .ws-balance-scene > .ws-scale { width: min(100%, 420px); }
+}
+@media (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
+  /* Maci öltözik with three clothes and Keresd meg! with three answers: room for the densest boards. */
+  #dress-game .teddy-illustration { max-width: min(500px, calc(100dvh - 820px)); max-height: calc(100dvh - 820px); }
+  .number-answers:has(> :nth-child(3)) .number-answer-objects { font-size: min(50px, 5vw); }
   /* Róka R-kalandja: a taller scene above two columns of adventures. */
-  .rp-hub-scene { height: 340px; }
+  .rp-hub-scene { height: clamp(220px, calc(100dvh - 840px), 340px); }
   .rp-hub-scene .rp-fox { width: 250px; height: 250px; }
   .rp-hub-scene .rp-robot { font-size: 8.5rem; }
   .rp-game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  #r-practice .rp-game-card { min-height: 170px; }
+  #r-practice .rp-game-card { min-height: clamp(130px, calc((100dvh - 700px) / 3), 170px); }
   /* Képkirakó: a bigger board above the tray. */
   .puzzle-panel { max-width: 980px; }
   .puzzle-board { max-width: min(100%, calc((100dvh - 660px) * 1.5)); }

@@ -710,6 +710,17 @@ async page => {
         await click('#ws-game-level-1');
         await open('number-menu'); await click('#number-menu [data-kind="shop"]'); await check(`${size}:shop`); await inside(`${size}:shop-stepper`, '#furfangliget .logic-stepper', 'button');
       }
+      // 11-inch iPads share these rules: Safari leaves about 1180 x 746 in landscape and 820 x 1106 in portrait.
+      for (const [width, height] of [[1180, 746], [820, 1106]]) {
+        await p.setViewportSize({ width, height });
+        const size = `${width}x${height}`;
+        await open('play-menu', 'teddy-game'); await check(`${size}:teddy`); await fills(`${size}:teddy`, .7);
+        await click('[data-teddy-mode="sequence"]'); await check(`${size}:teddy-sequence`);
+        await open('practice-menu', 'imitate'); await check(`${size}:imitate`);
+        await open('practice-menu', 'r-practice'); await check(`${size}:r-practice`); await fills(`${size}:r-practice`, .7);
+        await open('activity-menu', 'puzzle'); await check(`${size}:puzzle`);
+        await open('shape-menu'); await click('#shape-menu [data-kind="tower"]'); await check(`${size}:tower`);
+      }
       await p.setViewportSize({ width: 1024, height: 680 });
     }
 
