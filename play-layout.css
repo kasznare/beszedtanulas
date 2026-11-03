@@ -979,7 +979,7 @@
   .montessori-panel { max-width: 980px; }
   .montessori-panel.is-active:not([data-game="menu"]) > .mo-workspace { min-height: calc(100dvh - 380px); align-content: center; }
 }
-@media (min-width: 1280px) and (min-height: 860px) and (orientation: landscape), (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+@media (min-width: 1150px) and (min-height: 700px) and (orientation: landscape), (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
   /* Montessori műhely: a wider board and bigger pieces. */
   .montessori-panel .mo-levels button { min-height: 52px; font-size: 1rem; }
   .mo-disc { width: calc(56px + var(--mo-size) * 44px); height: 54px; }
@@ -1090,6 +1090,8 @@
   .logic-panel[data-game="machine"] .logic-machine-core { font-size: 1.1em; }
   .logic-predictions { padding: 14px; }
   .logic-prediction > button:first-child { min-height: 64px; font-size: 1.2rem; }
+}
+@media (min-width: 1280px) and (min-height: 860px) and (orientation: landscape), (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
   /* Róka R-kalandja: a taller scene and bigger adventure cards. */
   .rp-hub-scene { height: 250px; }
   .rp-hub-scene .rp-fox { width: 200px; height: 200px; }
@@ -1100,14 +1102,12 @@
   .rp-game-card strong { font-size: 1.3rem; }
   .rp-game-card small { font-size: .95rem; }
 }
-@media (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+@media (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
   /* Csomagösvény: the board across the width, the plan underneath. */
   .logic-panel[data-game="route"] .logic-board-wrap { width: min(100%, calc(100dvh - 600px)); max-width: none; margin: auto; }
   /* Egyensúlyműhely: the scene across the width, the rod box underneath. */
   .ws-balance-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .ws-rods { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  /* Rendezőrács: tray pieces large enough for their shapes. */
-  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 84px; height: 84px; }
   .ws-balance-scene > .ws-scale { width: min(100%, 420px); }
 }
 @media (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
@@ -1124,4 +1124,80 @@
   .puzzle-panel { max-width: 980px; }
   .puzzle-board { max-width: min(100%, calc((100dvh - 660px) * 1.5)); }
   .puzzle-panel:has(#puzzle-choices:not([hidden])) .puzzle-board { max-width: min(100%, calc((100dvh - 800px) * 1.5)); }
+}
+
+/* Thirteenth pass: the games that still left much of an 11-inch screen empty. (The Montessori, Műhelyliget,
+   Folytasd a mintát! and Fejtörők piece sizes above now start at 11 inches too.) */
+@media (min-width: 1150px) and (min-height: 700px) and (orientation: landscape), (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
+  /* Rendezőrács: tray pieces large enough for their shapes. */
+  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 80px; height: 80px; }
+}
+@media (min-width: 1150px) and (min-height: 700px) and (orientation: landscape) {
+  /* Rendezőrács: two-row boards get taller cells. */
+  [data-game="grid"].montessori-panel .mo-grid-board:not(:has(> :nth-child(13))) .mo-slot { height: min(190px, calc((100dvh - 380px) / 2)); }
+  [data-game="grid"].montessori-panel .mo-grid-board:not(:has(> :nth-child(13))) .mo-slot .mo-shape-art { width: calc(96px * var(--mo-scale)); height: calc(96px * var(--mo-scale)); }
+  /* Mintaemlék: a bigger pattern to remember. */
+  .montessori-panel .mo-memory-pattern > span { height: min(250px, calc(100dvh - 460px)); }
+  .montessori-panel .mo-memory-pattern svg { width: min(150px, calc(100% - 16px)); height: auto; aspect-ratio: 1; }
+  /* Számoljuk meg!: the numeral beside the objects (stacked, ten objects ran off a 13-inch screen), and fewer
+     objects get bigger cards. */
+  #number-count-view { display: grid; grid-template-columns: .7fr 1.3fr; align-items: center; column-gap: 24px; }
+  #number-picker { grid-column: 1 / -1; grid-row: 1; margin: 0 0 8px; flex-wrap: nowrap; gap: 8px; }
+  #number-model { grid-column: 1; grid-row: 2 / 6; margin: 0; }
+  #number-objects { grid-column: 2; grid-row: 2; margin: 0; width: 100%; }
+  #number-total-choices { grid-column: 2; grid-row: 3; }
+  #number-status { grid-column: 2; grid-row: 4; margin: 4px 0; }
+  .number-actions { grid-column: 2; grid-row: 5; margin: 4px 0; }
+  .counting-object { min-height: min(250px, calc((100dvh - 470px) / 2)); font-size: min(110px, calc((100dvh - 470px) / 3)); }
+  .number-objects:not(:has(> :nth-child(4))) .counting-object { flex-basis: calc((100% - 60px) / 3); min-height: min(400px, calc(100dvh - 440px)); font-size: min(190px, calc(16vw - 30px), calc((100dvh - 440px) / 2)); }
+  .number-objects:has(> :nth-child(4)):not(:has(> :nth-child(5))) .counting-object { flex-basis: calc((100% - 84px) / 4); min-height: min(360px, calc(100dvh - 450px)); font-size: min(160px, calc(11vw - 20px), calc((100dvh - 450px) * .45)); }
+  .number-objects:has(> :nth-child(5)):not(:has(> :nth-child(6))) .counting-object { min-height: min(320px, calc(100dvh - 460px)); font-size: min(124px, calc(8.6vw - 10px), calc((100dvh - 460px) * .4)); }
+  /* Válogatókert: the table and the trays may be shorter, so the buttons stay on screen. */
+  .ws-token-pool { min-height: min(240px, calc(100dvh - 570px)); }
+  .ws-bin-tokens { min-height: min(110px, calc(100dvh - 660px)); }
+}
+@media (min-width: 1150px) and (max-width: 1279px) and (min-height: 700px) and (orientation: landscape) {
+  /* Válogatókert on 11-inch iPads: four objects per table row, so a fresh board stays on screen. */
+  .ws-token-pool .ws-token { min-width: 76px; min-height: 80px; }
+  .ws-token-pool .ws-object { width: 56px; height: 56px; }
+  .ws-token-pool { gap: 8px; }
+  .workshop-panel .ws-actions button { min-height: 52px; }
+  /* Egyensúlyműhely on 11-inch iPads: the seven-unit rod fits inside its button. */
+  .ws-rod-choice .ws-rod { width: calc(var(--units) * 13px + 5px); gap: 2px; padding: 4px; }
+  .ws-rod-choice .ws-rod i { min-width: 9px; }
+}
+@media (min-width: 800px) and (min-height: 1050px) and (orientation: portrait) {
+  /* Számoljuk meg!: fewer objects get bigger cards. */
+  .number-objects:not(:has(> :nth-child(4))) .counting-object { flex-basis: calc((100% - 60px) / 3); min-height: min(380px, calc(100dvh - 720px)); font-size: min(180px, calc(22vw - 20px), calc((100dvh - 720px) / 2)); }
+  .number-objects:has(> :nth-child(4)):not(:has(> :nth-child(5))) .counting-object { flex-basis: calc((100% - 84px) / 4); min-height: min(340px, calc(100dvh - 730px)); font-size: min(150px, calc(16vw - 16px), calc((100dvh - 730px) * .45)); }
+  .number-objects:has(> :nth-child(5)):not(:has(> :nth-child(6))) .counting-object { min-height: min(300px, calc(100dvh - 740px)); font-size: min(120px, calc(12vw - 10px), calc((100dvh - 740px) * .4)); }
+  /* Meseliget: four to six guests sit in one row (in two 200 px rows they ran off the screen); with seven to ten,
+     Maci gets smaller so the free-practice row fits too. */
+  .meadow-guests[data-count="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .meadow-guests[data-count="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .meadow-guests[data-count="6"] { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+  .meadow-guests[data-count="6"] .meadow-animal { font-size: 60px; }
+  .meadow-stage:has(.meadow-guests:is([data-count="7"], [data-count="8"], [data-count="9"], [data-count="10"])) #meadow-bear .teddy-illustration { max-height: min(400px, calc(100dvh - 980px)); }
+  /* Válogatókert: the table and the trays grow into the height. */
+  .ws-sort-layout { align-items: stretch; min-height: calc(100dvh - 460px); }
+  .ws-sort-layout > .ws-table { display: flex; flex-direction: column; }
+  .ws-sort-layout > .ws-table > .ws-token-pool { flex: 1 1 auto; }
+  /* Folytasd a mintát!: bigger answer slots and choices. */
+  .patterns-answer-slot .patterns-token, .patterns-empty { width: min(164px, calc((100dvh - 700px) / 2.6)); }
+  .patterns-choice .patterns-token { max-width: min(172px, calc((100dvh - 700px) / 2.5)); }
+  #patterns > .patterns-continuation, #patterns > .patterns-choice-section { margin-top: min(40px, calc((100dvh - 1000px) / 3)); }
+  /* A film utolsó jelenete: the picture across the width, the text and the task under it; the picture takes the
+     height they leave, so a long clue or the ordering task never pushes the page past the screen. */
+  .city-story-shell:not(:has(.city-story-ending-actions)) { grid-template-rows: auto minmax(190px, 1fr) auto auto auto; min-height: calc(100dvh - 140px); }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-image-column { grid-column: 1 / -1; grid-row: 2; padding: 16px 20px 0; contain: size; align-self: stretch; display: flex; flex-direction: column; min-height: 0; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-illustration { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-illustration > div { flex: 1 1 auto; min-height: 0; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-illustration svg { display: block; width: 100%; height: 100%; max-height: none; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) .city-story-reading { grid-column: 1 / -1; grid-row: 3; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > .city-story-status { grid-column: 1 / -1; grid-row: 4; }
+  .city-story-shell:not(:has(.city-story-ending-actions)) > .city-story-activity { grid-row: 5; }
+}
+@media (min-width: 1000px) and (min-height: 1180px) and (orientation: portrait) {
+  /* Rendezőrács on 13-inch iPads: still bigger tray pieces. */
+  [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 84px; height: 84px; }
 }

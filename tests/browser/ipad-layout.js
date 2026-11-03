@@ -721,6 +721,42 @@ async page => {
         await open('activity-menu', 'puzzle'); await check(`${size}:puzzle`);
         await open('shape-menu'); await click('#shape-menu [data-kind="tower"]'); await check(`${size}:tower`);
       }
+      // Pass 13: the remaining half-empty games on 11-inch iPads, and Számoljuk meg! with ten objects, which ran
+      // off a 13-inch screen in landscape. Few objects must fill the height and stay on one row.
+      const objectRows = () => p.evaluate(() => [...document.querySelectorAll('#number-objects .counting-object')].map(o => o.getBoundingClientRect().top).sort((a, b) => a - b).filter((top, i, all) => !i || top - all[i - 1] > 40).length);
+      await p.evaluate(() => { const s = document.querySelector('#number-level'); s.value = '10'; s.dispatchEvent(new Event('change', { bubbles: true })); });
+      for (const [width, height] of [[1180, 746], [820, 1106], [1376, 958], [1032, 1300]]) {
+        await p.setViewportSize({ width, height });
+        const size = `${width}x${height}`, large = width > 1300 || height > 1200, portrait = height > width;
+        await open('number-menu'); await click('#number-menu [data-mode="count"]');
+        for (const layout of ['rows', 'scattered']) {
+          await click(`[data-number-setting="numberLayout"][data-value="${layout}"]`);
+          for (const n of [3, 4, 5, 10]) {
+            await click(`#number-picker [data-number="${n}"]`); await check(`${size}:count-${layout}-${n}`);
+            const r = await objectRows(); if (r !== (n > 5 ? 2 : 1)) throw Error(`${size}:count-${layout}-${n}: ${r} rows of objects`);
+          }
+          if (!large) { await click('#number-picker [data-number="3"]'); await fills(`${size}:count-${layout}-3`, .8); }
+        }
+        await click('[data-number-setting="numberLayout"][data-value="rows"]');
+        if (portrait) {
+          // Meseliget free practice: four to ten guests at the picnic table, with Maci above it.
+          await open('play-menu', 'meseliget'); await click('#meadow-picnic');
+          for (const q of [4, 6, 10]) { await click('.meadow-practice-options > summary'); await click(`.meadow-practice-options [data-quantity="${q}"]`); await check(`${size}:meseliget-${q}`); }
+        }
+        if (large) continue;
+        await open('shape-menu'); await click('#shape-menu [data-kind="colors"]'); await check(`${size}:montessori-colors`); await fills(`${size}:montessori-colors`, .65);
+        await open('big-menu'); await click('#big-menu [data-kind="grid"]'); await check(`${size}:montessori-grid`); await fills(`${size}:montessori-grid`, .7);
+        await open('shape-menu'); await click('#shape-menu [data-kind="sort"]');
+        for (const level of [1, 2, 3]) { await click(`#ws-game-level-${level}`); await check(`${size}:workshop-sort-${level}`); }
+        await click('#ws-game-level-1'); await fills(`${size}:workshop-sort`, .85);
+        await open('shape-menu', 'patterns'); await check(`${size}:patterns`); await fills(`${size}:patterns`, .75);
+        await open('number-menu'); await click('#number-menu [data-kind="balance"]'); await click('#ws-game-level-3'); await check(`${size}:balance-3`);
+        await inside(`${size}:balance-rods`, '#workshop .ws-rod-choice', '.ws-rod'); await click('#ws-game-level-1');
+        await open('big-menu'); await click('#big-menu [data-kind="route"]'); await check(`${size}:route`);
+        await open('big-menu', 'city-story'); await check(`${size}:city-story`); if (portrait) await fills(`${size}:city-story`, .8);
+        await click('.city-story-item'); await check(`${size}:city-story-clue`);
+      }
+      await p.evaluate(() => { const s = document.querySelector('#number-level'); s.value = '3'; s.dispatchEvent(new Event('change', { bubbles: true })); });
       await p.setViewportSize({ width: 1024, height: 680 });
     }
 
