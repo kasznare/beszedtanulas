@@ -87,8 +87,10 @@ let backInFlight = false, backOvertaken = false, backInFlightTimer = 0;
 // Navigation must keep working then, so every history write goes through here and reports whether it happened.
 // Screens opened while Safari refused a new history entry: Back walks these in the app before using history.back().
 let virtualTail = 0;
+// Set once a write was refused: the browser's entries may then name older screens than the app's trail.
+let historyDrift = false;
 function writeHistory(method, state) {
-  try { history[method](state, ''); return true; } catch { return false; }
+  try { history[method](state, ''); return true; } catch { historyDrift = true; return false; }
 }
 let offlineClient;
 let playTime;
@@ -2352,9 +2354,12 @@ function setupNavigation() {
         updateBackButton();
         return;
       }
-      // Back already showed this screen; adopt the browser's entry for it without opening the screen again.
+      // Back already showed this screen. The browser entry normally matches it; if refused history writes left the
+      // browser on an older screen, the app's trail wins and the entry is rewritten to match.
       const restored = restoreHistoryState(event.state);
       if (restored.route.screen === currentScreen) { appNavigation = restored; updateBackButton(); return; }
+      if (historyDrift) { writeHistory('replaceState', createHistoryState(appNavigation.trail, appNavigation.ownedDepth)); updateBackButton(); return; }
+      // Otherwise the browser itself moved on (forward, or a second back): follow it below.
     }
     appNavigation = restoreHistoryState(event.state);
     selectedCategory = appNavigation.route.category;
@@ -2421,7 +2426,7 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
     appNavigation = restoreHistoryState(next);
     const written = writeHistory(previousScreen !== screen ? 'pushState' : 'replaceState', next);
     // Without a new browser entry the back arrow must not call history.back(): it steps back in the app instead.
-    if (screen === 'home') virtualTail = 0;
+    if (screen === 'home') { virtualTail = 0; if (written) historyDrift = false; }
     else if (previousScreen !== screen) {
       if (written) virtualTail = 0;
       else { appNavigation = restoreHistoryState(createHistoryState(trail, Math.min(writtenDepth, trail.length - 1))); virtualTail += 1; }
