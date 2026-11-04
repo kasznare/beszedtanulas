@@ -80,6 +80,16 @@ const state = loadProgress();
 let currentScreen = "home";
 const roundSuccess = createSuccessDelay();
 let appNavigation = restoreHistoryState(null);
+// history.back() lands a moment later (popstate). A tap that opens another screen in between wins: the late
+// popstate is then ignored instead of pulling the child back to the previous screen.
+let backInFlight = false, backOvertaken = false, backInFlightTimer = 0;
+// Safari throws once a page writes its history more than 100 times in 10 seconds (quick tapping can get there).
+// Navigation must keep working then, so every history write goes through here and reports whether it happened.
+// Screens opened while Safari refused a new history entry: Back walks these in the app before using history.back().
+let virtualTail = 0;
+function writeHistory(method, state) {
+  try { history[method](state, ''); return true; } catch { return false; }
+}
 let offlineClient;
 let playTime;
 let handlingPlayTime = false;
@@ -2187,10 +2197,31 @@ function goBack() {
   document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close());
   const internal = innerBackButton();
   if (internal) { internal.click(); updateBackButton(); window.scrollTo(0, 0); return; }
-  if (appNavigation.ownedDepth > 0) { document.querySelector('#back-button').disabled = true; history.back(); return; }
+  if (virtualTail > 0) {
+    virtualTail -= 1;
+    const trail = appNavigation.trail.slice(0, -1), route = trail.at(-1);
+    appNavigation = restoreHistoryState(createHistoryState(trail, Math.min(appNavigation.ownedDepth, trail.length - 1)));
+    selectedCategory = route.category; numberMode = route.numberMode;
+    writeHistory('replaceState', createHistoryState(appNavigation.trail, appNavigation.ownedDepth));
+    showScreen(route.screen, { pushHistory: false });
+    return;
+  }
+  if (appNavigation.ownedDepth > 0) {
+    // The previous screen shows at once; the browser's popstate arrives a moment later and only confirms it.
+    document.querySelector('#back-button').disabled = true;
+    backInFlight = true; backOvertaken = false;
+    clearTimeout(backInFlightTimer);
+    backInFlightTimer = setTimeout(() => { backInFlight = false; backOvertaken = false; document.querySelector('#back-button').disabled = false; }, 1000);
+    const trail = appNavigation.trail.slice(0, -1), route = trail.at(-1);
+    appNavigation = restoreHistoryState(createHistoryState(trail, appNavigation.ownedDepth - 1));
+    selectedCategory = route.category; numberMode = route.numberMode;
+    showScreen(route.screen, { pushHistory: false });
+    history.back();
+    return;
+  }
   const route = { screen: parentScreen(currentScreen), category: selectedCategory, numberMode };
   appNavigation = restoreHistoryState(createHistoryState(canonicalTrail(route), 0));
-  history.replaceState(createHistoryState(appNavigation.trail, 0), '');
+  writeHistory('replaceState', createHistoryState(appNavigation.trail, 0));
   showScreen(route.screen, { pushHistory: false });
 }
 function syncNumberMode() {
@@ -2307,16 +2338,30 @@ function setupNavigation() {
     });
     document.querySelector("#topic-grid").appendChild(button);
   });
-  history.replaceState(createHistoryState(appNavigation.trail, 0), "");
+  writeHistory('replaceState', createHistoryState(appNavigation.trail, 0));
   updateBackButton();
   window.addEventListener("popstate", event => {
     document.querySelector('#back-button').disabled = false;
+    virtualTail = 0;
+    if (backInFlight) {
+      const overtaken = backOvertaken;
+      backInFlight = false; backOvertaken = false; clearTimeout(backInFlightTimer);
+      if (overtaken) {
+        // The child already tapped somewhere else: keep that screen and write it into the current history entry.
+        writeHistory('replaceState', createHistoryState(appNavigation.trail, appNavigation.ownedDepth));
+        updateBackButton();
+        return;
+      }
+      // Back already showed this screen; adopt the browser's entry for it without opening the screen again.
+      const restored = restoreHistoryState(event.state);
+      if (restored.route.screen === currentScreen) { appNavigation = restored; updateBackButton(); return; }
+    }
     appNavigation = restoreHistoryState(event.state);
     selectedCategory = appNavigation.route.category;
     numberMode = appNavigation.route.numberMode;
     if (appNavigation.route.screen === 'parent') {
       appNavigation = restoreHistoryState(null);
-      history.replaceState(createHistoryState(appNavigation.trail, 0), '');
+      writeHistory('replaceState', createHistoryState(appNavigation.trail, 0));
       showScreen('home', { pushHistory: false, announce: false });
       showParentGate();
       return;
@@ -2368,12 +2413,19 @@ function showScreen(screen, { announce = true, gameOptions = {}, pushHistory = t
   currentScreen = screen;
   directEntry = Boolean(gameOptions.kind);
   if (pushHistory) {
+    if (backInFlight) backOvertaken = true;
     const trail = transitionTrail(appNavigation.trail, { screen, category: selectedCategory, numberMode });
+    const writtenDepth = appNavigation.ownedDepth;
     const depth = screen === 'home' ? 0 : previousScreen === screen ? appNavigation.ownedDepth : appNavigation.ownedDepth + 1;
     const next = createHistoryState(trail, depth);
     appNavigation = restoreHistoryState(next);
-    if (previousScreen !== screen) history.pushState(next, '');
-    else history.replaceState(next, '');
+    const written = writeHistory(previousScreen !== screen ? 'pushState' : 'replaceState', next);
+    // Without a new browser entry the back arrow must not call history.back(): it steps back in the app instead.
+    if (screen === 'home') virtualTail = 0;
+    else if (previousScreen !== screen) {
+      if (written) virtualTail = 0;
+      else { appNavigation = restoreHistoryState(createHistoryState(trail, Math.min(writtenDepth, trail.length - 1))); virtualTail += 1; }
+    }
   }
   document.body.dataset.screen = screen;
   panels.forEach(panel => panel.classList.toggle("is-active", panel.id === screen));

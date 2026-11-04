@@ -1201,3 +1201,43 @@
   /* Rendezőrács on 13-inch iPads: still bigger tray pieces. */
   [data-game="grid"].montessori-panel .mo-tray .mo-piece { width: 84px; height: 84px; }
 }
+
+/* Fourteenth pass: Két szó with three answers. Each card holds two pictures; at their full size they spilled out of
+   the card and past the screen edge on every iPad (both engines). The pictures are capped by the card's width, and on
+   tablets, where three tall cards share the row, they stack (who on top, what underneath) at full size. */
+.listening-panel .listening-answer.listening-phrase { container-type: inline-size; }
+.listening-panel .listening-phrase .listening-phrase-part { font-size: min(1em, calc((100cqi - 8px) / 2.1)); min-width: 0; }
+@media (min-width: 700px) and (min-height: 600px) {
+  .listening-panel .listening-answers[data-count="3"] .listening-phrase .listening-picture { flex-direction: column; gap: 6px; }
+  .listening-panel .listening-answers[data-count="3"] .listening-phrase .listening-phrase-part { font-size: min(1em, calc(100cqi - 16px)); }
+}
+@media (min-width: 700px) and (min-height: 800px) and (orientation: portrait) {
+  /* Képkirakó, portrait tablets: the two-piece board has tall half-picture pieces, which pushed the buttons off a
+     768 × 900 screen; its tray gets three times the columns. The nine-piece tray is a little tighter. */
+  .puzzle-panel[data-pieces="2"] .puzzle-tray { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .puzzle-panel[data-pieces="9"] .puzzle-tray { gap: 6px; padding: 7px; }
+}
+@media (min-width: 700px) and (min-height: 800px) and (max-height: 1049px) and (orientation: portrait) {
+  /* Folytasd a mintát!, 768 × 900 and iPad mini: a twelve-token row (two lines of six) pushed the buttons off the
+     screen, so its tokens, answer slots and choices are a little smaller. */
+  #patterns[data-preview-count="12"] .patterns-preview-cell .patterns-token { max-width: 58px; }
+  #patterns[data-preview-count="12"] .patterns-answer-slot .patterns-token, #patterns[data-preview-count="12"] .patterns-empty { width: 64px; }
+  #patterns[data-preview-count="12"] .patterns-choice .patterns-token { max-width: 80px; }
+}
+@media (min-width: 1150px) and (max-width: 1279px) and (min-height: 700px) and (orientation: landscape) {
+  /* Róka R-kalandja on 11-inch iPads: a taller scene with a bigger fox and robot, and taller adventure cards. */
+  .rp-hub-scene { height: clamp(150px, calc(100dvh - 556px), 250px); }
+  .rp-hub-scene .rp-fox { width: calc(clamp(150px, calc(100dvh - 556px), 250px) * .8); height: calc(clamp(150px, calc(100dvh - 556px), 250px) * .8); }
+  .rp-hub-scene .rp-robot { font-size: 5.5rem; }
+  #r-practice .rp-game-card { min-height: clamp(96px, calc((100dvh - 544px) / 2), 150px); }
+  .rp-game-card > span:first-child { font-size: 3.2rem; }
+  .rp-game-card strong { font-size: 1.2rem; }
+}
+@media (min-width: 900px) and (max-width: 1149px) and (min-height: 600px) and (orientation: landscape) {
+  /* Válogatókert on standard iPads: with four trays in one short row the table is the taller column, and a long
+     hint under it pushed the buttons 31 px off a 1024 × 680 screen. The table spans both rows; the hint sits under
+     the trays. (On larger iPads the trays are taller, so the hint stays under the table.) */
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) .ws-table { grid-row: 2 / span 2; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) .ws-bins { grid-row: 2; }
+  #ws-work:has(> .ws-sort-layout + .ws-hint-note) > .ws-hint-note { grid-column: 2; grid-row: 3; }
+}

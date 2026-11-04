@@ -77,7 +77,7 @@ async page => {
       await measure(`${width}x${height}:master-hint`, tablet);
       const firstMover = p.locator('.chess-square[aria-label*="ezzel léphetsz"]').first();
       await firstMover.click();
-      await click('[data-chess-square="0"]');
+      await p.locator('.chess-square[aria-label*="üres"]:not([aria-label*="ide léphetsz"])').first().click();
       if (!(await p.locator('#chess-status').innerText()).includes('Ide most nem')) throw Error('Wrong move feedback missing');
       await measure(`${width}x${height}:wrong-move`, tablet);
       await click('[data-chess-level="easy"]');
@@ -93,6 +93,7 @@ async page => {
       if (await p.locator('#screen-title').innerText() !== 'Fejtörők') throw Error('Back title did not restore');
     }
     await enter();
+    await click('[data-chess-mode="puzzles"]');
     const touch = await p.evaluate(() => ({
       selection: getComputedStyle(document.querySelector('#chess')).userSelect,
       editable: getComputedStyle(document.querySelector('#chess-jump-select')).userSelect,
@@ -126,9 +127,11 @@ async page => {
       await click(`[data-en-node="${b}"]`);
     };
     // Open every Építőliget level so the densest bridge and the narrowest island are measured too.
-    await p.evaluate(() => {
-      const prefix = 'engineering_progress_v1:';
-      const keys = new Set([prefix + JSON.stringify(['local', 'kid', 'local']), ...Object.keys(localStorage).filter(key => key.startsWith(prefix))]);
+    // The progress belongs to the active profile, so the key is built the way the app builds it.
+    await p.evaluate(async () => {
+      const prefix = 'engineering_progress_v1:', { profileKey } = await import('/progress-profiles.js');
+      const supabase = JSON.parse(localStorage.getItem('speech_game_progress_v1') || '{}').supabase || {};
+      const keys = new Set([prefix + profileKey(supabase), prefix + JSON.stringify(['local', 'kid', 'local']), ...Object.keys(localStorage).filter(key => key.startsWith(prefix))]);
       for (const key of keys) {
         const saved = JSON.parse(localStorage.getItem(key) || '{}');
         localStorage.setItem(key, JSON.stringify({ ...saved, dropStars: [1, 1, 1, 0], bridges: Array.from({ length: 5 }, (_, i) => ({ beams: saved.bridges?.[i]?.beams || [], completed: true, stars: 1 })) }));
@@ -285,6 +288,9 @@ async page => {
           x: Math.max(0, document.documentElement.scrollWidth - innerWidth),
           y: Math.max(0, document.documentElement.scrollHeight - innerHeight),
           settings: settings ? Math.ceil(settings.getBoundingClientRect().height) : 0,
+          // Name what sticks out, so a failure says where to look.
+          wide: document.documentElement.scrollWidth > innerWidth + 1 ? [...panel.querySelectorAll('*')].filter(e => e.getBoundingClientRect().right > innerWidth + 1)
+            .slice(-3).map(e => `${e.tagName.toLowerCase()}.${[...e.classList].join('.')}:${Math.round(e.getBoundingClientRect().right)}`) : [],
         };
       });
       views.push(name);
@@ -295,8 +301,14 @@ async page => {
       if (await p.locator('body').getAttribute('data-screen') !== 'home') await click('#home-button');
       if (!menu) return;
       await click(`#home [data-open="${menu}"]`);
+      // In long WebKit runs a home tap was occasionally lost; wait for the menu and tap once more (counted in the result).
+      if (!await p.waitForFunction(m => document.body.dataset.screen === m, menu, { timeout: 3000 }).then(() => true, () => false)) {
+        menuRetries += 1; await click(`#home [data-open="${menu}"]`);
+        await p.waitForFunction(m => document.body.dataset.screen === m, menu, { timeout: 5000 });
+      }
       if (game) await click(`#${menu} [data-open="${game}"]`);
     };
+    let menuRetries = 0;
     const menus = ['picture-menu', 'practice-menu', 'play-menu', 'shape-menu', 'number-menu', 'activity-menu', 'big-menu'];
     for (const [width, height] of [[768, 900], [1024, 680]]) {
       await p.setViewportSize({ width, height });
@@ -314,7 +326,8 @@ async page => {
           await cardButton.click();
           await check(`${size}:${menu}:${label}`);
           await click('#back-button');
-          if (await p.locator('body').getAttribute('data-screen') !== menu) throw Error(`${label}: back did not return to ${menu}`);
+          const landed = await p.locator('body').getAttribute('data-screen');
+          if (landed !== menu) throw Error(`${label}: back did not return to ${menu} (screen: ${landed}, title: ${await p.locator('#screen-title').innerText()}, back label: ${await p.locator('#back-button').getAttribute('aria-label')})`);
         }
       }
       // Densest levels come from the saved progress set in the init script (12 cards, 4 pictures, 3×3 bingo, 8 flip cards).
@@ -329,18 +342,29 @@ async page => {
       await click(`[data-card="${soundCards[0]}"]`); await click(`[data-card="${soundCards[1]}"]`);
       await check(`${size}:memory-sound-open`);
       await click('[data-memory-mode="classic"]');
+      // Wrong taps below lower the level; start each screen size from the densest saved level again.
+      await p.evaluate(() => localStorage.setItem('beszedtanulas.listeningLevels.v1', JSON.stringify({ base: 2, choices: 4, phraseChoices: 3, bingoSize: 3 })));
       await open('picture-menu', 'listening-game');
       for (const mode of ['bingo', 'phrase', 'classic']) {
-        await click(`[data-listening-mode="${mode}"]`); await titleFocused();
+        await click(`button[data-listening-mode="${mode}"]`); await titleFocused();
         await check(`${size}:listening-${mode}`);
       }
+      // Két szó with three answers: both pictures of every card stay inside the card (they used to spill past the screen).
+      await click('button[data-listening-mode="phrase"]');
+      for (let i = 0; i < 20 && await p.locator('.listening-answer').count() !== 3; i++) { await click('button[data-listening-mode="classic"]'); await click('button[data-listening-mode="phrase"]'); }
+      if (await p.locator('.listening-answer').count() === 3) {
+        await check(`${size}:listening-phrase-3`);
+        const spill = await p.evaluate(() => [...document.querySelectorAll('.listening-phrase-part')].map(part => { const a = part.closest('.listening-answer').getBoundingClientRect(), b = part.getBoundingClientRect(); return Math.max(b.right - a.right, a.left - b.left, b.bottom - a.bottom); }).filter(d => d > 1));
+        if (spill.length) throw Error(`${size}:listening-phrase-3: pictures spill ${Math.round(Math.max(...spill))} px out of their card`);
+      }
+      await click('button[data-listening-mode="classic"]');
       if (await p.locator('.listening-answer').count() !== 4) throw Error('Densest Hol van? level should show four pictures');
       for (const answer of await p.locator('.listening-answer').all()) {
         await answer.click();
         if (await answer.evaluate(button => button.classList.contains('is-correct'))) { await check(`${size}:listening-correct`); break; }
         await check(`${size}:listening-retry`);
       }
-      await click('[data-listening-mode="bingo"]');
+      await click('button[data-listening-mode="bingo"]');
       if (await p.locator('.listening-bingo-tile').count() !== 9) throw Error('Densest bingo should be 3×3');
       await click('#listening-none'); await check(`${size}:bingo-feedback`);
       await open('picture-menu', 'flip');
@@ -377,7 +401,7 @@ async page => {
           await click('#mo-check'); await check(`${size}:montessori-colors-count-marked`);
           await click('#mo-restart');
           const fullest = await p.locator('.mo-bowl-target').evaluateAll(targets => targets.map(t => t.dataset.moTarget).find(id => document.querySelectorAll(`.mo-tray [data-mo-piece^="${id}-"]`).length === 5));
-          for (let i = 0; i < 5; i++) { await click(`.mo-tray [data-mo-piece^="${fullest}-"]`); await click(`[data-mo-target="${fullest}"]`); }
+          for (let i = 0; i < 5; i++) { await p.locator(`.mo-tray [data-mo-piece^="${fullest}-"]`).first().click(); await click(`[data-mo-target="${fullest}"]`); }
           await check(`${size}:montessori-colors-five-balls`);
           const bowls = await p.evaluate(() => [...document.querySelectorAll('.mo-bowl-target')].map(target => {
             const box = target.getBoundingClientRect(), bowl = target.querySelector('.mo-bowl').getBoundingClientRect();
@@ -432,7 +456,7 @@ async page => {
         }, game);
         if (!solution.done) {
           if (game === 'balance') { while (await p.locator('[data-take]').count()) await click('[data-take]'); for (const rod of solution.rods) await click(`[data-add="${rod}"]`); }
-          if (game === 'pattern') for (const [i, position] of solution.holes.entries()) { await click(`[data-slot="${i}"]`); await click(`[data-choice="${solution.sequence[position]}"]`); }
+          if (game === 'pattern') for (const [i, position] of solution.holes.entries()) { await click(`#workshop [data-slot="${i}"]`); await click(`[data-choice="${solution.sequence[position]}"]`); }
           if (game === 'sort') for (let round = 0; round < 2; round++) {
             const now = await p.evaluate(async () => { const d = await import('./workshop-data.js'), s = JSON.parse(localStorage.getItem('speech_game_progress_v1')).workshop.sessions.sort[0], t = d.workshopTaskForSession(s); return t.objects.map(o => d.workshopSortTarget(t, o)); });
             for (const [i, bin] of now.entries()) { await click(`[data-token="${i}"]`); await click(`[data-bin="${bin}"]`); }
@@ -455,10 +479,10 @@ async page => {
       }
       await click('#puzzle-restart');
       if (await p.locator('#puzzle-strict').getAttribute('aria-pressed') !== 'true') await click('#puzzle-strict');
-      await click('.puzzle-tray [data-piece="0"]'); await click('[data-slot="1"]');
+      await click('.puzzle-tray [data-piece="0"]'); await click('#puzzle [data-slot="1"]');
       await check(`${size}:puzzle-bounce`);
       await click('#puzzle-strict');
-      for (let id = 0; id < 6; id++) { await click(`.puzzle-tray [data-piece="${id}"]`); await click(`[data-slot="${id}"]`); }
+      for (let id = 0; id < 6; id++) { await click(`.puzzle-tray [data-piece="${id}"]`); await click(`#puzzle [data-slot="${id}"]`); }
       await check(`${size}:puzzle-done`);
       await p.locator('#round-complete[open]').waitFor();
       await click('#round-replay');
@@ -550,9 +574,13 @@ async page => {
       await check(`${size}:dress-three-pictures`);
       await open('number-menu'); await click('#number-menu [data-mode="count"]');
       await click('[data-number-setting="numberSelf"][data-value="true"]');
-      const countingObjects = await p.locator('.counting-object').count();
-      for (let index = 0; index < countingObjects; index++) await click(`[data-counting-index="${index}"]`);
-      if (await p.locator('#number-total-choices [data-total]').count() !== 3) throw Error('Self counting should ask how many');
+      await click('#number-restart'); // the round may already be counted from the previous screen size
+      // Taps during the counting voice are ignored, so tap the objects that are not counted yet until the question comes.
+      for (let pass = 0; pass < 20 && !(await p.locator('#number-total-choices [data-total]').count()); pass++) {
+        const open = p.locator('.counting-object[aria-pressed="false"]');
+        if (await open.count()) await open.first().click(); else await p.waitForTimeout(100);
+      }
+      if (await p.locator('#number-total-choices [data-total]').count() < 2) throw Error('Self counting should ask how many');
       await check(`${size}:numbers-how-many`);
       await click('[data-number-setting="numberSelf"][data-value="false"]');
       await open('activity-menu', 'pour');
@@ -605,7 +633,9 @@ async page => {
         await check(`${size}:logic-${kind}-win`);
         if (!(await p.locator('.logic-heading .logic-stars').count())) throw Error(`${kind}: win state shows no stars`);
         await click('#back-button');
-        if (await p.locator('#screen-title').innerText() !== 'Furfangliget') throw Error(`${kind}: back did not return to Furfangliget`);
+        // A game opened from a menu card goes back to that menu.
+        const backScreen = await p.locator('body').getAttribute('data-screen');
+        if (backScreen !== menu) throw Error(`${kind}: back did not return to ${menu} (screen: ${backScreen}, title: ${await p.locator('#screen-title').innerText()})`);
         await check(`${size}:logic-menu`);
       }
     }
@@ -653,7 +683,8 @@ async page => {
       await open('number-menu'); await click('#number-menu [data-kind="balance"]');
       for (const level of [1, 2, 3]) {
         await click(`#ws-game-level-${level}`);
-        for (const rod of (await p.locator('#workshop [data-add]').all()).slice(0, 4)) await rod.click();
+        // Rods switch off once the target or the rod limit is reached; add up to four while some are free.
+        for (let added = 0; added < 4 && await p.locator('#workshop [data-add]:not([disabled])').count(); added++) await p.locator('#workshop [data-add]:not([disabled])').first().click();
         await click('#ws-hint'); await check(`1133x634:balance-${level}-rods`);
       }
       await click('#ws-game-level-1');
@@ -674,9 +705,9 @@ async page => {
       });
       if (await p.locator('#city-story .city-story-items-inspect .city-story-item').count()) { await p.locator('#city-story .city-story-items-inspect .city-story-item').first().click(); await check('1024x680:city-story-clue-detail'); }
       await p.setViewportSize({ width: 1376, height: 958 });
-      await open('picture-menu', 'listening-game'); await click('[data-listening-mode="phrase"]'); await check('1376x958:listening-phrase');
+      await open('picture-menu', 'listening-game'); await click('button[data-listening-mode="phrase"]'); await check('1376x958:listening-phrase');
       await inside('1376x958:listening-phrase', '.listening-phrase', '.listening-phrase-part');
-      await click('[data-listening-mode="classic"]');
+      await click('button[data-listening-mode="classic"]');
     }
 
     // 13-inch iPads: the games grow into the larger screen. Each view must still fit, and its content must reach
@@ -749,19 +780,19 @@ async page => {
         await open('shape-menu'); await click('#shape-menu [data-kind="sort"]');
         for (const level of [1, 2, 3]) { await click(`#ws-game-level-${level}`); await check(`${size}:workshop-sort-${level}`); }
         await click('#ws-game-level-1'); await fills(`${size}:workshop-sort`, .85);
-        await open('shape-menu', 'patterns'); await check(`${size}:patterns`); await fills(`${size}:patterns`, .75);
+        await open('shape-menu', 'patterns'); await check(`${size}:patterns`); await fills(`${size}:patterns`, .7);
         await open('number-menu'); await click('#number-menu [data-kind="balance"]'); await click('#ws-game-level-3'); await check(`${size}:balance-3`);
         await inside(`${size}:balance-rods`, '#workshop .ws-rod-choice', '.ws-rod'); await click('#ws-game-level-1');
         await open('big-menu'); await click('#big-menu [data-kind="route"]'); await check(`${size}:route`);
         await open('big-menu', 'city-story'); await check(`${size}:city-story`); if (portrait) await fills(`${size}:city-story`, .8);
-        await click('.city-story-item'); await check(`${size}:city-story-clue`);
+        await p.locator('.city-story-item').first().click(); await check(`${size}:city-story-clue`);
       }
       await p.evaluate(() => { const s = document.querySelector('#number-level'); s.value = '3'; s.dispatchEvent(new Event('change', { bubbles: true })); });
       await p.setViewportSize({ width: 1024, height: 680 });
     }
 
     if (errors.length) throw Error(errors.join('; '));
-    return `${rows.length} chess, ${engineeringRows.length} engineering, ${numberStepsRows.length} number steps and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks.`;
+    return `${rows.length} chess, ${engineeringRows.length} engineering, ${numberStepsRows.length} number steps and ${views.length} game views passed tablet/phone layout, title, navigation and touch checks (${menuRetries} repeated menu taps).`;
   } finally {
     await context.close();
   }

@@ -58,7 +58,7 @@ async page => {
   await back(parent);
  }
  await enter('activity-menu','puzzle');await page.locator('#puzzle-choose').click();await page.locator('[data-puzzle-size="6"]').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards);
- for(let i=0;i<6;i++){await page.locator(`[data-piece="${i}"]`).click();await page.locator(`[data-slot="${i}"]`).click();}
+ for(let i=0;i<6;i++){await page.locator(`#puzzle [data-piece="${i}"]`).click();await page.locator(`#puzzle [data-slot="${i}"]`).click();}
  await page.locator('#round-complete[open]').waitFor();
  for(const viewport of [{width:375,height:667},{width:932,height:350}]){
   await page.setViewportSize(viewport);const fits=await page.locator('#round-complete').evaluate(dialog=>[...dialog.querySelectorAll('.actions button')].every(button=>{const r=button.getBoundingClientRect();return r.width>=44&&r.height>=44&&r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth;}));
