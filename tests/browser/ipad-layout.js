@@ -788,6 +788,34 @@ async page => {
         await p.locator('.city-story-item').first().click(); await check(`${size}:city-story-clue`);
       }
       await p.evaluate(() => { const s = document.querySelector('#number-level'); s.value = '3'; s.dispatchEvent(new Event('change', { bubbles: true })); });
+      // Pass 15, landscape phones: the top bar scrolls away (tablets keep it sticky), the whole Formadoboz box fits the
+      // screen height on every level, Hol van? keeps its choices in one top row, and two Keresd meg! answers share the width.
+      const barPosition = () => p.evaluate(() => getComputedStyle(document.querySelector('.app-bar')).position);
+      await p.setViewportSize({ width: 1024, height: 680 }); await open();
+      if (await barPosition() !== 'sticky') throw Error('Tablet top bar should stay sticky');
+      for (const [width, height] of [[932, 430], [844, 390], [667, 375]]) {
+        await p.setViewportSize({ width, height });
+        const size = `${width}x${height}`;
+        await open(); if (await barPosition() === 'sticky') throw Error(`${size}: the top bar should scroll away on a landscape phone`);
+        await open('shape-menu'); await click('#shape-menu [data-kind="shapes"]');
+        for (let level = 1; level <= await p.locator('[data-mo-level]').count(); level++) {
+          await click(`[data-mo-level="${level}"]`);
+          const box = await p.evaluate(() => ({ h: document.querySelector('.mo-surface-box').getBoundingClientRect().height, x: document.documentElement.scrollWidth - innerWidth }));
+          if (box.h > height - 4 || box.x > 1) throw Error(`${size}: Formadoboz level ${level} box ${Math.round(box.h)} px on a ${height} px screen (x ${box.x})`);
+        }
+        await open('picture-menu', 'listening-game');
+        for (const [mode, options] of [['classic', '.listening-similarity'], ['bingo', '.listening-bingo-sizes']]) {
+          await click(`button[data-listening-mode="${mode}"]`);
+          // The two groups share one row: the last mode button ends before the first option button starts.
+          const row = await p.evaluate(options => ({ modes: document.querySelector('.listening-modes button:last-child').getBoundingClientRect(), options: document.querySelector(`${options} button`).getBoundingClientRect(), y: document.documentElement.scrollHeight - innerHeight, x: document.documentElement.scrollWidth - innerWidth }), options);
+          if (Math.abs(row.modes.top - row.options.top) > 4 || row.modes.right > row.options.left || row.x > 1 || (mode === 'classic' && row.y > 1)) throw Error(`${size}: Hol van? ${mode} top row ${JSON.stringify(row)}`);
+        }
+        await open('number-menu'); await click('#number-menu [data-mode="quiz"]');
+        await p.locator('[data-number-setting="quizChoices"], button').filter({ hasText: 'Két különböző' }).first().click();
+        const quiz = await p.evaluate(() => { const cards = [...document.querySelectorAll('#number-answers .number-answer')]; return { count: cards.length, share: cards[0].getBoundingClientRect().width / document.querySelector('#number-answers').getBoundingClientRect().width, font: parseFloat(getComputedStyle(cards[0].querySelector('.number-answer-objects')).fontSize), x: document.documentElement.scrollWidth - innerWidth }; });
+        if (quiz.count !== 2 || quiz.share < .45 || quiz.font < 40 || quiz.x > 1) throw Error(`${size}: Keresd meg! two answers ${JSON.stringify(quiz)}`);
+        views.push(`${size}:landscape-phone`);
+      }
       await p.setViewportSize({ width: 1024, height: 680 });
     }
 
