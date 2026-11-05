@@ -13,6 +13,9 @@ async page => {
   };
   await enter();
   await page.locator('[data-en-mode="drop"]').click();
+  // The shuffled bag opens on a cube or a plank; this check needs the cube, so restart until it comes first.
+  for(let i=0;i<20&&(await page.locator('#en-piece-name').innerText())!=='Kocka';i++)await page.locator('#en-restart').click();
+  ok((await page.locator('#en-piece-name').innerText())==='Kocka','a restart can open the tower with a cube');
   const dropWhen=async(where)=>{
     await page.waitForFunction(where=>{
       const button=document.querySelector('#en-drop');if(!button||button.disabled)return false;
@@ -23,8 +26,6 @@ async page => {
     await page.waitForFunction(()=>!document.querySelector('#en-drop').disabled,{},{timeout:15000});
   };
   await dropWhen('centre');
-  // Under load the height label can update a frame after the drop button re-enables.
-  await page.waitForFunction(()=>document.querySelector('#en-height').textContent.startsWith('1 '),undefined,{timeout:5000}).catch(()=>{});
   ok((await page.locator('#en-height').innerText()).startsWith('1 '),'one settled cube makes a one-cube tower');
   ok((await page.locator('#en-height').innerText()).includes('/ 3'),'the first level asks for a three-cube tower');
   await page.locator('#en-pause').click();await page.waitForTimeout(350);
