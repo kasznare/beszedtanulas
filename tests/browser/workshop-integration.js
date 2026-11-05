@@ -42,7 +42,7 @@ async page => {
       await page.locator('#ws-next').click();
       for (const [width,height] of [[375,667],[932,350],[834,1194]]) {
         await page.setViewportSize({width,height});
-        const metrics = await page.evaluate(() => ({ overflow:document.documentElement.scrollWidth>innerWidth, small:[...document.querySelectorAll('#workshop button')].filter(b => {const r=b.getBoundingClientRect();return r.width<44||r.height<44;}).map(b=>b.id) }));
+        const metrics = await page.evaluate(() => ({ overflow:document.documentElement.scrollWidth>innerWidth, small:[...document.querySelectorAll('#workshop button')].filter(b => {const r=b.getBoundingClientRect();return b.getClientRects().length>0&&(r.width<44||r.height<44);}).map(b=>b.id) }));
         ok(!metrics.overflow && !metrics.small.length, `${kind} L${level}: ${width}×${height} fits, buttons ≥44px`);
       }
       if (level === 3) await page.screenshot({path:`output/playwright/workshop-${kind}-tablet.png`,fullPage:true});

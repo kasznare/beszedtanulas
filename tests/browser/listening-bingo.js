@@ -10,7 +10,7 @@ async page => page.evaluate(async () => {
   const game = setupListeningGame({
     getOptions: () => ({ words: words.slice(0, 3), allWords: words, length:5, choiceCount:2, difficulty:'different' }),
     setDifficulty: () => {}, storage,
-    speak: id => { guideId=id; return new Promise(resolve => { guideDone = resolve; }); },
+    speak: id => { guideId=id; if(id!=='listening_bingo_start')return Promise.resolve(); return new Promise(resolve => { guideDone = resolve; }); },
     playPrompt: word => { prompts.push(word.id); },
     playCorrect: () => Promise.resolve(), stopPlayback: () => {},
     onComplete: (count, context) => { if(count!==5||context.mode!=='bingo')throw Error('Wrong completion');completed++; },

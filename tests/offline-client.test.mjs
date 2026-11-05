@@ -173,6 +173,27 @@ test('first installation claims the page without an unnecessary reload or home u
   assert.equal(h.elements['home-update-status'].hidden, true);
 });
 
+test('the very first installed worker is not treated as an update and causes no reload', async t => {
+  const h = harness(t, { controlled: false });
+  const first = worker('installing');
+  h.registration.installing = first;
+  await h.boot();
+  first.state = 'installed';
+  h.registration.installing = null;
+  h.registration.waiting = first;
+  await first.emit('statechange');
+  await flush();
+  assert.deepEqual(first.messages, []);
+  assert.equal(h.elements['offline-update'].hidden, true);
+  assert.equal(h.elements['home-update-status'].hidden, true);
+  h.registration.waiting = null;
+  first.state = 'activated';
+  h.registration.active = first;
+  await h.control(first);
+  assert.equal(h.state.reloads, 0);
+  assert.equal(h.elements['home-update-status'].hidden, true);
+});
+
 test('another window allows one delayed attempt per event and then stops without a loop', async t => {
   const h = harness(t);
   const next = worker();

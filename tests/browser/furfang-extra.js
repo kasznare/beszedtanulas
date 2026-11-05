@@ -32,8 +32,9 @@ async(page)=>{
  await page.locator('#reset-progress').click();ok(await page.locator('#preview-logic').innerText()!=='','Backup preview has separate math count');await page.locator('#progress-apply').click();ok((await state()).logic.sessions.route===null,'Reset removes math attempt');
  await page.locator('#undo-progress').click();await page.locator('#progress-apply').click();ok(JSON.stringify((await state()).logic)===JSON.stringify(child),'Undo restores math attempts');
  await page.locator('#reset-progress').click();await page.locator('#progress-apply').click();await page.locator('#progress-file').setInputFiles('output/playwright/furfang-qa-backup.json');await page.locator('#progress-apply').click();ok(JSON.stringify((await state()).logic)===JSON.stringify(child),'Actual downloaded JSON imports math attempts');
- const cache=await page.evaluate(async()=>{for(const name of await caches.keys()){const c=await caches.open(name),files=(await c.keys()).map(r=>r.url);if(files.some(f=>f.endsWith('/logic-game.js')))return {count:files.length,audio:files.filter(f=>f.includes('/logic_')&&f.endsWith('.mp3')).length,fox:files.some(f=>f.endsWith('/assets/furfang-fox.png'))};}});
- ok(cache.audio===74&&cache.fox,'All 74 new sounds and fox are cached');
+ const cache=await page.evaluate(async()=>{for(const name of await caches.keys()){const c=await caches.open(name),files=(await c.keys()).map(r=>r.url);if(files.some(f=>f.endsWith('/logic-game.js')))return {count:files.length,audio:files.filter(f=>f.includes('/logic_')&&f.endsWith('.mp3')),fox:files.some(f=>f.endsWith('/assets/furfang-fox.png'))};}});
+ const listedLogic=await page.evaluate(async()=>{const s=await(await fetch('./sw.js')).text();return JSON.parse(s.split('const ASSETS = ')[1].split(';\n')[0]).map(a=>new URL(a.file,location.href).href).filter(f=>f.includes('/logic_')&&f.endsWith('.mp3'));});
+ ok(listedLogic.length>=74&&listedLogic.every(f=>cache.audio.includes(f))&&cache.fox,`All ${listedLogic.length} Furfangliget sounds and fox are cached`);
  await page.context().setOffline(true);
  try{
   await page.reload();await enter();

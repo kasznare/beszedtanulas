@@ -21,7 +21,8 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
   const say = (id, force = false) => { if (active && !document.hidden) speak(id, force); };
   const remember = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(options)); } catch { /* Memory-only play remains available. */ } };
   const goal = () => options.mode === 'puzzles' && !tactic() ? puzzle.goal : options.mode === 'stars' ? goals[collected] : null;
-  const primary = () => options.mode === 'puzzles' && !tactic() ? board.find(piece => piece.id === puzzle.from)?.square : null;
+  const primary = () => options.mode === 'puzzles' && !tactic() ? board.find(piece => piece.id === puzzle.from)?.square
+    : ['stars', 'explore'].includes(options.mode) ? board.find(piece => piece.color === 'white')?.square : null;
   const puzzleState = () => evaluateChessPuzzle(puzzle, board, history.length);
   const movable = () => options.mode === 'puzzles' && !tactic() ? chessPuzzleMovers(puzzle, board) : board.filter(piece => piece.color === 'white');
   const describe = move => `${pieceName(board.find(piece => piece.square === move.to)?.type)} ${squareName(move.from)} → ${squareName(move.to)}`;

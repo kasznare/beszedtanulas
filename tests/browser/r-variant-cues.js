@@ -38,7 +38,14 @@ async parent => {
     await idle();
     await page.locator('#r-practice [data-action="advance"]').click();
     await idle();
-    await page.locator('#r-practice [data-deliver="fox"]').click();
+    // Every house now wishes for one parcel: deliver to the friend who asked for the current word.
+    const recipient = await page.evaluate(async () => {
+      const { R_WORDS } = await import('./r-practice-data.js');
+      const word = R_WORDS.find(item => item.id === document.querySelector('#r-practice .rp-target').dataset.word);
+      return [...document.querySelectorAll('#r-practice [data-deliver]')].find(button => button.getAttribute('aria-label').includes(`ezt kéri: ${word.text}`))?.dataset.deliver;
+    });
+    ok(recipient, 'Post shows which friend asked for the parcel');
+    await page.locator(`#r-practice [data-deliver="${recipient}"]`).click();
     await idle();
     const post = await lastVoice();
     ok(post.id.startsWith('r_variant_') && post.target === '.rp-target',

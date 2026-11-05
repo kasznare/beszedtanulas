@@ -815,6 +815,8 @@ function setupBasicPractice() {
   });
   document.querySelector('#use-favorites').addEventListener('click',()=>{
     stopAutoImitateSession(false);state.settings.useFavorites=!state.settings.useFavorites;saveProgress();
+    // Turning favorites on is a deliberate choice that replaces a topic launched from the picture cards.
+    if(state.settings.useFavorites&&state.settings.favoriteWords.length)launchedTopic=null;
     const pool=getSpeechWords();currentImitate=words.findIndex(w=>w.id===pool[0].id);renderImitate();
   });
   document.querySelector('#word-confirm').addEventListener('click',confirmTogetherWord);

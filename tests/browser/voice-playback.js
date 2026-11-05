@@ -35,9 +35,11 @@ async page => {
   await page.waitForFunction(() => voiceQA.played.some(a => Math.abs(a.duration - voiceQA.expectedDuration) < .1 && a.ended), undefined, {timeout:20000});
   const played = await page.evaluate(() => voiceQA.played.find(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1 && a.ended));
   ok(played.ended-played.started > played.duration*1000-500,'Machine guide plays its complete measured Jessa duration');
-  ok(await page.locator('.logic-heading p').innerText()==='Figyeld meg, rakd össze, majd számolj!','Machine instruction uses simpler wording');
+  ok(await page.locator('.logic-heading p').innerText()==='Figyeld meg, rakd össze, majd válassz!','Machine instruction uses simpler wording');
+  // The tap's own short click sound may start right after the voice, so look at everything the tap started.
+  const beforeRepeat = await page.evaluate(() => voiceQA.played.length);
   await page.locator('#logic-repeat').click();
-  await page.waitForFunction(() => Math.abs(voiceQA.played.at(-1)?.duration-voiceQA.expectedDuration)<.1 && !voiceQA.played.at(-1).ended);
+  await page.waitForFunction(count => voiceQA.played.slice(count).some(a => Math.abs(a.duration-voiceQA.expectedDuration)<.1 && !a.ended), beforeRepeat);
   await page.locator('#home-button').click();
   await page.waitForFunction(() => voiceQA.played.filter(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1).at(-1)?.ended);
   const interrupted = await page.evaluate(() => voiceQA.played.filter(a=>Math.abs(a.duration-voiceQA.expectedDuration)<.1).at(-1));
@@ -85,11 +87,12 @@ async page => {
       const mp3=bytes.length>128&&((bytes[0]===0x49&&bytes[1]===0x44&&bytes[2]===0x33)||(bytes[0]===0xff&&(bytes[1]&0xe0)===0xe0));
       return {id:clip.id,invalid:!mp3};
     }));
-    return {expected:manifest.clips.length,unique:expected.size,total:Object.keys(VOICE_CLIPS).length,mismatched,extra,missing:audio.filter(clip=>clip.missing).map(clip=>clip.id),invalid:audio.filter(clip=>clip.invalid).map(clip=>clip.id),questions:manifest.clips.filter(clip=>clip.text.includes('?')).length};
+    return {expected:manifest.clips.length,unique:expected.size,total:Object.keys(VOICE_CLIPS).length,mismatched,extra,missing:audio.filter(clip=>clip.missing).map(clip=>clip.id),invalid:audio.filter(clip=>clip.invalid).map(clip=>clip.id),questions:manifest.clips.filter(clip=>clip.id.startsWith('question_')&&clip.text.includes('?')).length,quantity:manifest.clips.filter(clip=>clip.id.startsWith('question_')).length};
   });
   ok(all.unique===all.expected&&all.total===all.expected&&!all.mismatched.length&&!all.extra.length,`Voice library matches all ${all.expected} manifest clips (${all.mismatched.concat(all.extra).join(', ')})`);
   ok(!all.missing.length&&!all.invalid.length,`All ${all.expected} manifest voices are cached as nonempty MP3 audio (missing: ${all.missing.join(', ')}; invalid: ${all.invalid.join(', ')})`);
-  ok(all.questions===0,'The voice inventory uses statements instead of spoken questions');
+  // The old machine voice read questions with a robotic rise; the quantity prompts stay statements. Jessa's game and story lines may ask.
+  ok(all.quantity>=30&&all.questions===0,'Quantity prompts are statements, not spoken questions');
   ok(errors.length===0,'No browser errors');
   await page.context().setOffline(false);
   return {count:checks.length,checks,longAudio:played};

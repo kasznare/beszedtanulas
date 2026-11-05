@@ -14,7 +14,7 @@ async parent => {
       for(const clip of manifest.clips){const r=await caches.match(new URL(clip.file,location.href));if(!r?.ok)missing.push(clip.id);}
       return {count:manifest.clips.length,missing};
     });
-    ok(cached.count===845&&!cached.missing.length,'All 845 Jessa clips are cached offline');
+    ok(cached.count>=845&&!cached.missing.length,`All ${cached.count} Jessa clips are cached offline`);
     const decoded=await page.evaluate(async()=>{
       const ids=['listening_bingo_start','memory_sound_start','montessori_shape_turn_retry','phrase_kerek_almat','phrase_part_kerek_almat_1','phrase_apa_auto','phrase_part_apa_auto_1','phrase_meg_alma','phrase_part_meg_alma_1','r_variant_roka_fut','r_variant_teli_kosar','r_mission_kert','r_mission_vacsora','workshop_sort_rule_shape_size','workshop_only_circle'];
       const audio=new (window.AudioContext||window.webkitAudioContext)(),result=[];

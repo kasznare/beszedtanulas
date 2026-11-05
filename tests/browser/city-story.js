@@ -131,7 +131,7 @@ async page => {
         const lockedButton = root.locator(`[data-story-choice="${lockedChoice}"]`);
         ok(await lockedButton.getAttribute('aria-disabled') === 'true', `${route.id}/${ending.id}: ${lockedChoice} is locked by earlier decisions`);
         const before = await node();
-        await lockedButton.click();
+        await lockedButton.click({ force: true });
         ok(await node() === before && (await root.locator('#city-story-status').innerText()).length > 0, `${lockedChoice} explains why it is locked`);
       }
       for (const [choice, destination] of ending.choices(route.id)) await choose(choice, destination);
@@ -146,7 +146,7 @@ async page => {
       ok(await root.locator('#city-story-scene-title').innerText() !== '', `${route.id}/${ending.id}: ending is rendered`);
       const found = routeIndex * endingCases.length + endingIndex + 1;
       ok((await root.locator('#city-story-stamps b').innerText()) === `${found}/9`, `${route.id}/${ending.id}: a new story stamp is collected`);
-      ok(await root.locator('.city-story-stamps td.is-new').count() === 1, 'the new stamp is highlighted');
+      ok(await root.locator('.city-story-collection-inline td.is-new').count() === 1, 'the new stamp is highlighted');
       ok(await root.locator('#city-story-home').innerText() === 'Vissza a Fejtörőkhöz', 'the leave button names the menu it opens');
       await choose(`${ending.id}-epilogue`, 'epilogue');
       ok(await root.getAttribute('data-route') === route.id && await root.getAttribute('data-ending') === ending.id, `${route.id}/${ending.id}: route and ending survive the epilogue`);

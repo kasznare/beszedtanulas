@@ -122,7 +122,7 @@ async page => {
   await page.locator('[data-en-mode="bridge"]').click();
   ok(await page.locator('[data-en-level="3"]').getAttribute('aria-pressed')==='true','reopening continues with the first unfinished bridge');
   ok(await page.locator('#en-budget').innerText()==='26','the stone pier level starts with its own budget');
-  ok(await page.locator('[data-en-node="d2"]').getAttribute('aria-label').includes('kőpillér'),'the pier node is a fixed support');
+  ok((await page.locator('[data-en-node="d2"]').getAttribute('aria-label')).includes('kőpillér'),'the pier node is a fixed support');
   await page.locator('[data-en-level="2"]').click();
   ok(await page.locator('#en-budget').innerText()==='0','the heavy bridge plan remains in the same session');
   await page.locator('[data-en-level="1"]').click();

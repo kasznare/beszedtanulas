@@ -99,6 +99,8 @@ export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => f
     const worker = registration?.waiting;
     // The install event completes only after every checked file is cached.
     if (!worker || worker.state !== "installed" || pendingReload || reloaded) return;
+    // The very first worker activates by itself: there is no older version to replace or reload.
+    if (!controller && !registration?.active) return;
     if (worker !== waitingWorker) {
       cancelActivationRetry();
       waitingWorker = worker;

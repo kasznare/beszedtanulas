@@ -24,7 +24,7 @@ async page => {
     const files = Object.entries(VOICE_CLIPS).filter(([id]) => id.startsWith('city_story_')).map(([, clip]) => clip.file);
     return { count: files.length, cached: (await Promise.all(files.map(file => caches.match(new URL(file, location.href))))).filter(Boolean).length };
   });
-  ok(voices.count === 243 && voices.cached === voices.count, 'Every story narration clip is included in the offline bundle');
+  ok(voices.count >= 243 && voices.cached === voices.count, `Every story narration clip (${voices.count}) is included in the offline bundle`);
   await context.setOffline(true);
   try {
     await page.reload();

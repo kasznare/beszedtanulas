@@ -3,23 +3,27 @@ async page => {
   const checks=[],ok=(value,message)=>{if(!value)throw Error(message);checks.push(message)};
   await page.context().setOffline(false);
   await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
-  await page.waitForFunction(async()=>{
+  // The offline manifest in sw.js is the source of truth; the sound sets grow with new content.
+  const listed=await page.evaluate(async()=>{const s=await(await fetch('./sw.js')).text();return JSON.parse(s.split('const ASSETS = ')[1].split(';\n')[0]).map(a=>new URL(a.file,location.href).href);});
+  const memorySounds=listed.filter(f=>/\/memory_.*\.mp3$/.test(f)),workshopSounds=listed.filter(f=>/\/workshop_.*\.mp3$/.test(f));
+  ok(memorySounds.length>=4&&workshopSounds.length>=50,'The offline manifest lists the memory and workshop sounds');
+  await page.waitForFunction(async expected=>{
     for(const name of await caches.keys()){
       const files=(await(await caches.open(name)).keys()).map(r=>r.url);
-      if(files.some(f=>f.endsWith('/workshop-game.js'))&&files.filter(f=>/\/workshop_.*\.mp3$/.test(f)).length===50)return true;
+      if(files.some(f=>f.endsWith('/workshop-game.js'))&&expected.every(f=>files.includes(f)))return true;
     }
     return false;
-  });
+  },workshopSounds,{timeout:120000});
   const files=await page.evaluate(async()=>{
     for(const name of await caches.keys()){
       const urls=(await(await caches.open(name)).keys()).map(r=>r.url);
       if(urls.some(f=>f.endsWith('/workshop-game.js')))return urls;
     }
   });
-  ok(files.filter(f=>/\/memory_.*\.mp3$/.test(f)).length===4,'All memory sounds are cached');
-  ok(files.filter(f=>/\/workshop_.*\.mp3$/.test(f)).length===50,'All 50 workshop sounds are cached');
+  ok(memorySounds.every(f=>files.includes(f)),`All ${memorySounds.length} memory sounds are cached`);
+  ok(workshopSounds.every(f=>files.includes(f)),`All ${workshopSounds.length} workshop sounds are cached`);
   const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('speech_game_progress_v1')));
-  const enter=async screen=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();const group=await page.evaluate(async screen=>(await import('./navigation.js')).parentScreen(screen),screen);await page.locator(`#home [data-open="${group}"]`).click();await page.locator(`#${group} [data-open="${screen}"]`).click();};
+  const enter=async screen=>{if(await page.locator('#home-button').isVisible())await page.locator('#home-button').click();const group=await page.evaluate(async screen=>(await import('./navigation.js')).parentScreen(screen),screen);await page.locator(`#home [data-open="${group}"]`).click();await page.locator(`#${group} [data-open="${screen}"]`).first().click();const back={workshop:"#ws-back",furfangliget:"#logic-back"}[screen];if(back)await page.locator(back).dispatchEvent("click");};
   await page.context().setOffline(true);
   try{
     await page.reload();await enter('workshop');
