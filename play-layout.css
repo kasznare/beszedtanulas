@@ -1241,3 +1241,54 @@
   #ws-work:has(> .ws-sort-layout + .ws-hint-note) .ws-bins { grid-row: 2; }
   #ws-work:has(> .ws-sort-layout + .ws-hint-note) > .ws-hint-note { grid-column: 2; grid-row: 3; }
 }
+
+/* Fifteenth pass: landscape phones. */
+/* On a short landscape screen the sticky top bar kept 60–72 px of a 375–430 px screen, so Formadoboz shapes and holes,
+   Sakkliget's eight rows or a stage and its buttons never fitted on screen together. Here the bar scrolls away with
+   the page, so a child who scrolls down to play gets the whole height. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-bar { position: relative; }
+}
+/* Formadoboz on landscape phones: the board followed the width (756 × 458 px, 687 px tall on levels 7–8) and its
+   shapes and holes never fitted on a 375–430 px screen together. The board now follows the height, the box front is
+   slimmer, and pieces and holes take the narrow-phone size. */
+@media (max-height: 500px) and (orientation: landscape) {
+  [data-game="shapes"] .mo-surface-box { --mo-aspect: 1.65; max-width: calc((100dvh - 72px) * var(--mo-aspect)); margin-inline: auto; }
+  [data-game="shapes"][data-level="7"] .mo-surface-box, [data-game="shapes"][data-level="8"] .mo-surface-box { --mo-aspect: 1.4; }
+  [data-game="shapes"][data-level="7"] .mo-shape-surface, [data-game="shapes"][data-level="8"] .mo-shape-surface { aspect-ratio: 1.4; }
+  [data-game="shapes"] .mo-surface-box .mo-box-front { padding: 4px 14px 6px; }
+  [data-game="shapes"] .mo-surface-box .mo-box-label { margin-bottom: 3px; }
+  [data-game="shapes"] .mo-surface-box .mo-box-window { min-height: 34px; padding-block: 2px; }
+  [data-game="shapes"] .mo-surface-box .mo-box-window svg { width: 28px; height: 28px; }
+  .mo-surface-box .mo-hole-cell, .mo-surface-box .mo-hole { width: 80px; height: 80px; }
+  .mo-board-pieces .mo-piece { width: 76px; height: 76px; }
+  .mo-board-pieces .mo-piece svg { width: calc(64px * var(--mo-scale)); height: calc(64px * var(--mo-scale)); }
+  .mo-surface-box .mo-hole svg.mo-shape-art { width: calc(66px * var(--mo-scale)); height: calc(66px * var(--mo-scale)); }
+  .mo-surface-box .mo-hole-cell, .mo-board-pieces .mo-piece { left: clamp(42px, var(--mo-x), calc(100% - 42px)); top: clamp(42px, var(--mo-y), calc(100% - 42px)); }
+  .mo-surface-box .mo-blocker { --mo-slide-distance: 80px; width: 72px; height: 44px; top: 18px; left: calc(50% - 36px); }
+}
+/* Hol van? on landscape phones: the three-column grid had no place for the mode and picture-type buttons, so all five
+   stacked one per row in the 150 px first column and the page grew about 230 px taller than the screen. They now share
+   the top row (modes left, picture types right), with the progress dots under the speaker. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .listening-panel.is-active > .listening-modes { grid-column: 1 / 3; grid-row: 1; justify-content: flex-start; gap: 6px; margin: 0; }
+  .listening-panel.is-active > :is(.listening-similarity, .listening-bingo-sizes) { grid-column: 2 / 4; grid-row: 1; justify-self: end; display: flex; flex-wrap: nowrap; gap: 6px; margin: 0; }
+  .listening-panel.is-active > :is(.listening-modes, .listening-similarity, .listening-bingo-sizes) button { min-height: 44px; padding: 6px 10px; font-size: .85rem; }
+  .listening-panel.is-active > .round-progress { grid-column: 1; grid-row: 3; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  /* 3 × 3 bingo on landscape phones: 40 px pictures in 190 × 86 px tiles were hard to tell apart. */
+  .listening-panel .listening-answers.is-bingo[data-count="9"] .listening-picture { font-size: 54px; }
+}
+/* Keresd meg! on landscape phones: the two option rows stacked, two answers sat in a three-column grid (a third of
+   the width stayed empty) and the things to count were 29 px. The options share one row, two answers share the width,
+   and the objects are larger. Számoljuk meg! keeps its own layout. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .numbers-wrap:has(> #number-quiz-view:not([hidden])) { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 14px; }
+  .numbers-wrap:has(> #number-quiz-view:not([hidden])) > * { flex: 1 1 100%; min-width: 0; }
+  .numbers-wrap:has(> #number-quiz-view:not([hidden])) > .upgrade-options { flex: 0 1 auto; margin: 0 0 6px; }
+  #number-quiz-view .number-answers:not(:has(> :nth-child(3))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #number-quiz-view .number-answer { container-type: inline-size; }
+  #number-quiz-view .number-answer-objects { grid-template-columns: repeat(3, minmax(0, 1fr)); font-size: min(52px, calc((100cqi - 16px) / 3.6)); gap: 2px; }
+  #number-quiz-view .number-answer-objects:has(> :nth-child(7)) { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: min(52px, calc((100cqi - 16px) / 5.4)); }
+}
