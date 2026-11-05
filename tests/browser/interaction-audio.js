@@ -71,8 +71,13 @@ async page => {
     await clear(); await page.locator(`[data-mo-piece="${id}"]`).click();
     ok(await heard(510) && !await heard(820) && !await heard(680), 'Mouse pickup plays exactly the grab cue without a duplicate click or select cue');
     await clear(); await page.locator(`[data-mo-target="${id}"]`).click(); await page.locator('#mo-restart:not([disabled])').waitFor();
-    ok(await heard(480) && await heard(270) && await heard(660) && !await heard(820), 'Animated fall has wooden impacts and completion, without a generic click');
+    ok(await heard(480) && await heard(270) && !await heard(820), 'Animated fall has wooden impacts, without a generic click');
     await clear(); await page.locator('#mo-undo').click(); ok(await heard(780), 'Undo has its own return sound');
+    // The first level now has several shapes: the last drop completes the box.
+    while (await page.locator('[data-mo-piece]').count() > 1) await placeMo(await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'));
+    await clear(); await placeMo(await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'));
+    const chime = await page.waitForFunction(() => fxQA.tones.includes(660), undefined, { timeout: 3000 }).then(() => true, () => false);
+    ok(chime && await heard(480) && !await heard(820), 'The last animated fall has wooden impacts and the completion chime, without a generic click');
     await page.locator('[data-mo-level="4"]').click();
     await clear(); await page.locator('[data-mo-blocker]').first().click(); ok(await heard(340), 'Opening a blocker has a sliding sound');
     await page.locator('[data-mo-level="3"]').click(); id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece');
@@ -118,8 +123,8 @@ async page => {
     ok(await heard(245) && await heard(460), 'Chess captures have their own heavier sound');
 
     await enter('activity-menu','puzzle');
-    const piece = await page.locator('.puzzle-tray [data-piece]').first().getAttribute('data-piece');
-    await clear(); await page.locator(`.puzzle-tray [data-piece="${piece}"]`).click(); await page.locator('[data-slot="0"]').click(); ok(await heard(510) && await heard(580), 'Puzzle pickup and placement have distinct sounds');
+    const piece = await page.locator('#puzzle .puzzle-tray [data-piece]').first().getAttribute('data-piece');
+    await clear(); await page.locator(`#puzzle .puzzle-tray [data-piece="${piece}"]`).click(); await page.locator(`#puzzle [data-slot="${piece}"]`).click(); ok(await heard(510) && await heard(580), 'Puzzle pickup and placement have distinct sounds');
     await enter('activity-menu','memory'); await clear(); await page.locator('[data-card]').first().click(); ok(await heard(400), 'Memory cards have a paper flip cue');
     await page.waitForFunction(()=>fxQA.sources.some(source=>source.duration>.3&&source.gainAtStart<=.18));
     ok(true, 'Effects are quieter when an existing spoken word starts');
@@ -168,7 +173,7 @@ async page => {
     await page.locator('#sound-effects').uncheck(); await clear(); await home(); await page.locator('#home [data-open="shape-menu"]').click();
     ok((await tones()).length===0 && await busGain()===0, 'Muting effects silences menu sounds');
     await page.locator('#shape-menu [data-kind="shapes"]').click(); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
-    id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'); await clear(); await placeMo(id);
+    await clear(); while (await page.locator('[data-mo-piece]').count()) await placeMo(await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'));
     ok((await tones()).length===0 && await page.locator('#montessori').getAttribute('data-done')==='true', 'Muted gameplay still completes with no synthesized sounds');
     await page.reload(); await parent(); ok(!await page.locator('#sound-effects').isChecked() && await page.locator('#effects-volume').inputValue()==='25', 'Mute and volume persist across reload');
     await page.locator('#sound-effects').check(); await clear(); await page.locator('#effects-preview').click(); await page.waitForTimeout(650);
@@ -186,7 +191,7 @@ async page => {
 
     await page.waitForFunction(()=>document.querySelector('#offline-status')?.textContent.startsWith('Letöltve.'),undefined,{timeout:60000});
     await context.setOffline(true); await page.reload(); await enter('shape-menu','montessori','shapes'); await page.locator('[data-mo-level="1"]').click(); await page.locator('#mo-restart').click();
-    id = await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'); await clear(); await placeMo(id);
+    await clear(); while (await page.locator('[data-mo-piece]').count()) await placeMo(await page.locator('[data-mo-piece]').first().getAttribute('data-mo-piece'));
     ok(await heard(480) && await heard(660), 'New action sounds work fully offline after reload');
     ok(errors.length===0, `No browser errors: ${errors.join(', ')}`);
     return {count:checks.length,engine:context.browser().browserType().name(),checks};

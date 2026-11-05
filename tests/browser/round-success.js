@@ -61,7 +61,8 @@ async page => {
     if (game === 'memory') return [...document.querySelectorAll('.memory-card')].every(card => card.classList.contains('is-matched'));
     if (game === 'pour') return [...document.querySelectorAll('[data-pour-cup]')].every(cup => cup.dataset.done === 'true') && !document.querySelector('#pour-finish').matches(':enabled');
     const prefix = game === 'listening-game' ? 'listening' : game.split('-')[0];
-    return document.querySelector(`#${prefix}-next`).disabled && [...document.querySelectorAll(`#${prefix}-answers button`)].every(button => button.disabled);
+    // Hol van? has no Next button; Maci's Next only skips the automatic wait and hides itself afterwards.
+    return (game === 'listening-game' || game === 'teddy-game' || document.querySelector(`#${prefix}-next`).disabled) && [...document.querySelectorAll(`#${prefix}-answers button`)].every(button => button.disabled);
   }, game);
   const waitCelebration = async (game, before) => {
     ok(await completeScene(game) && !(await page.locator('#round-complete').isVisible()), `${game}: completed scene stays visible before celebration`);
@@ -151,19 +152,32 @@ async page => {
       await enter(group, game);
       const before = await saved();
       const total = game === 'dress-game' ? 4 : before.settings.roundLength;
+      // Hol van? and Maci continue by themselves after the right answer.
+      const automatic = prefix === 'listening' || prefix === 'teddy';
       for (let index = 0; index < total; index++) {
         const keys = await page.locator(`#${prefix}-answers button`).evaluateAll(buttons => buttons.map(button => button.dataset.item || button.dataset.word));
         const attribute = prefix === 'dress' ? 'item' : 'word';
+        const last = automatic && index === total - 1;
         for (const key of keys) {
-          const choice = page.locator(`#${prefix}-answers [data-${attribute}="${key}"]`);
-          if (await choice.isEnabled()) await choice.click();
+          const choice = `#${prefix}-answers [data-${attribute}="${key}"]`;
+          // On the automatic last request every tap is marked, so the right answer is the completion moment.
+          if (await page.locator(choice).isEnabled()) { if (last) await markAndClick(choice); else await page.locator(choice).click(); }
           if (await page.locator(`#${prefix}-answers button:enabled`).count() === 0) break;
         }
+        if (automatic) {
+          if (index < total - 1) await page.waitForFunction(prefix => [...document.querySelectorAll(`#${prefix}-answers button`)].some(button => !button.disabled), prefix, { timeout: 8000 });
+          continue;
+        }
         await page.waitForFunction(prefix => !document.querySelector(`#${prefix}-next`).disabled, prefix);
-        if (index < total - 1) await page.locator(`#${prefix}-next`).click();
+        // The enabled Next button keeps bouncing to invite a tap, so it never counts as "stable".
+        if (index < total - 1) await page.locator(`#${prefix}-next`).click({ force: true });
       }
-      const immediate = await markAndClick(`#${prefix}-next`);
-      ok(immediate.rewards === before.rewards + 1 && !immediate.modal && !immediate.confetti, `${game}: finishing saves one reward immediately without hiding the completed request`);
+      let immediate;
+      if (automatic) {
+        await page.waitForFunction(before => JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards > before, before.rewards, { timeout: 8000 });
+        immediate = await page.evaluate(() => ({ rewards: JSON.parse(localStorage.getItem('speech_game_progress_v1')).rewards, modal: document.querySelector('#round-complete').open, confetti: Boolean(document.querySelector('#confetti-layer')?.classList.contains('is-active')) }));
+      } else immediate = await markAndClick(`#${prefix}-next`);
+      ok(immediate.rewards === before.rewards + 1 && !immediate.modal && !immediate.confetti, `${game}: finishing saves one reward ${automatic ? 'when the last answer moves on' : 'immediately'} without hiding the completed request`);
       await waitCelebration(game, before);
     }
     ok(errors.length === 0, `No browser script errors: ${errors.join(', ')}`);
