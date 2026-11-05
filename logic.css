@@ -215,7 +215,7 @@
 .logic-route-view select { max-width:100%; min-height:44px; padding:8px; border:2px solid #afcbae; border-radius:12px; background:#fffdf7; color:inherit; font:inherit; }
 .logic-directions:focus-visible { outline:3px solid #48724d; outline-offset:4px; border-radius:12px; }
 @media(max-width:600px) {
- .logic-level-control { order:3; width:100%; justify-content:center; gap:12px; }.logic-level-control select { flex:1; max-width:230px; min-height:44px; }
+ .logic-level-control { order:3; width:100%; justify-content:center; gap:4px 12px; flex-wrap:wrap; }.logic-level-control select { flex:1; min-width:0; max-width:230px; min-height:44px; }
  .logic-toolbar>button { flex:0 0 auto; }.logic-toolbar>button:last-child { margin-left:auto; }
  .logic-heading { margin:10px 0; }.logic-scene-label { font-size:.65rem; margin-bottom:4px; }
  .logic-heading p { font-size:.9rem; }
@@ -227,7 +227,7 @@
  .logic-market-scene { min-height:80px; padding:10px 12px; gap:8px; margin-bottom:10px; }.logic-customer { font-size:2.4rem; }.logic-market-sign b { font-size:.85rem; }.logic-market-sign>span { font-size:.7rem; }
  .logic-workshop-sign { gap:6px; padding:6px 8px; }.logic-workshop-sign>span:nth-child(2) { font-size:.8rem; }.logic-workshop-sign>span:first-child { font-size:1.5rem; }
  .logic-workshop-sign>button { width:100%; }
- .logic-machine-layout { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .logic-machine-layout { grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr)); }
  .logic-panel .logic-example { padding:8px 3px; }.logic-quantity b { font-size:1.1rem; }.logic-quantity .logic-dots { max-width:56px; }
  .logic-machine-core { font-size:.75rem; }.logic-machine-run { min-height:76px; margin:8px 0; padding:5px; font-size:.7rem; }
  .logic-slots button { min-width:44px; min-height:56px; }.logic-ops button { min-width:44px; min-height:44px; padding:7px; }.logic-ops { margin:9px 0; }

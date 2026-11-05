@@ -46,7 +46,9 @@ async (page) => {
    await page.locator('#logic-back').dispatchEvent('click');await page.locator(`[data-game="${kind}"]`).click();ok(await page.locator('#logic-next').count()===1,`${kind} ${level}: solved task stays solved`);
    await page.locator('#logic-next').click();ok(!(await saved()).logic.sessions[kind].done,`${kind} ${level}: new replayable task`);
    for(const [width,height] of [[430,932],[932,430],[834,1194],[1194,834],[430,740],[932,350],[375,667]]){
-    await page.setViewportSize({width,height});const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,small:[...document.querySelectorAll('#furfangliget button')].filter(b=>{const r=b.getBoundingClientRect();return r.width<43||r.height<43}).map(b=>b.id)}));ok(!metrics.overflow,`${kind} ${level}: width ${width}×${height}`);
+    await page.setViewportSize({width,height});
+    // WebKit resolves the resize before the game has re-placed the fox for the new board; let two frames pass.
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,small:[...document.querySelectorAll('#furfangliget button')].filter(b=>{const r=b.getBoundingClientRect();return r.width<43||r.height<43}).map(b=>b.id)}));ok(!metrics.overflow,`${kind} ${level}: width ${width}×${height}`);
     if((width===430&&height===932)||(width===1194&&height===834))await page.screenshot({path:`output/playwright/logic-${kind}-L${level}-${width}.png`,fullPage:true});
    }
    await page.setViewportSize({width:430,height:932});await page.locator('#logic-back').dispatchEvent('click');

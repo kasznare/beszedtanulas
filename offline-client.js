@@ -25,6 +25,7 @@ export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => f
   let pendingReload = false;
   let reloaded = false;
   let downloadingUpdate = false;
+  let offlineNote = false;
   let installPrompt;
 
   const text = (element, value) => { if (element) element.textContent = value; };
@@ -35,6 +36,7 @@ export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => f
     if (navigator.onLine === false) {
       event.preventDefault();
       showHomeStatus("A frissítéshez internetkapcsolat kell. A letöltött játék tovább használható.");
+      offlineNote = true;
       return;
     }
     const target = new URL("./refresh.html", import.meta.url);
@@ -44,6 +46,9 @@ export function setupOffline({ beforeReload = () => {}, isSafeToReload = () => f
   });
 
   function showHomeStatus(message = "") {
+    // A check that was already running must not wipe the offline refresh explanation while still offline.
+    if (!message && offlineNote && navigator.onLine === false) return;
+    offlineNote = false;
     text(homeStatus, message);
     hidden(homeStatus, !message);
   }

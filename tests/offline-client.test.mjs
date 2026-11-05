@@ -480,3 +480,20 @@ test('home refresh stays in the playable cached game when offline', async t => {
   assert.match(h.elements['home-update-status'].textContent, /internetkapcsolat/);
   assert.equal(h.state.clears, 0);
 });
+
+test('a check already running cannot wipe the offline refresh explanation', async t => {
+  const h = harness(t);
+  await h.boot();
+  let finish;
+  h.state.updatePending = new Promise(resolve => { finish = resolve; });
+  const running = h.api.checkForUpdate({ force: true });
+  h.nav.onLine = false;
+  await h.elements['home-refresh'].emit('click', { preventDefault() {} });
+  finish(); await running; await flush();
+  assert.equal(h.elements['home-update-status'].hidden, false);
+  assert.match(h.elements['home-update-status'].textContent, /internetkapcsolat/);
+  h.nav.onLine = true;
+  h.state.updatePending = null;
+  await h.api.checkForUpdate({ force: true }); await flush();
+  assert.equal(h.elements['home-update-status'].hidden, true);
+});

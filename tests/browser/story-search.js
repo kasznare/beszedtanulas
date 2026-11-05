@@ -12,7 +12,9 @@ async page => {
   page.on('request',request=>{if((request.postData()||'').includes('QA_PRIVATE_STORY_TEXT')||request.url().includes('QA_PRIVATE_STORY_TEXT'))leaks.push(request.url());});
   await page.reload();await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>navigator.serviceWorker.controller,{timeout:60000});
   const open=async()=>{await page.locator('[data-open="audiobooks"]').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='ready');};
-  const search=async query=>page.getByLabel('Keresés cím vagy szerző alapján',{exact:true}).fill(query);
+  // Choosing a story opens the full player; the shared back arrow returns to the searchable list.
+  const toList=async()=>{if(await page.locator('#audiobooks[data-view="player"]').count())await page.locator('#back-button').click();await page.locator('#audiobooks[data-view="library"]').waitFor();};
+  const search=async query=>{await toList();await page.getByLabel('Keresés cím vagy szerző alapján',{exact:true}).fill(query);};
   const visible=()=>page.locator('.story-card:visible');
   await open();
   const total=await page.locator('.story-card').count();ok(total>=28,'All current collection entries are listed');
@@ -55,7 +57,7 @@ async page => {
   const classics=await page.evaluate(async()=>(await import('/audiobook-data.js')).AUDIOBOOKS.filter(story=>/^(classic|szekely)-/.test(story.id)));
   await search('');
   for(const story of classics){
-    await page.locator(`.story-card[data-story="${story.id}"]`).click();
+    await toList();await page.locator(`.story-card[data-story="${story.id}"]`).click();
     await page.locator('#story-toggle').click();await page.waitForFunction(()=>document.querySelector('#audiobooks').dataset.phase==='playing');
     await page.waitForFunction(()=>!document.querySelector('#story-seek').disabled);
     await page.locator('#story-transcript summary').click();ok(await page.locator('#story-text').textContent()===story.text,`${story.id}: full original text and stanza breaks`);

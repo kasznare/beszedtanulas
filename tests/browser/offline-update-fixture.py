@@ -21,7 +21,7 @@ if '--legacy' in sys.argv:
 for version in 'ABCDE':
  template=legacy if version=='A' and legacy else repo/'dist'
  source=(template/'sw.js').read_text()
- assets=json.loads(source.split('const ASSETS = ',1)[1].split(';\n\n',1)[0])
+ assets=json.loads(source.split('const ASSETS = ',1)[1].split(';\n',1)[0])
  runtime=source[source.index('/* CACHE_VERSION'):]
  dest=base/version;dest.mkdir()
  for name in [asset['file'] for asset in assets]+['sw.js']:

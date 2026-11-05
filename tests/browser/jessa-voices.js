@@ -26,10 +26,15 @@ async parent => {
       await home();
       const group = await page.evaluate(async name => (await import('./navigation.js')).parentScreen(name), name);
       await page.locator(`#home [data-open="${group}"]`).click();
-      await page.locator(`#${group} [data-open="${name}"]`).click();
+      await page.locator(`#${group} [data-open="${name}"]`).first().click();
     };
-    for (const [menu,id] of [['picture-menu','guide_menu_pictures'],['practice-menu','guide_menu_speech'],['number-menu','guide_welcome'],['play-menu','guide_welcome'],['activity-menu','guide_welcome']]) {
+    for (const [menu,id] of [['picture-menu','guide_menu_pictures'],['practice-menu','guide_menu_speech']]) {
       await home(); const start=await before(); await page.locator(`#home [data-open="${menu}"]`).click(); await heard(start,id);
+    }
+    // Menus without a matching recorded guide stay quiet on entry; the shared speaker button gives the welcome.
+    for (const menu of ['number-menu','play-menu','activity-menu']) {
+      await home(); await page.locator(`#home [data-open="${menu}"]`).click();
+      const start=await before(); await page.locator('#help-button').click(); await heard(start,'guide_welcome');
     }
     for (const [screen,prefix] of [['listening-game','word_'],['teddy-game','teddy_'],['dress-game','dress_request_'],['memory','memory_start'],['puzzle','puzzle_start'],['pour','pour_start'],['chess','chess_'],['meseliget','mese_map']]) {
       const start=await before(); await enter(screen); await heard(start,prefix);
@@ -48,7 +53,7 @@ async parent => {
     }
     await enter('r-practice');
     for (const game of ['hunter','post','workshop','rhyme','echo']) {
-      if (await page.locator('#r-practice [data-action="hub"]').count()) await page.locator('#r-practice [data-action="hub"]').first().click();
+      if (await page.locator('#r-practice [data-action="hub"]').count()) await page.locator('#r-practice [data-action="hub"]').first().dispatchEvent('click');
       const start=await before(); await page.locator(`#r-practice [data-game="${game}"]`).click();
       await heard(start,`r_${game}`);
       await page.locator('#r-practice[data-phase="idle"]').waitFor({timeout:40000});

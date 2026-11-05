@@ -80,9 +80,12 @@ async page => {
     await page.setViewportSize({ width, height });
     ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Local story layout fits ${width}px`);
   }
+  // Playing opens the full player; the shared back arrow returns to the story list.
+  await page.locator('#back-button').click(); await page.locator('#audiobooks[data-view="library"]').waitFor();
   await page.locator('[data-story="story-02"]').click();
   await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   ok(await page.locator('#story-visual-wrap').isVisible(), 'Switching back restores the public story animation');
+  await page.locator('#back-button').click(); await page.locator('#audiobooks[data-view="library"]').waitFor();
   await page.locator('[data-story^="local-"]').click();
   await page.waitForFunction(() => document.querySelector('#audiobooks').dataset.phase === 'ready');
   await page.locator('#story-remove').click();

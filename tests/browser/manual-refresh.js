@@ -9,12 +9,14 @@ async page=>{
  const progress=()=>page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('speech_game_progress_v1'));return{plays:p.plays,attempts:p.attempts,rewards:p.rewards,wordStats:p.wordStats,meadow:p.meadow,logic:p.logic,workshop:p.workshop};});
  await version('A');await page.goto(base);await at('A');
  ok(await page.locator('#home [data-open]').count()===4,'Fixture starts on the actual b009234 release');
- await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('speech_game_progress_v1'));p.plays=13;p.rewards=7;p.settings.spokenGuidance=false;p.supabase.syncPaused=true;localStorage.setItem('speech_game_progress_v1',JSON.stringify(p));});await page.reload();await at('A');const saved=await progress();
+ await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('speech_game_progress_v1'));p.plays=13;p.rewards=7;p.settings.spokenGuidance=false;p.supabase.syncPaused=true;localStorage.setItem('speech_game_progress_v1',JSON.stringify(p));});await page.reload();await at('A');let saved=await progress();
+ // Newer releases add fields and raise versions while migrating; every saved value must survive unchanged.
+ const preserved=(before,after)=>before&&typeof before==='object'?Boolean(after)&&typeof after==='object'&&Object.keys(before).every(key=>key==='version'?after[key]>=before[key]:preserved(before[key],after[key])):before===after;
  const other=await context.newPage();await other.route('https://cdn.jsdelivr.net/**',r=>r.fulfill({contentType:'text/javascript',body:''}));await other.goto(base);await other.waitForFunction(()=>Boolean(navigator.serviceWorker.controller));
  await version('B');await page.goto(base+'/refresh.html?t=legacy');await at('B');
  ok(await page.locator('#home-refresh').isVisible(),'Legacy recovery reaches the five-group version with the refresh button');
  await other.waitForFunction(()=>document.body.dataset.updateTest==='B',{},{timeout:120000});ok(true,'Manual recovery succeeds with another legacy window still open');
- ok(JSON.stringify(await progress())===JSON.stringify(saved),'Legacy recovery preserves saved progress');ok(!page.url().includes('b009234')&&new URL(page.url()).pathname==='/', 'Recovery returns to the canonical home URL');
+ ok(preserved(saved,await progress()),'Legacy recovery preserves saved progress');saved=await progress();ok(!page.url().includes('b009234')&&new URL(page.url()).pathname==='/', 'Recovery returns to the canonical home URL');
  for(const viewport of [{width:375,height:667},{width:932,height:350},{width:834,height:1194}]){
   await page.setViewportSize(viewport);const metrics=await page.locator('#home-refresh').evaluate(button=>{const r=button.getBoundingClientRect();return{width:r.width,height:r.height,top:r.top,bottom:r.bottom,overflow:document.documentElement.scrollWidth>innerWidth+2};});
   ok(metrics.width>=44&&metrics.height>=44&&metrics.top>=0&&metrics.bottom<=viewport.height&&!metrics.overflow,`Refresh button is visible and ≥44px at ${viewport.width}×${viewport.height}`);
