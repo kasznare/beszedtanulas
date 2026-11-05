@@ -147,8 +147,14 @@ async page => {
   const enterR = async game => { await page.evaluate(() => successScenes.open('r')); await page.locator(`#r-practice [data-game="${game}"]`).click(); await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle'); };
   const finishSpeech = async count => { for (let i = 0; i < count; i++) { await page.locator('#r-practice [data-action="advance"]').click(); await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle'); } };
   const finishPost = async () => {
-    for (const friend of ['fox', 'rabbit']) {
+    for (let parcel = 0; parcel < 2; parcel++) {
       await finishSpeech(1);
+      // Each parcel goes to the friend who wished for it.
+      const friend = await page.evaluate(async () => {
+        const { R_WORDS } = await import('./r-practice-data.js');
+        const word = R_WORDS.find(item => item.id === document.querySelector('#r-practice .rp-target').dataset.word);
+        return [...document.querySelectorAll('#r-practice [data-deliver]')].find(button => button.getAttribute('aria-label').includes(`ezt kéri: ${word.text}`))?.dataset.deliver;
+      });
       await page.locator(`#r-practice [data-deliver="${friend}"]`).evaluate(button => { button.click(); button.click(); });
       await page.waitForFunction(() => document.querySelector('#r-practice').dataset.phase === 'idle');
     }

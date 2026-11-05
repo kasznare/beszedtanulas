@@ -35,7 +35,7 @@ const map = {
  logic_route_1: {parts:[part('rókának','.logic-fox'),part('csomagot','[data-parcel]'),part('házhoz','[data-destination]'),part('nyilakkal','.logic-directions'),part('próbagombbal','#logic-check')]},
  logic_route_2: {parts:[part('csomagot','[data-parcel]'),part('házhoz','[data-destination]'),part('köveket','.logic-cell.blocked'),part('egész utat','.logic-board'),part('próbáld ki','#logic-check'),part('Visszavonással','#logic-undo')]},
  logic_route_3: {parts:[part('Mindkét csomagot','[data-parcel]'),part('házhoz','[data-destination]'),part('lépésszámba','.logic-step-count')]},
- logic_route_steps: {parts:[part('térképet','.logic-board'),part('csomagokat','[data-parcel]'),part('köveket','[data-blocked]'),part('házat','[data-destination]'),part('nyilakkal','.logic-directions'),part('lépéseket','.logic-path-plan'),part('próbagombbal','#logic-check')]},
+ logic_route_steps: {parts:[part('térképet','.logic-board'),part('csomagokat','[data-parcel]'),part('köveket','.logic-cell.blocked'),part('házat','[data-destination]'),part('nyilakkal','.logic-directions'),part('lépéseket','.logic-path-plan'),part('próbagombbal','#logic-check')]},
  logic_route_steps_hint2: {target:'.logic-hint-route',parts:[part('nyilakkal','.logic-directions')]},
  logic_route_steps_hint3: {target:'.logic-hint-route'},
  logic_route_steps_restart: {parts:[part('Visszavonással','#logic-undo'),part('újratervezhetsz','#logic-clear'),part('segítségnél','.logic-hint-route')]},

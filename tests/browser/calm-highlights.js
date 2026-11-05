@@ -14,12 +14,14 @@ async page => {
     window.calmViolations = [];
     window.calmActive = false;
     window.calmEndedAt = 0;
+    // Inside CSS zoom (the large-screen home art) Chromium reports the 2px outline divided by the zoom.
+    window.calmTwoPx = (node, width) => { let zoom = 1; for (let element = node; element; element = element.parentElement) zoom *= parseFloat(getComputedStyle(element).zoom) || 1; return width === '2px' || Math.abs(parseFloat(width) * zoom - 2) < .05; };
     const sample = () => {
       for (const node of document.querySelectorAll('.is-narrated')) {
         const style = getComputedStyle(node), teddy = node.matches('.teddy-illustration') && !matchMedia('(prefers-reduced-motion:reduce)').matches;
-        const entry = { clip: node.dataset.narrationClip, motion: node.dataset.narrationMotion, screen: document.body.dataset.screen, animation: style.animationName, outline: style.outlineColor, width: style.outlineWidth, teddy };
-        if (entry.animation !== 'none' || (teddy ? style.outlineStyle !== 'none' : entry.outline !== 'rgb(120, 149, 127)' || entry.width !== '2px')) window.calmViolations.push(entry);
-        if (!window.calmSamples.some(old => old.clip === entry.clip && old.motion === entry.motion && old.screen === entry.screen)) window.calmSamples.push(entry);
+        const entry = { clip: node.dataset.narrationClip, motion: node.dataset.narrationMotion, part: node.dataset.narrationPart, screen: document.body.dataset.screen, animation: style.animationName, outline: style.outlineColor, width: style.outlineWidth, teddy };
+        if (entry.animation !== 'none' || (teddy ? style.outlineStyle !== 'none' : entry.outline !== 'rgb(120, 149, 127)' || !calmTwoPx(node, entry.width))) window.calmViolations.push(entry);
+        if (!window.calmSamples.some(old => old.clip === entry.clip && old.motion === entry.motion && old.part === entry.part && old.screen === entry.screen)) window.calmSamples.push(entry);
       }
       if (window.calmActive) requestAnimationFrame(sample);
     };
@@ -36,8 +38,12 @@ async page => {
     const enter = async (id, mode = 'count') => {
       const parent = await p.evaluate(async id => (await import('./navigation.js')).parentScreen(id), id);
       await group(parent);
-      await p.locator(id === 'numbers' ? `#number-menu [data-mode="${mode}"]` : `#${parent} [data-open="${id}"]`).click();
+      // Several exercise cards can open the same game; the first one is enough to reach it.
+      await p.locator(id === 'numbers' ? `#number-menu [data-mode="${mode}"]` : `#${parent} [data-open="${id}"]`).first().click();
       await at(id);
+      // Furfangliget and the workshop open one exercise directly; their own hub stays reachable behind it.
+      const hub = { furfangliget: '#logic-back', workshop: '#ws-back' }[id];
+      if (hub) await p.locator(hub).dispatchEvent('click');
     };
     const quiet = async () => {
       if (await p.locator('#r-practice[data-phase="model"]').isVisible()) await p.locator('#r-practice[data-phase="idle"]').waitFor({ timeout: 40000 });
@@ -72,7 +78,7 @@ async page => {
             await frame();
             for (const node of marked) {
               const s = getComputedStyle(node), teddy = node.matches('.teddy-illustration') && !matchMedia('(prefers-reduced-motion:reduce)').matches;
-              if (s.animationName !== 'none' || (teddy ? s.outlineStyle !== 'none' : s.outlineColor !== 'rgb(120, 149, 127)' || s.outlineWidth !== '2px')) faults.push({ node: node.tagName + '.' + (node.getAttribute('class') || ''), motion, animation: s.animationName, outline: s.outline });
+              if (s.animationName !== 'none' || (teddy ? s.outlineStyle !== 'none' : s.outlineColor !== 'rgb(120, 149, 127)' || !calmTwoPx(node, s.outlineWidth))) faults.push({ node: node.tagName + '.' + (node.getAttribute('class') || ''), motion, animation: s.animationName, outline: s.outline });
             }
           }
           const after = layout.map(rect);
@@ -89,21 +95,27 @@ async page => {
       ok(value.animation === 'none' && value.colour === expected, `${selector}: static green ${property} ${JSON.stringify(value)}`);
     };
     const focus = async id => {
-      const button = p.locator(`#${id} button:not(:disabled)`).first();
+      const button = p.locator(`#${id} button:not(:disabled):visible`).first();
       if (!await button.count()) return;
       await p.keyboard.press('Tab'); await button.focus();
       const state = await button.evaluate(node => { const s = getComputedStyle(node); return { visible: node.matches(':focus-visible'), colour: s.outlineColor, width: parseFloat(s.outlineWidth), style: s.outlineStyle }; });
       const rgb = state.colour.match(/\d+/g)?.map(Number);
-      ok(state.visible && state.width >= 2 && state.style !== 'none' && rgb && (rgb[1] > rgb[0] || rgb[2] > rgb[0]), `${id}: keyboard focus remains visible without orange`);
+      ok(state.visible && state.width >= 2 && state.style !== 'none' && rgb && (rgb[1] > rgb[0] || rgb[2] > rgb[0]), `${id}: keyboard focus remains visible without orange ${JSON.stringify(state)}`);
     };
     // The broad CSS sweep uses one short recording so long automatic guides
     // do not dominate it. Reload afterwards before testing original audio.
     await context.route('**/audio/voice/*.mp3', route => route.fulfill({ path: 'audio/voice/number_1.mp3', contentType: 'audio/mpeg' }));
     const groups = await p.evaluate(async () => (await import('./navigation.js')).GROUPS);
     await sweep('home');
-    for (const { screen, screens: games } of groups) {
+    // Every exercise card in every menu, including the several cards of one game.
+    for (const { screen } of groups) {
       await group(screen); await sweep(screen);
-      for (const game of games) { await enter(game); await sweep(game); await focus(game); }
+      const cards = await p.locator(`#${screen} [data-open]`).evaluateAll(buttons => buttons.map(button => ({ open: button.dataset.open, kind: button.dataset.kind || '' })));
+      for (const { open, kind } of cards) {
+        await group(screen);
+        await p.locator(`#${screen} [data-open="${open}"]${kind ? `[data-kind="${kind}"]` : ''}`).first().click(); await at(open);
+        await sweep(open, kind ? `${open}:${kind}` : open); await focus(open);
+      }
     }
     await enter('topics'); await p.locator('[data-topic="food"]').click(); await at('cards'); await sweep('cards');
     await enter('numbers', 'quiz'); await sweep('numbers', 'numbers:quiz');
@@ -125,9 +137,10 @@ async page => {
     // Real recorded narration still selects the correct input, gear and output.
     await enter('furfangliget'); await p.locator('[data-game="machine"]').click(); await quiet();
     await p.evaluate(() => { window.calmSamples = []; }); await p.locator('[data-example="0"]').click();
-    await p.waitForFunction(() => ['input', 'machine', 'output'].every(motion => window.calmSamples.some(sample => sample.screen === 'furfangliget' && sample.motion === motion)), undefined, { timeout: 40000 });
-    const machineMotions = await p.evaluate(() => [...new Set(window.calmSamples.map(sample => sample.motion))]);
-    ok(machineMotions.includes('input') && machineMotions.includes('output') && machineMotions.includes('machine'), 'Actual machine audio produces all three calm motion variants');
+    await p.waitForFunction(() => ['input', 'machine', 'output'].every(part => window.calmSamples.some(sample => sample.screen === 'furfangliget' && sample.part === part)), undefined, { timeout: 40000 });
+    // The rule machine marks the input number, the machine and the output number of the tapped example in turn.
+    const machineMotions = await p.evaluate(() => [...new Set(window.calmSamples.filter(sample => sample.screen === 'furfangliget').map(sample => sample.part).filter(Boolean))]);
+    ok(machineMotions.includes('input') && machineMotions.includes('output') && machineMotions.includes('machine'), 'Actual machine audio marks the input, machine and output in turn');
     for (const game of ['hunter', 'post', 'workshop', 'rhyme', 'echo']) {
       await enter('r-practice'); await p.locator(`#r-practice [data-game="${game}"]`).click();
       await sweep('r-practice', `r-practice:${game}`, ['pulse', 'sway']);
@@ -160,7 +173,9 @@ async page => {
     const from = await p.locator('#puzzle [data-piece="0"]').boundingBox(), to = await p.locator('#puzzle [data-slot="0"]').boundingBox();
     await p.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await p.mouse.down();
     await p.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 12 });
-    await staticGreen('.puzzle-drag-preview', 'outlineColor', 'rgb(72, 114, 77)');
+    // The jigsaw-shaped preview follows the piece outline with a static green drop shadow.
+    const preview = await p.locator('.puzzle-drag-preview .puzzle-shape-wrap').first().evaluate(node => ({ animation: getComputedStyle(node).animationName, filter: getComputedStyle(node).filter, outline: getComputedStyle(node.parentElement).outlineStyle }));
+    ok(preview.animation === 'none' && preview.filter.includes('rgb(72, 114, 77)') && preview.outline === 'none', `.puzzle-drag-preview: static green piece shadow ${JSON.stringify(preview)}`);
     const dropShadow = await p.locator('.puzzle-slot.is-drop-target').evaluate(node => getComputedStyle(node).boxShadow);
     ok(dropShadow.includes('rgb(72, 114, 77)'), 'Actual puzzle drop target uses a static green inset');
     await p.mouse.up();

@@ -3,10 +3,11 @@ async page => {
   await page.reload();
   await page.evaluate(() => { window.teddyVoices = []; document.addEventListener('narrationstart', event => teddyVoices.push(event.detail.id)); });
   if (await page.locator('#home-button').isVisible()) await page.locator('#home-button').click();
-  await page.locator('#home [data-open="play-menu"]').click();
-  await page.locator('#play-menu [data-open="teddy-game"]').click();
-  await page.locator('[data-teddy-mode="expressive"]').click();
-  await page.waitForFunction(() => teddyVoices.includes('guide_listening'), undefined, { timeout: 15000 });
+  // "Én kérek" has its own card under "Mondd utánam" and its own recorded introduction.
+  await page.locator('#home [data-open="practice-menu"]').click();
+  await page.locator('#practice-menu [data-open="teddy-game"][data-kind="expressive"]').click();
+  if (await page.locator('[data-teddy-mode="expressive"]').isVisible()) await page.locator('[data-teddy-mode="expressive"]').click();
+  await page.waitForFunction(() => teddyVoices.includes('teddy_expressive_intro'), undefined, { timeout: 15000 });
   const plates = page.locator('#teddy-answers .teddy-plate');
   if (await plates.count() < 2) throw Error('The child needs a choice of foods');
   if (await page.locator('.teddy-expression-confirm').isEnabled()) throw Error('Speech confirmation must wait for a selected food');

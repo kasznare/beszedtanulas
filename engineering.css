@@ -1,7 +1,7 @@
 #engineering { --en-green:#376e59; --en-muted:#708379; max-width:1000px; margin:auto; padding:0 0 20px; }
 #engineering button { font:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 #engineering button:disabled { opacity:.45; cursor:default; }
-#engineering button:focus-visible, #en-stage:focus-visible { outline:3px solid #be7b35; outline-offset:4px; }
+#engineering button:focus-visible, #en-stage:focus-visible { outline:3px solid #477b5e; outline-offset:4px; }
 #engineering [hidden] { display:none!important; }
 .en-kicker { font-size:10px; letter-spacing:.16em; font-weight:800; color:var(--en-muted); }
 .en-hub-heading { text-align:center; margin:25px 0 34px; }
