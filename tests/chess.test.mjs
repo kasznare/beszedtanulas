@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CHESS_PIECES, CHESS_PUZZLES, CHESS_TACTICS, CHESS_LEVELS, CHESS_CLIPS, PAWN_BATTLES, chessPuzzlesForLevel, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions, allLegalMoves, playChessTactic, chooseChessReply, chessPosition, inCheck, buildPawnBattle, pawnBattleWinner, pawnBattleResult } from '../chess-data.js';
+import { CHESS_PIECES, CHESS_PUZZLES, CHESS_TACTICS, CHESS_LEVELS, CHESS_CLIPS, PAWN_BATTLES, chessPuzzlesForLevel, buildChessLesson, buildChessPuzzle, squareName, squareIndex, legalMoves, moveChessPiece, isSquareAttacked, normalizeChessOptions, allLegalMoves, playChessTactic, chooseChessReply, chessPosition, inCheck, buildPawnBattle, pawnBattleWinner, pawnBattleResult, capturedPiece } from '../chess-data.js';
 const at = (type, square, color = 'white') => ({ type, square: squareIndex(square), color });
 const moves = (board, from) => legalMoves(board, squareIndex(from)).map(squareName).sort();
 
@@ -198,4 +198,39 @@ test('the pawn battle starts symmetric, the computer always answers, and reachin
   // A dark pawn takes a free light pawn instead of walking past it.
   const free = [at('pawn', 'd5'), at('pawn', 'e6', 'black'), at('pawn', 'a7', 'black')];
   assert.deepEqual(chooseChessReply(free, 'black', { pawnRace: true }), { from: squareIndex('e6'), to: squareIndex('d5') });
+});
+
+test('a pawn that has just stepped two squares can be taken en passant, only on the next move', () => {
+  // Light pawn on e5; dark answers d7–d5 beside it.
+  let board = [at('pawn', 'e5'), at('pawn', 'd7', 'black'), at('pawn', 'h2'), at('pawn', 'a7', 'black')];
+  board = moveChessPiece(board, squareIndex('d7'), squareIndex('d5'));
+  assert.deepEqual(moves(board, 'e5'), ['d6', 'e6']);
+  assert.equal(capturedPiece(board, squareIndex('e5'), squareIndex('d6'))?.square, squareIndex('d5'));
+  const taken = moveChessPiece(board, squareIndex('e5'), squareIndex('d6'));
+  assert.ok(taken.some(piece => piece.square === squareIndex('d6') && piece.color === 'white'));
+  assert.ok(!taken.some(piece => piece.square === squareIndex('d5')), 'the passed pawn is removed');
+  assert.equal(taken.length, 3);
+  // A single step, or any move in between, gives no en passant.
+  const waited = moveChessPiece(moveChessPiece(board, squareIndex('h2'), squareIndex('h3')), squareIndex('a7'), squareIndex('a6'));
+  assert.deepEqual(moves(waited, 'e5'), ['e6']);
+  const single = moveChessPiece([at('pawn', 'e5'), at('pawn', 'd6', 'black')], squareIndex('d6'), squareIndex('d5'));
+  assert.deepEqual(moves(single, 'e5'), ['e6']);
+  // The dark pawns may take en passant, too, and the computer sees the capture.
+  let dark = [at('pawn', 'd4', 'black'), at('pawn', 'e2')];
+  dark = moveChessPiece(dark, squareIndex('e2'), squareIndex('e4'));
+  assert.deepEqual(moves(dark, 'd4'), ['d3', 'e3']);
+  assert.deepEqual(chooseChessReply(dark, 'black', { pawnRace: true, random: () => 1 }), { from: squareIndex('d4'), to: squareIndex('e3') });
+});
+
+test('the pawn battle allows en passant in play', () => {
+  let board = buildPawnBattle('small');
+  const light = board.find(piece => piece.color === 'white');
+  const file = squareName(light.square)[0];
+  const neighbour = board.find(piece => piece.color === 'black' && Math.abs(piece.square % 8 - light.square % 8) === 1);
+  if (!neighbour) return;
+  board = moveChessPiece(board, light.square, squareIndex(`${file}4`));
+  board = moveChessPiece(board, squareIndex(`${file}4`), squareIndex(`${file}5`));
+  const nb = squareName(neighbour.square)[0];
+  board = moveChessPiece(board, neighbour.square, squareIndex(`${nb}5`));
+  assert.ok(moves(board, `${file}5`).includes(`${nb}6`));
 });

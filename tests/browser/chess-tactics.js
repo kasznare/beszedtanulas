@@ -62,6 +62,20 @@ async page => {
     await move('d2', 'd4');
     await waitStatus('Te jössz');
     ok(await page.locator('.chess-square.is-reply').count() === 2, 'The dark pawn answers');
+
+    // En passant: with the gentle randomness fixed, the dark pawn steps d7–d5 beside e5.
+    await page.locator('#chess-restart').click();
+    await page.evaluate(() => { Math.random = () => 0.99; });
+    for (const [from, to, reply] of [['c2', 'c3', 'c7 → c5'], ['e2', 'e4', 'c5 → c4'], ['e4', 'e5', 'd7 → d5']]) {
+      await move(from, to); await waitStatus(`${reply}. Te jössz`);
+    }
+    await page.locator('#chess-hint').click(); await cell('e5').click();
+    ok(await cell('d6').evaluate(element => element.classList.contains('is-capture') && element.getAttribute('aria-label').includes('menet közben üthető')), 'En passant square is marked as a capture');
+    await cell('d6').click();
+    // The light move is drawn at once; the dark answer follows after a pause.
+    ok(await cell('d5').getAttribute('aria-label') === 'd5, üres', 'The passed pawn is taken; an empty square never reads as in check');
+    ok((await cell('d6').getAttribute('aria-label')).startsWith('d6, világos gyalog'), 'The light pawn lands behind it');
+    await waitStatus('Te jössz');
     ok(errors.length === 0, `No page errors: ${errors.join('; ')}`);
     return { checks: checks.length, labels: checks };
   } finally { page.off('pageerror', listener); }

@@ -1,4 +1,4 @@
-import { CHESS_PIECES, CHESS_CLIPS, CHESS_LEVELS, PAWN_BATTLES, chessPuzzlesForLevel, chessPuzzleMovers, evaluateChessPuzzle, moveChessPuzzlePiece, normalizeChessOptions, squareName, legalMoves, moveChessPiece, buildChessLesson, buildChessPuzzle, playChessTactic, chooseChessReply, buildPawnBattle, pawnBattleResult, inCheck } from './chess-data.js';
+import { CHESS_PIECES, CHESS_CLIPS, CHESS_LEVELS, PAWN_BATTLES, chessPuzzlesForLevel, chessPuzzleMovers, evaluateChessPuzzle, moveChessPuzzlePiece, normalizeChessOptions, squareName, legalMoves, moveChessPiece, buildChessLesson, buildChessPuzzle, playChessTactic, chooseChessReply, buildPawnBattle, pawnBattleResult, inCheck, capturedPiece } from './chess-data.js';
 import { chessArt } from './chess-art.js';
 import { setGameTitle, focusGameTitle } from './game-heading.js';
 
@@ -71,12 +71,13 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
       <div class="chess-board-wrap"><div class="chess-board ${solved ? 'is-complete' : ''} ${busy ? 'is-waiting' : ''}" role="group" aria-label="Sakktábla, nyolcszor nyolc mező" aria-describedby="chess-task">${Array.from({ length: 64 }, (_, square) => {
         const piece = board.find(item => item.square === square);
         const possible = hint && moves.includes(square) && !(easyPuzzle && progress.exhausted);
+        const takes = possible && !!capturedPiece(board, selected, square);
         const marked = markedTargets.includes(piece?.id ?? -1) && piece?.color === 'black';
         const mine = canMove.includes(piece);
-        const label = `${squareName(square)}${piece ? `, ${piece.color === 'white' ? 'világos' : 'sötét'} ${pieceName(piece.type).toLowerCase()}${piece.color === 'white' ? mine ? ', ezzel léphetsz' : ', helyén marad' : ''}` : ', üres'}${square === target ? ', cél' : ''}${marked ? ', ezt nyerd meg' : ''}${possible ? piece ? ', üthető' : ', ide léphetsz' : ''}${piece === checkedKing ? ', sakkban áll' : ''}`;
+        const label = `${squareName(square)}${piece ? `, ${piece.color === 'white' ? 'világos' : 'sötét'} ${pieceName(piece.type).toLowerCase()}${piece.color === 'white' ? mine ? ', ezzel léphetsz' : ', helyén marad' : ''}` : ', üres'}${square === target ? ', cél' : ''}${marked ? ', ezt nyerd meg' : ''}${possible ? takes ? piece ? ', üthető' : ', menet közben üthető' : ', ide léphetsz' : ''}${piece && piece === checkedKing ? ', sakkban áll' : ''}`;
         const classes = ['chess-square', (Math.floor(square / 8) + square % 8) % 2 ? 'is-dark' : 'is-light',
           square === selected && 'is-selected', hint && mine && canMove.length > 1 && !answers() && 'is-movable',
-          possible && (piece ? 'is-capture' : 'is-possible'), (square === target || marked) && 'is-goal',
+          possible && (takes ? 'is-capture' : 'is-possible'), (square === target || marked) && 'is-goal',
           square === lastMove?.to && 'is-arrival', square === lastMove?.from && 'is-departure',
           replyMove && (square === replyMove.from || square === replyMove.to) && 'is-reply', piece && piece === checkedKing && 'is-check'].filter(Boolean).join(' ');
         return `<button class="${classes}" data-chess-square="${square}" aria-label="${label}" aria-pressed="${square === selected}" tabindex="${square === focusSquare ? 0 : -1}">${piece ? chessArt(piece.type, piece.color) : ''}${square === target ? '<span class="chess-goal" aria-hidden="true">★</span>' : ''}${marked ? '<span class="chess-capture-goal" aria-hidden="true">◎</span>' : ''}${square % 8 === 0 ? `<span class="chess-rank" aria-hidden="true">${8 - Math.floor(square / 8)}</span>` : ''}${square >= 56 ? `<span class="chess-file" aria-hidden="true">${'abcdefgh'[square % 8]}</span>` : ''}</button>`;
@@ -94,7 +95,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
         <div class="chess-task-card"><p id="chess-task">${instruction()}</p>${options.mode === 'stars' ? `<div class="chess-stars" aria-label="${collected} csillag a háromból">${[0, 1, 2].map(index => `<span class="${index < collected ? 'is-earned' : ''}" aria-hidden="true">★</span>`).join('')}</div>` : ''}${tactic() && puzzle.maxMoves > 1 ? `<div class="chess-progress"><span id="chess-move-count">Lépéseid: ${history.length} / ${puzzle.maxMoves}</span><span class="chess-step-dots" aria-hidden="true">${Array.from({ length: puzzle.maxMoves }, (_, index) => `<i class="${index < history.length ? 'is-used' : ''}"></i>`).join('')}</span></div>` : ''}${tactic() && hint ? `<p class="chess-tip">${puzzle.tip}</p>` : ''}</div>
         <p id="chess-status" class="chess-status ${failed ? 'is-failed' : solved || winner === 'white' ? 'is-solved' : ''}" role="status" aria-live="polite">${message}</p>
         <div class="chess-actions"><button id="chess-hint" aria-pressed="${hint}" ${solved || winner ? 'disabled' : ''}>${hint ? '🙈 Pöttyök elrejtése' : '👀 Segíts!'}</button><button id="chess-undo" ${history.length && !solved && !busy ? '' : 'disabled'}>↶ Visszavonom</button><button id="chess-restart">↻ ${solved || winner ? 'Új kör' : 'Újrakezdem'}</button>${solved && options.mode === 'puzzles' ? '<button id="chess-another">Következő feladat →</button>' : ''}</div>
-        <div class="chess-rule"><h3>${pieceName(type)}</h3><details><summary>Hogyan lép?</summary><p>${CHESS_PIECES.find(piece => piece.id === type).rule}</p><p class="chess-colors">${answers() ? 'Te lépsz a világossal, utána a sötét válaszol.' : 'Te lépsz a világossal. A sötét figurák a helyükön maradnak.'}</p></details></div>
+        <div class="chess-rule"><h3>${pieceName(type)}</h3><details><summary>Hogyan lép?</summary><p>${CHESS_PIECES.find(piece => piece.id === type).rule}</p>${type === 'pawn' && answers() ? '<p>Menet közbeni ütés: ha egy gyalog kettőt lép, és megáll a másik színű gyalog mellett, az a következő lépésben átlósan mögé lépve leütheti.</p>' : ''}<p class="chess-colors">${answers() ? 'Te lépsz a világossal, utána a sötét válaszol.' : 'Te lépsz a világossal. A sötét figurák a helyükön maradnak.'}</p></details></div>
       </div></div>`;
     if (focusSelector === 'title') focusGameTitle(root);
     else if (focusSelector) root.querySelector(focusSelector)?.focus({ preventScroll: true });
@@ -114,7 +115,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
     render();
     timer = setTimeout(() => {
       busy = false; timer = 0;
-      const captured = board.find(piece => piece.square === reply.to);
+      const captured = capturedPiece(board, reply.from, reply.to);
       board = moveChessPiece(board, reply.from, reply.to) || board; replyMove = reply;
       effect(captured ? 'chessCapture' : 'chess');
       finish(captured);
@@ -157,6 +158,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
     const after = moveChessPiece(board, from, to);
     let result = pawnBattleResult(after, 'black');
     const reply = result ? null : chooseChessReply(after, 'black', { pawnRace: true, gentle: options.battle === 'small' });
+    const passantReply = reply && capturedPiece(after, reply.from, reply.to) && !after.some(piece => piece.square === reply.to);
     answerWith(after, reply, () => {
       result ||= pawnBattleResult(board, 'white');
       winner = result?.winner ?? null;
@@ -164,7 +166,7 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
       if (winner === 'white') { solved = true; message = blocked ? `${blocked}A te gyalogjaid jutottak messzebbre, így te nyertél!` : result.reason === 'captured' ? 'Győztél! Minden sötét gyalogot leütöttél.' : 'Győztél! A gyalogod átért a túloldalra, és vezér lett belőle.'; render('#chess-restart'); onComplete(3); return; }
       if (winner === 'black') { effect('retry'); message = blocked ? `${blocked}A sötét gyalogok jutottak messzebbre. Vond vissza, vagy kezdj új kört!` : 'A sötét nyert. Vond vissza a lépést, vagy kezdj új kört!'; render('#chess-undo'); return; }
       if (winner === 'draw') { message = `${blocked}Ugyanannyit haladtatok: döntetlen!`; render('#chess-restart'); return; }
-      message = `A sötét lépett: ${squareName(reply.from)} → ${squareName(reply.to)}. Te jössz!`;
+      message = `A sötét lépett: ${squareName(reply.from)} → ${squareName(reply.to)}.${passantReply ? ' Menet közben ütött!' : ''} Te jössz!`;
       render(`[data-chess-square="${to}"]`);
     });
   }
@@ -185,11 +187,12 @@ export function setupChessGame({ effect = () => {}, speak, stopPlayback, onCompl
       effect('retry');
       status(inCheck(board, 'white') ? 'Sakkban állsz! Előbb a királyodat kell megvédened.' : 'Ide most nem léphet. Válassz másik mezőt, vagy koppints a Segíts! gombra!', 'chess_retry'); return;
     }
-    if (tactic()) { playTactic(selected, square, piece); return; }
-    if (options.mode === 'pawns') { playPawn(selected, square, piece); return; }
+    const taken = capturedPiece(board, selected, square);
+    if (tactic()) { playTactic(selected, square, taken); return; }
+    if (options.mode === 'pawns') { playPawn(selected, square, taken); return; }
     const next = options.mode === 'puzzles' ? moveChessPuzzlePiece(puzzle, board, selected, square, history.length) : moveChessPiece(board, selected, square);
     if (!next) { effect('retry'); status('Ez szabályos lépés lenne. Most a megjelölt célhoz keress egy lépést!'); return; }
-    effect(piece ? 'chessCapture' : 'chess');
+    effect(taken ? 'chessCapture' : 'chess');
     history.push({ board, selected, collected, lastMove, replyMove });
     if (history.length > 64) history.shift();
     const promoted = board.find(item => item.square === selected)?.type === 'pawn' && next.find(item => item.square === square)?.type === 'queen';

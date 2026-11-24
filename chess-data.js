@@ -1,4 +1,5 @@
-// Small teaching positions: no opponent turn, clock, castling or en passant.
+// Small teaching positions: no clock or castling. A pawn that has just stepped two squares
+// carries `passant: true` until the next move, so it can be taken en passant.
 export const CHESS_PIECES = Object.freeze([
   { id: 'rook', name: 'Bástya', rule: 'Egyenesen lép: előre, hátra és oldalra. Más figurán nem ugorhat át.' },
   { id: 'bishop', name: 'Futó', rule: 'Átlósan lép. Mindig ugyanolyan színű mezőn marad. Más figurán nem ugorhat át.' },
@@ -130,6 +131,12 @@ function destinations(board, piece, attacks = false) {
       if (attacks || (occupant && occupant.color !== piece.color && occupant.type !== 'king')) result.push(square);
     }
     if (!attacks) {
+      // En passant: an enemy pawn that has just stepped two squares beside this one.
+      for (const c of [column - 1, column + 1]) {
+        const beside = board.find(other => other.square === row * 8 + c && c >= 0 && c < 8);
+        const behind = (row + direction) * 8 + c;
+        if (beside?.passant && beside.type === 'pawn' && beside.color !== piece.color && !board.some(other => other.square === behind)) result.push(behind);
+      }
       const r = row + direction;
       if (r >= 0 && r < 8 && !board.some(other => other.square === r * 8 + column)) {
         result.push(r * 8 + column);
@@ -149,10 +156,22 @@ export function isSquareAttacked(board, square, byColor) {
   return board.some(piece => piece.color === byColor && destinations(board, piece, true).includes(square));
 }
 
+// The piece this move takes, also a pawn taken en passant (it is not on the target square).
+export function capturedPiece(board, from, to) {
+  const mover = board.find(piece => piece.square === from);
+  const target = board.find(piece => piece.square === to);
+  if (target || mover?.type !== 'pawn' || from % 8 === to % 8) return target || null;
+  const beside = board.find(piece => piece.square === Math.floor(from / 8) * 8 + to % 8);
+  return beside?.passant && beside.type === 'pawn' && beside.color !== mover.color ? beside : null;
+}
+
 function moveUnchecked(board, from, to) {
-  return board.filter(piece => piece.square !== to).map(piece => piece.square === from
-    ? { ...piece, square: to, type: piece.type === 'pawn' && (Math.floor(to / 8) === 0 || Math.floor(to / 8) === 7) ? 'queen' : piece.type }
-    : { ...piece });
+  const taken = capturedPiece(board, from, to);
+  const mover = board.find(piece => piece.square === from);
+  const double = mover?.type === 'pawn' && Math.abs(Math.floor(to / 8) - Math.floor(from / 8)) === 2;
+  return board.filter(piece => piece !== taken).map(({ passant, ...piece }) => piece.square === from
+    ? { ...piece, square: to, type: piece.type === 'pawn' && (Math.floor(to / 8) === 0 || Math.floor(to / 8) === 7) ? 'queen' : piece.type, ...(double ? { passant: true } : {}) }
+    : piece);
 }
 
 export function legalMoves(board, from) {
@@ -308,7 +327,7 @@ export function chooseChessReply(board, color, { pawnRace = false, gentle = fals
   let best = null, bestScore = -Infinity;
   const scored = [];
   for (const move of allLegalMoves(board, color)) {
-    const target = board.find(piece => piece.square === move.to);
+    const target = capturedPiece(board, move.from, move.to);
     const next = moveUnchecked(board, move.from, move.to);
     const moved = next.find(piece => piece.square === move.to);
     const enemy = otherColor(color);
