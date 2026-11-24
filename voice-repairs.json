@@ -83,66 +83,6 @@
       "text": "cica alszik",
       "spokenTarget": "tszitsza alszik."
     },
-    "chess_rook_three": {
-      "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből.",
-      "spokenTarget": "Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
-    },
-    "chess_queen_open": {
-      "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!",
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!"
-    },
-    "chess_rook_pin_three": {
-      "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!",
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
-    },
-    "chess_rook_knight_open": {
-      "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
-      "spokenTarget": "A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
-    },
-    "chess_bishop_pawn_open": {
-      "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
-      "spokenTarget": "A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
-    },
-    "chess_knight_four": {
-      "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!",
-      "spokenTarget": "A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!"
-    },
-    "chess_king_five": {
-      "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!",
-      "spokenTarget": "A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
-    },
-    "chess_rook_master": {
-      "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!",
-      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
-    },
-    "chess_knight_master": {
-      "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!",
-      "spokenTarget": "Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!"
-    },
-    "chess_rook_pawn_master": {
-      "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
-    },
-    "chess_rook_knight_master": {
-      "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
-      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
-    },
-    "chess_rook_pin_master": {
-      "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!",
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
-    },
-    "chess_king_master": {
-      "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!",
-      "spokenTarget": "A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
-    },
-    "chess_queen_pawn_master": {
-      "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
-    },
-    "chess_bishop_knight_master": {
-      "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
-      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
-    },
     "dress_request_polo": {
       "text": "Kérem a pólót.",
       "spokenTarget": "Kéérem a pólót."
@@ -282,10 +222,6 @@
     "mese_guest_panda_cup": {
       "text": "Adj a pandának egy poharat!",
       "spokenTarget": "Adj a /ˈpɒndaːnɒk/ egy poharat!"
-    },
-    "chess_king_team": {
-      "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
-      "spokenTarget": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!"
     },
     "city_story_epilogue_recap2": {
       "text": "A padot a javított láb és a kezdőbetűk alapján azonosítottad.",

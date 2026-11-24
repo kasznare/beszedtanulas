@@ -3658,376 +3658,151 @@
       "id": "chess_king_team",
       "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!",
       "group": "chess",
-      "file": "audio/voice/chess_king_team.mp3",
-      "spokenText": "Mondjuk együtt: Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!",
-      "extract": {
-        "from": 16,
-        "to": 190,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos bástyával is léphetsz. Előbb üsd le a megjelölt sötét bástyát, hogy a király biztonságban átkelhessen!"
-      },
-      "spokenTarget": "Vidd a királyt a csillagra, legfeljebb négy lépésből! A világos báástyáával is léphetsz. Előbb üsd le a megjelölt sötét báástyáát, hogy a király /ˈbistonsaːɡbɒn/ átkelhessen!"
+      "file": "audio/voice/chess_king_team.mp3"
     },
     {
       "id": "chess_rook_three",
       "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből.",
       "group": "chess",
-      "file": "audio/voice/chess_rook_three.mp3",
-      "spokenText": "Mondjuk együtt: Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből.",
-      "extract": {
-        "from": 16,
-        "to": 120,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Üsd le a három megjelölt figurát a bástyával! A végén állj a csillagra, legfeljebb három lépésből."
-      },
-      "spokenTarget": "Üsd le a három megjelölt figurát a báástyáával! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
+      "file": "audio/voice/chess_rook_three.mp3"
     },
     {
       "id": "chess_bishop_three",
       "text": "Üsd le a három megjelölt figurát a futóval! A végén állj a csillagra, legfeljebb három lépésből.",
       "group": "chess",
-      "file": "audio/voice/chess_bishop_three.mp3",
-      "spokenText": "Mondjuk együtt: Üsd le a három megjelölt figurát a /ˈfutoːvɒl/! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből.",
-      "extract": {
-        "from": 16,
-        "to": 120,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Üsd le a három megjelölt figurát a futóval! A végén állj a csillagra, legfeljebb három lépésből."
-      },
-      "spokenTarget": "Üsd le a három megjelölt figurát a /ˈfutoːvɒl/! A végén állj a /ˈt͡ʃilːɒɡrɒ/, legfeljebb három lépésből."
+      "file": "audio/voice/chess_bishop_three.mp3"
     },
     {
       "id": "chess_knight_three",
       "text": "Három huszárugrással üsd le a megjelölt figurákat, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_knight_three.mp3",
-      "spokenText": "Mondjuk együtt: Három /ˈhusaːruɡraːʃːɒl/ üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 94,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Három huszárugrással üsd le a megjelölt figurákat, és érj a csillagra!"
-      },
-      "spokenTarget": "Három /ˈhusaːruɡraːʃːɒl/ üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_knight_three.mp3"
     },
     {
       "id": "chess_queen_open",
       "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_queen_open.mp3",
-      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 103,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a csillagra két lépésből!"
-      },
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, aztán érj a /ˈt͡ʃilːɒɡrɒ/ két lépésből!"
+      "file": "audio/voice/chess_queen_open.mp3"
     },
     {
       "id": "chess_pawn_three",
       "text": "A gyaloggal üsd le a három megjelölt figurát, és érj a csillagra három lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_pawn_three.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈɟɒloɡːɒl/ üsd le a három megjelölt figurát, és érj a /ˈt͡ʃilːɒɡrɒ/ három lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 102,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal üsd le a három megjelölt figurát, és érj a csillagra három lépésből!"
-      },
-      "spokenTarget": "A /ˈɟɒloɡːɒl/ üsd le a három megjelölt figurát, és érj a /ˈt͡ʃilːɒɡrɒ/ három lépésből!"
+      "file": "audio/voice/chess_pawn_three.mp3"
     },
     {
       "id": "chess_rook_pin_three",
       "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_pin_three.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 116,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A királyt végig védd meg! Üsd le a három megjelölt figurát a bástyával, és érj a csillagra!"
-      },
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Üsd le a három megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_rook_pin_three.mp3"
     },
     {
       "id": "chess_rook_knight_open",
       "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_knight_open.mp3",
-      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 141,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A huszárral is léphetsz. Szabadítsd fel a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!"
-      },
-      "spokenTarget": "A huszár-ral is léphetsz. Szabadítsd fel a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "file": "audio/voice/chess_rook_knight_open.mp3"
     },
     {
       "id": "chess_bishop_pawn_open",
       "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_bishop_pawn_open.mp3",
-      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 129,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal is léphetsz. Nyisd meg a futó átlóját, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
-      },
-      "spokenTarget": "A gyaloggal is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, aztán gyűjtsd össze a megjelölt figurákat négy lépésből!"
+      "file": "audio/voice/chess_bishop_pawn_open.mp3"
     },
     {
       "id": "chess_queen_four",
       "text": "A vezérrel üsd le a három megjelölt figurát, majd érj a csillagra négy lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_queen_four.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈvɛzeːrːɛl/ üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 104,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A vezérrel üsd le a három megjelölt figurát, majd érj a csillagra négy lépésből!"
-      },
-      "spokenTarget": "A /ˈvɛzeːrːɛl/ üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "file": "audio/voice/chess_queen_four.mp3"
     },
     {
       "id": "chess_knight_four",
       "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!",
       "group": "chess",
-      "file": "audio/voice/chess_knight_four.mp3",
-      "spokenText": "Mondjuk együtt: A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!",
-      "extract": {
-        "from": 16,
-        "to": 102,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A huszárral üsd le a három megjelölt figurát, majd érj a csillagra négy ugrásból!"
-      },
-      "spokenTarget": "A huszár-ral üsd le a három megjelölt figurát, majd érj a /ˈt͡ʃilːɒɡrɒ/ négy ugrásból!"
+      "file": "audio/voice/chess_knight_four.mp3"
     },
     {
       "id": "chess_promotion_four",
       "text": "Változtasd vezérré a gyalogot! Üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_promotion_four.mp3",
-      "spokenText": "Mondjuk együtt: Változtasd /ˈvɛzeːrːeː/ a gyalogot! Üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 119,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Változtasd vezérré a gyalogot! Üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!"
-      },
-      "spokenTarget": "Változtasd /ˈvɛzeːrːeː/ a gyalogot! Üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "file": "audio/voice/chess_promotion_four.mp3"
     },
     {
       "id": "chess_king_five",
       "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_king_five.mp3",
-      "spokenText": "Mondjuk együtt: A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 122,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A bástyával is léphetsz. Üsd le a sötét bástyát, majd vezesd a királyt a csillagra öt lépésből!"
-      },
-      "spokenTarget": "A báástyáával is léphetsz. Üsd le a sötét báástyáát, majd vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "file": "audio/voice/chess_king_five.mp3"
     },
     {
       "id": "chess_rook_master",
       "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_master.mp3",
-      "spokenText": "Mondjuk együtt: Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 100,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Négy lépésből üsd le a négy megjelölt figurát a bástyával, és érj a csillagra!"
-      },
-      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_rook_master.mp3"
     },
     {
       "id": "chess_bishop_master",
       "text": "Négy lépésből üsd le a négy megjelölt figurát a futóval, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_bishop_master.mp3",
-      "spokenText": "Mondjuk együtt: Négy lépésből üsd le a négy megjelölt figurát a /ˈfutoːvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 100,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Négy lépésből üsd le a négy megjelölt figurát a futóval, és érj a csillagra!"
-      },
-      "spokenTarget": "Négy lépésből üsd le a négy megjelölt figurát a /ˈfutoːvɒl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_bishop_master.mp3"
     },
     {
       "id": "chess_knight_master",
       "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 96,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Öt ugrásból üsd le az öt megjelölt figurát a huszárral, és érj a csillagra!"
-      },
-      "spokenTarget": "Öt ugrásból üsd le az öt megjelölt figurát a huszár-ral, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_knight_master.mp3"
     },
     {
       "id": "chess_queen_master",
       "text": "Öt lépésből üsd le az öt megjelölt figurát a vezérrel, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_queen_master.mp3",
-      "spokenText": "Mondjuk együtt: Öt lépésből üsd le az öt megjelölt figurát a /ˈvɛzeːrːɛl/, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 98,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Öt lépésből üsd le az öt megjelölt figurát a vezérrel, és érj a csillagra!"
-      },
-      "spokenTarget": "Öt lépésből üsd le az öt megjelölt figurát a /ˈvɛzeːrːɛl/, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_queen_master.mp3"
     },
     {
       "id": "chess_pawn_master",
       "text": "Juss el az utolsó sorig a gyaloggal, majd vezérként érj a csillagra! Üsd le a megjelölt figurákat hat lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_pawn_master.mp3",
-      "spokenText": "Mondjuk együtt: Juss el az utolsó sorig a /ˈɟɒloɡːɒl/, majd /ˈvɛzeːrkeːnt/ érj a /ˈt͡ʃilːɒɡrɒ/! Üsd le a megjelölt figurákat hat lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 138,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Juss el az utolsó sorig a gyaloggal, majd vezérként érj a csillagra! Üsd le a megjelölt figurákat hat lépésből!"
-      },
-      "spokenTarget": "Juss el az utolsó sorig a /ˈɟɒloɡːɒl/, majd /ˈvɛzeːrkeːnt/ érj a /ˈt͡ʃilːɒɡrɒ/! Üsd le a megjelölt figurákat hat lépésből!"
+      "file": "audio/voice/chess_pawn_master.mp3"
     },
     {
       "id": "chess_rook_pawn_master",
       "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_pawn_master.mp3",
-      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 132,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal is léphetsz. Nyiss utat a bástyának, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
-      },
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a báástyáának, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "file": "audio/voice/chess_rook_pawn_master.mp3"
     },
     {
       "id": "chess_rook_knight_master",
       "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 136,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A huszárral is léphetsz. Nyisd meg a bástya útját, üsd le a megjelölt figurákat, és érj a csillagra négy lépésből!"
-      },
-      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a báástya útját, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ négy lépésből!"
+      "file": "audio/voice/chess_rook_knight_master.mp3"
     },
     {
       "id": "chess_rook_pin_master",
       "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!",
       "group": "chess",
-      "file": "audio/voice/chess_rook_pin_master.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!",
-      "extract": {
-        "from": 16,
-        "to": 126,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A királyt végig védd meg! Négy lépésből üsd le a megjelölt figurákat a bástyával, és érj a csillagra!"
-      },
-      "spokenTarget": "A /ˈkiraːjt/ végig védd meg! Négy lépésből üsd le a megjelölt figurákat a báástyáával, és érj a /ˈt͡ʃilːɒɡrɒ/!"
+      "file": "audio/voice/chess_rook_pin_master.mp3"
     },
     {
       "id": "chess_king_master",
       "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_king_master.mp3",
-      "spokenText": "Mondjuk együtt: A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 138,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal és a bástyával is léphetsz. Tedd biztonságossá az utat, és vezesd a királyt a csillagra hat lépésből!"
-      },
-      "spokenTarget": "A gyaloggal és a báástyáával is léphetsz. Tedd biztonságossá az utat, és vezesd a /ˈkiraːjt/ a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
+      "file": "audio/voice/chess_king_master.mp3"
     },
     {
       "id": "chess_queen_pawn_master",
       "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_queen_pawn_master.mp3",
-      "spokenText": "Mondjuk együtt: A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 129,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
-      },
-      "spokenTarget": "A gyaloggal is léphetsz. Nyiss utat a vezérnek, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "file": "audio/voice/chess_queen_pawn_master.mp3"
     },
     {
       "id": "chess_bishop_knight_master",
       "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_bishop_knight_master.mp3",
-      "spokenText": "Mondjuk együtt: A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 139,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A huszárral is léphetsz. Nyisd meg a futó átlóját, üsd le a megjelölt figurákat, és érj a csillagra öt lépésből!"
-      },
-      "spokenTarget": "A huszár-ral is léphetsz. Nyisd meg a futó /ˈaːtloːjaːt/, üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ öt lépésből!"
+      "file": "audio/voice/chess_bishop_knight_master.mp3"
     },
     {
       "id": "chess_promotion_master",
       "text": "Változtasd vezérré a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a csillagra hat lépésből!",
       "group": "chess",
-      "file": "audio/voice/chess_promotion_master.mp3",
-      "spokenText": "Mondjuk együtt: Változtasd /ˈvɛzeːrːeː/ a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!",
-      "extract": {
-        "from": 16,
-        "to": 137,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Változtasd vezérré a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a csillagra hat lépésből!"
-      },
-      "spokenTarget": "Változtasd /ˈvɛzeːrːeː/ a gyalogot! Utána is folytasd: üsd le a megjelölt figurákat, és érj a /ˈt͡ʃilːɒɡrɒ/ hat lépésből!"
+      "file": "audio/voice/chess_promotion_master.mp3"
     },
     {
       "id": "chess_steps_used",
@@ -4039,61 +3814,25 @@
       "id": "chess_tactics_intro",
       "text": "Most a sötét is lép! Gondold át, mit válaszol.",
       "group": "chess",
-      "file": "audio/voice/chess_tactics_intro.mp3",
-      "spokenText": "Mondjuk együtt: /moʃt/ a /ˈʃøteːt/ /iʃ/ /leːp/! /ˈɡondold/ /aːt/, /mit/ /ˈvaːlɒsol/.",
-      "extract": {
-        "from": 16,
-        "to": 84,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Most a sötét is lép! Gondold át, mit válaszol."
-      },
-      "spokenTarget": "/moʃt/ a /ˈʃøteːt/ /iʃ/ /leːp/! /ˈɡondold/ /aːt/, /mit/ /ˈvaːlɒsol/."
+      "file": "audio/voice/chess_tactics_intro.mp3"
     },
     {
       "id": "chess_tactic_failed",
       "text": "A sötét visszaütött. Vond vissza, és keress jobb lépést!",
       "group": "chess",
-      "file": "audio/voice/chess_tactic_failed.mp3",
-      "spokenText": "Mondjuk együtt: A /ˈʃøteːt/ /ˈvisːɒytøtː/. /vond/ /ˈvisːɒ/, /eːʃ/ /ˈkɛrɛʃː/ /jobː/ /ˈleːpeːʃt/!",
-      "extract": {
-        "from": 16,
-        "to": 95,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "A sötét visszaütött. Vond vissza, és keress jobb lépést!"
-      },
-      "spokenTarget": "A /ˈʃøteːt/ /ˈvisːɒytøtː/. /vond/ /ˈvisːɒ/, /eːʃ/ /ˈkɛrɛʃː/ /jobː/ /ˈleːpeːʃt/!"
+      "file": "audio/voice/chess_tactic_failed.mp3"
     },
     {
       "id": "chess_mate",
       "text": "Matt! A sötét király nem tud elmenekülni.",
       "group": "chess",
-      "file": "audio/voice/chess_mate.mp3",
-      "spokenText": "Mondjuk együtt: /mɒtː/! A /ˈʃøteːt/ /ˈkiraːj/ /nɛm/ /tud/ /ˈɛlmɛnɛkylni/.",
-      "extract": {
-        "from": 16,
-        "to": 73,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Matt! A sötét király nem tud elmenekülni."
-      },
-      "spokenTarget": "/mɒtː/! A /ˈʃøteːt/ /ˈkiraːj/ /nɛm/ /tud/ /ˈɛlmɛnɛkylni/."
+      "file": "audio/voice/chess_mate.mp3"
     },
     {
       "id": "chess_pawns_intro",
       "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!",
       "group": "chess",
-      "file": "audio/voice/chess_pawns_intro.mp3",
-      "spokenText": "Mondjuk együtt: /ˈɟɒloɡt͡ʃɒtɒ/! /ˈjuttɒʒd/ /ˈaːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!",
-      "extract": {
-        "from": 16,
-        "to": 103,
-        "before": 0.025,
-        "after": 0.15,
-        "text": "Gyalogcsata! Juttasd át egy gyalogodat a tábla túlsó végére!"
-      },
-      "spokenTarget": "/ˈɟɒloɡt͡ʃɒtɒ/! /ˈjuttɒʒd/ /ˈaːt/ /ɛɟ/ /ˈɟɒloɡodɒt/ a /ˈtaːblɒ/ /ˈtuːlʃoː/ /ˈveːɡeːrɛ/!"
+      "file": "audio/voice/chess_pawns_intro.mp3"
     },
     {
       "id": "engineering_flag",

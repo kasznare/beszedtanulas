@@ -17,7 +17,6 @@ import { DIFFERENCE_CLIPS } from '../differences-voice.js';
 import { PATTERN_CLIPS } from '../patterns-voice.js';
 import { MONTESSORI_CLIPS } from '../montessori-data.js';
 import { CHESS_CLIPS } from '../chess-data.js';
-import { CHESS_PHONETIC_IDS, phoneticChessText } from '../chess-voice-pronunciation.js';
 import { ENGINEERING_CLIPS } from '../engineering-data.js';
 import { ENGINEERING_PHONETIC_IDS, phoneticEngineeringText } from '../engineering-voice-pronunciation.js';
 import { REWORK_PHONETIC_IDS, phoneticReworkText } from '../rework-voice-pronunciation.js';
@@ -143,7 +142,12 @@ contextual('r_rhyme_roka_2', 'Mondjuk együtt: ', 'Ropi roppan, peretsz kerek.')
 const pronunciation = JSON.parse(await readFile(new URL('../voice-pronunciation.json', import.meta.url), 'utf8'));
 const config = JSON.parse(await readFile(new URL('../voice-config.json', import.meta.url), 'utf8'));
 if (pronunciation.model_id !== config.model_id || pronunciation.language_code !== config.language_code) throw Error('Pronunciation rules do not match the voice model/language');
+// Chess speaks its displayed Hungarian spelling. The user rejected every chess line
+// recorded from IPA or doubled vowels (v4 read /ɟ/ as g: "galogcsata"), and the
+// plain-spelling sample read back clean (2026-11-24, output/chess-voice-sample).
+const plainSpeech = clip => clip.group === 'chess';
 for (const clip of clips) {
+  if (plainSpeech(clip)) continue;
   const original = clip.spokenTarget || clip.text;
   const target = original.replace(/[\p{L}\p{N}_]+(?:[-’'][\p{L}\p{N}_]+)*/gu, word => {
     const ipa = pronunciation.words[word.toLocaleLowerCase('hu-HU')];
@@ -151,15 +155,7 @@ for (const clip of clips) {
   });
   if (target !== original) contextual(clip.id, 'Mondjuk együtt: ', target);
 }
-// Scope new chess pronunciation to new IDs. Never change old paid inputs.
-if (config.model_id !== 'eleven_v4') throw Error('Chess IPA requires Eleven v4');
-for (const id of CHESS_PHONETIC_IDS) {
-  const clip = clips.find(clip => clip.id === id);
-  if (!clip || clip.group !== 'chess') throw Error(`Missing new chess clip: ${id}`);
-  const target = phoneticChessText(id, clip.text, pronunciation.words);
-  if (target === clip.text || !target?.includes('/')) throw Error(`Missing chess IPA: ${id}`);
-  contextual(id, 'Mondjuk együtt: ', target);
-}
+if (config.model_id !== 'eleven_v4') throw Error('Scoped IPA requires Eleven v4');
 // New engineering recordings use their own phonetic targets; existing voices
 // and the global pronunciation list stay byte-for-byte unchanged.
 for (const id of ENGINEERING_PHONETIC_IDS) {
@@ -223,6 +219,7 @@ for (const clip of clips) {
   else if (phrase) excerptFrom(clip, clips.find(source => source.id === `phrase_${phrase[1]}`));
 }
 applyBoundedExcerpts(repairs, clips);
+for (const clip of clips) if (plainSpeech(clip) && (clip.spokenText || clip.spokenTarget || clip.extract)) throw Error(`Chess speaks plain Hungarian: ${clip.id}`);
 return { version: 2, ...config, clips };
 }
 

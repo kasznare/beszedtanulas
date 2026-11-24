@@ -11,9 +11,9 @@ export const REWORK_PHONETIC_IDS = Object.freeze([
   'puzzle_strict_on', 'differences_closer',
   'logic_route_bump', 'logic_route_shortest', 'logic_route_2', 'logic_machine_locked', 'logic_shop_next', 'logic_shop_same',
   'city_story_new_stamp', 'city_story_locked',
-  // Chess and engineering keep their own lists for the older recordings; adding words
-  // there would alter those paid inputs, so the new lines are pronounced from here.
-  'chess_tactics_intro', 'chess_tactic_failed', 'chess_mate', 'chess_pawns_intro',
+  // Engineering keeps its own list for the older recordings; adding words there would
+  // alter those paid inputs, so the new lines are pronounced from here. Chess lines speak
+  // plain Hungarian spelling since 2026-11-24 (see scripts/build-voice-manifest.mjs).
   'engineering_flag', 'engineering_challenge', 'engineering_bar_broke',
 ]);
 
@@ -54,7 +54,7 @@ export const REWORK_WORD_IPA = Object.freeze({
   előbb: 'ˈɛløːbː', gépet: 'ˈɡeːpɛt', géppróba: 'ˈɡeːpːroːbɒ', gombbal: 'ˈɡombːɒl',
   következő: 'ˈkøvɛtkɛzøː', vevő: 'ˈvɛvøː', ez: 'ɛz', kosár: 'ˈkoʃaːr', maradhat: 'ˈmɒrɒthɒt', így: 'iːɟ',
   történet: 'ˈtørteːnɛt', gyűjteményben: 'ˈɟyːjtɛmeːɲbɛn', zárva: 'ˈzaːrvɒ', korábbi: 'ˈkoraːbːi', nyom: 'ɲom', nyithatja: 'ˈɲithɒcːɒ',
-  // Sakkliget
+  // Sakkliget (no longer sent for chess lines; kept so other lines' inputs stay unchanged)
   sötét: 'ˈʃøteːt', is: 'iʃ', lép: 'leːp', gondold: 'ˈɡondold', át: 'aːt', válaszol: 'ˈvaːlɒsol',
   visszaütött: 'ˈvisːɒytøtː', vond: 'vond', vissza: 'ˈvisːɒ', keress: 'ˈkɛrɛʃː', lépést: 'ˈleːpeːʃt',
   matt: 'mɒtː', király: 'ˈkiraːj', tud: 'tud', elmenekülni: 'ˈɛlmɛnɛkylni',
@@ -74,9 +74,6 @@ export const REWORK_LINE_IPA = Object.freeze({
   // stress. Third attempt: the long consonants are doubled instead of length-marked, which is
   // what made "ugyanannyit" come through on the second attempt.
   logic_route_bump: { itt: 'ˈitt', innen: 'ˈinnɛn', újra: 'ˈuːjrɒ' },
-  // "Juttasd át" came out as "Jutta azat": the particle is spoken as a stressed word of its own,
-  // and the long t is doubled.
-  chess_pawns_intro: { juttasd: 'ˈjuttɒʒd', át: 'ˈaːt' },
   // The tied affricate in "erősítsd" came out as "gy" twice; the ligature symbol is tried.
   engineering_bar_broke: { erősítsd: 'ˈɛrøːʃiːʤd' },
   // "pötty" disappeared between "hány" and "jön".

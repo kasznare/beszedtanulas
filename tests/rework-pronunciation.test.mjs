@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileVoiceManifest } from '../scripts/build-voice-manifest.mjs';
 import { REWORK_PHONETIC_IDS, REWORK_WORD_IPA, REWORK_LINE_IPA, phoneticReworkText } from '../rework-voice-pronunciation.js';
-import { CHESS_PHONETIC_IDS } from '../chess-voice-pronunciation.js';
 import { ENGINEERING_PHONETIC_IDS } from '../engineering-voice-pronunciation.js';
 import { readFile } from 'node:fs/promises';
 
@@ -12,8 +11,8 @@ const spokenWords = text => text.match(/\/[^/\n]+\/|[\p{L}\p{N}_]+(?:[-’'][\p{
 test('every rework line has a scoped v4 phonetic input in which each content word is transcribed', async () => {
   const { clips } = await compileVoiceManifest();
   const common = JSON.parse(await readFile(new URL('../voice-pronunciation.json', import.meta.url), 'utf8')).words;
-  assert.equal(REWORK_PHONETIC_IDS.length, 39);
-  assert.equal(new Set(REWORK_PHONETIC_IDS).size, 39);
+  assert.equal(REWORK_PHONETIC_IDS.length, 35);
+  assert.equal(new Set(REWORK_PHONETIC_IDS).size, 35);
   for (const id of REWORK_PHONETIC_IDS) {
     const clip = clips.find(clip => clip.id === id);
     assert.ok(clip, `Unknown rework clip: ${id}`);
@@ -31,7 +30,7 @@ test('every rework line has a scoped v4 phonetic input in which each content wor
 
 test('the rework list never overlaps the older scoped lists, so paid inputs stay unchanged', () => {
   for (const id of REWORK_PHONETIC_IDS) {
-    assert.ok(!CHESS_PHONETIC_IDS.includes(id) && !ENGINEERING_PHONETIC_IDS.includes(id), id);
+    assert.ok(!ENGINEERING_PHONETIC_IDS.includes(id) && !id.startsWith('chess_'), id);
   }
 });
 

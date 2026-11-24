@@ -242,6 +242,468 @@
       },
       "status": "rejected-after-transcription-review",
       "reportedOn": "2026-10-28"
+    },
+    {
+      "id": "chess_king_team",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "5bb8557f78ab474d1bb170a189e33f77c44b966236d65467ad7a622e848a41d6",
+        "sha256": "03b5688115ff1b0d61e451772ce47f2f114acfaee87ed1676229b0087c66b1b1"
+      },
+      "installed": {
+        "fingerprint": "c903d999e7219d3387c6bcd004ac5729a08a02d65ecb74d1a6e4c6b216fdeb96",
+        "sha256": "ddefdceaddf154bca4998d37ecd84d99b604709ca3dd51ab7dcc495b583188a9"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_three",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "8a1fe3cc93cddbd39be35b2b5efaa6660039b52db76c70e04b58f8c66153b9fe",
+        "sha256": "669ac63caed9a34e4409bf195ac0659476e558209b6cd14f8df3a1af45260d09"
+      },
+      "installed": {
+        "fingerprint": "3cb3252e667df5e6150ec9dcfef7d164e35d4b8bb34fbdacde150979d49088ab",
+        "sha256": "da42063f3cb98b7f18f27a4790d578f944cb88d4da6421e7f4db531d30868e7c"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_bishop_three",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "2bd851bff4d449770c1ebec0c574083fd1102136af753cef1eb84fd4d459635b",
+        "sha256": "3918c8fbe5e4d4908d7df94a5a84f768e9cbc8526e18a94a0120613fae1e31df"
+      },
+      "installed": {
+        "fingerprint": "cf4315d11bbe70d09f2acb1a02e481b9ec4ced3dfdf410b4c17bd8c10630275d",
+        "sha256": "f18351aa5b9626ec93b061e1882ce32ea8fcbee91dda888424d220de1864e1d3"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_knight_three",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "dac92c5e1cdb327f2508ffb85384481b029cacda38ba6c91a290ad4176c13e85",
+        "sha256": "619e53c65a00ff6cc370601b7b3d3515f03d64b9c4b25c9e1a3af31c638b5bc1"
+      },
+      "installed": {
+        "fingerprint": "ed3a8bf97ef6263073735957dfa2757ed752323d17bb318a618a109ab28586fe",
+        "sha256": "d24d152fced2fe75edc2e37a688a6c7524f2fbb9caa0e5302f9c9575afd31c52"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_queen_open",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "477b49a490b98b093c077653cb3fd68e413499d04dfae870c9657256bd982e80",
+        "sha256": "0945f350d5a470b4523e5049ad4fae7b67e3a9b3d42d614eb6770c433eae70f2"
+      },
+      "installed": {
+        "fingerprint": "7050f6001804f979b813ae629f8a960641a418ba494e7ac41ddd738fad950533",
+        "sha256": "28ae0e0635bd3512966b855540fa70400dd38b324628384e4c329827bf58b5c5"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_pawn_three",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "0d17b6d78695d43f1d094ffd0b1748b07fa19b2147880bed73fb10c27379588f",
+        "sha256": "636544100f23889f483bdc3f6c19a26a41f732c75cd4c4dd75e4236df7b8e330"
+      },
+      "installed": {
+        "fingerprint": "d109870e39b038a05f574683ae5f5a52fc8957b53ca168b40c9e9f5d56f89ca4",
+        "sha256": "6cc7516f59699612dadba81247a6358d445a8fcba511248fb22eea1ef9d09f88"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_pin_three",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "35c576ce727db6ba3b527ee632fb3183d1247b79f485d1bad222ecc317c51046",
+        "sha256": "b7d7e74f983d83e99041f497fab5fa2a1878bc5c3e16705c2388172297b8bada"
+      },
+      "installed": {
+        "fingerprint": "81c86e7061a0cbe0176ea6dcf81b5ea12291fe8fb0ea25c103cc17d55adcd53a",
+        "sha256": "eb15b1c5eadc3198f74834e1d91e4a34c38879c59b0e0b94b6e68e24e20af3cf"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_knight_open",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "d98584737c5bfede91bb8a05e8b11f6f468d0f117ee2d806543b6235c8492d3a",
+        "sha256": "a6c9c1c7afe5653fc29a814f60ccdc222310d40a1333e0a01aa6ba8256d249cf"
+      },
+      "installed": {
+        "fingerprint": "1a4e9382a4509a364ae75d1cdbf11d7cd412e7cac92bbc9080b5c348ba263131",
+        "sha256": "5b4f52ff9badef7faa5ef740524cff824035abed5e3de1081acc599e3fe29a1c"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_bishop_pawn_open",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "b989526023f9cecea786310f234c26d37fd52c9ba1ea50506f6c696009332fc4",
+        "sha256": "fc1beec500f0c0f7488f3a0109dbe3445cbe2d4801c4f9ea3c7adfd31d0bb73b"
+      },
+      "installed": {
+        "fingerprint": "f4115b7fcd38bd2ac75a75e8fd7b623435d845ceb9fb58a897cc91083f22df2f",
+        "sha256": "ba5aba44cd661194a67ed4ccf2576a5b9a3a130ea30e5156633fcf6f431cab54"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_queen_four",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "69356d3769c39fc28ecd6ce0da7606f0944de749ccb35654be2bfac24f42498e",
+        "sha256": "f7cf8649b883242a9d7ad039a736abc290d9985b209a95990e568ccb6e465e9f"
+      },
+      "installed": {
+        "fingerprint": "98988f8478f8307f46fe6a03c7f83dc04380f95e7e70b362a0cf5b54927b3efb",
+        "sha256": "47b710e3b3730fd1f4e233268b8f0b010bde36a4627361f979d822bbf364cfe9"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_knight_four",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "a1e250745192e6d0c90a30831fa2bf01776ceaa81c1f6c7171e3ae927cbee17a",
+        "sha256": "1bfbea57bc894d52d036d0ffc0851d371b7f6d1cfc01d0cb530810bebcc3672f"
+      },
+      "installed": {
+        "fingerprint": "2d1bcdec5366dcab4e290e3ef2073b516a6992b7bb49bdfcc6912e53e75aec19",
+        "sha256": "1be806ecd613f63fe868a9eba012d7bdeb618caeef15cced0844b3ae442b0107"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_promotion_four",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "f3d5fd9cc0cae51412b46c959adf9af6bbba8259b82f71606bf7d9a280cad748",
+        "sha256": "ab972ecccc62580d751343b78aca8ca67ea187338c730452411ef6c06c06d618"
+      },
+      "installed": {
+        "fingerprint": "abb09e9d5a60c1e60369a5377ed2a5b2955335c4269cde9188a9384f6eea9ae9",
+        "sha256": "0664dfce08a8ad8d4416a2f2d89491594cbeaf04825fa322f1657938ad9f5da1"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_king_five",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "6b079d74c9b3d327cb1920300809b5a55b26213fa522b83948fa05307604db90",
+        "sha256": "cda7dd1703e4010d7c6a325ffc0aabbfe4d3da2ea1f934275a5133251e2bb616"
+      },
+      "installed": {
+        "fingerprint": "91f6e866f9607134a911ea4a52d3e4933e62929e81a89d45536839f9f4b55b39",
+        "sha256": "1ee8f2d7e5cd87e542065cb5f03499e87d27dfc53147df366f77945ffc7a4d65"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "5252e182d5e6f991414d24b9a17894fc2965bfaa0ac26fef179535f3131943b0",
+        "sha256": "3bc225d3d5420f5c0f0fe5652b1c3e2b08e0394aa23c46448b2c9c86f0c21950"
+      },
+      "installed": {
+        "fingerprint": "0f0afd3d5149ecfa2f5f17132643f27eded3dbe7fe6464bff78e623784b33d1f",
+        "sha256": "70f2da13acd473c8f6f88e8113851167081cfdac227b44b1429462fab2d0ce3f"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_bishop_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "aca12cd4722430f5fff2d6740ffa8a111f893735f0e2862b6464d12010c884ec",
+        "sha256": "ecf5b4a4f0dbda8b7293ecca3abbb08e6661f81e955f9e16c14f04e7f6067513"
+      },
+      "installed": {
+        "fingerprint": "0e3e59d43f649f7ea97704c51f889a55aa9874152bfde51871e75be1aa66b589",
+        "sha256": "66ae0c7f0e22963e6c43da3345a026b98fa01c97ff23e48427f99da538cf94be"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_knight_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "394d386b3a9af9d1fb08ed80602755d89cf437d1919917ee66ed5acb9586963a",
+        "sha256": "f6c316ca996e9ea92368d012e2c3f8b30300b85a6c7acefddef0134ae681401e"
+      },
+      "installed": {
+        "fingerprint": "229ddbf6c3d23db1076e07decaa1fcaa729d6117bc10af3540a6e210eef2e6c3",
+        "sha256": "3291cd427d7c21477f88e5724f17e3514310c500c775512638f70f30506afcdc"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_queen_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "1f3bc72dd3d513bab3aeeca9041728d1fad7febbac7fa8c9189219ad05362458",
+        "sha256": "c7d5d368853178fda3c1439cd8089e997693cedcd988fc964c15b894434706ff"
+      },
+      "installed": {
+        "fingerprint": "6e10dbd28dbfa9eb45a7ae9fb4128f9f07d2d5d182b24fff34e3d49b44dbebae",
+        "sha256": "e13905ad815f8f2538bc4e42a38b37a196d97327027f45e12b5b574695453bab"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_pawn_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "270ad1912473d4defacf17dde6c7fdd57896aa8f88889ec92654474ffa08e197",
+        "sha256": "05635ad77c24f96ca6b228090bf1a94e8d4e32935f56c7e225eb0c9c1ab2a970"
+      },
+      "installed": {
+        "fingerprint": "793d7cdf9d8a2edc4b1bd14822258849d08b584ab93eefcc1eb76faeb83a834c",
+        "sha256": "455b3a7b6b8f9189a04a92687e8cb48e09b4b95596f3e991380ac2ee1fc34fd4"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_pawn_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "16c6322f28ae173421807d10f23cf6cc88c7451b1ada86f31b9d097f44f5723a",
+        "sha256": "f4513439017d22a575d563d76b049df4ce7f035ea1df4b26d2000ea4431f0237"
+      },
+      "installed": {
+        "fingerprint": "3d48e4f7925d6201b299602ababe298e3e687ddccef8d151c287ba2b09b7511f",
+        "sha256": "813a7fe10aee4eb81527f9696b8095c8846241bd56c2862046d17fe88d71644f"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_knight_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "cf031aa47b2a34816e9ad7fc7b075529df07450799bdcc88eb574371bab9191f",
+        "sha256": "0693e3a8ca49d914e3eb75665f1721ee387fda01dcd9be072df0514a5d6be8ed"
+      },
+      "installed": {
+        "fingerprint": "d885248aaff892c993f13894cacdbf70e92f89970ff3de32fba9889d70fe2e82",
+        "sha256": "2148f8de312e6b9a24c2c4b9dc26affd6f475a40249637ed8033158a3f6aa5a2"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_rook_pin_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "272fc046646cd7e324b055a450ddb69b6d09cf8d5baa23a24d7fdfeca41494e1",
+        "sha256": "417e2e01baf85c3d4d2feaa94efca777a7839b992c73c9e4fc868456ae5b7edc"
+      },
+      "installed": {
+        "fingerprint": "1b94d5b0306dad742ab39abd5662b36fb8897fdd7bf6d7d0eb367bcb20b71b3f",
+        "sha256": "9e30be34eb25a55c16e75eb61b0170f5a3b225964d8a564928781a2ccd83b72b"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_king_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "acb9beb8072652b499256ec45bf3dbf455de95da58b85877e94dd49bf95b14c3",
+        "sha256": "b6e371f723103429ecf95b5acc2bac66d3f3bfb6be9d06faa9af63f99a445f8b"
+      },
+      "installed": {
+        "fingerprint": "410acff7269b64cec13a3d48dc080d5dd17562110fecc06e51decec7f87229b3",
+        "sha256": "7118aa3daef319ecf7754e59833c2835bca5baa776690683529ad5f7fd0990a9"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_queen_pawn_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "e0c7202186f666db3620fc5f91eb68f873b4daafe922e7cf369d69774ae455a6",
+        "sha256": "51f38280493ac495187d99b94c7a364e8a0b8c247939365ecd83241cfa8a56c1"
+      },
+      "installed": {
+        "fingerprint": "cb27157571226a3b329341e33b440e0e500ba84791e8c738b8c3646178264ed2",
+        "sha256": "2a6dd42bf6ddf337be3cb3530aa3aa9d44113ce2482779b70e63c4b24f990df2"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_bishop_knight_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "224260696b930cfd17503f9a990d819e6844132dd39f4857e57f0b1db32437b3",
+        "sha256": "58d2b0767d18f7ff1c202dfb67c9762fa7e0418238852944a85ad79b506f842d"
+      },
+      "installed": {
+        "fingerprint": "fca0db6a1cb11e00c46652d10aee0d11607ef8a3c8092e2de4a775e0cbab652d",
+        "sha256": "9a6a3d06a80161e64d02171026ed45f2542a197086f503fc9435ee888b1e1997"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_promotion_master",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "c07b764038d4ea3a39b522d55ab4a906d26b6b46aed873c3db465a524262466e",
+        "sha256": "ab31db6c35fdadedbe918295e665a6d3a97bf955d43648d0d571f78f596e83ee"
+      },
+      "installed": {
+        "fingerprint": "8ceeb2833f31f503a546bb87cf3c825842434986e7ad65f416fa9c55861ce3d2",
+        "sha256": "b525ca9d6af7e2021b528fa981772ddcceb9cbd3ba832998ec8e9e438ab860ba"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_tactics_intro",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "c17b7433763a25dca6d65b011889a757411bdba4ffc9aa30d16aeaaa35ba88a1",
+        "sha256": "949fffe21486a7c3bf9e23aadd3be1981929f49196506249865336d44d6f9c99"
+      },
+      "installed": {
+        "fingerprint": "79e769a527d8d195ffc355a2a06fae16542b4ed3801f09ee7e33cc23a9ef2dd5",
+        "sha256": "fd9d28b1680b74ca60af299807397cce5b66fffd287b666d2ffb3ba3dee42e78"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_tactic_failed",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "c508bb65a022c082bd2fd4a9706a75e931c9d07329d86c6276c38507af0747a8",
+        "sha256": "2d1c2af03001f30579ad564c50212a0fc009a12fd64d8315754f71e4482b5282"
+      },
+      "installed": {
+        "fingerprint": "1d3dc36a62f35f687ea23c1bbb9993e396e9fa63020f472dfc5671d625513d9c",
+        "sha256": "dd58245fdc2be57226ff6616e0fcf6628282d3b0cf3673d18912a67b8b156232"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_mate",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "ed946bad91ca31681ee6bafa1fc65bc208c674f0937c10cdfd77851f4a88997e",
+        "sha256": "c2c29935b3b00e9dbfea5fe938b15e2ad6da57430333e1bea637dcb7bc919991"
+      },
+      "installed": {
+        "fingerprint": "12d2e8ed12325386d903f056b73d607c5689bc9f625915436fef92a370d6b94d",
+        "sha256": "8d4d1de345d119015ddd0e4a1098595a47599045f858696ec8ceb9484ac7026a"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_pawns_intro",
+      "reason": "A sakk IPA/betűduplázásos bemenete szaggatott, a gy g-nek hallatszik (például galogcsata). A felhasználó az összes ilyen sakk-hangot hibásnak jelezte.",
+      "source": {
+        "fingerprint": "e2c085e929b4deff8a39f868988f3855cbbd5ac850c0e2cd9ea8c2b4f1f177f7",
+        "sha256": "88d4d2a143236236a9f108e69b6f4e6cd8d42aa1cb4883b2e50f08a31e2419cd"
+      },
+      "installed": {
+        "fingerprint": "236a2fe62ac7f25729c97902a675efb65ddb43c013db02244baa25ac64d29227",
+        "sha256": "8bb20d2a5ac53332d56996bc7a639890c5ea45480ad279dc352eff2abf9b2b1d"
+      },
+      "status": "rejected-by-user",
+      "reportedOn": "2026-11-23"
+    },
+    {
+      "id": "chess_pawns_intro_sample_b",
+      "reason": "Minta: a dʲ/nʲ/tʲ IPA-jelölés Dialog-szerű hangzást ad a gy helyett; ez a megközelítés elvetve.",
+      "source": {
+        "fingerprint": "e47754cb413b81522b06339c07aa1e3bade774e70aa6fe075808fa0fc08945b1",
+        "sha256": "c34f774d4a2711080a084e43159e07c7151ad75deeed5ab5cb046a8eb5f23032"
+      },
+      "installed": {
+        "fingerprint": "e47754cb413b81522b06339c07aa1e3bade774e70aa6fe075808fa0fc08945b1",
+        "sha256": "c34f774d4a2711080a084e43159e07c7151ad75deeed5ab5cb046a8eb5f23032"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-11-24"
+    },
+    {
+      "id": "chess_pawn_sample_b",
+      "reason": "Minta: a dʲ/nʲ/tʲ IPA-jelölés Dialog-szerű hangzást ad a gy helyett; ez a megközelítés elvetve.",
+      "source": {
+        "fingerprint": "633f9ec758ba34004a37c70ddb91d5b8077faba0703e6e2e9b6a5e6c1dd91245",
+        "sha256": "6732c04db02196ba7db4674a51b8b9297ca621a6a5b624783ea247b017411963"
+      },
+      "installed": {
+        "fingerprint": "633f9ec758ba34004a37c70ddb91d5b8077faba0703e6e2e9b6a5e6c1dd91245",
+        "sha256": "6732c04db02196ba7db4674a51b8b9297ca621a6a5b624783ea247b017411963"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-11-24"
+    },
+    {
+      "id": "chess_rook_three_sample_b",
+      "reason": "Minta: a dʲ/nʲ/tʲ IPA-jelölés Dialog-szerű hangzást ad a gy helyett; ez a megközelítés elvetve.",
+      "source": {
+        "fingerprint": "2729a99dc91abdc0ccc07affe2421d2091c123556c2df78d17cc8ebc6f85c5d8",
+        "sha256": "db3f83450dbbf1adefd63f3b3c3fb7add72f93ad3e7446afc2f132d9c495d632"
+      },
+      "installed": {
+        "fingerprint": "2729a99dc91abdc0ccc07affe2421d2091c123556c2df78d17cc8ebc6f85c5d8",
+        "sha256": "db3f83450dbbf1adefd63f3b3c3fb7add72f93ad3e7446afc2f132d9c495d632"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-11-24"
+    },
+    {
+      "id": "chess_bishop_pawn_open_sample_b",
+      "reason": "Minta: a dʲ/nʲ/tʲ IPA-jelölés Dialog-szerű hangzást ad a gy helyett; ez a megközelítés elvetve.",
+      "source": {
+        "fingerprint": "ea9ed09987b37b91736b5704765b4c0e364ad755fcdfee396bb405e769941071",
+        "sha256": "8c3a507fcb50b77eccbd66ff7c48afaf5c629416ed5d1cc01a77f401b6a63b9c"
+      },
+      "installed": {
+        "fingerprint": "ea9ed09987b37b91736b5704765b4c0e364ad755fcdfee396bb405e769941071",
+        "sha256": "8c3a507fcb50b77eccbd66ff7c48afaf5c629416ed5d1cc01a77f401b6a63b9c"
+      },
+      "status": "rejected-after-transcription-review",
+      "reportedOn": "2026-11-24"
     }
   ]
 }
